@@ -1,3 +1,735 @@
 <resources>
     <string name="app_name">Daily Locally</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Tovo Group</string>
+    <string name="nav_header_subtitle">tovo@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="invalidEmail">Invalid Email</string>
+
+
+    <!--<string name="fb_login_protocol_scheme">fb[APP_ID]</string>-->
+    <!--<string name="facebook_app_id">2316860041912281</string>--> <!--EAT-->
+    <string name="facebook_app_id">809565646117314</string> <!--DL-->
+
+    <!--Toolbar menus-->
+    <string name="clear">Clear</string>
+    <string name="cut">Cut</string>
+    <string name="copy">Copy</string>
+    <string name="paste">Paste</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+
+    <!--Drawer-->
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+
+    <!--Drawer Menus-->
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="feed">My Feed</string>
+    <string name="forgot_password">Forgot Password</string>
+
+    <!--App Message-->
+    <string name="api_retry_error">Please retry!</string>
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="connection_error">Internet connection lost!</string>
+    <string name="referral_content">Want your Friends to try what our EAT mothers are cooking for their sons and daughters?\nThey are just a click away!</string>
+
+    <!--Login-->
+    <string name="login_dummy">Login Dummy</string>
+    <string name="login">Login</string>
+
+
+    <!--Login Validation-->
+    <string name="invalid_email_password">Please provide a valid email and password.</string>
+
+    <!--about fragment-->
+    <string name="project_info">This sample app implements MVVM architecture using Dagger2, GreenDao, RxJava, FastAndroidNetworking and PlaceholderView</string>
+    <string name="link_mvvm_blog">1. https://blog.mindorks.com</string>
+    <string name="link_mvvm_repo">2. https://github.com/MindorksOpenSource/android-mvvm-architecture</string>
+    <string name="link_mindorks_blog">3. https://blog.mindorks.com</string>
+    <string name="link_mindorks_repo">4. https://github.com/MindorksOpenSource</string>
+    <string name="version">"version"</string>
+
+    <!--rating dialog-->
+    <string name="rate_us">Rate Us</string>
+    <string name="rating_message">Please let us know, how can we improve ourselves?</string>
+    <string name="rating_play_store_redirect_message_line_1">Awesome! Thank you for the 5 stars.</string>
+    <string name="rating_play_store_redirect_message_line_2">Please help others, in knowing some good things about this app.</string>
+    <string name="rating_play_store_text">Rate us on Play Store</string>
+    <string name="rating_not_provided_error">Please provide us stars.</string>
+    <string name="rating_thanks">Thank you!</string>
+
+    <!--play store-->
+    <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="app_market_link">"market://details?id="</string>
+
+    <!--button-->
+    <string name="later">Later</string>
+
+    <!--feed-->
+    <string name="title">My Feed</string>
+    <string name="open_source">Open Source</string>
+    <string name="blog">Blog</string>
+
+    <string name="rewards">Rewards</string>
+    <string name="referral">Referral</string>
+    <string name="ratings">Ratings</string>
+
+    <string name="payments">Payments</string>
+    <string name="personal">Personal</string>
+    <string name="help">HELP</string>
+
+    <!--empty state-->
+    <string name="empty_screen">We do not have anything\nhere right now.</string>
+    <string name="please_retry">Please Retry</string>
+
+
+    <!--Forgot password-->
+    <string-array name="names">
+        <item>Dhana</item>
+        <item>Anand</item>
+        <item>Jai</item>
+        <item>Vivek</item>
+        <item>Nethaji</item>
+        <item>Sudhakar</item>
+        <item>Vasanth</item>
+    </string-array>
+
+    <string-array name="emails">
+        <item>dhana@gmail.com</item>
+        <item>anand@gmial.com</item>
+        <item>jai@gmail.com</item>
+        <item>vivek@gmail.com</item>
+        <item>nethaji@gmail.com</item>
+        <item>sudhakar@gmail.com</item>
+        <item>vasanth@gmail.com</item>
+    </string-array>
+
+
+    <!--new Strings-->
+    <string name="register">Register</string>
+    <string name="payment">Payment</string>
+    <string name="submit">Submit</string>
+    <string name="registration">Registration</string>
+    <string name="already_have_an_acc">Already have an account?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="t_and_c">Terms And Condition</string>
+
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="phone_num">Phone Number</string>
+    <string name="forgot_password_">Forgot Password?</string>
+    <string name="terms_and_condition">Terms And Conditions</string>
+
+    <string name="accept_agree">Agree And Accept</string>
+    <string name="acc_no">Account Number</string>
+    <string name="re_acc_no">Re-Enter Account Number</string>
+    <string name="bank_name">Name of Bank</string>
+    <string name="acc_holder_name">Name of Account Number</string>
+    <string name="ifsc_code">IFSC Code</string>
+    <string name="live_products">Live Products List</string>
+    <string name="make_products">Make Products</string>
+    <string name="orders">Orders</string>
+    <string name="rating_rewards">Ratings &amp; Rewards</string>
+
+    <string name="item_name">Item Name</string>
+    <string name="item_price">Item Price</string>
+    <string name="item_type">Item Type</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="non_vegetarian">Non-Vegetarian</string>
+    <string name="add_item">Add item</string>
+    <string name="product_name">Product Name</string>
+
+
+    <string name="add_to_live">Add to live product list</string>
+    <string name="contact_soon">Our sales executive \n will contact you soon</string>
+    <string name="appointment_made">Appointment Made!</string>
+    <string name="_continue">Continue</string>
+
+
+    <string name="congrats">Congrats</string>
+    <string name="setup_complete">You have successfully setup \n your account </string>
+    <string name="get_started">Get Started</string>
+
+
+    <string name="lets_get_started">Lets Get Started!</string>
+    <string name="register_complete">Registration completed!</string>
+    <string name="initiate_brief">Tab continue to initiate\n product brief. </string>
+
+    <string name="welcome_makeit">Welcome to makeIT</string>
+
+
+    <string name="delivery_status">green</string>
+    <string name="order_placed_time">Order placed at 12:45pm</string>
+    <string name="customer_name">Ebin</string>
+    <string name="customer_address">No.5, Muthu street,santhome</string>
+    <string name="orders_title">Orders</string>
+    <string name="orders_prepared">Order Prepared</string>
+    <string name="orders_pickup">Order Picked up</string>
+    <string name="order_cost">Rs.251</string>
+    <string name="orders_delivery">Contact Delivery</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="icon1">&#xe900;</string>
+
+    <string name="earn_pts">Earn 1000pts for each friend that signs up using your code, for a maximum of 5000pts every month</string>
+    <string name="sales">Sales</string>
+    <string name="training">Training</string>
+    <string name="training_sub">Training docs Media</string>
+    <string name="sales_sub">Sales Appointments</string>
+    <string name="biometrics">Biometrics</string>
+    <string name="client_signature">Client Signature</string>
+    <string name="acknowledge">Acknowledge</string>
+    <string name="scan_finger">Scan Finger</string>
+    <string name="any_doubt">Any doubts? Write to us</string>
+    <string name="replies">Replies</string>
+    <string name="view_details">View Kitchens</string>
+    <string name="identity">Identity Proof</string>
+    <string name="upload">Upload</string>
+    <string name="add_proof">Address Proof</string>
+    <string name="birth_cert">Birth Certificate</string>
+    <string name="training_pics">Training Pictures</string>
+    <string name="tutorial_pics">Tutorial Pictures</string>
+    <string name="training_docs">Training Documents</string>
+    <string name="tutorial_files">Tutorial Files</string>
+    <string name="training_videos">Training Videos</string>
+    <string name="tutorial_diys">Video DIYs</string>
+    <string name="queries">Queries</string>
+    <string name="faqs">FAQ\'s</string>
+
+
+    <string name="start_tracking">Start Tracking</string>
+    <string name="stop_tracking">Stop Tracking</string>
+    <string name="enter_transport_id">Enter transport ID</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_email_address">ENTER EMAIL ADDRESS</string>
+    <string name="enter_password">Enter password</string>
+    <string name="entr_pass">ENTER PASSWORD</string>
+    <string name="location_permissions_required">Location permissions are required for tracking
+        location. Please grant these permissions to continue.</string>
+    <string name="missing_inputs">Please enter a transport ID, email and password</string>
+    <string name="tracking">Tracking &#x2713;</string>
+    <string name="not_tracking">Not tracking &#x2718;</string>
+    <string name="connecting">Connecting &#8230;</string>
+    <string name="status">status</string>
+    <string name="location_permission_required">Location permission required.</string>
+    <string name="gps_required">Gps not enabled.</string>
+    <string name="ok">OK</string>
+    <string name="enable">Enable</string>
+    <string name="auth_failed">Firebase authentication failed</string>
+    <string name="confirm_stop">Do you really want to disable location tracking?</string>
+
+    <string name="firebase_path" translatable="false">raw-locations/</string>
+    <string name="prefs" translatable="false">prefs</string>
+    <string name="transport_id" translatable="false">transport_id</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="title_activity_direction">Map</string>
+    <string name="direction">Direction</string>
+    <string name="training_images">Training Images</string>
+    <string name="clear_pad">Clear Pad</string>
+    <string name="save_signature">Save Signature</string>
+    <string name="documentation">Documentation</string>
+    <string name="next">Next</string>
+    <string name="kitchen">Kitchens</string>
+    <string name="kitchen_appliances">Kitchen Appliances</string>
+    <string name="packaging">Packaging</string>
+    <string name="appointment_scheduled">Appointment Scheduled</string>
+    <string name="appointment_date">11:30PM | 12-09-2019</string>
+    <string name="close">Close</string>
+    <string name="sales_alert">Sales Alert!</string>
+    <string name="dish">Dish</string>
+
+
+    <!--Geofence-->
+    <!-- Buttons strings -->
+    <string name="remove_geofences">Remove geofences</string>
+
+    <string name="geofences_added">Geofences added</string>
+    <string name="geofences_removed">Geofences removed</string>
+
+    <!-- Error strings -->
+    <string name="geofence_not_available">Geofence service is not available now</string>
+    <string name="geofence_too_many_geofences">Your app has registered too many geofences</string>
+    <string name="geofence_too_many_pending_intents">
+        You have provided too many PendingIntents to the addGeofences() call
+    </string>
+    <string name="unknown_geofence_error">
+        Unknown error: the Geofence service is not available now
+    </string>
+    <string name="geofence_transition_invalid_type">
+        Geofence transition error: invalid transition type %1$d
+    </string>
+
+    <!-- Transition type strings -->
+    <string name="geofence_transition_entered">Entered</string>
+    <string name="geofence_transition_exited">Exited</string>
+    <string name="unknown_geofence_transition">Unknown Transition</string>
+
+    <string name="geofence_transition_notification_text">
+        Click notification to return to app
+    </string>
+
+    <string name="insufficient_permissions">Insufficient permissions.</string>
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core
+        functionality.</string>
+    <string name="settings">Settings</string>
+    <string name="destination_reached">Destination reached</string>
+    <string name="proceed_to_home">Proceed to home</string>
+    <string name="client_unavailable">Client unavailable</string>
+
+
+    <string name="btn_send_token">Send Token</string>
+    <string name="btn_send_tokens">Send Tokens</string>
+    <string name="btn_send_topic">Send Topic</string>
+    <string name="btn_show_token">Show Token</string>
+    <string name="btn_subscribe_news">Subscribe (News)</string>
+    <string name="btn_unsubscribe_news">Unsubscribe (News)</string>
+    <string name="notification_channel_id">default</string>
+    <string name="result">Something will happen here&#8230;</string>
+    <string name="subscribed">Subscribed to news topic</string>
+    <string name="unsubscribed">Unsubscribed from news topic</string>
+    <string name="accept">Accept</string>
+
+    <string name="form_username">Email</string>
+    <string name="form_old_password">Old Password</string>
+    <string name="form_password">New Password</string>
+    <string name="form_confirm_password">Confirm Password</string>
+    <string name="appointment_scheduled_on">Appointment Scheduled on: </string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="select_option">Select option</string>
+
+    <string name="type_in_your_remarks">Type in your remarks</string>
+    <string name="acknowledged">Acknowledged</string>
+
+
+    <string name="skip">Skip</string>
+    <string name="no_task_found">No task Found</string>
+
+
+    <string name="schedule">Schedule:</string>
+    <string name="current_location">Current location</string>
+    <string name="deliver_now">Deliver now</string>
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="account">Account</string>
+    <string name="explore">Explore</string>
+    <string name="no_item_found">No item found</string>
+    <string name="bill_details">Bill details</string>
+    <string name="inr">INR.\u0020 </string>
+    <string name="order_total">Ordre total</string>
+    <string name="deliver_to">Deliver to</string>
+    <string name="change">Change</string>
+    <string name="set_delivery_address">Set Delivery Address</string>
+    <string name="location_area">Location/Area*</string>
+    <string name="house_flat_no">House/Flat.No*</string>
+    <string name="area">Area*</string>
+    <string name="landmark">Landmark</string>
+    <string name="save">Save</string>
+
+    <string name="fields_are_mandatory">* Fields are mandatory</string>
+    <string name="office">Work</string>
+    <string name="other">Other</string>
+    <string name="manage_address">Manage Address</string>
+    <string name="add_new_address">Add new address</string>
+    <string name="edit">Edit</string>
+    <string name="select_address">Set delivery address</string>
+    <string name="order_history">Order History</string>
+    <string name="favourites">Favourites</string>
+    <string name="referrals">Referrals</string>
+    <string name="offers">Offers</string>
+    <string name="feedback_and_support">Feedback and Support</string>
+    <string name="gst">GST Charges</string>
+    <string name="delivery_charge">Delivery charge</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="items">Items</string>
+    <string name="view_cart">View Cart</string>
+    <string name="mins">Mins</string>
+    <string name="for_two">for two</string>
+    <string name="comma">,</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="pay_online">Pay online</string>
+    <string name="proceed_to_pay">Proceed to pay</string>
+    <string name="promo_code">Promo Code</string>
+    <string name="apply">Apply</string>
+    <string name="select_payment_mode">Select payment mode</string>
+    <string name="filter_sort">Filter/Sort</string>
+    <string name="clear_all">Clear all</string>
+
+    <string name="track">TRACK</string>
+    <string name="eta">ETA</string>
+
+    <string name="support">Support</string>
+    <string name="feedBack">Feedback</string>
+    <string name="any_doubts_write_to_us">Any doubts? Write to us</string>
+    <string name="no_replies_found">No replies found</string>
+    <string name="no_chat_found">No chat found</string>
+    <string name="type_here">Enter Reply</string>
+    <string name="send_referrals">Send Referrals</string>
+
+    <string name="order_details">Order Details</string>
+    <string name="my_account">My Account</string>
+    <string name="no_history_found">No history found</string>
+
+    <string name="sort">Sort</string>
+    <string name="regionals">Regionals</string>
+    <string name="cuisines">Cuisines</string>
+
+    <string name="verify">Verify</string>
+    <string name="otp_continue">Continue</string>
+    <string name="enter_phone_num">Enter your mobile number</string>
+    <string name="login_message">We will send you a one time OTP. Carrier charges might apply</string>
+    <string name="enter_pass">Enter Password</string>
+    <string name="enter_name">ENTER YOUR NAME</string>
+    <string name="proceed">PROCEED</string>
+    <string name="type_your_feedback">Type your feedback here</string>
+    <string name="re_type_password">Re-type Password</string>
+    <string name="enter_email_password">ENTER EMAIL</string>
+
+
+    <string name="oh_snap">Oh Snap!</string>
+    <string name="no_internet_connection_detected">No internet connection detected</string>
+    <string name="retry">Retry</string>
+    <string name="sorry">Sorry!</string>
+    <string name="no_results_found">No results for your selection</string>
+    <string name="add">Add</string>
+    <string name="add_your_address_to_find_nearest_kitchens">Please select your address to find nearest kitchens..</string>
+    <string name="change_kitchen_title">You can only order items from one kitchen at a time</string>
+    <string name="change_kitchen_msg">Clear your cart if you would still like to order this item</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear_cart_and_add">Clear cart and Add</string>
+
+
+    <!--  icons code-->
+
+    <string name="camera_icon">&#xe901;</string>
+    <string name="sales_icon">&#xe902;</string>
+    <string name="training_icon">&#xe903;</string>
+    <string name="call_icon">&#xe925;</string>
+    <string name="right_arrow_icon">&#xe905;</string>
+    <string name="alert_bell_icon">&#xe906;</string>
+    <string name="kitchen_home_icon">&#xe907;</string>
+    <string name="document_icon">&#xe908;</string>
+    <string name="work_icon">&#xe91f;</string>
+    <string name="video_document_icon">&#xe909;</string>
+    <string name="home_icon">&#xe922;</string>
+    <string name="address_home_icon">&#xe91e;</string>
+    <string name="female">&#xe91a;</string>
+    <string name="male">&#xe91b;</string>
+
+
+    <string name="icon_manage_address">&#xe917;</string>
+    <string name="icon_order_history">&#xe919;</string>
+    <string name="icon_referrals">&#xe91b;</string>
+    <string name="icon_offers">&#xe936;</string>
+    <string name="icon_favorites">&#xe924;</string>
+    <string name="icon_feedback_support">&#xe91c;</string>
+    <string name="icon_call">&#xe925;</string>
+    <string name="icon_error">&#xe90d;</string>
+    <string name="icon_cancel_error">&#xe90b;</string>
+
+    <string name="icon_region_home">&#xe921;</string>
+
+
+    <string name="smiley_low">&#xe926;</string>
+    <string name="smiley_medium">&#xe927;</string>
+    <string name="smiley_high">&#xe928;</string>
+
+    <string name="icon_selected">&#xe913;</string>
+    <string name="icon_inr">&#xe90a;</string>
+    <string name="icon_logout">&#xe91d;</string>
+    <string name="icon_filter">&#xe912;</string>
+    <string name="icon_fav">&#xe924;</string>
+    <string name="icon_fav_heart_selected">&#xe924;</string>
+    <string name="icon_fav_heart_unselected">&#xe924;</string>
+    <string name="icon_home">&#xe922;</string>
+    <string name="icon_office">&#xe922;</string>
+    <string name="icon_veg_only">&#xe923;</string>
+    <string name="icon_veg">&#xe915;</string>
+    <string name="icon_non_veg">&#xe916;</string>
+    <string name="icon_eat">&#xe90e;</string>
+    <string name="icon_divider">&#xe927;</string>
+    <string name="icon_member">&#xe91f;</string>
+    <string name="icon_star">&#xe914;</string>
+    <string name="icon_search">&#xe911;</string>
+    <string name="icon_account">&#xe910;</string>
+    <string name="icon_cart">&#xe90f;</string>
+    <string name="icon_delete">&#xe920;</string>
+    <string name="icon_address_not_servicable">&#xe90c;</string>
+
+
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="address_edit">Address edit</string>
+
+    <string name="your_order_has_been_placed">Your order has been placed!</string>
+    <string name="order_status">Order Status</string>
+
+    <string name="how_was_food">How was the food?</string>
+    <string name="how_was_delivery">How was the Delivery?</string>
+
+    <string name="how_can_we_meet_ut_expectation">How can we meet your food expectation?</string>
+    <string name="suggestion">Got suggestion, let us know</string>
+    <string name="how_was_your_delivery">How was your delivery?</string>
+
+    <string name="select">Select</string>
+    <string name="repeat_this_order">Repeat This Order</string>
+    <string name="hometown">Hometown</string>
+    <string name="enter_otp">Enter OTP</string>e
+    <string name="start">GOT IT</string>
+    <string name="str_get_started">HOME MADE food right at your doorstep!</string>
+    <string name="slide_1">Quality Food Home Made with Love</string>
+    <string name="slide_2">Select your native cravings over anything else...</string>
+    <string name="txtmale">MALE</string>
+    <string name="txtfemale">FEMALE</string>
+    <string name="support_replies">Support replies</string>
+    <string name="how_are_we_doing">How are we doing?</string>
+    <string name="we_would_love_to_get_feedback_on_your_app_from_you">We would love to get feedback on your app from you</string>
+    <string name="has_e_a_t_met_your_expectation">Has DAILY LOCALLY met your expectation?</string>
+    <string name="did_we_fall_short_somewhere_kindly_let_us_know_and_it_wont_happen_again">Did we fall short somewhere? kindly let us know and it wont happen again!</string>
+    <string name="name_and_avator">NAME AND AVATOR</string>
+    <string name="choose_avator">CHOOSE GENDER</string>
+    <string name="delivering_to">Delivering to</string>
+    <string name="otp">OTP</string>
+    <string name="refer_a_friend_amp_we_ll_give_you_and_your_buddy_inr_100_off_on_your_next_order_above_inr_200"><![CDATA[Refer a friend & we\'ll give you and your buddy INR.100 off on your next order above INR.200]]></string>
+    <string name="questions">Questions</string>
+
+    <string name="dot_lines">-------------------------------------------------------------------------------------------------------------------------------------------------------------------</string>
+    <string name="place_order">Place order</string>
+
+
+    <!--<string name="map_key">AIzaSyDHiPip3fSYDLIhyrHV3uavqH2nONtqEbw</string>-->
+    <string name="map_key">AIzaSyD9CpR26YRmJrzlnBtyG5jwu0vJmGEQljM</string>
+
+    <string name="select_pin">Select pin</string>
+
+    <string name="card_number">Card Number</string>
+    <string name="card_holder_name">Card holder name</string>
+    <string name="card">Debit/Credit Card</string>
+    <string name="mm">MM/YY</string>
+    <string name="yy">YY</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="cvv">CVV</string>
+    <string name="pay">Pay</string>
+    <string name="netbanking">Netbanking</string>
+    <string name="more_options">More options</string>
+    <string name="upi">UPI/BHIM</string>
+    <string name="wallet">Wallet</string>
+    <string name="approx">Approx</string>
+    <string name="show_more">Show more</string>
+    <string name="orderid">Order Id:\u0020</string>
+    <string name="dishes">Dishes</string>
+    <string name="showing_results_for">Showing results for</string>
+    <string name="edit_info">Edit info</string>
+    <string name="apply_changes">Apply Changes</string>
+    <string name="get_started_">Get Started!</string>
+    <string name="search_for_your_favorite_region_dish_or_cuisines">Search for your favorite region,dish or cuisines</string>
+    <string name="save_and_pay_via_cards">Save and pay via cards</string>
+    <string name="pay_via_wallets_upi_or_netbanking">Pay via Wallets/UPI or Netbanking</string>
+    <string name="view_menu">View menu</string>
+    <string name="help_order_title">Help with current order?</string>
+    <string name="cancel_my_order">I want to cancel my order</string>
+    <string name="where_is_my_order">Where is my order?</string>
+    <string name="food_preparation">Food preparation instructions</string>
+    <string name="contact_cus_care">CONTACT US</string>
+    <string name="anything_else">Anything else?</string>
+    <string name="food_badges">Food Badges</string>
+    <string name="specialities">Specialities</string>
+    <string name="add_promo_code">Have Promo code?</string>
+    <string name="add_your_refund_coupon">Add your refund coupon</string>
+    <string name="refund_coupon">Refund Coupon</string>
+    <string name="faqsupport">FAQ\'s and Support</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="view_more">View More</string>
+    <string name="your_order_will_arrive_by">Your order will arrive by</string>
+    <string name="check_order_details">Check order details</string>
+    <string name="credit_debit_cards">Credit/Debit Cards</string>
+    <string name="keep_change">Please keep the exact change handy to help us serve you better</string>
+    <string name="veg_only">Veg only</string>
+
+    <string name="today_s_menu">Today\'s Menu</string>
+
+    <string name="payment_refund_and_bill_related_queries">Payment, Refund and Bill related queries</string>
+    <string name="devivery_executive">Want to pass an instructions to the delivery executive</string>
+    <string name="order_delivered_at">Order delivered at</string>
+    <string name="placed_at">Order placed at</string>
+
+    <string name="total_cart_amount">Total cart amount</string>
+
+    <string name="favorites">Favorites</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="looks_like_you_haven_t_added_anything_to_the_cart">Looks like you haven’t added anything to the cart</string>
+    <string name="order_help">Order Help</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="privacy_and_policy">privacy policy</string>
+    <string name="selected_region_has_no_kitchens">Selected region has no kitchens</string>
+    <string name="got_general_app_details_here">Got general app details here</string>
+    <string name="customer_care">Customer Care</string>
+    <string name="call_now">Call Now</string>
+    <string name="have_referral_code">Have Referral code?</string>
+    <string name="enter_referral_code_here">ENTER REFERRAL CODE HERE</string>
+    <string name="accept_and_continue">Accept and Continue</string>
+    <string name="please_note">Please note!</string>
+    <string name="refund_alert_msg">The refund coupon contains the entire amount of refund value and can be used only once per order. Do you wish to continue?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="refund_adjustments">Refund adjustments</string>
+    <string name="rating">Rating</string>
+    <string name="i_entered_the_wrong_delivery_address">I entered the wrong delivery address</string>
+    <string name="wrong_items">I added the wrong items</string>
+    <string name="mistake_order">Placed order by mistake</string>
+    <string name="explore_kitchens">Explore kitchens</string>
+    <string name="name_and_gender">Name and Gender</string>
+    <string name="coupons">Coupons</string>
+    <string name="coupon_adjustments">Coupon Adjustments</string>
+    <string name="use_refund_coupon_for_current_order">Use refund coupon for current order</string>
+    <string name="enter_coupon">ENTER COUPON CODE HERE</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="top_eat_suggestions">Top EAT Suggestions</string>
+
+    <string name="see_more">SEE MORE</string>
+    <string name="swipe_to_left">Swipe to left</string>
+
+    <string name="spoke_to_our_service_consistent_regarding_your_query">Speak to our service assistant regarding your query</string>
+    <string name="promo_code_applied">Promo code applied!</string>
+    <string name="explore_all">Explore all</string>
+    <string name="explore_our_wide_range_regional_food">Explore our wide range regional food</string>
+    <string name="unable_to_process_order">UNABLE TO PROCESS ORDER</string>
+    <string name="any_deducted_amount_will_be_refunded_to_you_within_2_4_working_days">Any deducted amount will be refunded to you within 2-4 working days</string>
+    <string name="update">Update</string>
+    <string name="restart">Restart</string>
+    <string name="install">Install now</string>
+    <string name="not_now">Not now</string>
+
+
+    <!--Empty list content-->
+
+
+    <!--kitchen empty-->
+    <string name="kitchen_empty_title">Our mothers will cater your cravings soon! </string>
+    <string name="kitchen_empty_sub_title"> None of our homes are cooking in your interest. Kindly modify your filters</string>
+    <!--Region empty-->
+    <string name="region_empty_title">We\'ll get there soon !  </string>
+    <string name="region_empty_sub_title"> Our homemakers are pushing boundaries. Kindly bear with us!</string>
+    <!--fav Dish empty-->
+    <string name="dish_empty_title"> You haven\'t favorites a dish yet ! </string>
+    <string name="dish_empty_sub_title"> </string>
+    <!--Fav kitchen empty-->
+    <string name="fav_kitchen_empty_title">You haven\'t favoried any kitchen yet !  </string>
+    <string name="fav_kitchen_empty_sub_title"> empty</string>
+    <!--Address empty-->
+    <string name="address_empty_title">No addresses added yet. </string>
+    <string name="address_empty_sub_title"> Where do you want us to serve you ? </string>
+    <!--Order history empty-->
+    <string name="history_empty_title">You haven\'t placed any orders.</string>
+    <string name="history_empty_sub_title"> Order right from our mothers\' homes!   </string>
+    <!--Offer coupon empty-->
+    <string name="offer_empty_title">Your coupons are exhausted!  </string>
+    <string name="offer_empty_sub_title"> Refer a friend to earn exciting offers.</string>
+    <!--search before empty-->
+    <string name="before_empty_title">Tell us your cravings!  </string>
+    <string name="before_empty_sub_title"> Search for your favorite kitchen, region or dish. </string>
+    <!--search after empty-->
+    <string name="after_empty_title">We\'re mistaken. </string>
+    <string name="after_empty_sub_title">Our homes are working on your favorites. Kindly give us some time! </string>
+    <!--cart empty-->
+    <string name="cart_empty_title">Your plate seems empty!  </string>
+    <string name="cart_empty_sub_title"> Add food made directly from our mother\'s kitchens.</string>
+
+    <!--queries empty-->
+    <string name="queries_empty_title">Any questions to ask us ?</string>
+    <string name="queries_empty_sub_title"> Kindly let us know. We are always here for you!</string>
+
+    <string name="veg_dish_empty_title">No veg products available.</string>
+    <string name="veg_dish_empty_sub_title"> Kindly explore another Category</string>
+    <!--Address empty-->
+    <string name="collection_empty_title">Sorry!</string>
+    <string name="collection_empty_sub_title"> This collection has no Products. </string>
+
+    <string name="we_ll_serve_you_soon">WE’LL SERVE YOU SOON!</string>
+    <string name="change_address">Change Address</string>
+    <string name="enter_your_hometown">ENTER YOUR HOMETOWN</string>
+    <string name="enter_your_email">ENTER YOUR EMAIL</string>
+    <string name="menu">MENU</string>
+    <string name="your_order_has_been_delivered">Your order has been delivered</string>
+    <string name="call">Call</string>
+    <string name="place_first_order">PLACE YOUR FIRST ORDER</string>
+    <string name="not_serviceable_in_your_area">Not serviceable in your area.</string>
+    <string name="unserviceable">Unserviceable</string>
+
+    <string name="view_details_h">View details</string>
+
+    <string name="others">Others</string>
+    <string name="terms_and_conditions">fgdfg</string>
+
+
+
+    <string name="support_number">9790876528</string>
+
+    <string name="view_replies">View Replies</string>
+    <string name="cancel_order">Cancel order</string>
+    <string name="entered_location_is_outside_our_service_region">Entered location is outside our service region</string>
+    <string name="allow">Allow</string>
+    <string name="we_need_your_permission_to_access_your_location">We need your permission to access your location</string>
+    <string name="order_canceled">Order canceled</string>
+    <string name="kitchens_near_you">Kitchens near you</string>
+    <string name="get_general_app_details_here">Get general App details here</string>
+    <string name="rate_and_let_us_know_how_we_can_improve">Rate and let us know how we can improve</string>
+    <string name="customer_care_and_support">Customer care and support</string>
+    <string name="eat_stories">EAT stories</string>
+    <string name="cancel_reason">\u0020\u0020Cancel reason</string>
+    <string name="quantity_not_availabe">Entered quantity not available now</string>
+    <string name="any_other_instructions">Any other instructions?</string>
+    <string name="type_special_instructions_for_your_order">Type special instructions for your order</string>
+    <string name="loading">Loading...</string>
+    <string name="update_available">New update available!</string>
+    <string name="download_completed">Update downloaded</string>
+    <string name="download_failed">Install failed</string>
+    <string name="back">back</string>
+    <string name="f">F</string>
+    <string name="m">M</string>
+    <string name="your_hometown">YOUR HOMETOWN</string>
+    <string name="save_as">Save as</string>
+    <string name="help_support">How can we help you?</string>
+    <string name="delayed">My order is getting delayed</string>
+
+    <string name="push_error_device_not_compatible">Your device doesn\'t support push notifications</string>
+    <string name="push_notification_fallback_title">Someone replied to your ticket</string>
+
+    <!--deeplink-->
+    <string name="deeplink_host">eatalltime.co.in</string>
+    <string name="deeplink_scheme">http</string>
+    <string name="deeplink_path_home">/applink/home</string>
+    <string name="deeplink_path_kitchen">/applink/kitchen</string>
+    <string name="deeplink_path_order">/applink/order</string>
+    <string name="deeplink_path_region">/applink/region</string>
+    <string name="deeplink_path_collection">/applink/collection</string>
+    <string name="deeplink_path_app">/applink/start</string>
+    <string name="deeplink_path_signin">/applink/signin</string>
+    <string name="deeplink_path_offer">/applink/offer</string>
+    <string name="deeplink_path_cart">/applink/cart</string>
+
+    <string name="deferred_deeplink_host">app</string>
+    <string name="deferred_deeplink_scheme">eatfromhome</string>
+    <string name="deferred_deeplink_path_home">/home</string>
+    <string name="deferred_deeplink_path_kitchen">/kitchen</string>
+    <string name="deferred_deeplink_path_order">/order</string>
+    <string name="deferred_deeplink_path_region">/region</string>
+    <string name="deferred_deeplink_path_collection">/collection</string>
+    <string name="deferred_deeplink_path_app">/start</string>
+    <string name="deferred_deeplink_path_signin">/signin</string>d
+    <string name="deferred_deeplink_path_offer">/offer</string>
+    <string name="deferred_deeplink_path_cart">/cart</string>
+
+
+
 </resources>

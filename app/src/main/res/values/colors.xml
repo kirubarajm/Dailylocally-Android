@@ -1,6 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FCFDFD</color>
+    <color name="colorAccent">#5C5B5B</color>
+
+
+
+    <color name="dl_primary_color">#2a9d92</color>
+    <color name="statuback">#2a9d92</color>
+    <color name="light_dl_primary_color">#DBFFF2</color>
+    <color name="light_color">#E8ECFFF8</color>
+
+    <color name="light_gray">#ECEBEB</color>
+    <color name="medium_light_gray">#DBDBDB</color>
+    <color name="gray">#F7F7F7</color>
+    <color name="lgray">#FDFDFD</color>
+    <color name="semi_gray">#979797</color>
+    <color name="searchgrey">#DADADA</color>
+
+    <color name="filter_selected">#CACACA</color>
+    <color name="filter_unselected">#ECEBEB</color>
+
+
+    <color name="dark_gray">#5C5B5B</color>
+    <color name="tracking_back">#ffd4dedd</color>
+    <color name="funnel_back">#F5F8F7</color>
+    <color name="medium_gray">#ACABAB</color>
+    <color name="extra_light_gray">#DADADA</color>
+    <color name="bg_color">#f7f7f7</color>
+    <color name="black">#ff444444</color>
+    <color name="green">#129612</color>
+    <color name="red">#d32f2f</color>
+    <color name="white">#ffffff</color>
+    <color name="black_effective">#2a2a2a</color>
+    <color name="shadow">#d0d8dc</color>
+    <color name="transparent">#00000000</color>
+    <color name="translucent_white">#C6FFFFFF</color>
+    <color name="translucent_black">#88000000</color>
+    <color name="fb">#3b5998</color>
+    <color name="google">#d34836</color>
+
+    <!--Design colors-->
+    <color name="red_dark">#F06423</color>
+    <color name="red_dark2">#D85A1B</color>
+    <color name="cyan_light">#c9ebee</color>
+    <color name="cyan">#b5e3e7</color>
+    <color name="cyan_dark">#70BDC6</color>
+    <color name="navy_blue">#214258</color>
+    <color name="navy_blue_dark">#1C3A4E</color>
+    <color name="light_blue">#55C8F0</color>
+    <color name="blue_black_dark">#13171d</color>
+    <color name="blue_black_light">#FCFDFD</color>
+    <color name="blue_grey_light">#A5B4C8</color>
+    <color name="orange">#FFA500</color>
+    <color name="yellow">#fff44f</color>
+
+    <!--new colors-->
+    <!--<color name="primary_new">#129612</color>
+    <color name="secondary_new">#00510f </color>-->
+
+    <color name="primary_new">#FFFFFF</color>
+    <color name="secondary_new">#FDFFFE</color>
+
+    <color name="light_red">#FD9797</color>
+    <color name="light_green">#DFF8E4</color>
+
+
+
+
+
+
+
+
+    <!-- Screens background color-->
+    <color name="bg_screen1">#f64c73</color>
+    <color name="bg_screen2">#20d2bb</color>
+    <color name="bg_screen3">#3395ff</color>
+    <color name="bg_screen4">#c873f4</color>
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#d1395c</color>
+    <color name="dot_dark_screen2">#14a895</color>
+    <color name="dot_dark_screen3">#2278d4</color>
+    <color name="dot_dark_screen4">#a854d4</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#f98da5</color>
+    <color name="dot_light_screen2">#8cf9eb</color>
+    <color name="dot_light_screen3">#93c6fd</color>
+    <color name="dot_light_screen4">#e4b5fc</color>
+
+    <array name="array_dot_active">
+        <item>@color/dark_gray</item>
+        <item>@color/dark_gray</item>
+        <item>@color/dark_gray</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/light_gray</item>
+        <item>@color/light_gray</item>
+        <item>@color/light_gray</item>
+    </array>
+
+
+
+    <color name="ss_colorPrimary">#9E9E9E</color>
+    <color name="ss_colorPrimaryDark">#616161</color>
+    <color name="ss_colorAccent">#95ff00</color>
+
+    <color name="ss_progress_startColor">#ffffd300</color>
+    <color name="ss_progress_endColor">#ffffcb00</color>
+    <color name="ss_progress_centerColor">#ffffb600</color>
+
+    <color name="ss_secondaryProgress_startColor">#80ffd300</color>
+    <color name="ss_secondaryProgress_endColor">#a0ffcb00</color>
+    <color name="ss_secondaryProgress_centerColor">#80ffb600</color>
+
+    <color name="ss_background_startColor">#ff9d9e9d</color>
+    <color name="ss_background_endColor">#ff747674</color>
+    <color name="ss_background_centerColor">#ff5a5d5a</color>
+
+
 </resources>

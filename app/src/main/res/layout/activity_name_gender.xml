@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.signin.SignActivityMain">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="nameGenderViewModel"
+            type="com.dailylocally.ui.signup.namegender.NameGenderActivityViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                android:id="@+id/txt_name_avator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="REGISTER"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                android:id="@+id/txt_choose_avator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_name_avator"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left|center"
+                android:text="@string/choose_avator"
+                android:textAlignment="center"
+                android:textColor="@color/dark_gray"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/gen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_choose_avator"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+
+                <LinearLayout
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="48dp"
+                    android:background="@drawable/curve_stroke_gray"
+                    android:gravity="center"
+                    android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}">
+
+
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="F"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="28sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/curve_stroke"
+                    android:gravity="center"
+                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}">
+
+
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="M"
+                        android:textColor="@color/eat_color"
+                        android:textSize="28sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/curve_stroke_gray"
+                    android:gravity="center"
+                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}">
+
+
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="M"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="28sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:background="@drawable/curve_stroke"
+                    android:gravity="center"
+                    android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}">
+
+
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="F"
+                        android:textColor="@color/eat_color"
+                        android:textSize="28sp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gen"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_name"
+                    enter="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:lines="1"
+                    android:maxLength="30"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_name">
+
+                <android.support.design.widget.TextInputLayout
+                    android:visibility="@{nameGenderViewModel.regionotherClicked?View.GONE:View.VISIBLE}"
+                    android:id="@+id/email_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="ENTER YOUR EMAIL"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/gray" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+            </RelativeLayout>
+
+            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                android:id="@+id/referral_tx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_region"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:paddingStart="3dp"
+                android:text="@string/have_referral_code"
+                android:textAllCaps="true"
+                android:textColor="@color/eat_color"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_region"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:onClick="@{()->nameGenderViewModel.viewReferral()}" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tl_referral"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/referral_tx"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:visibility="@{nameGenderViewModel.referral?View.VISIBLE:View.GONE}">
+
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/referral"
+                    enter="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_referral_code_here"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPersonName"
+                    android:lines="1"
+                    android:maxLength="30"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:id="@+id/btn_sign_in"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:background="@drawable/curve_stroke"
+                android:gravity="center"
+                android:onClick="@{()->nameGenderViewModel.proceed()}"
+                android:text="@string/proceed"
+                android:textAllCaps="true"
+                android:textColor="@color/eat_color"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

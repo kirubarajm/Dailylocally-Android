@@ -11,15 +11,65 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        dataBinding {
+            enabled = true
+        }
     }
 
     buildTypes {
-        release {
+
+
+        debug {
             minifyEnabled false
+            //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
+            //  buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://192.168.0.200:3000"'
+            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.110:4000"'//praveen
+            //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
+            //  buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
+            // buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
+            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:7000"'
+            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:7000"'
+
+            buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
+            buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
+            buildConfigField "String", 'RAZORPAY_KEY', '"rzp_test_3cduMl5T89iR9G"'
+            resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
+            resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "false")
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
+            buildConfigField 'boolean', 'ENABLE_DEBUG', 'true'
+        }
+        release {
+            buildConfigField 'boolean', 'ENABLE_DEBUG', 'false'
+            buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
+            buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
+            buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
+            /* buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'*/
+            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:7000"'
+            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:7000"'
+            //  buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
+            // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+
+            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+
+            minifyEnabled false
+            resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
+            resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "true")
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "true")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+
     }
 
 }
@@ -29,9 +79,56 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.firebase:firebase-core:17.4.0'
-    implementation 'com.google.firebase:firebase-messaging:20.1.6'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-core:17.4.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.6'
+
+    // Volley request
+    implementation 'com.android.volley:volley:1.1.1'
+
+    //json to gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //architecture
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+
+    //dagger
+    implementation 'com.google.dagger:dagger:2.27'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.2'
+    testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.23.2'
+    implementation 'com.google.dagger:dagger-android-support:2.23.2'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.23.2'
+
+    //recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+
+    //Cardview
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    implementation 'com.google.android.material:material:1.1.0'
+
+    //Zendesk chat
+    implementation group: 'com.zopim.android', name: 'sdk', version: '1.4.8'
+    implementation group: 'com.zendesk', name: 'support', version: '4.0.0'
+    implementation group: 'com.zendesk', name: 'messaging', version: '4.0.0'
+    implementation group: 'com.zendesk', name: 'answerbot', version: '2.0.0'
+
+    //Facebook sdk
+    implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
+    implementation 'com.facebook.android:facebook-core:5.8.0'
+    implementation 'com.facebook.android:facebook-marketing:5.8.0'
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
+    //Razorpay
+    implementation 'com.razorpay:checkout:1.5.2'
+
+    //Glide image
+    implementation "com.github.bumptech.glide:glide:4.9.0"
+
 }
