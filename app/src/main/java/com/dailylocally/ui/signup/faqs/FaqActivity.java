@@ -8,18 +8,26 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+
+
 import android.view.MenuItem;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
+
+
 import com.dailylocally.databinding.ActivityFaqsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -90,7 +98,12 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
 
     private void subscribeToLiveData() {
         mFaqViewModel.getFaqs().observe(this,
-                FaqFragmentViewModel -> mFaqViewModel.addFaqsItemsToList(FaqFragmentViewModel));
+                new Observer<List<FaqResponse.ProductList>>() {
+                    @Override
+                    public void onChanged(List<FaqResponse.ProductList> FaqFragmentViewModel) {
+                        mFaqViewModel.addFaqsItemsToList(FaqFragmentViewModel);
+                    }
+                });
     }
 
 
@@ -127,12 +140,12 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
 
 
     private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -153,7 +166,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
             } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

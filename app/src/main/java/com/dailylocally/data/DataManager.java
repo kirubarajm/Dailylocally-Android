@@ -28,49 +28,24 @@ public interface DataManager extends PreferencesHelper {
 
     Observable<Boolean> seedDatabaseQuestions();
 
-    void setUserAsLoggedOut();
 
     void setLogout();
 
-    void updateApiHeader(Long userId, String accessToken);
 
-    void updateCurrentAddress(String title, String address, double lat, double lng, String area, Long aid);
+    void updateCurrentAddress(String title, String address, String lat, String lng, String area, String aid);
 
-    void updateUserInfo(String accessToken, Long userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
+    void updateUserInformation(String userId, String userName, String userEmail, String PhoneNumber, String referralCode);
 
-    void updateUserInformation(Long userId, String userName, String userEmail, String PhoneNumber, String referralCode);
+    void userRegistered(boolean isRegistered);
 
-    void updateUserGender(boolean genderStatus);
-
-    void updateEmailStatus(boolean status);
-
-    void updateUserPasswordStatus(boolean passwordStatus);
 
     void showFunnel(boolean status);
 
     void saveMaster(String master);
 
-    void saveFilterSort(String filters);
-
-    void saveStoriesList(String stories);
-
-    void saveVegType(Integer type);
-
-    void currentFragment(Integer id);
-
-
-    void kitchenId(Long id);
-
-
-    void totalOrders(Integer orders);
-
-
-    void saveRefundId(int rcid);
-
-
     void savePromotionId(int promotionid);
 
-    void savePromotionCustomerId(Long customerid);
+    void savePromotionCustomerId(String customerid);
 
     void savePromotionDisplayedCount(int count);
 
@@ -81,14 +56,11 @@ public interface DataManager extends PreferencesHelper {
 
     void saveRazorpayCustomerId(String razorpayCustomerId);
 
-    void saveRefundBalance(int refundBalance);
 
-
-    void saveRegionId(int regionid);
 
     void saveCouponId(int couponid);
 
-    void saveRatingOrderId(Long orderid);
+    void saveRatingOrderId(String orderid);
 
     void saveRatingSkipDate(String date, int skips);
 
@@ -112,34 +84,13 @@ public interface DataManager extends PreferencesHelper {
     void saveServiceableStatus(boolean status, String title, String subtitle);
 
 
-    void currentOrderId(Long orderId);
 
     boolean homeAddressadded(boolean status);
 
     boolean officeAddressadded(boolean status);
 
-    void isFavClicked(boolean status);
-
-
     void appStartedAgain(boolean status);
 
     void saveFirstLocation(String address, String locality, String city);
 
-
-    enum LoggedInMode {
-        LOGGED_IN_MODE_LOGGED_OUT(0),
-        LOGGED_IN_MODE_GOOGLE(1),
-        LOGGED_IN_MODE_FB(2),
-        LOGGED_IN_MODE_SERVER(3);
-
-        private final int mType;
-
-        LoggedInMode(int type) {
-            mType = type;
-        }
-
-        public int getType() {
-            return mType;
-        }
-    }
 }

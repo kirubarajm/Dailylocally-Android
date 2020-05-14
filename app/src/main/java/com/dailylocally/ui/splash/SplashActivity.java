@@ -13,34 +13,48 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.android.databinding.library.baseAdapters.BR;
+import com.dailylocally.BR;
+import com.dailylocally.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySplashBinding;
-import com.dailylocally.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.home.MainActivity;
 import com.dailylocally.ui.onboarding.OnBoardingActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.ui.update.UpdateActivity;
-import com.dailylocally.utilities.MvvmApp;
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
-public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashActivityViewModel>
-        implements SplashActivityNavigator {
+public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel>
+        implements SplashNavigator {
 
     @Inject
-    SplashActivityViewModel mSplashActivityViewModel;
-
+    SplashViewModel mSplashViewModel;
+    Analytics analytics;
+    String pageName = "Splash screen";
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
     private ActivitySplashBinding mActivitySplashBinding;
     private PrefManager prefManager;
-
-    Analytics analytics;
-    String pageName="Splash screen";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -52,9 +66,10 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
     }
 
     @Override
-    public void checkForUserLoginMode(boolean trueOrFlase) {
-        if (trueOrFlase) {
-            Intent intent = MainActivity.newIntent(SplashActivity.this);
+    public void checkForUserLogin(boolean status) {
+        if (status) {
+            // Intent intent = MainActivity.newIntent(SplashActivity.this);
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -69,23 +84,25 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
     @Override
     public void update(boolean updateStatus, boolean forceUpdateStatus) {
 
-      //  mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+        //  mSplashActivityViewModel.checkIsUserLoggedInOrNot();
         if (forceUpdateStatus) {
             Intent intent = UpdateActivity.newIntent(SplashActivity.this);
             intent.putExtra("forceUpdate", forceUpdateStatus);
             startActivity(intent);
             finish();
         } else {
-            mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+            mSplashViewModel.checkIsUserLoggedInOrNot();
         }
 
     }
 
     @Override
-    public void checkForUserGenderStatus(boolean trueOrFalse) {
-        Intent intent = RegistrationActivity.newIntent(SplashActivity.this);
-        startActivity(intent);
-        finish();
+    public void userAlreadyRegistered(boolean status) {
+        if (!status) {
+            Intent intent = RegistrationActivity.newIntent(SplashActivity.this);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
@@ -99,15 +116,15 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
     }
 
     @Override
-    public SplashActivityViewModel getViewModel() {
-        return mSplashActivityViewModel;
+    public SplashViewModel getViewModel() {
+        return mSplashViewModel;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivitySplashBinding = getViewDataBinding();
-        mSplashActivityViewModel.setNavigator(this);
+        mSplashViewModel.setNavigator(this);
 
         prefManager = new PrefManager(this);
 
@@ -177,14 +194,14 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
                 Log.e("Referrer","disconnected");
             }
         });*/
-        mSplashActivityViewModel.clearLatLng();
+        mSplashViewModel.clearLatLng();
 
 
-        analytics=new Analytics( this,pageName);
+        analytics = new Analytics(this, pageName);
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
-            mSplashActivityViewModel.version.set("v" + version);
+            mSplashViewModel.version.set("v" + version);
 
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -210,7 +227,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         finish();*/
 
 
-
     }
 
     @Override
@@ -229,67 +245,26 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         super.onResume();
         registerWifiReceiver();
         Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
 
-                Intent repliesIntent = RepliesActivity.newIntent(SplashActivity.this);
-                startActivity(repliesIntent);
-                finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!prefManager.isFirstTimeLaunch()) {
+                    Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
+                    startActivity(intent);
+                    finish();
+                } else {
 
-            } else {
+                    mSplashViewModel.checkUpdate();
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!prefManager.isFirstTimeLaunch()) {
-                            Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
-                            startActivity(intent);
-                            finish();
-                        } else {
-
-                            mSplashActivityViewModel.checkUpdate();
-
-                        }
-                    }
-                }, 1000);
-            }
-        }else {
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!prefManager.isFirstTimeLaunch()) {
-                        Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
-                        startActivity(intent);
-                        finish();
-                    } else {
-
-                        mSplashActivityViewModel.checkUpdate();
-
-                    }
                 }
-            }, 1000);
-
-
-        }
-    }
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
-        }
-    };
+        }, 1000);
+
+
+
+    }
+
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -299,13 +274,13 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
     }
 
 
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -320,13 +295,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
                 && networkInfo.isConnected();
     }
 
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 
-
-    @Override
-    public void canceled() {
-
-    }
 }

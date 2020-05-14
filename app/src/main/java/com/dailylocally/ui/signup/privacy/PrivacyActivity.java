@@ -13,9 +13,11 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityPrivacyBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.registration.RegistrationActivity;
+
+import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
@@ -119,12 +121,12 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
 
 
     private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -145,7 +147,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
             } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

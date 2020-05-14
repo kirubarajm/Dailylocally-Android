@@ -1,9 +1,9 @@
 package com.dailylocally.ui.signup.faqs;
 
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.data.DataManager;
-
 import java.util.ArrayList;
 
 import dagger.Module;

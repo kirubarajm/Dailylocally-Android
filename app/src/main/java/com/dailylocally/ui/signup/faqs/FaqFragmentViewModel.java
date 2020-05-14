@@ -1,9 +1,10 @@
 package com.dailylocally.ui.signup.faqs;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 import android.util.Log;
+
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableList;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -12,7 +13,8 @@ import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+import com.dailylocally.utilities.DailylocallyApp;
+
 
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
 
 
     public void fetchRepos() {
-        if(!MvvmApp.getInstance().onCheckNetWork()) return;
+        if(!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
         //if(!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
@@ -73,6 +75,6 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
                 }
             }
         }, AppConstants.API_VERSION_ONE);
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
 }

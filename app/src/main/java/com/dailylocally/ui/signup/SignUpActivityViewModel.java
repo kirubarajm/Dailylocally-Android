@@ -1,7 +1,9 @@
 package com.dailylocally.ui.signup;
 
-import android.databinding.ObservableField;
+
 import android.util.Log;
+
+import androidx.databinding.ObservableField;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -11,7 +13,8 @@ import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.AppSignatureHashHelper;
-import com.dailylocally.utilities.MvvmApp;
+import com.dailylocally.utilities.DailylocallyApp;
+
 
 public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigator> {
 
@@ -20,7 +23,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
     public boolean otpStatus;
     public boolean genderstatus;
     long OtpId;
-    long userId;
+    String userId;
     Response.ErrorListener errorListener;
 
     public SignUpActivityViewModel(DataManager dataManager) {
@@ -57,12 +60,12 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
     public void users(String phoneNumber) {
 
 
-        AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(MvvmApp.getInstance());
+        AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(DailylocallyApp.getInstance());
 
         // This code requires one time to get Hash keys do comment and share key
         Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
 
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber, appSignatureHashHelper.getAppSignatures().get(0)), new Response.Listener<SignUpResponse>() {
@@ -73,8 +76,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                             passwordstatus = response.getPasswordstatus();
                             otpStatus = response.getOtpstatus();
                             genderstatus = response.getGenderstatus();
-                            getDataManager().updateUserGender(genderstatus);
-                            getDataManager().updateUserPasswordStatus(passwordstatus);
+
                             if (response.getOid() != null) {
                                 OtpId = response.getOid();
 
@@ -94,7 +96,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
             }, AppConstants.API_VERSION_ONE);
 
 
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
 
         } catch (Exception ee) {
             ee.printStackTrace();

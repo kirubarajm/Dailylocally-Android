@@ -13,30 +13,30 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
+import com.dailylocally.MainActivity;
 import com.dailylocally.R;
-import com.dailylocally.databinding.ActivityNameGenderBinding;
+
+import com.dailylocally.databinding.ActivityRegistrationBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.home.MainActivity;
-import com.dailylocally.ui.home.region.RegionSearchModel;
+
+
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
-public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding, RegistrationViewModel>
+public class RegistrationActivity extends BaseActivity<ActivityRegistrationBinding, RegistrationViewModel>
         implements RegistrationNavigator {
 
     @Inject
     RegistrationViewModel mLoginViewModelMain;
     int gender;
-    RegionListAdapter regionListAdapter;
-    RegionSearchModel.Result result;
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
             "[a-zA-Z0-9+._%-+]{1,256}" +
@@ -55,7 +55,7 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
             } else {
-                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -66,7 +66,7 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
             }
         }
     };
-    private ActivityNameGenderBinding mActivityNameGenderBinding;
+    private ActivityRegistrationBinding mActivityRegistrationBinding;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, RegistrationActivity.class);
@@ -79,19 +79,19 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
 
     @Override
     public void proceedClick() {
-        String name = mActivityNameGenderBinding.edtName.getText().toString();
-        String emailText = mActivityNameGenderBinding.email.getText().toString();
-        String referral = mActivityNameGenderBinding.referral.getText().toString();
+        String name = mActivityRegistrationBinding.edtName.getText().toString();
+        String emailText = mActivityRegistrationBinding.email.getText().toString();
+        String referral = mActivityRegistrationBinding.referral.getText().toString();
 
         String email = "";
 
         if (emailText.length() > 0 && emailText.contains(" ")) {
             email= emailText.replaceAll(" ", "");
-            mActivityNameGenderBinding.email.setText(email);
+            mActivityRegistrationBinding.email.setText(email);
         }
 
         if (validForProceed()) {
-            mLoginViewModelMain.insertNameGenderServiceCall(name,mActivityNameGenderBinding.email.getText().toString(),referral);
+            mLoginViewModelMain.insertNameGenderServiceCall(name,mActivityRegistrationBinding.email.getText().toString(),referral);
             new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_PROCEED);
         }
     }
@@ -110,15 +110,7 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void regionListLoaded(List<RegionSearchModel.Result> regionList) {
 
-       /* regionListAdapter = new RegionListAdapter(this, android.R.layout.simple_list_item_1);
-        mActivityNameGenderBinding.region.setThreshold(1);
-        mActivityNameGenderBinding.region.setAdapter(regionListAdapter);
-        regionListAdapter.setData(regionList);*/
-
-    }
 
     @Override
     public int getBindingVariable() {
@@ -127,7 +119,7 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_name_gender;
+        return R.layout.activity_registration;
     }
 
     @Override
@@ -146,7 +138,7 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityNameGenderBinding = getViewDataBinding();
+        mActivityRegistrationBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
         analytics=new Analytics(this, pageName);
@@ -168,15 +160,15 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
     }
 
     private boolean validForProceed() {
-        if (mActivityNameGenderBinding.edtName.getText().toString().equals("") || mActivityNameGenderBinding.email.getText().toString().equals("")) {
+        if (mActivityRegistrationBinding.edtName.getText().toString().equals("") || mActivityRegistrationBinding.email.getText().toString().equals("")) {
 
-            if ((mActivityNameGenderBinding.edtName.getText().toString().equals(""))) {
-                mActivityNameGenderBinding.inputName.setError("Enter your name");
+            if ((mActivityRegistrationBinding.edtName.getText().toString().equals(""))) {
+                mActivityRegistrationBinding.inputName.setError("Enter your name");
 
             }
 
-            if (!EMAIL_ADDRESS_PATTERN.matcher(mActivityNameGenderBinding.email.getText().toString()).matches()) {
-                mActivityNameGenderBinding.emailInput.setError("Enter valid email");
+            if (!EMAIL_ADDRESS_PATTERN.matcher(mActivityRegistrationBinding.email.getText().toString()).matches()) {
+                mActivityRegistrationBinding.emailInput.setError("Enter valid email");
             }
 
             return false;
@@ -206,12 +198,12 @@ public class RegistrationActivity extends BaseActivity<ActivityNameGenderBinding
     }
 
     private boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&

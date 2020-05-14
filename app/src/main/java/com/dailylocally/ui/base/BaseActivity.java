@@ -16,13 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.dailylocally.utilities.CancelListener;
 import com.dailylocally.utilities.CommonUtils;
 import com.dailylocally.utilities.NetworkUtils;
 
 import dagger.android.AndroidInjection;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity implements
-        BaseFragment.Callback {
+        BaseFragment.Callback, CancelListener {
 
     private ProgressDialog mProgressDialog;
     private T mViewDataBinding;

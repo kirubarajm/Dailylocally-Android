@@ -1,5 +1,10 @@
-package com.dailylocally.ui.onboarding;
+package com.dailylocally.ui.splash;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+
+import androidx.databinding.ObservableField;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -13,29 +18,55 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
 
-public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivityNavigator> {
+public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
-    public OnBoardingActivityViewModel(DataManager dataManager) {
+
+    public final ObservableField<String> version = new ObservableField<>();
+
+
+    public SplashViewModel(DataManager dataManager) {
         super(dataManager);
+        getDataManager().appStartedAgain(true);
     }
 
-    public void checkIsUserLoggedInOrNot(){
-        /*if (getDataManager().getCurrentUserId()!=null)
-        {
-            int userId = getDataManager().getCurrentUserId();
-            Log.e("userId", String.valueOf(userId));
-            boolean genderStatus = getDataManager().getisGenderStatus();
-            if (genderStatus) {
-                getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
-            }else {
-                getNavigator().checkForUserGenderStatus(true);
+
+
+
+
+
+
+    public void clearLatLng(){
+
+        if (getDataManager().getAddressId()==null) {
+            getDataManager().setCurrentLat(null);
+            getDataManager().setCurrentLng(null);
+        }
+
+    }
+
+
+    public void checkIsUserLoggedInOrNot() {
+
+        try {
+            if (getDataManager().getCurrentUserId() != null) {
+
+                if (getDataManager().isUserRegistered()) {
+                    if (getNavigator() != null)
+                        getNavigator().checkForUserLogin(AppConstants.FLAG_TRUE);
+                } else {
+                    if (getNavigator() != null)
+                        getNavigator().userAlreadyRegistered(false);
+                }
+            } else {
+                if (getNavigator() != null)
+                    getNavigator().checkForUserLogin(AppConstants.FLAG_FALSE);
             }
-        }else {*/
-            getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
-      //  }
+        } catch (Exception e) {
 
+            if (getNavigator() != null)
+                getNavigator().checkForUserLogin(AppConstants.FLAG_FALSE);
+        }
     }
-
 
     public void checkUpdate() {
         /*   MvvmApp.getInstance().getVersionCode()*/
@@ -45,10 +76,10 @@ public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivit
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FCM_FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
             @Override
             public void onResponse(UpdateResponse response) {
-                //  getNavigator().update(false, false);
+              //  getNavigator().update(false, false);
 
 
-                //    Toast.makeText(MvvmApp.getInstance(),String.valueOf(MvvmApp.getInstance().getVersionCode()) , Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(MvvmApp.getInstance(),String.valueOf(MvvmApp.getInstance().getVersionCode()) , Toast.LENGTH_SHORT).show();
 
                 if (response != null)
                     if (response.getResult() != null && response.getStatus()) {
@@ -66,14 +97,13 @@ public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivit
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                getNavigator().update(false, false);
+
             }
         }, AppConstants.API_VERSION_ONE);
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
 
 
     }
-
 
 
 }

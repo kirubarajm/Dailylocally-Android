@@ -45,7 +45,7 @@ public class LoginResponse {
 
         @SerializedName("userid")
         @Expose
-        public Long userid;
+        public String userid;
         @SerializedName("name")
         @Expose
         public String name;
@@ -70,16 +70,16 @@ public class LoginResponse {
 
         @SerializedName("aid")
         @Expose
-        private Long aid;
+        private String aid;
         @SerializedName("address_title")
         @Expose
         private String addressTitle;
         @SerializedName("lat")
         @Expose
-        private Double lat;
+        private String lat;
         @SerializedName("lon")
         @Expose
-        private Double lon;
+        private String lon;
 
         public String getAddress() {
             return address;
@@ -89,11 +89,11 @@ public class LoginResponse {
             this.address = address;
         }
 
-        public Long getAid() {
+        public String getAid() {
             return aid;
         }
 
-        public void setAid(Long aid) {
+        public void setAid(String aid) {
             this.aid = aid;
         }
 
@@ -105,28 +105,28 @@ public class LoginResponse {
             this.addressTitle = addressTitle;
         }
 
-        public Double getLat() {
+        public String getLat() {
             return lat;
         }
 
-        public void setLat(Double lat) {
+        public void setLat(String lat) {
             this.lat = lat;
         }
 
-        public Double getLon() {
+        public String getLon() {
             return lon;
         }
 
-        public void setLon(Double lon) {
+        public void setLon(String lon) {
             this.lon = lon;
         }
 
 
-        public Long getUserid() {
+        public String getUserid() {
             return userid;
         }
 
-        public void setUserid(Long userid) {
+        public void setUserid(String userid) {
             this.userid = userid;
         }
 

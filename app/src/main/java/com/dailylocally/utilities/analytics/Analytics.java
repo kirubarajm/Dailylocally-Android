@@ -16,7 +16,7 @@ import com.dailylocally.utilities.AppConstants;
 public class Analytics {
 
     private static FirebaseAnalytics mFirebaseAnalytics;
-    long userid = 0L;
+    String userid = null;
     private String screen_name, screen_id, click;
 
     public Analytics() {
@@ -25,23 +25,9 @@ public class Analytics {
 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
 
-        try {
+
             userid = appPreferencesHelper.getCurrentUserId();
-
-        } catch (Exception e) {
-            SharedPreferences settings = DailylocallyApp.getInstance().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
-            // settings.edit().clear().apply();
-            int uid = settings.getInt("PREF_KEY_CURRENT_USER_ID", 0);
-            int aid = settings.getInt("CURRENT_ADDRESS_ID", 0);
-            int oid = settings.getInt("PREF_KEY_ORDER_ID", 0);
-            int roid = settings.getInt("RATING_ORDER_ID", 0);
-            appPreferencesHelper.setCurrentUserId((long) uid);
-            appPreferencesHelper.setAddressId((long) aid);
-            appPreferencesHelper.setOrderId((long) oid);
-            appPreferencesHelper.setRatingOrderid((long) roid);
-
-        }
-
+            
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -82,7 +68,7 @@ public class Analytics {
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(productid));
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, productname);
         bundle.putDouble(FirebaseAnalytics.Param.PRICE, price);
-        bundle.putLong(FirebaseAnalytics.Param.QUANTITY, quantity);
+        bundle.putString(FirebaseAnalytics.Param.QUANTITY, quantity);
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_TO_CART, bundle);*/
 
     }
@@ -137,7 +123,7 @@ public class Analytics {
             addProperties();
         Bundle params = new Bundle();
         params.putString("screen_name", screen_name);
-        params.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        params.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(click, params);
     }
 
@@ -156,7 +142,7 @@ public class Analytics {
         bundle.putInt(AppConstants.ANALYTICYS_PRODUCT_QUANTITY, 1);
         bundle.putInt(AppConstants.ANALYTICYS_PRODUCT_ID, productid);
         bundle.putString(AppConstants.ANALYTICYS_PRODUCT_NAME, productName);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ADD_TO_CART, bundle);*/
 
@@ -176,7 +162,7 @@ public class Analytics {
         bundle.putInt(AppConstants.ANALYTICYS_PRODUCT_QUANTITY, 1);
         bundle.putInt(AppConstants.ANALYTICYS_PRODUCT_ID, productid);
         bundle.putString(AppConstants.ANALYTICYS_PRODUCT_NAME, productName);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REMOVE_FROM_CART, bundle);*/
 
@@ -184,7 +170,7 @@ public class Analytics {
     }
 
 
-    public void userLogin(Long user_id, String number) {
+    public void userLogin(String user_id, String number) {
         if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
@@ -192,13 +178,13 @@ public class Analytics {
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, user_id);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, user_id);
         bundle.putString(AppConstants.ANALYTICYS_MOBILE_NUMBER, number);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_USER_LOGIN, bundle);
     }
 
 
-    public void paymentFailed(Long order_id, int price) {
+    public void paymentFailed(String order_id, int price) {
         if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
@@ -207,15 +193,15 @@ public class Analytics {
 
         if (order_id != null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
+            bundle.putString(AppConstants.ANALYTICYS_ORDER_ID, order_id);
             bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
-            bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+            bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
             bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
             mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_FAILED, bundle);
         }
     }
 
-    public void paymentSuccess(Long order_id, int price) {
+    public void paymentSuccess(String order_id, int price) {
         if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
@@ -223,16 +209,16 @@ public class Analytics {
         }
         if (order_id != null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
+            bundle.putString(AppConstants.ANALYTICYS_ORDER_ID, order_id);
             bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
-            bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+            bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
             bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
             mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_SUCCESS, bundle);
         }
     }
 
 
-    public void orderPlaced(Long order_id, int price) {
+    public void orderPlaced(String order_id, int price) {
         if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
@@ -240,23 +226,23 @@ public class Analytics {
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
+        bundle.putString(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ORDER_PLACED, bundle);
     }
 
-    public void createOrder(Long order_id, int price) {
+    public void createOrder(String order_id, int price) {
         if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
+        bundle.putString(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CREATE_ORDER, bundle);
     }
@@ -272,7 +258,7 @@ public class Analytics {
         bundle.putString(AppConstants.ANALYTICYS_SEARCH_TYPE, type);
         bundle.putString(AppConstants.ANALYTICYS_SEARCH_NAME, name);
         bundle.putString(AppConstants.ANALYTICYS_SEARCH_SUGGESTION, suggestion);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_SEARCH_CLICKED, bundle);*/
     }
 
@@ -286,7 +272,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.ANALYTICYS_STORY_ID, id);
         bundle.putString(AppConstants.ANALYTICYS_STORY_TITLE, title);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_STORY_VIEW, bundle);*/
     }
 
@@ -299,7 +285,7 @@ public class Analytics {
 
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_REGION, title);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REGION_SELECTED, bundle);*/
     }
 
@@ -314,7 +300,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.ANALYTICYS_RATING, rating);
         bundle.putString(AppConstants.ANALYTICYS_feedback, feedback);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.SCREEN_APP_FEEDBCK, bundle);
     }
 
@@ -332,7 +318,7 @@ public class Analytics {
         bundle.putDouble(AppConstants.PRODUCT_RATING, delRating);
         bundle.putString(AppConstants.PRODUCT_FEEDBACK, prodFeedback);
         bundle.putString(AppConstants.DELIVERY_FEEDBACK, delFeedback);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_ORDER_RATING, bundle);
     }
 
@@ -345,7 +331,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_QUERIES, query);
         bundle.putString(AppConstants.ANALYTICYS_CHAT_MESSAGE, message);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.SCREEN_QUERY_CHAT, bundle);*/
     }
 
@@ -357,7 +343,7 @@ public class Analytics {
         }
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_QUERIES, query);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_MAKE_QUERIES, bundle);*/
     }
 
@@ -368,34 +354,34 @@ public class Analytics {
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.ANALYTICYS_ORDER_ID, orderid);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REPEAT_ORDER, bundle);
     }
 
 
-    public void selectKitchen(String type, Long kitchenId) {
+    public void selectKitchen(String type, String kitchenId) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenId);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenId);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(type, bundle);
     }
 
 
-    public void kitchenViewcart(String type, Long kitchenid) {
+    public void kitchenViewcart(String type, String kitchenid) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenid);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(type, bundle);
     }
 
@@ -406,7 +392,7 @@ public class Analytics {
         }
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CHECKOUT, bundle);*/
     }
@@ -421,7 +407,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.APP_OPENS_PREVIOUS_PAGE, previousPage);
         bundle.putString(AppConstants.APP_OPENS_ADDRESS_TYPE, addressType);
         bundle.putInt(AppConstants.APP_OPENS_SERVICEABLESTATUS, serviceablestatus);
@@ -436,7 +422,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.APP_HOME_PREVIOUS_PAGE, previousPage);
         bundle.putString(AppConstants.APP_HOME_ADDRESS_TYPE, addressType);
         bundle.putInt(AppConstants.APP_CATEGORY_COUNT, categoryCount);
@@ -447,7 +433,7 @@ public class Analytics {
     }
 
     /////KITCHEN PAGE
-    /*public void kitchenPageMetrics(long makeitId, String eta, double rating, List<KitchenDetailsResponse.Product> favOtherItemsTdysmenu *//*int productFavSectionCount, int productOtherCombosSectionCount,
+    /*public void kitchenPageMetrics(String makeitId, String eta, double rating, List<KitchenDetailsResponse.Product> favOtherItemsTdysmenu *//*int productFavSectionCount, int productOtherCombosSectionCount,
                                    int productOtherItemsSectionCount,*//*, int nextAvailableProductCount, boolean serviceability, int homeMakerBadge,
                                    String favoriteByUser, String vegOnly, String nextPage) {
         try {
@@ -456,8 +442,8 @@ public class Analytics {
                 addProperties();
             }
             Bundle bundle = new Bundle();
-            bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-            bundle.putLong(AppConstants.KITCHEN_PAGE_MAKEIT_ID, makeitId);
+            bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
+            bundle.putString(AppConstants.KITCHEN_PAGE_MAKEIT_ID, makeitId);
            // bundle.putString(AppConstants.KITCHEN_PAGE_ETA, eta);
          //   bundle.putDouble(AppConstants.KITCHEN_PAGE_RATING, rating);
             if (favOtherItemsTdysmenu != null && favOtherItemsTdysmenu.size() > 0) {
@@ -478,16 +464,16 @@ public class Analytics {
     }*/
 
     /////REGION PAGE
-    public void regionPageMetrics(String previousPage, long regionId, String regionName, int serviceableCount, int unServiceableCount,/*String nextPage,*/String serviceableKitchensList
+    public void regionPageMetrics(String previousPage, String regionId, String regionName, int serviceableCount, int unServiceableCount,/*String nextPage,*/String serviceableKitchensList
             , String unserviceableKitchensList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.REGION_PREVIOUS_PAGE, previousPage);
-        bundle.putLong(AppConstants.REGION_PAGE_REGION_ID, regionId);
+        bundle.putString(AppConstants.REGION_PAGE_REGION_ID, regionId);
         bundle.putString(AppConstants.REGION_PAGE_REGION_NAME, regionName);
         bundle.putInt(AppConstants.REGION_PAGE_SERVICEABLE_COUNT, serviceableCount);
         bundle.putInt(AppConstants.REGION_PAGE_UNSERVICEABLE_COUNT, unServiceableCount);
@@ -505,7 +491,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.WORD_SEARCHED, wordSearched);
         bundle.putString(AppConstants.SEARCH_PREVOIUS_PAGE, prevPage);
        // bundle.putInt(AppConstants.REGION_SUGGESTION_COUNT, regionSuggestionCount);
@@ -528,7 +514,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(AppConstants.ADD_TO_CART_PRODUCT_ID, productId);
         bundle.putString(AppConstants.ADD_TO_CART_CURRENT_PAGE, currentPage);
         bundle.putInt(AppConstants.ADD_TO_CART_PRICE, price);
@@ -541,15 +527,15 @@ public class Analytics {
     }
 
     /////OPEN CART PAGE
-    public void openCartPageMetrics(String previousScreen, long makeitId, int totalAmt, String promoCode, String deliveryAddressType, String nextPage, String cartProductIdQtyList) {
+    public void openCartPageMetrics(String previousScreen, String makeitId, int totalAmt, String promoCode, String deliveryAddressType, String nextPage, String cartProductIdQtyList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
 
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        bundle.putLong(AppConstants.OPEN_CART_PAGE_MAKEIT_ID, makeitId);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.OPEN_CART_PAGE_MAKEIT_ID, makeitId);
         bundle.putString(AppConstants.OPEN_CART_PREVIOUS_PAGE, previousScreen);
         bundle.putInt(AppConstants.OPEN_CART_PAGE_TOTAL_AMOUNT, totalAmt);
         bundle.putString(AppConstants.OPEN_CART_PAGE_PROMO_CODE, promoCode);
@@ -566,7 +552,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.PAYMENT_METHOD_PAGE_COD_OR_ONLINE, codOrOnline);
         bundle.putString(AppConstants.PAYMENT_METHOD_PREVIOUS_PAGE, prevPage);
 
@@ -580,7 +566,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.TRACK_ORDER_PAGE_ORDER_ID, orderId);
         bundle.putString(AppConstants.TRACK_ORDER_PREVIOUS_PAGE, prevPage);
 
@@ -595,7 +581,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.SEARCH_SUGGESTION_WORD, suggestionWord);
         bundle.putInt(AppConstants.SEARCH_SUGGESTION_REGION_COUNT, regionCount);
         bundle.putString(AppConstants.SEARCH_SUGGESTION_REGION_LIST, regionList);
@@ -614,7 +600,7 @@ public class Analytics {
             addProperties();
         }
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.PROCEED_TO_PAY_PRODUCT_ID_LIST, productIdList);
         bundle.putString(AppConstants.PROCEED_TO_PAY_PRODUCT_QUANTITY_LIST, productQtyList);
         bundle.putString(AppConstants.PROCEED_TO_PAY_AMOUNT, totalAmt);

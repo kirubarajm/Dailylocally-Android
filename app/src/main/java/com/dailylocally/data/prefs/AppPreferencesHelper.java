@@ -19,7 +19,6 @@ package com.dailylocally.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.dailylocally.data.DataManager;
 import com.dailylocally.di.PreferenceInfo;
 
 import javax.inject.Inject;
@@ -102,14 +101,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_PROMOTION_SEEN = "PROMOTION_SEEN";
     private static final String PREF_KEY_PROMOTION_ID = "PROMOTION_ID";
-    private static final String PREF_KEY_PROMOTION_SEEN_COUNT= "PROMOTION_SEEN_COUNT";
+    private static final String PREF_KEY_PROMOTION_SEEN_COUNT = "PROMOTION_SEEN_COUNT";
     private static final String PREF_KEY_PROMOTION_SEEN_DATE = "PROMOTION_SEEN_DATE";
 
     private static final String PREF_KEY_CHAT_ORDERID = "CHAT_ORDERID";
 
     private static final String PREF_KEY_SERVICEABLESTATUS = "SERVICEABLESTATUS";
     private static final String PREF_KEY_SERVICEABLETITLE = "SERVICEABLETITLE";
-    private static final String PREF_KEY_SERVICEABLESUBTITLE= "SERVICEABLESUBTITLE";
+    private static final String PREF_KEY_SERVICEABLESUBTITLE = "SERVICEABLESUBTITLE";
+
+    private static final String PREF_KEY_USER_REGISTRATION_STATUS = "USER_REGISTRATION_STATUS";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -121,15 +122,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 
-    @Override
-    public String getAccessToken() {
-        return mPrefs.getString(PREF_KEY_ACCESS_TOKEN, null);
-    }
-
-    @Override
-    public void setAccessToken(String accessToken) {
-        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, accessToken).apply();
-    }
 
     @Override
     public String getCurrentUserEmail() {
@@ -142,45 +134,35 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public Long getCurrentUserId() {
+    public String getCurrentUserId() {
         // return userId == AppConstants.NULL_INDEX ? null : userId;
         //return mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, null);
 
-        return mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, 0L);
+        return mPrefs.getString(PREF_KEY_CURRENT_USER_ID, null);
     }
 
     @Override
-    public void setCurrentUserId(Long userId) {
+    public void setCurrentUserId(String userId) {
         // Integer id = userId == null ? AppConstants.NULL_INDEX : userId;
         /*if (userId == null) {
             userId = 0;
         }
         mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, userId).apply();*/
 
-        // Long id = userId == null ? AppConstants.NULL_INDEX : userId;
-        mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_ID, userId).apply();
+        // String id = userId == null ? AppConstants.NULL_INDEX : userId;
+        mPrefs.edit().putString(PREF_KEY_CURRENT_USER_ID, userId).apply();
     }
 
     @Override
-    public Long getCurrentPromotionUserId() {
-        return mPrefs.getLong(PREF_KEY_CURRENT_PROMOTION_USER_ID, 0L);
+    public String getCurrentPromotionUserId() {
+        return mPrefs.getString(PREF_KEY_CURRENT_PROMOTION_USER_ID, null);
     }
 
     @Override
-    public void setCurrentPromotionUserId(Long userId) {
-        mPrefs.edit().putLong(PREF_KEY_CURRENT_PROMOTION_USER_ID, userId).apply();
+    public void setCurrentPromotionUserId(String userId) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_PROMOTION_USER_ID, userId).apply();
     }
 
-    @Override
-    public int getCurrentUserLoggedInMode() {
-        return mPrefs.getInt(PREF_KEY_USER_LOGGED_IN_MODE,
-                DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType());
-    }
-
-    @Override
-    public void setCurrentUserLoggedInMode(DataManager.LoggedInMode mode) {
-        mPrefs.edit().putInt(PREF_KEY_USER_LOGGED_IN_MODE, mode.getType()).apply();
-    }
 
     @Override
     public String getCurrentUserName() {
@@ -200,21 +182,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
 */
 
     @Override
-    public void setCurrentUserProfilePicUrl(String profilePicUrl) {
-        mPrefs.edit().putString(PREF_KEY_CURRENT_USER_PROFILE_PIC_URL, profilePicUrl).apply();
-    }
-
-    @Override
-    public boolean getIsLoggedIn() {
-        return mPrefs.getBoolean(PREF_KEY_IS_USER_LOGGED_IN, false);
-    }
-
-    @Override
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        mPrefs.edit().putBoolean(PREF_KEY_IS_USER_LOGGED_IN, isLoggedIn).apply();
-    }
-
-    @Override
     public String getCurrentAddressTitle() {
         return mPrefs.getString(PREF_KEY_ADDRESS_TITLE, null);
     }
@@ -224,15 +191,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putString(PREF_KEY_ADDRESS_TITLE, title).apply();
     }
 
-    @Override
-    public int getRefundBalance() {
-        return mPrefs.getInt(PREF_KEY_REFUND_BALANCE, 0);
-    }
-
-    @Override
-    public void setRefundBalance(int refundBalance) {
-        mPrefs.edit().putInt(PREF_KEY_REFUND_BALANCE, refundBalance).apply();
-    }
 
     @Override
     public String getRazorpayCustomerId() {
@@ -270,8 +228,10 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public void setChatOrderid(String orderid) {
-        mPrefs.edit().putString(PREF_KEY_CHAT_ORDERID, orderid).apply();
+    public void setCurrentLat(String lat) {
+
+        mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, lat).apply();
+
     }
 
     @Override
@@ -280,12 +240,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public void setCurrentLat(double lat) {
-        if (lat == 0.0) {
-            mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, null).apply();
-        } else {
-            mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lat)).apply();
-        }
+    public void setChatOrderid(String orderid) {
+        mPrefs.edit().putString(PREF_KEY_CHAT_ORDERID, orderid).apply();
     }
 
     @Override
@@ -294,45 +250,22 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public void setCurrentLng(double lng) {
+    public void setCurrentLng(String lng) {
 
-        if (lng == 0.0) {
-            mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, null).apply();
-        } else {
-            mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, String.valueOf(lng)).apply();
-        }
+        mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, lng).apply();
 
 
     }
 
+
     @Override
-    public Long getMakeitID() {
-        return mPrefs.getLong(PREF_KEY_SELECTED_MAKEIT_ID, 0);
+    public String getAddressId() {
+        return mPrefs.getString(PREF_KEY_CURRENT_ADDRESS_ID, null);
     }
 
     @Override
-    public void setMakeitID(Long id) {
-        mPrefs.edit().putLong(PREF_KEY_SELECTED_MAKEIT_ID, id).apply();
-    }
-
-    @Override
-    public Long getOrderId() {
-        return mPrefs.getLong(PREF_KEY_ORDER_ID, 0);
-    }
-
-    @Override
-    public void setOrderId(Long orderId) {
-        mPrefs.edit().putLong(PREF_KEY_ORDER_ID, orderId).apply();
-    }
-
-    @Override
-    public Long getAddressId() {
-        return mPrefs.getLong(PREF_KEY_CURRENT_ADDRESS_ID, 0L);
-    }
-
-    @Override
-    public void setAddressId(Long orderId) {
-        mPrefs.edit().putLong(PREF_KEY_CURRENT_ADDRESS_ID, orderId).apply();
+    public void setAddressId(String orderId) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_ADDRESS_ID, orderId).apply();
     }
 
     @Override
@@ -343,36 +276,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setMaster(String master) {
         mPrefs.edit().putString(PREF_KEY_MASTER, master).apply();
-    }
-
-    @Override
-    public String getFilterSort() {
-        return mPrefs.getString(PREF_KEY_FILTER, null);
-    }
-
-    @Override
-    public void setFilterSort(String master) {
-        mPrefs.edit().putString(PREF_KEY_FILTER, master).apply();
-    }
-
-    @Override
-    public String getStoriesList() {
-        return mPrefs.getString(PREF_KEY_STORIES_LIST, null);
-    }
-
-    @Override
-    public void setStoriesList(String stories) {
-        mPrefs.edit().putString(PREF_KEY_STORIES_LIST, stories).apply();
-    }
-
-    @Override
-    public Integer getCurrentFragment() {
-        return mPrefs.getInt(PREF_KEY_CURRENT_FRAGMENT, 0);
-    }
-
-    @Override
-    public void setCurrentFragment(Integer id) {
-        mPrefs.edit().putInt(PREF_KEY_CURRENT_FRAGMENT, id).apply();
     }
 
 
@@ -397,38 +300,17 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public boolean getIsFav() {
-        return mPrefs.getBoolean(PREF_KEY_IS_FAV_CLICKED, false);
+    public boolean getServiceableStatus() {
+        return mPrefs.getBoolean(PREF_KEY_SERVICEABLESTATUS, false);
     }
 
-    @Override
-    public void setIsFav(boolean status) {
-        mPrefs.edit().putBoolean(PREF_KEY_IS_FAV_CLICKED, status).apply();
-    }
-
-    @Override
-    public boolean getisGenderStatus() {
-        return mPrefs.getBoolean(PREF_KEY_GENDER_STATUS, false);
-    }
-
-    @Override
-    public void setisGenderStatus(boolean status) {
-        mPrefs.edit().putBoolean(PREF_KEY_GENDER_STATUS, status).apply();
-    }
-
-    @Override
-    public boolean getisPasswordStatus() {
-        return mPrefs.getBoolean(PREF_KEY_PASSWORD_STATUS, false);
-    }
-
-    @Override
-    public void setisPasswordStatus(boolean status) {
-        mPrefs.edit().putBoolean(PREF_KEY_PASSWORD_STATUS, status).apply();
-    }
-
-    @Override
     public void setServiceableStatus(boolean status) {
         mPrefs.edit().putBoolean(PREF_KEY_SERVICEABLESTATUS, status).apply();
+    }
+
+    @Override
+    public String getServiceableTitle() {
+        return mPrefs.getString(PREF_KEY_SERVICEABLETITLE, "");
     }
 
     @Override
@@ -437,34 +319,14 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
+    public String getServiceableSubTitle() {
+        return mPrefs.getString(PREF_KEY_SERVICEABLESUBTITLE, "");
+
+    }
+
+    @Override
     public void setServiceableSubTitle(String subTitle) {
         mPrefs.edit().putString(PREF_KEY_SERVICEABLESUBTITLE, subTitle).apply();
-    }
-
-    @Override
-    public boolean getServiceableStatus() {
-        return mPrefs.getBoolean(PREF_KEY_SERVICEABLESTATUS, false);
-    }
-
-    @Override
-    public String getServiceableTitle() {
-        return mPrefs.getString(PREF_KEY_SERVICEABLETITLE,"");
-    }
-
-    @Override
-    public String getServiceableSubTitle() {
-        return mPrefs.getString(PREF_KEY_SERVICEABLESUBTITLE,"");
-
-    }
-
-    @Override
-    public Integer getTotalOrders() {
-        return mPrefs.getInt(PREF_KEY_TOTAL_ORDERS, 0);
-    }
-
-    @Override
-    public void setTotalOrders(Integer orders) {
-        mPrefs.edit().putInt(PREF_KEY_TOTAL_ORDERS, orders).apply();
     }
 
     @Override
@@ -487,25 +349,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putBoolean(PREF_KEY_OFFICE_ADDRESS_ADDED, status).apply();
     }
 
-    @Override
-    public int getRefundId() {
-        return mPrefs.getInt(PREF_KEY_REFUND_ID, 0);
-    }
-
-    @Override
-    public void setRefundId(int rcid) {
-        mPrefs.edit().putInt(PREF_KEY_REFUND_ID, rcid).apply();
-    }
-
-    @Override
-    public int getRegionId() {
-        return mPrefs.getInt(PREF_KEY_REGION_ID, 0);
-    }
-
-    @Override
-    public void setRegionId(int regiionId) {
-        mPrefs.edit().putInt(PREF_KEY_REGION_ID, regiionId).apply();
-    }
 
     @Override
     public int getCouponId() {
@@ -518,25 +361,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putInt(PREF_KEY_COUPON_ID, couponId).apply();
     }
 
-    @Override
-    public boolean getEmailStatus() {
-        return mPrefs.getBoolean(PREF_KEY_EMAIL_STATUS, false);
-    }
-
-    @Override
-    public void setEmailStatus(boolean status) {
-        mPrefs.edit().putBoolean(PREF_KEY_EMAIL_STATUS, status).apply();
-    }
-
-    @Override
-    public Integer getVegType() {
-        return mPrefs.getInt(PREF_KEY_VEG_TYPE, 0);
-    }
-
-    @Override
-    public void setVegType(Integer type) {
-        mPrefs.edit().putInt(PREF_KEY_VEG_TYPE, type).apply();
-    }
 
     @Override
     public Integer getRatingSkips() {
@@ -549,13 +373,13 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public Long getRatingOrderid() {
-        return mPrefs.getLong(PREF_KEY_RATING_ORDER_ID, 0);
+    public String getRatingOrderid() {
+        return mPrefs.getString(PREF_KEY_RATING_ORDER_ID, null);
     }
 
     @Override
-    public void setRatingOrderid(Long orderid) {
-        mPrefs.edit().putLong(PREF_KEY_RATING_ORDER_ID, orderid).apply();
+    public void setRatingOrderid(String orderid) {
+        mPrefs.edit().putString(PREF_KEY_RATING_ORDER_ID, orderid).apply();
     }
 
     @Override
@@ -671,7 +495,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getPromotionShowedDate() {
-        return  mPrefs.getString(PREF_KEY_PROMOTION_SEEN_DATE, " ");
+        return mPrefs.getString(PREF_KEY_PROMOTION_SEEN_DATE, " ");
     }
 
     @Override
@@ -707,6 +531,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setPromotionDisplayedCount(Integer count) {
         mPrefs.edit().putInt(PREF_KEY_PROMOTION_SEEN_COUNT, count).apply();
+    }
+
+    @Override
+    public boolean isUserRegistered() {
+        return mPrefs.getBoolean(PREF_KEY_USER_REGISTRATION_STATUS, false);
+    }
+
+    @Override
+    public void setUserRegistrationStatus(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_USER_REGISTRATION_STATUS, status).apply();
     }
 
     @Override

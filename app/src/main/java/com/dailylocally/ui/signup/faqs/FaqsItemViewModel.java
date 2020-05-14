@@ -1,7 +1,8 @@
 package com.dailylocally.ui.signup.faqs;
 
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
+
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 public class FaqsItemViewModel {
 

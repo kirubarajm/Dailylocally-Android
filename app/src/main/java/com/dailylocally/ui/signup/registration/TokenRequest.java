@@ -7,22 +7,22 @@ public class TokenRequest {
 
 @SerializedName("userid")
 @Expose
-private Long userid;
+private String userid;
 @SerializedName("pushid_android")
 @Expose
 private String pushidAndroid;
 
 
-    public TokenRequest(Long userid, String pushidAndroid) {
+    public TokenRequest(String userid, String pushidAndroid) {
         this.userid = userid;
         this.pushidAndroid = pushidAndroid;
     }
 
-    public Long getUserid() {
+    public String getUserid() {
 return userid;
 }
 
-public void setUserid(Long userid) {
+public void setUserid(String userid) {
 this.userid = userid;
 }
 

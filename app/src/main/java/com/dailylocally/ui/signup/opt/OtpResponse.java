@@ -28,7 +28,7 @@ public class OtpResponse {
     private Boolean genderstatus;
     @SerializedName("userid")
     @Expose
-    private Long userid;
+    private String userid;
     @SerializedName("regionid")
     @Expose
     private Integer regionid;
@@ -107,11 +107,11 @@ public class OtpResponse {
         this.genderstatus = genderstatus;
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
@@ -134,7 +134,7 @@ public class OtpResponse {
 
         @SerializedName("userid")
         @Expose
-        private Integer userid;
+        private String userid;
         @SerializedName("address_title")
         @Expose
         private String addressTitle;
@@ -152,13 +152,13 @@ public class OtpResponse {
         private String pincode;
         @SerializedName("aid")
         @Expose
-        private Long aid;
+        private String aid;
         @SerializedName("lat")
         @Expose
-        private Double lat;
+        private String lat;
         @SerializedName("lon")
         @Expose
-        private Double lon;
+        private String lon;
         @SerializedName("landmark")
         @Expose
         private String landmark;
@@ -256,11 +256,11 @@ public class OtpResponse {
             this.regionid = regionid;
         }
 
-        public Integer getUserid() {
+        public String getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(String userid) {
             this.userid = userid;
         }
 
@@ -304,27 +304,27 @@ public class OtpResponse {
             this.pincode = pincode;
         }
 
-        public Long getAid() {
+        public String getAid() {
             return aid;
         }
 
-        public void setAid(Long aid) {
+        public void setAid(String aid) {
             this.aid = aid;
         }
 
-        public Double getLat() {
+        public String getLat() {
             return lat;
         }
 
-        public void setLat(Double lat) {
+        public void setLat(String lat) {
             this.lat = lat;
         }
 
-        public Double getLon() {
+        public String getLon() {
             return lon;
         }
 
-        public void setLon(Double lon) {
+        public void setLon(String lon) {
             this.lon = lon;
         }
 

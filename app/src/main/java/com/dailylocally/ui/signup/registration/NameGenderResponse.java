@@ -56,7 +56,7 @@ public class NameGenderResponse {
 
         @SerializedName("userid")
         @Expose
-        private Integer userid;
+        private String userid;
         @SerializedName("name")
         @Expose
         private String name;
@@ -74,7 +74,7 @@ public class NameGenderResponse {
         private String otherRegion;
         @SerializedName("Locality")
         @Expose
-        private Object locality;
+        private String locality;
         @SerializedName("gender")
         @Expose
         private Integer gender;
@@ -94,11 +94,11 @@ public class NameGenderResponse {
             this.otherRegion = otherRegion;
         }
 
-        public Integer getUserid() {
+        public String getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(String userid) {
             this.userid = userid;
         }
 
@@ -134,11 +134,11 @@ public class NameGenderResponse {
             this.referalcode = referalcode;
         }
 
-        public Object getLocality() {
+        public String getLocality() {
             return locality;
         }
 
-        public void setLocality(Object locality) {
+        public void setLocality(String locality) {
             this.locality = locality;
         }
 

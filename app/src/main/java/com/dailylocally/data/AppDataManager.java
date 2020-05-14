@@ -18,9 +18,9 @@ package com.dailylocally.data;
 
 import android.content.Context;
 
+import com.dailylocally.data.prefs.PreferencesHelper;
 import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
-import com.dailylocally.data.prefs.PreferencesHelper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -56,48 +56,15 @@ public class AppDataManager implements DataManager {
         return null;
     }
 
-    @Override
-    public void setUserAsLoggedOut() {
-        updateUserInfo(
-                null,
-                null,
-                LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT,
-                null,
-                null,
-                false);
-    }
 
     @Override
     public void setLogout() {
-        updateUserInformation(0L, null, null, null, null);
+        updateUserInformation(null, null, null, null, null);
     }
 
-    @Override
-    public void updateApiHeader(Long userId, String accessToken) {
-
-    }
 
     @Override
-    public void updateUserInfo
-            (String accessToken,
-             Long userId,
-             LoggedInMode loggedInMode,
-             String userName,
-             String email, boolean isLoggedIn
-            ) {
-        setAccessToken(accessToken);
-        setCurrentUserId(userId);
-        setCurrentUserLoggedInMode(loggedInMode);
-        setCurrentUserName(userName);
-        setCurrentUserEmail(email);
-        setIsLoggedIn(isLoggedIn);
-
-        /*setCurrentUserProfilePicUrl(profilePicPath)*/
-        ;
-    }
-
-    @Override
-    public void updateUserInformation(Long userId, String userName, String userEmail, String PhoneNumber, String referralCode) {
+    public void updateUserInformation(String userId, String userName, String userEmail, String PhoneNumber, String referralCode) {
         setCurrentUserId(userId);
         setCurrentUserName(userName);
         setCurrentUserEmail(userEmail);
@@ -107,22 +74,10 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateUserGender(boolean genderStatus) {
-        setisGenderStatus(genderStatus);
+    public void userRegistered(boolean isRegistered) {
+        setUserRegistrationStatus(isRegistered);
     }
 
-    @Override
-    public void updateEmailStatus(boolean status) {
-        setEmailStatus(status);
-    }
-
-    @Override
-    public void updateUserPasswordStatus(boolean passwordStatus) {
-
-
-        setisPasswordStatus(passwordStatus);
-
-    }
 
     @Override
     public void showFunnel(boolean status) {
@@ -130,13 +85,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Long aid) {
-       /* setCurrentAddressTitle(title);
-        setCurrentAddressArea(area);
-        setCurrentAddress(address);
-        setCurrentLat(lat);
-        setCurrentLng(lng);*/
-
+    public void updateCurrentAddress(String title, String address, String lat, String lng, String area, String aid) {
         setCurrentAddressTitle(title);
         setCurrentAddressArea(area);
         setCurrentAddress(address);
@@ -150,42 +99,6 @@ public class AppDataManager implements DataManager {
         setMaster(master);
     }
 
-    @Override
-    public void saveFilterSort(String filters) {
-        setFilterSort(filters);
-    }
-
-    @Override
-    public void saveStoriesList(String stories) {
-        setStoriesList(stories);
-    }
-
-    @Override
-    public void saveVegType(Integer type) {
-        setVegType(type);
-    }
-
-    @Override
-    public void currentFragment(Integer id) {
-        setCurrentFragment(id);
-
-    }
-
-
-    @Override
-    public void kitchenId(Long id) {
-        setMakeitID(id);
-    }
-
-    @Override
-    public void totalOrders(Integer orders) {
-        setTotalOrders(orders);
-    }
-
-    @Override
-    public void saveRefundId(int rcid) {
-        mPreferencesHelper.setRefundId(rcid);
-    }
 
     @Override
     public void savePromotionId(int promotionid) {
@@ -193,7 +106,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void savePromotionCustomerId(Long customerid) {
+    public void savePromotionCustomerId(String customerid) {
         setCurrentPromotionUserId(customerid);
     }
 
@@ -217,15 +130,6 @@ public class AppDataManager implements DataManager {
         setRazorpayCustomerId(razorpayCustomerId);
     }
 
-    @Override
-    public void saveRefundBalance(int refundBalance) {
-        setRefundBalance(refundBalance);
-    }
-
-    @Override
-    public void saveRegionId(int regionid) {
-        setRegionId(regionid);
-    }
 
     @Override
     public void saveCouponId(int couponid) {
@@ -233,7 +137,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void saveRatingOrderId(Long orderid) {
+    public void saveRatingOrderId(String orderid) {
         setRatingOrderid(orderid);
     }
 
@@ -290,11 +194,6 @@ public class AppDataManager implements DataManager {
         setServiceableSubTitle(subtitle);
     }
 
-    @Override
-    public void currentOrderId(Long orderId) {
-
-        mPreferencesHelper.getOrderId();
-    }
 
     @Override
     public boolean homeAddressadded(boolean status) {
@@ -306,10 +205,6 @@ public class AppDataManager implements DataManager {
         return false;
     }
 
-    @Override
-    public void isFavClicked(boolean status) {
-        setIsFav(status);
-    }
 
     @Override
     public void appStartedAgain(boolean status) {
@@ -323,25 +218,7 @@ public class AppDataManager implements DataManager {
         setFirstCity(city);
     }
 
-   /* @Override
-    public Call<LoginResponse> userContinueClick(String name, String job) {
-        return null;
-    }
 
-    @Override
-    public Single<LoginResponse> doServerLoginApiCall(LoginRequest.ServerLoginRequest request) {
-        return mApiHelper.doServerLoginApiCall(request);
-    }*/
-
-    @Override
-    public String getAccessToken() {
-        return null;
-    }
-
-    @Override
-    public void setAccessToken(String accessToken) {
-
-    }
 
     @Override
     public String getCurrentUserEmail() {
@@ -354,34 +231,25 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Long getCurrentUserId() {
+    public String getCurrentUserId() {
         return mPreferencesHelper.getCurrentUserId();
     }
 
     @Override
-    public void setCurrentUserId(Long userId) {
+    public void setCurrentUserId(String userId) {
         mPreferencesHelper.setCurrentUserId(userId);
     }
 
     @Override
-    public Long getCurrentPromotionUserId() {
+    public String getCurrentPromotionUserId() {
         return mPreferencesHelper.getCurrentPromotionUserId();
     }
 
     @Override
-    public void setCurrentPromotionUserId(Long userId) {
-mPreferencesHelper.setCurrentPromotionUserId(userId);
+    public void setCurrentPromotionUserId(String userId) {
+        mPreferencesHelper.setCurrentPromotionUserId(userId);
     }
 
-    @Override
-    public int getCurrentUserLoggedInMode() {
-        return 0;
-    }
-
-    @Override
-    public void setCurrentUserLoggedInMode(LoggedInMode mode) {
-
-    }
 
     @Override
     public String getCurrentUserName() {
@@ -393,26 +261,6 @@ mPreferencesHelper.setCurrentPromotionUserId(userId);
         mPreferencesHelper.setCurrentUserName(userName);
     }
 
-    /*
-        @Override
-        public String getCurrentUserProfilePicUrl() {
-            return null;
-        }
-    */
-    @Override
-    public void setCurrentUserProfilePicUrl(String profilePicUrl) {
-
-    }
-
-    @Override
-    public boolean getIsLoggedIn() {
-        return mPreferencesHelper.getIsLoggedIn();
-    }
-
-    @Override
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        mPreferencesHelper.setIsLoggedIn(isLoggedIn);
-    }
 
     @Override
     public String getCurrentAddressTitle() {
@@ -424,15 +272,6 @@ mPreferencesHelper.setCurrentPromotionUserId(userId);
         mPreferencesHelper.setCurrentAddressTitle(title);
     }
 
-    @Override
-    public int getRefundBalance() {
-        return mPreferencesHelper.getRefundBalance();
-    }
-
-    @Override
-    public void setRefundBalance(int refundBalance) {
-        mPreferencesHelper.setRefundBalance(refundBalance);
-    }
 
     @Override
     public String getRazorpayCustomerId() {
@@ -470,8 +309,8 @@ mPreferencesHelper.setCurrentPromotionUserId(userId);
     }
 
     @Override
-    public void setChatOrderid(String orderid) {
-mPreferencesHelper.setChatOrderid(orderid);
+    public void setCurrentLat(String lat) {
+        mPreferencesHelper.setCurrentLat(lat);
     }
 
     @Override
@@ -480,8 +319,8 @@ mPreferencesHelper.setChatOrderid(orderid);
     }
 
     @Override
-    public void setCurrentLat(double lat) {
-        mPreferencesHelper.setCurrentLat(lat);
+    public void setChatOrderid(String orderid) {
+        mPreferencesHelper.setChatOrderid(orderid);
     }
 
     @Override
@@ -490,39 +329,20 @@ mPreferencesHelper.setChatOrderid(orderid);
     }
 
     @Override
-    public void setCurrentLng(double lng) {
+    public void setCurrentLng(String lng) {
         mPreferencesHelper.setCurrentLng(lng);
 
     }
 
-    @Override
-    public Long getMakeitID() {
-        return mPreferencesHelper.getMakeitID();
-    }
 
     @Override
-    public void setMakeitID(Long lng) {
-        mPreferencesHelper.setMakeitID(lng);
-    }
-
-    @Override
-    public Long getOrderId() {
-        return mPreferencesHelper.getOrderId();
-    }
-
-    @Override
-    public void setOrderId(Long orderId) {
-        mPreferencesHelper.setOrderId(orderId);
-    }
-
-    @Override
-    public Long getAddressId() {
+    public String getAddressId() {
         return mPreferencesHelper.getAddressId();
     }
 
     @Override
-    public void setAddressId(Long orderId) {
-        mPreferencesHelper.setAddressId(orderId);
+    public void setAddressId(String aid) {
+        mPreferencesHelper.setAddressId(aid);
     }
 
     @Override
@@ -535,35 +355,6 @@ mPreferencesHelper.setChatOrderid(orderid);
         mPreferencesHelper.setMaster(master);
     }
 
-    @Override
-    public String getFilterSort() {
-        return mPreferencesHelper.getFilterSort();
-    }
-
-    @Override
-    public void setFilterSort(String filters) {
-        mPreferencesHelper.setFilterSort(filters);
-    }
-
-    @Override
-    public String getStoriesList() {
-        return mPreferencesHelper.getStoriesList();
-    }
-
-    @Override
-    public void setStoriesList(String stories) {
-        mPreferencesHelper.setStoriesList(stories);
-    }
-
-    @Override
-    public Integer getCurrentFragment() {
-        return mPreferencesHelper.getCurrentFragment();
-    }
-
-    @Override
-    public void setCurrentFragment(Integer id) {
-        mPreferencesHelper.setCurrentFragment(id);
-    }
 
     @Override
     public String getCurrentUserPhNo() {
@@ -586,53 +377,13 @@ mPreferencesHelper.setChatOrderid(orderid);
     }
 
     @Override
-    public boolean getIsFav() {
-        return mPreferencesHelper.getIsFav();
-    }
-
-    @Override
-    public void setIsFav(boolean status) {
-        mPreferencesHelper.setIsFav(status);
-    }
-
-    @Override
-    public boolean getisGenderStatus() {
-        return mPreferencesHelper.getisGenderStatus();
-    }
-
-    @Override
-    public void setisGenderStatus(boolean status) {
-        mPreferencesHelper.setisGenderStatus(status);
-    }
-
-    @Override
-    public boolean getisPasswordStatus() {
-        return mPreferencesHelper.getisPasswordStatus();
-    }
-
-    @Override
-    public void setisPasswordStatus(boolean status) {
-        mPreferencesHelper.setisPasswordStatus(status);
+    public boolean getServiceableStatus() {
+        return mPreferencesHelper.getServiceableStatus();
     }
 
     @Override
     public void setServiceableStatus(boolean status) {
-mPreferencesHelper.setServiceableStatus(status);
-    }
-
-    @Override
-    public void setServiceableTitle(String title) {
-mPreferencesHelper.setServiceableTitle(title);
-    }
-
-    @Override
-    public void setServiceableSubTitle(String subTitle) {
-mPreferencesHelper.setServiceableSubTitle(subTitle);
-    }
-
-    @Override
-    public boolean getServiceableStatus() {
-        return mPreferencesHelper.getServiceableStatus();
+        mPreferencesHelper.setServiceableStatus(status);
     }
 
     @Override
@@ -641,19 +392,20 @@ mPreferencesHelper.setServiceableSubTitle(subTitle);
     }
 
     @Override
+    public void setServiceableTitle(String title) {
+        mPreferencesHelper.setServiceableTitle(title);
+    }
+
+    @Override
     public String getServiceableSubTitle() {
         return mPreferencesHelper.getServiceableSubTitle();
     }
 
     @Override
-    public Integer getTotalOrders() {
-        return mPreferencesHelper.getTotalOrders();
+    public void setServiceableSubTitle(String subTitle) {
+        mPreferencesHelper.setServiceableSubTitle(subTitle);
     }
 
-    @Override
-    public void setTotalOrders(Integer orders) {
-        mPreferencesHelper.setTotalOrders(orders);
-    }
 
     @Override
     public boolean isHomeAddressAdded() {
@@ -676,27 +428,6 @@ mPreferencesHelper.setServiceableSubTitle(subTitle);
         mPreferencesHelper.setOfficeAddressAdded(status);
     }
 
-    @Override
-    public int getRefundId() {
-        return mPreferencesHelper.getRefundId();
-    }
-
-    @Override
-    public void setRefundId(int rcid) {
-        mPreferencesHelper.setRefundId(rcid);
-    }
-
-    @Override
-    public int getRegionId() {
-        return mPreferencesHelper.getRegionId();
-    }
-
-    @Override
-    public void setRegionId(int regiionId) {
-
-        mPreferencesHelper.setRegionId(regiionId);
-
-    }
 
     @Override
     public int getCouponId() {
@@ -708,25 +439,6 @@ mPreferencesHelper.setServiceableSubTitle(subTitle);
         mPreferencesHelper.setCouponId(couponId);
     }
 
-    @Override
-    public boolean getEmailStatus() {
-        return mPreferencesHelper.getEmailStatus();
-    }
-
-    @Override
-    public void setEmailStatus(boolean status) {
-        mPreferencesHelper.setEmailStatus(status);
-    }
-
-    @Override
-    public Integer getVegType() {
-        return mPreferencesHelper.getVegType();
-    }
-
-    @Override
-    public void setVegType(Integer type) {
-        mPreferencesHelper.setVegType(type);
-    }
 
     @Override
     public Integer getRatingSkips() {
@@ -739,12 +451,12 @@ mPreferencesHelper.setServiceableSubTitle(subTitle);
     }
 
     @Override
-    public Long getRatingOrderid() {
+    public String getRatingOrderid() {
         return mPreferencesHelper.getRatingOrderid();
     }
 
     @Override
-    public void setRatingOrderid(Long orderid) {
+    public void setRatingOrderid(String orderid) {
         mPreferencesHelper.setRatingOrderid(orderid);
     }
 
@@ -896,6 +608,16 @@ mPreferencesHelper.setServiceableSubTitle(subTitle);
     @Override
     public void setPromotionDisplayedCount(Integer count) {
         mPreferencesHelper.setPromotionDisplayedCount(count);
+    }
+
+    @Override
+    public boolean isUserRegistered() {
+        return mPreferencesHelper.isUserRegistered();
+    }
+
+    @Override
+    public void setUserRegistrationStatus(boolean status) {
+mPreferencesHelper.setUserRegistrationStatus(status);
     }
 
 

@@ -11,23 +11,27 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.dailylocally.BR;
+import com.dailylocally.MainActivity;
 import com.dailylocally.R;
+
+
 import com.dailylocally.databinding.ActivitySignupBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.home.MainActivity;
 import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.ui.signup.opt.OtpActivity;
 import com.dailylocally.ui.signup.privacy.PrivacyActivity;
 import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -52,7 +56,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
             } else {
-                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -234,6 +238,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstants.TERMS_AND_CONDITION_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 mActivitySignupBinding.acceptTandC.setChecked(true);
@@ -267,12 +272,12 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     }
 
     private boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&

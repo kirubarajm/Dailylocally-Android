@@ -19,6 +19,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".utilities.nointernet.InternetErrorFragment" />
+        <activity android:name=".ui.splash.SplashActivity" />
+        <activity android:name=".ui.onboarding.OnBoardingActivity" />
+        <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity" />
+        <activity android:name=".ui.signup.privacy.PrivacyActivity" />
+        <activity android:name=".ui.signup.registration.RegistrationActivity" />
+        <activity android:name=".ui.signup.tandc.TermsAndConditionActivity" />
+        <activity android:name=".ui.signup.opt.OtpActivity" />
+        <activity android:name=".ui.signup.faqs.FaqActivity" />
     </application>
 
 </manifest>

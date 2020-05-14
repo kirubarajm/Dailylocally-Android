@@ -1,7 +1,7 @@
 package com.dailylocally.ui.signup.opt;
 
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,7 +14,8 @@ import com.dailylocally.ui.signup.SignUpResponse;
 import com.dailylocally.ui.signup.registration.TokenRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CommonResponse;
-import com.dailylocally.utilities.MvvmApp;
+
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 
 public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
@@ -69,7 +70,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
     public void login(String strPhoneNumber, String strPassword) {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
 
             setIsLoading(true);
@@ -80,7 +81,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 try {
-                                    long userId = response.getResult().get(0).getUserid();
+                                    String userId = response.getResult().get(0).getUserid();
                                     String UserName = response.getResult().get(0).getName();
                                     String UserEmail = response.getResult().get(0).getEmail();
                                     String userPhoneNumber = response.getResult().get(0).getPhoneno();
@@ -115,7 +116,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                     getNavigator().loginFailure();
                 }
             }, AppConstants.API_VERSION_ONE);
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
             ee.printStackTrace();
@@ -127,8 +128,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         getNavigator().login();
     }
 
-    public void userContinueClick(String phoneNumber, int otp) {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+    public void userContinueClick(final String phoneNumber, int otp) {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
 
 
@@ -139,7 +140,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                 public void onResponse(OtpResponse response) {
 
                     try {
-                        long CurrentuserId = 0;
+                        String CurrentuserId = null;
 
                         if (response != null) {
 
@@ -158,8 +159,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     getDataManager().setRazorpayCustomerId(response.getRazerCustomerid());
 
 
-                                    getDataManager().updateEmailStatus(response.getEmailstatus());
-
 
                                     getDataManager().setCurrentUserId(response.getUserid());
 
@@ -174,17 +173,11 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     CurrentuserId = response.getUserid();
 
 
-                                    if (response.getRegionid() == null) {
-                                        getDataManager().saveRegionId(0);
-                                    }else {
-                                        getDataManager().saveRegionId(response.getRegionid());
-                                    }
-
 
                                     if (response.getResult()!=null&& response.getResult().size() > 0) {
 
 
-                                        if (response.getResult().get(0).getAid()!=null&&response.getResult().get(0).getAid()!=0) {
+                                        if (response.getResult().get(0).getAid()!=null) {
 
                                             getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
                                             getDataManager().setCurrentLat(response.getResult().get(0).getLat());
@@ -196,13 +189,12 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                         }
 
 
-                                        long cuserid = response.getResult().get(0).getUserid();
+                                        String cuserid = response.getResult().get(0).getUserid();
                                         String UserName = response.getResult().get(0).getName();
                                         String UserEmail = response.getResult().get(0).getEmail();
                                         String userPhoneNumber = response.getResult().get(0).getPhoneno();
                                         String userReferralCode = response.getResult().get(0).getReferalcode();
                                         getDataManager().updateUserInformation(cuserid, UserName, UserEmail, userPhoneNumber, userReferralCode);
-                                        getDataManager().setRegionId(response.getResult().get(0).getRegionid());
 
 
                                     }
@@ -239,7 +231,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                     getNavigator().loginFailure();
                 }
             }, AppConstants.API_VERSION_ONE);
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
             ee.printStackTrace();
@@ -254,7 +246,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }
 
     public void resendOtp() {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(number.get()), new Response.Listener<SignUpResponse>() {
@@ -290,7 +282,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
             }
         });*/
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
 
         } catch (Exception ee) {
 
@@ -304,8 +296,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }
 
     public void saveToken(String token) {
-        long userIdMain = getDataManager().getCurrentUserId();
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        String userIdMain = getDataManager().getCurrentUserId();
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
 
 
@@ -327,7 +319,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                     setIsLoading(false);
                 }
             }, AppConstants.API_VERSION_ONE);
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
             ee.printStackTrace();

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.signin.SignActivityMain">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="otpViewModel"
+            type="com.dailylocally.ui.signup.opt.OtpActivityViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/toolbar_otp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:onClick="@{()->otpViewModel.goBack()}"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+            </RelativeLayout>
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:layout_centerInParent="true"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@{otpViewModel.title}"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar_otp"
+            android:layout_margin="20dp">
+
+            <RelativeLayout
+                android:id="@+id/rel_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_ph_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_pass"
+                        android:inputType="textWebPassword"
+                        android:lines="1"
+                        android:imeOptions="actionDone"
+                        android:maxLength="13"
+                        android:singleLine="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/dl_primary_color"
+                    android:gravity="center"
+                    android:onClick="@{()->otpViewModel.forgotPasswordClick()}"
+                    android:layout_below="@+id/input_ph_no"
+                    android:text="@string/forgot_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_otp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{otpViewModel.otp?View.GONE:View.VISIBLE}">
+
+                <LinearLayout
+                    android:id="@+id/otp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_message_sent"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLength="1"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLength="1"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLength="1"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLength="1"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLength="1"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <com.dailylocally.utilities.OtpEditText
+                    android:id="@+id/otp_text"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_message_sent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:cursorVisible="false"
+                    android:digits="1234567890"
+                    android:inputType="number"
+                    android:layoutDirection="ltr"
+                    android:maxLength="5"
+                    android:textIsSelectable="false"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:pinAnimationType="fromBottom"
+                    app:pinBackgroundIsSquare="false"
+                    app:pinLineColors="@color/colorAccent"
+                    app:pinLineStroke="0.3dp"
+                    app:pinLineStrokeSelected="1dp"
+                    app:pinTextBottomPadding="5dp" />
+
+
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:id="@+id/resend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/otp_text"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/resend_otp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dl_primary_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/txt_message_sent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_enter_otp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp" />
+
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/otp_text"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@{otpViewModel.timer}"
+                    android:textColor="@color/dl_primary_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    android:id="@+id/txt_enter_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/enter_otp"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center">
+
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:id="@+id/btn_sign_in"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/curve_stroke"
+                    android:onClick="@{()->otpViewModel.continueClick()}"
+                    android:text="@string/otp_continue"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dl_primary_color"
+                    android:textStyle="bold" />
+
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:id="@+id/btn_proceed"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/curve_stroke"
+                    android:onClick="@{()->otpViewModel.loginClick()}"
+                    android:text="@string/login"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dl_primary_color"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+</layout>

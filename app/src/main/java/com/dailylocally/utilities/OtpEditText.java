@@ -13,10 +13,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -28,6 +24,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 import com.dailylocally.R;
 
@@ -155,10 +156,10 @@ public class OtpEditText extends AppCompatEditText {
         int colorSelected = outValue.data;
         mColors[0] = colorSelected;
 
-        int colorFocused = isInEditMode() ? Color.GRAY : ContextCompat.getColor(context, R.color.eat_color);
+        int colorFocused = isInEditMode() ? Color.GRAY : ContextCompat.getColor(context, R.color.dl_primary_color);
         mColors[1] = colorFocused;
 
-        int colorUnfocused = isInEditMode() ? Color.GRAY : ContextCompat.getColor(context, R.color.eat_color);
+        int colorUnfocused = isInEditMode() ? Color.GRAY : ContextCompat.getColor(context, R.color.dl_primary_color);
         mColors[2] = colorUnfocused;
 
         setBackgroundResource(0);

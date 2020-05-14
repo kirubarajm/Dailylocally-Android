@@ -193,7 +193,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/call_now"
-                    android:textColor="@color/eat_color"
+                    android:textColor="@color/dl_primary_color"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

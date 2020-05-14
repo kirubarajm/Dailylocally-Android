@@ -34,7 +34,7 @@ public class GetUserDetailsResponse {
 
         @SerializedName("userid")
         @Expose
-        private Long userid;
+        private String userid;
         @SerializedName("name")
         @Expose
         private String name;
@@ -121,11 +121,11 @@ public class GetUserDetailsResponse {
             this.regionid = regionid;
         }
 
-        public Long getUserid() {
+        public String getUserid() {
             return userid;
         }
 
-        public void setUserid(Long userid) {
+        public void setUserid(String userid) {
             this.userid = userid;
         }
 

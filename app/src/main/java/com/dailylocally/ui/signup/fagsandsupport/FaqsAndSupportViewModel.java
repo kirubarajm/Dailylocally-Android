@@ -1,7 +1,9 @@
 package com.dailylocally.ui.signup.fagsandsupport;
 
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
+
+
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -11,7 +13,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.SupportResponse;
 import com.google.gson.Gson;
 
@@ -93,7 +96,7 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
             };
 
 
-        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+        DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
 
     }

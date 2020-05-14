@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.dailylocally"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -84,8 +84,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-core:17.4.0'
-    implementation 'com.google.firebase:firebase-messaging:20.1.6'
+    implementation 'com.google.firebase:firebase-core:17.4.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
 
     // Volley request
     implementation 'com.android.volley:volley:1.1.1'
@@ -130,5 +130,9 @@ dependencies {
 
     //Glide image
     implementation "com.github.bumptech.glide:glide:4.9.0"
+
+    //SMS OTP Receiver
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
+
 
 }

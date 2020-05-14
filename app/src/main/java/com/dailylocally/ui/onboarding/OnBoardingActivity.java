@@ -11,8 +11,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +19,21 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.android.databinding.library.baseAdapters.BR;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.dailylocally.BR;
+import com.dailylocally.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityOnboardingBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.home.MainActivity;
+
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
@@ -48,7 +52,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         public void onReceive(Context context, Intent intent) {
             //   if (mMainViewModel.isAddressAdded()) {
             if (!checkWifiConnect()) {
-                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
             }
@@ -248,12 +252,12 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     }
 
     private boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&

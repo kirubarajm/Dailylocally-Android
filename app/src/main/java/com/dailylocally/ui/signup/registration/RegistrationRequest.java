@@ -7,7 +7,7 @@ public class RegistrationRequest {
 
     @SerializedName("userid")
     @Expose
-    public Long userid;
+    public String userid;
     @SerializedName("name")
     @Expose
     public String name;
@@ -61,7 +61,7 @@ public class RegistrationRequest {
         this.regionId = regionId;
     }
 
-    public RegistrationRequest(Long userid, String name, String email, Integer gender) {
+    public RegistrationRequest(String userid, String name, String email, Integer gender) {
         this.userid = userid;
         this.name = name;
         this.email = email;
@@ -69,7 +69,7 @@ public class RegistrationRequest {
     }
 
 
-    public RegistrationRequest(Long userid, String name, String email, Integer gender, String referredby) {
+    public RegistrationRequest(String userid, String name, String email, Integer gender, String referredby) {
         this.userid = userid;
         this.name = name;
         this.email = email;
@@ -101,11 +101,11 @@ public class RegistrationRequest {
         this.otherRegion = otherRegion;
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 

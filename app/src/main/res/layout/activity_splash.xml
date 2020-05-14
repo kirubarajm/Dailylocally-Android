@@ -34,7 +34,7 @@
 
         <variable
             name="splashViewModel"
-            type="com.dailylocally.ui.splash.SplashActivityViewModel" />
+            type="com.dailylocally.ui.splash.SplashViewModel" />
     </data>
 
 </layout>

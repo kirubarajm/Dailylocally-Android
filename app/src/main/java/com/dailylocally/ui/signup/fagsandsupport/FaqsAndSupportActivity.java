@@ -9,16 +9,19 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+
+import androidx.annotation.Nullable;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityFaqsSupportBinding;
-import com.dailylocally.ui.account.feedbackandsupport.support.SupportActivity;
+
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.MvvmApp;
+
+import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
@@ -57,8 +60,8 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     public void supportClick() {
         new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_SUPPORT);
 
-        Intent intent = SupportActivity.newIntent(this);
-        startActivity(intent);
+        /*Intent intent = SupportActivity.newIntent(this);
+        startActivity(intent);*/
 
        /* ZopimChat.init(getString(R.string.zopim_account_id));
         final VisitorInfo.Builder build = new VisitorInfo.Builder();
@@ -163,12 +166,12 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
 
     private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -189,7 +192,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
             } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

@@ -76,7 +76,7 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
             gender = 2;
         }
 
-        long userIdMain = getDataManager().getCurrentUserId();
+        String userIdMain = getDataManager().getCurrentUserId();
         RegistrationRequest registrationRequest;
 
 
@@ -96,19 +96,16 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
                 public void onResponse(NameGenderResponse response) {
                     if (response != null) {
                         if (response.getStatus()) {
-                            getDataManager().updateUserGender(true);
                             if (getNavigator() != null)
                                 getNavigator().genderSuccess(response.getMessage());
 
                             if (response.getResult() != null && response.getResult().size() > 0) {
-                                long userId = response.getResult().get(0).getUserid();
+                                String userId = response.getResult().get(0).getUserid();
                                 String UserName = response.getResult().get(0).getName();
                                 String UserEmail = response.getResult().get(0).getEmail();
                                 String userPhoneNumber = response.getResult().get(0).getPhoneno();
                                 String userReferralCode = response.getResult().get(0).getReferalcode();
                                 getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
-                                getDataManager().updateUserPasswordStatus(true);
-                                getDataManager().updateEmailStatus(true);
                                 //   getDataManager().setRegionId(response.getResult().get(0).getRegionid());
                             }
 
