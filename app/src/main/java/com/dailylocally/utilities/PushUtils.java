@@ -1,8 +1,10 @@
 package com.dailylocally.utilities;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;

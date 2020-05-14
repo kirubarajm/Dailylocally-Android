@@ -299,4 +299,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }

@@ -12,15 +12,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         dataBinding {
             enabled = true
         }
+        multiDexEnabled true
     }
-
     buildTypes {
-
-
         debug {
             minifyEnabled false
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
@@ -135,4 +132,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
 
 
+    //Location
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 }

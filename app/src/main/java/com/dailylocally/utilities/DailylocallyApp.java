@@ -259,9 +259,9 @@ public class DailylocallyApp extends Application implements HasActivityInjector 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
         appPreferencesHelper.setRatingAppStatus(false);
 
-        if (appPreferencesHelper.getAddressId() == 0L) {
-            appPreferencesHelper.setCurrentLat(0.0);
-            appPreferencesHelper.setCurrentLng(0.0);
+        if (appPreferencesHelper.getAddressId() == null) {
+            appPreferencesHelper.setCurrentLat(null);
+            appPreferencesHelper.setCurrentLng(null);
         }
 
     }

@@ -1,8 +1,10 @@
 package com.dailylocally.ui.update;
 
 
-import android.databinding.ObservableBoolean;
+
 import android.util.Log;
+
+import androidx.databinding.ObservableBoolean;
 
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
@@ -23,12 +25,12 @@ public class UpdateViewModel extends BaseViewModel<UpdateNavigator> {
 
         new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_NOT_NOW);
 
-        if (getDataManager().getCurrentUserId()!=0L)
+        if (getDataManager().getCurrentUserId()!=null)
         {
-            long userId = getDataManager().getCurrentUserId();
+            String userId = getDataManager().getCurrentUserId();
             Log.e("userId", String.valueOf(userId));
-            boolean genderStatus = getDataManager().getisGenderStatus();
-            if (genderStatus) {
+
+            if (getDataManager().isUserRegistered()) {
                 getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
             }else {
                 getNavigator().checkForUserGenderStatus(false);

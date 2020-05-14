@@ -16,6 +16,8 @@
 
 package com.dailylocally.di;
 
+import com.dailylocally.ui.signup.faqs.FaqActivity;
+import com.dailylocally.ui.signup.faqs.FaqFragmentModule;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.dailylocally.utilities.nointernet.InternetErrorModule;
 
@@ -26,5 +28,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilder {
 
+    @ContributesAndroidInjector(modules = {FaqFragmentModule.class/*, OrderCanceledProvider.class*/})
+    abstract FaqActivity bindFaqActivity();
 
 }

@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.android.databinding.library.baseAdapters.BR;
+
+import com.dailylocally.BR;
+import com.dailylocally.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityUpdateBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.home.MainActivity;
+
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.signup.namegender.NameGenderActivity;
+
+import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
@@ -57,7 +60,7 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
 
     @Override
     public void checkForUserGenderStatus(boolean trueOrFalse) {
-        Intent intent = NameGenderActivity.newIntent(UpdateActivity.this);
+        Intent intent = RegistrationActivity.newIntent(UpdateActivity.this);
         startActivity(intent);
         finish();
     }
