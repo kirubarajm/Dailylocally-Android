@@ -332,6 +332,10 @@ public class AppConstants {
 
   public static final String URL_SERVER_IP_PORT = BuildConfig.BASE_URL;////live ip port new
   public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method
+  public static final String URL_CATEGORY_LIST = URL_SERVER_IP_PORT + "/user/categorylist";/////POST method
+
+
+
   public static final String URL_OTP_VERIFICATION = URL_SERVER_IP_PORT + "/eat/otpverification";/////POST method
   public static final String URL_NAME_GENDER_INSERT = URL_SERVER_IP_PORT + "/eat/edit";/////put method
   public static final String URL_APP_FEEDBACK = URL_SERVER_IP_PORT + "/eat/feedback";/////POST method

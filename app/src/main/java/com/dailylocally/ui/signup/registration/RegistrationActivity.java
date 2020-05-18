@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
-import com.dailylocally.MainActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 
 import com.dailylocally.databinding.ActivityRegistrationBinding;

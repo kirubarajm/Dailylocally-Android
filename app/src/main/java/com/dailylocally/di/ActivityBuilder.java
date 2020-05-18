@@ -16,8 +16,27 @@
 
 package com.dailylocally.di;
 
+import com.dailylocally.ui.home.HomeProvider;
+import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.main.MainActivityModule;
+import com.dailylocally.ui.onboarding.OnBoardingActivity;
+import com.dailylocally.ui.onboarding.OnBoardingActivityModule;
+import com.dailylocally.ui.signup.SignUpActivity;
+import com.dailylocally.ui.signup.SignUpActivityModule;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.ui.signup.faqs.FaqFragmentModule;
+import com.dailylocally.ui.signup.opt.OtpActivity;
+import com.dailylocally.ui.signup.opt.OtpActivityModule;
+import com.dailylocally.ui.signup.privacy.PrivacyActivity;
+import com.dailylocally.ui.signup.privacy.PrivacyModule;
+import com.dailylocally.ui.signup.registration.RegistrationActivity;
+import com.dailylocally.ui.signup.registration.RegistrationModule;
+import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
+import com.dailylocally.ui.signup.tandc.TermsAndConditionModule;
+import com.dailylocally.ui.splash.SplashActivity;
+import com.dailylocally.ui.splash.SplashModule;
+import com.dailylocally.ui.update.UpdateActivity;
+import com.dailylocally.ui.update.UpdateModule;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.dailylocally.utilities.nointernet.InternetErrorModule;
 
@@ -30,5 +49,38 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {FaqFragmentModule.class/*, OrderCanceledProvider.class*/})
     abstract FaqActivity bindFaqActivity();
+
+    @ContributesAndroidInjector(modules = {
+            MainActivityModule.class,
+            HomeProvider.class
+
+    })
+    abstract MainActivity bindMainActivity();
+
+    @ContributesAndroidInjector(modules = SplashModule.class)
+    abstract SplashActivity bindSplashActivity();
+
+    @ContributesAndroidInjector(modules = OnBoardingActivityModule.class)
+    abstract OnBoardingActivity bindOnBoardingActivity();
+    @ContributesAndroidInjector(modules = {UpdateModule.class/*, OrderCanceledProvider.class*/})
+    abstract UpdateActivity bindUpdateActivity();
+
+    @ContributesAndroidInjector(modules = {InternetErrorModule.class})
+    abstract InternetErrorFragment bindInternetActivity();
+
+    @ContributesAndroidInjector(modules = {SignUpActivityModule.class})
+    abstract SignUpActivity bindSignUpActivity();
+
+    @ContributesAndroidInjector(modules = OtpActivityModule.class)
+    abstract OtpActivity bindOtpActivity();
+
+    @ContributesAndroidInjector(modules = RegistrationModule.class)
+    abstract RegistrationActivity bindRegistrationActivity();
+
+    @ContributesAndroidInjector(modules = TermsAndConditionModule.class)
+    abstract TermsAndConditionActivity bindTermsAndConditionActivity();
+
+    @ContributesAndroidInjector(modules = PrivacyModule.class)
+    abstract PrivacyActivity bindPrivacyActivity();
 
 }

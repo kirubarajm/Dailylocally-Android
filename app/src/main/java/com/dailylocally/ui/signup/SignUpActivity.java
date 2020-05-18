@@ -19,7 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.dailylocally.BR;
-import com.dailylocally.MainActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 
 

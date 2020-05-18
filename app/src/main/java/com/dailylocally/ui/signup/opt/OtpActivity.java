@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.dailylocally.BR;
-import com.dailylocally.MainActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityOtpBinding;
 import com.dailylocally.ui.base.BaseActivity;

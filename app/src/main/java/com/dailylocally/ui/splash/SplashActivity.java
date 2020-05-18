@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.dailylocally.BR;
-import com.dailylocally.MainActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySplashBinding;
 import com.dailylocally.ui.base.BaseActivity;

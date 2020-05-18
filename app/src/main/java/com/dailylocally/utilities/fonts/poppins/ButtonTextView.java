@@ -31,8 +31,6 @@ public class ButtonTextView extends AppCompatTextView {
 
     protected void onDraw (Canvas canvas) {
         super.onDraw(canvas);
-
-
     }
 
 }

@@ -24,7 +24,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.dailylocally.BR;
-import com.dailylocally.MainActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityOnboardingBinding;
 import com.dailylocally.ui.base.BaseActivity;
