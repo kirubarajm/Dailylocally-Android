@@ -34,8 +34,8 @@ android {
             // buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
             // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
-            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:7000"'
-            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:7000"'
+             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
+            //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:8000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'

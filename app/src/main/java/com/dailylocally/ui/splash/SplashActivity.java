@@ -83,7 +83,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void update(boolean updateStatus, boolean forceUpdateStatus) {
-
         //  mSplashActivityViewModel.checkIsUserLoggedInOrNot();
         if (forceUpdateStatus) {
             Intent intent = UpdateActivity.newIntent(SplashActivity.this);
@@ -93,7 +92,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         } else {
             mSplashViewModel.checkIsUserLoggedInOrNot();
         }
-
     }
 
     @Override

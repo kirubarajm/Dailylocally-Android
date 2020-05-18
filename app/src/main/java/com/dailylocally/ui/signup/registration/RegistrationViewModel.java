@@ -91,7 +91,7 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
         try {
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, registrationRequest, new Response.Listener<NameGenderResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.REGISTRATION, NameGenderResponse.class, registrationRequest, new Response.Listener<NameGenderResponse>() {
                 @Override
                 public void onResponse(NameGenderResponse response) {
                     if (response != null) {

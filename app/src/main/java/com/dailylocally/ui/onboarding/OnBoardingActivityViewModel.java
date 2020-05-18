@@ -42,7 +42,7 @@ public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivit
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FCM_FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
             @Override
             public void onResponse(UpdateResponse response) {
                 //  getNavigator().update(false, false);
@@ -53,7 +53,7 @@ public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivit
                 if (response != null)
                     if (response.getResult() != null && response.getStatus()) {
                         if (getNavigator() != null)
-                            getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
+                            getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getDluserforceupdatestatus());
 
                         getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
 

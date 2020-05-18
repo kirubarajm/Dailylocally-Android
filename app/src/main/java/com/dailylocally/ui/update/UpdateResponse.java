@@ -45,9 +45,9 @@ public class UpdateResponse {
         @SerializedName("versionstatus")
         @Expose
         private Boolean versionstatus=false;
-        @SerializedName("eatforceupdate")
+        @SerializedName("dluserforceupdatestatus")
         @Expose
-        private Boolean eatforceupdate=false;
+        private Boolean dluserforceupdatestatus=false;
         @SerializedName("support")
         @Expose
         private String supportNumber="9790876528";
@@ -68,13 +68,12 @@ public class UpdateResponse {
             this.versionstatus = versionstatus;
         }
 
-        public Boolean getEatforceupdate() {
-            return eatforceupdate;
+        public Boolean getDluserforceupdatestatus() {
+            return dluserforceupdatestatus;
         }
 
-        public void setEatforceupdate(Boolean eatforceupdate) {
-            this.eatforceupdate = eatforceupdate;
+        public void setDluserforceupdatestatus(Boolean dluserforceupdatestatus) {
+            this.dluserforceupdatestatus = dluserforceupdatestatus;
         }
-
     }
 }

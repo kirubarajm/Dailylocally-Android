@@ -68,7 +68,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber, appSignatureHashHelper.getAppSignatures().get(0)), new Response.Listener<SignUpResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.SEND_OTP, SignUpResponse.class, new SignUpRequest(phoneNumber, appSignatureHashHelper.getAppSignatures().get(0)), new Response.Listener<SignUpResponse>() {
                 @Override
                 public void onResponse(SignUpResponse response) {
                     if (response != null) {
