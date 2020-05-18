@@ -23,6 +23,8 @@ import com.dailylocally.ui.onboarding.OnBoardingActivity;
 import com.dailylocally.ui.onboarding.OnBoardingActivityModule;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.SignUpActivityModule;
+import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
+import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportModule;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.ui.signup.faqs.FaqFragmentModule;
 import com.dailylocally.ui.signup.opt.OtpActivity;
@@ -74,13 +76,23 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = OtpActivityModule.class)
     abstract OtpActivity bindOtpActivity();
 
-    @ContributesAndroidInjector(modules = RegistrationModule.class)
-    abstract RegistrationActivity bindRegistrationActivity();
-
+    
     @ContributesAndroidInjector(modules = TermsAndConditionModule.class)
     abstract TermsAndConditionActivity bindTermsAndConditionActivity();
 
+
+    @ContributesAndroidInjector(modules = RegistrationModule.class)
+    abstract RegistrationActivity bindRegistrationActivity();
+
+
     @ContributesAndroidInjector(modules = PrivacyModule.class)
     abstract PrivacyActivity bindPrivacyActivity();
+
+
+
+    @ContributesAndroidInjector(modules = FaqsAndSupportModule.class)
+    abstract FaqsAndSupportActivity bindFaqAndSupportActivity();
+
+
 
 }

@@ -403,6 +403,13 @@ public class AppConstants {
   public static final String EAT_CHAT_ISSUES_NOTE_URL = URL_SERVER_IP_PORT + "/eat/zendesk/issuesdetails";
   public static final String EAT_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/eat/zendesk/requestcreate ";
 
+  /////Daily locally
+  public static final String FORCE_UPDATE = URL_SERVER_IP_PORT + "/user/app/versioncheck";
+  public static final String SEND_OTP = URL_SERVER_IP_PORT + "/user/sendotp";
+  public static final String OTP_VERIFICATION = URL_SERVER_IP_PORT + "/user/otpverification";
+  public static final String REGISTRATION = URL_SERVER_IP_PORT + "/user/edit";
+
+
 
   public static final String DUNZO_URL = BuildConfig.DUNZO_URL;
   public static final String DUNZO_STATUS = BuildConfig.DUNZO_STATUS;

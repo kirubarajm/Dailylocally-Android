@@ -131,11 +131,9 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public void userContinueClick(final String phoneNumber, int otp) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-
-
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, OtpId), new Response.Listener<OtpResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, OtpId), new Response.Listener<OtpResponse>() {
                 @Override
                 public void onResponse(OtpResponse response) {
 
@@ -249,7 +247,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(number.get()), new Response.Listener<SignUpResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.SEND_OTP, SignUpResponse.class, new SignUpRequest(number.get()), new Response.Listener<SignUpResponse>() {
                 @Override
                 public void onResponse(SignUpResponse response) {
                     if (response != null) {
