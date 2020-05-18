@@ -144,8 +144,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
                             if (response.getStatus() != null)
                                 if (response.getStatus()) {
-                                    passwordstatus = response.getPasswordstatus();
-                                    otpStatus = response.getOtpstatus();
+
                                     genderstatus = response.getGenderstatus();
 
 

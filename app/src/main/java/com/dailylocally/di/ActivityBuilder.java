@@ -76,7 +76,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = OtpActivityModule.class)
     abstract OtpActivity bindOtpActivity();
 
-    
+
     @ContributesAndroidInjector(modules = TermsAndConditionModule.class)
     abstract TermsAndConditionActivity bindTermsAndConditionActivity();
 
@@ -88,11 +88,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = PrivacyModule.class)
     abstract PrivacyActivity bindPrivacyActivity();
 
-
-
     @ContributesAndroidInjector(modules = FaqsAndSupportModule.class)
     abstract FaqsAndSupportActivity bindFaqAndSupportActivity();
-
-
 
 }

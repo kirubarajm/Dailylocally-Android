@@ -73,8 +73,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                 public void onResponse(SignUpResponse response) {
                     if (response != null) {
                         if (response.getStatus()) {
-                            passwordstatus = response.getPasswordstatus();
-                            otpStatus = response.getOtpstatus();
+                        
                             genderstatus = response.getGenderstatus();
 
                             if (response.getOid() != null) {
