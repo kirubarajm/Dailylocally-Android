@@ -20,9 +20,7 @@ import com.dailylocally.utilities.DailylocallyApp;
 
 public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
-
     public final ObservableField<String> version = new ObservableField<>();
-
 
     public SplashViewModel(DataManager dataManager) {
         super(dataManager);
@@ -33,12 +31,6 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     }
 
-
-
-
-
-
-
     public void clearLatLng(){
 
         if (getDataManager().getAddressId()==null) {
@@ -48,9 +40,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     }
 
-
     public void checkIsUserLoggedInOrNot() {
-
         try {
             if (getDataManager().getCurrentUserId() != null) {
 
@@ -83,15 +73,14 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
             public void onResponse(UpdateResponse response) {
               //  getNavigator().update(false, false);
 
-
             //    Toast.makeText(MvvmApp.getInstance(),String.valueOf(MvvmApp.getInstance().getVersionCode()) , Toast.LENGTH_SHORT).show();
 
                 if (response != null)
                     if (response.getResult() != null && response.getStatus()) {
+                        getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
+
                         if (getNavigator() != null)
                             getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getDluserforceupdatestatus());
-
-                        getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
 
                     } else {
                         if (getNavigator() != null)
@@ -107,9 +96,5 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
             }
         }, AppConstants.API_VERSION_ONE);
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-
-
     }
-
-
 }
