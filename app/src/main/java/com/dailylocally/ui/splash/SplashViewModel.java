@@ -26,8 +26,6 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
         super(dataManager);
         getDataManager().appStartedAgain(true);
 
-        dataManager.setUserRegistrationStatus(true);
-        dataManager.setCurrentUserId("1");
 
     }
 

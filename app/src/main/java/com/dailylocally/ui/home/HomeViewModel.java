@@ -7,16 +7,26 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
@@ -145,8 +155,107 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         }*/
 
 
-        
+        HomePageRequest homePageRequest = new HomePageRequest();
+           /* homePageRequest.setUserid(getDataManager().getCurrentUserId());
+        homePageRequest.setLat(getDataManager().getCurrentLat());
+        homePageRequest.setLon(getDataManager().getCurrentLng());*/
 
+        homePageRequest.setUserid("1");
+        homePageRequest.setLat("12.979937");
+        homePageRequest.setLon( "80.218418");
+        Gson gson = new Gson();
+      String  json = gson.toJson(homePageRequest);
+        //  getDataManager().setFilterSort(json);
+
+
+        try {
+            setIsLoading(true);
+            //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject homepageResponse) {
+
+                    HomepageResponse response;
+                    Gson sGson = new GsonBuilder().create();
+                    response = sGson.fromJson(homepageResponse.toString(), HomepageResponse.class);
+
+
+
+                    if (response != null) {
+
+                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
+                        serviceable.set(response.getServiceablestatus());
+                        unserviceableTitle.set(response.getUnserviceableTitle());
+                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());
+                        emptyImageUrl.set(response.getEmptyUrl());
+                        emptyContent.set(response.getEmptyContent());
+                        emptySubContent.set(response.getEmptySubconent());
+                        headerContent.set(response.getHeaderContent());
+                        headerSubContent.set(response.getHeaderSubconent());
+                        categoryTitle.set(response.getCategoryTitle());
+
+
+                        if (getNavigator() != null)
+                            getNavigator().changeHeaderText(response.getHeaderContent());
+
+                        if (response.getResult() != null && response.getResult().size() > 0) {
+                            fullEmpty.set(false);
+                            categoryListLiveData.setValue(response.getResult());
+                            if (getNavigator() != null)
+                                getNavigator().kitchenLoaded();
+
+                        } else {
+                            fullEmpty.set(true);
+                            if (getNavigator() != null)
+                                getNavigator().kitchenLoaded();
+                        }
+
+
+                    } else {
+                        fullEmpty.set(true);
+                        if (getNavigator() != null)
+                            getNavigator().kitchenLoaded();
+
+                    }
+
+                }
+
+
+
+
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //   Log.e("", ""+error.getMessage());
+                    if (getNavigator() != null)
+                        getNavigator().kitchenLoaded();
+                }
+            }) {
+
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                }
+            };
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (JSONException j) {
+            j.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
 
     }
 }
