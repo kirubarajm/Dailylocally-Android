@@ -1,39 +1,22 @@
 package com.dailylocally.ui.main;
 
-import android.util.Log;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.signup.registration.TokenRequest;
-import com.dailylocally.ui.update.UpdateRequest;
-import com.dailylocally.ui.update.UpdateResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CartRequestPojo;
 import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.MasterPojo;
-
-import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 
 import zendesk.core.AnonymousIdentity;
 import zendesk.core.Identity;
@@ -56,18 +39,17 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableBoolean isExplore = new ObservableBoolean();
     public final ObservableBoolean isCart = new ObservableBoolean();
     public final ObservableBoolean isMyAccount = new ObservableBoolean();
-    private final ObservableField<String> appVersion = new ObservableField<>();
-    private final ObservableField<String> userEmail = new ObservableField<>();
-    private final ObservableField<String> userName = new ObservableField<>();
-    private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
-    private final ObservableField<String> numOfCarts = new ObservableField<>();
     public final ObservableField<String> updateTitle = new ObservableField<>();
     public final ObservableField<String> updateAction = new ObservableField<>();
     public final ObservableField<String> screenName = new ObservableField<>();
     public final ObservableBoolean updateAvailable = new ObservableBoolean();
     public final ObservableBoolean enableLater = new ObservableBoolean();
     public final ObservableBoolean update = new ObservableBoolean();
-
+    private final ObservableField<String> appVersion = new ObservableField<>();
+    private final ObservableField<String> userEmail = new ObservableField<>();
+    private final ObservableField<String> userName = new ObservableField<>();
+    private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
+    private final ObservableField<String> numOfCarts = new ObservableField<>();
     private long orderId;
     private long payment_orderId;
     private int payment_price;
@@ -76,7 +58,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
         screenName.set(AppConstants.SCREEN_HOME);
-
 
         Identity identity = new AnonymousIdentity.Builder()
                 .withNameIdentifier(getDataManager().getCurrentUserName())
@@ -267,7 +248,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public boolean checkInternet() {
         return DailylocallyApp.getInstance().onCheckNetWork();
     }
-
 
 
     public void currentLatLng(String lat, String lng) {

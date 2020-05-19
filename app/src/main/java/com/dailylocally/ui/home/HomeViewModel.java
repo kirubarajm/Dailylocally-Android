@@ -76,17 +76,17 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public void fetchCategoryList() {
 
-        if (getDataManager().getCurrentLat() == null) {
+        /*if (getDataManager().getCurrentLat() == null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
             kitchenListLoading.set(true);
             HomePageRequest homePageRequest = new HomePageRequest();
-           /* homePageRequest.setUserid(getDataManager().getCurrentUserId());
+           *//* homePageRequest.setUserid(getDataManager().getCurrentUserId());
             homePageRequest.setLat(getDataManager().getCurrentLat());
-            homePageRequest.setLon(getDataManager().getCurrentLng());*/
+            homePageRequest.setLon(getDataManager().getCurrentLng());*//*
 
             homePageRequest.setUserid("1");
-            homePageRequest.setLat("13.05067500");
-            homePageRequest.setLon( "80.00000000");
+            homePageRequest.setLat("12.979937");
+            homePageRequest.setLon( "80.218418");
 
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, HomepageResponse.class, homePageRequest, new Response.Listener<HomepageResponse>() {
@@ -142,6 +142,11 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-        }
+        }*/
+
+
+        
+
+
     }
 }

@@ -17,8 +17,8 @@ import com.dailylocally.ui.base.BaseFragment;
 import javax.inject.Inject;
 
 public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewModel> implements HomeNavigator{
-   /* @Inject
-    CategoriesAdapter categoriesAdapter;*/
+    @Inject
+    CategoriesAdapter categoriesAdapter;
     @Inject
     HomeViewModel mHomeViewModel;
      FragmentHomeBinding mFragmentHomeBinding;
@@ -68,7 +68,7 @@ public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewMode
             }
         });
         mFragmentHomeBinding.categoryList.setLayoutManager(gridLayoutManager);
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
+         categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
         mFragmentHomeBinding.categoryList.setAdapter(categoriesAdapter);
     }
 

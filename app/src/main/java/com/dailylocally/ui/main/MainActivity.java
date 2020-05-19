@@ -86,13 +86,15 @@ import dagger.android.support.HasSupportFragmentInjector;
 import zendesk.support.request.RequestActivity;
 
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator{
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator,HasSupportFragmentInjector{
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
 
     protected LocationManager locationManager;
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     boolean doubleBackToExitPressedOnce = false;
     ProgressDialog progressDialog;
     boolean cart = false;
@@ -186,15 +188,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openHome() {
-       /* new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             HomeFragment fragment = new HomeFragment();
             transaction.replace(R.id.content_main, fragment);
-
             //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
-            transaction.commitAllowingStateLoss();
+            transaction.commit();
         } catch (Exception ee) {
             ee.printStackTrace();
         }
@@ -211,7 +212,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             if (!mMainViewModel.isLiveOrder.get()) {
                 mMainViewModel.updateAvailable.set(true);
             }
-        }*/
+        }
 
     }
 
@@ -317,7 +318,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
         PushUtils.registerWithZendesk();
 
-
+//openHome();
         saveFcmToken();
 
         //  updateUIalert();
@@ -575,6 +576,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
-
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
 }

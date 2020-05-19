@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.dailylocally.data.DataManager;
 
+import java.util.ArrayList;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,6 +18,10 @@ public class HomeModule {
     @Provides
     HomeViewModel provideHomeViewModel(DataManager dataManager) {
         return new HomeViewModel(dataManager);
+    }
+    @Provides
+    CategoriesAdapter provideCategoriesAdapter() {
+        return new CategoriesAdapter(new ArrayList<>());
     }
 
 }
