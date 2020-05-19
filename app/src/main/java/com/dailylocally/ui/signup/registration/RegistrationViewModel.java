@@ -39,19 +39,16 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
         getNavigator().proceedClick();
     }
 
-
     public void maleClicked() {
         male.set(true);
         new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_MALE);
 
     }
 
-
     public void feMaleClicked() {
         male.set(false);
         new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_FEMALE);
     }
-
 
     public void viewReferral() {
         if (referral.get()) {
@@ -62,11 +59,9 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
 
     }
 
-
     public void referralCode() {
         haveReferral.set(true);
     }
-
 
     public void insertNameGenderServiceCall(String name, String email, String referral) {
 
@@ -79,13 +74,11 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
         String userIdMain = getDataManager().getCurrentUserId();
         RegistrationRequest registrationRequest;
 
-
         if (referral.isEmpty()) {
             registrationRequest = new RegistrationRequest(userIdMain, name, email, gender);
         } else {
             registrationRequest = new RegistrationRequest(userIdMain, name, email, gender, referral);
         }
-
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
@@ -94,10 +87,13 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.REGISTRATION, NameGenderResponse.class, registrationRequest, new Response.Listener<NameGenderResponse>() {
                 @Override
                 public void onResponse(NameGenderResponse response) {
+                    try {
                     if (response != null) {
                         if (response.getStatus()) {
                             if (getNavigator() != null)
                                 getNavigator().genderSuccess(response.getMessage());
+
+                            getDataManager().setUserRegistrationStatus(true);
 
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 String userId = response.getResult().get(0).getUserid();
@@ -108,10 +104,12 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
                                 getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
                                 //   getDataManager().setRegionId(response.getResult().get(0).getRegionid());
                             }
-
                         } else {
+                            getDataManager().setUserRegistrationStatus(false);
                             getNavigator().genderFailure(response.getMessage());
                         }
+                    } }catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }, errorListener = new Response.ErrorListener() {
@@ -124,12 +122,7 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
-
             ee.printStackTrace();
-
         }
     }
-
-
-
 }

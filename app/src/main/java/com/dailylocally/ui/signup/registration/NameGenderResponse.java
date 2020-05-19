@@ -69,30 +69,12 @@ public class NameGenderResponse {
         @SerializedName("referalcode")
         @Expose
         private String referalcode;
-        @SerializedName("other_region")
-        @Expose
-        private String otherRegion;
         @SerializedName("Locality")
         @Expose
         private String locality;
         @SerializedName("gender")
         @Expose
         private Integer gender;
-        @SerializedName("virtualkey")
-        @Expose
-        private Integer virtualkey;
-        @SerializedName("regionid")
-        @Expose
-        private Integer regionid;
-
-
-        public String getOtherRegion() {
-            return otherRegion;
-        }
-
-        public void setOtherRegion(String otherRegion) {
-            this.otherRegion = otherRegion;
-        }
 
         public String getUserid() {
             return userid;
@@ -149,23 +131,5 @@ public class NameGenderResponse {
         public void setGender(Integer gender) {
             this.gender = gender;
         }
-
-        public Integer getVirtualkey() {
-            return virtualkey;
-        }
-
-        public void setVirtualkey(Integer virtualkey) {
-            this.virtualkey = virtualkey;
-        }
-
-        public Integer getRegionid() {
-            return regionid != null ? regionid : 0;
-
-        }
-
-        public void setRegionid(Integer regionid) {
-            this.regionid = regionid;
-        }
-
     }
 }

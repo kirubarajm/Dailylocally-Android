@@ -174,7 +174,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     if (response.getResult()!=null&& response.getResult().size() > 0) {
 
 
-                                        if (response.getResult().get(0).getAid()!=null) {
+                                        /*if (response.getResult().get(0).getAid()!=null) {*/
 
                                             getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
                                             getDataManager().setCurrentLat(response.getResult().get(0).getLat());
@@ -183,7 +183,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                             getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
                                             getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
 
-                                        }
+                                       /* }*/
 
 
                                         String cuserid = response.getResult().get(0).getUserid();
