@@ -111,6 +111,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SERVICEABLESUBTITLE = "SERVICEABLESUBTITLE";
 
     private static final String PREF_KEY_USER_REGISTRATION_STATUS = "USER_REGISTRATION_STATUS";
+    private static final String PREF_KEY_USER_ADDRESS_STATUS = "PREF_KEY_USER_ADDRESS_STATUS";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -541,6 +542,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setUserRegistrationStatus(boolean status) {
         mPrefs.edit().putBoolean(PREF_KEY_USER_REGISTRATION_STATUS, status).apply();
+    }
+
+    @Override
+    public boolean isUserAddress() {
+        return mPrefs.getBoolean(PREF_KEY_USER_ADDRESS_STATUS, false);
+    }
+
+    @Override
+    public void setUserAddress(boolean address) {
+        mPrefs.edit().putBoolean(PREF_KEY_USER_ADDRESS_STATUS, address).apply();
     }
 
     @Override

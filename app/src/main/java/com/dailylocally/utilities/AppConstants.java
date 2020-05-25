@@ -408,6 +408,8 @@ public class AppConstants {
   public static final String SEND_OTP = URL_SERVER_IP_PORT + "/user/sendotp";
   public static final String OTP_VERIFICATION = URL_SERVER_IP_PORT + "/user/otpverification";
   public static final String REGISTRATION = URL_SERVER_IP_PORT + "/user/edit";
+  public static final String ADD_ADDRESS_URL = URL_SERVER_IP_PORT + "/user/address";
+  public static final String DEFAULT_ADDRESS = URL_SERVER_IP_PORT + "/user/defaultaddress";
 
 
 

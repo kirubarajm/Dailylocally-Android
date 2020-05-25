@@ -16,6 +16,8 @@
 
 package com.dailylocally.di;
 
+import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.add.AddAddressModule;
 import com.dailylocally.ui.home.HomeProvider;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.main.MainActivityModule;
@@ -90,5 +92,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = FaqsAndSupportModule.class)
     abstract FaqsAndSupportActivity bindFaqAndSupportActivity();
+
+    @ContributesAndroidInjector(modules = AddAddressModule.class)
+    abstract AddAddressActivity bindAddAddressActivity();
 
 }

@@ -8,6 +8,8 @@ public interface OtpActivityNavigator {
 
     void openHomeActivity(boolean trueOrFalse);
 
+    void addAddressActivity(String aId);
+
     void nameGenderScreen();
 
     void login();

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_background"
+        android:orientation="vertical"
+        android:paddingStart="30dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="20dp">
+
+<!--
+        <com.tovo.eat.utilities.fonts.TovoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/icon_error"
+            android:textAlignment="center"
+            android:textColor="@color/eat_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />-->
+
+
+        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/we_need_your_permission_to_access_your_location"
+            android:textAlignment="center"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp" />
+
+<!--
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/no_location" />-->
+
+<!--
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@string/we_ll_serve_you_soon"
+            android:textAlignment="center"
+            android:textColor="@color/eat_color"
+            android:textSize="12sp" />-->
+
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:id="@+id/cancelgps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/curve_stroke_gray"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/cancel"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_marginStart="15dp"
+                android:id="@+id/allowgps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/curve_stroke_gray"
+                android:gravity="end"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/allow"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
