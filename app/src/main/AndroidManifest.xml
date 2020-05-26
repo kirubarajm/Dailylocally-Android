@@ -45,6 +45,8 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity android:name=".ui.signup.SignUpActivity" />
+        <activity android:name=".ui.category.l1.CategoryL1Activity" />
+        <activity android:name=".ui.category.l2.CategoryL2Activity" />
     </application>
 
 </manifest>

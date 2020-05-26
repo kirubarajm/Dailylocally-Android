@@ -1,82 +1,50 @@
 package com.dailylocally.ui.main;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dailylocally.BR;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityMainBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.PushUtils;
-import com.dailylocally.utilities.SingleShotLocationProvider;
 import com.dailylocally.utilities.analytics.Analytics;
-import com.dailylocally.utilities.fonts.poppins.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.dailylocally.utilities.nointernet.InternetListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.InstallState;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
-import com.google.android.play.core.install.model.AppUpdateType;
-import com.google.android.play.core.install.model.InstallStatus;
-import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
 import com.zopim.android.sdk.api.ZopimChat;
 import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -86,7 +54,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 import zendesk.support.request.RequestActivity;
 
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator,HasSupportFragmentInjector{
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
 
@@ -136,7 +104,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
     @Override
     public int getBindingVariable() {
         return BR.viewModel;
@@ -160,14 +127,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCart(String screenName) {
-       /* mMainViewModel.screenName.set(AppConstants.SCREEN_HOME);
+        mMainViewModel.screenName.set(AppConstants.SCREEN_HOME);
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_CART);
-        stopLoader();
+
         try {
             Bundle bundle = new Bundle();
-            bundle.putString("screenName", screenName);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            CartActivity fragment = new CartActivity();
+            CartFragment fragment = new CartFragment();
             fragment.setArguments(bundle);
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(CartActivity.class.getSimpleName());
@@ -182,7 +148,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(true);
         mMainViewModel.isMyAccount.set(false);
-        mMainViewModel.updateAvailable.set(false);*/
+        mMainViewModel.updateAvailable.set(false);
     }
 
 
@@ -266,9 +232,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
-        if (mMainViewModel.isExplore.get()){
+        if (mMainViewModel.isExplore.get()) {
             openHome();
-        }else {
+        } else {
             new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_BACK_BUTTON);
             if (doubleBackToExitPressedOnce) {
                 new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_EXIT_APP);
@@ -291,7 +257,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
     public void saveFcmToken() {
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -310,7 +275,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -318,7 +282,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
         PushUtils.registerWithZendesk();
 
-//openHome();
+        openHome();
         saveFcmToken();
 
         //  updateUIalert();
@@ -391,16 +355,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }*/
 
 
-
     }
-
-
 
 
     public void statusUpdate() {
         mMainViewModel.totalCart();
     }
-
 
 
     @Override
@@ -463,7 +423,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -476,7 +435,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-    public void gotoMyOrders(){
+    public void gotoMyOrders() {
       /*  Intent intent = CurrentOrderActivity.newIntent(MainActivity.this);
         startActivity(intent);
         finish();*/
@@ -505,9 +464,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 startActivity(repliesIntent);*/
             } else {
 
-                if (navigationPage!=null&& navigationPage.equals(AppConstants.SCREEN_MY_ORDERS)){
+                if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_MY_ORDERS)) {
                     gotoMyOrders();
-                }else {
+                } else {
 
                     if (mMainViewModel.isHome.get()) {
 

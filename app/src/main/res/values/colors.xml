@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#FCFDFD</color>
+    <color name="colorPrimary">#2a9d92</color>
+    <color name="colorPrimaryDark">#1A887E</color>
     <color name="colorAccent">#5C5B5B</color>
 
 
@@ -20,7 +20,7 @@
 
     <color name="filter_selected">#CACACA</color>
     <color name="filter_unselected">#ECEBEB</color>
-
+0
 
     <color name="dark_gray">#5C5B5B</color>
     <color name="tracking_back">#ffd4dedd</color>

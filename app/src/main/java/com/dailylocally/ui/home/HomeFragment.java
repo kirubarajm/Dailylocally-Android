@@ -1,8 +1,10 @@
 package com.dailylocally.ui.home;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,15 +15,17 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentHomeBinding;
 import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.category.l1.CategoryL1Activity;
+import com.dailylocally.ui.category.l1.CategoryL1ViewModel;
 
 import javax.inject.Inject;
 
-public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewModel> implements HomeNavigator{
+public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> implements HomeNavigator,CategoriesAdapter.CategoriesAdapterListener {
     @Inject
     CategoriesAdapter categoriesAdapter;
     @Inject
     HomeViewModel mHomeViewModel;
-     FragmentHomeBinding mFragmentHomeBinding;
+    FragmentHomeBinding mFragmentHomeBinding;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -29,7 +33,6 @@ public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewMode
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public int getBindingVariable() {
         return BR.homeViewModel;
@@ -48,7 +51,6 @@ public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewMode
     @Override
     public void handleError(Throwable throwable) {
     }
-
     @Override
     public void kitchenLoaded() {
 
@@ -59,17 +61,20 @@ public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewMode
 
                 for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
 
-                    if (position == 3) {
+                    if (position == 2) {
+                        return 2;
+                    } else {
                         return 1;
                     }
 
                 }
-                return 2;
+                return 1;
             }
         });
         mFragmentHomeBinding.categoryList.setLayoutManager(gridLayoutManager);
-         categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
+        categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
         mFragmentHomeBinding.categoryList.setAdapter(categoriesAdapter);
+        categoriesAdapter.setListener(this);
     }
 
     @Override
@@ -82,6 +87,7 @@ public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewMode
         super.onCreate(savedInstanceState);
         mHomeViewModel.setNavigator(this);
         subscribeToLiveData();
+
     }
 
     @Override
@@ -105,5 +111,14 @@ public class HomeFragment  extends BaseFragment<FragmentHomeBinding,HomeViewMode
     private void subscribeToLiveData() {
         mHomeViewModel.getCategoryListLiveData().observe(this,
                 catregoryItemViewModel -> mHomeViewModel.addCategoryToList(catregoryItemViewModel));
+    }
+
+    @Override
+    public void categoryItemClicked(HomepageResponse.Result result) {
+
+        Intent intent= CategoryL1Activity.newIntent(getBaseActivity());
+        intent.putExtra("catid",String.valueOf(result.getCatid()));
+        startActivity(intent);
+
     }
 }

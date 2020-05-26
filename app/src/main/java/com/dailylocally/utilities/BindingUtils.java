@@ -49,6 +49,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.dailylocally.ui.cart.BillListAdapter;
+import com.dailylocally.ui.cart.CartResponse;
+import com.dailylocally.ui.cart.OrderNowAdapter;
+import com.dailylocally.ui.category.l1.L1CategoriesAdapter;
+import com.dailylocally.ui.category.l1.L1CategoryResponse;
+import com.dailylocally.ui.category.l2.products.ProductListAdapter;
+import com.dailylocally.ui.category.l2.products.ProductsResponse;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.dailylocally.R;
 import com.dailylocally.ui.signup.faqs.FaqResponse;
@@ -80,6 +87,45 @@ public final class BindingUtils {
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(issues);
+        }
+    }
+
+ @BindingAdapter({"adapter"})
+    public static void addL1CategoryItems(RecyclerView recyclerView, List<L1CategoryResponse.Result> results) {
+        L1CategoriesAdapter adapter = (L1CategoriesAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+
+
+ @BindingAdapter({"products_adapter"})
+    public static void addProductItems(RecyclerView recyclerView, List<ProductsResponse.Result> results) {
+        ProductListAdapter adapter = (ProductListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+
+
+@BindingAdapter({"billdetails_adapter"})
+    public static void addBillItems(RecyclerView recyclerView, List<CartResponse.Cartdetail> results) {
+        BillListAdapter adapter = (BillListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+
+
+@BindingAdapter({"cart_ordernow_adapter"})
+    public static void addOrderNowItems(RecyclerView recyclerView, List<CartResponse.Item> results) {
+        OrderNowAdapter adapter = (OrderNowAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
         }
     }
 
