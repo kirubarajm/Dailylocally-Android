@@ -13,11 +13,11 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentProductsBinding;
 import com.dailylocally.ui.base.BaseFragment;
-import com.dailylocally.ui.home.CategoriesAdapter;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
 
 import javax.inject.Inject;
 
-public class ProductsFragment extends BaseFragment<FragmentProductsBinding, ProductsViewModel> implements ProductsNavigator,ProductListAdapter.ProductsAdapterListener {
+public class ProductsFragment extends BaseFragment<FragmentProductsBinding, ProductsViewModel> implements ProductsNavigator, ProductListAdapter.ProductsAdapterListener {
 
     @Inject
     ProductsViewModel mProductsViewModel;
@@ -81,7 +81,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
         mProductsViewModel.title.set(String.valueOf(scl2id));
 
-          mProductsViewModel.fetchProducts(scl2id);
+        mProductsViewModel.fetchProducts(scl2id);
 
 
        /* mFragmentProductsBinding.productList.setLayoutManager(linearLayoutManager);
@@ -109,6 +109,6 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     @Override
     public void refresh() {
-
+        ((CategoryL2Activity) getActivity()).refreshCart();
     }
 }

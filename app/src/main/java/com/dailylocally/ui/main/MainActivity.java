@@ -466,6 +466,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                 if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_MY_ORDERS)) {
                     gotoMyOrders();
+                } else if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_CART_PAGE)) {
+                    openCart("L2");
                 } else {
 
                     if (mMainViewModel.isHome.get()) {

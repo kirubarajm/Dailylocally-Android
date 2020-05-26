@@ -89,9 +89,9 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
             ProductsRequest productsRequest = new ProductsRequest();
 
-            productsRequest.setUserid("1");
-            productsRequest.setLat("13.05067500");
-            productsRequest.setLon( "80.00000000");
+            productsRequest.setUserid(getDataManager().getCurrentUserId());
+            productsRequest.setLat(getDataManager().getCurrentLat());
+            productsRequest.setLon( getDataManager().getCurrentLng());
             productsRequest.setScl1Id( 1);
             productsRequest.setScl2Id( scl2id);
 

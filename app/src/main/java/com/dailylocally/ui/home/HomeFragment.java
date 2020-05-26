@@ -3,6 +3,7 @@ package com.dailylocally.ui.home;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Toast;
 
@@ -52,7 +53,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void handleError(Throwable throwable) {
     }
     @Override
-    public void kitchenLoaded() {
+    public void dataLoaded() {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseActivity(), 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -79,7 +80,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void changeHeaderText(String headerContent) {
-
+        mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
     }
 
     @Override

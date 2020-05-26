@@ -150,18 +150,55 @@
 
 
 
+                <View
+                    android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/medium_gray" />
+
+
+                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/subsTitle"
+                    android:layout_below="@+id/recyclerview_orders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My subscription order"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
+                    android:layout_below="@+id/subsTitle"
+                    android:id="@+id/recyclerview_subscribe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    app:cart_subscribe_adapter="@{cartViewModel.subscribeItemViewModels}"
+                    tools:itemCount="1" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/medium_gray" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/recyclerview_orders"
+                    android:layout_below="@+id/recyclerview_subscribe"
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
 
                     <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_details"

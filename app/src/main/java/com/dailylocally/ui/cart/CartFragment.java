@@ -42,11 +42,13 @@ import javax.inject.Inject;
 import static android.app.Activity.RESULT_OK;
 import static com.dailylocally.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener {
+public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener,SubscribeItemsAdapter.SubscribeProductsAdapterListener {
 
     public ToolTipView myToolTipView;
     @Inject
     OrderNowAdapter mOrderNowAdapter;
+    @Inject
+    SubscribeItemsAdapter mSubscribeItemsAdapter;
     @Inject
     CartViewModel mCartViewModel;
     @Inject
@@ -91,6 +93,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         super.onCreate(savedInstanceState);
         mCartViewModel.setNavigator(this);
         mOrderNowAdapter.setListener(this);
+        mSubscribeItemsAdapter.setListener(this);
         billListAdapter.setListener(this);
 
 
@@ -111,6 +114,17 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mActivityCartBinding.recyclerviewOrders.setAdapter(mOrderNowAdapter);
+
+
+         LinearLayoutManager mLayoutManager2
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+        mActivityCartBinding.recyclerviewSubscribe.setLayoutManager(mLayoutManager2);
+        mActivityCartBinding.recyclerviewSubscribe.setAdapter(mSubscribeItemsAdapter);
+
+
+
 
 
         LinearLayoutManager billLayoutManager
@@ -230,6 +244,11 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
             mCartViewModel.emptyCart.set(true);
         }
 
+
+    }
+
+    @Override
+    public void edit(CartResponse.SubscriptionItem product) {
 
     }
 

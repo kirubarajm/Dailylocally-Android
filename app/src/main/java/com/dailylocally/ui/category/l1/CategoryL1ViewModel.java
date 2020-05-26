@@ -22,6 +22,7 @@ import java.util.List;
 public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
 
     public final ObservableField<String> title = new ObservableField<>();
+    public final ObservableField<String> categoriesCount = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
 
     public ObservableList<L1CategoryResponse.Result> categoryList = new ObservableArrayList<>();
@@ -60,13 +61,9 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
             L1CategoryRequest l1CategoryRequest = new L1CategoryRequest();
-            /*l1CategoryRequest.setUserid(getDataManager().getCurrentUserId());
+            l1CategoryRequest.setUserid(getDataManager().getCurrentUserId());
             l1CategoryRequest.setLat(getDataManager().getCurrentLat());
-            l1CategoryRequest.setLon(getDataManager().getCurrentLng());*/
-
-            l1CategoryRequest.setUserid("1");
-            l1CategoryRequest.setLat("12.979937");
-            l1CategoryRequest.setLon("80.218418");
+            l1CategoryRequest.setLon(getDataManager().getCurrentLng());
             l1CategoryRequest.setCatid(catid);
 
 
@@ -88,6 +85,9 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
 
                         if (response.getResult() != null && response.getResult().size() > 0) {
                             categoryListLiveData.setValue(response.getResult());
+
+                            categoriesCount.set(String.valueOf(response.getResult().size()) + " Categories");
+
 
                         } else {
 

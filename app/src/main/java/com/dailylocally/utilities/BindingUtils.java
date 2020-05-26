@@ -52,6 +52,7 @@ import com.bumptech.glide.request.target.Target;
 import com.dailylocally.ui.cart.BillListAdapter;
 import com.dailylocally.ui.cart.CartResponse;
 import com.dailylocally.ui.cart.OrderNowAdapter;
+import com.dailylocally.ui.cart.SubscribeItemsAdapter;
 import com.dailylocally.ui.category.l1.L1CategoriesAdapter;
 import com.dailylocally.ui.category.l1.L1CategoryResponse;
 import com.dailylocally.ui.category.l2.products.ProductListAdapter;
@@ -123,6 +124,15 @@ public final class BindingUtils {
 @BindingAdapter({"cart_ordernow_adapter"})
     public static void addOrderNowItems(RecyclerView recyclerView, List<CartResponse.Item> results) {
         OrderNowAdapter adapter = (OrderNowAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+
+@BindingAdapter({"cart_subscribe_adapter"})
+    public static void addSubscribeItems(RecyclerView recyclerView, List<CartResponse.SubscriptionItem> results) {
+        SubscribeItemsAdapter adapter = (SubscribeItemsAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(results);

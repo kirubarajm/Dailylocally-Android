@@ -211,6 +211,7 @@ int quantity=0;
 
         if (results.size() == 0) {
             saveCart(null);
+            mListener.refresh();
 
         } else {
             cartRequestPojo.setOrderitems(results);

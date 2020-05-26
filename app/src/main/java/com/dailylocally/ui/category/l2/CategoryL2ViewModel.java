@@ -2,6 +2,7 @@ package com.dailylocally.ui.category.l2;
 
 
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
@@ -12,8 +13,13 @@ import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
+
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -21,7 +27,14 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
 
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
-
+    public final ObservableField<String> unserviceableTitle = new ObservableField<>();
+    public final ObservableField<String> unserviceableSubTitle = new ObservableField<>();
+    public final ObservableBoolean serviceable = new ObservableBoolean();
+    public ObservableField<String> cartItems = new ObservableField<>();
+    public ObservableField<String> cartPrice = new ObservableField<>();
+    public ObservableField<String> noProductsString = new ObservableField<>();
+    public ObservableField<String> items = new ObservableField<>();
+    public ObservableBoolean cart = new ObservableBoolean();
     public ObservableList<L2CategoryResponse.Result> categoryList = new ObservableArrayList<>();
     private MutableLiveData<List<L2CategoryResponse.Result>> categoryListLiveData;
 
@@ -29,7 +42,7 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
     public CategoryL2ViewModel(DataManager dataManager) {
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
-
+        totalCart();
     }
 
 
@@ -59,13 +72,9 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
             L2CategoryRequest l2CategoryRequest = new L2CategoryRequest();
-            /*l1CategoryRequest.setUserid(getDataManager().getCurrentUserId());
-            l1CategoryRequest.setLat(getDataManager().getCurrentLat());
-            l1CategoryRequest.setLon(getDataManager().getCurrentLng());*/
-
-            l2CategoryRequest.setUserid("1");
-            l2CategoryRequest.setLat("12.979937");
-            l2CategoryRequest.setLon("80.218418");
+            l2CategoryRequest.setUserid(getDataManager().getCurrentUserId());
+            l2CategoryRequest.setLat(getDataManager().getCurrentLat());
+            l2CategoryRequest.setLon(getDataManager().getCurrentLng());
             l2CategoryRequest.setCatid(catid);
             l2CategoryRequest.setScl1Id(scl1id);
 
@@ -77,10 +86,9 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
 
                     if (response != null) {
                         // getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                       /* serviceable.set(response.getServiceablestatus());
+                        serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());
-                        categoryTitle.set(response.getCategoryTitle());*/
                         if (getNavigator() != null)
                             getNavigator().createtabs(response);
                         title.set(response.getCategoryTitle());
@@ -202,5 +210,43 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
 
         }*/
 
+    }
+
+    public void viewCart() {
+        getNavigator().viewCart();
+    }
+    public void totalCart() {
+        Gson sGson = new GsonBuilder().create();
+        CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+        cart.set(false);
+        if (CartRequest == null)
+            CartRequest = new CartRequest();
+        int count = 0;
+        int price = 0;
+        if (CartRequest.getOrderitems() != null) {
+            if (CartRequest.getOrderitems().size() == 0) {
+                cart.set(false);
+            } else {
+                for (int i = 0; i < CartRequest.getOrderitems().size(); i++) {
+                    count = count + CartRequest.getOrderitems().get(i).getQuantity();
+                    price = price + ((Integer.parseInt(CartRequest.getOrderitems().get(i).getPrice())) * CartRequest.getOrderitems().get(i).getQuantity());
+                }
+                if (count <= 0) {
+                    cart.set(false);
+                } else {
+                    if (count == 1) {
+                        cartItems.set(count + " Item");
+                        cart.set(true);
+                        cartPrice.set(String.valueOf(price));
+                        items.set("Item");
+                    } else {
+                        cartItems.set(count + " Items");
+                        cart.set(true);
+                        cartPrice.set(String.valueOf(price));
+                        items.set("Items");
+                    }
+                }
+            }
+        }
     }
 }

@@ -78,6 +78,10 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     }
 
+ public void myOrders() {
+
+    }
+
     public boolean isAddressAdded() {
 
         return getDataManager().getCurrentLat() != null;
@@ -126,19 +130,19 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                             fullEmpty.set(false);
                             categoryListLiveData.setValue(response.getResult());
                             if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
+                                getNavigator().dataLoaded();
 
                         } else {
                             fullEmpty.set(true);
                             if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
+                                getNavigator().dataLoaded();
                         }
 
 
                     } else {
                         fullEmpty.set(true);
                         if (getNavigator() != null)
-                            getNavigator().kitchenLoaded();
+                            getNavigator().dataLoaded();
 
                     }
 
@@ -147,7 +151,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (getNavigator() != null)
-                        getNavigator().kitchenLoaded();
+                        getNavigator().dataLoaded();
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
@@ -195,7 +199,10 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                         headerSubContent.set(response.getHeaderSubconent());
                         categoryTitle.set(response.getCategoryTitle());
 
-
+                        
+                        if (getNavigator() != null)
+                            getNavigator().changeHeaderText(response.getHeaderContent());
+                            
                         if (getNavigator() != null)
                             getNavigator().changeHeaderText(response.getHeaderContent());
 
@@ -203,19 +210,19 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                             fullEmpty.set(false);
                             categoryListLiveData.setValue(response.getResult());
                             if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
+                                getNavigator().dataLoaded();
 
                         } else {
                             fullEmpty.set(true);
                             if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
+                                getNavigator().dataLoaded();
                         }
 
 
                     } else {
                         fullEmpty.set(true);
                         if (getNavigator() != null)
-                            getNavigator().kitchenLoaded();
+                            getNavigator().dataLoaded();
 
                     }
 
@@ -230,7 +237,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     //   Log.e("", ""+error.getMessage());
                     if (getNavigator() != null)
-                        getNavigator().kitchenLoaded();
+                        getNavigator().dataLoaded();
                 }
             }) {
 

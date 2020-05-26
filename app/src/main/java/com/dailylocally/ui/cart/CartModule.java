@@ -60,4 +60,9 @@ public class CartModule {
         return new OrderNowAdapter(new ArrayList<>(),dataManager);
     }
 
+    @Provides
+   SubscribeItemsAdapter provideSubscribeItemsAdapter() {
+        return new SubscribeItemsAdapter(new ArrayList<>(),dataManager);
+    }
+
 }

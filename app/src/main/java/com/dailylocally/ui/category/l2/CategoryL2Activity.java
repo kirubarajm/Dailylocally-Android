@@ -22,6 +22,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCategoryl12Binding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -90,6 +91,10 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
                 categoryList -> mCategoryL2ViewModel.addDatatoList(categoryList));
 
     }
+ public void refreshCart() {
+        mCategoryL2ViewModel.totalCart();
+
+    }
 
     @Override
     public int getBindingVariable() {
@@ -117,7 +122,16 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     }
 
     @Override
+    public void viewCart() {
+        Intent intent= MainActivity.newIntent(CategoryL2Activity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("page",AppConstants.SCREEN_CART_PAGE);
+        startActivity(intent);
+    }
+
+    @Override
     public void createtabs(L2CategoryResponse response) {
+
 
 
         for (int k = 0; k < response.getResult().size(); k++) {

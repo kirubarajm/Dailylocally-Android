@@ -62,6 +62,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean suggestedProduct = new ObservableBoolean();
     public final ObservableBoolean available = new ObservableBoolean();
+    public final ObservableBoolean showSubscription = new ObservableBoolean();
     public final ObservableBoolean refunds = new ObservableBoolean();
     public final ObservableBoolean refundSelected = new ObservableBoolean();
     public final ObservableBoolean couponSelected = new ObservableBoolean();
@@ -250,7 +251,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             }
 
                             if (cartPageResponse.getResult() != null) {
-                                if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
+
+
+
+
+                                if (cartPageResponse.getResult().get(0).getItem().size() == 0 && cartPageResponse.getResult().get(0).getSubscriptionItem().size() == 0) {
+
                                     if (getNavigator() != null) {
                                         getNavigator().emptyCart();
                                         getNavigator().clearToolTips();
@@ -260,12 +266,18 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                     emptyCart.set(true);
 
 
-                                } else {
+                                }
+
+
+                                if (cartPageResponse.getResult().get(0).getItem().size() >0) {
+
+
                                     ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
-                                    subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
+
                                     emptyCart.set(false);
 
                                     cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());
+
 
 
                                     totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
@@ -288,6 +300,40 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         lowCostShort.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
                                     }
 
+
+                                }
+
+
+
+                                if (cartPageResponse.getResult().get(0).getSubscriptionItem().size() > 0) {
+
+
+                                    subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
+                                    emptyCart.set(false);
+
+                                    cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());
+
+
+
+                                    totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
+
+
+                                    total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
+
+                                    grand_total.set(String.valueOf(totalAmount));
+
+                                    grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotaltitle());
+
+
+                                    gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                                    delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+
+
+                                    if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
+                                        lowCostStatus.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitStatus());
+                                        lowCost.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitMessage());
+                                        lowCostShort.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
+                                    }
 
                                 }
 

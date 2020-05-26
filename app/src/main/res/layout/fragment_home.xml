@@ -26,7 +26,6 @@
             android:orientation="vertical">
 
 
-
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/fullScroll"
                 android:layout_width="match_parent"
@@ -40,10 +39,154 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <RelativeLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:onClick="@{()->homeViewModel.myOrders()}"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_orders"
+                                android:textSize="20sp" />
+
+                            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="My orders"
+                                android:textColor="@color/dl_primary_color"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:id="@+id/welcomeText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="12dp"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:visibility="visible" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentItalicTextView
+                            android:id="@+id/welcomeTextNote"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginEnd="12dp"
+                            android:text="@{homeViewModel.headerSubContent}"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"
+                            android:visibility="visible" />
+
+
+                        <TextView
+                            android:layout_margin="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/light_gray"
+                            android:gravity="center_vertical|start"
+                            android:hint="Search for fruits, vegetables and essentials"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:textAlignment="textStart"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/categoryList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+
+
+                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Freshy"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Locally"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Daily."
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/light_green"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                     <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                         android:layout_marginBottom="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Locally sourced product"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/medium_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
 
                 </LinearLayout>
 
