@@ -115,6 +115,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void handleError(Throwable throwable) {
+
     }
 
     @Override

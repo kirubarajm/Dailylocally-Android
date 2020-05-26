@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
+import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 
@@ -100,7 +101,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     public void genderSuccess(String strMessage) {
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
         //mLoginViewModelMain.fetchUserDetails();
-        Intent intent = MainActivity.newIntent(RegistrationActivity.this);
+        Intent intent = AddAddressActivity.newIntent(RegistrationActivity.this);
         startActivity(intent);
         finish();
     }

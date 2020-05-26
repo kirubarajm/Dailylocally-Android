@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.dailylocally.BR;
+import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySplashBinding;
@@ -68,8 +69,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void checkForUserLogin(boolean status) {
         if (status) {
-            // Intent intent = MainActivity.newIntent(SplashActivity.this);
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = MainActivity.newIntent(SplashActivity.this);
+            //Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -101,6 +102,13 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    public void userAddressActivity() {
+        Intent intent = AddAddressActivity.newIntent(SplashActivity.this);
+        startActivity(intent);
+        finish();
     }
 
     @Override
