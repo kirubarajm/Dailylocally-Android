@@ -147,6 +147,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
                                     genderstatus = response.getGenderstatus();
 
+                                    getDataManager().setUserRegistrationStatus(genderstatus);
 
                                     new Analytics().userLogin(response.getUserid(),phoneNumber);
 
@@ -200,20 +201,25 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     if (genderstatus) {
                                         if (response.getResult() != null && response.getResult().size()>0) {
                                             if (response.getResult().get(0).getAddressDefault()==1) {
+                                                getDataManager().setUserAddress(true);
                                                 if (getNavigator()!=null) {
                                                     getNavigator().openHomeActivity(true);
                                                 }
                                             }else {
+                                                getDataManager().setUserAddress(false);
                                                 if (getNavigator()!=null) {
                                                     getNavigator().addAddressActivity(response.getResult().get(0).getAid());
                                                 }
                                             }
+                                        }else {
+                                            getDataManager().setUserAddress(false);
                                         }
                                     } else {
                                         getNavigator().nameGenderScreen();
                                     }
                                 } else {
                                     getNavigator().loginFailure();
+                                    getDataManager().setUserRegistrationStatus(genderstatus);
                                 }
                         }
                     } catch (NullPointerException e) {
@@ -228,7 +234,9 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    if (getNavigator()!=null)
                     getNavigator().loginFailure();
+                    getDataManager().setUserRegistrationStatus(genderstatus);
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);

@@ -116,6 +116,7 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    getDataManager().setUserRegistrationStatus(false);
                     if (getNavigator() != null)
                         getNavigator().genderFailure("Failed to update");
                 }

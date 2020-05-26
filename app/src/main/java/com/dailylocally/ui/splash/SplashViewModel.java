@@ -43,8 +43,14 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
             if (getDataManager().getCurrentUserId() != null) {
 
                 if (getDataManager().isUserRegistered()) {
-                    if (getNavigator() != null)
-                        getNavigator().checkForUserLogin(AppConstants.FLAG_TRUE);
+                    if (getDataManager().isUserAddress()) {
+                        if (getNavigator() != null)
+                            getNavigator().checkForUserLogin(AppConstants.FLAG_TRUE);
+                    }else {
+                            if (getNavigator()!=null){
+                                getNavigator().userAddressActivity();
+                            }
+                    }
                 } else {
                     if (getNavigator() != null)
                         getNavigator().userAlreadyRegistered(false);
