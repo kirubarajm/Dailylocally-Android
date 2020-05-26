@@ -16,12 +16,15 @@
 
 package com.dailylocally.di;
 
+import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.add.AddAddressModule;
 import com.dailylocally.ui.cart.CartProvider;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l1.CategoryL1Module;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Module;
 import com.dailylocally.ui.category.l2.products.ProductsProvider;
+
 import com.dailylocally.ui.home.HomeProvider;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.main.MainActivityModule;
@@ -102,5 +105,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = FaqsAndSupportModule.class)
     abstract FaqsAndSupportActivity bindFaqAndSupportActivity();
+
+    @ContributesAndroidInjector(modules = AddAddressModule.class)
+    abstract AddAddressActivity bindAddAddressActivity();
 
 }

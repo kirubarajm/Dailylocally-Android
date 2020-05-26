@@ -153,4 +153,7 @@ public interface PreferencesHelper {
     boolean isUserRegistered();
     void setUserRegistrationStatus(boolean status);
 
+    boolean isUserAddress();
+    void setUserAddress(boolean address);
+
 }

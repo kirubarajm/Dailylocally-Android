@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.dailylocally.BR;
+import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityOtpBinding;
@@ -177,6 +178,13 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         } else {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_FAILED, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void addAddressActivity(String aid) {
+        Intent intent = AddAddressActivity.newIntent(OtpActivity.this);
+        intent.putExtra("aid",aid);
+        startActivity(intent);
     }
 
     @Override

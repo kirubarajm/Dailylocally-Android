@@ -620,6 +620,15 @@ public class AppDataManager implements DataManager {
 mPreferencesHelper.setUserRegistrationStatus(status);
     }
 
+    @Override
+    public boolean isUserAddress() {
+        return mPreferencesHelper.isUserAddress();
+    }
+
+    @Override
+    public void setUserAddress(boolean address) {
+        mPreferencesHelper.setUserAddress(address);
+    }
 
     @Override
     public String getCartDetails() {
