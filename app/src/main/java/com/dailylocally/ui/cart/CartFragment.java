@@ -1,11 +1,13 @@
 package com.dailylocally.ui.cart;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,15 +19,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
+import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
-
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.analytics.Analytics;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -87,7 +97,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -104,17 +113,13 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         mActivityCartBinding.recyclerviewOrders.setAdapter(mOrderNowAdapter);
 
 
-
         LinearLayoutManager billLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mActivityCartBinding.recyclerviewBill.setLayoutManager(billLayoutManager);
         mActivityCartBinding.recyclerviewBill.setAdapter(billListAdapter);
 
 
-
-
         subscribeToLiveData();
-
 
 
         mActivityCartBinding.cartScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -148,14 +153,9 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
 
-
     @Override
     public void emptyCart() {
     }
-
-
-
-
 
 
     @Override
@@ -172,8 +172,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
 
-
-
     @Override
     public void clearToolTips() {
         if (myToolTipView != null) {
@@ -185,7 +183,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void metricsCartOpen() {
-      //  metricsOpenCartPage();
+        //  metricsOpenCartPage();
     }
 
     private void subscribeToLiveData() {
@@ -236,6 +234,81 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
     @Override
+    public String changeDate(CartResponse.Item product) {
+
+
+        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+        SimpleDateFormat sDay = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat sMonth = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat sYear = new SimpleDateFormat("yyyy", Locale.getDefault());
+
+
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+
+      /*  Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date tomorrow = calendar.getTime();
+
+        String tomorrowDate =dateFormat.format(tomorrow);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date dat = calendar.getTime();
+
+        String dayAftertomorrowDate =dateFormat.format(dat);*/
+
+        int year = 0;
+        int month = 0;
+        int day = 0;
+
+
+        Calendar calendarT = Calendar.getInstance();
+        calendarT.add(Calendar.DAY_OF_YEAR, 1);
+        Date selectableDate = calendarT.getTime();
+
+
+        if (Integer.parseInt(currentTime) < 14) {
+
+
+            year = calendarT.get(Calendar.YEAR);
+            month = calendarT.get(Calendar.MONTH);
+            day = calendarT.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+            calendarT.add(Calendar.DAY_OF_YEAR, 1);
+            selectableDate = calendarT.getTime();
+
+
+            year = calendarT.get(Calendar.YEAR);
+            month = calendarT.get(Calendar.MONTH);
+            day = calendarT.get(Calendar.DAY_OF_MONTH);
+        }
+
+
+        final String[] date = new String[1];
+
+
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                date[0] = dayOfMonth + "-" + month + "-" + year;
+              mCartViewModel.productDateChange(date[0],product);
+
+
+            }
+        }, year, month, day);
+        dialog.getDatePicker().setMinDate(selectableDate.getTime());
+        dialog.show();
+
+
+        return date[0];
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -273,7 +346,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
                 infoClicked = true;
                 ToolTip toolTip = new ToolTip()
                         .withContentView(LayoutInflater.from(DailylocallyApp.getInstance()
-                         ).inflate(R.layout.tool_tip_cart_info, null))
+                        ).inflate(R.layout.tool_tip_cart_info, null))
                         // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
                         .withColor(DailylocallyApp.getInstance().getResources().getColor(R.color.light_gray))
                         .withShadow()

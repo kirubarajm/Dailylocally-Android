@@ -1,8 +1,5 @@
 package com.dailylocally.ui.cart;
 
-import android.util.Log;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.databinding.ObservableArrayList;
@@ -17,13 +14,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CartRequestPojo;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -126,14 +121,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     }
 
- public void addOrderNowItemsToList(List<CartResponse.Item> results) {
+    public void addOrderNowItemsToList(List<CartResponse.Item> results) {
         ordernowItemViewModels.clear();
-     ordernowItemViewModels.addAll(results);
+        ordernowItemViewModels.addAll(results);
 
     }
- public void addSubscriptionItemsToList(List<CartResponse.SubscriptionItem> results) {
+
+    public void addSubscriptionItemsToList(List<CartResponse.SubscriptionItem> results) {
         subscribeItemViewModels.clear();
-     subscribeItemViewModels.addAll(results);
+        subscribeItemViewModels.addAll(results);
 
     }
 
@@ -197,8 +193,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
 
-
-
     public void goHome() {
         getNavigator().redirectHome();
 
@@ -218,7 +212,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void fetchRepos() {
         if (getNavigator() != null)
             getNavigator().clearToolTips();
-
 
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -262,14 +255,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         getNavigator().emptyCart();
                                         getNavigator().clearToolTips();
                                     }
-                                 //   getDataManager().setCartDetails(null);
+                                    //   getDataManager().setCartDetails(null);
 
                                     emptyCart.set(true);
 
 
                                 } else {
                                     ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
-                                   subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
+                                    subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
                                     emptyCart.set(false);
 
                                     cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());
@@ -287,8 +280,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
                                     delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
-
-
 
 
                                     if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
@@ -313,7 +304,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 }
                             }
                         }
-
 
 
                         if (getNavigator() != null)
@@ -367,5 +357,49 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
     }
 
+    public void productDateChange(String date, CartResponse.Item product) {
 
+
+        List<CartRequest.Orderitem> results = new ArrayList<>();
+        CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
+        CartRequest cartRequestPojo = new CartRequest();
+
+
+        Gson sGson = new GsonBuilder().create();
+        cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+        if (cartRequestPojo == null)
+            cartRequestPojo = new CartRequest();
+        if (cartRequestPojo.getOrderitems() != null) {
+            results.clear();
+            results.addAll(cartRequestPojo.getOrderitems());
+        }
+
+        if (cartRequestPojo.getOrderitems() != null) {
+            int totalSize = cartRequestPojo.getOrderitems().size();
+            if (totalSize != 0) {
+                for (int i = 0; i < totalSize; i++) {
+                    if (product.getPid().equals(results.get(i).getPid())) {
+
+                        cartRequestPojoResult.setPid(product.getPid());
+                        cartRequestPojoResult.setQuantity(product.getCartquantity());
+                        cartRequestPojoResult.setPrice(String.valueOf(product.getMrp()));
+                        cartRequestPojoResult.setDayorderdate(date);
+                        results.set(i, cartRequestPojoResult);
+
+
+                    }
+                }
+
+            }
+
+        }
+
+        cartRequestPojo.setOrderitems(results);
+        Gson gson = new Gson();
+        String json = gson.toJson(cartRequestPojo);
+        getDataManager().setCartDetails(json);
+
+        fetchRepos();
+
+    }
 }

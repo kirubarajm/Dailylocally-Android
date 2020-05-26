@@ -55,7 +55,7 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
 
     public void fetchSubCategoryList(String catid,String scl1id) {
 
-        if (getDataManager().getCurrentLat() == null) {
+        if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
             L2CategoryRequest l2CategoryRequest = new L2CategoryRequest();

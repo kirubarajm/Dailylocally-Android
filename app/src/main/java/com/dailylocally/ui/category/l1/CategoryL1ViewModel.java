@@ -56,7 +56,7 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
 
     public void fetchSubCategoryList(String catid) {
 
-        if (getDataManager().getCurrentLat() == null) {
+        if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
             L1CategoryRequest l1CategoryRequest = new L1CategoryRequest();
@@ -113,107 +113,6 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
         }
 
 
-        /* HomePageRequest homePageRequest = new HomePageRequest();
-         *//* homePageRequest.setUserid(getDataManager().getCurrentUserId());
-        homePageRequest.setLat(getDataManager().getCurrentLat());
-        homePageRequest.setLon(getDataManager().getCurrentLng());*//*
-
-        homePageRequest.setUserid("1");
-        homePageRequest.setLat("12.979937");
-        homePageRequest.setLon( "80.218418");
-        Gson gson = new Gson();
-        String  json = gson.toJson(homePageRequest);
-        //  getDataManager().setFilterSort(json);
-
-
-        try {
-            setIsLoading(true);
-            //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject homepageResponse) {
-
-                    HomepageResponse response;
-                    Gson sGson = new GsonBuilder().create();
-                    response = sGson.fromJson(homepageResponse.toString(), HomepageResponse.class);
-
-
-
-                    if (response != null) {
-
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                        serviceable.set(response.getServiceablestatus());
-                        unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());
-                        emptyImageUrl.set(response.getEmptyUrl());
-                        emptyContent.set(response.getEmptyContent());
-                        emptySubContent.set(response.getEmptySubconent());
-                        headerContent.set(response.getHeaderContent());
-                        headerSubContent.set(response.getHeaderSubconent());
-                        categoryTitle.set(response.getCategoryTitle());
-
-
-                        if (getNavigator() != null)
-                            getNavigator().changeHeaderText(response.getHeaderContent());
-
-                        if (response.getResult() != null && response.getResult().size() > 0) {
-                            fullEmpty.set(false);
-                            categoryListLiveData.setValue(response.getResult());
-                            if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
-
-                        } else {
-                            fullEmpty.set(true);
-                            if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
-                        }
-
-
-                    } else {
-                        fullEmpty.set(true);
-                        if (getNavigator() != null)
-                            getNavigator().kitchenLoaded();
-
-                    }
-
-                }
-
-
-
-
-
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //   Log.e("", ""+error.getMessage());
-                    if (getNavigator() != null)
-                        getNavigator().kitchenLoaded();
-                }
-            }) {
-
-                *//**
-         * Passing some request headers
-         *//*
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                }
-            };
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (JSONException j) {
-            j.printStackTrace();
-        } catch (Exception ee) {
-
-            ee.printStackTrace();
-
-        }*/
 
     }
 }

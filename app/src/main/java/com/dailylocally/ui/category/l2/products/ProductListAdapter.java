@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<ProductsResponse.Result> item_list;
-    private CategoriesAdapterListener mCategoriesAdapterListener;
+    private ProductsAdapterListener mProductsAdapterListener;
 
     public ProductListAdapter(List<ProductsResponse.Result> item_list) {
         this.item_list = item_list;
@@ -51,18 +51,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void setListener(CategoriesAdapterListener listener) {
-        this.mCategoriesAdapterListener = listener;
+    public void setListener(ProductsAdapterListener listener) {
+        this.mProductsAdapterListener = listener;
     }
 
 
 
-    public interface CategoriesAdapterListener {
-        void categoryItemClicked(ProductsResponse.Result result);
+    public interface ProductsAdapterListener {
+        void refresh();
     }
 
 
-    public class ProductsViewHolder extends BaseViewHolder {
+    public class ProductsViewHolder extends BaseViewHolder implements ProductsItemViewModel.ProductsItemViewModelListener {
 
         ListItemProductsBinding mListItemCategoriesBinding;
         ProductsItemViewModel mCategoriesItemViewModel;
@@ -76,7 +76,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final ProductsResponse.Result blog = item_list.get(position);
-            mCategoriesItemViewModel = new ProductsItemViewModel(blog);
+            mCategoriesItemViewModel = new ProductsItemViewModel(this,blog);
             mListItemCategoriesBinding.setProductsItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
 
@@ -84,8 +84,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
 
-
-
+        @Override
+        public void refresh() {
+            mProductsAdapterListener.refresh();
+        }
     }
 
 }

@@ -17,6 +17,7 @@ public class OrderNowItemViewModel {
 
     public final ObservableField<String> producttype = new ObservableField<>();
     public final ObservableField<String> product_name = new ObservableField<>();
+    public final ObservableField<String> futureDate = new ObservableField<>();
     public final ObservableField<String> veg_type = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
 
@@ -29,8 +30,8 @@ public class OrderNowItemViewModel {
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean isAvailable = new ObservableBoolean();
     public final ObservableBoolean isVeg = new ObservableBoolean();
-    private final ObservableField<Integer> price = new ObservableField<>();
     public final ObservableField<String> weight = new ObservableField<>();
+    private final ObservableField<Integer> price = new ObservableField<>();
     private final ObservableField<Integer> quantity = new ObservableField<>();
     private final DishItemViewModelListener mListener;
     private final CartResponse.Item dishList;
@@ -46,12 +47,17 @@ public class OrderNowItemViewModel {
         this.dishList = dishList;
 
         product_name.set(dishList.getProductname());
-        sprice.set(String.valueOf(dishList.getMrp()));
+      // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
+
+
+
+        sprice.set("INR. " + String.valueOf(dishList.getMrp()));
         image.set(dishList.getImage());
         weight.set(dishList.getWeight());
 
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());
+        futureDate.set("Schedule for " + dishList.getDeliverydate());
         isAddClicked.set(true);
     }
 
@@ -73,6 +79,7 @@ public class OrderNowItemViewModel {
                     if (dishList.getPid().equals(results.get(i).getPid())) {
                         cartRequestPojoResult.setPid(dishList.getPid());
                         cartRequestPojoResult.setQuantity(quantity.get());
+                        cartRequestPojoResult.setDayorderdate(dishList.getDeliverydate());
                         cartRequestPojoResult.setPrice(String.valueOf(dishList.getMrp()));
                         results.set(i, cartRequestPojoResult);
                     }
@@ -104,6 +111,7 @@ public class OrderNowItemViewModel {
                         } else {
                             cartRequestPojoResult.setPid(dishList.getPid());
                             cartRequestPojoResult.setQuantity(quantity.get());
+                            cartRequestPojoResult.setDayorderdate(dishList.getDeliverydate());
                             cartRequestPojoResult.setPrice(String.valueOf(dishList.getMrp()));
                             results.set(i, cartRequestPojoResult);
 
@@ -140,6 +148,7 @@ public class OrderNowItemViewModel {
         cartRequestPojoResult.setPid(dishList.getPid());
         cartRequestPojoResult.setQuantity(quantity.get());
         cartRequestPojoResult.setPrice(String.valueOf(dishList.getMrp()));
+        cartRequestPojoResult.setDayorderdate(dishList.getDeliverydate());
         results.add(cartRequestPojoResult);
 
         cartRequestPojo.setOrderitems(results);
@@ -152,6 +161,7 @@ public class OrderNowItemViewModel {
 
 
     }
+
     public void saveCart(CartRequest request) {
         Gson gson = new Gson();
         String json = gson.toJson(request);
@@ -172,8 +182,19 @@ public class OrderNowItemViewModel {
         return cartRequestPojo;
     }
 
+
+    public void changeDate() {
+
+        String date = mListener.changeDate(dishList);
+
+
+
+    }
+
     public interface DishItemViewModelListener {
         void reload();
+
+        String changeDate(CartResponse.Item product);
     }
 
 }

@@ -17,7 +17,7 @@ import com.dailylocally.ui.home.CategoriesAdapter;
 
 import javax.inject.Inject;
 
-public class ProductsFragment extends BaseFragment<FragmentProductsBinding, ProductsViewModel> implements ProductsNavigator {
+public class ProductsFragment extends BaseFragment<FragmentProductsBinding, ProductsViewModel> implements ProductsNavigator,ProductListAdapter.ProductsAdapterListener {
 
     @Inject
     ProductsViewModel mProductsViewModel;
@@ -61,6 +61,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mProductsViewModel.setNavigator(this);
+        productListAdapter.setListener(this);
         subscribeToLiveData();
 
     }
@@ -106,4 +107,8 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     }
 
 
+    @Override
+    public void refresh() {
+
+    }
 }

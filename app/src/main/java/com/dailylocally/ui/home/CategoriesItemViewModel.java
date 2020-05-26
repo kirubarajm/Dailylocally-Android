@@ -18,7 +18,9 @@ public class CategoriesItemViewModel {
         this.mListener = mListener;
         this.result = result;
         image.set(result.getImage());
-        name.set(result.getName());
+       name.set(result.getName());
+
+       // name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
     }
 
 

@@ -84,7 +84,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
     public void fetchProducts(int scl2id) {
 
-        if (getDataManager().getCurrentLat() == null) {
+        if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
             ProductsRequest productsRequest = new ProductsRequest();
