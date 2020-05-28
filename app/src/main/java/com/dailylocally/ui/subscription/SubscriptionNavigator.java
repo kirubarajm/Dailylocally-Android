@@ -4,11 +4,7 @@ public interface SubscriptionNavigator {
 
     void handleError(Throwable throwable);
 
-    void feedBackClick();
-
-    void supportClick();
-
     void goBack();
+    void plans(SubscriptionResponse subscriptionPlan);
 
-    void callCusstomerCare();
 }

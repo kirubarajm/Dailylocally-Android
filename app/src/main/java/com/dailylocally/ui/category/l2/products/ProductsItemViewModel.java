@@ -271,11 +271,13 @@ int quantity=0;
     }
 
     public void subscribe() {
-
+mListener.subscribeProduct(products);
     }
 
     public interface ProductsItemViewModelListener {
         void refresh();
+
+        void subscribeProduct(ProductsResponse.Result products);
     }
 
 }

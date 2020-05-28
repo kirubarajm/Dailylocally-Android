@@ -6,18 +6,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.annotation.Nullable;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.databinding.ActivityFaqsSupportBinding;
 import com.dailylocally.databinding.ActivitySubscriptionBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -25,7 +24,7 @@ import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
-public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBinding, SubscriptionViewModel> implements SubscriptionNavigator {
+public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBinding, SubscriptionViewModel> implements SubscriptionNavigator, PlansAdapter.planListener {
 
     @Inject
     SubscriptionViewModel mSubscriptionViewModel;
@@ -33,8 +32,28 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
 
     Analytics analytics;
-    String pageName= AppConstants.SCREEN_FAQS_AND_SUPPORT;
+    String pageName = AppConstants.SCREEN_FAQS_AND_SUPPORT;
 
+    String pid;
+
+
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
@@ -47,45 +66,30 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     }
 
     @Override
-    public void feedBackClick() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_FAQ);
-
-        Intent intent = FaqActivity.newIntent(this);
-        startActivity(intent);
-    }
-
-    @Override
-    public void supportClick() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_SUPPORT);
-
-        /*Intent intent = SupportActivity.newIntent(this);
-        startActivity(intent);*/
-
-       /* ZopimChat.init(getString(R.string.zopim_account_id));
-        final VisitorInfo.Builder build = new VisitorInfo.Builder();
-        ZopimChat.setVisitorInfo(build.build());
-
-// build pre chat form config
-        PreChatForm preChatForm = new PreChatForm.Builder()
-                .name(PreChatForm.Field.REQUIRED)
-                .email(PreChatForm.Field.NOT_REQUIRED)
-                .phoneNumber(PreChatForm.Field.REQUIRED)
-                .department(PreChatForm.Field.REQUIRED)
-                .message(PreChatForm.Field.NOT_REQUIRED)
-                .build();
-// build session config
-        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
-                .preChatForm(preChatForm)
-                .department("EAT")
-                .tags("New user" );
-// start chat activity with config
-        ZopimChatActivity.startActivity(this, config);*/
-
-    }
-
-    @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void plans(SubscriptionResponse subscriptionPlan) {
+
+        PlansAdapter plansAdapter = new PlansAdapter(subscriptionPlan.getSubscriptionPlan(), SubscriptionActivity.this, this);
+        mActivitySubscriptionBinding.plans.setAdapter(plansAdapter);
+
+        mActivitySubscriptionBinding.plans.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSubscriptionViewModel.planId = mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(position).getSpid();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mSubscriptionViewModel.planId = 0;
+            }
+        });
+
+
     }
 
     @Override
@@ -93,24 +97,6 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
         new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_BACK_BUTTON);
 
         super.onBackPressed();
-    }
-
-    @Override
-    public void callCusstomerCare() {
-
-            new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_CALL_SUPPORT);
-
-       // String number = AppConstants.SUPPORT_NUMBER;
-        String number = mSubscriptionViewModel.support.get();
-
-        assert number != null;
-        if (!number.equals("0")) {
-            Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
-            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(callIntent);
-        }
-
     }
 
     @Override
@@ -134,10 +120,15 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
         mSubscriptionViewModel.setNavigator(this);
         mActivitySubscriptionBinding = getViewDataBinding();
 
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            pid = intent.getExtras().getString("pid");
+            mSubscriptionViewModel.fetchProductDetails(pid);
+        }
 
-        analytics=new Analytics(this, pageName);
+
+        analytics = new Analytics(this, pageName);
     }
-
 
     @Override
     protected void onResume() {
@@ -159,14 +150,13 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) DailylocallyApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) DailylocallyApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -181,30 +171,18 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 
 
     @Override
     public void canceled() {
+
+    }
+
+    @Override
+    public void selectedPlan(SubscriptionResponse.SubscriptionPlan subscriptionPlan) {
 
     }
 }
