@@ -9,6 +9,6 @@ public interface CalendarNavigator {
 
     void success(List<CalendarMonthResponse.Result> results);
 
-    void failure();
+    void failure(String message);
 
 }

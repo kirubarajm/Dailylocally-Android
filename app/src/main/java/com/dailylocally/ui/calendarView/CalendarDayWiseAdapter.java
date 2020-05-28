@@ -11,12 +11,12 @@ import com.dailylocally.ui.base.BaseViewHolder;
 import java.util.List;
 
 
-public class CalendarAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class CalendarDayWiseAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private List<CalendarMonthResponse.Result> item_list;
+    private List<CalendarDayWiseResponse.Result.Item> item_list;
     private CategoriesAdapterListener mCategoriesAdapterListener;
 
-    public CalendarAdapter(List<CalendarMonthResponse.Result> item_list) {
+    public CalendarDayWiseAdapter(List<CalendarDayWiseResponse.Result.Item> item_list) {
         this.item_list = item_list;
     }
 
@@ -41,7 +41,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<CalendarMonthResponse.Result> blogList) {
+    public void addItems(List<CalendarDayWiseResponse.Result.Item> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -51,13 +51,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public interface CategoriesAdapterListener {
-        void categoryItemClicked(CalendarMonthResponse.Result result);
+        void onItemClick(CalendarDayWiseResponse.Result.Item result);
     }
 
-    public class CategoriesViewHolder extends BaseViewHolder implements CalendarItemViewModel.CalendarItemViewModelListener {
+    public class CategoriesViewHolder extends BaseViewHolder implements CalendarDayWiseItemViewModel.CalendarItemViewModelListener {
 
         ListItemCalendarBinding mListItemCategoriesBinding;
-        CalendarItemViewModel mCategoriesItemViewModel;
+        CalendarDayWiseItemViewModel mCategoriesItemViewModel;
 
         public CategoriesViewHolder(ListItemCalendarBinding binding) {
             super(binding.getRoot());
@@ -67,16 +67,15 @@ public class CalendarAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final CalendarMonthResponse.Result blog = item_list.get(position);
-            mCategoriesItemViewModel = new CalendarItemViewModel(this, blog);
+            final CalendarDayWiseResponse.Result.Item blog = item_list.get(position);
+            mCategoriesItemViewModel = new CalendarDayWiseItemViewModel(this, blog);
             mListItemCategoriesBinding.setCalendarItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
-
         }
 
         @Override
-        public void onItemClick(CalendarMonthResponse.Result result) {
-            mCategoriesAdapterListener.categoryItemClicked(result);
+        public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
+            mCategoriesAdapterListener.onItemClick(result);
 
         }
     }
