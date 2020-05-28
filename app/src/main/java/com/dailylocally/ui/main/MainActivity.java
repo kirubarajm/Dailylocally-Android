@@ -25,6 +25,8 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityMainBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.calendarView.CalendarFragment;
+import com.dailylocally.ui.calendarView.CalendarModule;
 import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.utilities.AppConstants;
@@ -158,7 +160,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            HomeFragment fragment = new HomeFragment();
+            CalendarFragment fragment = new CalendarFragment();
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
             transaction.commit();

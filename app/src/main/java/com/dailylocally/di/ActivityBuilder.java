@@ -18,6 +18,7 @@ package com.dailylocally.di;
 
 import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.address.add.AddAddressModule;
+import com.dailylocally.ui.calendarView.CalendarProvider;
 import com.dailylocally.ui.cart.CartProvider;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l1.CategoryL1Module;
@@ -74,7 +75,8 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = {
             MainActivityModule.class,
             HomeProvider.class,
-            CartProvider.class
+            CartProvider.class,
+            CalendarProvider.class
 
     })
     abstract MainActivity bindMainActivity();

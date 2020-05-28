@@ -414,6 +414,9 @@ public class AppConstants {
   public static final String REGISTRATION = URL_SERVER_IP_PORT + "/user/edit";
   public static final String ADD_ADDRESS_URL = URL_SERVER_IP_PORT + "/user/address";
   public static final String DEFAULT_ADDRESS = URL_SERVER_IP_PORT + "/user/defaultaddress";
+  public static final String CALENDAR_MONTH_WISE_ORDER_HISTORY = URL_SERVER_IP_PORT + "/user/dayorderhistory/month";
+  public static final String CALENDAR_DAY_WISE_ORDER_HISTORY = URL_SERVER_IP_PORT + "/user/dayorderhistory/day";
+
 
 
 
