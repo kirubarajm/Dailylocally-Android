@@ -59,6 +59,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface ProductsAdapterListener {
         void refresh();
+        void subscribeProduct(ProductsResponse.Result products);
     }
 
 
@@ -87,6 +88,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void refresh() {
             mProductsAdapterListener.refresh();
+        }
+
+        @Override
+        public void subscribeProduct(ProductsResponse.Result products) {
+            mProductsAdapterListener.subscribeProduct(products);
         }
     }
 

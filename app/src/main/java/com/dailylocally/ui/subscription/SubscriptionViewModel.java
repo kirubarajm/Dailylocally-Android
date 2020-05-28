@@ -4,6 +4,10 @@ package com.dailylocally.ui.subscription;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.ui.base.BaseViewModel;
@@ -48,6 +52,9 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
     private final CartRequest.Subscription cartRequestPojoResult = new CartRequest.Subscription();
     public ObservableBoolean contact = new ObservableBoolean();
     public ObservableField<String> support = new ObservableField<>();
+    SubscriptionResponse mSubscriptionResponse;
+  public int planId = 0;
+
     ProductsResponse.Result products;
     int quantity = 0;
     private CartRequest cartRequestPojo = new CartRequest();
@@ -277,13 +284,6 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
         return cartRequestPojo;
     }
 
-
-    public void onItemClick() {
-        // if (coupon.isClickable())
-        //     mListener.onItemClick(result);
-
-    }
-
     public void addClicked() {
 
         quantity++;
@@ -441,5 +441,48 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
         cartRequestPojo.setSubscription(results);
         saveCart(cartRequestPojo);
+    }
+
+    public void fetchProductDetails(String pid) {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SUBS_DETAILS, SubscriptionResponse.class, new SubscriptionRequest(pid,getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()), new Response.Listener<SubscriptionResponse>() {
+
+            @Override
+            public void onResponse(SubscriptionResponse response) {
+
+
+                if (response != null) {
+
+
+                    if (response.getResult() != null && response.getResult().size() > 0) {
+
+                        name.set(response.getResult().get(0).getProductname());
+                        image.set(response.getResult().get(0).getImage());
+                        weight.set(response.getResult().get(0).getWeight());
+                        price.set(response.getResult().get(0).getMrp());
+
+                        if (response.getSubscriptionPlan() != null && response.getSubscriptionPlan().size() > 0) {
+
+                            mSubscriptionResponse=response;
+
+                            if (getNavigator() != null)
+                                getNavigator().plans(response);
+
+                        }
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }, AppConstants.API_VERSION_ONE);
+        DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
+
+
     }
 }

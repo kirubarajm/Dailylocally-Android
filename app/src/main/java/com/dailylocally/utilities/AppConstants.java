@@ -337,6 +337,7 @@ public class AppConstants {
   public static final String URL_CATEGORYL2_LIST = URL_SERVER_IP_PORT + "/user/subcategoryL2";/////POST method
   public static final String URL_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/productlist";/////POST method
   public static final String URL_CART_DETAILS = URL_SERVER_IP_PORT + "/user/cartdetails";/////POST method
+  public static final String URL_SUBS_DETAILS = URL_SERVER_IP_PORT + "/user/subscribeplan";/////POST method
 
 
 

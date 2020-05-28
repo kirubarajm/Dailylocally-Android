@@ -1,5 +1,6 @@
 package com.dailylocally.ui.category.l2.products;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,9 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentProductsBinding;
 import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.subscription.SubscriptionActivity;
 
 import javax.inject.Inject;
 
@@ -110,5 +113,13 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     @Override
     public void refresh() {
         ((CategoryL2Activity) getActivity()).refreshCart();
+    }
+
+    @Override
+    public void subscribeProduct(ProductsResponse.Result products) {
+
+        Intent intent = SubscriptionActivity.newIntent(getContext());
+        intent.putExtra("pid",String.valueOf(products.getPid()));
+        startActivity(intent);
     }
 }
