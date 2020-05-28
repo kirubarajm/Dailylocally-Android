@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tovologies.tovomoveit.ui.tandc.TermsAndConditionActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+
+        <variable
+            name="subscriptionViewModel"
+            type="com.dailylocally.ui.subscription.SubscriptionViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardElevation="1dp"
+            app:cardMaxElevation="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="@{()->subscriptionViewModel.goBack()}"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                </RelativeLayout>
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Create new subscription"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topBar"
+            android:layout_marginTop="5dp"
+            android:background="@color/white">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_marginEnd="10dp">
+
+                                    <ImageView
+                                        android:id="@+id/image"
+                                        imageUrl="@{subscriptionViewModel.image}"
+                                        loader="@{loader}"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="fitCenter" />
+
+
+                                    <ImageView
+                                        android:id="@+id/loader"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_centerInParent="true"
+                                        android:layout_gravity="center_horizontal|center_vertical"
+                                        android:foregroundGravity="center"
+                                        android:scaleType="centerInside" />
+
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:orientation="vertical">
+
+
+                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        android:id="@+id/kitchen_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="10dp"
+                                        android:ellipsize="end"
+                                        android:maxLines="2"
+                                        android:text="@{subscriptionViewModel.name}"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                        android:id="@+id/weight"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:ellipsize="end"
+                                        android:maxLines="2"
+                                        android:text="@{subscriptionViewModel.weight}"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:singleLine="true"
+                                        android:text="@{subscriptionViewModel.price}"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginStart="100dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/semi_gray" />
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp">
+
+                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                    android:id="@+id/price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="110dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:singleLine="true"
+                                    android:text="Quantity per delivery"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+
+                                <RelativeLayout
+                                    android:layout_width="70dp"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:background="@drawable/addtocart_back"
+                                    android:visibility="@{subscriptionViewModel.serviceable?View.VISIBLE:View.GONE}">
+
+                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        android:id="@+id/add"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:gravity="center"
+                                        android:onClick="@{()->subscriptionViewModel.enableAdd()}"
+                                        android:paddingTop="3dp"
+                                        android:text="@string/add"
+                                        android:textAlignment="center"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/dl_primary_color"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:visibility="@{subscriptionViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
+
+                                    <RelativeLayout
+                                        android:id="@+id/num_picker"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_centerInParent="true"
+                                        android:visibility="@{subscriptionViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+
+                                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                            android:id="@+id/minus"
+                                            android:layout_width="20dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_centerVertical="true"
+                                            android:onClick="@{()->subscriptionViewModel.subClicked()}"
+                                            android:paddingTop="3dp"
+                                            android:text="@string/minus"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/dl_primary_color"
+                                            android:textSize="18sp" />
+
+
+                                        <View
+                                            android:layout_width="1dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_toEndOf="@+id/minus"
+                                            android:background="@color/dl_primary_color" />
+
+
+                                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                            android:id="@+id/quan"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:paddingTop="3dp"
+                                            android:text="@{subscriptionViewModel.sQuantity}"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp" />
+
+                                        <View
+                                            android:layout_width="1dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_toStartOf="@+id/plus"
+                                            android:background="@color/dl_primary_color" />
+
+
+                                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                            android:id="@+id/plus"
+                                            android:layout_width="20dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_centerVertical="true"
+                                            android:onClick="@{()->subscriptionViewModel.addClicked()}"
+                                            android:paddingTop="3dp"
+                                            android:text="@string/plus"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/dl_primary_color"
+                                            android:textSize="18sp" />
+
+                                    </RelativeLayout>
+
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/semi_gray" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="7">
+
+
+                    <LinearLayout
+                        android:onClick="@{()->subscriptionViewModel.clickMon()}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@{subscriptionViewModel.monClicked?@drawable/circle_filled:@drawable/circle_outline}"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="M"
+                                android:textColor="@{subscriptionViewModel.monClicked?@color/white:@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:singleLine="true"
+                            android:text="Mon"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{()->subscriptionViewModel.clickTue()}"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@{subscriptionViewModel.tueClicked?@drawable/circle_filled:@drawable/circle_outline}"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="T"
+                                android:textColor="@{subscriptionViewModel.tueClicked?@color/white:@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:singleLine="true"
+                            android:text="The"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{()->subscriptionViewModel.clickWed()}"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@{subscriptionViewModel.wedClicked?@drawable/circle_filled:@drawable/circle_outline}"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="W"
+                                android:textColor="@{subscriptionViewModel.wedClicked?@color/white:@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:singleLine="true"
+                            android:text="Wed"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{()->subscriptionViewModel.clickThu()}"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@{subscriptionViewModel.thuClicked?@drawable/circle_filled:@drawable/circle_outline}"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="T"
+                                android:textColor="@{subscriptionViewModel.thuClicked?@color/white:@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:singleLine="true"
+                            android:text="Thu"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{()->subscriptionViewModel.clickFri()}"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@{subscriptionViewModel.friClicked?@drawable/circle_filled:@drawable/circle_outline}"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="F"
+                                android:textColor="@{subscriptionViewModel.friClicked?@color/white:@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:singleLine="true"
+                            android:text="Fri"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{()->subscriptionViewModel.clickSat()}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@{subscriptionViewModel.satClicked?@drawable/circle_filled:@drawable/circle_outline}"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="S"
+                                android:textColor="@{subscriptionViewModel.satClicked?@color/white:@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:singleLine="true"
+                            android:text="Sat"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:onClick="@{()->subscriptionViewModel.clickSun()}"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@{subscriptionViewModel.sunClicked?@drawable/circle_filled:@drawable/circle_outline}"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="S"
+                                android:textColor="@{subscriptionViewModel.sunClicked?@color/white:@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:singleLine="true"
+                            android:text="Sun"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <RelativeLayout
+                        android:onClick="@{()->subscriptionViewModel.clickDaily()}"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="@{subscriptionViewModel.dailyClicked?@drawable/curve_stroke_rounded:@drawable/curve_stroke_rounded_gray}">
+
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:paddingStart="15dp"
+                                android:paddingTop="10dp"
+                                android:paddingEnd="15dp"
+                                android:paddingBottom="7dp"
+                                android:singleLine="true"
+                                android:text="Daily"
+                                android:textColor="@{subscriptionViewModel.dailyClicked?@color/dl_primary_color:@color/dark_gray"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:onClick="@{()->subscriptionViewModel.clickWeekDays()}"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="@{subscriptionViewModel.weekClicked?@drawable/curve_stroke_rounded:@drawable/curve_stroke_rounded_gray}">
+
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:paddingStart="15dp"
+                                android:paddingTop="10dp"
+                                android:paddingEnd="15dp"
+                                android:paddingBottom="7dp"
+                                android:singleLine="true"
+                                android:text="Weekdays"
+                                android:textColor="@{subscriptionViewModel.weekClicked?@color/dl_primary_color:@color/dark_gray"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:onClick="@{()->subscriptionViewModel.clickWeekEnds()}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="@{subscriptionViewModel.weekendClicked?@drawable/curve_stroke_rounded:@drawable/curve_stroke_rounded_gray}">
+
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:paddingStart="15dp"
+                                android:paddingTop="10dp"
+                                android:paddingEnd="15dp"
+                                android:paddingBottom="7dp"
+                                android:singleLine="true"
+                                android:text="Weekends"
+                                android:textColor="@{subscriptionViewModel.weekendClicked?@color/dl_primary_color:@color/dark_gray"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</layout>

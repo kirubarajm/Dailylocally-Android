@@ -131,11 +131,11 @@ int quantity=0;
                 for (int i = 0; i < totalSize; i++) {
                     if (products.getPid().equals(results.get(i).getPid())) {
 
-                            if (Integer.parseInt(currentTime)<14){
-                                cartRequestPojoResult.setDayorderdate(tomorrowDate);
-                            }else {
-                                cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
-                            }
+                        if (Integer.parseInt(currentTime)<14){
+                            cartRequestPojoResult.setDayorderdate(tomorrowDate);
+                        }else {
+                            cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
+                        }
 
                         cartRequestPojoResult.setPid(products.getPid());
                         cartRequestPojoResult.setQuantity(quantity);

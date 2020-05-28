@@ -116,7 +116,7 @@ public class CartRequest {
     }
 
 
-    public class Subscription {
+    public static class Subscription {
 
         @SerializedName("pid")
         @Expose
@@ -124,9 +124,34 @@ public class CartRequest {
         @SerializedName("quantity")
         @Expose
         private Integer quantity;
+
+        @SerializedName("price")
+        @Expose
+        private String price;
+
+        @SerializedName("start_date")
+        @Expose
+        private String startDate;
+
         @SerializedName("planid")
         @Expose
         private Integer planid;
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public String getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(String startDate) {
+            this.startDate = startDate;
+        }
 
         public Integer getPid() {
             return pid;
