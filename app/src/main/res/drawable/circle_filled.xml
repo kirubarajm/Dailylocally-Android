@@ -7,6 +7,6 @@
         android:color="@color/dl_primary_color"/>
 
     <size
-        android:width="120dp"
-        android:height="120dp"/>
+        android:width="40dp"
+        android:height="40dp"/>
 </shape>

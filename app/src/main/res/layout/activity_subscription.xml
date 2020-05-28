@@ -339,7 +339,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="M"
-                                android:textColor="@{subscriptionViewModel.monClicked?@color/white:@color/dl_primary_color"
+                                android:textColor="@{subscriptionViewModel.monClicked?@color/white:@color/dl_primary_color}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -380,7 +380,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="T"
-                                android:textColor="@{subscriptionViewModel.tueClicked?@color/white:@color/dl_primary_color"
+                                android:textColor="@{subscriptionViewModel.tueClicked?@color/white:@color/dl_primary_color}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -421,7 +421,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="W"
-                                android:textColor="@{subscriptionViewModel.wedClicked?@color/white:@color/dl_primary_color"
+                                android:textColor="@{subscriptionViewModel.wedClicked?@color/white:@color/dl_primary_color}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -462,7 +462,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="T"
-                                android:textColor="@{subscriptionViewModel.thuClicked?@color/white:@color/dl_primary_color"
+                                android:textColor="@{subscriptionViewModel.thuClicked?@color/white:@color/dl_primary_color}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -503,7 +503,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="F"
-                                android:textColor="@{subscriptionViewModel.friClicked?@color/white:@color/dl_primary_color"
+                                android:textColor="@{subscriptionViewModel.friClicked?@color/white:@color/dl_primary_color}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -543,7 +543,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="S"
-                                android:textColor="@{subscriptionViewModel.satClicked?@color/white:@color/dl_primary_color"
+                                android:textColor="@{subscriptionViewModel.satClicked?@color/white:@color/dl_primary_color}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -584,7 +584,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="S"
-                                android:textColor="@{subscriptionViewModel.sunClicked?@color/white:@color/dl_primary_color"
+                                android:textColor="@{subscriptionViewModel.sunClicked?@color/white:@color/dl_primary_color}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -638,7 +638,7 @@
                                 android:paddingBottom="7dp"
                                 android:singleLine="true"
                                 android:text="Daily"
-                                android:textColor="@{subscriptionViewModel.dailyClicked?@color/dl_primary_color:@color/dark_gray"
+                                android:textColor="@{subscriptionViewModel.dailyClicked?@color/dl_primary_color:@color/dark_gray}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -670,7 +670,7 @@
                                 android:paddingBottom="7dp"
                                 android:singleLine="true"
                                 android:text="Weekdays"
-                                android:textColor="@{subscriptionViewModel.weekClicked?@color/dl_primary_color:@color/dark_gray"
+                                android:textColor="@{subscriptionViewModel.weekClicked?@color/dl_primary_color:@color/dark_gray}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -701,7 +701,7 @@
                                 android:paddingBottom="7dp"
                                 android:singleLine="true"
                                 android:text="Weekends"
-                                android:textColor="@{subscriptionViewModel.weekendClicked?@color/dl_primary_color:@color/dark_gray"
+                                android:textColor="@{subscriptionViewModel.weekendClicked?@color/dl_primary_color:@color/dark_gray}"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 

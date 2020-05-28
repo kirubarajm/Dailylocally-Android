@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityFaqsSupportBinding;
+import com.dailylocally.databinding.ActivitySubscriptionBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -24,11 +25,11 @@ import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
-public class SubscriptionActivity extends BaseActivity<ActivityFaqsSupportBinding, SubscriptionViewModel> implements SubscriptionNavigator {
+public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBinding, SubscriptionViewModel> implements SubscriptionNavigator {
 
     @Inject
     SubscriptionViewModel mSubscriptionViewModel;
-    ActivityFaqsSupportBinding mActivityFaqsSupportBinding;
+    ActivitySubscriptionBinding mActivitySubscriptionBinding;
 
 
     Analytics analytics;
@@ -97,9 +98,7 @@ public class SubscriptionActivity extends BaseActivity<ActivityFaqsSupportBindin
     @Override
     public void callCusstomerCare() {
 
-
             new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_CALL_SUPPORT);
-
 
        // String number = AppConstants.SUPPORT_NUMBER;
         String number = mSubscriptionViewModel.support.get();
@@ -116,12 +115,12 @@ public class SubscriptionActivity extends BaseActivity<ActivityFaqsSupportBindin
 
     @Override
     public int getBindingVariable() {
-        return BR.faqsAndSupportViewModel;
+        return BR.subscriptionViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_faqs_support;
+        return R.layout.activity_subscription;
     }
 
     @Override
@@ -133,11 +132,10 @@ public class SubscriptionActivity extends BaseActivity<ActivityFaqsSupportBindin
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSubscriptionViewModel.setNavigator(this);
-        mActivityFaqsSupportBinding = getViewDataBinding();
+        mActivitySubscriptionBinding = getViewDataBinding();
 
 
         analytics=new Analytics(this, pageName);
-
     }
 
 

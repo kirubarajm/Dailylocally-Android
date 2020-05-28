@@ -46,6 +46,8 @@ import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.ui.signup.tandc.TermsAndConditionModule;
 import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.splash.SplashModule;
+import com.dailylocally.ui.subscription.SubscriptionActivity;
+import com.dailylocally.ui.subscription.SubscriptionModule;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.ui.update.UpdateModule;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -58,7 +60,10 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = {FaqFragmentModule.class/*, OrderCanceledProvider.class*/})
+    @ContributesAndroidInjector(modules = {SubscriptionModule.class/*, OrderCanceledProvider.class*/})
+    abstract SubscriptionActivity bindSubscriptionActivity();
+
+ @ContributesAndroidInjector(modules = {FaqFragmentModule.class/*, OrderCanceledProvider.class*/})
     abstract FaqActivity bindFaqActivity();
 
  @ContributesAndroidInjector(modules = {CategoryL1Module.class/*, OrderCanceledProvider.class*/})
