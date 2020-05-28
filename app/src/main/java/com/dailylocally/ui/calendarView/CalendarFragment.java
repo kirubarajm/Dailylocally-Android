@@ -96,6 +96,8 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
                 e.printStackTrace();
             }
         }
+
+        caldroidFragment.refreshView();
     }
 
     @Override
