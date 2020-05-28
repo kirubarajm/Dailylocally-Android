@@ -49,6 +49,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.dailylocally.ui.calendarView.CalendarDayWiseAdapter;
+import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
 import com.dailylocally.ui.cart.BillListAdapter;
 import com.dailylocally.ui.cart.CartResponse;
 import com.dailylocally.ui.cart.OrderNowAdapter;
@@ -104,6 +106,15 @@ public final class BindingUtils {
  @BindingAdapter({"products_adapter"})
     public static void addProductItems(RecyclerView recyclerView, List<ProductsResponse.Result> results) {
         ProductListAdapter adapter = (ProductListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addDayWiseCalendarItems(RecyclerView recyclerView, List<CalendarDayWiseResponse.Result.Item> results) {
+        CalendarDayWiseAdapter adapter = (CalendarDayWiseAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(results);

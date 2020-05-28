@@ -7,19 +7,51 @@
 
         <variable
             name="calendarItemViewModel"
-            type="com.dailylocally.ui.calendarView.CalendarItemViewModel" />
+            type="com.dailylocally.ui.calendarView.CalendarDayWiseItemViewModel" />
     </data>
 
+   <!-- <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">-->
+
     <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txt1"
+                android:text="@{calendarItemViewModel.productName}"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentEnd="true"
+                android:text="@{calendarItemViewModel.price}"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
         <com.dailylocally.utilities.fonts.poppins.ContentTextView
             android:layout_width="match_parent"
-            android:text="@{calendarItemViewModel.name}"
+            android:text="@{calendarItemViewModel.quantity}"
             android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_marginTop="10dp"
+            android:background="#eeeeee"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
 
     </LinearLayout>
 
+    <!--</androidx.cardview.widget.CardView>-->
 </layout>

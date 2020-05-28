@@ -4,8 +4,6 @@ package com.dailylocally.ui.calendarView;
 import android.content.Context;
 
 import com.dailylocally.data.DataManager;
-import com.dailylocally.ui.home.CategoriesAdapter;
-import com.dailylocally.ui.home.HomeViewModel;
 
 import java.util.ArrayList;
 
@@ -23,8 +21,8 @@ public class CalendarModule {
     }
 
     @Provides
-    CalendarAdapter provideCalendarAdapter() {
-        return new CalendarAdapter(new ArrayList<>());
+    CalendarDayWiseAdapter provideCalendarAdapter() {
+        return new CalendarDayWiseAdapter(new ArrayList<>());
     }
 
 }

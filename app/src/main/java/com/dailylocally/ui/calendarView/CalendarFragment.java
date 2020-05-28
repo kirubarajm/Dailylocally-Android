@@ -1,7 +1,6 @@
 package com.dailylocally.ui.calendarView;
 
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -9,13 +8,13 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseFragment;
-import com.dailylocally.ui.home.CategoriesAdapter;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import java.text.ParseException;
@@ -27,11 +26,12 @@ import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 
-public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel> implements CalendarNavigator {
+public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel> implements CalendarNavigator,
+        CalendarDayWiseAdapter.CategoriesAdapterListener{
     @Inject
-    CalendarViewModel mHomeViewModel;
+    CalendarViewModel mCalendarViewModel;
     @Inject
-    CalendarAdapter categoriesAdapter;
+    CalendarDayWiseAdapter mCalendarDayWiseAdapter;
 
     FragmentCalendarBinding mFragmentHomeBinding;
 
@@ -51,6 +51,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     private CaldroidFragment caldroidFragment;
     Date FirstOrderDate = null;
     List<CalendarMonthResponse.Result> results = new ArrayList<>();
+    CaldroidListener listener = null;
 
 
     public static CalendarFragment newInstance() {
@@ -72,7 +73,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
     @Override
     public CalendarViewModel getViewModel() {
-        return mHomeViewModel;
+        return mCalendarViewModel;
     }
 
     @Override
@@ -101,14 +102,14 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     }
 
     @Override
-    public void failure() {
-
+    public void failure(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHomeViewModel.setNavigator(this);
+        mCalendarViewModel.setNavigator(this);
 
     }
 
@@ -121,12 +122,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
-        mFragmentHomeBinding.txtOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        mCalendarDayWiseAdapter.setListener(this);
 
         final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
         caldroidFragment = new CaldroidFragment();
@@ -149,25 +145,27 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         t.commit();
 
         // Setup listener
-        final CaldroidListener listener = new CaldroidListener() {
-
+         listener = new CaldroidListener() {
             @Override
             public void onSelectDate(Date date, View view) {
 
+                mCalendarViewModel.getDayWiseOrderDetails(date);
             }
 
             @Override
             public void onChangeMonth(int month, int year) {
-                String text = "month: " + month + " year: " + year;
-                Toast.makeText(getContext(), text,
-                        Toast.LENGTH_SHORT).show();
+                //String text = "month: " + month + " year: " + year;
+                //Toast.makeText(getContext(), text,
+                        //Toast.LENGTH_SHORT).show();
+
+                mCalendarViewModel.getMonthWiseOrderDate(String.valueOf(month),String.valueOf(year));
             }
 
             @Override
             public void onLongClickDate(Date date, View view) {
-                Toast.makeText(getContext(),
-                        "Long click " + formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(),
+                        //"Long click " + formatter.format(date),
+                        //Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -191,12 +189,31 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mHomeViewModel.getMonthWiseOrderDate();
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mFragmentHomeBinding.recyclerDayWiseOrder.setLayoutManager(mLayoutManager);
+        mFragmentHomeBinding.recyclerDayWiseOrder.setAdapter(mCalendarDayWiseAdapter);
+
+        subscribeToLiveData();
+    }
+
+    private void subscribeToLiveData() {
+        mCalendarViewModel.getOrdernowLiveData().observe(this,
+                ordernowItemViewModel -> mCalendarViewModel.addOrderNowItemsToList(ordernowItemViewModel));
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Date currentDate = Calendar.getInstance().getTime();////current date
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        String yearString = yearFormat.format(currentDate);
+        String monthString = monthFormat.format(currentDate);
+        mCalendarViewModel.getMonthWiseOrderDate(monthString,yearString);
     }
 
     public void onDateSelected(Date selectedDate) {
@@ -2038,5 +2055,10 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
                 Toast.makeText(getActivity(), "No data for future date (" + selectedDate + ")", Toast.LENGTH_SHORT).show();
             }*/
         }
+    }
+
+    @Override
+    public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
+
     }
 }

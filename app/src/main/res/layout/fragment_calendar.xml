@@ -17,10 +17,11 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,25 +29,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:id="@+id/rel_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/calendar1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:orientation="vertical"/>
-
-            <Button
-                android:id="@+id/txt_ok"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/calendar1"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="Ok" />
 
         </RelativeLayout>
 
-    </ScrollView>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/rel_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:text="Product Details"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/txt_product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/txt_product_title"
+                    android:layout_margin="10dp"
+                    app:adapter="@{calendarViewModel.dayWiseItemViewModels}"
+                    tools:listitem="@layout/list_item_calendar"
+                    android:id="@+id/recycler_day_wise_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>
 
