@@ -28,6 +28,6 @@ public interface MainNavigator {
 
     void openAccount();
 
-
+    void paymentSuccessed(boolean status);
 
 }

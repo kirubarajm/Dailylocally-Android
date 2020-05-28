@@ -31,6 +31,8 @@ import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.main.MainActivityModule;
 import com.dailylocally.ui.onboarding.OnBoardingActivity;
 import com.dailylocally.ui.onboarding.OnBoardingActivityModule;
+import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
+import com.dailylocally.ui.orderplaced.OrderPlacedModule;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.SignUpActivityModule;
 import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
@@ -63,6 +65,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {SubscriptionModule.class/*, OrderCanceledProvider.class*/})
     abstract SubscriptionActivity bindSubscriptionActivity();
+
+
+@ContributesAndroidInjector(modules = {OrderPlacedModule.class/*, OrderCanceledProvider.class*/})
+    abstract OrderPlacedActivity bindOrderPlacedActivity();
 
  @ContributesAndroidInjector(modules = {FaqFragmentModule.class/*, OrderCanceledProvider.class*/})
     abstract FaqActivity bindFaqActivity();

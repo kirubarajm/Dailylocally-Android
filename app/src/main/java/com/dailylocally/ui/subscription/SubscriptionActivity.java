@@ -1,5 +1,6 @@
 package com.dailylocally.ui.subscription;
 
+import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 
 import androidx.annotation.Nullable;
 
@@ -21,6 +23,12 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -68,6 +76,55 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void selectDate(String startdate) {
+
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        SimpleDateFormat sDay = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat sMonth = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat sYear = new SimpleDateFormat("yyyy", Locale.getDefault());
+
+        int year = 0;
+        int month = 0;
+        int day = 0;
+
+        Date sDate = null;
+        try {
+             sDate = dateFormat.parse(startdate);
+
+             if (sDate!=null) {
+                 // parse input
+                 year = Integer.parseInt(sYear.format(sDate));
+                 month = Integer.parseInt(sMonth.format(sDate));
+                 day = Integer.parseInt(sDay.format(sDate));
+             }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        DatePickerDialog dialog = new DatePickerDialog(SubscriptionActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                mSubscriptionViewModel.startDate.set(dayOfMonth + "-" + month + "-" + year);
+
+
+            }
+        }, year, month-1, day);
+
+        dialog.getDatePicker().setMinDate(sDate.getTime());
+        dialog.show();
+
+
     }
 
     @Override

@@ -206,7 +206,83 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void proceedtopay() {
 
+        if (getNavigator() != null)
+            getNavigator().clearToolTips();
 
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+        if (getCartPojoDetails() != null) {
+
+            Gson sGson = new GsonBuilder().create();
+            CartRequest cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+
+            cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
+            cartRequestPojo.setLat(getDataManager().getCurrentLat());
+            cartRequestPojo.setLon(getDataManager().getCurrentLng());
+            cartRequestPojo.setAid(getDataManager().getAddressId());
+            cartRequestPojo.setPayment_type(1);
+
+            Gson gson = new Gson();
+            String carts = gson.toJson(cartRequestPojo);
+
+            try {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PROCEED_TO_PAY, new JSONObject(carts), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        if (response != null) {
+
+                            Gson gson = new Gson();
+                            OrderCreateResponse orderCreateResponse = gson.fromJson(response.toString(), OrderCreateResponse.class);
+
+
+                            if (getNavigator() != null)
+                                getNavigator().orderGenerated(orderCreateResponse.getOrderid(), orderCreateResponse.getRazerCustomerid(), orderCreateResponse.getPrice());
+
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+                    /**
+                     * Passing some request headers
+                     */
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                    }
+                };
+
+                jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+            } catch (JSONException j) {
+                if (getNavigator() != null)
+                    getNavigator().cartLoaded();
+                emptyCart.set(true);
+                j.printStackTrace();
+            } catch (NullPointerException n) {
+                if (getNavigator() != null)
+                    getNavigator().cartLoaded();
+                emptyCart.set(true);
+                n.printStackTrace();
+            } catch (Exception ee) {
+                if (getNavigator() != null)
+                    getNavigator().cartLoaded();
+                emptyCart.set(true);
+                ee.printStackTrace();
+            }
+
+        } else {
+            emptyCart.set(true);
+        }
     }
 
 
@@ -253,8 +329,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             if (cartPageResponse.getResult() != null) {
 
 
-
-
                                 if (cartPageResponse.getResult().get(0).getItem().size() == 0 && cartPageResponse.getResult().get(0).getSubscriptionItem().size() == 0) {
 
                                     if (getNavigator() != null) {
@@ -269,7 +343,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 }
 
 
-                                if (cartPageResponse.getResult().get(0).getItem().size() >0) {
+                                if (cartPageResponse.getResult().get(0).getItem().size() > 0) {
 
 
                                     ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
@@ -277,7 +351,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                     emptyCart.set(false);
 
                                     cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());
-
 
 
                                     totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
@@ -304,15 +377,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 }
 
 
-
                                 if (cartPageResponse.getResult().get(0).getSubscriptionItem().size() > 0) {
 
+                                    showSubscription.set(true);
 
                                     subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
                                     emptyCart.set(false);
 
                                     cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());
-
 
 
                                     totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
@@ -448,4 +520,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         fetchRepos();
 
     }
+
+
 }

@@ -12,23 +12,19 @@ import com.dailylocally.data.DataManager;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.cart.CartRequest;
-import com.dailylocally.ui.category.l2.products.ProductsResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> {
     public final ObservableBoolean supportNumber = new ObservableBoolean();
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
+    public final ObservableField<String> startDate = new ObservableField<>();
     public final ObservableField<String> weight = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> sQuantity = new ObservableField<>();
@@ -52,16 +48,225 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
     private final CartRequest.Subscription cartRequestPojoResult = new CartRequest.Subscription();
     public ObservableBoolean contact = new ObservableBoolean();
     public ObservableField<String> support = new ObservableField<>();
+    public int planId = 0;
+    public boolean edit = false;
     SubscriptionResponse mSubscriptionResponse;
-  public int planId = 0;
-
-    ProductsResponse.Result products;
+    SubscriptionResponse.Result products;
     int quantity = 0;
     private CartRequest cartRequestPojo = new CartRequest();
 
+
     public SubscriptionViewModel(DataManager dataManager) {
         super(dataManager);
+
+        serviceable.set(true);
     }
+
+    public void selectDate() {
+
+        getStartDate(AppConstants.SUBSCRIBEPRODUCT_CHANGE);
+    }
+
+
+    public void createSubscription() {
+
+        if (edit) {
+
+            results.clear();
+            getCart();
+            if (cartRequestPojo.getSubscription() != null) {
+                int totalSize = cartRequestPojo.getSubscription().size();
+                if (totalSize != 0) {
+                    for (int i = 0; i < totalSize; i++) {
+                        if (products.getPid().equals(results.get(i).getPid())) {
+                            if (quantity == 0) {
+                                results.remove(i);
+                                break;
+                            } else {
+
+                                cartRequestPojoResult.setStartDate(startDate.get());
+                                cartRequestPojoResult.setPid(products.getPid());
+                                cartRequestPojoResult.setQuantity(quantity);
+                                cartRequestPojoResult.setPlanid(planId);
+                                cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+
+
+                                if (monClicked.get()) {
+                                    cartRequestPojoResult.setMon(1);
+                                } else {
+                                    cartRequestPojoResult.setMon(0);
+                                }
+
+
+                                if (tueClicked.get()) {
+                                    cartRequestPojoResult.setTue(1);
+                                } else {
+                                    cartRequestPojoResult.setTue(0);
+                                }
+
+
+                                if (wedClicked.get()) {
+                                    cartRequestPojoResult.setWed(1);
+                                } else {
+                                    cartRequestPojoResult.setWed(0);
+                                }
+
+
+                                if (thuClicked.get()) {
+                                    cartRequestPojoResult.setThur(1);
+                                } else {
+                                    cartRequestPojoResult.setThur(0);
+                                }
+
+                                if (friClicked.get()) {
+                                    cartRequestPojoResult.setFri(1);
+                                } else {
+                                    cartRequestPojoResult.setFri(0);
+                                }
+
+                                if (satClicked.get()) {
+                                    cartRequestPojoResult.setSat(1);
+                                } else {
+                                    cartRequestPojoResult.setSat(0);
+                                }
+
+                                if (sunClicked.get()) {
+                                    cartRequestPojoResult.setSun(1);
+                                } else {
+                                    cartRequestPojoResult.setSun(0);
+                                }
+
+
+                                results.set(i, cartRequestPojoResult);
+
+                            }
+                        }
+                    }
+
+                }
+
+            }
+
+
+            if (results.size() == 0) {
+                saveCart(null);
+
+
+            } else {
+                cartRequestPojo.setSubscription(results);
+                saveCart(cartRequestPojo);
+            }
+
+            if (quantity == 0) {
+                isAddClicked.set(false);
+            }
+
+
+        } else {
+
+            getCart();
+
+            cartRequestPojoResult.setStartDate(startDate.get());
+            cartRequestPojoResult.setPid(products.getPid());
+            cartRequestPojoResult.setQuantity(quantity);
+            cartRequestPojoResult.setPlanid(planId);
+            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+
+            if (monClicked.get()) {
+                cartRequestPojoResult.setMon(1);
+            } else {
+                cartRequestPojoResult.setMon(0);
+            }
+
+
+            if (tueClicked.get()) {
+                cartRequestPojoResult.setTue(1);
+            } else {
+                cartRequestPojoResult.setTue(0);
+            }
+
+
+            if (wedClicked.get()) {
+                cartRequestPojoResult.setWed(1);
+            } else {
+                cartRequestPojoResult.setWed(0);
+            }
+
+
+            if (thuClicked.get()) {
+                cartRequestPojoResult.setThur(1);
+            } else {
+                cartRequestPojoResult.setThur(0);
+            }
+
+            if (friClicked.get()) {
+                cartRequestPojoResult.setFri(1);
+            } else {
+                cartRequestPojoResult.setFri(0);
+            }
+
+            if (satClicked.get()) {
+                cartRequestPojoResult.setSat(1);
+            } else {
+                cartRequestPojoResult.setSat(0);
+            }
+
+            if (sunClicked.get()) {
+                cartRequestPojoResult.setSun(1);
+            } else {
+                cartRequestPojoResult.setSun(0);
+            }
+
+
+            results.add(cartRequestPojoResult);
+            cartRequestPojo.setSubscription(results);
+            saveCart(cartRequestPojo);
+
+        }
+
+    }
+
+    public void getStartDate(String editOrNew) {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_GET_START_DATE, StartDateResponse.class, new SubscriptionRequest(getDataManager().getCurrentUserId()), new Response.Listener<StartDateResponse>() {
+
+            @Override
+            public void onResponse(StartDateResponse response) {
+                if (response != null) {
+
+                    if (editOrNew.equals(AppConstants.SUBSCRIBEPRODUCT_EDIT)) {
+                       /* if (getNavigator() != null)
+                            getNavigator().selectDate(response.getOrderDeliveryDay());*/
+
+
+                    } else if (editOrNew.equals(AppConstants.SUBSCRIBEPRODUCT_CHECK)) {
+
+                        startDate.set(response.getOrderDeliveryDay());
+                    } else if (editOrNew.equals(AppConstants.SUBSCRIBEPRODUCT_CHANGE)) {
+
+                        if (getNavigator() != null)
+                            getNavigator().selectDate(response.getOrderDeliveryDay());
+                    } else {
+                        startDate.set(response.getOrderDeliveryDay());
+                    }
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }, AppConstants.API_VERSION_ONE);
+        DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
+
+
+    }
+
 
     public void clickDaily() {
 
@@ -277,7 +482,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
         cartRequestPojo = sGson.fromJson(appPreferencesHelper.getCartDetails(), CartRequest.class);
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequest();
-        if (cartRequestPojo.getOrderitems() != null) {
+        if (cartRequestPojo.getSubscription() != null) {
             results.clear();
             results.addAll(cartRequestPojo.getSubscription());
         }
@@ -289,165 +494,33 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
         quantity++;
         sQuantity.set(String.valueOf(quantity));
 
-        results.clear();
 
-        getCart();
-
-        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-
-        String tomorrowDate = dateFormat.format(tomorrow);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date dat = calendar.getTime();
-
-        String dayAftertomorrowDate = dateFormat.format(dat);
-
-
-        if (cartRequestPojo.getOrderitems() != null) {
-            int totalSize = cartRequestPojo.getOrderitems().size();
-            if (totalSize != 0) {
-                for (int i = 0; i < totalSize; i++) {
-                    if (products.getPid().equals(results.get(i).getPid())) {
-
-                        if (Integer.parseInt(currentTime) < 14) {
-                            cartRequestPojoResult.setStartDate(tomorrowDate);
-                        } else {
-                            cartRequestPojoResult.setStartDate(dayAftertomorrowDate);
-                        }
-                        cartRequestPojoResult.setPid(products.getPid());
-                        cartRequestPojoResult.setQuantity(quantity);
-                        cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
-                        results.set(i, cartRequestPojoResult);
-                    }
-                }
-
-            }
-
-        }
-        cartRequestPojo.setSubscription(results);
-        saveCart(cartRequestPojo);
     }
 
     public void subClicked() {
 
-
-        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-
-        String tomorrowDate = dateFormat.format(tomorrow);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date dat = calendar.getTime();
-
-        String dayAftertomorrowDate = dateFormat.format(dat);
-
-
         quantity--;
-
         sQuantity.set(String.valueOf(quantity));
-        results.clear();
-        getCart();
-        if (cartRequestPojo.getOrderitems() != null) {
-            int totalSize = cartRequestPojo.getOrderitems().size();
-            if (totalSize != 0) {
-                for (int i = 0; i < totalSize; i++) {
-                    if (products.getPid().equals(results.get(i).getPid())) {
-                        if (quantity == 0) {
-                            results.remove(i);
-                            break;
-                        } else {
 
-                            if (Integer.parseInt(currentTime) < 14) {
-                                cartRequestPojoResult.setStartDate(tomorrowDate);
-                            } else {
-                                cartRequestPojoResult.setStartDate(dayAftertomorrowDate);
-                            }
-
-
-                            cartRequestPojoResult.setPid(products.getPid());
-                            cartRequestPojoResult.setQuantity(quantity);
-                            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
-                            results.set(i, cartRequestPojoResult);
-
-                        }
-                    }
-                }
-
-            }
-
-        }
-
-
-        if (results.size() == 0) {
-            saveCart(null);
-
-
-        } else {
-            cartRequestPojo.setSubscription(results);
-            saveCart(cartRequestPojo);
-        }
-
-        if (quantity == 0) {
+        if (quantity == 0)
             isAddClicked.set(false);
-        }
+
 
     }
 
     public void enableAdd() {
-        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-
-        String tomorrowDate = dateFormat.format(tomorrow);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date dat = calendar.getTime();
-
-        String dayAftertomorrowDate = dateFormat.format(dat);
 
         isAddClicked.set(true);
         quantity = 1;
         sQuantity.set(String.valueOf(quantity));
 
-        getCart();
-
-        if (Integer.parseInt(currentTime) < 14) {
-            cartRequestPojoResult.setStartDate(tomorrowDate);
-        } else {
-            cartRequestPojoResult.setStartDate(dayAftertomorrowDate);
-        }
-        cartRequestPojoResult.setPid(products.getPid());
-        cartRequestPojoResult.setQuantity(quantity);
-        cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
-        results.add(cartRequestPojoResult);
-
-        cartRequestPojo.setSubscription(results);
-        saveCart(cartRequestPojo);
     }
 
     public void fetchProductDetails(String pid) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
 
-        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SUBS_DETAILS, SubscriptionResponse.class, new SubscriptionRequest(pid,getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()), new Response.Listener<SubscriptionResponse>() {
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SUBS_DETAILS, SubscriptionResponse.class, new SubscriptionRequest(pid, getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId()), new Response.Listener<SubscriptionResponse>() {
 
             @Override
             public void onResponse(SubscriptionResponse response) {
@@ -458,15 +531,91 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                     if (response.getResult() != null && response.getResult().size() > 0) {
 
+                        products = response.getResult().get(0);
+
+
+                        results.clear();
+                        getCart();
+                        if (cartRequestPojo.getSubscription() != null) {
+                            int totalSize = cartRequestPojo.getSubscription().size();
+                            if (totalSize != 0) {
+                                for (int i = 0; i < totalSize; i++) {
+                                    if (products.getPid().equals(results.get(i).getPid())) {
+                                        edit = true;
+                                        isAddClicked.set(true);
+                                        quantity = results.get(i).getQuantity();
+                                        sQuantity.set(String.valueOf(results.get(i).getQuantity()));
+                                        planId = results.get(i).getPlanid();
+                                        startDate.set(results.get(i).getStartDate());
+
+                                        if (results.get(i).getMon() == 1) {
+                                            monClicked.set(true);
+                                        } else {
+                                            monClicked.set(false);
+                                        }
+
+                                        if (results.get(i).getTue() == 1) {
+                                            tueClicked.set(true);
+                                        } else {
+                                            tueClicked.set(false);
+                                        }
+
+                                        if (results.get(i).getWed() == 1) {
+                                            wedClicked.set(true);
+                                        } else {
+                                            wedClicked.set(false);
+                                        }
+
+                                        if (results.get(i).getThur() == 1) {
+                                            thuClicked.set(true);
+                                        } else {
+                                            thuClicked.set(false);
+                                        }
+
+
+                                        if (results.get(i).getFri() == 1) {
+                                            friClicked.set(true);
+                                        } else {
+                                            friClicked.set(false);
+                                        }
+
+
+                                        if (results.get(i).getSat() == 1) {
+                                            satClicked.set(true);
+                                        } else {
+                                            satClicked.set(false);
+                                        }
+
+
+                                        if (results.get(i).getSun() == 1) {
+                                            sunClicked.set(true);
+                                        } else {
+                                            sunClicked.set(false);
+                                        }
+
+
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                        if (edit) {
+                            getStartDate(AppConstants.SUBSCRIBEPRODUCT_EDIT);
+                        } else {
+                            getStartDate(AppConstants.SUBSCRIBEPRODUCT_NEW);
+                        }
+
+
                         name.set(response.getResult().get(0).getProductname());
                         image.set(response.getResult().get(0).getImage());
                         weight.set(response.getResult().get(0).getWeight());
-                        price.set(response.getResult().get(0).getMrp());
+                        price.set("INR. " + response.getResult().get(0).getMrp());
+
 
                         if (response.getSubscriptionPlan() != null && response.getSubscriptionPlan().size() > 0) {
-
-                            mSubscriptionResponse=response;
-
+                            mSubscriptionResponse = response;
                             if (getNavigator() != null)
                                 getNavigator().plans(response);
 

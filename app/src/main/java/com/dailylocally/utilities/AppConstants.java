@@ -36,6 +36,11 @@ public class AppConstants {
 
   public static final String FCM_RECEIVER = "ALERT";
 
+  public static final String SUBSCRIBEPRODUCT_EDIT = "edit";
+  public static final String SUBSCRIBEPRODUCT_CHANGE = "change";
+  public static final String SUBSCRIBEPRODUCT_NEW = "new";
+  public static final String SUBSCRIBEPRODUCT_CHECK= "check";
+
 
   public static final String FCM_RECEIVER_ORDER = "ORDER RECEIVER";
 
@@ -338,6 +343,9 @@ public class AppConstants {
   public static final String URL_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/productlist";/////POST method
   public static final String URL_CART_DETAILS = URL_SERVER_IP_PORT + "/user/cartdetails";/////POST method
   public static final String URL_SUBS_DETAILS = URL_SERVER_IP_PORT + "/user/subscribeplan";/////POST method
+  public static final String URL_GET_START_DATE = URL_SERVER_IP_PORT + "/user/startingdate";/////POST method
+  public static final String URL_PROCEED_TO_PAY = URL_SERVER_IP_PORT + "/user/proceedtopay";/////POST method
+  public static final String URL_PAYMENT_CONFIRM = URL_SERVER_IP_PORT + "/user/orderplace";/////POST method
 
 
 

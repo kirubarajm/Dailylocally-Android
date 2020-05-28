@@ -23,6 +23,31 @@ public class CartRequest {
     @Expose
     private String userid;
 
+@SerializedName("aid")
+    @Expose
+    private String aid;
+
+@SerializedName("payment_type")
+    @Expose
+    private int payment_type;
+
+
+    public String getAid() {
+        return aid;
+    }
+
+    public void setAid(String aid) {
+        this.aid = aid;
+    }
+
+    public int getPayment_type() {
+        return payment_type;
+    }
+
+    public void setPayment_type(int payment_type) {
+        this.payment_type = payment_type;
+    }
+
     public List<Orderitem> getOrderitems() {
         return orderitems;
     }
@@ -136,6 +161,90 @@ public class CartRequest {
         @SerializedName("planid")
         @Expose
         private Integer planid;
+        @SerializedName("mon")
+        @Expose
+        private Integer mon;
+
+        @SerializedName("tue")
+        @Expose
+        private Integer tue;
+
+        @SerializedName("wed")
+        @Expose
+        private Integer wed;
+
+        @SerializedName("thur")
+        @Expose
+        private Integer thur;
+
+        @SerializedName("fri")
+        @Expose
+        private Integer fri;
+
+        @SerializedName("sat")
+        @Expose
+        private Integer sat;
+
+        @SerializedName("sun")
+        @Expose
+        private Integer sun;
+
+
+        public Integer getMon() {
+            return mon;
+        }
+
+        public void setMon(Integer mon) {
+            this.mon = mon;
+        }
+
+        public Integer getTue() {
+            return tue;
+        }
+
+        public void setTue(Integer tue) {
+            this.tue = tue;
+        }
+
+        public Integer getWed() {
+            return wed;
+        }
+
+        public void setWed(Integer wed) {
+            this.wed = wed;
+        }
+
+        public Integer getThur() {
+            return thur;
+        }
+
+        public void setThur(Integer thur) {
+            this.thur = thur;
+        }
+
+        public Integer getFri() {
+            return fri;
+        }
+
+        public void setFri(Integer fri) {
+            this.fri = fri;
+        }
+
+        public Integer getSat() {
+            return sat;
+        }
+
+        public void setSat(Integer sat) {
+            this.sat = sat;
+        }
+
+        public Integer getSun() {
+            return sun;
+        }
+
+        public void setSun(Integer sun) {
+            this.sun = sun;
+        }
 
         public String getPrice() {
             return price;

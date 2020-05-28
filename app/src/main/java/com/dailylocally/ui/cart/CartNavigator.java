@@ -18,4 +18,8 @@ public interface CartNavigator {
     void clearToolTips();
 
     void metricsCartOpen();
+
+
+    void orderGenerated(String orderId, String customerId, String amount);
+
 }

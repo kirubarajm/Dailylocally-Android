@@ -25,6 +25,10 @@ public class SubscriptionRequest {
         this.userid = userid;
     }
 
+    public SubscriptionRequest(String userid) {
+        this.userid = userid;
+    }
+
     public String getLat() {
         return lat;
     }

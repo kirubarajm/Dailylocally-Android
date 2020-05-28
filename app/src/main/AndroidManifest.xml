@@ -59,6 +59,13 @@
         <activity android:name=".ui.subscription.SubscriptionActivity" >
 
         </activity>
+        <activity android:name=".ui.orderplaced.OrderPlacedActivity" />
+
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_kelnGLZvTecvPV" />
+
 
     </application>
 

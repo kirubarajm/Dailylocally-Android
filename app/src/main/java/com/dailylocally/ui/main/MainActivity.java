@@ -1,5 +1,6 @@
 package com.dailylocally.ui.main;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -29,6 +30,7 @@ import com.dailylocally.ui.calendarView.CalendarFragment;
 import com.dailylocally.ui.calendarView.CalendarModule;
 import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
+import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -41,10 +43,14 @@ import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.zopim.android.sdk.api.ZopimChat;
 import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -56,7 +62,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 import zendesk.support.request.RequestActivity;
 
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, PaymentResultListener {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
 
@@ -80,6 +86,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     AppUpdateInfo appUpdateInfo;
     String screenName = "";
     Snackbar snackbar;
+
+    String orderId;
+
+
 
     boolean downloading;
 
@@ -160,7 +170,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            CalendarFragment fragment = new CalendarFragment();
+          //  CalendarFragment fragment = new CalendarFragment();
+            HomeFragment fragment = new HomeFragment();
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
             transaction.commit();
@@ -230,6 +241,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.toolbarTitle.set("My Account");
         mMainViewModel.titleVisible.set(true);
         mMainViewModel.updateAvailable.set(false);*/
+    }
+
+    @Override
+    public void paymentSuccessed(boolean status) {
+
+        if (status) {
+            Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this);
+            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(newIntent);
+            finish();
+        }
+
+
     }
 
     @Override
@@ -543,4 +567,65 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+
+        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(MainActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+
+
+
+
+    }
+
+    public void makePayment(String orderId, String customerId, String amount) {
+        this.orderId=orderId;
+
+
+        JSONObject options;
+
+        final Activity activity = MainActivity.this;
+
+        final Checkout co = new Checkout();
+
+        //  co.setImage(R.mipmap.ic_launcher);
+
+        co.setFullScreenDisable(true);
+        try {
+            options = new JSONObject();
+            options.put("name", getString(R.string.app_name));
+            // options.put("image", "https://eattovo.s3.amazonaws.com/upload/admin/makeit/product/1587203475912-Daily-ICons-04.png");
+            options.put("description", getString(R.string.orderid) + orderId);
+            //You can omit the image option to fetch the image from dashboard
+            options.put("currency", "INR");
+            //  options.put("order_id","order_DSJqzwMe7ULv5L");
+            options.put("amount", Integer.parseInt(amount) * 100);
+            options.put("customer_id", customerId);
+            JSONObject ReadOnly = new JSONObject();
+            ReadOnly.put("email", "true");
+            ReadOnly.put("contact", "true");
+            options.put("readonly", ReadOnly);
+
+            co.open(activity, options);
+
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+
+
+
+
+    }
+
+
+
 }

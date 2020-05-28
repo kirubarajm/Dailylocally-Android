@@ -1,11 +1,15 @@
 package com.dailylocally.ui.main;
 
+import android.util.Log;
+
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
@@ -15,8 +19,14 @@ import com.dailylocally.utilities.CartRequestPojo;
 import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.MasterPojo;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 import zendesk.core.AnonymousIdentity;
 import zendesk.core.Identity;
@@ -256,6 +266,69 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         getDataManager().setCurrentLng(lng);
         // getNavigator().openHome();
     }
+
+
+
+    public void paymentSuccess(String orderid, String paymentId, Integer status) {
+
+
+        JsonObjectRequest jsonObjectRequest = null;
+        try {
+
+            JSONObject json = new JSONObject();
+            json.put("transactionid", paymentId);
+            json.put("payment_status", status);
+            json.put("orderid", orderid);
+            json.put("payment_gatway_type", AppConstants.RAZORPAY_TYPE);
+
+
+
+
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PAYMENT_CONFIRM, json, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response != null)
+                            if (response.getBoolean("status")) {
+
+                                if (getNavigator() != null)
+                                    getNavigator().paymentSuccessed(true);
+                                getDataManager().setCartDetails(null);
+
+                            } else {
+                                if (getNavigator() != null)
+                                    getNavigator().paymentSuccessed(false);
+
+                            }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
+                }
+            }) {
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                }
+            };
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+        DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+    }
+
 
 
 }

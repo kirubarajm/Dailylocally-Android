@@ -1,5 +1,6 @@
 package com.dailylocally.ui.cart;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -29,6 +30,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipView;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +47,7 @@ import javax.inject.Inject;
 import static android.app.Activity.RESULT_OK;
 import static com.dailylocally.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener,SubscribeItemsAdapter.SubscribeProductsAdapterListener {
+public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener,SubscribeItemsAdapter.SubscribeProductsAdapterListener, PaymentResultListener {
 
     public ToolTipView myToolTipView;
     @Inject
@@ -199,6 +204,13 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     public void metricsCartOpen() {
         //  metricsOpenCartPage();
     }
+
+    @Override
+    public void orderGenerated(String orderId, String customerId, String amount) {
+
+        ((MainActivity)getActivity()).makePayment(orderId,customerId,amount);
+    }
+
 
     private void subscribeToLiveData() {
         mCartViewModel.getOrdernowLiveData().observe(this,
@@ -411,4 +423,16 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
 
+    @Override
+    public void onPaymentSuccess(String s) {
+
+        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+
+    }
 }

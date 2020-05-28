@@ -615,8 +615,8 @@
                     android:weightSum="3">
 
                     <RelativeLayout
+                        android:gravity="center_horizontal"
                         android:layout_width="0dp"
-
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="@{()->subscriptionViewModel.clickDaily()}">
@@ -624,7 +624,6 @@
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:background="@{subscriptionViewModel.dailyClicked?@drawable/curve_stroke_rounded:@drawable/curve_stroke_rounded_gray}">
 
 
@@ -633,9 +632,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:paddingStart="15dp"
-                                android:paddingTop="10dp"
+                                android:paddingTop="2dp"
                                 android:paddingEnd="15dp"
-                                android:paddingBottom="7dp"
+                                android:paddingBottom="2dp"
                                 android:singleLine="true"
                                 android:text="Daily"
                                 android:textColor="@{subscriptionViewModel.dailyClicked?@color/dl_primary_color:@color/dark_gray}"
@@ -648,7 +647,7 @@
 
                     <RelativeLayout
                         android:layout_width="0dp"
-
+                        android:gravity="center_horizontal"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="@{()->subscriptionViewModel.clickWeekDays()}">
@@ -656,7 +655,6 @@
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:background="@{subscriptionViewModel.weekClicked?@drawable/curve_stroke_rounded:@drawable/curve_stroke_rounded_gray}">
 
 
@@ -665,9 +663,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:paddingStart="15dp"
-                                android:paddingTop="10dp"
+                                android:paddingTop="2dp"
                                 android:paddingEnd="15dp"
-                                android:paddingBottom="7dp"
+                                android:paddingBottom="2dp"
                                 android:singleLine="true"
                                 android:text="Weekdays"
                                 android:textColor="@{subscriptionViewModel.weekClicked?@color/dl_primary_color:@color/dark_gray}"
@@ -679,6 +677,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:gravity="center_horizontal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -687,7 +686,6 @@
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:background="@{subscriptionViewModel.weekendClicked?@drawable/curve_stroke_rounded:@drawable/curve_stroke_rounded_gray}">
 
 
@@ -696,9 +694,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:paddingStart="15dp"
-                                android:paddingTop="10dp"
+                                android:paddingTop="2dp"
                                 android:paddingEnd="15dp"
-                                android:paddingBottom="7dp"
+                                android:paddingBottom="2dp"
                                 android:singleLine="true"
                                 android:text="Weekends"
                                 android:textColor="@{subscriptionViewModel.weekendClicked?@color/dl_primary_color:@color/dark_gray}"
@@ -713,26 +711,26 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical">
 
 
                     <LinearLayout
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
                         android:orientation="horizontal">
 
                         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                            android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:text="Choose deliveries"
                             android:textAllCaps="true"
                             android:textColor="@color/black"
@@ -741,26 +739,117 @@
                     </LinearLayout>
 
 
-                     <RelativeLayout
-                         android:background="@drawable/curve_stroke_rounded_gray"
-                        android:layout_alignParentEnd="true"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/curve_stroke_rounded_gray">
 
 
-                         <androidx.appcompat.widget.AppCompatSpinner
-                             android:paddingTop="5dp"
-                             android:paddingEnd="10dp"
-                             android:paddingBottom="5dp"
-                             android:paddingStart="10dp"
-                             android:id="@+id/plans"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"/>
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/plans"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp" />
 
                     </RelativeLayout>
 
 
                 </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:onClick="@{()->subscriptionViewModel.selectDate()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="15dp"
+                            android:paddingBottom="2dp"
+                            android:singleLine="true"
+                            android:text="Start date"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="15dp"
+                            android:paddingBottom="2dp"
+                            android:singleLine="true"
+                            android:text="@{subscriptionViewModel.startDate}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_chevron_right_black_24dp" />
+
+
+                </RelativeLayout>
+
+
+
+
+                 <RelativeLayout
+                     android:background="@drawable/gradient_bt_back"
+                    android:onClick="@{()->subscriptionViewModel.createSubscription()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp">
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="15dp"
+                            android:paddingBottom="2dp"
+                            android:singleLine="true"
+                            android:text="Create subscription"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+
+                </RelativeLayout>
+
+
+
+
+
+
+
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
