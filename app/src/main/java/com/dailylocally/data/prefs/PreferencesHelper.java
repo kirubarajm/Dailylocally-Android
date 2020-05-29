@@ -156,4 +156,7 @@ public interface PreferencesHelper {
     boolean isUserAddress();
     void setUserAddress(boolean address);
 
+    Integer getGender();
+    void setGender(Integer gender);
+
 }

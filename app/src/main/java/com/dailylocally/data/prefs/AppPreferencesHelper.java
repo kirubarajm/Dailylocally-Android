@@ -112,6 +112,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_USER_REGISTRATION_STATUS = "USER_REGISTRATION_STATUS";
     private static final String PREF_KEY_USER_ADDRESS_STATUS = "PREF_KEY_USER_ADDRESS_STATUS";
+    private static final String PREF_KEY_USER_GENDER = "PREF_KEY_USER_GENDER";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -552,6 +553,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setUserAddress(boolean address) {
         mPrefs.edit().putBoolean(PREF_KEY_USER_ADDRESS_STATUS, address).apply();
+    }
+
+    @Override
+    public Integer getGender() {
+        return mPrefs.getInt(PREF_KEY_USER_GENDER, 0);
+    }
+
+    @Override
+    public void setGender(Integer gender) {
+        mPrefs.edit().putInt(PREF_KEY_USER_GENDER, gender).apply();
     }
 
     @Override

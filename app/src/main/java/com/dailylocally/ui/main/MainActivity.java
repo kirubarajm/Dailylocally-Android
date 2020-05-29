@@ -25,9 +25,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityMainBinding;
+import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.calendarView.CalendarFragment;
-import com.dailylocally.ui.calendarView.CalendarModule;
 import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
@@ -227,9 +226,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openAccount() {
-        /*stopLoader();
+        //stopLoader();
         try {
-            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_MY_ACCOUNT);
+            //new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_MY_ACCOUNT);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
             transaction.replace(R.id.content_main, fragment);
@@ -240,7 +239,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
         mMainViewModel.toolbarTitle.set("My Account");
         mMainViewModel.titleVisible.set(true);
-        mMainViewModel.updateAvailable.set(false);*/
+        mMainViewModel.updateAvailable.set(false);
     }
 
     @Override

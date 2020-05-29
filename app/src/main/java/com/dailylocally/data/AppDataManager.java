@@ -631,6 +631,16 @@ mPreferencesHelper.setUserRegistrationStatus(status);
     }
 
     @Override
+    public Integer getGender() {
+        return mPreferencesHelper.getGender();
+    }
+
+    @Override
+    public void setGender(Integer gender) {
+        mPreferencesHelper.setGender(gender);
+    }
+
+    @Override
     public String getCartDetails() {
         return mPreferencesHelper.getCartDetails();
     }

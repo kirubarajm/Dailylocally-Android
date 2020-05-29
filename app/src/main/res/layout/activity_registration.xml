@@ -235,7 +235,6 @@
                 android:layout_marginRight="20dp"
                 android:visibility="@{nameGenderViewModel.referral?View.VISIBLE:View.GONE}">
 
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/referral"
                     enter="true"
@@ -248,7 +247,6 @@
                     android:maxLength="30"
                     android:singleLine="true"
                     android:textSize="14sp" />
-
 
             </com.google.android.material.textfield.TextInputLayout>
 
