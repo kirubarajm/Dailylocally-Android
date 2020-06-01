@@ -98,20 +98,23 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     }
 
     @Override
-    public void genderSuccess(String strMessage) {
-        Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
-        //mLoginViewModelMain.fetchUserDetails();
-        Intent intent = AddAddressActivity.newIntent(RegistrationActivity.this);
-        startActivity(intent);
-        finish();
+    public void genderSuccess(String strMessage,Boolean flagEdit) {
+        if (!flagEdit){
+            Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
+            //mLoginViewModelMain.fetchUserDetails();
+            Intent intent = AddAddressActivity.newIntent(RegistrationActivity.this);
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
     public void genderFailure(String strMessage) {
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
-
-
 
     @Override
     public int getBindingVariable() {
@@ -133,17 +136,27 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRegistrationBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            String edit = bundle.getString("edit");
+            assert edit != null;
+            if (edit.equals("1")) {
+                mLoginViewModelMain.flagEdit.set(true);
+                mActivityRegistrationBinding.btnSignIn.setText("Apply changes");
+                String name = mLoginViewModelMain.getDataManager().getCurrentUserName();
+                String email = mLoginViewModelMain.getDataManager().getCurrentUserEmail();
+                mActivityRegistrationBinding.edtName.setText(name);
+                mActivityRegistrationBinding.email.setText(email);
+                //mActivityRegistrationBinding.referral.setText();
+            }
+        }
         analytics=new Analytics(this, pageName);
-
     }
 
     @Override
@@ -222,7 +235,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
-
 
     @Override
     public void canceled() {

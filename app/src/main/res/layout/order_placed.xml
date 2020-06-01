@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/icon_selected"
-                android:textColor="@color/green"
+                android:textColor="@color/dl_green"
                 android:textSize="75sp"
                 android:visibility="gone" />
 

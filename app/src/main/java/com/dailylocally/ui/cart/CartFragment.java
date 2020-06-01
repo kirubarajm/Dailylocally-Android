@@ -232,7 +232,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         mCartViewModel.setAddressTitle();
 
         if (mCartViewModel.getCartPojoDetails() != null) {
-            mCartViewModel.fetchRepos();
+            mCartViewModel.getStartDate();
         }
         if (myToolTipView != null) {
             myToolTipView.remove();
@@ -251,7 +251,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         }
         if (mCartViewModel.getCartPojoDetails() != null) {
             mCartViewModel.xfactorClick.set(false);
-            mCartViewModel.fetchRepos();
+            mCartViewModel.getStartDate();
             mCartViewModel.emptyCart.set(false);
         } else {
             mCartViewModel.emptyCart.set(true);
@@ -367,17 +367,17 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         } else if (requestCode == AppConstants.REFUND_LIST_CODE) {
 
             if (resultCode == RESULT_OK) {
-                mCartViewModel.fetchRepos();
+                mCartViewModel.getStartDate();
             }
         } else if (requestCode == AppConstants.COUPON_LIST_CODE) {
             if (resultCode == RESULT_OK) {
-                mCartViewModel.fetchRepos();
+                mCartViewModel.getStartDate();
             }
 
 
         } else if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
             if (resultCode == RESULT_OK) {
-                mCartViewModel.fetchRepos();
+                mCartViewModel.getStartDate();
             }
         }
     }

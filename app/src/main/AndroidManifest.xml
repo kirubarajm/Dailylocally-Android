@@ -60,6 +60,9 @@
 
         </activity>
         <activity android:name=".ui.orderplaced.OrderPlacedActivity" />
+        <activity android:name=".ui.account.referrals.ReferralsActivity" />
+        <activity android:name=".ui.calendarView.CalendarActivity" />
+        <activity android:name=".ui.account.edit.EditAccountActivity" />
 
 
         <meta-data

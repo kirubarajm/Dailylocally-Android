@@ -16,6 +16,7 @@ import com.dailylocally.utilities.analytics.Analytics;
 
 public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> {
 
+    public ObservableBoolean flagEdit = new ObservableBoolean();
     public ObservableBoolean male = new ObservableBoolean();
     public ObservableBoolean haveReferral = new ObservableBoolean();
     public ObservableBoolean referral = new ObservableBoolean();
@@ -27,7 +28,16 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
 
     public RegistrationViewModel(DataManager dataManager) {
         super(dataManager);
-        male.set(true);
+        if (getDataManager().getGender()==null) {
+            male.set(true);
+        }else {
+            Integer gender =getDataManager().getGender();
+            if (gender==0){
+                male.set(false);
+            }else {
+                male.set(true);
+            }
+        }
         regionotherClicked.set(false);
 
         /*if (getDataManager().getRegionId()==0){
@@ -36,6 +46,7 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
     }
 
     public void proceed() {
+        if (getNavigator()!=null)
         getNavigator().proceedClick();
     }
 
@@ -90,8 +101,8 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
                     try {
                     if (response != null) {
                         if (response.getStatus()) {
-                            if (getNavigator() != null)
-                                getNavigator().genderSuccess(response.getMessage());
+                                if (getNavigator() != null)
+                                    getNavigator().genderSuccess(response.getMessage(),flagEdit.get());
 
                             getDataManager().setUserRegistrationStatus(true);
 
@@ -101,7 +112,9 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
                                 String UserEmail = response.getResult().get(0).getEmail();
                                 String userPhoneNumber = response.getResult().get(0).getPhoneno();
                                 String userReferralCode = response.getResult().get(0).getReferalcode();
+                                Integer gender = response.getResult().get(0).getGender();
                                 getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+                                getDataManager().setGender(gender);
                                 //   getDataManager().setRegionId(response.getResult().get(0).getRegionid());
                             }
                         } else {

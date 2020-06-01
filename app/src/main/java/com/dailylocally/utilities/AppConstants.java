@@ -425,6 +425,8 @@ public class AppConstants {
   public static final String DEFAULT_ADDRESS = URL_SERVER_IP_PORT + "/user/defaultaddress";
   public static final String CALENDAR_MONTH_WISE_ORDER_HISTORY = URL_SERVER_IP_PORT + "/user/dayorderhistory/month";
   public static final String CALENDAR_DAY_WISE_ORDER_HISTORY = URL_SERVER_IP_PORT + "/user/dayorderhistory/day";
+  public static final String REFERRAL = URL_SERVER_IP_PORT + "/user/referral/";
+  public static final String LOGOUT = URL_SERVER_IP_PORT + "/user/logout";
 
 
 

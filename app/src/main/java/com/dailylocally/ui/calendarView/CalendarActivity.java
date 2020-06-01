@@ -1,20 +1,20 @@
 package com.dailylocally.ui.calendarView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
-import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.base.BaseActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import java.text.ParseException;
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 
-public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel> implements CalendarNavigator,
+public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, CalendarViewModel> implements CalendarNavigator,
         CalendarDayWiseAdapter.CategoriesAdapterListener{
     @Inject
     CalendarViewModel mCalendarViewModel;
@@ -54,11 +54,8 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     CaldroidListener listener = null;
 
 
-    public static CalendarFragment newInstance() {
-        Bundle args = new Bundle();
-        CalendarFragment fragment = new CalendarFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static Intent newIntent(Context context) {
+        return new Intent(context, CalendarActivity.class);
     }
 
     @Override
@@ -103,24 +100,13 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
     @Override
     public void failure(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCalendarViewModel.setNavigator(this);
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
         mCalendarDayWiseAdapter.setListener(this);
 
@@ -140,12 +126,12 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
             caldroidFragment.setArguments(args);
         }
-        FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
 
         // Setup listener
-         listener = new CaldroidListener() {
+        listener = new CaldroidListener() {
             @Override
             public void onSelectDate(Date date, View view) {
 
@@ -156,7 +142,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             public void onChangeMonth(int month, int year) {
                 //String text = "month: " + month + " year: " + year;
                 //Toast.makeText(getContext(), text,
-                        //Toast.LENGTH_SHORT).show();
+                //Toast.LENGTH_SHORT).show();
 
                 mCalendarViewModel.getMonthWiseOrderDate(String.valueOf(month),String.valueOf(year));
             }
@@ -164,15 +150,14 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             @Override
             public void onLongClickDate(Date date, View view) {
                 //Toast.makeText(getContext(),
-                        //"Long click " + formatter.format(date),
-                        //Toast.LENGTH_SHORT).show();
+                //"Long click " + formatter.format(date),
+                //Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCaldroidViewCreated() {
                 if (caldroidFragment.getLeftArrowButton() != null) {
-                    Toast.makeText(getActivity(),
-                            "Caldroid view is created", Toast.LENGTH_SHORT)
+                    Toast.makeText(getApplicationContext(), "Caldroid view is created", Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -190,13 +175,18 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             e.printStackTrace();
         }
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext(),
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentHomeBinding.recyclerDayWiseOrder.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerDayWiseOrder.setAdapter(mCalendarDayWiseAdapter);
 
         subscribeToLiveData();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     private void subscribeToLiveData() {
@@ -1131,7 +1121,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
             } else {
                 Log.e("Cal", "" + selectedDate);
-                Toast.makeText(getActivity(), "No data for future date", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No data for future date", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -1537,7 +1527,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         }
         else {
             Log.e("Cal", "" + selectedDate);
-            Toast.makeText(getActivity(), "No data for future date (" + selectedDate + ")", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No data for future date (" + selectedDate + ")", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -2060,5 +2050,15 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
 
+    }
+
+    @Override
+    public void canceled() {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

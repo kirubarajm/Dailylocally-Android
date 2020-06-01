@@ -139,8 +139,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     //update ui
-
-    implementation 'com.google.android.play:core:1.7.2'
+    implementation 'com.google.android.play:core:1.7.3'
 
     //ToolTips address
     implementation 'com.nhaarman.supertooltips:library:3.0.0'
@@ -150,8 +149,6 @@ dependencies {
 
     //Razorpay
     implementation 'com.razorpay:checkout:1.5.2'
-
-
 
 
     //google play service

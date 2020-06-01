@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="myAccountViewModel"
+            type="com.dailylocally.ui.account.MyAccountViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <!--<ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:onClick="@{()->repliesViewModel.goBack()}"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />-->
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@string/my_account"
+                    android:textAllCaps="true"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/curve_stroke"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{myAccountViewModel.gender}"
+                    android:textColor="@color/dl_primary_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <com.dailylocally.utilities.fonts.TovoTextView
+                android:id="@+id/img_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/male"
+                android:textSize="60sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
+
+                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{myAccountViewModel.userName}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{()->myAccountViewModel.editProfile()}"
+                    android:text="@string/edit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dl_primary_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    android:visibility="gone"
+                    android:id="@+id/region"
+                    android:gravity="top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                    android:text="@{myAccountViewModel.regionname}"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/region"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{myAccountViewModel.userPhoneNo}"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="*"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="@{myAccountViewModel.userEmail}"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/contact"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/medium_gray" />
+
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.changeAddress()}">
+
+                            <com.dailylocally.utilities.fonts.TovoTextView
+                                android:id="@+id/rel1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="@string/icon_manage_address"
+                                android:textSize="16sp" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_toStartOf="@+id/ma"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_toEndOf="@+id/rel1"
+                            android:gravity="center_vertical"
+                            android:text="@string/manage_address"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/ma"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="15dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.orderHistory()}">
+
+                            <com.dailylocally.utilities.fonts.TovoTextView
+                                android:id="@+id/rel2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="@string/icon_order_history"
+                                android:textSize="16sp" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toStartOf="@+id/oh"
+                            android:layout_toEndOf="@+id/rel2"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/rel2"
+                            android:gravity="center_vertical"
+                            android:text="@string/order_history"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/oh"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="15dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.favourites()}">
+
+                        <RelativeLayout
+                            android:id="@+id/rel3"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content">
+
+                            <com.dailylocally.utilities.fonts.TovoTextView
+                                android:id="@+id/ico3"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/icon_favorites"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel3"
+                            android:layout_toRightOf="@+id/rel3"
+                            android:gravity="center_vertical"
+                            android:text="@string/favourites"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginRight="25dp"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.referrals()}">
+
+                            <com.dailylocally.utilities.fonts.TovoTextView
+                                android:id="@+id/rel4"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_referrals"
+                                android:textSize="16sp" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_toStartOf="@+id/r"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel4"
+                            android:layout_toRightOf="@+id/rel4"
+                            android:gravity="center_vertical"
+                            android:text="@string/referrals"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/r"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="15dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.feedbackAndSupport()}"
+                        android:orientation="horizontal">
+
+                        <com.dailylocally.utilities.fonts.TovoTextView
+                            android:id="@+id/fsi"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon_feedback_support"
+                            android:textSize="16sp"
+                            android:tint="@color/black" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_toStartOf="@+id/fi"
+                            android:layout_toEndOf="@+id/fsi"
+                            android:layout_gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginRight="15dp"
+                            android:text="@string/feedback_and_support"
+                            android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/fi"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="15dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_chevron_right_black_24dp"
+                                android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.favorites()}"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:id="@+id/rel5"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
+
+                            <com.dailylocally.utilities.fonts.TovoTextView
+                                android:id="@+id/ico5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_offers"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel5"
+                            android:layout_toRightOf="@+id/rel5"
+                            android:gravity="center_vertical"
+                            android:text="@string/offers"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginRight="25dp"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.logOut()}">
+
+                        <!--<com.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/ico6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon1" />-->
+
+                            <com.dailylocally.utilities.fonts.TovoTextView
+                                android:id="@+id/rel_fav"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginLeft="0dp"
+                                android:textSize="16sp" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel_fav"
+                            android:layout_toRightOf="@+id/rel_fav"
+                            android:gravity="center_vertical"
+                            android:text="Favorites"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="25dp"
+                            android:text=">"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.logOut()}">
+
+                        <!--<com.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/ico6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon1" />-->
+
+                            <com.dailylocally.utilities.fonts.TovoTextView
+                                android:id="@+id/rel6"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginLeft="0dp"
+                                android:textSize="16sp" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel6"
+                            android:layout_toRightOf="@+id/rel6"
+                            android:gravity="center_vertical"
+                            android:text="@string/logout"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="25dp"
+                            android:text=">"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

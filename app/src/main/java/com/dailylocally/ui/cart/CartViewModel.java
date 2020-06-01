@@ -98,6 +98,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public CartViewModel(DataManager dataManager) {
         super(dataManager);
+        getStartDate();
         grand_total.set("0");
 
         xfactorClick.set(true);
@@ -122,7 +123,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             public void onResponse(StartDateResponse response) {
                 if (response != null) {
                     availableDate=response.getOrderDeliveryDay();
-
                     fetchRepos();
 
 
