@@ -14,8 +14,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.subscription.StartDateResponse;
+import com.dailylocally.ui.subscription.SubscriptionRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CartRequestPojo;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -25,8 +28,12 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class CartViewModel extends BaseViewModel<CartNavigator> {
@@ -81,6 +88,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public MutableLiveData<List<CartResponse.Cartdetail>> cartBillLiveData;
     public ObservableList<CartResponse.Cartdetail> cartdetails = new ObservableArrayList<>();
     public int funnelStatus = 0;
+    public String availableDate;
     int favId;
     Long makeitId;
     int totalAmount;
@@ -99,6 +107,36 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         cartBillLiveData = new MutableLiveData<>();
         ordernowLiveData = new MutableLiveData<>();
         subscribeLiveData = new MutableLiveData<>();
+
+    }
+
+
+    public void getStartDate() {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_GET_START_DATE, StartDateResponse.class, new SubscriptionRequest(getDataManager().getCurrentUserId()), new Response.Listener<StartDateResponse>() {
+
+            @Override
+            public void onResponse(StartDateResponse response) {
+                if (response != null) {
+                    availableDate=response.getOrderDeliveryDay();
+
+                    fetchRepos();
+
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }, AppConstants.API_VERSION_ONE);
+        DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
+
 
     }
 
@@ -287,6 +325,77 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void fetchRepos() {
+
+        List<CartRequest.Orderitem> results = new ArrayList<>();
+        CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
+        CartRequest cartRequestPojo = new CartRequest();
+
+        Gson sGson = new GsonBuilder().create();
+        cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+        if (cartRequestPojo == null)
+            cartRequestPojo = new CartRequest();
+        if (cartRequestPojo.getOrderitems() != null) {
+            results.clear();
+            results.addAll(cartRequestPojo.getOrderitems());
+        }
+        if (cartRequestPojo.getOrderitems() != null) {
+            int totalSize = cartRequestPojo.getOrderitems().size();
+            if (totalSize != 0) {
+                for (int i = 0; i < totalSize; i++) {
+
+                    if (cartRequestPojo.getOrderitems().get(i).getDayorderdate() != null) {
+
+                        //avilable date format
+                        SimpleDateFormat availableDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        Date availableCompareDate = null;
+                        try {
+                            availableCompareDate = availableDateFormat.parse(availableDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        //
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+                        Date date = null;
+                        try {
+                            date = dateFormat.parse(cartRequestPojo.getOrderitems().get(i).getDayorderdate());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (date.before(availableCompareDate)) {
+
+                            cartRequestPojoResult.setDayorderdate(availableDate);
+
+
+                        }else {
+
+                            cartRequestPojoResult.setDayorderdate(cartRequestPojo.getOrderitems().get(i).getDayorderdate());
+
+                        }
+
+
+                    } else {
+
+                        cartRequestPojoResult.setDayorderdate(availableDate);
+
+                    }
+
+
+                    cartRequestPojoResult.setPid(cartRequestPojo.getOrderitems().get(i).getPid());
+                    cartRequestPojoResult.setQuantity(cartRequestPojo.getOrderitems().get(i).getQuantity());
+                    cartRequestPojoResult.setPrice(String.valueOf(cartRequestPojo.getOrderitems().get(i).getPid()));
+                    results.set(i, cartRequestPojoResult);
+                }
+            }
+        }
+        cartRequestPojo.setOrderitems(results);
+        Gson gson = new Gson();
+        String json = gson.toJson(cartRequestPojo);
+        getDataManager().setCartDetails(json);
+
+
         if (getNavigator() != null)
             getNavigator().clearToolTips();
 
@@ -295,15 +404,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         if (getCartPojoDetails() != null) {
 
-            Gson sGson = new GsonBuilder().create();
-            CartRequest cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+            Gson ssGson = new GsonBuilder().create();
+            CartRequest rCartRequest = ssGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
 
-            cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
-            cartRequestPojo.setLat(getDataManager().getCurrentLat());
-            cartRequestPojo.setLon(getDataManager().getCurrentLng());
+            rCartRequest.setUserid(getDataManager().getCurrentUserId());
+            rCartRequest.setLat(getDataManager().getCurrentLat());
+            rCartRequest.setLon(getDataManager().getCurrentLng());
 
-            Gson gson = new Gson();
-            String carts = gson.toJson(cartRequestPojo);
+            Gson srgson = new Gson();
+            String carts = srgson.toJson(rCartRequest);
 
             try {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CART_DETAILS, new JSONObject(carts), new Response.Listener<JSONObject>() {

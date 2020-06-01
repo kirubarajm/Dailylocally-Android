@@ -24,6 +24,7 @@ import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
@@ -47,7 +48,7 @@ import javax.inject.Inject;
 import static android.app.Activity.RESULT_OK;
 import static com.dailylocally.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener,SubscribeItemsAdapter.SubscribeProductsAdapterListener, PaymentResultListener {
+public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener,SubscribeItemsAdapter.SubscribeProductsAdapterListener {
 
     public ToolTipView myToolTipView;
     @Inject
@@ -262,6 +263,11 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void edit(CartResponse.SubscriptionItem product) {
 
+
+        Intent intent = SubscriptionActivity.newIntent(getContext());
+        intent.putExtra("pid",String.valueOf(product.getPid()));
+        startActivity(intent);
+
     }
 
     @Override
@@ -337,6 +343,15 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
 
         return date[0];
+    }
+
+    @Override
+    public void subscribe(CartResponse.Item product) {
+
+        Intent intent = SubscriptionActivity.newIntent(getContext());
+        intent.putExtra("pid",String.valueOf(product.getPid()));
+        startActivity(intent);
+
     }
 
     @Override
@@ -423,16 +438,4 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
 
-    @Override
-    public void onPaymentSuccess(String s) {
-
-        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onPaymentError(int i, String s) {
-        Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-
-    }
 }

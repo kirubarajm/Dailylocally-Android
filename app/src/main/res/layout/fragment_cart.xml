@@ -122,7 +122,6 @@
             </LinearLayout>
         </RelativeLayout>
 
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/cart_scroll"
             android:layout_width="match_parent"
@@ -135,8 +134,6 @@
                 android:layout_height="match_parent"
                 android:background="@color/white">
 
-
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_alignParentTop="true"
                     android:id="@+id/recyclerview_orders"
@@ -148,8 +145,6 @@
                     app:cart_ordernow_adapter="@{cartViewModel.ordernowItemViewModels}"
                     tools:itemCount="1" />
 
-
-
                 <View
                     android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
                     android:layout_width="match_parent"
@@ -157,11 +152,11 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/medium_gray" />
 
-
                 <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                     android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
                     android:layout_marginTop="20dp"
                     android:id="@+id/subsTitle"
+                    android:layout_marginStart="10dp"
                     android:layout_below="@+id/recyclerview_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,7 +164,6 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
@@ -182,13 +176,11 @@
                     app:cart_subscribe_adapter="@{cartViewModel.subscribeItemViewModels}"
                     tools:itemCount="1" />
 
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/medium_gray" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,7 +189,6 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-
                     <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -205,7 +196,6 @@
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -224,7 +214,6 @@
                             tools:listitem="@layout/list_item_cart_bill" />
 
                     </LinearLayout>
-
 
                     <View
                         android:layout_width="match_parent"
@@ -290,10 +279,7 @@
                             android:textColor="@color/dark_gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
-
-
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"

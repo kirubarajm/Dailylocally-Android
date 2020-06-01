@@ -152,7 +152,6 @@ dependencies {
     implementation 'com.razorpay:checkout:1.5.2'
 
 
-    implementation 'com.github.cdflynn:checkview:v1.1'
 
 
     //google play service

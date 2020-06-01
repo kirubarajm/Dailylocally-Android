@@ -18,6 +18,7 @@ import com.dailylocally.databinding.FragmentHomeBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l1.CategoryL1ViewModel;
+import com.dailylocally.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -76,6 +77,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
         mFragmentHomeBinding.categoryList.setAdapter(categoriesAdapter);
         categoriesAdapter.setListener(this);
+    }
+
+    @Override
+    public void gotoOrders() {
+
+        ((MainActivity)getActivity()).openOrders();
+
+
     }
 
     @Override

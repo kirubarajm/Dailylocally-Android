@@ -162,6 +162,9 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             }
 
 
+
+            getNavigator().goBack();
+
         } else {
 
             getCart();
@@ -222,6 +225,8 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             cartRequestPojo.setSubscription(results);
             saveCart(cartRequestPojo);
 
+
+            getNavigator().goBack();
         }
 
     }

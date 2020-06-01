@@ -158,7 +158,7 @@ public class OrderNowItemViewModel {
 
 
     public void subscribe() {
-
+mListener.subscribe(dishList);
 
     }
 
@@ -195,6 +195,7 @@ public class OrderNowItemViewModel {
         void reload();
 
         String changeDate(CartResponse.Item product);
+        void subscribe(CartResponse.Item product);
     }
 
 }

@@ -195,6 +195,37 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
+
+    public void openOrders() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
+
+        try {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            CalendarFragment fragment = new CalendarFragment();
+            //HomeFragment fragment = new HomeFragment();
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+            transaction.commit();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+        mMainViewModel.toolbarTitle.set("Home");
+        mMainViewModel.titleVisible.set(false);
+
+        mMainViewModel.isHome.set(true);
+        mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isMyAccount.set(false);
+
+
+        if (mMainViewModel.update.get()) {
+            if (!mMainViewModel.isLiveOrder.get()) {
+                mMainViewModel.updateAvailable.set(true);
+            }
+        }
+
+    }
+
     @Override
     public void openExplore() {
        /* new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);

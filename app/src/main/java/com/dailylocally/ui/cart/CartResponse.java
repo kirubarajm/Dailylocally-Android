@@ -921,7 +921,7 @@ public class CartResponse {
         private Integer subscription;
         @SerializedName("weight")
         @Expose
-        private Double weight;
+        private String weight;
         @SerializedName("packettype")
         @Expose
         private Object packettype;
@@ -1085,11 +1085,11 @@ public class CartResponse {
             this.subscription = subscription;
         }
 
-        public Double getWeight() {
+        public String getWeight() {
             return weight;
         }
 
-        public void setWeight(Double weight) {
+        public void setWeight(String weight) {
             this.weight = weight;
         }
 

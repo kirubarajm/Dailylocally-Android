@@ -26,6 +26,7 @@ public class ProductsItemViewModel {
 
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
+    public final ObservableField<String> subscribeText = new ObservableField<>();
     public final ObservableField<String> weight = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> sQuantity = new ObservableField<>();
@@ -51,6 +52,8 @@ int quantity=0;
         serviceable.set(true);
         subscribeAvailable.set(true);
 
+        subscribeText.set("Subscribe");
+
         results.clear();
         getCart();
         if (cartRequestPojo.getOrderitems() != null) {
@@ -61,14 +64,18 @@ int quantity=0;
                         isAddClicked.set(true);
                         quantity=results.get(i).getQuantity();
                        sQuantity.set(String.valueOf(results.get(i).getQuantity()));
-
                     }
                 }
-
             }
-
         }
 
+        if (cartRequestPojo.getSubscription()!=null&&cartRequestPojo.getSubscription().size()>0){
+            for (int i = 0; i < cartRequestPojo.getSubscription().size(); i++) {
+                if (products.getPid().equals(cartRequestPojo.getSubscription().get(i).getPid())) {
+                    subscribeText.set("Edit subscription");
+                }
+            }
+        }
     }
     public void saveCart(CartRequest request) {
         Gson gson = new Gson();
@@ -90,7 +97,6 @@ int quantity=0;
         return cartRequestPojo;
     }
 
-
     public void onItemClick() {
         // if (coupon.isClickable())
         //     mListener.onItemClick(result);
@@ -106,7 +112,7 @@ int quantity=0;
 
         getCart();
 
-        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+       /* String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -120,7 +126,7 @@ int quantity=0;
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date dat = calendar.getTime();
 
-        String dayAftertomorrowDate =dateFormat.format(dat);
+        String dayAftertomorrowDate =dateFormat.format(dat);*/
 
 
 
@@ -131,11 +137,11 @@ int quantity=0;
                 for (int i = 0; i < totalSize; i++) {
                     if (products.getPid().equals(results.get(i).getPid())) {
 
-                        if (Integer.parseInt(currentTime)<14){
+                        /*if (Integer.parseInt(currentTime)<14){
                             cartRequestPojoResult.setDayorderdate(tomorrowDate);
                         }else {
                             cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
-                        }
+                        }*/
 
                         cartRequestPojoResult.setPid(products.getPid());
                         cartRequestPojoResult.setQuantity(quantity);
@@ -156,7 +162,7 @@ int quantity=0;
     public void subClicked() {
 
 
-        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+        /*String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -170,7 +176,7 @@ int quantity=0;
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date dat = calendar.getTime();
 
-        String dayAftertomorrowDate =dateFormat.format(dat);
+        String dayAftertomorrowDate =dateFormat.format(dat);*/
 
 
         quantity--;
@@ -188,11 +194,11 @@ int quantity=0;
                             break;
                         } else {
 
-                            if (Integer.parseInt(currentTime)<14){
+                            /*if (Integer.parseInt(currentTime)<14){
                                 cartRequestPojoResult.setDayorderdate(tomorrowDate);
                             }else {
                                 cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
-                            }
+                            }*/
 
 
                             cartRequestPojoResult.setPid(products.getPid());
@@ -226,7 +232,7 @@ int quantity=0;
     }
 
     public void enableAdd() {
-        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+       /* String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -240,7 +246,7 @@ int quantity=0;
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date dat = calendar.getTime();
 
-        String dayAftertomorrowDate =dateFormat.format(dat);
+        String dayAftertomorrowDate =dateFormat.format(dat);*/
 
 
 
@@ -252,11 +258,11 @@ int quantity=0;
         getCart();
 
 
-        if (Integer.parseInt(currentTime)<14){
+       /* if (Integer.parseInt(currentTime)<14){
             cartRequestPojoResult.setDayorderdate(tomorrowDate);
         }else {
             cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
-        }
+        }*/
 
 
         cartRequestPojoResult.setPid(products.getPid());
