@@ -195,6 +195,28 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     @Override
+    public void getAddressSuccess(UserAddressResponse.Result result) {
+        try {
+            if (result!=null) {
+                mActivityAddAddressBinding.house.setText(result.getFlatno());
+                mActivityAddAddressBinding.area.setText(result.getLocality());
+                mActivityAddAddressBinding.landmark.setText(result.getLandmark());
+
+                LatLng latLng = new LatLng(result.getLat(), result.getLon());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                initCameraIdle();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getAddressFailure() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityAddAddressBinding = getViewDataBinding();
@@ -203,13 +225,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-            aid = bundle.getString("aid");
-        }
-
-        if (aid==null){
-
-        }else {
-
+            aid = bundle.getString("edit");
+            if (aid!=null && aid.equals("1")){
+                mAddAddressViewModel.fetchUserDetails();
+                mAddAddressViewModel.flagAddressEdit.set(true);
+            }
         }
 
         analytics = new Analytics(this, pageName);

@@ -30,6 +30,8 @@ import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Module;
 import com.dailylocally.ui.category.l2.products.ProductsProvider;
 
+import com.dailylocally.ui.favorites.FavoritesActivity;
+import com.dailylocally.ui.favorites.FavoritesModule;
 import com.dailylocally.ui.home.HomeProvider;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.main.MainActivityModule;
@@ -130,5 +132,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = ReferralsActivityModule.class)
     abstract ReferralsActivity bindReferralActivity();
+
+    @ContributesAndroidInjector(modules = FavoritesModule.class)
+    abstract FavoritesActivity bindFavoritesActivity();
 
 }

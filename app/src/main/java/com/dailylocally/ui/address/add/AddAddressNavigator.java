@@ -20,18 +20,20 @@ public interface AddAddressNavigator {
 
     void handleError(Throwable throwable);
 
-
     void addressSaved();
 
     void emptyFields();
 
-
     void myLocationn();
-
 
     void showToast(String msg);
 
     void goBack();
+
     void searchAddress();
+
+    void getAddressSuccess(UserAddressResponse.Result result);
+
+    void getAddressFailure();
 
 }

@@ -15,14 +15,10 @@
  */
 
 package com.dailylocally.ui.address.add;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.Toast;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -52,6 +48,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     public final ObservableBoolean home = new ObservableBoolean();
     public final ObservableBoolean office = new ObservableBoolean();
+    public final ObservableBoolean flagAddressEdit = new ObservableBoolean();
     public TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -241,17 +238,23 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
             try {
                 setIsLoading(true);
+                int method = 0;
                 if (!SAVEcLICKED.get()) {
-                    GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.ADD_ADDRESS_URL, AddressResponse.class, request, new Response.Listener<AddressResponse>() {
+                    if (flagAddressEdit.get()){
+                        method = Request.Method.PUT;
+                    }else {
+                        method = Request.Method.POST;
+                    }
+                    GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, AddressResponse.class, request,
+                            new Response.Listener<AddressResponse>() {
                         @Override
                         public void onResponse(AddressResponse response) {
-
+                            try {
                             if (response.getStatus()) {
                                 SAVEcLICKED.set(true);
                                 getDataManager().setUserAddress(true);
                                 if (getNavigator() != null)
                                     getNavigator().showToast(response.getMessage());
-
 
                                 if (response.getAid() != null) {
                                     getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), response.getAid());
@@ -278,7 +281,9 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                             getDataManager().setFilterSort(json);*/
                                 }
                             }
-
+                            }catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -336,8 +341,57 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             ee.printStackTrace();
 
         }
+    }
 
-
+    public void fetchUserDetails() {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+            String userID = getDataManager().getCurrentUserId();
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_USER_ADDRESS + userID, UserAddressResponse.class, new Response.Listener<UserAddressResponse>() {
+                @Override
+                public void onResponse(UserAddressResponse response) {
+                    try {
+                        if (response!=null) {
+                            if (response.getStatus()) {
+                                if (response.getResult()!=null && response.getResult().size()>0){
+                                    if (getNavigator()!=null){
+                                        getNavigator().getAddressSuccess(response.getResult().get(0));
+                                    }
+                                }
+                            }else {
+                                if (getNavigator()!=null){
+                                    getNavigator().getAddressFailure();
+                                }
+                            }
+                        }else {
+                            if (getNavigator()!=null){
+                                getNavigator().getAddressFailure();
+                            }
+                        }
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    try {
+                        setIsLoading(false);
+                        if (getNavigator()!=null){
+                            getNavigator().getAddressFailure();
+                        }
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
     }
 
 

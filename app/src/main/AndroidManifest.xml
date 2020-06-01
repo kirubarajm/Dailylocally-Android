@@ -63,6 +63,7 @@
         <activity android:name=".ui.account.referrals.ReferralsActivity" />
         <activity android:name=".ui.calendarView.CalendarActivity" />
         <activity android:name=".ui.account.edit.EditAccountActivity" />
+        <activity android:name=".ui.favorites.FavoritesActivity" />
 
 
         <meta-data
