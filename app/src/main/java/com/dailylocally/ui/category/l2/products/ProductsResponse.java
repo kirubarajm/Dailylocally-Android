@@ -142,7 +142,7 @@ public class ProductsResponse {
 
     public class Result {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
 

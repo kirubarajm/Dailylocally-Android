@@ -55,8 +55,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.mProductsAdapterListener = listener;
     }
 
-
-
     public interface ProductsAdapterListener {
         void refresh();
         void subscribeProduct(ProductsResponse.Result products);

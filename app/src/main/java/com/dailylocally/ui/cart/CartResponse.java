@@ -388,7 +388,7 @@ public class CartResponse {
 
     public class Item {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
         @SerializedName("hsn_code")
@@ -883,7 +883,7 @@ public class CartResponse {
 
     public class SubscriptionItem {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
         @SerializedName("hsn_code")

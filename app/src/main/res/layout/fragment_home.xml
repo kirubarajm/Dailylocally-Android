@@ -47,6 +47,7 @@
 
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -110,7 +111,7 @@
                             android:text="@{homeViewModel.headerSubContent}"
                             android:textAlignment="textStart"
                             android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:visibility="visible" />
 
 

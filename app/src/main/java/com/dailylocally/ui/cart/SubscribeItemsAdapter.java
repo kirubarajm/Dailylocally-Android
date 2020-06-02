@@ -76,10 +76,8 @@ public class SubscribeItemsAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
     public void addItems(List<CartResponse.SubscriptionItem> blogList) {
 
-        if (blogList.size()!=0){
             item_list.addAll(blogList);
             notifyDataSetChanged();
-        }
 
     }
 

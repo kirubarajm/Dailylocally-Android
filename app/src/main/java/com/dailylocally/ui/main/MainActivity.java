@@ -607,18 +607,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onPaymentSuccess(String s) {
-
-        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-
+        mMainViewModel.paymentSuccess(orderId,s,1);
     }
 
     @Override
     public void onPaymentError(int i, String s) {
-        Toast.makeText(MainActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
-
-
-
-
+        mMainViewModel.paymentSuccess(orderId,s,0);
     }
 
     public void makePayment(String orderId, String customerId, String amount) {

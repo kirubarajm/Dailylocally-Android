@@ -230,7 +230,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     public void onResume() {
         super.onResume();
         mCartViewModel.setAddressTitle();
-
         if (mCartViewModel.getCartPojoDetails() != null) {
             mCartViewModel.getStartDate();
         }
@@ -307,40 +306,30 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         calendarT.add(Calendar.DAY_OF_YEAR, 1);
         Date selectableDate = calendarT.getTime();
 
-
         if (Integer.parseInt(currentTime) < 14) {
-
-
             year = calendarT.get(Calendar.YEAR);
             month = calendarT.get(Calendar.MONTH);
             day = calendarT.get(Calendar.DAY_OF_MONTH);
-
         } else {
+
             calendarT.add(Calendar.DAY_OF_YEAR, 1);
             selectableDate = calendarT.getTime();
-
 
             year = calendarT.get(Calendar.YEAR);
             month = calendarT.get(Calendar.MONTH);
             day = calendarT.get(Calendar.DAY_OF_MONTH);
         }
-
-
         final String[] date = new String[1];
-
-
         DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 date[0] = dayOfMonth + "-" + month + "-" + year;
               mCartViewModel.productDateChange(date[0],product);
 
-
             }
         }, year, month, day);
         dialog.getDatePicker().setMinDate(selectableDate.getTime());
         dialog.show();
-
 
         return date[0];
     }

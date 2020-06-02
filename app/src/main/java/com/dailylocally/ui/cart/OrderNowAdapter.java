@@ -78,10 +78,8 @@ public class OrderNowAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void addItems(List<CartResponse.Item> blogList) {
 
-        if (blogList.size()!=0){
             item_list.addAll(blogList);
             notifyDataSetChanged();
-        }
 
     }
 

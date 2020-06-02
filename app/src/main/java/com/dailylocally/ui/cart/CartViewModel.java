@@ -20,7 +20,6 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.subscription.StartDateResponse;
 import com.dailylocally.ui.subscription.SubscriptionRequest;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.CartRequestPojo;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -98,7 +97,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public CartViewModel(DataManager dataManager) {
         super(dataManager);
-        getStartDate();
+      //  getStartDate();
         grand_total.set("0");
 
         xfactorClick.set(true);
@@ -122,7 +121,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             @Override
             public void onResponse(StartDateResponse response) {
                 if (response != null) {
-                    availableDate=response.getOrderDeliveryDay();
+                    availableDate = response.getOrderDeliveryDay();
                     fetchRepos();
 
 
@@ -205,17 +204,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         if (getNavigator() != null)
             getNavigator().clearToolTips();
-
-
         Gson sGson = new GsonBuilder().create();
-        CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
-
+        CartRequest cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
         if (cartRequestPojo == null) {
             emptyCart.set(true);
             return null;
-
         } else {
-            if (cartRequestPojo.getCartitems() != null) {
+
+           /* if (cartRequestPojo.getCartitems() != null) {
                 if (cartRequestPojo.getCartitems().size() == 0) {
                     getDataManager().setCartDetails(null);
                     emptyCart.set(true);
@@ -225,7 +221,25 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 }
             } else {
                 emptyCart.set(true);
+            }*/
+
+
+            if (cartRequestPojo.getSubscription() == null && cartRequestPojo.getOrderitems() == null) {
+                emptyCart.set(true);
+                return null;
+            } else if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {
+                if (cartRequestPojo.getSubscription().size() == 0 && cartRequestPojo.getOrderitems().size() == 0) {
+                    emptyCart.set(true);
+                    return null;
+                } else {
+                    emptyCart.set(false);
+                }
+
+            } else {
+                emptyCart.set(false);
             }
+
+
         }
 
         return getDataManager().getCartDetails();
@@ -326,6 +340,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void fetchRepos() {
 
+        String cc = getDataManager().getCartDetails();
+
+
         List<CartRequest.Orderitem> results = new ArrayList<>();
         CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
         CartRequest cartRequestPojo = new CartRequest();
@@ -342,9 +359,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             int totalSize = cartRequestPojo.getOrderitems().size();
             if (totalSize != 0) {
                 for (int i = 0; i < totalSize; i++) {
-
                     if (cartRequestPojo.getOrderitems().get(i).getDayorderdate() != null) {
-
                         //avilable date format
                         SimpleDateFormat availableDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                         Date availableCompareDate = null;
@@ -353,7 +368,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-
                         //
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -365,14 +379,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         }
 
                         if (date.before(availableCompareDate)) {
-
                             cartRequestPojoResult.setDayorderdate(availableDate);
-
-
-                        }else {
-
+                        } else {
                             cartRequestPojoResult.setDayorderdate(cartRequestPojo.getOrderitems().get(i).getDayorderdate());
-
                         }
 
 
@@ -452,10 +461,21 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 }
 
 
+                                //   if (cartPageResponse.getResult().get(0).getItem()!=null){
+
+                                ordernowItemViewModels.clear();
+                                subscribeItemViewModels.clear();
+
+                                 ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+                                subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
+
+                                //  }
+
+
                                 if (cartPageResponse.getResult().get(0).getItem().size() > 0) {
 
 
-                                    ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+                                  //  ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
                                     emptyCart.set(false);
 
@@ -490,7 +510,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     showSubscription.set(true);
 
-                                    subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
+                                  //  subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
                                     emptyCart.set(false);
 
                                     cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());

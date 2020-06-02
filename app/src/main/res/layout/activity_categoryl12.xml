@@ -158,6 +158,7 @@
                 android:visibility="@{categoryL2ViewModel.cart?View.VISIBLE:View.GONE}">
 
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -165,8 +166,8 @@
 
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical|center_horizontal"
                         android:layout_margin="5dp"
                         android:src="@drawable/ic_orders"
@@ -199,6 +200,7 @@
 
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
