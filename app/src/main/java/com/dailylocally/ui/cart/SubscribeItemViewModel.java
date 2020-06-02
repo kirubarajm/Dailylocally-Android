@@ -41,15 +41,14 @@ public class SubscribeItemViewModel {
 
         this.mListener = mListener;
         this.dishList = dishList;
-
         product_name.set(dishList.getProductname());
       // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
 
         sprice.set("INR. " + String.valueOf(dishList.getMrp()));
         image.set(dishList.getImage());
+        weight.set(dishList.getWeight());
 
     }
-
 
     public void edit(){
         mListener.edit(dishList);

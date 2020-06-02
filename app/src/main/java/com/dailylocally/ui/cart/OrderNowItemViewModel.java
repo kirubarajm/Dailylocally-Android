@@ -47,8 +47,7 @@ public class OrderNowItemViewModel {
         this.dishList = dishList;
 
         product_name.set(dishList.getProductname());
-      // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
-
+        // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
 
 
         sprice.set("INR. " + String.valueOf(dishList.getMrp()));
@@ -123,15 +122,29 @@ public class OrderNowItemViewModel {
 
         }
 
+        cartRequestPojo.setOrderitems(results);
 
-        if (results.size() == 0) {
+
+        if (cartRequestPojo.getSubscription() == null && cartRequestPojo.getOrderitems() == null) {
             saveCart(null);
+            mListener.reload();
+        } else if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {
+            if (cartRequestPojo.getSubscription().size() == 0 && cartRequestPojo.getOrderitems().size() == 0) {
+                saveCart(null);
+                mListener.reload();
+            } else {
+                saveCart(cartRequestPojo);
+                mListener.reload();
+            }
 
         } else {
-            cartRequestPojo.setOrderitems(results);
             saveCart(cartRequestPojo);
             mListener.reload();
         }
+
+           /* saveCart(cartRequestPojo);
+            mListener.reload();*/
+
 
         if (quantity.get() == 0) {
             isAddClicked.set(false);
@@ -158,7 +171,58 @@ public class OrderNowItemViewModel {
 
 
     public void subscribe() {
+        mListener.subscribe(dishList);
 
+    }
+
+    public void delete() {
+
+        quantity.set(0);
+        sQuantity.set(String.valueOf(quantity.get()));
+        results.clear();
+        getCart();
+        if (cartRequestPojo.getOrderitems() != null) {
+            int totalSize = cartRequestPojo.getOrderitems().size();
+            if (totalSize != 0) {
+                for (int i = 0; i < totalSize; i++) {
+                    if (dishList.getPid().equals(results.get(i).getPid())) {
+                        if (quantity.get() == 0) {
+                            results.remove(i);
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        cartRequestPojo.setOrderitems(results);
+
+        if (cartRequestPojo.getSubscription() == null && cartRequestPojo.getOrderitems() == null) {
+            saveCart(null);
+            mListener.reload();
+        } else if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {
+            if (cartRequestPojo.getSubscription().size() == 0 && cartRequestPojo.getOrderitems().size() == 0) {
+                saveCart(null);
+                mListener.reload();
+            } else {
+                saveCart(cartRequestPojo);
+                mListener.reload();
+            }
+
+        } else {
+            saveCart(cartRequestPojo);
+            mListener.reload();
+        }
+
+           /* saveCart(cartRequestPojo);
+            mListener.reload();*/
+
+
+        if (quantity.get() == 0) {
+            isAddClicked.set(false);
+        }
 
     }
 
@@ -188,13 +252,14 @@ public class OrderNowItemViewModel {
         String date = mListener.changeDate(dishList);
 
 
-
     }
 
     public interface DishItemViewModelListener {
         void reload();
 
         String changeDate(CartResponse.Item product);
+
+        void subscribe(CartResponse.Item product);
     }
 
 }

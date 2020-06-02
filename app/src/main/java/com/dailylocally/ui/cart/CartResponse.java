@@ -388,7 +388,7 @@ public class CartResponse {
 
     public class Item {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
         @SerializedName("hsn_code")
@@ -883,7 +883,7 @@ public class CartResponse {
 
     public class SubscriptionItem {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
         @SerializedName("hsn_code")
@@ -921,7 +921,7 @@ public class CartResponse {
         private Integer subscription;
         @SerializedName("weight")
         @Expose
-        private Double weight;
+        private String weight;
         @SerializedName("packettype")
         @Expose
         private Object packettype;
@@ -1085,11 +1085,11 @@ public class CartResponse {
             this.subscription = subscription;
         }
 
-        public Double getWeight() {
+        public String getWeight() {
             return weight;
         }
 
-        public void setWeight(Double weight) {
+        public void setWeight(String weight) {
             this.weight = weight;
         }
 

@@ -7,6 +7,7 @@ public interface HomeNavigator {
 
 
     void dataLoaded();
+    void gotoOrders();
 
     void changeHeaderText(String headerContent);
 }

@@ -79,7 +79,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     }
 
  public void myOrders() {
-
+getNavigator().gotoOrders();
     }
 
     public boolean isAddressAdded() {

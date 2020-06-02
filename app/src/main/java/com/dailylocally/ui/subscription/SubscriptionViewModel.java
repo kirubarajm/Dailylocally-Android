@@ -1,6 +1,8 @@
 package com.dailylocally.ui.subscription;
 
 
+import android.widget.Toast;
+
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
@@ -67,8 +69,76 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
         getStartDate(AppConstants.SUBSCRIBEPRODUCT_CHANGE);
     }
 
+  public void delete() {
+
+      if (edit) {
+
+          results.clear();
+          getCart();
+          if (cartRequestPojo.getSubscription() != null) {
+              int totalSize = cartRequestPojo.getSubscription().size();
+              if (totalSize != 0) {
+                  for (int i = 0; i < totalSize; i++) {
+                      if (products.getPid().equals(results.get(i).getPid())) {
+                              results.remove(i);
+                              break;
+                      }
+                  }
+
+              }
+
+          }
+
+
+          if (results.size() == 0) {
+              saveCart(null);
+
+          } else {
+              cartRequestPojo.setSubscription(results);
+              saveCart(cartRequestPojo);
+          }
+
+          if (quantity == 0) {
+              isAddClicked.set(false);
+          }
+
+          getNavigator().goBack();
+
+      } else {
+
+          getNavigator().goBack();
+      }
+
+
+
+
+
+
+
+  }
+
 
     public void createSubscription() {
+
+        if (quantity==0){
+            Toast.makeText(DailylocallyApp.getInstance(), "Please add quantity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (planId==0){
+            Toast.makeText(DailylocallyApp.getInstance(), "Please choose deliveries ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (monClicked.get()||tueClicked.get()||wedClicked.get()||thuClicked.get()||friClicked.get()||satClicked.get()||sunClicked.get()){
+
+        }else {
+            Toast.makeText(DailylocallyApp.getInstance(), "Please select day", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
 
         if (edit) {
 
@@ -162,6 +232,9 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             }
 
 
+
+            getNavigator().goBack();
+
         } else {
 
             getCart();
@@ -222,6 +295,8 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             cartRequestPojo.setSubscription(results);
             saveCart(cartRequestPojo);
 
+
+            getNavigator().goBack();
         }
 
     }

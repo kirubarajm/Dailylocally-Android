@@ -27,6 +27,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityMainBinding;
 import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
@@ -191,6 +192,43 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 mMainViewModel.updateAvailable.set(true);
             }
         }
+
+    }
+
+
+    public void openOrders() {
+
+        Intent intent=CalendarActivity.newIntent(MainActivity.this);
+        startActivity(intent);
+
+
+
+      /*  new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
+
+        try {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            CalendarFragment fragment = new CalendarFragment();
+            //HomeFragment fragment = new HomeFragment();
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+            transaction.commit();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+        mMainViewModel.toolbarTitle.set("Home");
+        mMainViewModel.titleVisible.set(false);
+
+        mMainViewModel.isHome.set(true);
+        mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isMyAccount.set(false);
+
+
+        if (mMainViewModel.update.get()) {
+            if (!mMainViewModel.isLiveOrder.get()) {
+                mMainViewModel.updateAvailable.set(true);
+            }
+        }*/
 
     }
 
@@ -569,18 +607,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onPaymentSuccess(String s) {
-
-        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-
+        mMainViewModel.paymentSuccess(orderId,s,1);
     }
 
     @Override
     public void onPaymentError(int i, String s) {
-        Toast.makeText(MainActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
-
-
-
-
+        mMainViewModel.paymentSuccess(orderId,s,0);
     }
 
     public void makePayment(String orderId, String customerId, String amount) {

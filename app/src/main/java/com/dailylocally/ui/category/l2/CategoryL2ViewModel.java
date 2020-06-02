@@ -227,11 +227,15 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
             if (CartRequest.getOrderitems().size() == 0) {
                 cart.set(false);
             } else {
+
+                count = count + CartRequest.getOrderitems().size();
+
                 for (int i = 0; i < CartRequest.getOrderitems().size(); i++) {
-                    count = count + CartRequest.getOrderitems().get(i).getQuantity();
+                  //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
                     price = price + ((Integer.parseInt(CartRequest.getOrderitems().get(i).getPrice())) * CartRequest.getOrderitems().get(i).getQuantity());
                 }
-                if (count <= 0) {
+
+                /*if (count <= 0) {
                     cart.set(false);
                 } else {
                     if (count == 1) {
@@ -245,8 +249,40 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
                         cartPrice.set(String.valueOf(price));
                         items.set("Items");
                     }
-                }
+                }*/
             }
         }
+
+
+        if (CartRequest.getSubscription() != null) {
+            if (CartRequest.getSubscription().size() == 0) {
+                cart.set(false);
+            } else {
+                count = count + CartRequest.getSubscription().size();
+
+                for (int i = 0; i < CartRequest.getSubscription().size(); i++) {
+                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())) * CartRequest.getSubscription().get(i).getQuantity());
+                }
+
+            }
+        }
+
+
+        if (count <= 0) {
+            cart.set(false);
+        } else {
+            cart.set(true);
+
+            if (count == 1) {
+                cartItems.set(count + " Item");
+                cartPrice.set(String.valueOf(price));
+                items.set("Item");
+            } else {
+                cartItems.set(count + " Items");
+                cartPrice.set(String.valueOf(price));
+                items.set("Items");
+            }
+        }
+
     }
 }

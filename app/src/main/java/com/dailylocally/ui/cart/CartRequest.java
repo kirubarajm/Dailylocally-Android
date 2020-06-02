@@ -91,7 +91,7 @@ public class CartRequest {
 
     public static class Orderitem {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
         @SerializedName("quantity")
@@ -143,7 +143,7 @@ public class CartRequest {
 
     public static class Subscription {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
         @SerializedName("quantity")

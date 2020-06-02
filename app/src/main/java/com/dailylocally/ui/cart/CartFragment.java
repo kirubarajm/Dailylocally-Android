@@ -24,6 +24,7 @@ import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
@@ -47,7 +48,7 @@ import javax.inject.Inject;
 import static android.app.Activity.RESULT_OK;
 import static com.dailylocally.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener,SubscribeItemsAdapter.SubscribeProductsAdapterListener, PaymentResultListener {
+public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartNavigator, OrderNowAdapter.OrderNowProductsAdapterListener, BillListAdapter.BilldetailsInfoListener,SubscribeItemsAdapter.SubscribeProductsAdapterListener {
 
     public ToolTipView myToolTipView;
     @Inject
@@ -229,9 +230,8 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     public void onResume() {
         super.onResume();
         mCartViewModel.setAddressTitle();
-
         if (mCartViewModel.getCartPojoDetails() != null) {
-            mCartViewModel.fetchRepos();
+            mCartViewModel.getStartDate();
         }
         if (myToolTipView != null) {
             myToolTipView.remove();
@@ -250,7 +250,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         }
         if (mCartViewModel.getCartPojoDetails() != null) {
             mCartViewModel.xfactorClick.set(false);
-            mCartViewModel.fetchRepos();
+            mCartViewModel.getStartDate();
             mCartViewModel.emptyCart.set(false);
         } else {
             mCartViewModel.emptyCart.set(true);
@@ -261,6 +261,11 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void edit(CartResponse.SubscriptionItem product) {
+
+
+        Intent intent = SubscriptionActivity.newIntent(getContext());
+        intent.putExtra("pid",String.valueOf(product.getPid()));
+        startActivity(intent);
 
     }
 
@@ -301,42 +306,41 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         calendarT.add(Calendar.DAY_OF_YEAR, 1);
         Date selectableDate = calendarT.getTime();
 
-
         if (Integer.parseInt(currentTime) < 14) {
-
-
             year = calendarT.get(Calendar.YEAR);
             month = calendarT.get(Calendar.MONTH);
             day = calendarT.get(Calendar.DAY_OF_MONTH);
-
         } else {
+
             calendarT.add(Calendar.DAY_OF_YEAR, 1);
             selectableDate = calendarT.getTime();
-
 
             year = calendarT.get(Calendar.YEAR);
             month = calendarT.get(Calendar.MONTH);
             day = calendarT.get(Calendar.DAY_OF_MONTH);
         }
-
-
         final String[] date = new String[1];
-
-
         DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 date[0] = dayOfMonth + "-" + month + "-" + year;
               mCartViewModel.productDateChange(date[0],product);
 
-
             }
         }, year, month, day);
         dialog.getDatePicker().setMinDate(selectableDate.getTime());
         dialog.show();
 
-
         return date[0];
+    }
+
+    @Override
+    public void subscribe(CartResponse.Item product) {
+
+        Intent intent = SubscriptionActivity.newIntent(getContext());
+        intent.putExtra("pid",String.valueOf(product.getPid()));
+        startActivity(intent);
+
     }
 
     @Override
@@ -352,17 +356,17 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         } else if (requestCode == AppConstants.REFUND_LIST_CODE) {
 
             if (resultCode == RESULT_OK) {
-                mCartViewModel.fetchRepos();
+                mCartViewModel.getStartDate();
             }
         } else if (requestCode == AppConstants.COUPON_LIST_CODE) {
             if (resultCode == RESULT_OK) {
-                mCartViewModel.fetchRepos();
+                mCartViewModel.getStartDate();
             }
 
 
         } else if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
             if (resultCode == RESULT_OK) {
-                mCartViewModel.fetchRepos();
+                mCartViewModel.getStartDate();
             }
         }
     }
@@ -423,16 +427,4 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
 
-    @Override
-    public void onPaymentSuccess(String s) {
-
-        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onPaymentError(int i, String s) {
-        Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-
-    }
 }

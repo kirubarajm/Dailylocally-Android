@@ -65,10 +65,14 @@
 
                     </RelativeLayout>
 
+
+
+
                     <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:layout_marginStart="10dp"
                         android:orientation="vertical">
 
 
@@ -98,7 +102,6 @@
                             android:textStyle="bold" />
 
                         <RelativeLayout
-                            android:visibility="@{productsItemViewModel.serviceable?View.VISIBLE:View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
@@ -117,7 +120,7 @@
                                     android:gravity="center"
                                     android:onClick="@{()->productsItemViewModel.subscribe()}"
                                     android:paddingTop="10dp"
-                                    android:text="Subscribe"
+                                    android:text="@{productsItemViewModel.subscribeText}"
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/dl_primary_color"
@@ -128,6 +131,8 @@
                         </RelativeLayout>
 
                     </LinearLayout>
+
+
 
                 </LinearLayout>
 

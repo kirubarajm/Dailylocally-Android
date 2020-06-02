@@ -43,7 +43,7 @@ public class SubscriptionResponse {
 
     public class Result {
 
-        @SerializedName("pid")
+        @SerializedName("plid")
         @Expose
         private Integer pid;
         @SerializedName("hsn_code")
