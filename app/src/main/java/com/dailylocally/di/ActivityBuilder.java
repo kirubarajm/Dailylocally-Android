@@ -39,6 +39,7 @@ import com.dailylocally.ui.onboarding.OnBoardingActivity;
 import com.dailylocally.ui.onboarding.OnBoardingActivityModule;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedModule;
+import com.dailylocally.ui.search.SearchProvider;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.SignUpActivityModule;
 import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
@@ -88,6 +89,7 @@ public abstract class ActivityBuilder {
             MainActivityModule.class,
             HomeProvider.class,
             CartProvider.class,
+            SearchProvider.class,
             MyAccountProvider.class
     })
     abstract MainActivity bindMainActivity();
