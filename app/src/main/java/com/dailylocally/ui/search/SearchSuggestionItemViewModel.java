@@ -4,7 +4,7 @@ package com.dailylocally.ui.search;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
-public class SearchItemViewModel {
+public class SearchSuggestionItemViewModel {
 
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> type = new ObservableField<>();
@@ -15,7 +15,7 @@ public class SearchItemViewModel {
     private final QuickSearchResponse.Datum result;
 
 
-    public SearchItemViewModel(SearchItemViewModelListener mListener, QuickSearchResponse.Datum result) {
+    public SearchSuggestionItemViewModel(SearchItemViewModelListener mListener, QuickSearchResponse.Datum result) {
 
         this.mListener = mListener;
         this.result = result;

@@ -16,8 +16,13 @@ public class SearchModule {
     }
 
     @Provides
-    SearchAdapter provideSearchAdapter() {
-        return new SearchAdapter(new ArrayList<>());
+    SearchSuggestionAdapter provideSearchAdapter() {
+        return new SearchSuggestionAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    SearchProductListAdapter provideSearchProductAdapter() {
+        return new SearchProductListAdapter(new ArrayList<>());
     }
 
 }

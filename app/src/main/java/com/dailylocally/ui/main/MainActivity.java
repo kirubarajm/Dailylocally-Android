@@ -31,6 +31,7 @@ import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
+import com.dailylocally.ui.search.SearchFragment;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;

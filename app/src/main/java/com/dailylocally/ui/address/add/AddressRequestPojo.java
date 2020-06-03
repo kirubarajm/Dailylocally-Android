@@ -39,14 +39,14 @@ public class AddressRequestPojo {
 
     @SerializedName("aid")
     @Expose
-    private Long aid;
+    private String aid;
 
 
-    public Long getAid() {
+    public String getAid() {
         return aid;
     }
 
-    public void setAid(Long aid) {
+    public void setAid(String aid) {
         this.aid = aid;
     }
 

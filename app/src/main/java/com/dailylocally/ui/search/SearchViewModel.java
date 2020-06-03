@@ -40,10 +40,14 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     private MutableLiveData<List<QuickSearchResponse.Datum>> searchItemsLiveData;
     public ObservableList<QuickSearchResponse.Datum> searchItemViewModels = new ObservableArrayList<>();
 
+    private MutableLiveData<List<SearchProductResponse.Product>> searchProductItemsLiveData;
+    public ObservableList<SearchProductResponse.Product> searchProductItemViewModels = new ObservableArrayList<>();
+
 
     public SearchViewModel(DataManager dataManager) {
         super(dataManager);
         searchItemsLiveData = new MutableLiveData<>();
+        searchProductItemsLiveData = new MutableLiveData<>();
     }
 
     public MutableLiveData<List<QuickSearchResponse.Datum>> getSearchItemsLiveData() {
@@ -61,16 +65,66 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         }
     }
 
+    public MutableLiveData<List<SearchProductResponse.Product>> getSearchProductItemsLiveData() {
+        return searchProductItemsLiveData;
+    }
+
+    public ObservableList<SearchProductResponse.Product> getSearchProductItemViewModels() {
+        return searchProductItemViewModels;
+    }
+
+    public void addSearchProductItemsToList(List<SearchProductResponse.Product> ordersItems) {
+        if (ordersItems != null) {
+            searchProductItemViewModels.clear();
+            searchProductItemViewModels.addAll(ordersItems);
+        }
+    }
+
     public void quickSearch() {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.QUICK_SEARCH, QuickSearchResponse.class, new QuickSearchRequest("milk",1,"13.050675","80.2341"),
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.QUICK_SEARCH,
+                    QuickSearchResponse.class, new QuickSearchRequest("milk",1,"13.050675","80.2341"),
                     new Response.Listener<QuickSearchResponse>() {
                         @Override
                         public void onResponse(QuickSearchResponse response) {
                             if (response.getStatus()){
                                 searchItemsLiveData.setValue(response.getData());
+                            }else {
+
+                            }
+                            setIsLoading(false);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+
+    public void SearchProduct() {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SEARCH_PRODUCT,
+                    SearchProductResponse.class, new SearchProductRequest("12.9760","80.2212",4,1,1),
+                    new Response.Listener<SearchProductResponse>() {
+                        @Override
+                        public void onResponse(SearchProductResponse response) {
+                            if (response.getStatus()){
+                                searchProductItemsLiveData.setValue(response.getProduct());
+                                if (getNavigator()!=null){
+                                    getNavigator().suggestionProductSuccess();
+                                }
                             }else {
 
                             }

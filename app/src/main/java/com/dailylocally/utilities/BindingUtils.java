@@ -34,8 +34,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -60,7 +58,9 @@ import com.dailylocally.ui.category.l1.L1CategoryResponse;
 import com.dailylocally.ui.category.l2.products.ProductListAdapter;
 import com.dailylocally.ui.category.l2.products.ProductsResponse;
 import com.dailylocally.ui.search.QuickSearchResponse;
-import com.dailylocally.ui.search.SearchAdapter;
+import com.dailylocally.ui.search.SearchProductListAdapter;
+import com.dailylocally.ui.search.SearchProductResponse;
+import com.dailylocally.ui.search.SearchSuggestionAdapter;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.dailylocally.R;
 import com.dailylocally.ui.signup.faqs.FaqResponse;
@@ -154,7 +154,17 @@ public final class BindingUtils {
 
     @BindingAdapter({"adapter"})
     public static void addSearchItems(RecyclerView recyclerView, List<QuickSearchResponse.Datum> response) {
-        SearchAdapter adapter = (SearchAdapter) recyclerView.getAdapter();
+        SearchSuggestionAdapter adapter = (SearchSuggestionAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+
+            adapter.addItems(response);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addSearchProductItems(RecyclerView recyclerView, List<SearchProductResponse.Product> response) {
+        SearchProductListAdapter adapter = (SearchProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
 

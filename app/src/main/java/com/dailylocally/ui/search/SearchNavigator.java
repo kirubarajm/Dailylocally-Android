@@ -5,4 +5,6 @@ public interface SearchNavigator {
 
     void handleError(Throwable throwable);
 
+    void suggestionProductSuccess();
+
 }

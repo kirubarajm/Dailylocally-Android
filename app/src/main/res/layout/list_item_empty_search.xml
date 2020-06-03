@@ -32,7 +32,6 @@
                 android:layout_height="250dp"
                 android:src="@drawable/onboarding_1" />
 
-
             <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"

@@ -16,7 +16,7 @@ import com.dailylocally.ui.base.BaseViewHolder;
 import java.util.List;
 
 
-public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
@@ -26,11 +26,11 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private DataManager dataManager;
 
 
-    public SearchAdapter(List<QuickSearchResponse.Datum> item_list) {
+    public SearchSuggestionAdapter(List<QuickSearchResponse.Datum> item_list) {
         this.item_list = item_list;
     }
 
-    public SearchAdapter(List<QuickSearchResponse.Datum> item_list, DataManager dataManager) {
+    public SearchSuggestionAdapter(List<QuickSearchResponse.Datum> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
@@ -92,10 +92,9 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(QuickSearchResponse.Datum result);
+        void onSuggestionItemClickData(QuickSearchResponse.Datum result);
 
     }
-
 
     public class EmptyViewHolder extends BaseViewHolder {
 
@@ -117,9 +116,9 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements SearchItemViewModel.SearchItemViewModelListener {
+    public class LiveProductsViewHolder extends BaseViewHolder implements SearchSuggestionItemViewModel.SearchItemViewModelListener {
         ListItemSearchBinding mListItemLiveProductsBinding;
-        SearchItemViewModel mLiveProductsItemViewModel;
+        SearchSuggestionItemViewModel mLiveProductsItemViewModel;
 
         public LiveProductsViewHolder(ListItemSearchBinding binding) {
             super(binding.getRoot());
@@ -131,7 +130,7 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final QuickSearchResponse.Datum blog = item_list.get(position);
-            mLiveProductsItemViewModel = new SearchItemViewModel(this, blog);
+            mLiveProductsItemViewModel = new SearchSuggestionItemViewModel(this, blog);
             mListItemLiveProductsBinding.setSearchItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -145,7 +144,7 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(QuickSearchResponse.Datum result) {
-            mLiveProductsAdapterListener.onItemClickData(result);
+            mLiveProductsAdapterListener.onSuggestionItemClickData(result);
         }
 
     }

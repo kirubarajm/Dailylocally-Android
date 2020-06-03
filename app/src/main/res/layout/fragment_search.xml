@@ -35,7 +35,7 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_below="@+id/rel_search_bar"
             android:id="@+id/search_suggestion"
             android:layout_width="match_parent"
@@ -50,7 +50,17 @@
                 app:adapter="@{searchViewModel.searchItemViewModels}"
                 tools:listitem="@layout/list_item_search" />
 
-        </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="60dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                app:adapter="@{searchViewModel.searchProductItemViewModels}"
+                tools:listitem="@layout/list_item_search_product_list" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

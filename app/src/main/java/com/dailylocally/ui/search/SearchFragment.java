@@ -1,5 +1,6 @@
 package com.dailylocally.ui.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
@@ -11,15 +12,23 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentSearchBinding;
 import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.category.l1.CategoryL1Activity;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.signup.SignUpActivity;
+import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
+import com.dailylocally.utilities.AppConstants;
+
 import javax.inject.Inject;
 
 public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchViewModel> implements
-        SearchNavigator,SearchAdapter.LiveProductsAdapterListener {
+        SearchNavigator, SearchSuggestionAdapter.LiveProductsAdapterListener,SearchProductListAdapter.ProductsAdapterListener {
 
     @Inject
     SearchViewModel mSearchViewModel;
     @Inject
-    SearchAdapter adapter;
+    SearchSuggestionAdapter adapter;
+    @Inject
+    SearchProductListAdapter productListAdapter;
     FragmentSearchBinding mFragmentSearchBinding;
 
     public static SearchFragment newInstance() {
@@ -50,11 +59,17 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
+    public void suggestionProductSuccess() {
+        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSearchViewModel.setNavigator(this);
         adapter.setListener(this);
-        subscribeToLiveData();
+        productListAdapter.setListener(this);
     }
 
     @Override
@@ -69,11 +84,16 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-
+        LinearLayoutManager mLayoutManagerProduct
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setLayoutManager(mLayoutManager);
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setAdapter(adapter);
+
+        mLayoutManagerProduct.setOrientation(LinearLayoutManager.VERTICAL);
+        mFragmentSearchBinding.recyclerviewProduct.setLayoutManager(mLayoutManagerProduct);
+        mFragmentSearchBinding.recyclerviewProduct.setAdapter(productListAdapter);
 
         mFragmentSearchBinding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -94,6 +114,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
         });
 
+        subscribeToLiveData();
     }
 
     @Override
@@ -104,10 +125,42 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     private void subscribeToLiveData() {
         mSearchViewModel.getSearchItemsLiveData().observe(this,
                 catregoryItemViewModel -> mSearchViewModel.addSearchItemsToList(catregoryItemViewModel));
+
+        mSearchViewModel.getSearchProductItemsLiveData().observe(this,
+                catregoryItemViewModel -> mSearchViewModel.addSearchProductItemsToList(catregoryItemViewModel));
     }
 
     @Override
-    public void onItemClickData(QuickSearchResponse.Datum result) {
+    public void onSuggestionItemClickData(QuickSearchResponse.Datum result) {
+        try {
+            if (result!=null){
+                int type = Integer.parseInt(result.getType());
+                if (type== AppConstants.SEARCH_CATEGORY){
+                    Intent intent = CategoryL1Activity.newIntent(getContext());
+                    startActivity(intent);
+                } else if (type== AppConstants.SEARCH_L1_CATEGORY){
+                    Intent intent = CategoryL2Activity.newIntent(getContext());
+                    startActivity(intent);
+                } else if (type== AppConstants.SEARCH_L2_CATEGORY){
+                    Intent intent = CategoryL2Activity.newIntent(getContext());
+                    startActivity(intent);
+                } else if (type== AppConstants.SEARCH_PRODUCT){
+                    mSearchViewModel.SearchProduct();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void refresh() {
+
+    }
+
+    @Override
+    public void onProductItemClick(SearchProductResponse.Product products) {
+        Intent intent = CategoryL2Activity.newIntent(getContext());
+        startActivity(intent);
     }
 }

@@ -8,7 +8,7 @@
 
         <variable
             name="searchItemViewModel"
-            type="com.dailylocally.ui.search.SearchItemViewModel" />
+            type="com.dailylocally.ui.search.SearchSuggestionItemViewModel" />
 
     </data>
 

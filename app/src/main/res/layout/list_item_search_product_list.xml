@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="searchProductsItemViewModel"
+            type="com.dailylocally.ui.search.SearchProductsItemViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()->searchProductsItemViewModel.onItemClick()}"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="10dp">
+
+                        <ImageView
+                            android:id="@+id/image"
+                            imageUrl="@{searchProductsItemViewModel.image}"
+                            loader="@{loader}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitCenter" />
+
+
+                        <ImageView
+                            android:id="@+id/loader"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:foregroundGravity="center"
+                            android:scaleType="centerInside" />
+
+                    </RelativeLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="vertical">
+
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:id="@+id/kitchen_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@{searchProductsItemViewModel.name}"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:id="@+id/weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@{searchProductsItemViewModel.weight}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:visibility="@{searchProductsItemViewModel.subscribeAvailable?View.VISIBLE:View.GONE}"
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp">
+
+                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                    android:paddingBottom="7dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center"
+                                    android:onClick="@{()->searchProductsItemViewModel.subscribe()}"
+                                    android:paddingTop="10dp"
+                                    android:text="@{searchProductsItemViewModel.subscribeText}"
+                                    android:textAlignment="center"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/dl_primary_color"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/semi_gray" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="110dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:singleLine="true"
+                        android:text="@{searchProductsItemViewModel.price}"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
+                    <RelativeLayout
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/addtocart_back"
+                        android:visibility="@{searchProductsItemViewModel.serviceable?View.VISIBLE:View.GONE}">
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:id="@+id/add"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:onClick="@{()->searchProductsItemViewModel.enableAdd()}"
+                            android:paddingTop="3dp"
+                            android:text="@string/add"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@color/dl_primary_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:visibility="@{searchProductsItemViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
+
+                        <RelativeLayout
+                            android:id="@+id/num_picker"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:visibility="@{searchProductsItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:id="@+id/minus"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:onClick="@{()->searchProductsItemViewModel.subClicked()}"
+                                android:paddingTop="3dp"
+                                android:text="@string/minus"
+                                android:textAlignment="center"
+                                android:textColor="@color/dl_primary_color"
+                                android:textSize="18sp" />
+
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_toEndOf="@+id/minus"
+                                android:background="@color/dl_primary_color" />
+
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:id="@+id/quan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:paddingTop="3dp"
+                                android:text="@{searchProductsItemViewModel.sQuantity}"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_toStartOf="@+id/plus"
+                                android:background="@color/dl_primary_color" />
+
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:id="@+id/plus"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:onClick="@{()->searchProductsItemViewModel.addClicked()}"
+                                android:paddingTop="3dp"
+                                android:text="@string/plus"
+                                android:textAlignment="center"
+                                android:textColor="@color/dl_primary_color"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/semi_gray" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</layout>

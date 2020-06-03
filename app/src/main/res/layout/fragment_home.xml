@@ -121,6 +121,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginTop="20dp"
+                            android:onClick="@{()->homeViewModel.searchClick()}"
                             android:background="@color/light_gray"
                             android:gravity="center_vertical|start"
                             android:hint="Search for fruits, vegetables and essentials"
