@@ -64,7 +64,7 @@ public class CalendarDayWiseResponse {
 
         public class Item {
 
-            @SerializedName("plid")
+            @SerializedName("vpid")
             @Expose
             public Integer pid;
             @SerializedName("price")

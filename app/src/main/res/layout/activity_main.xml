@@ -35,7 +35,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="4">
 
 
                 <LinearLayout
@@ -132,6 +132,40 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/orders"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:background="@{viewModel.isOrder?@color/light_color:@color/white}"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.gotoOrders()}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_orders"
+                        android:tint="@{viewModel.isOrder?@color/dl_primary_color:@color/dark_gray}" />
+
+                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="My orders"
+                        android:textColor="@{viewModel.isOrder?@color/dl_primary_color:@color/dark_gray}"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:id="@+id/account"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -163,6 +197,9 @@
                         android:textStyle="bold"
                         android:visibility="gone" />
                 </LinearLayout>
+
+
+
 
             </LinearLayout>
 

@@ -22,6 +22,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.FragmentCartBinding;
+import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
@@ -108,8 +109,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mActivityCartBinding = getViewDataBinding();
+        super.onViewCreated(view, savedInstanceState);mActivityCartBinding = getViewDataBinding();
         dialog = new Dialog(getBaseActivity());
 
         mCartViewModel.toolbarTitle.set(getString(R.string.cart));
@@ -163,13 +163,15 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void changeAddress() {
-
+        Intent intent = AddAddressActivity.newIntent(getContext());
+        intent.putExtra("edit","1");
+        startActivity(intent);
     }
 
 
     @Override
     public void showToast(String msg) {
-        Toast.makeText(getBaseActivity(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 
