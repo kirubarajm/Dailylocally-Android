@@ -248,8 +248,10 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
-                turnOnGps();
-                initCameraIdle();
+                if (bundle==null) {
+                    turnOnGps();
+                    initCameraIdle();
+                }
             }
         });
     }
