@@ -46,6 +46,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     public final ObservableBoolean isHome = new ObservableBoolean();
+    public final ObservableBoolean isOrder = new ObservableBoolean();
     public final ObservableBoolean isExplore = new ObservableBoolean();
     public final ObservableBoolean isCart = new ObservableBoolean();
     public final ObservableBoolean isMyAccount = new ObservableBoolean();
@@ -88,6 +89,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isExplore.set(false);
             isCart.set(true);
             isMyAccount.set(false);
+            isOrder.set(false);
         }
     }
 
@@ -141,6 +143,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isHome.set(false);
             isExplore.set(false);
             isCart.set(false);
+            isOrder.set(false);
             isMyAccount.set(true);
         }
 
@@ -155,6 +158,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isHome.set(false);
             isExplore.set(true);
             isCart.set(false);
+            isOrder.set(false);
             isMyAccount.set(false);
 
         }
@@ -167,8 +171,28 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isExplore.set(false);
             isCart.set(false);
             isMyAccount.set(false);
+            isOrder.set(false);
         }
     }
+
+     public void gotoOrders() {
+         getNavigator().openOrders();
+       /* if (!isOrder.get()) {
+            getNavigator().openOrders();
+            isHome.set(false);
+            isOrder.set(true);
+            isExplore.set(false);
+            isCart.set(false);
+            isMyAccount.set(false);
+        }*/
+    }
+
+
+
+
+
+
+
 
     public boolean totalCart() {
         try {

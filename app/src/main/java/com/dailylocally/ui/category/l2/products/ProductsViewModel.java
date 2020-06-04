@@ -101,13 +101,12 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 @Override
                 public void onResponse(ProductsResponse response) {
 
-
                     if (response != null) {
 
                         getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                        serviceable.set(response.getServiceablestatus());
+                       /* serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());
+                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/
                         emptyImageUrl.set(response.getEmptyUrl());
                         emptyContent.set(response.getEmptyContent());
                         emptySubContent.set(response.getEmptySubconent());
@@ -118,18 +117,12 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                         if (response.getResult() != null && response.getResult().size() > 0) {
                             fullEmpty.set(false);
                             productsListLiveData.setValue(response.getResult());
-
-
                         } else {
                             fullEmpty.set(true);
-
                         }
-
 
                     } else {
                         fullEmpty.set(true);
-
-
                     }
 
                 }

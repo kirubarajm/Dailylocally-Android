@@ -142,16 +142,18 @@ public class ProductsResponse {
 
     public class Result {
 
-        @SerializedName("plid")
+        @SerializedName("vpid")
         @Expose
         private Integer pid;
 
         @SerializedName("Productname")
         @Expose
         private String productname;
+
         @SerializedName("image")
         @Expose
         private String image;
+
         @SerializedName("mrp")
         @Expose
         private String mrp;
@@ -159,18 +161,23 @@ public class ProductsResponse {
         @SerializedName("discount_cost")
         @Expose
         private Integer discountCost;
+
         @SerializedName("gst")
         @Expose
         private Integer gst;
+
         @SerializedName("scl1_id")
         @Expose
         private Integer scl1Id;
+
         @SerializedName("scl2_id")
         @Expose
         private Integer scl2Id;
+
         @SerializedName("subscription")
         @Expose
         private Integer subscription;
+
         @SerializedName("weight")
         @Expose
         private String weight;
@@ -178,6 +185,7 @@ public class ProductsResponse {
         @SerializedName("tag")
         @Expose
         private Integer tag;
+
         @SerializedName("short_desc")
         @Expose
         private String shortDesc;

@@ -388,7 +388,7 @@ public class CartResponse {
 
     public class Item {
 
-        @SerializedName("plid")
+        @SerializedName("vpid")
         @Expose
         private Integer pid;
         @SerializedName("hsn_code")

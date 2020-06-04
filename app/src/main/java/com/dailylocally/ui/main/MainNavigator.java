@@ -25,6 +25,7 @@ public interface MainNavigator {
     void openHome();
 
     void openExplore();
+    void openOrders();
 
     void openAccount();
 

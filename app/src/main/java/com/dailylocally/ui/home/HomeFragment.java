@@ -65,7 +65,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
                 for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
 
-                    if (position == 2) {
+                    if (position==2||position==5||position==8||position==11){
+                  /*  if  (position % 2 == 0) {*/
                         return 2;
                     } else {
                         return 1;

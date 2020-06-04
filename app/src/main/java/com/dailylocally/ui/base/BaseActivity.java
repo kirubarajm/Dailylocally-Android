@@ -129,16 +129,12 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }*/
-
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
     }
 
     @Override

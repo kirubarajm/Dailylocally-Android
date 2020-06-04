@@ -119,26 +119,20 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
 
     public void createSubscription() {
-
         if (quantity==0){
             Toast.makeText(DailylocallyApp.getInstance(), "Please add quantity", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (planId==0){
             Toast.makeText(DailylocallyApp.getInstance(), "Please choose deliveries ", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (monClicked.get()||tueClicked.get()||wedClicked.get()||thuClicked.get()||friClicked.get()||satClicked.get()||sunClicked.get()){
 
         }else {
             Toast.makeText(DailylocallyApp.getInstance(), "Please select day", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
-
 
         if (edit) {
 

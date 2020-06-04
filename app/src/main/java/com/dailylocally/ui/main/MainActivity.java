@@ -91,7 +91,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String orderId;
 
 
-
     boolean downloading;
 
     boolean forceLocation = false;
@@ -171,7 +170,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-          //  CalendarFragment fragment = new CalendarFragment();
+            //  CalendarFragment fragment = new CalendarFragment();
             HomeFragment fragment = new HomeFragment();
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
@@ -196,11 +195,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-
+    @Override
     public void openOrders() {
 
-        Intent intent=CalendarActivity.newIntent(MainActivity.this);
+        Intent intent = CalendarActivity.newIntent(MainActivity.this);
         startActivity(intent);
+
+
+       /* mMainViewModel.toolbarTitle.set("My Orders");
+        mMainViewModel.titleVisible.set(true);
+
+        mMainViewModel.isHome.set(false);
+        mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isOrder.set(true);
+        mMainViewModel.isMyAccount.set(false);
+        mMainViewModel.updateAvailable.set(false);*/
 
 
 
@@ -215,20 +225,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             transaction.commit();
         } catch (Exception ee) {
             ee.printStackTrace();
-        }
-        mMainViewModel.toolbarTitle.set("Home");
-        mMainViewModel.titleVisible.set(false);
-
-        mMainViewModel.isHome.set(true);
-        mMainViewModel.isExplore.set(false);
-        mMainViewModel.isCart.set(false);
-        mMainViewModel.isMyAccount.set(false);
-
-
-        if (mMainViewModel.update.get()) {
-            if (!mMainViewModel.isLiveOrder.get()) {
-                mMainViewModel.updateAvailable.set(true);
-            }
         }*/
 
     }
@@ -608,16 +604,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onPaymentSuccess(String s) {
-        mMainViewModel.paymentSuccess(orderId,s,1);
+        mMainViewModel.paymentSuccess(orderId, s, 1);
     }
 
     @Override
     public void onPaymentError(int i, String s) {
-        mMainViewModel.paymentSuccess(orderId,s,0);
+        mMainViewModel.paymentSuccess(orderId, s, 0);
     }
 
     public void makePayment(String orderId, String customerId, String amount) {
-        this.orderId=orderId;
+        this.orderId = orderId;
 
 
         JSONObject options;
@@ -653,11 +649,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
-
-
-
     }
-
 
 
 }

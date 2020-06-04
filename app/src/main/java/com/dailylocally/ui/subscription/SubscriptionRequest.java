@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class SubscriptionRequest {
 
-    @SerializedName("plid")
+    @SerializedName("vpid")
     @Expose
     private String  pid;
     @SerializedName("lat")

@@ -11,12 +11,14 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,16 +26,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 import javax.inject.Inject;
 
 public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, CalendarViewModel> implements CalendarNavigator,
-        CalendarDayWiseAdapter.CategoriesAdapterListener{
+        CalendarDayWiseAdapter.CategoriesAdapterListener {
     @Inject
     CalendarViewModel mCalendarViewModel;
     @Inject
     CalendarDayWiseAdapter mCalendarDayWiseAdapter;
 
     FragmentCalendarBinding mFragmentHomeBinding;
+    FragmentTransaction t;
 
     String startDate = "", endDate = "";
     Date cDate = null, sDates = null;
@@ -46,13 +50,12 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     Date date4 = null;
     Date date5 = null;
     Date date6 = null;
-    String selectedDateInit="",userFirstOrderDate="";
-    private boolean undo = false;
-    private CaldroidFragment caldroidFragment;
+    String selectedDateInit = "", userFirstOrderDate = "";
     Date FirstOrderDate = null;
     List<CalendarMonthResponse.Result> results = new ArrayList<>();
     CaldroidListener listener = null;
-
+    private boolean undo = false;
+    private CaldroidFragment caldroidFragment;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, CalendarActivity.class);
@@ -81,9 +84,9 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     public void success(List<CalendarMonthResponse.Result> resultsList) {
         this.results = resultsList;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String strDate="";
+        String strDate = "";
 
-        for (int i=0;i<results.size();i++){
+        for (int i = 0; i < results.size(); i++) {
             strDate = results.get(i).getDate();
             try {
                 Date dateOrder = dateFormat.parse(strDate);
@@ -126,9 +129,10 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
             caldroidFragment.setArguments(args);
         }
-        FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
+        t = this.getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
+
 
         // Setup listener
         listener = new CaldroidListener() {
@@ -144,7 +148,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 //Toast.makeText(getContext(), text,
                 //Toast.LENGTH_SHORT).show();
 
-                mCalendarViewModel.getMonthWiseOrderDate(String.valueOf(month),String.valueOf(year));
+                mCalendarViewModel.getMonthWiseOrderDate(String.valueOf(month), String.valueOf(year));
             }
 
             @Override
@@ -203,7 +207,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
         String yearString = yearFormat.format(currentDate);
         String monthString = monthFormat.format(currentDate);
-        mCalendarViewModel.getMonthWiseOrderDate(monthString,yearString);
+        mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
     }
 
     public void onDateSelected(Date selectedDate) {
@@ -369,8 +373,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                             caldroidFragment.setBackgroundDrawableForDate(blue5, date6);
                         }
                     }
-                }
-                else if (selectedDay == Calendar.MONDAY) {
+                } else if (selectedDay == Calendar.MONDAY) {
                     Log.e("Cal", "" + currentDate);
                     //friday,saturday,sunday,MONDAY,tuesday,wednesday,thursday
 
@@ -495,8 +498,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                         }
                     }
 
-                }
-                else if (selectedDay == Calendar.TUESDAY) {
+                } else if (selectedDay == Calendar.TUESDAY) {
 
                     //friday,saturday,sunday,monday,TUESDAY,wednesday,thursday
 
@@ -620,8 +622,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                         }
                     }
 
-                }
-                else if (selectedDay == Calendar.WEDNESDAY) {
+                } else if (selectedDay == Calendar.WEDNESDAY) {
                     Log.e("Cal", "" + currentDate);
                     //friday,saturday,sunday,monday,tuesday,WEDNESDAY,thursday
 
@@ -745,8 +746,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                             caldroidFragment.setBackgroundDrawableForDate(blue5, date6);
                         }
                     }
-                }
-                else if (selectedDay == Calendar.THURSDAY) {
+                } else if (selectedDay == Calendar.THURSDAY) {
                     Log.e("Cal", "" + currentDate);
                     //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -869,8 +869,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                             caldroidFragment.setBackgroundDrawableForDate(blue5, date6);
                         }
                     }
-                }
-                else if (selectedDay == Calendar.FRIDAY) {
+                } else if (selectedDay == Calendar.FRIDAY) {
                     Log.e("Cal", "" + currentDate);
                     //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -993,8 +992,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                             caldroidFragment.setBackgroundDrawableForDate(blue5, date6);
                         }
                     }
-                }
-                else if (selectedDay == Calendar.SATURDAY) {
+                } else if (selectedDay == Calendar.SATURDAY) {
                     Log.e("Cal", "" + currentDate);
                     //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -1223,8 +1221,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 caldroidFragment.setBackgroundDrawableForDate(blue5, date6);
             }
 
-        }
-        else if (selectedDay == Calendar.MONDAY) {
+        } else if (selectedDay == Calendar.MONDAY) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             startDate = dateFormat.format(selectedDate);
             endDate = dateFormat.format(selectedDate);
@@ -1233,8 +1230,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 ColorDrawable blues = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.setBackgroundDrawableForDate(blues, selectedDate);
             }
-        }
-        else if (selectedDay == Calendar.TUESDAY) {
+        } else if (selectedDay == Calendar.TUESDAY) {
 
             //friday,saturday,sunday,monday,TUESDAY,wednesday,thursday
 
@@ -1266,8 +1262,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 caldroidFragment.setBackgroundDrawableForDate(blue, date1);
             }
 
-        }
-        else if (selectedDay == Calendar.WEDNESDAY) {
+        } else if (selectedDay == Calendar.WEDNESDAY) {
             Log.e("Cal", "" + currentDate);
             //friday,saturday,sunday,monday,tuesday,WEDNESDAY,thursday
 
@@ -1312,8 +1307,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 ColorDrawable blue1 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.setBackgroundDrawableForDate(blue1, date2);
             }
-        }
-        else if (selectedDay == Calendar.THURSDAY) {
+        } else if (selectedDay == Calendar.THURSDAY) {
             Log.e("Cal", "" + currentDate);
             //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -1368,8 +1362,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 ColorDrawable blue2 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.setBackgroundDrawableForDate(blue2, date3);
             }
-        }
-        else if (selectedDay == Calendar.FRIDAY) {
+        } else if (selectedDay == Calendar.FRIDAY) {
             /*Log.e("Cal", "" + currentDate);
             //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -1445,8 +1438,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 ColorDrawable blue3 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.setBackgroundDrawableForDate(blue3, date4);
             }
-        }
-        else if (selectedDay == Calendar.SATURDAY) {
+        } else if (selectedDay == Calendar.SATURDAY) {
             Log.e("Cal", "" + currentDate);
             //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -1524,8 +1516,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 caldroidFragment.setBackgroundDrawableForDate(blue4, date5);
             }
 
-        }
-        else {
+        } else {
             Log.e("Cal", "" + selectedDate);
             Toast.makeText(this, "No data for future date (" + selectedDate + ")", Toast.LENGTH_SHORT).show();
         }
@@ -1614,8 +1605,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
                 ColorDrawable blue5 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.clearBackgroundDrawableForDate(date6);
-            }
-            else if (selectedDay == Calendar.MONDAY) {
+            } else if (selectedDay == Calendar.MONDAY) {
                 Log.e("Cal", "" + currentDate);
                 //friday,saturday,sunday,MONDAY,tuesday,wednesday,thursday
 
@@ -1685,8 +1675,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 ColorDrawable blue5 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.clearBackgroundDrawableForDate(date6);
 
-            }
-            else if (selectedDay == Calendar.TUESDAY) {
+            } else if (selectedDay == Calendar.TUESDAY) {
 
                 //friday,saturday,sunday,monday,TUESDAY,wednesday,thursday
 
@@ -1756,8 +1745,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
                 ColorDrawable blue5 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.clearBackgroundDrawableForDate(date6);
-            }
-            else if (selectedDay == Calendar.WEDNESDAY) {
+            } else if (selectedDay == Calendar.WEDNESDAY) {
                 Log.e("Cal", "" + currentDate);
                 //friday,saturday,sunday,monday,tuesday,WEDNESDAY,thursday
 
@@ -1827,8 +1815,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
                 ColorDrawable blue5 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.clearBackgroundDrawableForDate(date6);
-            }
-            else if (selectedDay == Calendar.THURSDAY) {
+            } else if (selectedDay == Calendar.THURSDAY) {
                 Log.e("Cal", "" + currentDate);
                 //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -1897,8 +1884,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
                 ColorDrawable blue5 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.clearBackgroundDrawableForDate(date6);
-            }
-            else if (selectedDay == Calendar.FRIDAY) {
+            } else if (selectedDay == Calendar.FRIDAY) {
                 Log.e("Cal", "" + currentDate);
                 //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -1968,8 +1954,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
                 ColorDrawable blue5 = new ColorDrawable(getResources().getColor(R.color.light_blue));
                 caldroidFragment.clearBackgroundDrawableForDate(date6);
-            }
-            else if (selectedDay == Calendar.SATURDAY) {
+            } else if (selectedDay == Calendar.SATURDAY) {
                 Log.e("Cal", "" + currentDate);
                 //friday,saturday,sunday,monday,tuesday,wednesday,THURSDAY
 
@@ -2059,6 +2044,15 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void onBackPressed() {
+        t.remove(caldroidFragment);
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            super.onDestroy();
+        } catch (Exception dd) {
+        }
     }
 }
