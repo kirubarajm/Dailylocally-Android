@@ -141,6 +141,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void showLocationDialog() {

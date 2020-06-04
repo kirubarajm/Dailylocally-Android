@@ -428,8 +428,14 @@ public class AppConstants {
   public static final String REFERRAL = URL_SERVER_IP_PORT + "/user/referral/";
   public static final String LOGOUT = URL_SERVER_IP_PORT + "/user/logout";
   public static final String GET_USER_ADDRESS = URL_SERVER_IP_PORT + "/user/address/";
+  public static final String QUICK_SEARCH = URL_SERVER_IP_PORT + "/user/quicksearch";
+  public static final String URL_SEARCH_PRODUCT = URL_SERVER_IP_PORT + "/user/search/catalogdata";
 
 
+  public static final int SEARCH_CATEGORY = 0;
+  public static final int SEARCH_L1_CATEGORY = 1;
+  public static final int SEARCH_L2_CATEGORY = 2;
+  public static final int SEARCH_PRODUCT = 3;
 
 
   public static final String DUNZO_URL = BuildConfig.DUNZO_URL;

@@ -265,4 +265,10 @@ getNavigator().gotoOrders();
         }
 
     }
+
+    public void searchClick(){
+        if (getNavigator()!=null){
+            getNavigator().searchClick();
+        }
+    }
 }

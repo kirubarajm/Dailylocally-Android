@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.dailylocally.BR;
@@ -19,6 +20,7 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l1.CategoryL1ViewModel;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.search.SearchFragment;
 
 import javax.inject.Inject;
 
@@ -91,6 +93,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void changeHeaderText(String headerContent) {
         mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
+    }
+
+    @Override
+    public void searchClick() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        SearchFragment fragment = new SearchFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
     }
 
     @Override

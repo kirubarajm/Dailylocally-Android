@@ -40,6 +40,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     public final ObservableField<String> area = new ObservableField<>();
     public final ObservableField<String> house = new ObservableField<>();
     public final ObservableField<String> landmark = new ObservableField<>();
+    public final ObservableField<String> aId = new ObservableField<>();
     public final ObservableBoolean typeHome = new ObservableBoolean();
     public final ObservableBoolean typeOffice = new ObservableBoolean();
     public final ObservableBoolean typeOther = new ObservableBoolean();
@@ -210,6 +211,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
             request.setAddressTitle("Home");
             request.setAddressType(1);
+            request.setAid(aId.get());
             /*if (typeHome.get()) {
                 request.setAddressTitle("Home");
                 request.setAddressType(1);
@@ -293,7 +295,6 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                         }
                     }, AppConstants.API_VERSION_ONE);
 
-
                     DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
                 }
             } catch (NullPointerException e) {
@@ -359,6 +360,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                                         getNavigator().getAddressSuccess(response.getResult().get(0));
                                     }
                                 }
+                                aId.set(String.valueOf(response.getResult().get(0).getAid()));
                             }else {
                                 if (getNavigator()!=null){
                                     getNavigator().getAddressFailure();

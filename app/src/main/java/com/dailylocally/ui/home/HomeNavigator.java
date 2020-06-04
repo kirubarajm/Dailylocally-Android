@@ -10,4 +10,6 @@ public interface HomeNavigator {
     void gotoOrders();
 
     void changeHeaderText(String headerContent);
+
+    void searchClick();
 }
