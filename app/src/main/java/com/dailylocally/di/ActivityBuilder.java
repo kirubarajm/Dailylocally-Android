@@ -21,6 +21,8 @@ import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.account.referrals.ReferralsActivityModule;
 import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.address.add.AddAddressModule;
+import com.dailylocally.ui.address.edit.EditAddressActivity;
+import com.dailylocally.ui.address.edit.EditAddressModule;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.calendarView.CalendarModule;
 import com.dailylocally.ui.cart.CartProvider;
@@ -84,7 +86,8 @@ public abstract class ActivityBuilder {
     abstract CategoryL1Activity bindCategoryL1Activity();
 @ContributesAndroidInjector(modules = {CategoryL2Module.class, ProductsProvider.class/*, OrderCanceledProvider.class*/})
     abstract CategoryL2Activity bindCategoryL2Activity();
-
+    @ContributesAndroidInjector(modules = {EditAddressModule.class})
+    abstract EditAddressActivity bindEditAddressActivity();
     @ContributesAndroidInjector(modules = {
             MainActivityModule.class,
             HomeProvider.class,

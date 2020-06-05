@@ -44,9 +44,9 @@ public class SubscribeItemViewModel {
         product_name.set(dishList.getProductname());
       // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
 
-        sprice.set("INR. " + String.valueOf(dishList.getMrp()));
+        sprice.set("INR. " + String.valueOf(dishList.getAmount()));
         image.set(dishList.getImage());
-        weight.set(dishList.getWeight());
+        weight.set(dishList.getWeight() +" "+dishList.getUnit()+" | "+dishList.getNoOfDeliveries() + " days");
 
     }
 

@@ -38,7 +38,7 @@ public class ProductsItemViewModel {
         this.mListener = mListener;
         this.products = result;
         name.set(result.getProductname());
-        weight.set(result.getWeight());
+        weight.set(result.getWeight()+" "+result.getUnit());
         price.set("INR " + result.getMrp());
         image.set(result.getImage());
         serviceable.set(result.getServicableStatus());
@@ -48,6 +48,8 @@ public class ProductsItemViewModel {
        }else {
            subscribeAvailable.set(false);
        }
+
+
 
         /*  serviceable.set(true);
         subscribeAvailable.set(true);*/

@@ -12,6 +12,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentMyAccountBinding;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.edit.EditAddressActivity;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.signup.SignUpActivity;

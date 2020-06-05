@@ -30,9 +30,9 @@ public class SearchProductResponse {
 
     public class Product {
 
-        @SerializedName("pid")
+        @SerializedName("vpid")
         @Expose
-        public Integer pid;
+        public String pid;
         @SerializedName("Productname")
         @Expose
         public String productname;
@@ -47,7 +47,7 @@ public class SearchProductResponse {
         public Integer scl2Id;
 
 
-        public Integer getPid() {
+        public String getPid() {
             return pid;
         }
 

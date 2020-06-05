@@ -26,7 +26,6 @@ import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -82,7 +81,6 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     public void selectDate(String startdate) {
 
 
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         SimpleDateFormat sDay = new SimpleDateFormat("dd", Locale.getDefault());
@@ -95,20 +93,18 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
         Date sDate = null;
         try {
-             sDate = dateFormat.parse(startdate);
+            sDate = dateFormat.parse(startdate);
 
-             if (sDate!=null) {
-                 // parse input
-                 year = Integer.parseInt(sYear.format(sDate));
-                 month = Integer.parseInt(sMonth.format(sDate));
-                 day = Integer.parseInt(sDay.format(sDate));
-             }
+            if (sDate != null) {
+                // parse input
+                year = Integer.parseInt(sYear.format(sDate));
+                month = Integer.parseInt(sMonth.format(sDate));
+                day = Integer.parseInt(sDay.format(sDate));
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
 
 
         DatePickerDialog dialog = new DatePickerDialog(SubscriptionActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -119,7 +115,7 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
 
             }
-        }, year, month-1, day);
+        }, year, month - 1, day);
 
         dialog.getDatePicker().setMinDate(sDate.getTime());
         dialog.show();
@@ -142,7 +138,9 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mSubscriptionViewModel.planId = 0;
+
+                if (mSubscriptionViewModel.mSubscriptionResponse != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan() != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().size() > 0)
+                    mSubscriptionViewModel.planId = mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(0).getSpid();
             }
         });
 

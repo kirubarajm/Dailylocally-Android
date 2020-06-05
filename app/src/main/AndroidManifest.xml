@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".utilities.DailylocallyApp"
         android:allowBackup="true"
@@ -12,14 +13,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".ui.main.MainActivity">
 
         </activity>
         <activity android:name=".utilities.nointernet.InternetErrorFragment" />
-        <activity android:name=".ui.splash.SplashActivity" >
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,29 +48,52 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
-        <activity android:name=".ui.signup.SignUpActivity" />
+            android:label="@string/app_name"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.signup.SignUpActivity"
+            android:screenOrientation="locked" />
 
-        <activity android:name=".ui.category.l1.CategoryL1Activity" />
-        <activity android:name=".ui.category.l2.CategoryL2Activity" />
+        <activity
+            android:name=".ui.category.l1.CategoryL1Activity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.category.l2.CategoryL2Activity"
+            android:screenOrientation="locked" />
 
-        <activity android:name=".ui.address.add.AddAddressActivity" >
+        <activity
+            android:name=".ui.address.add.AddAddressActivity"
+            android:screenOrientation="locked">
 
         </activity>
-        <activity android:name=".ui.subscription.SubscriptionActivity" >
+        <activity
+            android:name=".ui.subscription.SubscriptionActivity"
+            android:screenOrientation="locked">
 
         </activity>
-        <activity android:name=".ui.orderplaced.OrderPlacedActivity" />
-        <activity android:name=".ui.account.referrals.ReferralsActivity" />
-        <activity android:name=".ui.calendarView.CalendarActivity" />
+        <activity
+            android:name=".ui.orderplaced.OrderPlacedActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.account.referrals.ReferralsActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.calendarView.CalendarActivity"
+            android:screenOrientation="locked" />
 
-        <activity android:name=".ui.favorites.FavoritesActivity" />
+        <activity
+            android:name=".ui.favorites.FavoritesActivity"
+            android:screenOrientation="locked" />
+        <activity android:name=".ui.address.edit.EditAddressActivity" />
 
 
+        <!-- <meta-data
+             android:name="com.razorpay.ApiKey"
+             android:value="rzp_live_kelnGLZvTecvPV" />-->
         <meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_kelnGLZvTecvPV" />
-
+                          android:name="com.razorpay.ApiKey"
+                          android:value="rzp_test_8ZBt2J9hAsxH9Q"
+                          />
 
     </application>
 
