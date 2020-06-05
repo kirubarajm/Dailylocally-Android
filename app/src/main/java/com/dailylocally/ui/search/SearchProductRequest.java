@@ -12,16 +12,16 @@ public class SearchProductRequest {
     public String lon;
     @SerializedName("type")
     @Expose
-    public Integer type;
+    public String type;
     @SerializedName("id")
     @Expose
-    public Integer id;
+    public String id;
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public String userid;
 
 
-    public SearchProductRequest(String lat, String lon, Integer type, Integer id, Integer userid) {
+    public SearchProductRequest(String lat, String lon, String type, String id, String userid) {
         this.lat = lat;
         this.lon = lon;
         this.type = type;

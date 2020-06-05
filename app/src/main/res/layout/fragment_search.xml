@@ -37,6 +37,48 @@
 
         <RelativeLayout
             android:layout_below="@+id/rel_search_bar"
+            android:id="@+id/before"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/white"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/before_search" />
+
+
+            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                android:id="@+id/tt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img1"
+                android:layout_marginTop="10dp"
+                android:text="What do you want for tomorrow?"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tt1"
+                android:layout_marginTop="10dp"
+                android:text="Search for milk, bread, vegetables and many more"
+                android:textAlignment="center"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_below="@+id/rel_search_bar"
             android:id="@+id/search_suggestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
