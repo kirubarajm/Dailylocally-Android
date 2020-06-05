@@ -9,4 +9,6 @@ public interface SearchNavigator {
 
     void quickSearchSuccess();
 
+    void searchNotFound();
+
 }

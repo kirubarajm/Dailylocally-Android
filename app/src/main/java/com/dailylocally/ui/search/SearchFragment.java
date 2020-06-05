@@ -17,6 +17,7 @@ import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -60,14 +61,20 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void suggestionProductSuccess() {
-        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
-        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
+        //mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+        //mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void quickSearchSuccess() {
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void searchNotFound() {
+            mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+            mFragmentSearchBinding.searchNotFound.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -88,6 +95,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         super.onViewCreated(view, savedInstanceState);
         mFragmentSearchBinding = getViewDataBinding();
 
+        mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager mLayoutManagerProduct
@@ -101,17 +110,50 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.recyclerviewProduct.setLayoutManager(mLayoutManagerProduct);
         mFragmentSearchBinding.recyclerviewProduct.setAdapter(productListAdapter);
 
+
+
+        mFragmentSearchBinding.search.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                /*mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+                mFragmentSearchBinding.before.setVisibility(View.VISIBLE);*/
+                return false;
+            }
+        });
+
         mFragmentSearchBinding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-
+                try {
+                if (s.length()>1){
+                    mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                    mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+                    mFragmentSearchBinding.before.setVisibility(View.GONE);
+                    mSearchViewModel.quickSearch(s);
+                }else {
+                    mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                    mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+                    mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+                }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
             @Override
             public boolean onQueryTextChange(String s) {
                 try {
                     if (s.length()>1){
+                        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+                        mFragmentSearchBinding.before.setVisibility(View.GONE);
                         mSearchViewModel.quickSearch(s);
+                    }else {
+                        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+                        mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+                        mFragmentSearchBinding.searchNotFound.setVisibility(View.GONE);
                     }
                 }catch (Exception e) {
                     e.printStackTrace();
@@ -119,12 +161,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 return true;
             }
         });
-        subscribeToLiveData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        subscribeToLiveData();
     }
 
     private void subscribeToLiveData() {

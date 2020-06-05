@@ -92,15 +92,23 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                     new Response.Listener<QuickSearchResponse>() {
                         @Override
                         public void onResponse(QuickSearchResponse response) {
-                            if (response.getStatus()){
-                                if (getNavigator()!=null){
-                                    getNavigator().quickSearchSuccess();
-                                }
-                                /*if (response.getData()!=null && response.getData().size()>0) {*/
+                            if (response.getStatus()) {
+                                if (response.getData() != null && response.getData().size() > 0) {
                                     searchItemsLiveData.setValue(response.getData());
-                                /*}*/
+                                    if (getNavigator() != null) {
+                                        getNavigator().quickSearchSuccess();
+                                    }
+                                } else {
+                                    searchItemsLiveData.setValue(response.getData());
+                                    if (getNavigator() != null) {
+                                        getNavigator().searchNotFound();
+                                    }
+                                }
                             }else {
-
+                                searchItemsLiveData.setValue(response.getData());
+                                if (getNavigator() != null) {
+                                    getNavigator().searchNotFound();
+                                }
                             }
                             setIsLoading(false);
                         }
