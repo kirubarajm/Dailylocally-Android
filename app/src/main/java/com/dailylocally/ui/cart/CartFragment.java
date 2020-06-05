@@ -164,7 +164,8 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = EditAddressActivity.newIntent(getContext());
+        Intent intent = AddAddressActivity.newIntent(getContext());
+        intent.putExtra("edit","1");
         startActivity(intent);
     }
 

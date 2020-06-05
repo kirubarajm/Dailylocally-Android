@@ -87,7 +87,8 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
         new Analytics().sendClickData(pageName, AppConstants.CLICK_MANAGE_ADDRESS);
 
-        Intent intent = EditAddressActivity.newIntent(getContext());
+        Intent intent = AddAddressActivity.newIntent(getContext());
+        intent.putExtra("edit","1");
         startActivity(intent);
     }
 
