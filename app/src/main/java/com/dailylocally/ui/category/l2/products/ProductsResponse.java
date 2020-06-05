@@ -1,5 +1,7 @@
 package com.dailylocally.ui.category.l2.products;
 
+import android.content.Intent;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -144,7 +146,7 @@ public class ProductsResponse {
 
         @SerializedName("vpid")
         @Expose
-        private Integer pid;
+        private String pid;
 
         @SerializedName("Productname")
         @Expose
@@ -160,19 +162,19 @@ public class ProductsResponse {
 
         @SerializedName("discount_cost")
         @Expose
-        private Integer discountCost;
+        private String discountCost;
 
         @SerializedName("gst")
         @Expose
-        private Integer gst;
+        private String gst;
 
         @SerializedName("scl1_id")
         @Expose
-        private Integer scl1Id;
+        private String scl1Id;
 
         @SerializedName("scl2_id")
         @Expose
-        private Integer scl2Id;
+        private String scl2Id;
 
         @SerializedName("subscription")
         @Expose
@@ -182,9 +184,13 @@ public class ProductsResponse {
         @Expose
         private String weight;
 
+ @SerializedName("unit")
+        @Expose
+        private String unit;
+
         @SerializedName("tag")
         @Expose
-        private Integer tag;
+        private String tag;
 
         @SerializedName("short_desc")
         @Expose
@@ -194,11 +200,11 @@ public class ProductsResponse {
         @Expose
         private Boolean servicableStatus;
 
-        public Integer getPid() {
+        public String getPid() {
             return pid;
         }
 
-        public void setPid(Integer pid) {
+        public void setPid(String pid) {
             this.pid = pid;
         }
 
@@ -226,35 +232,35 @@ public class ProductsResponse {
             this.mrp = mrp;
         }
 
-        public Integer getDiscountCost() {
+        public String getDiscountCost() {
             return discountCost;
         }
 
-        public void setDiscountCost(Integer discountCost) {
+        public void setDiscountCost(String discountCost) {
             this.discountCost = discountCost;
         }
 
-        public Integer getGst() {
+        public String getGst() {
             return gst;
         }
 
-        public void setGst(Integer gst) {
+        public void setGst(String gst) {
             this.gst = gst;
         }
 
-        public Integer getScl1Id() {
+        public String getScl1Id() {
             return scl1Id;
         }
 
-        public void setScl1Id(Integer scl1Id) {
+        public void setScl1Id(String scl1Id) {
             this.scl1Id = scl1Id;
         }
 
-        public Integer getScl2Id() {
+        public String getScl2Id() {
             return scl2Id;
         }
 
-        public void setScl2Id(Integer scl2Id) {
+        public void setScl2Id(String scl2Id) {
             this.scl2Id = scl2Id;
         }
 
@@ -274,11 +280,19 @@ public class ProductsResponse {
             this.weight = weight;
         }
 
-        public Integer getTag() {
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
+
+        public String getTag() {
             return tag;
         }
 
-        public void setTag(Integer tag) {
+        public void setTag(String tag) {
             this.tag = tag;
         }
 

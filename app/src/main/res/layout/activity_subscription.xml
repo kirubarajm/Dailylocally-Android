@@ -222,7 +222,7 @@
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
                                     android:singleLine="true"
-                                    android:text="Quantity per delivery"
+                                    android:text="Quantity per day"
                                     android:textColor="@color/black"
                                     android:textSize="14sp"
                                     android:textStyle="bold" />

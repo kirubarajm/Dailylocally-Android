@@ -83,6 +83,15 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
                         title.set(response.getCategoryTitle());
                      //   image.set(response.get());
 
+
+
+                        if (response.getGetSubCatImages()!=null&&response.getGetSubCatImages().size()>0){
+
+                            image.set(response.getGetSubCatImages().get(0).getImageUrl());
+                        }
+
+
+
                         if (response.getResult() != null && response.getResult().size() > 0) {
                             categoryListLiveData.setValue(response.getResult());
 

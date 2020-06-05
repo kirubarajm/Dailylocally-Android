@@ -186,7 +186,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isCart.set(false);
         mMainViewModel.isMyAccount.set(false);
 
-
         if (mMainViewModel.update.get()) {
             if (!mMainViewModel.isLiveOrder.get()) {
                 mMainViewModel.updateAvailable.set(true);
@@ -200,7 +199,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         Intent intent = CalendarActivity.newIntent(MainActivity.this);
         startActivity(intent);
-
 
        /* mMainViewModel.toolbarTitle.set("My Orders");
         mMainViewModel.titleVisible.set(true);
@@ -275,6 +273,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.toolbarTitle.set("My Account");
         mMainViewModel.titleVisible.set(true);
         mMainViewModel.updateAvailable.set(false);
+
     }
 
     @Override
@@ -342,7 +341,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
         PushUtils.registerWithZendesk();
 
-        openHome();
+       // openHome();
         saveFcmToken();
 
         //  updateUIalert();
@@ -414,7 +413,42 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             startLocationTracking();
         }*/
 
+        if (mMainViewModel.isAddressAdded()) {
+            if (cart) {
+                cart = false;
+                mMainViewModel.gotoCart(screenName);
+            } else if (pageid.equals("") && pageid.equals("9")) {
+/*
+                Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
+                startActivity(repliesIntent);*/
+            } else {
 
+                if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_MY_ORDERS)) {
+                    gotoMyOrders();
+                } else if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_CART_PAGE)) {
+                    openCart("L2");
+                } else {
+
+                    if (mMainViewModel.isHome.get()) {
+
+
+                    } else if (mMainViewModel.isMyAccount.get()) {
+
+
+                    } else if (mMainViewModel.isExplore.get()) {
+
+
+                    } else if (mMainViewModel.isCart.get()) {
+
+
+                    } else {
+
+                        openHome();
+                    }
+                }
+            }
+
+        }
     }
 
 
@@ -515,41 +549,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         registerReceiver(dataReceiver, intentFilter);
         registerWifiReceiver();*/
 
-        if (mMainViewModel.isAddressAdded()) {
-            if (cart) {
-                mMainViewModel.gotoCart(screenName);
-            } else if (pageid.equals("") && pageid.equals("9")) {
-/*
-                Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
-                startActivity(repliesIntent);*/
-            } else {
 
-                if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_MY_ORDERS)) {
-                    gotoMyOrders();
-                } else if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_CART_PAGE)) {
-                    openCart("L2");
-                } else {
-
-                    if (mMainViewModel.isHome.get()) {
-
-
-                    } else if (mMainViewModel.isMyAccount.get()) {
-
-
-                    } else if (mMainViewModel.isExplore.get()) {
-
-
-                    } else if (mMainViewModel.isCart.get()) {
-
-
-                    } else {
-
-                        openHome();
-                    }
-                }
-            }
-
-        }
 
        /* mAppUpdateManager
                 .getAppUpdateInfo()

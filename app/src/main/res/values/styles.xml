@@ -19,5 +19,17 @@
         <item name="android:background">?colorPrimary</item>
 
     </style>
+    <style name="AppTheme.TabStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/AppTheme.TextStyle</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
 
+    <style name="AppTheme.TextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">true</item>
+    </style>
 </resources>

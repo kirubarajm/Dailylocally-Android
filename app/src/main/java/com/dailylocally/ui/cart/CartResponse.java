@@ -390,7 +390,7 @@ public class CartResponse {
 
         @SerializedName("vpid")
         @Expose
-        private Integer pid;
+        private String pid;
         @SerializedName("hsn_code")
         @Expose
         private Object hsnCode;
@@ -405,22 +405,22 @@ public class CartResponse {
         private Integer brand;
         @SerializedName("mrp")
         @Expose
-        private Integer mrp;
+        private String mrp;
         @SerializedName("basiccost")
         @Expose
         private Object basiccost;
         @SerializedName("discount_cost")
         @Expose
-        private Integer discountCost;
+        private String discountCost;
         @SerializedName("gst")
         @Expose
-        private Integer gst;
+        private String gst;
         @SerializedName("scl1_id")
         @Expose
-        private Integer scl1Id;
+        private String scl1Id;
         @SerializedName("scl2_id")
         @Expose
-        private Integer scl2Id;
+        private String scl2Id;
         @SerializedName("subscription")
         @Expose
         private Integer subscription;
@@ -429,25 +429,25 @@ public class CartResponse {
         private String weight;
         @SerializedName("packettype")
         @Expose
-        private Object packettype;
+        private String packettype;
         @SerializedName("packetsize")
         @Expose
-        private Object packetsize;
+        private String packetsize;
         @SerializedName("vegtype")
         @Expose
-        private Integer vegtype;
+        private String vegtype;
         @SerializedName("tag")
         @Expose
-        private Integer tag;
+        private String tag;
         @SerializedName("short_desc")
         @Expose
-        private Object shortDesc;
+        private String shortDesc;
         @SerializedName("shelf_life")
         @Expose
-        private Object shelfLife;
+        private String shelfLife;
         @SerializedName("active_status")
         @Expose
-        private Integer activeStatus;
+        private String activeStatus;
         @SerializedName("live_status")
         @Expose
         private String liveStatus;
@@ -456,7 +456,11 @@ public class CartResponse {
         private Boolean availablity;
         @SerializedName("amount")
         @Expose
-        private Integer amount;
+        private String amount;
+          @SerializedName("unit")
+        @Expose
+        private String unit;
+
         @SerializedName("cartquantity")
         @Expose
         private Integer cartquantity;
@@ -465,19 +469,21 @@ public class CartResponse {
         private Object productWeight;
         @SerializedName("product_discount_price")
         @Expose
-        private Integer productDiscountPrice;
+        private String productDiscountPrice;
         @SerializedName("no_of_deliveries")
         @Expose
-        private Integer noOfDeliveries;
+        private String noOfDeliveries;
         @SerializedName("deliverydate")
         @Expose
         private String deliverydate;
 
-        public Integer getPid() {
+
+
+        public String getPid() {
             return pid;
         }
 
-        public void setPid(Integer pid) {
+        public void setPid(String pid) {
             this.pid = pid;
         }
 
@@ -513,11 +519,11 @@ public class CartResponse {
             this.brand = brand;
         }
 
-        public Integer getMrp() {
+        public String getMrp() {
             return mrp;
         }
 
-        public void setMrp(Integer mrp) {
+        public void setMrp(String mrp) {
             this.mrp = mrp;
         }
 
@@ -529,35 +535,35 @@ public class CartResponse {
             this.basiccost = basiccost;
         }
 
-        public Integer getDiscountCost() {
+        public String getDiscountCost() {
             return discountCost;
         }
 
-        public void setDiscountCost(Integer discountCost) {
+        public void setDiscountCost(String discountCost) {
             this.discountCost = discountCost;
         }
 
-        public Integer getGst() {
+        public String getGst() {
             return gst;
         }
 
-        public void setGst(Integer gst) {
+        public void setGst(String gst) {
             this.gst = gst;
         }
 
-        public Integer getScl1Id() {
+        public String getScl1Id() {
             return scl1Id;
         }
 
-        public void setScl1Id(Integer scl1Id) {
+        public void setScl1Id(String scl1Id) {
             this.scl1Id = scl1Id;
         }
 
-        public Integer getScl2Id() {
+        public String getScl2Id() {
             return scl2Id;
         }
 
-        public void setScl2Id(Integer scl2Id) {
+        public void setScl2Id(String scl2Id) {
             this.scl2Id = scl2Id;
         }
 
@@ -577,59 +583,59 @@ public class CartResponse {
             this.weight = weight;
         }
 
-        public Object getPackettype() {
+        public String getPackettype() {
             return packettype;
         }
 
-        public void setPackettype(Object packettype) {
+        public void setPackettype(String packettype) {
             this.packettype = packettype;
         }
 
-        public Object getPacketsize() {
+        public String getPacketsize() {
             return packetsize;
         }
 
-        public void setPacketsize(Object packetsize) {
+        public void setPacketsize(String packetsize) {
             this.packetsize = packetsize;
         }
 
-        public Integer getVegtype() {
+        public String getVegtype() {
             return vegtype;
         }
 
-        public void setVegtype(Integer vegtype) {
+        public void setVegtype(String vegtype) {
             this.vegtype = vegtype;
         }
 
-        public Integer getTag() {
+        public String getTag() {
             return tag;
         }
 
-        public void setTag(Integer tag) {
+        public void setTag(String tag) {
             this.tag = tag;
         }
 
-        public Object getShortDesc() {
+        public String getShortDesc() {
             return shortDesc;
         }
 
-        public void setShortDesc(Object shortDesc) {
+        public void setShortDesc(String shortDesc) {
             this.shortDesc = shortDesc;
         }
 
-        public Object getShelfLife() {
+        public String getShelfLife() {
             return shelfLife;
         }
 
-        public void setShelfLife(Object shelfLife) {
+        public void setShelfLife(String shelfLife) {
             this.shelfLife = shelfLife;
         }
 
-        public Integer getActiveStatus() {
+        public String getActiveStatus() {
             return activeStatus;
         }
 
-        public void setActiveStatus(Integer activeStatus) {
+        public void setActiveStatus(String activeStatus) {
             this.activeStatus = activeStatus;
         }
 
@@ -649,12 +655,20 @@ public class CartResponse {
             this.availablity = availablity;
         }
 
-        public Integer getAmount() {
+        public String getAmount() {
             return amount;
         }
 
-        public void setAmount(Integer amount) {
+        public void setAmount(String amount) {
             this.amount = amount;
+        }
+
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
         }
 
         public Integer getCartquantity() {
@@ -673,19 +687,19 @@ public class CartResponse {
             this.productWeight = productWeight;
         }
 
-        public Integer getProductDiscountPrice() {
+        public String getProductDiscountPrice() {
             return productDiscountPrice;
         }
 
-        public void setProductDiscountPrice(Integer productDiscountPrice) {
+        public void setProductDiscountPrice(String productDiscountPrice) {
             this.productDiscountPrice = productDiscountPrice;
         }
 
-        public Integer getNoOfDeliveries() {
+        public String getNoOfDeliveries() {
             return noOfDeliveries;
         }
 
-        public void setNoOfDeliveries(Integer noOfDeliveries) {
+        public void setNoOfDeliveries(String noOfDeliveries) {
             this.noOfDeliveries = noOfDeliveries;
         }
 
@@ -696,7 +710,6 @@ public class CartResponse {
         public void setDeliverydate(String deliverydate) {
             this.deliverydate = deliverydate;
         }
-
     }
 
     public class Result {
@@ -883,12 +896,12 @@ public class CartResponse {
 
     public class SubscriptionItem {
 
-        @SerializedName("plid")
+        @SerializedName("vpid")
         @Expose
-        private Integer pid;
+        private String pid;
         @SerializedName("hsn_code")
         @Expose
-        private Object hsnCode;
+        private String hsnCode;
         @SerializedName("Productname")
         @Expose
         private String productname;
@@ -897,25 +910,28 @@ public class CartResponse {
         private String image;
         @SerializedName("brand")
         @Expose
-        private Integer brand;
+        private String brand;
         @SerializedName("mrp")
         @Expose
-        private Integer mrp;
+        private String mrp;
+        @SerializedName("unit")
+        @Expose
+        private String unit;
         @SerializedName("basiccost")
         @Expose
-        private Object basiccost;
+        private String basiccost;
         @SerializedName("discount_cost")
         @Expose
-        private Integer discountCost;
+        private String discountCost;
         @SerializedName("gst")
         @Expose
-        private Integer gst;
+        private String gst;
         @SerializedName("scl1_id")
         @Expose
         private Integer scl1Id;
         @SerializedName("scl2_id")
         @Expose
-        private Integer scl2Id;
+        private String scl2Id;
         @SerializedName("subscription")
         @Expose
         private Integer subscription;
@@ -924,25 +940,25 @@ public class CartResponse {
         private String weight;
         @SerializedName("packettype")
         @Expose
-        private Object packettype;
+        private String packettype;
         @SerializedName("packetsize")
         @Expose
-        private Object packetsize;
+        private String packetsize;
         @SerializedName("vegtype")
         @Expose
-        private Integer vegtype;
+        private String vegtype;
         @SerializedName("tag")
         @Expose
-        private Integer tag;
+        private String tag;
         @SerializedName("short_desc")
         @Expose
-        private Object shortDesc;
+        private String shortDesc;
         @SerializedName("shelf_life")
         @Expose
-        private Object shelfLife;
+        private String shelfLife;
         @SerializedName("active_status")
         @Expose
-        private Integer activeStatus;
+        private String activeStatus;
         @SerializedName("live_status")
         @Expose
         private String liveStatus;
@@ -951,19 +967,19 @@ public class CartResponse {
         private Boolean availablity;
         @SerializedName("amount")
         @Expose
-        private Integer amount;
+        private String amount;
         @SerializedName("cartquantity")
         @Expose
-        private Integer cartquantity;
+        private String cartquantity;
         @SerializedName("product_weight")
         @Expose
-        private Object productWeight;
+        private String productWeight;
         @SerializedName("product_discount_price")
         @Expose
-        private Integer productDiscountPrice;
+        private String productDiscountPrice;
         @SerializedName("no_of_deliveries")
         @Expose
-        private Integer noOfDeliveries;
+        private String noOfDeliveries;
         @SerializedName("deliverydate")
         @Expose
         private String deliverydate;
@@ -989,19 +1005,19 @@ public class CartResponse {
         @Expose
         private Integer sun;
 
-        public Integer getPid() {
+        public String getPid() {
             return pid;
         }
 
-        public void setPid(Integer pid) {
+        public void setPid(String pid) {
             this.pid = pid;
         }
 
-        public Object getHsnCode() {
+        public String getHsnCode() {
             return hsnCode;
         }
 
-        public void setHsnCode(Object hsnCode) {
+        public void setHsnCode(String hsnCode) {
             this.hsnCode = hsnCode;
         }
 
@@ -1021,43 +1037,51 @@ public class CartResponse {
             this.image = image;
         }
 
-        public Integer getBrand() {
+        public String getBrand() {
             return brand;
         }
 
-        public void setBrand(Integer brand) {
+        public void setBrand(String brand) {
             this.brand = brand;
         }
 
-        public Integer getMrp() {
+        public String getMrp() {
             return mrp;
         }
 
-        public void setMrp(Integer mrp) {
+        public void setMrp(String mrp) {
             this.mrp = mrp;
         }
 
-        public Object getBasiccost() {
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
+
+        public String getBasiccost() {
             return basiccost;
         }
 
-        public void setBasiccost(Object basiccost) {
+        public void setBasiccost(String basiccost) {
             this.basiccost = basiccost;
         }
 
-        public Integer getDiscountCost() {
+        public String getDiscountCost() {
             return discountCost;
         }
 
-        public void setDiscountCost(Integer discountCost) {
+        public void setDiscountCost(String discountCost) {
             this.discountCost = discountCost;
         }
 
-        public Integer getGst() {
+        public String getGst() {
             return gst;
         }
 
-        public void setGst(Integer gst) {
+        public void setGst(String gst) {
             this.gst = gst;
         }
 
@@ -1069,11 +1093,11 @@ public class CartResponse {
             this.scl1Id = scl1Id;
         }
 
-        public Integer getScl2Id() {
+        public String getScl2Id() {
             return scl2Id;
         }
 
-        public void setScl2Id(Integer scl2Id) {
+        public void setScl2Id(String scl2Id) {
             this.scl2Id = scl2Id;
         }
 
@@ -1093,59 +1117,59 @@ public class CartResponse {
             this.weight = weight;
         }
 
-        public Object getPackettype() {
+        public String getPackettype() {
             return packettype;
         }
 
-        public void setPackettype(Object packettype) {
+        public void setPackettype(String packettype) {
             this.packettype = packettype;
         }
 
-        public Object getPacketsize() {
+        public String getPacketsize() {
             return packetsize;
         }
 
-        public void setPacketsize(Object packetsize) {
+        public void setPacketsize(String packetsize) {
             this.packetsize = packetsize;
         }
 
-        public Integer getVegtype() {
+        public String getVegtype() {
             return vegtype;
         }
 
-        public void setVegtype(Integer vegtype) {
+        public void setVegtype(String vegtype) {
             this.vegtype = vegtype;
         }
 
-        public Integer getTag() {
+        public String getTag() {
             return tag;
         }
 
-        public void setTag(Integer tag) {
+        public void setTag(String tag) {
             this.tag = tag;
         }
 
-        public Object getShortDesc() {
+        public String getShortDesc() {
             return shortDesc;
         }
 
-        public void setShortDesc(Object shortDesc) {
+        public void setShortDesc(String shortDesc) {
             this.shortDesc = shortDesc;
         }
 
-        public Object getShelfLife() {
+        public String getShelfLife() {
             return shelfLife;
         }
 
-        public void setShelfLife(Object shelfLife) {
+        public void setShelfLife(String shelfLife) {
             this.shelfLife = shelfLife;
         }
 
-        public Integer getActiveStatus() {
+        public String getActiveStatus() {
             return activeStatus;
         }
 
-        public void setActiveStatus(Integer activeStatus) {
+        public void setActiveStatus(String activeStatus) {
             this.activeStatus = activeStatus;
         }
 
@@ -1165,43 +1189,43 @@ public class CartResponse {
             this.availablity = availablity;
         }
 
-        public Integer getAmount() {
+        public String getAmount() {
             return amount;
         }
 
-        public void setAmount(Integer amount) {
+        public void setAmount(String amount) {
             this.amount = amount;
         }
 
-        public Integer getCartquantity() {
+        public String getCartquantity() {
             return cartquantity;
         }
 
-        public void setCartquantity(Integer cartquantity) {
+        public void setCartquantity(String cartquantity) {
             this.cartquantity = cartquantity;
         }
 
-        public Object getProductWeight() {
+        public String getProductWeight() {
             return productWeight;
         }
 
-        public void setProductWeight(Object productWeight) {
+        public void setProductWeight(String productWeight) {
             this.productWeight = productWeight;
         }
 
-        public Integer getProductDiscountPrice() {
+        public String getProductDiscountPrice() {
             return productDiscountPrice;
         }
 
-        public void setProductDiscountPrice(Integer productDiscountPrice) {
+        public void setProductDiscountPrice(String productDiscountPrice) {
             this.productDiscountPrice = productDiscountPrice;
         }
 
-        public Integer getNoOfDeliveries() {
+        public String getNoOfDeliveries() {
             return noOfDeliveries;
         }
 
-        public void setNoOfDeliveries(Integer noOfDeliveries) {
+        public void setNoOfDeliveries(String noOfDeliveries) {
             this.noOfDeliveries = noOfDeliveries;
         }
 
@@ -1268,6 +1292,5 @@ public class CartResponse {
         public void setSun(Integer sun) {
             this.sun = sun;
         }
-
     }
 }

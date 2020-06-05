@@ -89,6 +89,14 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
                         serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());
+
+
+                        if (response.getGetSubCatImages()!=null&&response.getGetSubCatImages().size()>0){
+
+                            image.set(response.getGetSubCatImages().get(0).getImageUrl());
+                        }
+
+
                         if (getNavigator() != null)
                             getNavigator().createtabs(response);
                         title.set(response.getCategoryTitle());

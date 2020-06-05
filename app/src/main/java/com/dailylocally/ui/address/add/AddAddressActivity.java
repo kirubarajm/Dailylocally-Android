@@ -203,7 +203,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 mActivityAddAddressBinding.area.setText(result.getLocality());
                 mActivityAddAddressBinding.landmark.setText(result.getLandmark());
 
-                LatLng latLng = new LatLng(result.getLat(), result.getLon());
+                LatLng latLng = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 initCameraIdle();
             }

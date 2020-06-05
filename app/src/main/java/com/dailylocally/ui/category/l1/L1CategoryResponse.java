@@ -27,7 +27,17 @@ public class L1CategoryResponse {
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
+    @SerializedName("get_sub_cat_images")
+    @Expose
+    private List<GetSubCatImage> getSubCatImages = null;
 
+    public List<GetSubCatImage> getGetSubCatImages() {
+        return getSubCatImages;
+    }
+
+    public void setGetSubCatImages(List<GetSubCatImage> getSubCatImages) {
+        this.getSubCatImages = getSubCatImages;
+    }
     public Boolean getSuccess() {
         return success;
     }
@@ -84,7 +94,65 @@ public class L1CategoryResponse {
         this.result = result;
     }
 
+    public class GetSubCatImage {
 
+        @SerializedName("scid")
+        @Expose
+        private Integer scid;
+        @SerializedName("image_url")
+        @Expose
+        private String imageUrl;
+        @SerializedName("id")
+        @Expose
+        private Integer id;
+        @SerializedName("type")
+        @Expose
+        private Integer type;
+        @SerializedName("created_at")
+        @Expose
+        private String createdAt;
+
+        public Integer getScid() {
+            return scid;
+        }
+
+        public void setScid(Integer scid) {
+            this.scid = scid;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public Integer getType() {
+            return type;
+        }
+
+        public void setType(Integer type) {
+            this.type = type;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+    }
     public class Result {
 
         @SerializedName("scl1_id")

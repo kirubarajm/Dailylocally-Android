@@ -384,7 +384,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             e.printStackTrace();
                         }
 
-                        if (date.before(availableCompareDate)) {
+                        if (date.after(availableCompareDate)) {
                             cartRequestPojoResult.setDayorderdate(availableDate);
                         } else {
                             cartRequestPojoResult.setDayorderdate(cartRequestPojo.getOrderitems().get(i).getDayorderdate());
@@ -635,7 +635,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         cartRequestPojoResult.setPid(product.getPid());
                         cartRequestPojoResult.setQuantity(product.getCartquantity());
-                        cartRequestPojoResult.setPrice(String.valueOf(product.getMrp()));
+                        cartRequestPojoResult.setPrice(String.valueOf(product.getAmount()));
                         cartRequestPojoResult.setDayorderdate(date);
                         results.set(i, cartRequestPojoResult);
 

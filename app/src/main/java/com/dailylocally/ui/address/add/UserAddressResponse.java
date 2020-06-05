@@ -57,13 +57,13 @@ public class UserAddressResponse {
         public String pincode;
         @SerializedName("aid")
         @Expose
-        public Integer aid;
+        public String aid;
         @SerializedName("lat")
         @Expose
-        public Double lat;
+        public String lat;
         @SerializedName("lon")
         @Expose
-        public Double lon;
+        public String lon;
         @SerializedName("landmark")
         @Expose
         public String landmark;
@@ -108,15 +108,15 @@ public class UserAddressResponse {
             return pincode;
         }
 
-        public Integer getAid() {
+        public String getAid() {
             return aid;
         }
 
-        public Double getLat() {
+        public String getLat() {
             return lat;
         }
 
-        public Double getLon() {
+        public String getLon() {
             return lon;
         }
 

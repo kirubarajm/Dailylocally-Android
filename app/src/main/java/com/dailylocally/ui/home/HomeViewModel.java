@@ -89,8 +89,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public void fetchCategoryList() {
 
 
-
-        if (getDataManager().getCurrentLat() == null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
             HomePageRequest homePageRequest = new HomePageRequest();
             homePageRequest.setUserid(getDataManager().getCurrentUserId());
@@ -190,7 +188,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 ee.printStackTrace();
 
             }
-        }
 
     }
 

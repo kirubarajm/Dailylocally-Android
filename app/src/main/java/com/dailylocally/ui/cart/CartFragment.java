@@ -23,6 +23,7 @@ import com.dailylocally.R;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.edit.EditAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
@@ -163,8 +164,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = AddAddressActivity.newIntent(getContext());
-        intent.putExtra("edit","1");
+        Intent intent = EditAddressActivity.newIntent(getContext());
         startActivity(intent);
     }
 
@@ -258,6 +258,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
             mCartViewModel.emptyCart.set(true);
         }
 
+        ((MainActivity)getActivity()).statusUpdate();
 
     }
 
