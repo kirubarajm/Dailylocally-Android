@@ -432,10 +432,10 @@ public class AppConstants {
   public static final String URL_SEARCH_PRODUCT = URL_SERVER_IP_PORT + "/user/search/catalogdata";
 
 
-  public static final int SEARCH_CATEGORY = 0;
-  public static final int SEARCH_L1_CATEGORY = 1;
-  public static final int SEARCH_L2_CATEGORY = 2;
-  public static final int SEARCH_PRODUCT = 3;
+  public static final int SEARCH_CATEGORY = 1;
+  public static final int SEARCH_L1_CATEGORY = 2;
+  public static final int SEARCH_L2_CATEGORY = 3;
+  public static final int SEARCH_PRODUCT = 4;
 
 
   public static final String DUNZO_URL = BuildConfig.DUNZO_URL;

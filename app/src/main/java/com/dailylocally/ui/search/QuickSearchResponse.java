@@ -20,7 +20,6 @@ public class QuickSearchResponse {
     @Expose
     public List<Datum> data = null;
 
-
     public Boolean getSuccess() {
         return success;
     }
@@ -45,6 +44,9 @@ public class QuickSearchResponse {
         @SerializedName("type")
         @Expose
         public String type;
+        @SerializedName("id")
+        @Expose
+        public Integer id;
 
 
         public String getName() {
@@ -53,6 +55,10 @@ public class QuickSearchResponse {
 
         public String getType() {
             return type;
+        }
+
+        public Integer getId() {
+            return id;
         }
     }
 }

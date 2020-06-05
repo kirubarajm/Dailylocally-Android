@@ -7,4 +7,6 @@ public interface SearchNavigator {
 
     void suggestionProductSuccess();
 
+    void quickSearchSuccess();
+
 }

@@ -42,12 +42,15 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
     private MutableLiveData<List<SearchProductResponse.Product>> searchProductItemsLiveData;
     public ObservableList<SearchProductResponse.Product> searchProductItemViewModels = new ObservableArrayList<>();
-
+    String strLat="",strLng="",userId="";
 
     public SearchViewModel(DataManager dataManager) {
         super(dataManager);
         searchItemsLiveData = new MutableLiveData<>();
         searchProductItemsLiveData = new MutableLiveData<>();
+        strLat = getDataManager().getCurrentLat();
+        strLng = getDataManager().getCurrentLng();
+        userId = getDataManager().getCurrentUserId();
     }
 
     public MutableLiveData<List<QuickSearchResponse.Datum>> getSearchItemsLiveData() {
@@ -80,17 +83,22 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         }
     }
 
-    public void quickSearch() {
+    public void quickSearch(String searchWord) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.QUICK_SEARCH,
-                    QuickSearchResponse.class, new QuickSearchRequest("milk",1,"13.050675","80.2341"),
+                    QuickSearchResponse.class, new QuickSearchRequest(searchWord,"1","13.050675","80.2341"),
                     new Response.Listener<QuickSearchResponse>() {
                         @Override
                         public void onResponse(QuickSearchResponse response) {
                             if (response.getStatus()){
-                                searchItemsLiveData.setValue(response.getData());
+                                if (getNavigator()!=null){
+                                    getNavigator().quickSearchSuccess();
+                                }
+                                /*if (response.getData()!=null && response.getData().size()>0) {*/
+                                    searchItemsLiveData.setValue(response.getData());
+                                /*}*/
                             }else {
 
                             }
@@ -111,17 +119,19 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         }
     }
 
-    public void SearchProduct() {
+    public void SearchProduct(String type,String id) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SEARCH_PRODUCT,
-                    SearchProductResponse.class, new SearchProductRequest("12.9760","80.2212",4,1,1),
+                    SearchProductResponse.class, new SearchProductRequest("12.9760","80.2212",type,id,userId),
                     new Response.Listener<SearchProductResponse>() {
                         @Override
                         public void onResponse(SearchProductResponse response) {
                             if (response.getStatus()){
-                                searchProductItemsLiveData.setValue(response.getProduct());
+                                if (response.getProduct()!=null && response.getProduct().size()>0) {
+                                    searchProductItemsLiveData.setValue(response.getProduct());
+                                }
                                 if (getNavigator()!=null){
                                     getNavigator().suggestionProductSuccess();
                                 }

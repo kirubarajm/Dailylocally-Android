@@ -65,6 +65,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
+    public void quickSearchSuccess() {
+        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSearchViewModel.setNavigator(this);
@@ -101,19 +107,18 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String s) {
-
-                if (s.length()>1){
-                    mSearchViewModel.quickSearch();
+                try {
+                    if (s.length()>1){
+                        mSearchViewModel.quickSearch(s);
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
                 }
-
                 return true;
             }
-
         });
-
         subscribeToLiveData();
     }
 
@@ -145,7 +150,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                     Intent intent = CategoryL2Activity.newIntent(getContext());
                     startActivity(intent);
                 } else if (type== AppConstants.SEARCH_PRODUCT){
-                    mSearchViewModel.SearchProduct();
+                    mSearchViewModel.SearchProduct(result.getType(),String.valueOf(result.getId()));
                 }
             }
         }catch (Exception e){
