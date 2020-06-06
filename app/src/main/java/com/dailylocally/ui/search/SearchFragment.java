@@ -61,8 +61,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void suggestionProductSuccess() {
-        //mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
-        //mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
+        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -206,7 +206,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
-    public void onProductItemClick(SearchProductResponse.Product products) {
+    public void onProductItemClick(SearchProductResponse.Result products) {
         Intent intent = CategoryL2Activity.newIntent(getContext());
         startActivity(intent);
     }

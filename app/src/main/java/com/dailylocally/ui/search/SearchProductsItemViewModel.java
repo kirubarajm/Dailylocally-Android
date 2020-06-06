@@ -26,7 +26,7 @@ public class SearchProductsItemViewModel {
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean subscribeAvailable = new ObservableBoolean();
-    private final SearchProductResponse.Product products;
+    private final SearchProductResponse.Result products;
     private final ProductsItemViewModelListener mListener;
     private final List<CartRequest.Orderitem> results = new ArrayList<>();
     private final CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
@@ -34,7 +34,7 @@ public class SearchProductsItemViewModel {
     private CartRequest cartRequestPojo = new CartRequest();
 
 
-    public SearchProductsItemViewModel(ProductsItemViewModelListener mListener, SearchProductResponse.Product result) {
+    public SearchProductsItemViewModel(ProductsItemViewModelListener mListener, SearchProductResponse.Result result) {
         this.mListener = mListener;
         this.products = result;
         name.set(result.getProductname());
@@ -143,7 +143,7 @@ public class SearchProductsItemViewModel {
                             cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
                         }*/
 
-                        cartRequestPojoResult.setPid(products.getPid());
+                        cartRequestPojoResult.setPid(String.valueOf(products.getPid()));
                         cartRequestPojoResult.setQuantity(quantity);
                         //cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                         results.set(i, cartRequestPojoResult);
@@ -201,7 +201,7 @@ public class SearchProductsItemViewModel {
                             }*/
 
 
-                            cartRequestPojoResult.setPid(products.getPid());
+                            cartRequestPojoResult.setPid(String.valueOf(products.getPid()));
                             cartRequestPojoResult.setQuantity(quantity);
                             //cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                             results.set(i, cartRequestPojoResult);
@@ -269,7 +269,7 @@ public class SearchProductsItemViewModel {
         }*/
 
 
-        cartRequestPojoResult.setPid(products.getPid());
+        cartRequestPojoResult.setPid(String.valueOf(products.getPid()));
         cartRequestPojoResult.setQuantity(quantity);
         //cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
         results.add(cartRequestPojoResult);
@@ -291,9 +291,9 @@ public class SearchProductsItemViewModel {
     public interface ProductsItemViewModelListener {
         void refresh();
 
-        void subscribeProduct(SearchProductResponse.Product products);
+        void subscribeProduct(SearchProductResponse.Result products);
 
-        void onProductItemClick(SearchProductResponse.Product products);
+        void onProductItemClick(SearchProductResponse.Result products);
     }
 
 }

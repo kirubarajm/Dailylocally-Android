@@ -163,7 +163,7 @@ public final class BindingUtils {
     }
 
     @BindingAdapter({"adapter"})
-    public static void addSearchProductItems(RecyclerView recyclerView, List<SearchProductResponse.Product> response) {
+    public static void addSearchProductItems(RecyclerView recyclerView, List<SearchProductResponse.Result> response) {
         SearchProductListAdapter adapter = (SearchProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();

@@ -13,10 +13,10 @@ import java.util.List;
 
 public class SearchProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private List<SearchProductResponse.Product> item_list;
+    private List<SearchProductResponse.Result> item_list;
     private ProductsAdapterListener mProductsAdapterListener;
 
-    public SearchProductListAdapter(List<SearchProductResponse.Product> item_list) {
+    public SearchProductListAdapter(List<SearchProductResponse.Result> item_list) {
         this.item_list = item_list;
     }
 
@@ -43,7 +43,7 @@ public class SearchProductListAdapter extends RecyclerView.Adapter<BaseViewHolde
         item_list.clear();
     }
 
-    public void addItems(List<SearchProductResponse.Product> blogList) {
+    public void addItems(List<SearchProductResponse.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -55,7 +55,7 @@ public class SearchProductListAdapter extends RecyclerView.Adapter<BaseViewHolde
     public interface ProductsAdapterListener {
         void refresh();
 
-        void onProductItemClick(SearchProductResponse.Product products);
+        void onProductItemClick(SearchProductResponse.Result products);
     }
 
 
@@ -72,7 +72,7 @@ public class SearchProductListAdapter extends RecyclerView.Adapter<BaseViewHolde
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final SearchProductResponse.Product blog = item_list.get(position);
+            final SearchProductResponse.Result blog = item_list.get(position);
             mCategoriesItemViewModel = new SearchProductsItemViewModel(this,blog);
             mListItemCategoriesBinding.setSearchProductsItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
@@ -87,12 +87,12 @@ public class SearchProductListAdapter extends RecyclerView.Adapter<BaseViewHolde
         }
 
         @Override
-        public void subscribeProduct(SearchProductResponse.Product products) {
+        public void subscribeProduct(SearchProductResponse.Result products) {
             //mProductsAdapterListener.onProductItemClick(products);
         }
 
         @Override
-        public void onProductItemClick(SearchProductResponse.Product products) {
+        public void onProductItemClick(SearchProductResponse.Result products) {
             mProductsAdapterListener.onProductItemClick(products);
         }
     }
