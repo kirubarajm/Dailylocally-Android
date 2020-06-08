@@ -350,21 +350,24 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
         List<CartRequest.Orderitem> results = new ArrayList<>();
-        CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
+
         CartRequest cartRequestPojo = new CartRequest();
 
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequest();
-        if (cartRequestPojo.getOrderitems() != null) {
+       /* if (cartRequestPojo.getOrderitems() != null) {
             results.clear();
-            results.addAll(cartRequestPojo.getOrderitems());
-        }
+           // results.addAll(cartRequestPojo.getOrderitems());
+        }*/
         if (cartRequestPojo.getOrderitems() != null) {
             int totalSize = cartRequestPojo.getOrderitems().size();
             if (totalSize != 0) {
                 for (int i = 0; i < totalSize; i++) {
+
+                    CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
+
                     if (cartRequestPojo.getOrderitems().get(i).getDayorderdate() != null) {
                         //avilable date format
                         SimpleDateFormat availableDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -401,7 +404,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     cartRequestPojoResult.setPid(cartRequestPojo.getOrderitems().get(i).getPid());
                     cartRequestPojoResult.setQuantity(cartRequestPojo.getOrderitems().get(i).getQuantity());
                     cartRequestPojoResult.setPrice(String.valueOf(cartRequestPojo.getOrderitems().get(i).getPid()));
-                    results.set(i, cartRequestPojoResult);
+                   // results.set(i, cartRequestPojoResult);
+                    results.add(cartRequestPojoResult);
                 }
             }
         }

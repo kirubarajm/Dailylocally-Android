@@ -63,9 +63,9 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    if (getNavigator()!=null) {
+                   /* if (getNavigator()!=null) {
                         getNavigator().failure("Failed");
-                    }
+                    }*/
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
