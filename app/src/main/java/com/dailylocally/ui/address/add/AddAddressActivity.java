@@ -133,6 +133,15 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     @Override
+    public boolean validationForAddress() {
+        if (mActivityAddAddressBinding.location.getText().toString().equals("")){
+            Toast.makeText(this, "Enter Address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public void myLocationn() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_ADDRESS_CURRENT_LOCATION);
         turnOnGps();
@@ -215,6 +224,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void getAddressFailure() {
 
+    }
+
+    @Override
+    public void googleAddressClick() {
+        mActivityAddAddressBinding.location.setText(mAddAddressViewModel.locationAddress.get());
     }
 
     @Override
