@@ -40,8 +40,8 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     private MutableLiveData<List<QuickSearchResponse.Datum>> searchItemsLiveData;
     public ObservableList<QuickSearchResponse.Datum> searchItemViewModels = new ObservableArrayList<>();
 
-    private MutableLiveData<List<SearchProductResponse.Product>> searchProductItemsLiveData;
-    public ObservableList<SearchProductResponse.Product> searchProductItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<SearchProductResponse.Result>> searchProductItemsLiveData;
+    public ObservableList<SearchProductResponse.Result> searchProductItemViewModels = new ObservableArrayList<>();
     String strLat="",strLng="",userId="";
 
     public SearchViewModel(DataManager dataManager) {
@@ -68,15 +68,15 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         }
     }
 
-    public MutableLiveData<List<SearchProductResponse.Product>> getSearchProductItemsLiveData() {
+    public MutableLiveData<List<SearchProductResponse.Result>> getSearchProductItemsLiveData() {
         return searchProductItemsLiveData;
     }
 
-    public ObservableList<SearchProductResponse.Product> getSearchProductItemViewModels() {
+    public ObservableList<SearchProductResponse.Result> getSearchProductItemViewModels() {
         return searchProductItemViewModels;
     }
 
-    public void addSearchProductItemsToList(List<SearchProductResponse.Product> ordersItems) {
+    public void addSearchProductItemsToList(List<SearchProductResponse.Result> ordersItems) {
         if (ordersItems != null) {
             searchProductItemViewModels.clear();
             searchProductItemViewModels.addAll(ordersItems);
@@ -88,19 +88,27 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.QUICK_SEARCH,
-                    QuickSearchResponse.class, new QuickSearchRequest(searchWord,"1","13.050675","80.2341"),
+                    QuickSearchResponse.class, new QuickSearchRequest(searchWord,userId,strLat,strLng),
                     new Response.Listener<QuickSearchResponse>() {
                         @Override
                         public void onResponse(QuickSearchResponse response) {
-                            if (response.getStatus()){
-                                if (getNavigator()!=null){
-                                    getNavigator().quickSearchSuccess();
-                                }
-                                /*if (response.getData()!=null && response.getData().size()>0) {*/
+                            if (response.getStatus()) {
+                                if (response.getData() != null && response.getData().size() > 0) {
                                     searchItemsLiveData.setValue(response.getData());
-                                /*}*/
+                                    if (getNavigator() != null) {
+                                        getNavigator().quickSearchSuccess();
+                                    }
+                                } else {
+                                    searchItemsLiveData.setValue(response.getData());
+                                    if (getNavigator() != null) {
+                                        getNavigator().searchNotFound();
+                                    }
+                                }
                             }else {
-
+                                searchItemsLiveData.setValue(response.getData());
+                                if (getNavigator() != null) {
+                                    getNavigator().searchNotFound();
+                                }
                             }
                             setIsLoading(false);
                         }
@@ -124,13 +132,13 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SEARCH_PRODUCT,
-                    SearchProductResponse.class, new SearchProductRequest("12.9760","80.2212",type,id,userId),
+                    SearchProductResponse.class, new SearchProductRequest(strLat,strLng,type,id,userId,"product"),
                     new Response.Listener<SearchProductResponse>() {
                         @Override
                         public void onResponse(SearchProductResponse response) {
                             if (response.getStatus()){
-                                if (response.getProduct()!=null && response.getProduct().size()>0) {
-                                    searchProductItemsLiveData.setValue(response.getProduct());
+                                if (response.getResult()!=null && response.getResult().size()>0) {
+                                    searchProductItemsLiveData.setValue(response.getResult());
                                 }
                                 if (getNavigator()!=null){
                                     getNavigator().suggestionProductSuccess();

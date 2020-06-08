@@ -19,13 +19,17 @@ public class SearchProductRequest {
     @SerializedName("userid")
     @Expose
     public String userid;
+    @SerializedName("search")
+    @Expose
+    public String search;
 
 
-    public SearchProductRequest(String lat, String lon, String type, String id, String userid) {
+    public SearchProductRequest(String lat, String lon, String type, String id, String userid,String search) {
         this.lat = lat;
         this.lon = lon;
         this.type = type;
         this.id = id;
         this.userid = userid;
+        this.search = search;
     }
 }
