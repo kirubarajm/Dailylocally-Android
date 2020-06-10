@@ -24,6 +24,8 @@ public interface AddAddressNavigator {
 
     void emptyFields();
 
+    boolean validationForAddress();
+
     void myLocationn();
 
     void showToast(String msg);
@@ -35,5 +37,7 @@ public interface AddAddressNavigator {
     void getAddressSuccess(UserAddressResponse.Result result);
 
     void getAddressFailure();
+
+    void googleAddressClick();
 
 }

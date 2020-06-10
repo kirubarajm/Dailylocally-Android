@@ -169,49 +169,49 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     public void saveAddress(String locationAddress, String house, String area, String landmark/*, String title*/) {
 
-
-        new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_SAVE);
-
-
-        if (locationAddress.equals("")) {
-
-        }
-
-        if (house.equals("")) {
+        if (getNavigator().validationForAddress()) {
+            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_SAVE);
 
 
-        }
+            if (locationAddress.equals("")) {
 
-        if (area.equals("")) {
+            }
 
-        }
-
-        if (landmark.equals("")) {
-
-        }
-        if (house.equals("")) {
-
-        }
-
-        if (!locationAddress.equals("") && !area.equals("") && !house.equals("")) {
+            if (house.equals("")) {
 
 
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+            }
 
-            //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+            if (area.equals("")) {
+
+            }
+
+            if (landmark.equals("")) {
+
+            }
+            if (house.equals("")) {
+
+            }
+
+            if (!locationAddress.equals("") && !area.equals("") && !house.equals("") && !landmark.equals("")) {
 
 
-            if (request == null) request = new AddressRequestPojo();
+                if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+                //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
 
-            request.setAddress(locationAddress);
-            request.setFlatno(house);
-            request.setLocality(area);
-            request.setLandmark(landmark);
+                if (request == null) request = new AddressRequestPojo();
 
-            request.setAddressTitle("Home");
-            request.setAddressType(1);
-            request.setAid(aId.get());
+
+                request.setAddress(locationAddress);
+                request.setFlatno(house);
+                request.setLocality(area);
+                request.setLandmark(landmark);
+
+                request.setAddressTitle("Home");
+                request.setAddressType(1);
+                request.setAid(aId.get());
             /*if (typeHome.get()) {
                 request.setAddressTitle("Home");
                 request.setAddressType(1);
@@ -235,40 +235,40 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 return;
             }*/
 
-            if (request == null) request = new AddressRequestPojo();
-            request.setUserid(getDataManager().getCurrentUserId());
+                if (request == null) request = new AddressRequestPojo();
+                request.setUserid(getDataManager().getCurrentUserId());
 
-            try {
-                setIsLoading(true);
-                int method = 0;
-                if (!SAVEcLICKED.get()) {
-                    if (flagAddressEdit.get()){
-                        method = Request.Method.PUT;
-                    }else {
-                        method = Request.Method.POST;
-                    }
-                    GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, AddressResponse.class, request,
-                            new Response.Listener<AddressResponse>() {
-                        @Override
-                        public void onResponse(AddressResponse response) {
-                            try {
-                            if (response.getStatus()) {
-                                SAVEcLICKED.set(true);
-                                getDataManager().setUserAddress(true);
-                                if (getNavigator() != null)
-                                    getNavigator().showToast(response.getMessage());
+                try {
+                    setIsLoading(true);
+                    int method = 0;
+                    if (!SAVEcLICKED.get()) {
+                        if (flagAddressEdit.get()) {
+                            method = Request.Method.PUT;
+                        } else {
+                            method = Request.Method.POST;
+                        }
+                        GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, AddressResponse.class, request,
+                                new Response.Listener<AddressResponse>() {
+                                    @Override
+                                    public void onResponse(AddressResponse response) {
+                                        try {
+                                            if (response.getStatus()) {
+                                                SAVEcLICKED.set(true);
+                                                getDataManager().setUserAddress(true);
+                                                if (getNavigator() != null)
+                                                    getNavigator().showToast(response.getMessage());
 
-                                if (response.getAid() != null) {
-                                    getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), response.getAid());
-                                    getDataManager().setCurrentAddressTitle(request.getAddressTitle());
-                                    getDataManager().setCurrentLat(request.getLat());
-                                    getDataManager().setCurrentLng(request.getLon());
-                                    getDataManager().setCurrentAddress(request.getAddress());
-                                    getDataManager().setCurrentAddressArea(request.getLocality());
-                                    getDataManager().setAddressId(response.getAid());
-                                    defaultAddress(response.getAid());
-                                    if (getNavigator() != null)
-                                        getNavigator().addressSaved();
+                                                if (response.getAid() != null) {
+                                                    getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), response.getAid());
+                                                    getDataManager().setCurrentAddressTitle(request.getAddressTitle());
+                                                    getDataManager().setCurrentLat(request.getLat());
+                                                    getDataManager().setCurrentLng(request.getLon());
+                                                    getDataManager().setCurrentAddress(request.getAddress());
+                                                    getDataManager().setCurrentAddressArea(request.getLocality());
+                                                    getDataManager().setAddressId(response.getAid());
+                                                    defaultAddress(response.getAid());
+                                                    if (getNavigator() != null)
+                                                        getNavigator().addressSaved();
 
 
                            /* Gson sGson = new GsonBuilder().create();
@@ -281,37 +281,38 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                             Gson gson = new Gson();
                             String json = gson.toJson(filterRequestPojo);
                             getDataManager().setFilterSort(json);*/
-                                }
+                                                }
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                SAVEcLICKED.set(true);
+                                getDataManager().setUserAddress(false);
                             }
-                            }catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            SAVEcLICKED.set(true);
-                            getDataManager().setUserAddress(false);
-                        }
-                    }, AppConstants.API_VERSION_ONE);
+                        }, AppConstants.API_VERSION_ONE);
 
-                    DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+                        DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+                    }
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                } catch (Exception ee) {
+
+                    ee.printStackTrace();
+
                 }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (Exception ee) {
 
-                ee.printStackTrace();
+
+            } else {
+                if (getNavigator() != null)
+                    getNavigator().emptyFields();
 
             }
 
-
-        } else {
-            if (getNavigator() != null)
-                getNavigator().emptyFields();
-
         }
-
     }
 
 
@@ -396,5 +397,10 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
         }
     }
 
+    public void locationClick(){
+        if (getNavigator()!=null){
+            getNavigator().googleAddressClick();
+        }
+    }
 
 }

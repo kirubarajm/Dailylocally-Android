@@ -182,22 +182,27 @@
                         android:textSize="14sp"
                         android:visibility="visible" />
 
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_below="@+id/text_input_location"
+                        android:padding="5dp"
+                        android:onClick="@{()->addAddressViewModel.locationClick()}"
+                        android:text="Are you sure, you are in this location?"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/location"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_location"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/location_area"
-                            android:inputType="text"
-                            android:text="@{addAddressViewModel.locationAddress}"
-                            android:textSize="12sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="wrap_content">
 
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/location"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/location_area"
+                                android:inputType="text"
+                                android:textSize="12sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -235,7 +240,6 @@
                                 android:text="@{addAddressViewModel.area}"
                                 android:textSize="12sp" />
                         </com.google.android.material.textfield.TextInputLayout>
-
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"

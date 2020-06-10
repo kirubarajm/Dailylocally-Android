@@ -333,7 +333,7 @@
     <string name="location_area">Location/Area*</string>
     <string name="house_flat_no">House/Flat.No*</string>
     <string name="area">Area*</string>
-    <string name="landmark">Landmark</string>
+    <string name="landmark">Landmark*</string>
     <string name="save">Save</string>
 
     <string name="fields_are_mandatory">* Fields are mandatory</string>
