@@ -39,8 +39,8 @@ android {
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
-
-            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:7000"'
+            buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
+           /* buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:7000"'*/
             // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:7000"'
 
             minifyEnabled false
