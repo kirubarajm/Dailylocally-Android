@@ -110,6 +110,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                     @Override
                     public void onResponse(JSONObject homepageResponse) {
 
+                        try {
+
                         HomepageResponse response;
                         Gson sGson = new GsonBuilder().create();
                         response = sGson.fromJson(homepageResponse.toString(), HomepageResponse.class);
@@ -153,10 +155,11 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                                 getNavigator().dataLoaded();
 
                         }
-
+                        }catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
                     }
-
-
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {

@@ -184,12 +184,17 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 int type = Integer.parseInt(result.getType());
                 if (type== AppConstants.SEARCH_CATEGORY){
                     Intent intent = CategoryL1Activity.newIntent(getContext());
+                    intent.putExtra("catid",String.valueOf(result.getId()));
                     startActivity(intent);
                 } else if (type== AppConstants.SEARCH_L1_CATEGORY){
                     Intent intent = CategoryL2Activity.newIntent(getContext());
+                    intent.putExtra("catid",String.valueOf(result.getId()));
+                    intent.putExtra("scl1id",String.valueOf("0"));
                     startActivity(intent);
                 } else if (type== AppConstants.SEARCH_L2_CATEGORY){
                     Intent intent = CategoryL2Activity.newIntent(getContext());
+                    intent.putExtra("catid",String.valueOf(result.getId()));
+                    intent.putExtra("scl1id",String.valueOf("0"));
                     startActivity(intent);
                 } else if (type== AppConstants.SEARCH_PRODUCT){
                     mSearchViewModel.SearchProduct(result.getType(),String.valueOf(result.getId()));

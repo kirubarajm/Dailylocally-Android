@@ -211,6 +211,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 mActivityAddAddressBinding.house.setText(result.getFlatno());
                 mActivityAddAddressBinding.area.setText(result.getLocality());
                 mActivityAddAddressBinding.landmark.setText(result.getLandmark());
+                mActivityAddAddressBinding.location.setText(result.getAddress());
 
                 LatLng latLng = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
