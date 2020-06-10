@@ -48,6 +48,17 @@ public class QuickSearchResponse {
         @Expose
         public Integer id;
 
+  @SerializedName("id1")
+        @Expose
+        public Integer id1;
+
+        public Integer getId1() {
+            return id1;
+        }
+
+        public void setId1(Integer id1) {
+            this.id1 = id1;
+        }
 
         public String getName() {
             return name;
