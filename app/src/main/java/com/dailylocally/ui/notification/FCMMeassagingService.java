@@ -22,7 +22,16 @@ import com.android.volley.VolleyError;
 import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
+import com.dailylocally.ui.account.MyAccountFragment;
+import com.dailylocally.ui.account.referrals.ReferralsActivity;
+import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.calendarView.CalendarActivity;
+import com.dailylocally.ui.category.l1.CategoryL1Activity;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.signup.SignUpActivity;
+import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.ui.signup.registration.TokenRequest;
 import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -135,32 +144,44 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         if (pageId == null) pageId = "0";
 
         switch (pageId) {
+            case "1":
+                intent = new Intent(this, SplashActivity.class);
+                break;
             case "2":
+                intent = new Intent(this, SignUpActivity.class);
+                break;
             case "3":
+                intent = new Intent(this, RegistrationActivity.class);
+                break;
             case "4":
+                intent = new Intent(this, AddAddressActivity.class);
+                break;
             case "5":
-            case "6":
-                //intent = new Intent(this, OrderTrackingActivity.class);
-                break;
-            case "7":
-                //intent = new Intent(this, OrderHistoryActivity.class);
-                break;
-            case "9":
-                //intent = new Intent(this, RepliesActivity.class);
-                //intent.putExtra("notification", true);
-                break;
-            case "11":
-                AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
-                appPreferencesHelper.setCartDetails(null);
                 intent = new Intent(this, MainActivity.class);
                 break;
+            case "6":
+                /*HomeFragment*/
+                break;
+            case "7":
+                intent = new Intent(this, ReferralsActivity.class);
+                break;
             case "8":
-            case "1":
+                /*MyAccountFragment*/
+                break;
+            case "9":
+                intent = new Intent(this, CalendarActivity.class);
+                break;
+            case "11":
+                intent = new Intent(this, CategoryL1Activity.class);
+                break;
+                case "12":
+                intent = new Intent(this, CategoryL2Activity.class);
+                break;
+
             default:
                 intent = new Intent(this, SplashActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
-
 
         intent.putExtras(bundle);
 

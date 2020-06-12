@@ -27,6 +27,7 @@ import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import javax.inject.Inject;
 
@@ -133,7 +134,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         mSplashViewModel.setNavigator(this);
 
         prefManager = new PrefManager(this);
-
 
         /*final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(SplashActivity.this).build();
         referrerClient.startConnection(new InstallReferrerStateListener() {

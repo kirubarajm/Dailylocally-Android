@@ -5,30 +5,39 @@
     style="?styleCaldroidViewLayout"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/calendar_title_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/calendar_left_arrow"
-            style="?styleCaldroidLeftArrow" />
+            android:padding="5dp"
+            android:background="@drawable/ic_arrow_back_black_24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/calendar_left_arrow" />
 
         <TextView
-            android:id="@+id/calendar_month_year_textview"
-            style="?styleCaldroidMonthName"/>
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/calendar_month_year_textview" />
 
         <Button
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+            android:scaleX="-1"
+            android:background="@drawable/ic_arrow_back_black_24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/calendar_right_arrow"
-            style="?styleCaldroidRightArrow" />
-    </LinearLayout>
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
     <GridView
         android:id="@+id/weekday_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
         android:numColumns="7"
         android:stretchMode="columnWidth" >
     </GridView>

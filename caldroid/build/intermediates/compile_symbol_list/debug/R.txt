@@ -85,6 +85,7 @@ int drawable cell_bg 0x0
 int drawable cell_bg_dark 0x0
 int drawable disable_cell 0x0
 int drawable disabled_cell_dark 0x0
+int drawable ic_arrow_back_black_24dp 0x0
 int drawable left_arrow 0x0
 int drawable notification_action_background 0x0
 int drawable notification_bg 0x0
@@ -102,6 +103,7 @@ int drawable red_border 0x0
 int drawable red_border_dark 0x0
 int drawable red_border_gray_bg 0x0
 int drawable right_arrow 0x0
+int drawable rounded_corners 0x0
 int id action0 0x0
 int id action_container 0x0
 int id action_divider 0x0
