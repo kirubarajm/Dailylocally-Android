@@ -26,14 +26,25 @@ import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
+import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.category.l2.products.ProductsFragment;
+import com.dailylocally.ui.favorites.FavoritesActivity;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
+import com.dailylocally.ui.search.SearchFragment;
 import com.dailylocally.ui.signup.SignUpActivity;
+import com.dailylocally.ui.signup.faqs.FaqActivity;
+import com.dailylocally.ui.signup.opt.OtpActivity;
+import com.dailylocally.ui.signup.privacy.PrivacyActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.ui.signup.registration.TokenRequest;
+import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.ui.splash.SplashActivity;
+import com.dailylocally.ui.subscription.SubscriptionActivity;
+import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -144,38 +155,76 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         if (pageId == null) pageId = "0";
 
         switch (pageId) {
-            case "1":
+            case AppConstants.NOTIFY_SPLASH_ACTV:
                 intent = new Intent(this, SplashActivity.class);
                 break;
-            case "2":
+            case AppConstants.NOTIFY_SIGN_UP_ACTV:
                 intent = new Intent(this, SignUpActivity.class);
                 break;
-            case "3":
+            case AppConstants.NOTIFY_REGISTRATION_ACTV:
                 intent = new Intent(this, RegistrationActivity.class);
                 break;
-            case "4":
+            case AppConstants.NOTIFY_ADDRESS_ACTV:
                 intent = new Intent(this, AddAddressActivity.class);
                 break;
-            case "5":
+            case AppConstants.NOTIFY_MAIN_ACTV:
                 intent = new Intent(this, MainActivity.class);
                 break;
-            case "6":
+            case AppConstants.NOTIFY_HOME_FRAG:
                 /*HomeFragment*/
+                intent = new Intent(this, MainActivity.class);
                 break;
-            case "7":
+            case AppConstants.NOTIFY_REFERRAL_ACTV:
                 intent = new Intent(this, ReferralsActivity.class);
                 break;
-            case "8":
+            case AppConstants.NOTIFY_MYACCOUNT_FRAG:
                 /*MyAccountFragment*/
+                intent = new Intent(this, MainActivity.class);
                 break;
-            case "9":
+            case AppConstants.NOTIFY_CALENDAR_ACTV:
                 intent = new Intent(this, CalendarActivity.class);
                 break;
-            case "11":
+            case AppConstants.NOTIFY_CART_FRAG:
+                //intent = new Intent(this, CartFragment.class);
+                intent = new Intent(this, MainActivity.class);
+                break;
+                case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
                 intent = new Intent(this, CategoryL1Activity.class);
                 break;
-                case "12":
+            case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
                 intent = new Intent(this, CategoryL2Activity.class);
+                break;
+            case AppConstants.NOTIFY_PRODUCTS_FRAG:
+                //intent = new Intent(this, ProductsFragment.class);l2
+                intent = new Intent(this, CategoryL2Activity.class);
+                break;
+            case AppConstants.NOTIFY_FAVORITES_ACTV:
+                intent = new Intent(this, FavoritesActivity.class);
+                break;
+            case AppConstants.NOTIFY_ORDER_PLACED_ACTV:
+                intent = new Intent(this, OrderPlacedActivity.class);
+                break;
+            case AppConstants.NOTIFY_SEARCH_FRAG:
+                //intent = new Intent(this, SearchFragment.class);
+                intent = new Intent(this, MainActivity.class);
+                break;
+            case AppConstants.NOTIFY_FAQ_ACTV:
+                intent = new Intent(this, FaqActivity.class);
+                break;
+            case AppConstants.NOTIFY_OTP_ACTV:
+                intent = new Intent(this, OtpActivity.class);
+                break;
+            case AppConstants.NOTIFY_PRIVACY_ACTV:
+                intent = new Intent(this, PrivacyActivity.class);
+                break;
+            case AppConstants.NOTIFY_TERMS_AND_CONDITION_ACTV:
+                intent = new Intent(this, TermsAndConditionActivity.class);
+                break;
+            case AppConstants.NOTIFY_SUBSCRIPTION_ACTV:
+                intent = new Intent(this, SubscriptionActivity.class);
+                break;
+            case AppConstants.NOTIFY_UPDATE_ACTV:
+                intent = new Intent(this, UpdateActivity.class);
                 break;
 
             default:
