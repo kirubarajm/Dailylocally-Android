@@ -40,6 +40,7 @@ import com.dailylocally.BuildConfig;
 import com.dailylocally.R;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -159,8 +160,11 @@ public class DailylocallyApp extends Application implements HasActivityInjector 
         FacebookSdk.fullyInitialize();
         AppEventsLogger.activateApp(this);
 
-       /* if (!BuildConfig.ENABLE_DEBUG)
-            Crashlytics.getInstance();*/
+        if (!BuildConfig.ENABLE_DEBUG) {
+            FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
+            crashlytics.setCrashlyticsCollectionEnabled(true);
+        }
+
 
 
 

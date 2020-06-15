@@ -17,15 +17,15 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".ui.main.MainActivity">
-
-        </activity>
-        <activity android:name=".utilities.nointernet.InternetErrorFragment" />
-        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".utilities.nointernet.InternetErrorFragment" />
+        <activity android:name=".ui.splash.SplashActivity">
 
         </activity>
         <activity android:name=".ui.onboarding.OnBoardingActivity" />
@@ -94,6 +94,21 @@
                           android:name="com.razorpay.ApiKey"
                           android:value="rzp_test_8ZBt2J9hAsxH9Q"
                           />
+
+        <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <receiver
+            android:name="com.dailylocally.ui.notification.FirebaseDataReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </receiver>
+
 
     </application>
 

@@ -101,7 +101,9 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:background">@drawable/right_arrow</item>
     </style>
-    <style name="CaldroidDefaultSquareCell" parent="CaldroidDefaultCell"/>
+    <style name="CaldroidDefaultSquareCell" parent="CaldroidDefaultCell">
+        <item name="android:textSize">14sp</item>
+    </style>
     <style name="CaldroidDefaultWeekday">
         <item name="android:textColor">@color/caldroid_middle_gray</item>
         <item name="android:gravity">center</item>

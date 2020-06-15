@@ -627,4 +627,30 @@ public class AppConstants {
   public static final String PRODUCT_FEEDBACK = "prod_feedback";
   public static final String DELIVERY_FEEDBACK = "del_feedback";
 
+
+
+  //////Notification screens
+  public static final String NOTIFY_SPLASH_ACTV = "1";
+  public static final String NOTIFY_SIGN_UP_ACTV = "2";
+  public static final String NOTIFY_REGISTRATION_ACTV = "3";
+  public static final String NOTIFY_ADDRESS_ACTV = "4";
+  public static final String NOTIFY_MAIN_ACTV = "5";
+  public static final String NOTIFY_HOME_FRAG = "6";
+  public static final String NOTIFY_REFERRAL_ACTV = "7";
+  public static final String NOTIFY_MYACCOUNT_FRAG = "8";
+  public static final String NOTIFY_CALENDAR_ACTV = "9";
+  public static final String NOTIFY_CART_FRAG = "10";
+  public static final String NOTIFY_CATEGORY_L1_ACTV = "11";
+  public static final String NOTIFY_CATEGORY_L2_ACTV = "12";
+  public static final String NOTIFY_PRODUCTS_FRAG = "13";
+  public static final String NOTIFY_FAVORITES_ACTV = "14";
+  public static final String NOTIFY_ORDER_PLACED_ACTV = "15";
+  public static final String NOTIFY_SEARCH_FRAG = "16";
+  public static final String NOTIFY_FAQ_ACTV = "17";
+  public static final String NOTIFY_OTP_ACTV = "18";
+  public static final String NOTIFY_PRIVACY_ACTV = "19";
+  public static final String NOTIFY_TERMS_AND_CONDITION_ACTV = "20";
+  public static final String NOTIFY_SUBSCRIPTION_ACTV = "21";
+  public static final String NOTIFY_UPDATE_ACTV = "22";
+
 }

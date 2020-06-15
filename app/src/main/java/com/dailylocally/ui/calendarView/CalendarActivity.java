@@ -160,9 +160,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
             @Override
             public void onCaldroidViewCreated() {
-                if (caldroidFragment.getLeftArrowButton() != null) {
 
-                }
             }
         };
 

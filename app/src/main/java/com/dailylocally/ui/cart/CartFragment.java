@@ -20,10 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.data.prefs.AppPreferencesHelper;
+
 import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.address.add.AddAddressActivity;
-import com.dailylocally.ui.address.edit.EditAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;

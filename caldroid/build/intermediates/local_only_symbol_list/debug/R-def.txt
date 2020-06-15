@@ -33,11 +33,13 @@ drawable cell_bg
 drawable cell_bg_dark
 drawable disable_cell
 drawable disabled_cell_dark
+drawable ic_arrow_back_black_24dp
 drawable left_arrow
 drawable red_border
 drawable red_border_dark
 drawable red_border_gray_bg
 drawable right_arrow
+drawable rounded_corners
 id calendar_gridview
 id calendar_left_arrow
 id calendar_month_year_textview
