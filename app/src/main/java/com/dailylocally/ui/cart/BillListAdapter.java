@@ -12,6 +12,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ListItemCartBillBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 
 
 import java.util.List;
@@ -63,7 +64,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface BilldetailsInfoListener {
 
-        void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView);
+        void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView, ToolTipRelativeLayout relativeLayout);
 
     }
 
@@ -137,7 +138,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(CartResponse.Cartdetail cartdetail) {
-            mBilldetailsInfoListener.infoClick(cartdetail, mListItemLiveProductsBinding.info);
+            mBilldetailsInfoListener.infoClick(cartdetail, mListItemLiveProductsBinding.info,mListItemLiveProductsBinding.activityMainTooltipframelayout);
         }
     }
 }

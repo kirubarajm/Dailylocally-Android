@@ -45,7 +45,7 @@ public class SubscriptionResponse {
 
         @SerializedName("vpid")
         @Expose
-        private Integer pid;
+        private String pid;
         @SerializedName("hsn_code")
         @Expose
         private Object hsnCode;
@@ -110,11 +110,11 @@ public class SubscriptionResponse {
         @Expose
         private Boolean availablity;
 
-        public Integer getPid() {
+        public String getPid() {
             return pid;
         }
 
-        public void setPid(Integer pid) {
+        public void setPid(String pid) {
             this.pid = pid;
         }
 

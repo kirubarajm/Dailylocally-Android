@@ -119,163 +119,186 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             return;
         }
 
-        if (edit) {
 
-            results.clear();
-            getCart();
-            if (cartRequestPojo.getSubscription() != null) {
-                int totalSize = cartRequestPojo.getSubscription().size();
-                if (totalSize != 0) {
-                    for (int i = 0; i < totalSize; i++) {
-                        if (products.getPid().equals(results.get(i).getPid())) {
-                            if (quantity == 0) {
-                                results.remove(i);
-                                break;
-                            } else {
-
-                                cartRequestPojoResult.setStartDate(startDate.get());
-                                cartRequestPojoResult.setPid(products.getPid());
-                                cartRequestPojoResult.setQuantity(quantity);
-                                cartRequestPojoResult.setPlanid(planId);
-                                cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
 
-                                if (monClicked.get()) {
-                                    cartRequestPojoResult.setMon(1);
-                                } else {
-                                    cartRequestPojoResult.setMon(0);
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SUBS_TOTAL_AMOUNT, SubscriptionTotalAmountResponse.class, new SubscriptionTotalAmountRequest(products.getPid(), getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), quantity, planId), new Response.Listener<SubscriptionTotalAmountResponse>() {
+
+            @Override
+            public void onResponse(SubscriptionTotalAmountResponse response) {
+                if (response != null) {
+
+                    if (response.getResult() != null && response.getResult().size() > 0)
+
+                        if (edit) {
+                            results.clear();
+                            getCart();
+                            if (cartRequestPojo.getSubscription() != null) {
+                                int totalSize = cartRequestPojo.getSubscription().size();
+                                if (totalSize != 0) {
+                                    for (int i = 0; i < totalSize; i++) {
+                                        if (products.getPid().equals(results.get(i).getPid())) {
+                                            if (quantity == 0) {
+                                                results.remove(i);
+                                                break;
+                                            } else {
+
+                                                cartRequestPojoResult.setStartDate(startDate.get());
+                                                cartRequestPojoResult.setPid(products.getPid());
+                                                cartRequestPojoResult.setQuantity(quantity);
+                                                cartRequestPojoResult.setPlanid(planId);
+                                                cartRequestPojoResult.setPrice(response.getResult().get(0).getAmount());
+
+
+                                                if (monClicked.get()) {
+                                                    cartRequestPojoResult.setMon(1);
+                                                } else {
+                                                    cartRequestPojoResult.setMon(0);
+                                                }
+
+
+                                                if (tueClicked.get()) {
+                                                    cartRequestPojoResult.setTue(1);
+                                                } else {
+                                                    cartRequestPojoResult.setTue(0);
+                                                }
+
+
+                                                if (wedClicked.get()) {
+                                                    cartRequestPojoResult.setWed(1);
+                                                } else {
+                                                    cartRequestPojoResult.setWed(0);
+                                                }
+
+
+                                                if (thuClicked.get()) {
+                                                    cartRequestPojoResult.setThur(1);
+                                                } else {
+                                                    cartRequestPojoResult.setThur(0);
+                                                }
+
+                                                if (friClicked.get()) {
+                                                    cartRequestPojoResult.setFri(1);
+                                                } else {
+                                                    cartRequestPojoResult.setFri(0);
+                                                }
+
+                                                if (satClicked.get()) {
+                                                    cartRequestPojoResult.setSat(1);
+                                                } else {
+                                                    cartRequestPojoResult.setSat(0);
+                                                }
+
+                                                if (sunClicked.get()) {
+                                                    cartRequestPojoResult.setSun(1);
+                                                } else {
+                                                    cartRequestPojoResult.setSun(0);
+                                                }
+
+
+                                                results.set(i, cartRequestPojoResult);
+
+                                            }
+                                        }
+                                    }
+
                                 }
-
-
-                                if (tueClicked.get()) {
-                                    cartRequestPojoResult.setTue(1);
-                                } else {
-                                    cartRequestPojoResult.setTue(0);
-                                }
-
-
-                                if (wedClicked.get()) {
-                                    cartRequestPojoResult.setWed(1);
-                                } else {
-                                    cartRequestPojoResult.setWed(0);
-                                }
-
-
-                                if (thuClicked.get()) {
-                                    cartRequestPojoResult.setThur(1);
-                                } else {
-                                    cartRequestPojoResult.setThur(0);
-                                }
-
-                                if (friClicked.get()) {
-                                    cartRequestPojoResult.setFri(1);
-                                } else {
-                                    cartRequestPojoResult.setFri(0);
-                                }
-
-                                if (satClicked.get()) {
-                                    cartRequestPojoResult.setSat(1);
-                                } else {
-                                    cartRequestPojoResult.setSat(0);
-                                }
-
-                                if (sunClicked.get()) {
-                                    cartRequestPojoResult.setSun(1);
-                                } else {
-                                    cartRequestPojoResult.setSun(0);
-                                }
-
-
-                                results.set(i, cartRequestPojoResult);
 
                             }
+
+
+                            if (results.size() == 0) {
+                                saveCart(null);
+
+
+                            } else {
+                                cartRequestPojo.setSubscription(results);
+                                saveCart(cartRequestPojo);
+                            }
+
+                            if (quantity == 0) {
+                                isAddClicked.set(false);
+                            }
+
+
+                            getNavigator().goBack();
+
+                        } else {
+
+                            getCart();
+
+                            cartRequestPojoResult.setStartDate(startDate.get());
+                            cartRequestPojoResult.setPid(products.getPid());
+                            cartRequestPojoResult.setQuantity(quantity);
+                            cartRequestPojoResult.setPlanid(planId);
+                            cartRequestPojoResult.setPrice(response.getResult().get(0).getAmount());
+
+                            if (monClicked.get()) {
+                                cartRequestPojoResult.setMon(1);
+                            } else {
+                                cartRequestPojoResult.setMon(0);
+                            }
+
+
+                            if (tueClicked.get()) {
+                                cartRequestPojoResult.setTue(1);
+                            } else {
+                                cartRequestPojoResult.setTue(0);
+                            }
+
+
+                            if (wedClicked.get()) {
+                                cartRequestPojoResult.setWed(1);
+                            } else {
+                                cartRequestPojoResult.setWed(0);
+                            }
+
+
+                            if (thuClicked.get()) {
+                                cartRequestPojoResult.setThur(1);
+                            } else {
+                                cartRequestPojoResult.setThur(0);
+                            }
+
+                            if (friClicked.get()) {
+                                cartRequestPojoResult.setFri(1);
+                            } else {
+                                cartRequestPojoResult.setFri(0);
+                            }
+
+                            if (satClicked.get()) {
+                                cartRequestPojoResult.setSat(1);
+                            } else {
+                                cartRequestPojoResult.setSat(0);
+                            }
+
+                            if (sunClicked.get()) {
+                                cartRequestPojoResult.setSun(1);
+                            } else {
+                                cartRequestPojoResult.setSun(0);
+                            }
+
+
+                            results.add(cartRequestPojoResult);
+                            cartRequestPojo.setSubscription(results);
+                            saveCart(cartRequestPojo);
+
+
+                            getNavigator().goBack();
                         }
-                    }
 
                 }
 
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
-
-            if (results.size() == 0) {
-                saveCart(null);
-
-
-            } else {
-                cartRequestPojo.setSubscription(results);
-                saveCart(cartRequestPojo);
             }
+        }, AppConstants.API_VERSION_ONE);
+        DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-            if (quantity == 0) {
-                isAddClicked.set(false);
-            }
-
-
-            getNavigator().goBack();
-
-        } else {
-
-            getCart();
-
-            cartRequestPojoResult.setStartDate(startDate.get());
-            cartRequestPojoResult.setPid(products.getPid());
-            cartRequestPojoResult.setQuantity(quantity);
-            cartRequestPojoResult.setPlanid(planId);
-            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
-
-            if (monClicked.get()) {
-                cartRequestPojoResult.setMon(1);
-            } else {
-                cartRequestPojoResult.setMon(0);
-            }
-
-
-            if (tueClicked.get()) {
-                cartRequestPojoResult.setTue(1);
-            } else {
-                cartRequestPojoResult.setTue(0);
-            }
-
-
-            if (wedClicked.get()) {
-                cartRequestPojoResult.setWed(1);
-            } else {
-                cartRequestPojoResult.setWed(0);
-            }
-
-
-            if (thuClicked.get()) {
-                cartRequestPojoResult.setThur(1);
-            } else {
-                cartRequestPojoResult.setThur(0);
-            }
-
-            if (friClicked.get()) {
-                cartRequestPojoResult.setFri(1);
-            } else {
-                cartRequestPojoResult.setFri(0);
-            }
-
-            if (satClicked.get()) {
-                cartRequestPojoResult.setSat(1);
-            } else {
-                cartRequestPojoResult.setSat(0);
-            }
-
-            if (sunClicked.get()) {
-                cartRequestPojoResult.setSun(1);
-            } else {
-                cartRequestPojoResult.setSun(0);
-            }
-
-
-            results.add(cartRequestPojoResult);
-            cartRequestPojo.setSubscription(results);
-            saveCart(cartRequestPojo);
-
-
-            getNavigator().goBack();
-        }
 
     }
 
@@ -586,6 +609,12 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                         products = response.getResult().get(0);
 
+                        if (response.getSubscriptionPlan() != null && response.getSubscriptionPlan().size() > 0) {
+                            mSubscriptionResponse = response;
+                            if (getNavigator() != null)
+                                getNavigator().plans(response);
+
+                        }
 
                         results.clear();
                         getCart();
@@ -600,6 +629,9 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                                         sQuantity.set(String.valueOf(results.get(i).getQuantity()));
                                         planId = results.get(i).getPlanid();
                                         startDate.set(results.get(i).getStartDate());
+
+                                        if (getNavigator() != null)
+                                            getNavigator().selectedplan(results.get(i).getPlanid(),response);
 
                                         if (results.get(i).getMon() == 1) {
                                             monClicked.set(true);
@@ -667,12 +699,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                         price.set("INR. " + response.getResult().get(0).getMrp());
 
 
-                        if (response.getSubscriptionPlan() != null && response.getSubscriptionPlan().size() > 0) {
-                            mSubscriptionResponse = response;
-                            if (getNavigator() != null)
-                                getNavigator().plans(response);
 
-                        }
                     }
                 }
 

@@ -178,7 +178,7 @@ public class ProductsResponse {
 
         @SerializedName("subscription")
         @Expose
-        private Integer subscription;
+        private String subscription;
 
         @SerializedName("weight")
         @Expose
@@ -264,11 +264,11 @@ public class ProductsResponse {
             this.scl2Id = scl2Id;
         }
 
-        public Integer getSubscription() {
+        public String getSubscription() {
             return subscription;
         }
 
-        public void setSubscription(Integer subscription) {
+        public void setSubscription(String subscription) {
             this.subscription = subscription;
         }
 

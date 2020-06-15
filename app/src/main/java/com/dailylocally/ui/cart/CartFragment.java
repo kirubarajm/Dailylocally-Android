@@ -31,6 +31,7 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 import com.nhaarman.supertooltips.ToolTipView;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
@@ -376,7 +377,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
 
     @Override
-    public void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView) {
+    public void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView, ToolTipRelativeLayout relativeLayout) {
 
 
         if (!infoClicked) {
@@ -389,8 +390,9 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
                         .withColor(DailylocallyApp.getInstance().getResources().getColor(R.color.light_gray))
                         .withShadow()
                         .withTextColor(Color.BLACK)
-                        .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW);
-                myToolTipView = mActivityCartBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, imageView);
+                        .withAnimationType(ToolTip.AnimationType.NONE);
+                myToolTipView = mActivityCartBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mActivityCartBinding.recyclerviewBill);
+             //   myToolTipView = relativeLayout.showToolTipForView(toolTip,imageView);
                 TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
                 StringBuilder sTitle = new StringBuilder();
                 for (int i = 0; i < cartdetail.getInfodetails().size(); i++) {

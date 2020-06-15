@@ -101,10 +101,10 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <RelativeLayout
+                       <!-- <RelativeLayout
                             android:visibility="@{productsItemViewModel.serviceable?View.VISIBLE:View.GONE}"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent">-->
 
                             <RelativeLayout
                                 android:visibility="@{productsItemViewModel.subscribeAvailable?View.VISIBLE:View.GONE}"
@@ -129,7 +129,7 @@
                                     android:textStyle="bold" />
                             </RelativeLayout>
 
-                        </RelativeLayout>
+                       <!-- </RelativeLayout>-->
 
                     </LinearLayout>
 

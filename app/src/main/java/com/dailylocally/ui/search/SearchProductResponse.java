@@ -97,7 +97,7 @@ public class SearchProductResponse {
 
         @SerializedName("pid")
         @Expose
-        public Integer pid;
+        public String pid;
         @SerializedName("hsn_code")
         @Expose
         public Object hsnCode;
@@ -193,7 +193,7 @@ public class SearchProductResponse {
         public Boolean servicableStatus;
 
 
-        public Integer getPid() {
+        public String getPid() {
             return pid;
         }
 

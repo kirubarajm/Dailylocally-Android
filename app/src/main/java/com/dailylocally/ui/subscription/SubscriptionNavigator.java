@@ -7,5 +7,6 @@ public interface SubscriptionNavigator {
     void goBack();
     void selectDate(String date);
     void plans(SubscriptionResponse subscriptionPlan);
+    void selectedplan(int planid, SubscriptionResponse subscriptionPlan);
 
 }

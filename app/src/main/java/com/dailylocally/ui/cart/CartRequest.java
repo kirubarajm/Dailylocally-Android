@@ -145,7 +145,7 @@ public class CartRequest {
 
         @SerializedName("vpid")
         @Expose
-        private Integer pid;
+        private String pid;
         @SerializedName("quantity")
         @Expose
         private Integer quantity;
@@ -262,11 +262,11 @@ public class CartRequest {
             this.startDate = startDate;
         }
 
-        public Integer getPid() {
+        public String getPid() {
             return pid;
         }
 
-        public void setPid(Integer pid) {
+        public void setPid(String pid) {
             this.pid = pid;
         }
 

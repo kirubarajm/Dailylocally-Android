@@ -46,6 +46,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public final ObservableField<String> unserviceableTitle = new ObservableField<>();
     public final ObservableField<String> unserviceableSubTitle = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
+    public final ObservableBoolean categoryLoading = new ObservableBoolean();
 
 
     public ObservableList<HomepageResponse.Result> categoryList = new ObservableArrayList<>();
@@ -55,7 +56,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public HomeViewModel(DataManager dataManager) {
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
-        fetchCategoryList();
+
+
     }
 
     public MutableLiveData<List<HomepageResponse.Result>> getCategoryListLiveData() {
@@ -80,6 +82,10 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         getNavigator().gotoOrders();
     }
 
+    public void changeAddress() {
+        getNavigator().changeAddress();
+    }
+
     public boolean isAddressAdded() {
 
         return getDataManager().getCurrentLat() != null;
@@ -89,28 +95,29 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public void fetchCategoryList() {
 
 
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-            HomePageRequest homePageRequest = new HomePageRequest();
-            homePageRequest.setUserid(getDataManager().getCurrentUserId());
-            homePageRequest.setLat(getDataManager().getCurrentLat());
-            homePageRequest.setLon(getDataManager().getCurrentLng());
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        HomePageRequest homePageRequest = new HomePageRequest();
+        homePageRequest.setUserid(getDataManager().getCurrentUserId());
+        homePageRequest.setLat(getDataManager().getCurrentLat());
+        homePageRequest.setLon(getDataManager().getCurrentLng());
        /* homePageRequest.setUserid("1");
         homePageRequest.setLat("12.979937");
         homePageRequest.setLon( "80.218418");*/
-            Gson gson = new Gson();
-            String json = gson.toJson(homePageRequest);
-            //  getDataManager().setFilterSort(json);
+        Gson gson = new Gson();
+        String json = gson.toJson(homePageRequest);
+        //  getDataManager().setFilterSort(json);
 
 
-            try {
-                setIsLoading(true);
-                //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
+        try {
+//                setIsLoading(true);
+            categoryLoading.set(true);
+            //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject homepageResponse) {
+                @Override
+                public void onResponse(JSONObject homepageResponse) {
 
-                        try {
+                    try {
 
                         HomepageResponse response;
                         Gson sGson = new GsonBuilder().create();
@@ -155,42 +162,49 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                                 getNavigator().dataLoaded();
 
                         }
-                        }catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
+
+
+                        setIsLoading(false);
+                        categoryLoading.set(false);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //   Log.e("", ""+error.getMessage());
-                        if (getNavigator() != null)
-                            getNavigator().dataLoaded();
-                    }
-                }) {
 
-                    /**
-                     * Passing some request headers
-                     */
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                    }
-                };
-                jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //   Log.e("", ""+error.getMessage());
+                    setIsLoading(false);
+                    categoryLoading.set(false);
+                    if (getNavigator() != null)
+                        getNavigator().dataLoaded();
+                }
+            }) {
 
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (JSONException j) {
-                j.printStackTrace();
-            } catch (Exception ee) {
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                }
+            };
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
-                ee.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (JSONException j) {
+            j.printStackTrace();
+        } catch (Exception ee) {
 
-            }
+            ee.printStackTrace();
+
+        }
 
     }
 

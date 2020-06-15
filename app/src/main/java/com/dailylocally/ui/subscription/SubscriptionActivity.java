@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -122,6 +123,18 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
 
     }
+    private int getIndex(AppCompatSpinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
 
     @Override
     public void plans(SubscriptionResponse subscriptionPlan) {
@@ -139,11 +152,26 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-                if (mSubscriptionViewModel.mSubscriptionResponse != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan() != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().size() > 0)
-                    mSubscriptionViewModel.planId = mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(0).getSpid();
+          if (mSubscriptionViewModel.mSubscriptionResponse != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan() != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().size() > 0)
+               mSubscriptionViewModel.planId = mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(0).getSpid();
             }
         });
 
+
+    }
+
+    @Override
+    public void selectedplan(int planid, SubscriptionResponse subscriptionPlan) {
+
+
+
+        if (subscriptionPlan.getSubscriptionPlan().size()>0)
+            for (int i=0;i<subscriptionPlan.getSubscriptionPlan().size();i++){
+                if (planid==subscriptionPlan.getSubscriptionPlan().get(i).getSpid()){
+                    mActivitySubscriptionBinding.plans.setSelection(i);
+                }
+
+            }
 
     }
 

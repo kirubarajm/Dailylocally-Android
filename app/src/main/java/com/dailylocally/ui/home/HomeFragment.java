@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,15 +15,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentHomeBinding;
+import com.dailylocally.ui.address.add.AddAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
-import com.dailylocally.ui.category.l1.CategoryL1ViewModel;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.search.SearchFragment;
 
 import javax.inject.Inject;
 
-public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> implements HomeNavigator,CategoriesAdapter.CategoriesAdapterListener {
+public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> implements HomeNavigator, CategoriesAdapter.CategoriesAdapterListener {
     @Inject
     CategoriesAdapter categoriesAdapter;
     @Inject
@@ -37,6 +36,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public int getBindingVariable() {
         return BR.homeViewModel;
@@ -55,6 +55,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void handleError(Throwable throwable) {
     }
+
     @Override
     public void dataLoaded() {
 
@@ -65,8 +66,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
                 for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
 
-                    if (position==2||position==5||position==8||position==11){
-                  /*  if  (position % 2 == 0) {*/
+                    if (position == 2 || position == 5 || position == 8 || position == 11) {
+                        /*  if  (position % 2 == 0) {*/
                         return 2;
                     } else {
                         return 1;
@@ -80,14 +81,30 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
         mFragmentHomeBinding.categoryList.setAdapter(categoriesAdapter);
         categoriesAdapter.setListener(this);
+
+        mFragmentHomeBinding.loader.stop();
+    }
+
+    @Override
+    public void dataLoading() {
+
+        mFragmentHomeBinding.loader.start();
+
     }
 
     @Override
     public void gotoOrders() {
 
-        ((MainActivity)getActivity()).openOrders();
+        ((MainActivity) getActivity()).openOrders();
 
 
+    }
+
+    @Override
+    public void changeAddress() {
+        Intent intent = AddAddressActivity.newIntent(getContext());
+        intent.putExtra("edit", "1");
+        startActivity(intent);
     }
 
     @Override
@@ -109,6 +126,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         mHomeViewModel.setNavigator(this);
         subscribeToLiveData();
 
+
+
     }
 
     @Override
@@ -121,6 +140,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
+        mFragmentHomeBinding.loader.start();
+        mHomeViewModel.fetchCategoryList();
     }
 
     @Override
@@ -137,8 +158,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void categoryItemClicked(HomepageResponse.Result result) {
 
-        Intent intent= CategoryL1Activity.newIntent(getBaseActivity());
-        intent.putExtra("catid",String.valueOf(result.getCatid()));
+        Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
+        intent.putExtra("catid", String.valueOf(result.getCatid()));
         startActivity(intent);
 
     }
