@@ -346,6 +346,7 @@ public class AppConstants {
   public static final String URL_GET_START_DATE = URL_SERVER_IP_PORT + "/user/startingdate";/////POST method
   public static final String URL_PROCEED_TO_PAY = URL_SERVER_IP_PORT + "/user/proceedtopay";/////POST method
   public static final String URL_PAYMENT_CONFIRM = URL_SERVER_IP_PORT + "/user/orderplace";/////POST method
+  public static final String URL_SUBS_TOTAL_AMOUNT = URL_SERVER_IP_PORT + "/user/subscribeplan/totalamount";/////POST method
 
 
 

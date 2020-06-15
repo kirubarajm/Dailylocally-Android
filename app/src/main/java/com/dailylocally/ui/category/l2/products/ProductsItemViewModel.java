@@ -38,18 +38,23 @@ public class ProductsItemViewModel {
         this.mListener = mListener;
         this.products = result;
         name.set(result.getProductname());
-        weight.set(result.getWeight()+" "+result.getUnit());
+        weight.set(result.getWeight() + " " + result.getUnit());
         price.set("INR " + result.getMrp());
         image.set(result.getImage());
         serviceable.set(result.getServicableStatus());
+        if (products.getSubscription() != null)
+            if (products.getSubscription().equals("1")) {
+                subscribeAvailable.set(true);
+            } else {
+                subscribeAvailable.set(false);
+            }
 
-       if ( products.getSubscription()==1){
-           subscribeAvailable.set(true);
-       }else {
-           subscribeAvailable.set(false);
-       }
 
 
+
+
+        if (!result.getServicableStatus())
+            subscribeAvailable.set(false);
 
         /*  serviceable.set(true);
         subscribeAvailable.set(true);*/
@@ -219,16 +224,16 @@ public class ProductsItemViewModel {
         if (cartRequestPojo.getSubscription() == null && cartRequestPojo.getOrderitems() == null) {
             saveCart(null);
             mListener.refresh();
-        }else  if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {
+        } else if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {
             if (cartRequestPojo.getSubscription().size() == 0 && cartRequestPojo.getOrderitems().size() == 0) {
                 saveCart(null);
                 mListener.refresh();
-            }else {
+            } else {
                 saveCart(cartRequestPojo);
                 mListener.refresh();
             }
 
-        }else {
+        } else {
             saveCart(cartRequestPojo);
             mListener.refresh();
         }

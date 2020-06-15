@@ -46,6 +46,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public final ObservableField<String> unserviceableTitle = new ObservableField<>();
     public final ObservableField<String> unserviceableSubTitle = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
+    public final ObservableBoolean categoryLoading = new ObservableBoolean();
 
 
     public ObservableList<HomepageResponse.Result> categoryList = new ObservableArrayList<>();
@@ -55,7 +56,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public HomeViewModel(DataManager dataManager) {
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
-        fetchCategoryList();
+
+
     }
 
     public MutableLiveData<List<HomepageResponse.Result>> getCategoryListLiveData() {
@@ -80,6 +82,10 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         getNavigator().gotoOrders();
     }
 
+ public void changeAddress() {
+        getNavigator().changeAddress();
+    }
+
     public boolean isAddressAdded() {
 
         return getDataManager().getCurrentLat() != null;
@@ -102,8 +108,10 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
             //  getDataManager().setFilterSort(json);
 
 
+
             try {
-                setIsLoading(true);
+//                setIsLoading(true);
+                categoryLoading.set(true);
                 //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
 
@@ -154,6 +162,9 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
                         }
 
+
+                        setIsLoading(false);
+                        categoryLoading.set(false);
                     }
 
 
@@ -161,6 +172,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //   Log.e("", ""+error.getMessage());
+                        setIsLoading(false);
+                        categoryLoading.set(false);
                         if (getNavigator() != null)
                             getNavigator().dataLoaded();
                     }
