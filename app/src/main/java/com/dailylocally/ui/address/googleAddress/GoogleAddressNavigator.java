@@ -14,23 +14,32 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.addressNew;
+package com.dailylocally.ui.address.googleAddress;
 
-import com.dailylocally.data.DataManager;
+public interface GoogleAddressNavigator {
 
-import dagger.Module;
-import dagger.Provides;
+    void handleError(Throwable throwable);
 
-/**
- * Created by amitshekhar on 14/09/17.
- */
-@Module
-public class AddressNewModule {
+    void addressSaved();
 
+    void emptyFields();
 
-    @Provides
-    AddressNewViewModel provideAddAddressViewModel(DataManager dataManager) {
-        return new AddressNewViewModel(dataManager);
-    }
+    boolean validationForAddress();
+
+    void myLocationn();
+
+    void showToast(String msg);
+
+    void goBack();
+
+    void searchAddress();
+
+    void getAddressSuccess(UserAddressResponse.Result result);
+
+    void getAddressFailure();
+
+    void googleAddressClick();
+
+    void confirmLocationClick();
 
 }

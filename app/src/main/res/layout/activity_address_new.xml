@@ -9,7 +9,7 @@
 
         <variable
             name="addressNewViewModel"
-            type="com.dailylocally.ui.address.addressNew.AddressNewViewModel" />
+            type="com.dailylocally.ui.address.addAddress.AddressNewViewModel" />
 
     </data>
 
@@ -343,6 +343,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{()->addressNewViewModel.confirmClick()}"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/curve_stroke">

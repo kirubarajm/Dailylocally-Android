@@ -14,31 +14,23 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.addressNew;
-
-import androidx.databinding.ObservableBoolean;
+package com.dailylocally.ui.address.saveAddress;
 
 import com.dailylocally.data.DataManager;
-import com.dailylocally.ui.base.BaseViewModel;
 
-public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
+import dagger.Module;
+import dagger.Provides;
 
-    public final ObservableBoolean apartmentOrIndividual = new ObservableBoolean();
+/**
+ * Created by amitshekhar on 14/09/17.
+ */
+@Module
+public class SaveAddressModule {
 
 
-    public AddressNewViewModel(DataManager dataManager) {
-        super(dataManager);
+    @Provides
+    SaveAddressViewModel provideAddAddressViewModel(DataManager dataManager) {
+        return new SaveAddressViewModel(dataManager);
     }
 
-    public void apartment(){
-        if (getNavigator()!=null){
-            getNavigator().apartmentClick();
-        }
-    }
-
-    public void individual(){
-        if (getNavigator()!=null){
-            getNavigator().individualClick();
-        }
-    }
 }

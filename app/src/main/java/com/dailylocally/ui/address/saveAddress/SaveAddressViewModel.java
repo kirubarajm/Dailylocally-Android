@@ -14,32 +14,17 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.add;
+package com.dailylocally.ui.address.saveAddress;
 
-public interface AddAddressNavigator {
 
-    void handleError(Throwable throwable);
+import com.dailylocally.data.DataManager;
+import com.dailylocally.ui.base.BaseViewModel;
 
-    void addressSaved();
+public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
 
-    void emptyFields();
 
-    boolean validationForAddress();
-
-    void myLocationn();
-
-    void showToast(String msg);
-
-    void goBack();
-
-    void searchAddress();
-
-    void getAddressSuccess(UserAddressResponse.Result result);
-
-    void getAddressFailure();
-
-    void googleAddressClick();
-
-    void confirmLocationClick();
+    public SaveAddressViewModel(DataManager dataManager) {
+        super(dataManager);
+    }
 
 }

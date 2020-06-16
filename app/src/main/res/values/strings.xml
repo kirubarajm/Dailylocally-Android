@@ -739,6 +739,7 @@
     <string name="landmark_instructions">Landmark / Instructions*</string>
     <string name="apartment_or_gated_society">Apartment or Gated Society</string>
     <string name="individual_house">Individual House</string>
+    <string name="delivery_address">Delivery Address</string>
 
 
 </resources>

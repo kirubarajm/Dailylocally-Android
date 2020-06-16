@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.address.add.AddAddressActivity">
+    tools:context=".ui.address.googleAddress.GoogleAddressActivity">
 
     <data>
 
@@ -10,7 +10,7 @@
 
         <variable
             name="addAddressViewModel"
-            type="com.dailylocally.ui.address.add.AddAddressViewModel" />
+            type="com.dailylocally.ui.address.googleAddress.GoogleAddressViewModel" />
 
     </data>
 

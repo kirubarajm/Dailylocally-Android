@@ -1,4 +1,4 @@
-package com.dailylocally.ui.address.add;
+package com.dailylocally.ui.address.googleAddress;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -28,12 +28,9 @@ import androidx.core.app.ActivityCompat;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddAddressBinding;
-import com.dailylocally.ui.address.addressNew.AddressNewActivity;
+import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.signup.opt.OtpActivity;
-import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.SingleShotLocationProvider;
@@ -60,14 +57,14 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, AddAddressViewModel> implements AddAddressNavigator, LocationListener {
+public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBinding, GoogleAddressViewModel> implements GoogleAddressNavigator, LocationListener {
 
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int ADDRESS_SEARCH_CODE = 15545;
     public ActivityAddAddressBinding mActivityAddAddressBinding;
     @Inject
-    public AddAddressViewModel mAddAddressViewModel;
+    public GoogleAddressViewModel mAddAddressViewModel;
     protected LocationManager locationManager;
     SupportMapFragment mapFragment;
     GoogleMap map;
@@ -88,7 +85,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (!checkWifiConnect()) {
-                Intent inIntent = InternetErrorFragment.newIntent(AddAddressActivity.this);
+                Intent inIntent = InternetErrorFragment.newIntent(GoogleAddressActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
             }
@@ -96,7 +93,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     };
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, AddAddressActivity.class);
+        return new Intent(context, GoogleAddressActivity.class);
     }
 
     @Override
@@ -110,7 +107,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     @Override
-    public AddAddressViewModel getViewModel() {
+    public GoogleAddressViewModel getViewModel() {
 
         return mAddAddressViewModel;
     }
@@ -123,7 +120,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void addressSaved() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_SAVE);
-        Intent intent = MainActivity.newIntent(AddAddressActivity.this);
+        Intent intent = MainActivity.newIntent(GoogleAddressActivity.this);
         startActivity(intent);
         finish();
         hideKeyboard();
@@ -236,7 +233,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void confirmLocationClick() {
-        Intent intent = AddressNewActivity.newIntent(AddAddressActivity.this);
+        Intent intent = AddressNewActivity.newIntent(GoogleAddressActivity.this);
         startActivity(intent);
     }
 
@@ -286,8 +283,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             public void gpsStatus(boolean isGPSEnable) {
                 // turn on GPS
                 if (isGPSEnable) {
-                    if (ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(AddAddressActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+                    if (ActivityCompat.checkSelfPermission(GoogleAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(GoogleAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(GoogleAddressActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
                     } else {
                         if (!dialog.isShowing())
                             dialog.show();
@@ -303,7 +300,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     private void getUserLocation() {
 
-        SingleShotLocationProvider.requestSingleUpdate(AddAddressActivity.this,
+        SingleShotLocationProvider.requestSingleUpdate(GoogleAddressActivity.this,
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
@@ -512,7 +509,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
         @Override
         protected Address doInBackground(Double... doubles) {
-            Geocoder geocoder = new Geocoder(AddAddressActivity.this, Locale.ENGLISH);
+            Geocoder geocoder = new Geocoder(GoogleAddressActivity.this, Locale.ENGLISH);
 
             List<Address> addresses = null;
             try {

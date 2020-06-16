@@ -11,7 +11,8 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentMyAccountBinding;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
-import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
+import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
@@ -86,8 +87,11 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
         new Analytics().sendClickData(pageName, AppConstants.CLICK_MANAGE_ADDRESS);
 
-        Intent intent = AddAddressActivity.newIntent(getContext());
+        /*Intent intent = GoogleAddressActivity.newIntent(getContext());
         intent.putExtra("edit","1");
+        startActivity(intent);*/
+
+        Intent intent = ViewAddressActivity.newIntent(getContext());
         startActivity(intent);
     }
 

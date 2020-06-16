@@ -14,16 +14,18 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.addressNew;
+package com.dailylocally.ui.address.viewAddress;
 
 
-public interface AddressNewNavigator {
+import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
+
+public interface ViewAddressNavigator {
 
     void handleError(Throwable throwable);
 
-    void apartmentClick();
+    void updateClick();
 
-    void individualClick();
+    void getAddressSuccess(UserAddressResponse.Result result);
 
-
+    void getAddressFailure();
 }

@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.dailylocally.BR;
-import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySplashBinding;
@@ -27,7 +27,6 @@ import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import javax.inject.Inject;
 
@@ -107,7 +106,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void userAddressActivity() {
-        Intent intent = AddAddressActivity.newIntent(SplashActivity.this);
+        Intent intent = GoogleAddressActivity.newIntent(SplashActivity.this);
         startActivity(intent);
         finish();
     }

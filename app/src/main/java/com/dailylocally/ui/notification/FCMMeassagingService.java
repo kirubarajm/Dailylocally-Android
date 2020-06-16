@@ -22,19 +22,14 @@ import com.android.volley.VolleyError;
 import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
-import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
-import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
-import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
-import com.dailylocally.ui.category.l2.products.ProductsFragment;
 import com.dailylocally.ui.favorites.FavoritesActivity;
-import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
-import com.dailylocally.ui.search.SearchFragment;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.ui.signup.opt.OtpActivity;
@@ -165,7 +160,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 intent = new Intent(this, RegistrationActivity.class);
                 break;
             case AppConstants.NOTIFY_ADDRESS_ACTV:
-                intent = new Intent(this, AddAddressActivity.class);
+                intent = new Intent(this, GoogleAddressActivity.class);
                 break;
             case AppConstants.NOTIFY_MAIN_ACTV:
                 intent = new Intent(this, MainActivity.class);
