@@ -9,7 +9,8 @@ import com.dailylocally.ui.category.l2.products.ProductsFragment;
 public class PlansPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     L2CategoryResponse response;
-    public PlansPagerAdapter(FragmentManager fm, int NumOfTabs,L2CategoryResponse response) {
+
+    public PlansPagerAdapter(FragmentManager fm, int NumOfTabs, L2CategoryResponse response) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.response = response;
@@ -24,7 +25,13 @@ public class PlansPagerAdapter extends FragmentStatePagerAdapter {
         }
 */
 
-        return ProductsFragment.newInstance( response.getResult().get(position).getScl2Id());
+        if (position == 0) {
+            return ProductsFragment.newInstance(0);
+        }else {
+            return ProductsFragment.newInstance(response.getResult().get(position-1).getScl2Id());
+
+        }
+
     }
 
     @Override
