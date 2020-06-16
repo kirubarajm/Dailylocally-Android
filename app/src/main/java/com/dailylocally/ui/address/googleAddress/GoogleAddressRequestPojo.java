@@ -1,9 +1,9 @@
-package com.dailylocally.ui.address.add;
+package com.dailylocally.ui.address.googleAddress;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AddressRequestPojo {
+public class GoogleAddressRequestPojo {
 
     @SerializedName("userid")
     @Expose

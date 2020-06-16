@@ -1,6 +1,5 @@
 package com.dailylocally.ui.cart;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -22,27 +21,19 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 
 import com.dailylocally.databinding.FragmentCartBinding;
-import com.dailylocally.ui.address.add.AddAddressActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 import com.nhaarman.supertooltips.ToolTipView;
-import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
-
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -164,7 +155,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = AddAddressActivity.newIntent(getContext());
+        Intent intent = GoogleAddressActivity.newIntent(getContext());
         intent.putExtra("edit","1");
         startActivity(intent);
     }

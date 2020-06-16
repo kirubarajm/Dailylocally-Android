@@ -13,8 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
-import com.dailylocally.ui.address.add.AddAddressActivity;
-import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.R;
 
 import com.dailylocally.databinding.ActivityRegistrationBinding;
@@ -102,7 +101,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         if (!flagEdit){
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
             //mLoginViewModelMain.fetchUserDetails();
-            Intent intent = AddAddressActivity.newIntent(RegistrationActivity.this);
+            Intent intent = GoogleAddressActivity.newIntent(RegistrationActivity.this);
             startActivity(intent);
             finish();
         }else{

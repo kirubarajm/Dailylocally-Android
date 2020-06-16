@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="saveAddressViewModel"
+            type="com.dailylocally.ui.address.saveAddress.SaveAddressViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:gravity="center|bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_above="@+id/rel_update"
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:text="@string/delivery_address"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_above="@+id/txt_full_address"
+                    android:id="@+id/txt_addressTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:text="Address1"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_above="@+id/txt_addressType1"
+                    android:id="@+id/txt_full_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:text="Temple"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_above="@+id/txt_addressType"
+                    android:id="@+id/txt_addressType1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:text="Independent House"
+                    android:textColor="@color/black"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/txt_addressType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/rel_update"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@drawable/curve_stroke"
+                android:text="Edit"
+                android:textAllCaps="true"
+                android:textColor="@color/dl_primary_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_horizontal"
+                android:background="@drawable/curve_stroke"
+                android:text="Save address"
+                android:textAllCaps="true"
+                android:textColor="@color/dl_primary_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

@@ -19,8 +19,14 @@ package com.dailylocally.di;
 import com.dailylocally.ui.account.MyAccountProvider;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.account.referrals.ReferralsActivityModule;
-import com.dailylocally.ui.address.add.AddAddressActivity;
-import com.dailylocally.ui.address.add.AddAddressModule;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressModule;
+import com.dailylocally.ui.address.addAddress.AddressNewActivity;
+import com.dailylocally.ui.address.addAddress.AddressNewModule;
+import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
+import com.dailylocally.ui.address.saveAddress.SaveAddressModule;
+import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
+import com.dailylocally.ui.address.viewAddress.ViewAddressModule;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.calendarView.CalendarModule;
 import com.dailylocally.ui.cart.CartProvider;
@@ -125,8 +131,8 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = FaqsAndSupportModule.class)
     abstract FaqsAndSupportActivity bindFaqAndSupportActivity();
 
-    @ContributesAndroidInjector(modules = AddAddressModule.class)
-    abstract AddAddressActivity bindAddAddressActivity();
+    @ContributesAndroidInjector(modules = GoogleAddressModule.class)
+    abstract GoogleAddressActivity bindAddAddressActivity();
 
     @ContributesAndroidInjector(modules = CalendarModule.class)
     abstract CalendarActivity bindCalendarActivity();
@@ -136,5 +142,14 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = FavoritesModule.class)
     abstract FavoritesActivity bindFavoritesActivity();
+
+    @ContributesAndroidInjector(modules = {AddressNewModule.class})
+    abstract AddressNewActivity bindAddressNewActivity();
+
+    @ContributesAndroidInjector(modules = {SaveAddressModule.class})
+    abstract SaveAddressActivity bindSaveAddressActivity();
+
+    @ContributesAndroidInjector(modules = {ViewAddressModule.class})
+    abstract ViewAddressActivity bindViewAddressActivity();
 
 }

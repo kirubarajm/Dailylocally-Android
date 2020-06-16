@@ -14,30 +14,23 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.add;
+package com.dailylocally.ui.address.saveAddress;
 
-public interface AddAddressNavigator {
+import com.dailylocally.data.DataManager;
 
-    void handleError(Throwable throwable);
+import dagger.Module;
+import dagger.Provides;
 
-    void addressSaved();
+/**
+ * Created by amitshekhar on 14/09/17.
+ */
+@Module
+public class SaveAddressModule {
 
-    void emptyFields();
 
-    boolean validationForAddress();
-
-    void myLocationn();
-
-    void showToast(String msg);
-
-    void goBack();
-
-    void searchAddress();
-
-    void getAddressSuccess(UserAddressResponse.Result result);
-
-    void getAddressFailure();
-
-    void googleAddressClick();
+    @Provides
+    SaveAddressViewModel provideAddAddressViewModel(DataManager dataManager) {
+        return new SaveAddressViewModel(dataManager);
+    }
 
 }

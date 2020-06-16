@@ -62,7 +62,7 @@
             android:screenOrientation="locked" />
 
         <activity
-            android:name=".ui.address.add.AddAddressActivity"
+            android:name=".ui.address.googleAddress.GoogleAddressActivity"
             android:screenOrientation="locked">
 
         </activity>
@@ -80,6 +80,16 @@
         <activity
             android:name=".ui.calendarView.CalendarActivity"
             android:screenOrientation="locked" />
+
+        <activity
+            android:name=".ui.favorites.FavoritesActivity"
+            android:screenOrientation="locked" />
+        <activity android:name=".ui.address.addAddress.AddressNewActivity" >
+
+        </activity>
+        <activity android:name=".ui.address.viewAddress.ViewAddressActivity" />
+        <activity android:name=".ui.address.saveAddress.SaveAddressActivity" />
+
 
 
         <!-- <meta-data

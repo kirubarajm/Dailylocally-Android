@@ -14,23 +14,18 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.add;
-
-import com.dailylocally.data.DataManager;
-
-import dagger.Module;
-import dagger.Provides;
-
-/**
- * Created by amitshekhar on 14/09/17.
- */
-@Module
-public class AddAddressModule {
+package com.dailylocally.ui.address.viewAddress;
 
 
-    @Provides
-    AddAddressViewModel provideAddAddressViewModel(DataManager dataManager) {
-        return new AddAddressViewModel(dataManager);
-    }
+import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 
+public interface ViewAddressNavigator {
+
+    void handleError(Throwable throwable);
+
+    void updateClick();
+
+    void getAddressSuccess(UserAddressResponse.Result result);
+
+    void getAddressFailure();
 }

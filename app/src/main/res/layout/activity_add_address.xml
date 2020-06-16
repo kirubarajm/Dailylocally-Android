@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.address.add.AddAddressActivity">
+    tools:context=".ui.address.googleAddress.GoogleAddressActivity">
 
     <data>
 
@@ -10,14 +10,13 @@
 
         <variable
             name="addAddressViewModel"
-            type="com.dailylocally.ui.address.add.AddAddressViewModel" />
+            type="com.dailylocally.ui.address.googleAddress.GoogleAddressViewModel" />
 
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/header"
@@ -129,10 +128,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:text="@string/set_delivery_address"
+                            android:text="@string/residency_type"
                             android:textSize="16sp"
                             android:visibility="visible" />
-
 
                         <ImageView
                             android:layout_width="35dp"
@@ -181,16 +179,9 @@
                         android:textSize="14sp"
                         android:visibility="visible" />
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                        android:layout_below="@+id/text_input_location"
-                        android:padding="5dp"
-                        android:onClick="@{()->addAddressViewModel.locationClick()}"
-                        android:text="Are you sure, you are in this location?"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/text_input_location"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -205,6 +196,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
+                        android:visibility="gone"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -219,6 +211,7 @@
 
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:baselineAligned="false"
@@ -265,7 +258,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/curve_stroke"
-                        android:onClick="@{()->addAddressViewModel.saveAddress(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString())}">
+                        android:onClick="@{()->addAddressViewModel.confirmLocation(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString())}">
 
                         <com.dailylocally.utilities.fonts.poppins.ButtonTextView
                             android:layout_width="wrap_content"
@@ -273,7 +266,7 @@
                             android:layout_centerHorizontal="true"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/save"
+                            android:text="@string/confirm_delivery_location"
                             android:textAllCaps="true"
                             android:textColor="@color/dl_primary_color"
                             android:textSize="16sp"

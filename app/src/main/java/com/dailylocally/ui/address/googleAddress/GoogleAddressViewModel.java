@@ -14,7 +14,7 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.add;
+package com.dailylocally.ui.address.googleAddress;
 import android.text.Editable;
 import android.text.TextWatcher;
 import androidx.databinding.ObservableBoolean;
@@ -31,7 +31,7 @@ import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 
-public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
+public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator> {
 
 
     public final ObservableBoolean cart = new ObservableBoolean();
@@ -67,9 +67,9 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         }
     };
-    AddressRequestPojo request = new AddressRequestPojo();
+    GoogleAddressRequestPojo request = new GoogleAddressRequestPojo();
 
-    public AddAddressViewModel(DataManager dataManager) {
+    public GoogleAddressViewModel(DataManager dataManager) {
         super(dataManager);
 
         home.set(getDataManager().isHomeAddressAdded());
@@ -166,6 +166,11 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     }
 
+    public void confirmLocation(String locationAddress, String house, String area, String landmark){
+        if (getNavigator()!=null){
+            getNavigator().confirmLocationClick();
+        }
+    }
 
     public void saveAddress(String locationAddress, String house, String area, String landmark/*, String title*/) {
 
@@ -201,7 +206,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
 
-                if (request == null) request = new AddressRequestPojo();
+                if (request == null) request = new GoogleAddressRequestPojo();
 
 
                 request.setAddress(locationAddress);
@@ -235,7 +240,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 return;
             }*/
 
-                if (request == null) request = new AddressRequestPojo();
+                if (request == null) request = new GoogleAddressRequestPojo();
                 request.setUserid(getDataManager().getCurrentUserId());
 
                 try {
@@ -247,10 +252,10 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                         } else {
                             method = Request.Method.POST;
                         }
-                        GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, AddressResponse.class, request,
-                                new Response.Listener<AddressResponse>() {
+                        GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, GoogleAddressResponse.class, request,
+                                new Response.Listener<GoogleAddressResponse>() {
                                     @Override
-                                    public void onResponse(AddressResponse response) {
+                                    public void onResponse(GoogleAddressResponse response) {
                                         try {
                                             if (response.getStatus()) {
                                                 SAVEcLICKED.set(true);
@@ -314,7 +319,6 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         }
     }
-
 
     public void defaultAddress(String aid) {
 
