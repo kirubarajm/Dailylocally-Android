@@ -166,6 +166,9 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     }
 
+    public void confirmLocation(String locationAddress, String house, String area, String landmark){
+
+    }
 
     public void saveAddress(String locationAddress, String house, String area, String landmark/*, String title*/) {
 
@@ -314,7 +317,6 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         }
     }
-
 
     public void defaultAddress(String aid) {
 

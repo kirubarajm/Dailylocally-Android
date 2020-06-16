@@ -28,10 +28,12 @@ import androidx.core.app.ActivityCompat;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddAddressBinding;
+import com.dailylocally.ui.address.addressNew.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.opt.OtpActivity;
+import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.SingleShotLocationProvider;
@@ -230,6 +232,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void googleAddressClick() {
         mActivityAddAddressBinding.location.setText(mAddAddressViewModel.locationAddress.get());
+    }
+
+    @Override
+    public void confirmLocationClick() {
+        Intent intent = AddressNewActivity.newIntent(AddAddressActivity.this);
+        startActivity(intent);
     }
 
     @Override

@@ -84,7 +84,9 @@
         <activity
             android:name=".ui.favorites.FavoritesActivity"
             android:screenOrientation="locked" />
-        <activity android:name=".ui.address.edit.EditAddressActivity" />
+        <activity android:name=".ui.address.addressNew.AddressNewActivity" >
+
+        </activity>
 
 
         <!-- <meta-data

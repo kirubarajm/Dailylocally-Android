@@ -14,32 +14,16 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.add;
+package com.dailylocally.ui.address.addressNew;
 
-public interface AddAddressNavigator {
+
+public interface AddressNewNavigator {
 
     void handleError(Throwable throwable);
 
-    void addressSaved();
+    void apartmentClick();
 
-    void emptyFields();
+    void individualClick();
 
-    boolean validationForAddress();
-
-    void myLocationn();
-
-    void showToast(String msg);
-
-    void goBack();
-
-    void searchAddress();
-
-    void getAddressSuccess(UserAddressResponse.Result result);
-
-    void getAddressFailure();
-
-    void googleAddressClick();
-
-    void confirmLocationClick();
 
 }
