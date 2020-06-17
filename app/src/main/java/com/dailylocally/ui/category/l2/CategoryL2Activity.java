@@ -8,13 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -77,13 +73,11 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         if (intent.getExtras() != null) {
             categoryid = intent.getExtras().getString("catid");
             scl1id = intent.getExtras().getString("scl1id");
-            mCategoryL2ViewModel.fetchSubCategoryList(categoryid,scl1id);
+            mCategoryL2ViewModel.fetchSubCategoryList(categoryid, scl1id);
         }
 
 
     }
-
-
 
 
     public void subscribeLiveData() {
@@ -91,7 +85,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
                 categoryList -> mCategoryL2ViewModel.addDatatoList(categoryList));
 
     }
- public void refreshCart() {
+
+    public void refreshCart() {
         mCategoryL2ViewModel.totalCart();
 
     }
@@ -123,9 +118,9 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 
     @Override
     public void viewCart() {
-        Intent intent= MainActivity.newIntent(CategoryL2Activity.this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("page",AppConstants.SCREEN_CART_PAGE);
+        Intent intent = MainActivity.newIntent(CategoryL2Activity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("page", AppConstants.SCREEN_CART_PAGE);
         startActivity(intent);
     }
 
@@ -133,22 +128,28 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     public void createtabs(L2CategoryResponse response) {
 
 
-
-        for (int k = 0; k < response.getResult().size(); k++) {
-
-            mActivityCategoryl2Binding.categorytabs.addTab(mActivityCategoryl2Binding.categorytabs.newTab().setText(response.getResult().get(k).getName()));
+        if (response.getResult() == null) {
+            mActivityCategoryl2Binding.categorytabs.setVisibility(View.GONE);
+        } else if (response.getResult() != null && response.getResult().size() == 0) {
+            mActivityCategoryl2Binding.categorytabs.setVisibility(View.GONE);
         }
 
 
+        mActivityCategoryl2Binding.categorytabs.addTab(mActivityCategoryl2Binding.categorytabs.newTab().setText("All"));
 
+        if (response.getResult() != null) {
+            for (int k = 0; k < response.getResult().size(); k++) {
+
+                mActivityCategoryl2Binding.categorytabs.addTab(mActivityCategoryl2Binding.categorytabs.newTab().setText(response.getResult().get(k).getName()));
+            }
+        }
 
         PlansPagerAdapter adapter = new PlansPagerAdapter
-                (getSupportFragmentManager(),   mActivityCategoryl2Binding.categorytabs.getTabCount(),response);
+                (getSupportFragmentManager(), mActivityCategoryl2Binding.categorytabs.getTabCount(), response);
         mActivityCategoryl2Binding.frameLayout.setAdapter(adapter);
 //        mActivityCategoryl2Binding.frameLayout.setOffscreenPageLimit(1);
         mActivityCategoryl2Binding.frameLayout.setCurrentItem(0);
-        mActivityCategoryl2Binding.frameLayout.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(  mActivityCategoryl2Binding.categorytabs));
-
+        mActivityCategoryl2Binding.frameLayout.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mActivityCategoryl2Binding.categorytabs));
 
 
 
@@ -183,13 +184,11 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 */
 
 
-
         if (mActivityCategoryl2Binding.categorytabs.getTabCount() == 3) {
             mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
         } else {
             mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
-
 
 
         mActivityCategoryl2Binding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
