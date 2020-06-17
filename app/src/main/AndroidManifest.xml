@@ -17,15 +17,15 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".ui.main.MainActivity">
+
+        </activity>
+        <activity android:name=".utilities.nointernet.InternetErrorFragment" />
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity android:name=".utilities.nointernet.InternetErrorFragment" />
-        <activity android:name=".ui.splash.SplashActivity">
 
         </activity>
         <activity android:name=".ui.onboarding.OnBoardingActivity" />
@@ -41,9 +41,14 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+<!--
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD9CpR26YRmJrzlnBtyG5jwu0vJmGEQljM" />
+-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDHiPip3fSYDLIhyrHV3uavqH2nONtqEbw" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

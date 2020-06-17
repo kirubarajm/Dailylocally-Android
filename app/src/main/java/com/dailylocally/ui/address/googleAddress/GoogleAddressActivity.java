@@ -406,7 +406,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
     @Override
     public void onLocationChanged(Location location) {
-
         mLocation = location;
         if (map != null) {
             if (location != null) {

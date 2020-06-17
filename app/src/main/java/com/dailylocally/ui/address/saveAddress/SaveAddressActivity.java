@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,9 @@ import androidx.fragment.app.Fragment;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySaveAddressBinding;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -84,6 +87,22 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     @Override
     public void handleError(Throwable throwable) {
 
+    }
+
+    @Override
+    public void saveClick() {
+
+    }
+
+    @Override
+    public void showToast(String msg,boolean trueOrFalse) {
+        if (trueOrFalse){
+            Intent intent = MainActivity.newIntent(SaveAddressActivity.this);
+            startActivity(intent);
+            finish();
+        }
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
