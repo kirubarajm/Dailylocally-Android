@@ -23,5 +23,7 @@ public interface SaveAddressNavigator {
 
     void saveClick();
 
+    void editClick();
+
     void showToast(String msg,boolean trueOrFalse);
 }

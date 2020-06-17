@@ -51,6 +51,8 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
 
     Analytics analytics;
     String pageName = "";
+    String apartmentOrIndividual="",apartment="",towerBlock="",houseFlatNo="",housePlatNo="",floor="",address=""
+            ,landmark="",googleAddress="",pinCode="",area="",lon="",lat="",aId="";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -91,7 +93,13 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
 
     @Override
     public void saveClick() {
+        mAddAddressViewModel.saveAddress(apartmentOrIndividual,googleAddress,address,houseFlatNo,housePlatNo,area,pinCode,
+                lat,lon,landmark,floor,towerBlock,apartment);
+    }
 
+    @Override
+    public void editClick() {
+        onBackPressed();
     }
 
     @Override
@@ -102,7 +110,6 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
             finish();
         }
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        finish();
     }
 
     @Override
@@ -113,6 +120,39 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
 
         analytics = new Analytics(this, pageName);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            apartmentOrIndividual = bundle.getString("apartmentOrIndividual");
+            apartment = bundle.getString("apartment");
+            towerBlock = bundle.getString("towerBlock");
+            houseFlatNo = bundle.getString("houseFlatNo");
+            housePlatNo = bundle.getString("housePlatNo");
+            floor = bundle.getString("floor");
+            address = bundle.getString("address");
+            landmark = bundle.getString("landmark");
+            googleAddress = bundle.getString("googleAddress");
+            pinCode = bundle.getString("pinCode");
+            area = bundle.getString("area");
+            lat = bundle.getString("lat");
+            lon = bundle.getString("lon");
+            aId = bundle.getString("edit");
+
+            if (aId!=null) {
+                if (aId.equals("1")) {
+                    mAddAddressViewModel.flagAddressEdit.set(true);
+                }
+            }else {
+                mAddAddressViewModel.flagAddressEdit.set(false);
+            }
+
+            mAddAddressViewModel.address.set(address);
+            mAddAddressViewModel.landmark.set(landmark);
+            if (apartmentOrIndividual.equals("0")){
+                mAddAddressViewModel.addressType.set("Apartment or Gated Society");
+            }else {
+                mAddAddressViewModel.addressType.set("Individual House");
+            }
+        }
     }
 
     @Override

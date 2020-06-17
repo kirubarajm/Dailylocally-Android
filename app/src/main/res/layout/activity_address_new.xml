@@ -92,7 +92,6 @@
         </FrameLayout>
     </FrameLayout>
 
-
     <ScrollView
         android:id="@+id/address"
         android:layout_width="match_parent"
@@ -139,6 +138,7 @@
                         android:id="@+id/radio_1"
                         android:textColor="@color/white"
                         android:padding="30dp"
+                        android:buttonTint="@color/white"
                         android:onClick="@{()->addressNewViewModel.apartment()}"
                         android:background="@drawable/address_bck"
                         android:text="@string/apartment_or_gated_society"
@@ -151,6 +151,7 @@
                         android:layout_weight="1"
                         android:textColor="@color/white"
                         android:padding="30dp"
+                        android:buttonTint="@color/white"
                         android:onClick="@{()->addressNewViewModel.individual()}"
                         android:background="@drawable/address_bck"
                         android:text="@string/individual_house"
@@ -162,179 +163,191 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rel_combine_address"
                 android:layout_below="@+id/rel_apartment_individual"
-                android:visibility="@{addressNewViewModel.apartmentOrIndividual?View.VISIBLE:View.GONE}"
-                android:id="@+id/rel_apartment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/name_text_input"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/bck_editext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name_edit_text"
-                        android:textSize="12sp"
-                        android:padding="15dp"
-                        android:background="@color/transparent"
-                        android:hint="@string/apartment_society"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_below="@+id/name_text_input"
-                    android:weightSum="2"
+                <RelativeLayout
+                    android:visibility="@{addressNewViewModel.apartmentOrIndividual?View.VISIBLE:View.GONE}"
+                    android:id="@+id/rel_apartment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tower_text_input"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
+                        android:id="@+id/name_text_input"
+                        android:layout_marginTop="30dp"
                         android:background="@drawable/bck_editext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tower_edit_text"
+                            android:id="@+id/edt_apartment_name"
                             android:textSize="12sp"
                             android:padding="15dp"
+                            android:imeOptions="actionNext"
                             android:background="@color/transparent"
-                            android:hint="@string/tower_block"
+                            android:hint="@string/apartment_society"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/flatNo_text_input"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bck_editext"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_below="@+id/name_text_input"
+                        android:weightSum="2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/flatNo_edit_text"
-                            android:textSize="12sp"
-                            android:padding="15dp"
-                            android:background="@color/transparent"
-                            android:hint="@string/house_flat_no"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tower_text_input"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/bck_editext"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_tower_block"
+                                android:textSize="12sp"
+                                android:imeOptions="actionNext"
+                                android:padding="15dp"
+                                android:background="@color/transparent"
+                                android:hint="@string/tower_block"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
 
-                </LinearLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/flatNo_text_input"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bck_editext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_flat_house_no"
+                                android:textSize="12sp"
+                                android:padding="15dp"
+                                android:imeOptions="actionNext"
+                                android:background="@color/transparent"
+                                android:hint="@string/house_flat_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:visibility="@{addressNewViewModel.apartmentOrIndividual?View.GONE:View.VISIBLE}"
+                    android:id="@+id/rel_individual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/linear_house"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="30dp"
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/house_plot_no_text_input"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/bck_editext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_house_plot_no"
+                                android:textSize="12sp"
+                                android:padding="15dp"
+                                android:imeOptions="actionNext"
+                                android:background="@color/transparent"
+                                android:hint="@string/house_no_plot_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/floor_text_input"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bck_editext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_floor"
+                                android:textSize="12sp"
+                                android:padding="15dp"
+                                android:imeOptions="actionNext"
+                                android:background="@color/transparent"
+                                android:hint="@string/floor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_below="@+id/rel_apartment_individual"
-                android:visibility="@{addressNewViewModel.apartmentOrIndividual?View.GONE:View.VISIBLE}"
-                android:id="@+id/rel_individual"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_text_input"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/rel_combine_address"
+                android:background="@drawable/bck_editext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/linear_house"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="30dp"
-                    android:weightSum="2"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_address"
+                    android:textSize="12sp"
+                    android:padding="15dp"
+                    android:imeOptions="actionNext"
+                    android:background="@color/transparent"
+                    android:hint="@string/address"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/house_plot_no_text_input"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bck_editext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+            </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/house_plot_no_edit_text"
-                            android:textSize="12sp"
-                            android:padding="15dp"
-                            android:background="@color/transparent"
-                            android:hint="@string/house_no_plot_no"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/landmark_text_input"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/address_text_input"
+                android:background="@drawable/bck_editext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/floor_text_input"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bck_editext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/floor_edit_text"
-                            android:textSize="12sp"
-                            android:padding="15dp"
-                            android:background="@color/transparent"
-                            android:hint="@string/floor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/address_text_input"
-                    android:layout_marginTop="30dp"
-                    android:layout_below="@+id/linear_house"
-                    android:background="@drawable/bck_editext"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_landmark"
+                    android:textSize="12sp"
+                    android:padding="15dp"
+                    android:imeOptions="actionDone"
+                    android:background="@color/transparent"
+                    android:hint="@string/landmark_instructions"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/address_edit_text"
-                        android:textSize="12sp"
-                        android:padding="15dp"
-                        android:background="@color/transparent"
-                        android:hint="@string/address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/landmark_text_input"
-                    android:layout_marginTop="30dp"
-                    android:layout_below="@+id/address_text_input"
-                    android:background="@drawable/bck_editext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/landmark_edit_text"
-                        android:textSize="12sp"
-                        android:padding="15dp"
-                        android:background="@color/transparent"
-                        android:hint="@string/landmark_instructions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </RelativeLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
 
@@ -343,9 +356,8 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:onClick="@{()->addressNewViewModel.confirmClick()}"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:background="@drawable/curve_stroke">
 
             <com.dailylocally.utilities.fonts.poppins.ButtonTextView

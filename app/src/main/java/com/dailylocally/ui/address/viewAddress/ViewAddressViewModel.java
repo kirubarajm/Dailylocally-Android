@@ -15,31 +15,20 @@
  */
 
 package com.dailylocally.ui.address.viewAddress;
-import android.util.Log;
-
 import androidx.databinding.ObservableField;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.MasterPojo;
-import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
+
 
     public final ObservableField<String> aId = new ObservableField<>();
 
@@ -59,7 +48,7 @@ public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
         try {
             String userID = getDataManager().getCurrentUserId();
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_USER_ADDRESS + "1", UserAddressResponse.class, new Response.Listener<UserAddressResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_USER_ADDRESS + userID, UserAddressResponse.class, new Response.Listener<UserAddressResponse>() {
                 @Override
                 public void onResponse(UserAddressResponse response) {
                     try {

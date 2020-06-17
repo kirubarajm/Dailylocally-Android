@@ -18,6 +18,7 @@ package com.dailylocally.ui.address.saveAddress;
 
 
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,6 +36,9 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
 
     public final ObservableBoolean flagAddressEdit = new ObservableBoolean();
     public final ObservableBoolean SAVEcLICKED = new ObservableBoolean();
+    public final ObservableField<String> address = new ObservableField<>();
+    public final ObservableField<String> landmark = new ObservableField<>();
+    public final ObservableField<String> addressType = new ObservableField<>();
 
     public SaveAddressViewModel(DataManager dataManager) {
         super(dataManager);
@@ -46,15 +50,25 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
         }
     }
 
-    public void saveAddress(){
+    public void editClick(){
+        if (getNavigator()!=null){
+            getNavigator().saveClick();
+        }
+    }
+
+    public void saveAddress(String addressType, String googleAddress, String completeAddress,
+                            String flatHouseNo, String plotHouseNo, String city, String pincode, String lat,
+                            String lon, String landmark, String floor, String blockName, String apartmentName){
+        String userId = getDataManager().getCurrentUserId();
         int method = 0;
         if (flagAddressEdit.get()) {
             method = Request.Method.PUT;
         } else {
             method = Request.Method.POST;
         }
-        GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, GoogleAddressResponse.class, new SaveAddressRequest(1,1,"","","","","" +
-                "","","","","","","",""),
+        GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, GoogleAddressResponse.class,
+                new SaveAddressRequest(userId,addressType,googleAddress,completeAddress,flatHouseNo,plotHouseNo,city,pincode,
+                lat,lon,landmark,floor,blockName,apartmentName),
                 new Response.Listener<GoogleAddressResponse>() {
                     @Override
                     public void onResponse(GoogleAddressResponse response) {
@@ -94,7 +108,6 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
 
     }
-
 
     public void defaultAddress(String aid) {
 

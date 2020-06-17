@@ -132,8 +132,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         mActivitySplashBinding = getViewDataBinding();
         mSplashViewModel.setNavigator(this);
 
-        mSplashViewModel.getDataManager().setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk1MDAzMTM2ODkiLCJpYXQiOjE1NjM5NzEwMDN9.LIDR8Fbqyiw_A-lglOhUb-Mc-j1LV6_OLp8JHZb4yH8");
-
         prefManager = new PrefManager(this);
 
         /*final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(SplashActivity.this).build();

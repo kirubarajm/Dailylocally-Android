@@ -7,10 +7,10 @@ public class SaveAddressRequest {
 
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public String userid;
     @SerializedName("address_type")
     @Expose
-    public Integer addressType;
+    public String addressType;
     @SerializedName("google_address")
     @Expose
     public String googleAddress;
@@ -49,7 +49,10 @@ public class SaveAddressRequest {
     public String apartmentName;
 
 
-    public SaveAddressRequest(Integer userid, Integer addressType, String googleAddress, String completeAddress, String flatHouseNo, String plotHouseNo, String city, String pincode, String lat, String lon, String landmark, String floor, String blockName, String apartmentName) {
+    public SaveAddressRequest(String userid, String addressType, String googleAddress,
+                              String completeAddress, String flatHouseNo, String plotHouseNo, String city,
+                              String pincode, String lat, String lon, String landmark, String floor,
+                              String blockName, String apartmentName) {
         this.userid = userid;
         this.addressType = addressType;
         this.googleAddress = googleAddress;

@@ -207,12 +207,12 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     public void getAddressSuccess(UserAddressResponse.Result result) {
         try {
             if (result!=null) {
-                mActivityAddAddressBinding.house.setText(result.getFlatno());
-                mActivityAddAddressBinding.area.setText(result.getLocality());
+                mActivityAddAddressBinding.house.setText(result.getFlatHouseNo());
+                mActivityAddAddressBinding.area.setText(result.getLandmark());
                 mActivityAddAddressBinding.landmark.setText(result.getLandmark());
-                mActivityAddAddressBinding.location.setText(result.getAddress());
+                mActivityAddAddressBinding.location.setText(result.getGoogleAddress());
 
-                LatLng latLng = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
+                LatLng latLng = new LatLng(result.getLat(), result.getLon());
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 initCameraIdle();
             }
@@ -232,8 +232,15 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     }
 
     @Override
-    public void confirmLocationClick() {
+    public void confirmLocationClick(String locationAddress, String house, String area, String landmark,
+                                     String lat,String lon,String pinCode) {
         Intent intent = AddressNewActivity.newIntent(GoogleAddressActivity.this);
+        intent.putExtra("locationAddress",locationAddress);
+        intent.putExtra("lat",lat);
+        intent.putExtra("lon",lon);
+        intent.putExtra("pinCode",pinCode);
+        intent.putExtra("area",area);
+        intent.putExtra("edit",aid);
         startActivity(intent);
     }
 
