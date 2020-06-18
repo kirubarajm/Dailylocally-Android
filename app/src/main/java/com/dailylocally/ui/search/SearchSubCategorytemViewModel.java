@@ -4,7 +4,7 @@ package com.dailylocally.ui.search;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
-public class SearchSuggestionItemViewModel {
+public class SearchSubCategorytemViewModel {
 
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> type = new ObservableField<>();
@@ -12,15 +12,14 @@ public class SearchSuggestionItemViewModel {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
 
     public final SearchItemViewModelListener mListener;
-    private final QuickSearchResponse.Result.ProductsList result;
+    private final QuickSearchResponse.Result.SubcategoryList result;
 
 
-    public SearchSuggestionItemViewModel(SearchItemViewModelListener mListener, QuickSearchResponse.Result.ProductsList result) {
+    public SearchSubCategorytemViewModel(SearchItemViewModelListener mListener, QuickSearchResponse.Result.SubcategoryList result) {
 
         this.mListener = mListener;
         this.result = result;
-        this.title.set(result.getName());
-        this.type.set(result.getWeight()+" "+result.getUnit()+" , In "+result.getBrandname());
+        this.title.set(result.getSubCategory());
 
 /*
         if (result.getType() == 1) {
@@ -47,7 +46,7 @@ public class SearchSuggestionItemViewModel {
     public interface SearchItemViewModelListener {
         // void onItemClick(boolean completed_status, Object salesEmpId, int makeitUserId, String date, String name, String email, String phNum, String brandName, String address, String lat, String lng);
 
-        void onItemClick(QuickSearchResponse.Result.ProductsList result);
+        void onItemClick(QuickSearchResponse.Result.SubcategoryList result);
 
 
     }

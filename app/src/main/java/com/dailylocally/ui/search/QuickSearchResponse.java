@@ -16,9 +16,10 @@ public class QuickSearchResponse {
     @SerializedName("servicable_status")
     @Expose
     public Boolean servicableStatus;
-    @SerializedName("data")
+    @SerializedName("result")
     @Expose
-    public List<Datum> data = null;
+    public Result result;
+
 
     public Boolean getSuccess() {
         return success;
@@ -32,44 +33,155 @@ public class QuickSearchResponse {
         return servicableStatus;
     }
 
-    public List<Datum> getData() {
-        return data;
+    public Result getResult() {
+        return result;
     }
 
-    public class Datum {
+    public class Result {
 
-        @SerializedName("name")
+        @SerializedName("products_title")
         @Expose
-        public String name;
-        @SerializedName("type")
+        public String productsTitle;
+        @SerializedName("products_list")
         @Expose
-        public String type;
-        @SerializedName("id")
+        public List<ProductsList> productsList = null;
+        @SerializedName("subcategory_title")
         @Expose
-        public Integer id;
+        public String subcategoryTitle;
+        @SerializedName("subcategory_list")
+        @Expose
+        public List<SubcategoryList> subcategoryList = null;
 
-  @SerializedName("id1")
-        @Expose
-        public Integer id1;
 
-        public Integer getId1() {
-            return id1;
+        public String getProductsTitle() {
+            return productsTitle;
         }
 
-        public void setId1(Integer id1) {
-            this.id1 = id1;
+        public List<ProductsList> getProductsList() {
+            return productsList;
         }
 
-        public String getName() {
-            return name;
+        public String getSubcategoryTitle() {
+            return subcategoryTitle;
         }
 
-        public String getType() {
-            return type;
+        public List<SubcategoryList> getSubcategoryList() {
+            return subcategoryList;
         }
 
-        public Integer getId() {
-            return id;
+        public class ProductsList {
+
+            @SerializedName("Productname")
+            @Expose
+            public String productname;
+            @SerializedName("type")
+            @Expose
+            public String type;
+            @SerializedName("vpid")
+            @Expose
+            public Integer vpid;
+            @SerializedName("scl1_id")
+            @Expose
+            public Integer scl1Id;
+            @SerializedName("scl2_id")
+            @Expose
+            public Integer scl2Id;
+            @SerializedName("name")
+            @Expose
+            public String name;
+            @SerializedName("favid")
+            @Expose
+            public Object favid;
+            @SerializedName("isfav")
+            @Expose
+            public String isfav;
+            @SerializedName("unit")
+            @Expose
+            public String unit;
+            @SerializedName("brandname")
+            @Expose
+            public String brandname;
+            @SerializedName("weight")
+            @Expose
+            public Integer weight;
+
+            public String getProductname() {
+                return productname;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public Integer getVpid() {
+                return vpid;
+            }
+
+            public Integer getScl1Id() {
+                return scl1Id;
+            }
+
+            public Integer getScl2Id() {
+                return scl2Id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public Object getFavid() {
+                return favid;
+            }
+
+            public String getIsfav() {
+                return isfav;
+            }
+
+            public String getUnit() {
+                return unit;
+            }
+
+            public String getBrandname() {
+                return brandname;
+            }
+
+            public Integer getWeight() {
+                return weight;
+            }
+        }
+
+
+        public class SubcategoryList {
+
+            @SerializedName("sub_category")
+            @Expose
+            public String subCategory;
+            @SerializedName("scl1_id")
+            @Expose
+            public Integer scl1Id;
+            @SerializedName("catid")
+            @Expose
+            public Integer catid;
+            @SerializedName("category_name")
+            @Expose
+            public String categoryName;
+
+
+            public String getSubCategory() {
+                return subCategory;
+            }
+
+            public Integer getScl1Id() {
+                return scl1Id;
+            }
+
+            public Integer getCatid() {
+                return catid;
+            }
+
+            public String getCategoryName() {
+                return categoryName;
+            }
         }
     }
 }
