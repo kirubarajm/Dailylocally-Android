@@ -52,13 +52,14 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
 
     public void editClick(){
         if (getNavigator()!=null){
-            getNavigator().saveClick();
+            getNavigator().editClick();
         }
     }
 
     public void saveAddress(String addressType, String googleAddress, String completeAddress,
                             String flatHouseNo, String plotHouseNo, String city, String pincode, String lat,
-                            String lon, String landmark, String floor, String blockName, String apartmentName){
+                            String lon, String landmark, String floor, String blockName, String apartmentName,
+                            String aId){
         String userId = getDataManager().getCurrentUserId();
         int method = 0;
         if (flagAddressEdit.get()) {
@@ -68,7 +69,7 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
         }
         GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, GoogleAddressResponse.class,
                 new SaveAddressRequest(userId,addressType,googleAddress,completeAddress,flatHouseNo,plotHouseNo,city,pincode,
-                lat,lon,landmark,floor,blockName,apartmentName),
+                lat,lon,landmark,floor,blockName,apartmentName,aId),
                 new Response.Listener<GoogleAddressResponse>() {
                     @Override
                     public void onResponse(GoogleAddressResponse response) {
@@ -79,19 +80,18 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                 if (getNavigator() != null)
                                     getNavigator().showToast(response.getMessage(),response.getStatus());
 
-/*
                                 if (response.getAid() != null) {
-                                    getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), response.getAid());
-                                    getDataManager().setCurrentAddressTitle(request.getAddressTitle());
-                                    getDataManager().setCurrentLat(request.getLat());
-                                    getDataManager().setCurrentLng(request.getLon());
-                                    getDataManager().setCurrentAddress(request.getAddress());
-                                    getDataManager().setCurrentAddressArea(request.getLocality());
-                                    getDataManager().setAddressId(response.getAid());
-                                    defaultAddress(response.getAid());
-
+                                    getDataManager().updateCurrentAddress("",
+                                            completeAddress, lat, lon,
+                                            city, String.valueOf(response.getAid()));
+                                    //getDataManager().setCurrentAddressTitle(request.getAddressTitle());
+                                    getDataManager().setCurrentLat(lat);
+                                    getDataManager().setCurrentLng(lon);
+                                    getDataManager().setCurrentAddress(completeAddress);
+                                    getDataManager().setCurrentAddressArea(city);
+                                    getDataManager().setAddressId(String.valueOf(response.getAid()));
+                                    defaultAddress(String.valueOf(response.getAid()));
                                 }
-*/
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

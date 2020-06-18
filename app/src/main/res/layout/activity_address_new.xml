@@ -64,9 +64,9 @@
     </androidx.cardview.widget.CardView>
 
     <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/address"
+        android:layout_height="250dp"
         android:layout_below="@+id/header">
 
         <fragment
@@ -93,10 +93,10 @@
     </FrameLayout>
 
     <ScrollView
+        android:layout_below="@+id/frame"
         android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/white">
 
         <RelativeLayout
@@ -132,31 +132,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:id="@+id/radio_1"
-                        android:textColor="@color/white"
-                        android:padding="30dp"
-                        android:buttonTint="@color/white"
-                        android:onClick="@{()->addressNewViewModel.apartment()}"
-                        android:background="@drawable/address_bck"
-                        android:text="@string/apartment_or_gated_society"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:layout_marginEnd="5dp"
+                            android:id="@+id/radio_1"
+                            android:padding="10dp"
+                            android:textSize="12sp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:buttonTint="@color/white"
+                            android:onClick="@{()->addressNewViewModel.apartment()}"
+                            android:background="@drawable/address_bck"
+                            android:text="@string/apartment_or_gated_society"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                    <RadioButton
-                        android:id="@+id/radio_2"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/white"
-                        android:padding="30dp"
-                        android:buttonTint="@color/white"
-                        android:onClick="@{()->addressNewViewModel.individual()}"
-                        android:background="@drawable/address_bck"
-                        android:text="@string/individual_house"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/radio_2"
+                            android:padding="10dp"
+                            android:textSize="12sp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/white"
+                            android:buttonTint="@color/white"
+                            android:onClick="@{()->addressNewViewModel.individual()}"
+                            android:background="@drawable/address_bck"
+                            android:text="@string/individual_house"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                 </RadioGroup>
 
@@ -176,7 +180,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/name_text_input"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/bck_editext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -184,7 +188,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_apartment_name"
                             android:textSize="12sp"
-                            android:padding="15dp"
+                            android:padding="10dp"
                             android:imeOptions="actionNext"
                             android:background="@color/transparent"
                             android:hint="@string/apartment_society"
@@ -195,7 +199,7 @@
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="10dp"
                         android:layout_below="@+id/name_text_input"
                         android:weightSum="2"
                         android:layout_width="match_parent"
@@ -214,7 +218,7 @@
                                 android:id="@+id/edt_tower_block"
                                 android:textSize="12sp"
                                 android:imeOptions="actionNext"
-                                android:padding="15dp"
+                                android:padding="10dp"
                                 android:background="@color/transparent"
                                 android:hint="@string/tower_block"
                                 android:layout_width="match_parent"
@@ -225,7 +229,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/flatNo_text_input"
                             android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:layout_marginTop="10dp"
                             android:background="@drawable/bck_editext"
                             android:layout_width="match_parent"
@@ -234,7 +238,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_flat_house_no"
                                 android:textSize="12sp"
-                                android:padding="15dp"
+                                android:padding="10dp"
                                 android:imeOptions="actionNext"
                                 android:background="@color/transparent"
                                 android:hint="@string/house_flat_no"
@@ -256,16 +260,15 @@
                     <LinearLayout
                         android:id="@+id/linear_house"
                         android:orientation="horizontal"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="10dp"
                         android:weightSum="2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/house_plot_no_text_input"
-                            android:layout_marginTop="10dp"
                             android:layout_weight="1"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             android:background="@drawable/bck_editext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -273,7 +276,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_house_plot_no"
                                 android:textSize="12sp"
-                                android:padding="15dp"
+                                android:padding="10dp"
                                 android:imeOptions="actionNext"
                                 android:background="@color/transparent"
                                 android:hint="@string/house_no_plot_no"
@@ -285,8 +288,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/floor_text_input"
                             android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="5dp"
                             android:background="@drawable/bck_editext"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -294,7 +296,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_floor"
                                 android:textSize="12sp"
-                                android:padding="15dp"
+                                android:padding="10dp"
                                 android:imeOptions="actionNext"
                                 android:background="@color/transparent"
                                 android:hint="@string/floor"
@@ -311,7 +313,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/address_text_input"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/rel_combine_address"
                 android:background="@drawable/bck_editext"
                 android:layout_width="match_parent"
@@ -320,7 +322,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_address"
                     android:textSize="12sp"
-                    android:padding="15dp"
+                    android:padding="10dp"
                     android:imeOptions="actionNext"
                     android:background="@color/transparent"
                     android:hint="@string/address"
@@ -331,7 +333,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/landmark_text_input"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/address_text_input"
                 android:background="@drawable/bck_editext"
                 android:layout_width="match_parent"
@@ -340,7 +342,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_landmark"
                     android:textSize="12sp"
-                    android:padding="15dp"
+                    android:padding="10dp"
                     android:imeOptions="actionDone"
                     android:background="@color/transparent"
                     android:hint="@string/landmark_instructions"

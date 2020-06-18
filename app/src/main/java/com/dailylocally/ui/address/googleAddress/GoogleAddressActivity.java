@@ -78,7 +78,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
 
     String address = null;
-    String aid = null;
+    String aid = null,edit=null;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -240,7 +240,8 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
         intent.putExtra("lon",lon);
         intent.putExtra("pinCode",pinCode);
         intent.putExtra("area",area);
-        intent.putExtra("edit",aid);
+        intent.putExtra("aid",aid);
+        intent.putExtra("edit",edit);
         startActivity(intent);
     }
 
@@ -253,8 +254,9 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-            aid = bundle.getString("edit");
-            if (aid!=null && aid.equals("1")){
+            aid = bundle.getString("aid");
+            edit = bundle.getString("edit");
+            if (edit!=null){
                 mAddAddressViewModel.fetchUserDetails();
                 mAddAddressViewModel.flagAddressEdit.set(true);
             }
@@ -275,7 +277,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
-                if (bundle==null) {
+                if (edit==null) {
                     turnOnGps();
                     initCameraIdle();
                 }

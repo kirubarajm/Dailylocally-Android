@@ -17,6 +17,8 @@
 package com.dailylocally.ui.address.addAddress;
 
 
+import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
+
 public interface AddressNewNavigator {
 
     void handleError(Throwable throwable);
@@ -26,6 +28,10 @@ public interface AddressNewNavigator {
     void individualClick();
 
     void confirmClick();
+
+    void getAddressSuccess(UserAddressResponse.Result result);
+
+    void getAddressFailure();
 
 
 }

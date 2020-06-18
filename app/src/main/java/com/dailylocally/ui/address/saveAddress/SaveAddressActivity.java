@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySaveAddressBinding;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -52,7 +51,7 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     Analytics analytics;
     String pageName = "";
     String apartmentOrIndividual="",apartment="",towerBlock="",houseFlatNo="",housePlatNo="",floor="",address=""
-            ,landmark="",googleAddress="",pinCode="",area="",lon="",lat="",aId="";
+            ,landmark="",googleAddress="",pinCode="",area="",lon="",lat="",aId="",edit="";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -94,7 +93,7 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     @Override
     public void saveClick() {
         mAddAddressViewModel.saveAddress(apartmentOrIndividual,googleAddress,address,houseFlatNo,housePlatNo,area,pinCode,
-                lat,lon,landmark,floor,towerBlock,apartment);
+                lat,lon,landmark,floor,towerBlock,apartment,aId);
     }
 
     @Override
@@ -135,12 +134,11 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
             area = bundle.getString("area");
             lat = bundle.getString("lat");
             lon = bundle.getString("lon");
-            aId = bundle.getString("edit");
+            edit = bundle.getString("edit");
+            aId = bundle.getString("aid");
 
-            if (aId!=null) {
-                if (aId.equals("1")) {
-                    mAddAddressViewModel.flagAddressEdit.set(true);
-                }
+            if (edit!=null) {
+                mAddAddressViewModel.flagAddressEdit.set(true);
             }else {
                 mAddAddressViewModel.flagAddressEdit.set(false);
             }

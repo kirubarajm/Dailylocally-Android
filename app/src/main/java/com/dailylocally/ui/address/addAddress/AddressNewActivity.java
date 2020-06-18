@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddressNewBinding;
+import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -78,7 +79,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     String address = null;
     String aid = null;
     Bundle bundle = null;
-    String lat="",lon="", googleAddress = "",pinCode = "",area="",aId="";
+    String lat="",lon="", googleAddress = "",pinCode = "",area="",aId="",edit="";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -144,9 +145,9 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         String landmark = mActivityAddressNewBinding.edtLandmark.getText().toString();
         String apartmentOrIndividual="";
         if (mActivityAddressNewBinding.radio1.isChecked()){
-            apartmentOrIndividual = "0";
-        }else {
             apartmentOrIndividual = "1";
+        }else {
+            apartmentOrIndividual = "2";
         }
 
         Intent intent = SaveAddressActivity.newIntent(AddressNewActivity.this);
@@ -163,9 +164,39 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         intent.putExtra("area",area);
         intent.putExtra("lat",lat);
         intent.putExtra("lon",lon);
-        intent.putExtra("edit",aId);
+        intent.putExtra("edit",edit);
+        intent.putExtra("aid",mAddAddressViewModel.aId.get());
         startActivity(intent);
         }
+    }
+
+    @Override
+    public void getAddressSuccess(UserAddressResponse.Result result) {
+        try {
+            if (result!=null){
+                if (result.getAddressType()==1){
+                    mActivityAddressNewBinding.radio1.setChecked(true);
+                    mAddAddressViewModel.apartmentOrIndividual.set(true);
+                    mActivityAddressNewBinding.edtApartmentName.setText(result.getApartmentName());
+                    mActivityAddressNewBinding.edtTowerBlock.setText(result.getBlockName());
+                    mActivityAddressNewBinding.edtFlatHouseNo.setText(result.getFlatHouseNo());
+                }else {
+                    mAddAddressViewModel.apartmentOrIndividual.set(false);
+                    mActivityAddressNewBinding.radio2.setChecked(true);
+                    mActivityAddressNewBinding.edtHousePlotNo.setText(result.getPlotHouseNo());
+                    mActivityAddressNewBinding.edtFloor.setText(result.getFloor());
+                }
+                mActivityAddressNewBinding.edtAddress.setText(result.getCompleteAddress());
+                mActivityAddressNewBinding.edtLandmark.setText(result.getLandmark());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getAddressFailure() {
+
     }
 
     @Override
@@ -184,7 +215,10 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             googleAddress = bundle.getString("locationAddress");
             googleAddress = bundle.getString("pinCode");
             area = bundle.getString("area");
-            aId = bundle.getString("edit");
+            edit = bundle.getString("edit");
+            aId = bundle.getString("aid");
+
+            mAddAddressViewModel.fetchUserDetails();
         }
 
         dialog = new ProgressDialog(this);

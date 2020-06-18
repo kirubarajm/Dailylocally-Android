@@ -17,13 +17,22 @@
 package com.dailylocally.ui.address.addAddress;
 
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
+import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.DailylocallyApp;
 
 public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
 
     public final ObservableBoolean apartmentOrIndividual = new ObservableBoolean();
+    public final ObservableField<String> aId = new ObservableField<>();
 
 
     public AddressNewViewModel(DataManager dataManager) {
@@ -47,4 +56,57 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
             getNavigator().confirmClick();
         }
     }
+
+    public void fetchUserDetails() {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+            String userID = getDataManager().getCurrentUserId();
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_USER_ADDRESS + userID, UserAddressResponse.class, new Response.Listener<UserAddressResponse>() {
+                @Override
+                public void onResponse(UserAddressResponse response) {
+                    try {
+                        if (response!=null) {
+                            if (response.getStatus()) {
+                                if (response.getResult()!=null && response.getResult().size()>0){
+                                    if (getNavigator()!=null){
+                                        getNavigator().getAddressSuccess(response.getResult().get(0));
+                                    }
+                                }
+                                aId.set(String.valueOf(response.getResult().get(0).getAid()));
+                            }else {
+                                if (getNavigator()!=null){
+                                    getNavigator().getAddressFailure();
+                                }
+                            }
+                        }else {
+                            if (getNavigator()!=null){
+                                getNavigator().getAddressFailure();
+                            }
+                        }
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    try {
+                        setIsLoading(false);
+                        if (getNavigator()!=null){
+                            getNavigator().getAddressFailure();
+                        }
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+
 }

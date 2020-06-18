@@ -47,12 +47,15 @@ public class SaveAddressRequest {
     @SerializedName("apartment_name")
     @Expose
     public String apartmentName;
+    @SerializedName("aid")
+    @Expose
+    public String aid;
 
 
     public SaveAddressRequest(String userid, String addressType, String googleAddress,
                               String completeAddress, String flatHouseNo, String plotHouseNo, String city,
                               String pincode, String lat, String lon, String landmark, String floor,
-                              String blockName, String apartmentName) {
+                              String blockName, String apartmentName,String aid) {
         this.userid = userid;
         this.addressType = addressType;
         this.googleAddress = googleAddress;
@@ -67,5 +70,6 @@ public class SaveAddressRequest {
         this.floor = floor;
         this.blockName = blockName;
         this.apartmentName = apartmentName;
+        this.aid = aid;
     }
 }
