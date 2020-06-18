@@ -69,7 +69,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     LatLng center;
     Location mLocation;
     Dialog locationDialog;
-    ProgressDialog dialog;
+    //ProgressDialog dialog;
 
     FusedLocationProviderClient fusedLocationClient;
 
@@ -221,10 +221,10 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mAddAddressViewModel.fetchUserDetails();
         }
 
-        dialog = new ProgressDialog(this);
+        /*dialog = new ProgressDialog(this);
         dialog.setCancelable(true);
         dialog.setMessage("Getting your location..");
-        dialog.setTitle("Please Wait!");
+        dialog.setTitle("Please Wait!");*/
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -257,8 +257,8 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     if (ActivityCompat.checkSelfPermission(AddressNewActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddressNewActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(AddressNewActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
                     } else {
-                        if (!dialog.isShowing())
-                            dialog.show();
+                        /*if (!dialog.isShowing())
+                            dialog.show();*/
                         getUserLocation();
                     }
                 } else {
@@ -276,9 +276,9 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     @Override
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
-                        if (dialog != null)
+                        /*if (dialog != null)
                             if (dialog.isShowing())
-                                dialog.dismiss();
+                                dialog.dismiss();*/
                         if (location != null)
                             if (map != null) {
 
