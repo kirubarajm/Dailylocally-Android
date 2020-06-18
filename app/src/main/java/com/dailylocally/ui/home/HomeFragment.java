@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentHomeBinding;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;

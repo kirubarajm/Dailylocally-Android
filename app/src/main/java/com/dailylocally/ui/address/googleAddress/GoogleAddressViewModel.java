@@ -168,7 +168,8 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
 
     public void confirmLocation(String locationAddress, String house, String area, String landmark){
         if (getNavigator()!=null){
-            getNavigator().confirmLocationClick();
+            getNavigator().confirmLocationClick(locationAddress,house,area,landmark,request.getLat(),
+                    request.getLon(),request.getPincode());
         }
     }
 
@@ -264,14 +265,14 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
                                                     getNavigator().showToast(response.getMessage());
 
                                                 if (response.getAid() != null) {
-                                                    getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), response.getAid());
+                                                    getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), String.valueOf(response.getAid()));
                                                     getDataManager().setCurrentAddressTitle(request.getAddressTitle());
                                                     getDataManager().setCurrentLat(request.getLat());
                                                     getDataManager().setCurrentLng(request.getLon());
                                                     getDataManager().setCurrentAddress(request.getAddress());
                                                     getDataManager().setCurrentAddressArea(request.getLocality());
-                                                    getDataManager().setAddressId(response.getAid());
-                                                    defaultAddress(response.getAid());
+                                                    getDataManager().setAddressId(String.valueOf(response.getAid()));
+                                                    defaultAddress(String.valueOf(response.getAid()));
                                                     if (getNavigator() != null)
                                                         getNavigator().addressSaved();
 

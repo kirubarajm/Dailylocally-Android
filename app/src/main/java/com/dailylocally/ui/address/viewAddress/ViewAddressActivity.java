@@ -82,7 +82,14 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
     public void getAddressSuccess(UserAddressResponse.Result result) {
         try {
             if (result!=null){
-                mActivityViewAddressBinding.txtFullAddress.setText(result.getAddress());
+                mActivityViewAddressBinding.txtFullAddress.setText(result.getCompleteAddress());
+                mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
+                mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
+                if (result.getAddressType()==0){
+                    mActivityViewAddressBinding.txtAddressType.setText("Apartment Or Gated Society");
+                }else {
+                    mActivityViewAddressBinding.txtAddressType.setText("Independent House");
+                }
             }
         }catch (Exception e) {
             e.printStackTrace();

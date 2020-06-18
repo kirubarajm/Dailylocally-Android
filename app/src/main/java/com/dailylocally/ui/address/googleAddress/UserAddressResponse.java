@@ -40,30 +40,18 @@ public class UserAddressResponse {
         @SerializedName("userid")
         @Expose
         public Integer userid;
-        @SerializedName("address_title")
-        @Expose
-        public String addressTitle;
-        @SerializedName("address")
-        @Expose
-        public String address;
-        @SerializedName("flatno")
-        @Expose
-        public String flatno;
-        @SerializedName("locality")
-        @Expose
-        public String locality;
         @SerializedName("pincode")
         @Expose
         public String pincode;
         @SerializedName("aid")
         @Expose
-        public String aid;
+        public Integer aid;
         @SerializedName("lat")
         @Expose
-        public String lat;
+        public Double lat;
         @SerializedName("lon")
         @Expose
-        public String lon;
+        public Double lon;
         @SerializedName("landmark")
         @Expose
         public String landmark;
@@ -81,42 +69,50 @@ public class UserAddressResponse {
         public String createdAt;
         @SerializedName("updated_at")
         @Expose
-        public String updatedAt;
+        public Object updatedAt;
+        @SerializedName("city")
+        @Expose
+        public String city;
+        @SerializedName("google_address")
+        @Expose
+        public String googleAddress;
+        @SerializedName("complete_address")
+        @Expose
+        public String completeAddress;
+        @SerializedName("flat_house_no")
+        @Expose
+        public String flatHouseNo;
+        @SerializedName("plot_house_no")
+        @Expose
+        public String plotHouseNo;
+        @SerializedName("floor")
+        @Expose
+        public String floor;
+        @SerializedName("block_name")
+        @Expose
+        public String blockName;
+        @SerializedName("apartment_name")
+        @Expose
+        public String apartmentName;
 
 
         public Integer getUserid() {
             return userid;
         }
 
-        public String getAddressTitle() {
-            return addressTitle;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public String getFlatno() {
-            return flatno;
-        }
-
-        public String getLocality() {
-            return locality;
-        }
-
         public String getPincode() {
             return pincode;
         }
 
-        public String getAid() {
+        public Integer getAid() {
             return aid;
         }
 
-        public String getLat() {
+        public Double getLat() {
             return lat;
         }
 
-        public String getLon() {
+        public Double getLon() {
             return lon;
         }
 
@@ -140,8 +136,40 @@ public class UserAddressResponse {
             return createdAt;
         }
 
-        public String getUpdatedAt() {
+        public Object getUpdatedAt() {
             return updatedAt;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public String getGoogleAddress() {
+            return googleAddress;
+        }
+
+        public String getCompleteAddress() {
+            return completeAddress;
+        }
+
+        public String getFlatHouseNo() {
+            return flatHouseNo;
+        }
+
+        public String getPlotHouseNo() {
+            return plotHouseNo;
+        }
+
+        public String getFloor() {
+            return floor;
+        }
+
+        public String getBlockName() {
+            return blockName;
+        }
+
+        public String getApartmentName() {
+            return apartmentName;
         }
     }
 }

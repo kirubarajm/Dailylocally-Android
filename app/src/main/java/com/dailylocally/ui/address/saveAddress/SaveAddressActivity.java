@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,9 @@ import androidx.fragment.app.Fragment;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySaveAddressBinding;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -48,6 +51,8 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
 
     Analytics analytics;
     String pageName = "";
+    String apartmentOrIndividual="",apartment="",towerBlock="",houseFlatNo="",housePlatNo="",floor="",address=""
+            ,landmark="",googleAddress="",pinCode="",area="",lon="",lat="",aId="";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -87,6 +92,27 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     }
 
     @Override
+    public void saveClick() {
+        mAddAddressViewModel.saveAddress(apartmentOrIndividual,googleAddress,address,houseFlatNo,housePlatNo,area,pinCode,
+                lat,lon,landmark,floor,towerBlock,apartment);
+    }
+
+    @Override
+    public void editClick() {
+        onBackPressed();
+    }
+
+    @Override
+    public void showToast(String msg,boolean trueOrFalse) {
+        if (trueOrFalse){
+            Intent intent = MainActivity.newIntent(SaveAddressActivity.this);
+            startActivity(intent);
+            finish();
+        }
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivitySaveAddressBinding = getViewDataBinding();
@@ -94,6 +120,39 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
 
         analytics = new Analytics(this, pageName);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            apartmentOrIndividual = bundle.getString("apartmentOrIndividual");
+            apartment = bundle.getString("apartment");
+            towerBlock = bundle.getString("towerBlock");
+            houseFlatNo = bundle.getString("houseFlatNo");
+            housePlatNo = bundle.getString("housePlatNo");
+            floor = bundle.getString("floor");
+            address = bundle.getString("address");
+            landmark = bundle.getString("landmark");
+            googleAddress = bundle.getString("googleAddress");
+            pinCode = bundle.getString("pinCode");
+            area = bundle.getString("area");
+            lat = bundle.getString("lat");
+            lon = bundle.getString("lon");
+            aId = bundle.getString("edit");
+
+            if (aId!=null) {
+                if (aId.equals("1")) {
+                    mAddAddressViewModel.flagAddressEdit.set(true);
+                }
+            }else {
+                mAddAddressViewModel.flagAddressEdit.set(false);
+            }
+
+            mAddAddressViewModel.address.set(address);
+            mAddAddressViewModel.landmark.set(landmark);
+            if (apartmentOrIndividual.equals("0")){
+                mAddAddressViewModel.addressType.set("Apartment or Gated Society");
+            }else {
+                mAddAddressViewModel.addressType.set("Individual House");
+            }
+        }
     }
 
     @Override

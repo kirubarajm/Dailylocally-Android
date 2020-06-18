@@ -11,7 +11,6 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentMyAccountBinding;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
 import com.dailylocally.ui.calendarView.CalendarActivity;

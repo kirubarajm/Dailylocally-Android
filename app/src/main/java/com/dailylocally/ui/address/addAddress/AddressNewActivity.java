@@ -1,17 +1,23 @@
 package com.dailylocally.ui.address.addAddress;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -21,16 +27,22 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddressNewBinding;
 import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.GpsUtils;
+import com.dailylocally.utilities.SingleShotLocationProvider;
 import com.dailylocally.utilities.analytics.Analytics;
+import com.dailylocally.utilities.fonts.poppins.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -55,6 +67,8 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     GoogleMap map;
     LatLng center;
     Location mLocation;
+    Dialog locationDialog;
+    ProgressDialog dialog;
 
     FusedLocationProviderClient fusedLocationClient;
 
@@ -63,6 +77,8 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     String address = null;
     String aid = null;
+    Bundle bundle = null;
+    String lat="",lon="", googleAddress = "",pinCode = "",area="",aId="";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -104,17 +120,52 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public void apartmentClick() {
         mAddAddressViewModel.apartmentOrIndividual.set(true);
+        mActivityAddressNewBinding.edtApartmentName.requestFocus();
     }
 
     @Override
     public void individualClick() {
         mAddAddressViewModel.apartmentOrIndividual.set(false);
+        mActivityAddressNewBinding.edtHousePlotNo.requestFocus();
     }
 
     @Override
     public void confirmClick() {
+        if (validation()){
+
+        String apartment = mActivityAddressNewBinding.edtApartmentName.getText().toString();
+        String towerBlock = mActivityAddressNewBinding.edtTowerBlock.getText().toString();
+        String houseFlatNo = mActivityAddressNewBinding.edtFlatHouseNo.getText().toString();
+
+        String housePlatNo = mActivityAddressNewBinding.edtHousePlotNo.getText().toString();
+        String floor = mActivityAddressNewBinding.edtFloor.getText().toString();
+
+        String address = mActivityAddressNewBinding.edtAddress.getText().toString();
+        String landmark = mActivityAddressNewBinding.edtLandmark.getText().toString();
+        String apartmentOrIndividual="";
+        if (mActivityAddressNewBinding.radio1.isChecked()){
+            apartmentOrIndividual = "0";
+        }else {
+            apartmentOrIndividual = "1";
+        }
+
         Intent intent = SaveAddressActivity.newIntent(AddressNewActivity.this);
+        intent.putExtra("apartmentOrIndividual",apartmentOrIndividual);
+        intent.putExtra("apartment",apartment);
+        intent.putExtra("towerBlock",towerBlock);
+        intent.putExtra("houseFlatNo",houseFlatNo);
+        intent.putExtra("housePlatNo",housePlatNo);
+        intent.putExtra("floor",floor);
+        intent.putExtra("address",address);
+        intent.putExtra("landmark",landmark);
+        intent.putExtra("googleAddress",googleAddress);
+        intent.putExtra("pinCode",pinCode);
+        intent.putExtra("area",area);
+        intent.putExtra("lat",lat);
+        intent.putExtra("lon",lon);
+        intent.putExtra("edit",aId);
         startActivity(intent);
+        }
     }
 
     @Override
@@ -122,25 +173,169 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         super.onCreate(savedInstanceState);
         mActivityAddressNewBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
-        //  startLocationTracking();
-
-        analytics = new Analytics(this, pageName);
-
-
-        // dialog.show();
+        //analytics = new Analytics(this, pageName);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
+
+        bundle = getIntent().getExtras();
+        if (bundle!=null){
+            lat = bundle.getString("lat");
+            lon = bundle.getString("lon");
+            googleAddress = bundle.getString("locationAddress");
+            googleAddress = bundle.getString("pinCode");
+            area = bundle.getString("area");
+            aId = bundle.getString("edit");
+        }
+
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(true);
+        dialog.setMessage("Getting your location..");
+        dialog.setTitle("Please Wait!");
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
+                if (bundle!=null) {
+                    turnOnGps();
+                    LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                    initCameraIdle();
+                }
             }
         });
 
+        // dialog.show();
+
         mAddAddressViewModel.apartmentOrIndividual.set(true);
         mActivityAddressNewBinding.radio1.setChecked(true);
+        mActivityAddressNewBinding.edtApartmentName.setFocusable(true);
+    }
+
+    public void turnOnGps() {
+
+        new GpsUtils(this, AppConstants.GPS_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                if (isGPSEnable) {
+                    if (ActivityCompat.checkSelfPermission(AddressNewActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddressNewActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(AddressNewActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+                    } else {
+                        if (!dialog.isShowing())
+                            dialog.show();
+                        getUserLocation();
+                    }
+                } else {
+                    showLocationDialog();
+                }
+            }
+        });
+
+    }
+
+    private void getUserLocation() {
+
+        SingleShotLocationProvider.requestSingleUpdate(AddressNewActivity.this,
+                new SingleShotLocationProvider.LocationCallback() {
+                    @Override
+                    public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+
+                        if (dialog != null)
+                            if (dialog.isShowing())
+                                dialog.dismiss();
+                        if (location != null)
+                            if (map != null) {
+
+                                //LatLng latLng = new LatLng(12.99447060,80.25593567);
+
+                                LatLng latLng = new LatLng(location.latitude, location.longitude);
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                                initCameraIdle();
+                            }
+                    }
+                });
+    }
+
+    public void showLocationDialog() {
+        locationDialog = new Dialog(this);
+        locationDialog.setCancelable(false);
+        locationDialog.setContentView(R.layout.dialog_get_location);
+
+        ButtonTextView text = locationDialog.findViewById(R.id.allowgps);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationDialog.dismiss();
+                turnOnGps();
+
+            }
+        });
+
+        ButtonTextView dialogButton = locationDialog.findViewById(R.id.cancelgps);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationDialog.dismiss();
+                finish();
+
+            }
+        });
+
+        locationDialog.show();
+
+    }
+
+    private void initCameraIdle() {
+        map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                center = map.getCameraPosition().target;
+
+                if (center.latitude != 0.0)
+                    getAddressFromLocation(center.latitude, center.longitude);
+                //getAddressFromLocation(12.99447060,80.25593567);
+            }
+        });
+    }
+
+    private void getAddressFromLocation(double latitude, double longitude) {
+        new AsyncTaskAddress().execute(latitude, longitude);
+    }
+
+    private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
+
+
+        @Override
+        protected Address doInBackground(Double... doubles) {
+            Geocoder geocoder = new Geocoder(AddressNewActivity.this, Locale.ENGLISH);
+
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(doubles[0], doubles[1], 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (addresses != null)
+                if (addresses.size() > 0) {
+                    Address fetchedAddress = addresses.get(0);
+
+                    return fetchedAddress;
+                }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(Address fetchedAddress) {
+            super.onPostExecute(fetchedAddress);
+
+        }
     }
 
     @Override
@@ -213,5 +408,41 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    public boolean validation(){
+
+        if (mActivityAddressNewBinding.radio1.isChecked()){
+            if (mActivityAddressNewBinding.edtApartmentName.getText().toString().equals("")){
+                mActivityAddressNewBinding.edtApartmentName.setError("");
+                return false;
+            }else if (mActivityAddressNewBinding.edtTowerBlock.getText().toString().equals("")){
+                mActivityAddressNewBinding.edtTowerBlock.setError("");
+                return false;
+            }else if (mActivityAddressNewBinding.edtFlatHouseNo.getText().toString().equals("")){
+                mActivityAddressNewBinding.edtFlatHouseNo.setError("");
+                return false;
+            }
+        }
+
+        if (mActivityAddressNewBinding.radio2.isChecked()){
+            if (mActivityAddressNewBinding.edtHousePlotNo.getText().toString().equals("")){
+                mActivityAddressNewBinding.edtHousePlotNo.setError("");
+                return false;
+            }else if (mActivityAddressNewBinding.edtFloor.getText().toString().equals("")){
+                mActivityAddressNewBinding.edtFloor.setError("");
+                return false;
+            }
+        }
+
+        if (mActivityAddressNewBinding.edtAddress.getText().toString().equals("")){
+            mActivityAddressNewBinding.edtAddress.setError("");
+            return false;
+        }else if (mActivityAddressNewBinding.edtLandmark.getText().toString().equals("")){
+            mActivityAddressNewBinding.edtLandmark.setError("");
+            return false;
+        }
+
+        return true;
     }
 }

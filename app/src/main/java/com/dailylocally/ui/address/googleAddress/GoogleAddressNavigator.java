@@ -40,6 +40,7 @@ public interface GoogleAddressNavigator {
 
     void googleAddressClick();
 
-    void confirmLocationClick();
+    void confirmLocationClick(String locationAddress, String house, String area, String landmark,String lat,
+                              String lng,String pinCode);
 
 }

@@ -20,4 +20,10 @@ package com.dailylocally.ui.address.saveAddress;
 public interface SaveAddressNavigator {
 
     void handleError(Throwable throwable);
+
+    void saveClick();
+
+    void editClick();
+
+    void showToast(String msg,boolean trueOrFalse);
 }

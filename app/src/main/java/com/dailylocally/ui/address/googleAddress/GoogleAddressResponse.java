@@ -7,51 +7,31 @@ public class GoogleAddressResponse {
 
     @SerializedName("success")
     @Expose
-    private Boolean success;
-
-    @SerializedName("status")
-    @Expose
-    private Boolean status;
-
-
+    public Boolean success;
     @SerializedName("message")
     @Expose
-    private String message;
+    public String message;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("aid")
     @Expose
-    private String aid;
+    public Integer aid;
 
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public String getAid() {
-        return aid;
-    }
-
-    public void setAid(String aid) {
-        this.aid = aid;
-    }
 
     public Boolean getSuccess() {
         return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public Boolean getStatus() {
+        return status;
     }
 
+    public Integer getAid() {
+        return aid;
+    }
 }
