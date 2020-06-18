@@ -26,6 +26,7 @@
     <color name="tracking_back">#ffd4dedd</color>
     <color name="funnel_back">#F5F8F7</color>
     <color name="medium_gray">#ACABAB</color>
+    <color name="search_gray">#EAEAEA</color>
     <color name="extra_light_gray">#DADADA</color>
     <color name="bg_color">#f7f7f7</color>
     <color name="black">#ff444444</color>

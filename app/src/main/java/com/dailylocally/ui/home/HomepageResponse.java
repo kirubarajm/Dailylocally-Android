@@ -145,6 +145,11 @@ public class HomepageResponse {
         @SerializedName("catid")
         @Expose
         private Integer catid;
+
+        @SerializedName("cid")
+        @Expose
+        private String cid;
+
         @SerializedName("name")
         @Expose
         private String name;
@@ -157,6 +162,15 @@ public class HomepageResponse {
 
         public Integer getCatid() {
             return catid;
+        }
+
+
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
         }
 
         public void setCatid(Integer catid) {

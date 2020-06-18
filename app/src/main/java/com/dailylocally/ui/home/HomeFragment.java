@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,14 +62,32 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void dataLoaded() {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseActivity(), 2);
+
+
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
 
                 for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
 
+                    if (mHomeViewModel.categoryList.get(position).getCid()!=null){
+                        return 2;
+
+                    }else return 1;
+
+                }
+                return 1;
+            }
+        });
+
+        /*gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+
+                for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
+
                     if (position == 2 || position == 5 || position == 8 || position == 11) {
-                        /*  if  (position % 2 == 0) {*/
+                        *//*  if  (position % 2 == 0) {*//*
                         return 2;
                     } else {
                         return 1;
@@ -77,7 +96,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 }
                 return 1;
             }
-        });
+        });*/
+
         mFragmentHomeBinding.categoryList.setLayoutManager(gridLayoutManager);
         categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
         mFragmentHomeBinding.categoryList.setAdapter(categoriesAdapter);
@@ -161,9 +181,21 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void categoryItemClicked(HomepageResponse.Result result) {
 
-        Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
-        intent.putExtra("catid", String.valueOf(result.getCatid()));
-        startActivity(intent);
+
+        if (result.getCid()!=null){
+            Toast.makeText(getContext(), "Collection click", Toast.LENGTH_SHORT).show();
+
+
+
+        }else {
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
+            intent.putExtra("catid", String.valueOf(result.getCatid()));
+            startActivity(intent);
+        }
+
+
+
+
 
     }
 }

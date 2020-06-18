@@ -81,6 +81,9 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public void myOrders() {
         getNavigator().gotoOrders();
     }
+ public void closeUnserviceable() {
+        serviceable.set(true);
+    }
 
     public void changeAddress() {
         getNavigator().changeAddress();

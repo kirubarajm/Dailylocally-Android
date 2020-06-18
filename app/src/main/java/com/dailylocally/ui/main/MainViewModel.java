@@ -1,7 +1,5 @@
 package com.dailylocally.ui.main;
 
-import android.util.Log;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
@@ -10,17 +8,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.dailylocally.BuildConfig;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.ui.signup.registration.TokenRequest;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.CartRequestPojo;
 import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.MasterPojo;
-import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -70,6 +67,19 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
         screenName.set(AppConstants.SCREEN_HOME);
+
+
+        if (BuildConfig.ENABLE_DEBUG) {
+
+            getDataManager().setCurrentUserId("1");
+            getDataManager().setCurrentLat("13.05067500");
+            getDataManager().setCurrentLng("80.00000000");
+            getDataManager().setCurrentAddressTitle("Guindy");
+            getDataManager().setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk1MDAzMTM2ODkiLCJpYXQiOjE1NjM5NzEwMDN9.LIDR8Fbqyiw_A-lglOhUb-Mc-j1LV6_OLp8JHZb4yH8");
+
+
+        }
+
 
         Identity identity = new AnonymousIdentity.Builder()
                 .withNameIdentifier(getDataManager().getCurrentUserName())
@@ -176,8 +186,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         }
     }
 
-     public void gotoOrders() {
-         getNavigator().openOrders();
+    public void gotoOrders() {
+        getNavigator().openOrders();
        /* if (!isOrder.get()) {
             getNavigator().openOrders();
             isHome.set(false);
@@ -187,12 +197,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isMyAccount.set(false);
         }*/
     }
-
-
-
-
-
-
 
 
     public boolean totalCart() {
@@ -279,7 +283,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             ee.printStackTrace();
 
         }*/
-       // return false;
+        // return false;
     }
 
     public ObservableField<String> getUserEmail() {
@@ -341,7 +345,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
-
     public void paymentSuccess(String orderid, String paymentId, Integer status) {
 
 
@@ -353,8 +356,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             json.put("payment_status", status);
             json.put("orderid", orderid);
             json.put("payment_gatway_type", AppConstants.RAZORPAY_TYPE);
-
-
 
 
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PAYMENT_CONFIRM, json, new Response.Listener<JSONObject>() {
@@ -401,7 +402,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
     }
-
 
 
 }
