@@ -22,10 +22,10 @@ public class FilterModule {
         return new FilterViewModel(dataManager);
     }
 
-    @Provides
+    /*@Provides
     FilterAdapter provideFilterAdapter() {
         return new FilterAdapter(new ArrayList<>(),dataManager);
-    }
+    }*/
 
 
     @Provides

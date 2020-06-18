@@ -110,7 +110,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         String json = gson.toJson(homePageRequest);
         //  getDataManager().setFilterSort(json);
 
-
         try {
 //                setIsLoading(true);
             categoryLoading.set(true);
@@ -119,13 +118,11 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
                 @Override
                 public void onResponse(JSONObject homepageResponse) {
-
                     try {
 
                         HomepageResponse response;
                         Gson sGson = new GsonBuilder().create();
                         response = sGson.fromJson(homepageResponse.toString(), HomepageResponse.class);
-
 
                         if (response != null) {
 

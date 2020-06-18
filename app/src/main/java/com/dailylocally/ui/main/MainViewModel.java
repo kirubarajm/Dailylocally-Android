@@ -69,16 +69,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         screenName.set(AppConstants.SCREEN_HOME);
 
 
-        if (BuildConfig.ENABLE_DEBUG) {
-
-            getDataManager().setCurrentUserId("1");
-            getDataManager().setCurrentLat("13.05067500");
-            getDataManager().setCurrentLng("80.00000000");
-            getDataManager().setCurrentAddressTitle("Guindy");
-            getDataManager().setApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk1MDAzMTM2ODkiLCJpYXQiOjE1NjM5NzEwMDN9.LIDR8Fbqyiw_A-lglOhUb-Mc-j1LV6_OLp8JHZb4yH8");
-
-
-        }
 
 
         Identity identity = new AnonymousIdentity.Builder()
