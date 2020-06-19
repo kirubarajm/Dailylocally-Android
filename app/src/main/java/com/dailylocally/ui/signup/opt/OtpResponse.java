@@ -174,9 +174,9 @@ public class OtpResponse {
         @SerializedName("created_at")
         @Expose
         private String createdAt;
-        @SerializedName("updated_at")
+        @SerializedName("city")
         @Expose
-        private String updatedAt;
+        private String city;
 
         @SerializedName("name")
         @Expose
@@ -199,6 +199,14 @@ public class OtpResponse {
         @SerializedName("regionid")
         @Expose
         private Integer regionid;
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
 
         public String getName() {
             return name;
@@ -368,13 +376,6 @@ public class OtpResponse {
             this.createdAt = createdAt;
         }
 
-        public String getUpdatedAt() {
-            return updatedAt;
-        }
-
-        public void setUpdatedAt(String updatedAt) {
-            this.updatedAt = updatedAt;
-        }
 
     }
 

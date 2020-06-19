@@ -14,7 +14,6 @@ import com.dailylocally.ui.signup.SignUpResponse;
 import com.dailylocally.ui.signup.registration.TokenRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CommonResponse;
-
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 
@@ -27,7 +26,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public final ObservableField<String> number = new ObservableField<>();
     public final ObservableField<String> timer = new ObservableField<>();
 
-    public long OtpId=0;
+    public long OtpId = 0;
 
     public boolean passwordstatus;
     public boolean otpStatus;
@@ -39,8 +38,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }
 
     public void continueClick() {
-        if (getNavigator()!=null)
-        getNavigator().continueClick();
+        if (getNavigator() != null)
+            getNavigator().continueClick();
     }
 
     public void forgotPasswordClick() {
@@ -90,7 +89,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
 
                                     if (response.getResult().get(0).getAid() != null) {
-                                        getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                        //getDataManager().setCurrentAddressTitle(response.getResult().get(0).getLocality());
+                                        getDataManager().setCurrentAddressTitle(response.getResult().get(0).getCity());
                                         getDataManager().setCurrentLat(response.getResult().get(0).getLat());
                                         getDataManager().setCurrentLng(response.getResult().get(0).getLon());
                                         getDataManager().setAddressId(response.getResult().get(0).getAid());
@@ -102,6 +102,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     e.printStackTrace();
                                 }
                             }
+
 
                             getNavigator().loginSuccess();
                         } else {
@@ -149,13 +150,12 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
                                     getDataManager().setUserRegistrationStatus(genderstatus);
 
-                                    new Analytics().userLogin(response.getUserid(),phoneNumber);
+                                    new Analytics().userLogin(response.getUserid(), phoneNumber);
 
 
                                     getDataManager().saveApiToken(response.getToken());
 
                                     getDataManager().setRazorpayCustomerId(response.getRazerCustomerid());
-
 
 
                                     getDataManager().setCurrentUserId(response.getUserid());
@@ -166,25 +166,23 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     Freshchat.getInstance(MvvmApp.getInstance()).setUser(freshUser);*/
 
 
-
                                     userId.set(String.valueOf(response.getUserid()));
                                     CurrentuserId = response.getUserid();
 
 
+                                    if (response.getResult() != null && response.getResult().size() > 0) {
 
-                                    if (response.getResult()!=null&& response.getResult().size() > 0) {
 
+                                        if (response.getResult().get(0).getAid() != null) {
 
-                                        /*if (response.getResult().get(0).getAid()!=null) {*/
-
-                                            getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                            getDataManager().setCurrentAddressTitle(response.getResult().get(0).getCity());
                                             getDataManager().setCurrentLat(response.getResult().get(0).getLat());
                                             getDataManager().setCurrentLng(response.getResult().get(0).getLon());
                                             getDataManager().setAddressId(response.getResult().get(0).getAid());
                                             getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
                                             getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
 
-                                       /* }*/
+                                        }
 
 
                                         String cuserid = response.getResult().get(0).getUserid();
@@ -197,22 +195,22 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                         getDataManager().setGender(gender);
 
                                     }
-                            //        getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
+                                    //        getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
 
                                     if (genderstatus) {
-                                        if (response.getResult() != null && response.getResult().size()>0) {
-                                            if (response.getResult().get(0).getAddressDefault()==1) {
+                                        if (response.getResult() != null && response.getResult().size() > 0) {
+                                            if (response.getResult().get(0).getAddressDefault() == 1) {
                                                 getDataManager().setUserAddress(true);
-                                                if (getNavigator()!=null) {
+                                                if (getNavigator() != null) {
                                                     getNavigator().openHomeActivity(true);
                                                 }
-                                            }else {
+                                            } else {
                                                 getDataManager().setUserAddress(false);
-                                                if (getNavigator()!=null) {
+                                                if (getNavigator() != null) {
                                                     getNavigator().addAddressActivity(response.getResult().get(0).getAid());
                                                 }
                                             }
-                                        }else {
+                                        } else {
                                             getDataManager().setUserAddress(false);
                                         }
                                     } else {
@@ -235,8 +233,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    if (getNavigator()!=null)
-                    getNavigator().loginFailure();
+                    if (getNavigator() != null)
+                        getNavigator().loginFailure();
                     getDataManager().setUserRegistrationStatus(genderstatus);
                 }
             }, AppConstants.API_VERSION_ONE);
@@ -248,7 +246,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         }
     }
 
-    public void resendClick(){
+    public void resendClick() {
 
         getNavigator().resend();
 
@@ -263,7 +261,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                 public void onResponse(SignUpResponse response) {
                     if (response != null) {
 
-                         OtpId = response.getOid();
+                        OtpId = response.getOid();
                         setIsLoading(false);
                     }
                 }
@@ -300,6 +298,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         }
 
     }
+
     public void goBack() {
         getNavigator().goBack();
     }
