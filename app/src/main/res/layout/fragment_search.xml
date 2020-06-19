@@ -122,12 +122,20 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_search_suggestion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                android:layout_marginBottom="60dp"
+                android:layout_height="200dp"
                 android:background="@android:color/white"
                 app:adapter="@{searchViewModel.searchItemViewModels}"
                 tools:listitem="@layout/list_item_search" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@+id/recyclerview_search_suggestion"
+                android:id="@+id/recyclerview_search_sub_category"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="60dp"
+                android:background="@android:color/white"
+                app:adapter="@{searchViewModel.searchSubCategoryItemViewModels}"
+                tools:listitem="@layout/list_item_sub_category" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_product"

@@ -60,6 +60,7 @@ import com.dailylocally.ui.category.l2.products.ProductsResponse;
 import com.dailylocally.ui.search.QuickSearchResponse;
 import com.dailylocally.ui.search.SearchProductListAdapter;
 import com.dailylocally.ui.search.SearchProductResponse;
+import com.dailylocally.ui.search.SearchSubCategoryAdapter;
 import com.dailylocally.ui.search.SearchSuggestionAdapter;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.dailylocally.R;
@@ -153,8 +154,18 @@ public final class BindingUtils {
     }
 
     @BindingAdapter({"adapter"})
-    public static void addSearchItems(RecyclerView recyclerView, List<QuickSearchResponse.Datum> response) {
+    public static void addSearchItems(RecyclerView recyclerView, List<QuickSearchResponse.Result.ProductsList> response) {
         SearchSuggestionAdapter adapter = (SearchSuggestionAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+
+            adapter.addItems(response);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addSearchSubCategoryItems(RecyclerView recyclerView, List<QuickSearchResponse.Result.SubcategoryList> response) {
+        SearchSubCategoryAdapter adapter = (SearchSubCategoryAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
 

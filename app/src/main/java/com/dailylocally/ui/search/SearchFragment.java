@@ -22,7 +22,8 @@ import com.dailylocally.utilities.analytics.Analytics;
 import javax.inject.Inject;
 
 public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchViewModel> implements
-        SearchNavigator, SearchSuggestionAdapter.LiveProductsAdapterListener,SearchProductListAdapter.ProductsAdapterListener {
+        SearchNavigator, SearchSuggestionAdapter.LiveProductsAdapterListener,SearchProductListAdapter.ProductsAdapterListener,
+        SearchSubCategoryAdapter.LiveProductsAdapterListener{
 
     @Inject
     SearchViewModel mSearchViewModel;
@@ -30,6 +31,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     SearchSuggestionAdapter adapter;
     @Inject
     SearchProductListAdapter productListAdapter;
+    @Inject
+    SearchSubCategoryAdapter mSearchSubCategoryAdapter;
     FragmentSearchBinding mFragmentSearchBinding;
 
     public static SearchFragment newInstance() {
@@ -62,7 +65,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void suggestionProductSuccess() {
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
-        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
+        //mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -83,6 +86,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mSearchViewModel.setNavigator(this);
         adapter.setListener(this);
         productListAdapter.setListener(this);
+        mSearchSubCategoryAdapter.setListener(this);
     }
 
     @Override
@@ -101,6 +105,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager mLayoutManagerProduct
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager mLayoutManagerSubCategory
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setLayoutManager(mLayoutManager);
@@ -110,6 +116,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.recyclerviewProduct.setLayoutManager(mLayoutManagerProduct);
         mFragmentSearchBinding.recyclerviewProduct.setAdapter(productListAdapter);
 
+
+        mLayoutManagerSubCategory.setOrientation(LinearLayoutManager.VERTICAL);
+        mFragmentSearchBinding.recyclerviewSearchSubCategory.setLayoutManager(mLayoutManagerSubCategory);
+        mFragmentSearchBinding.recyclerviewSearchSubCategory.setAdapter(mSearchSubCategoryAdapter);
 
 
         mFragmentSearchBinding.search.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -173,13 +183,17 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mSearchViewModel.getSearchItemsLiveData().observe(this,
                 catregoryItemViewModel -> mSearchViewModel.addSearchItemsToList(catregoryItemViewModel));
 
+        mSearchViewModel.getSearchSubCategoryItemsLiveData().observe(this,
+                catregoryItemViewModel -> mSearchViewModel.addSearchSubCategoryItemsToList(catregoryItemViewModel));
+
         mSearchViewModel.getSearchProductItemsLiveData().observe(this,
                 catregoryItemViewModel -> mSearchViewModel.addSearchProductItemsToList(catregoryItemViewModel));
     }
 
     @Override
-    public void onSuggestionItemClickData(QuickSearchResponse.Datum result) {
+    public void onSuggestionItemClickData(QuickSearchResponse.Result.ProductsList result) {
         try {
+/*
             if (result!=null){
                 int type = Integer.parseInt(result.getType());
                 if (type== AppConstants.SEARCH_CATEGORY){
@@ -200,6 +214,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                     mSearchViewModel.SearchProduct(result.getType(),String.valueOf(result.getId()));
                 }
             }
+*/
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -212,6 +227,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void onProductItemClick(SearchProductResponse.Result products) {
+        Intent intent = CategoryL2Activity.newIntent(getContext());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSuggestionItemClickData(QuickSearchResponse.Result.SubcategoryList result) {
         Intent intent = CategoryL2Activity.newIntent(getContext());
         startActivity(intent);
     }

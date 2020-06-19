@@ -8,29 +8,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.data.DataManager;
-
 import com.dailylocally.databinding.ListItemEmptySearchBinding;
-import com.dailylocally.databinding.ListItemSearchBinding;
+import com.dailylocally.databinding.ListItemSubCategoryBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
 
 import java.util.List;
 
 
-public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class SearchSubCategoryAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<QuickSearchResponse.Result.ProductsList> item_list;
+    private List<QuickSearchResponse.Result.SubcategoryList> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
     private DataManager dataManager;
 
 
-    public SearchSuggestionAdapter(List<QuickSearchResponse.Result.ProductsList> item_list) {
+    public SearchSubCategoryAdapter(List<QuickSearchResponse.Result.SubcategoryList> item_list) {
         this.item_list = item_list;
     }
 
-    public SearchSuggestionAdapter(List<QuickSearchResponse.Result.ProductsList> item_list, DataManager dataManager) {
+    public SearchSubCategoryAdapter(List<QuickSearchResponse.Result.SubcategoryList> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
@@ -40,7 +39,7 @@ public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemSearchBinding blogViewBinding = ListItemSearchBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemSubCategoryBinding blogViewBinding = ListItemSubCategoryBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -81,7 +80,7 @@ public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder
         item_list.clear();
     }
 
-    public void addItems(List<QuickSearchResponse.Result.ProductsList> blogList) {
+    public void addItems(List<QuickSearchResponse.Result.SubcategoryList> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -92,7 +91,7 @@ public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder
 
     public interface LiveProductsAdapterListener {
 
-        void onSuggestionItemClickData(QuickSearchResponse.Result.ProductsList result);
+        void onSuggestionItemClickData(QuickSearchResponse.Result.SubcategoryList result);
 
     }
 
@@ -116,11 +115,11 @@ public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements SearchSuggestionItemViewModel.SearchItemViewModelListener {
-        ListItemSearchBinding mListItemLiveProductsBinding;
-        SearchSuggestionItemViewModel mLiveProductsItemViewModel;
+    public class LiveProductsViewHolder extends BaseViewHolder implements SearchSubCategorytemViewModel.SearchItemViewModelListener {
+        ListItemSubCategoryBinding mListItemLiveProductsBinding;
+        SearchSubCategorytemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemSearchBinding binding) {
+        public LiveProductsViewHolder(ListItemSubCategoryBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -129,9 +128,9 @@ public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final QuickSearchResponse.Result.ProductsList blog = item_list.get(position);
-            mLiveProductsItemViewModel = new SearchSuggestionItemViewModel(this, blog);
-            mListItemLiveProductsBinding.setSearchItemViewModel(mLiveProductsItemViewModel);
+            final QuickSearchResponse.Result.SubcategoryList blog = item_list.get(position);
+            mLiveProductsItemViewModel = new SearchSubCategorytemViewModel(this, blog);
+            mListItemLiveProductsBinding.setSearchSubCategoryItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
@@ -143,7 +142,7 @@ public class SearchSuggestionAdapter extends RecyclerView.Adapter<BaseViewHolder
         }
 
         @Override
-        public void onItemClick(QuickSearchResponse.Result.ProductsList result) {
+        public void onItemClick(QuickSearchResponse.Result.SubcategoryList result) {
             mLiveProductsAdapterListener.onSuggestionItemClickData(result);
         }
 

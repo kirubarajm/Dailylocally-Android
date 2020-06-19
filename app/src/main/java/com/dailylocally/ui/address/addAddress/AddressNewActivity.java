@@ -259,7 +259,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     } else {
                         /*if (!dialog.isShowing())
                             dialog.show();*/
-                        getUserLocation();
+                        //getUserLocation();
                     }
                 } else {
                     showLocationDialog();

@@ -37,8 +37,11 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     public final ObservableField<String> unserviceableTitle = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
 
-    private MutableLiveData<List<QuickSearchResponse.Datum>> searchItemsLiveData;
-    public ObservableList<QuickSearchResponse.Datum> searchItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<QuickSearchResponse.Result.ProductsList>> searchItemsLiveData;
+    public ObservableList<QuickSearchResponse.Result.ProductsList> searchItemViewModels = new ObservableArrayList<>();
+
+    private MutableLiveData<List<QuickSearchResponse.Result.SubcategoryList>> searchSubCategoryItemsLiveData;
+    public ObservableList<QuickSearchResponse.Result.SubcategoryList> searchSubCategoryItemViewModels = new ObservableArrayList<>();
 
     private MutableLiveData<List<SearchProductResponse.Result>> searchProductItemsLiveData;
     public ObservableList<SearchProductResponse.Result> searchProductItemViewModels = new ObservableArrayList<>();
@@ -47,24 +50,41 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     public SearchViewModel(DataManager dataManager) {
         super(dataManager);
         searchItemsLiveData = new MutableLiveData<>();
+        searchSubCategoryItemsLiveData = new MutableLiveData<>();
+
         searchProductItemsLiveData = new MutableLiveData<>();
         strLat = getDataManager().getCurrentLat();
         strLng = getDataManager().getCurrentLng();
         userId = getDataManager().getCurrentUserId();
     }
 
-    public MutableLiveData<List<QuickSearchResponse.Datum>> getSearchItemsLiveData() {
+    public MutableLiveData<List<QuickSearchResponse.Result.ProductsList>> getSearchItemsLiveData() {
         return searchItemsLiveData;
     }
 
-    public ObservableList<QuickSearchResponse.Datum> getSearchItemViewModels() {
+    public ObservableList<QuickSearchResponse.Result.ProductsList> getSearchItemViewModels() {
         return searchItemViewModels;
     }
 
-    public void addSearchItemsToList(List<QuickSearchResponse.Datum> ordersItems) {
+    public void addSearchItemsToList(List<QuickSearchResponse.Result.ProductsList> ordersItems) {
         if (ordersItems != null) {
             searchItemViewModels.clear();
             searchItemViewModels.addAll(ordersItems);
+        }
+    }
+
+    public MutableLiveData<List<QuickSearchResponse.Result.SubcategoryList>> getSearchSubCategoryItemsLiveData() {
+        return searchSubCategoryItemsLiveData;
+    }
+
+    public ObservableList<QuickSearchResponse.Result.SubcategoryList> getSearchSubCategoryItemViewModels() {
+        return searchSubCategoryItemViewModels;
+    }
+
+    public void addSearchSubCategoryItemsToList(List<QuickSearchResponse.Result.SubcategoryList> ordersItems) {
+        if (ordersItems != null) {
+            searchSubCategoryItemViewModels.clear();
+            searchSubCategoryItemViewModels.addAll(ordersItems);
         }
     }
 
@@ -93,19 +113,23 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                         @Override
                         public void onResponse(QuickSearchResponse response) {
                             if (response.getStatus()) {
-                                if (response.getData() != null && response.getData().size() > 0) {
-                                    searchItemsLiveData.setValue(response.getData());
+                                if (response.getResult() != null && response.getResult().getProductsList().size() > 0 &&
+                                        response.getResult().getSubcategoryList().size() > 0) {
+                                    searchItemsLiveData.setValue(response.getResult().getProductsList());
+                                    searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
                                     if (getNavigator() != null) {
                                         getNavigator().quickSearchSuccess();
                                     }
                                 } else {
-                                    searchItemsLiveData.setValue(response.getData());
+                                    searchItemsLiveData.setValue(response.getResult().getProductsList());
+                                    searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
                                     if (getNavigator() != null) {
                                         getNavigator().searchNotFound();
                                     }
                                 }
                             }else {
-                                searchItemsLiveData.setValue(response.getData());
+                                searchItemsLiveData.setValue(response.getResult().getProductsList());
+                                searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
                                 if (getNavigator() != null) {
                                     getNavigator().searchNotFound();
                                 }

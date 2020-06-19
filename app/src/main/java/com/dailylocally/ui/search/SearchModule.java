@@ -21,6 +21,11 @@ public class SearchModule {
     }
 
     @Provides
+    SearchSubCategoryAdapter provideSearchSubCategoryAdapter() {
+        return new SearchSubCategoryAdapter(new ArrayList<>());
+    }
+
+    @Provides
     SearchProductListAdapter provideSearchProductAdapter() {
         return new SearchProductListAdapter(new ArrayList<>());
     }
