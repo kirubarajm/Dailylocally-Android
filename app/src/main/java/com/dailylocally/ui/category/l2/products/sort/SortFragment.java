@@ -1,6 +1,5 @@
-package com.dailylocally.ui.category.l2.products.filter;
+package com.dailylocally.ui.category.l2.products.sort;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,24 +11,23 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentFilterBinding;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
-import com.dailylocally.ui.category.l2.products.StartFilter;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
 
-public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBinding, FilterViewModel> implements FilterNavigator/*, FilterAdapter.FiltersAdapterListener*/ {
+public class SortFragment extends BaseBottomSheetFragment<FragmentFilterBinding, SortViewModel> implements SortNavigator/*, FilterAdapter.FiltersAdapterListener*/ {
 
 
-    public static final String TAG = FilterFragment.class.getSimpleName();
+    public static final String TAG = SortFragment.class.getSimpleName();
     @Inject
-    FilterViewModel mFilterViewModel;
+    SortViewModel mSortViewModel;
 
     FragmentFilterBinding mFragmentFilterBinding;
 
     @Inject
-    FilterAdapter adapter;
+    SortAdapter adapter;
     @Inject
     LinearLayoutManager mLayoutManager;
  //   StartFilter startFilter;
@@ -50,9 +48,9 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     }*/
 
-    public static FilterFragment newInstance() {
+    public static SortFragment newInstance() {
         Bundle args = new Bundle();
-        FilterFragment fragment = new FilterFragment();
+        SortFragment fragment = new SortFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,17 +66,17 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     }
 
     @Override
-    public FilterViewModel getViewModel() {
-        return mFilterViewModel;
+    public SortViewModel getViewModel() {
+        return mSortViewModel;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFilterViewModel.setNavigator(this);
+        mSortViewModel.setNavigator(this);
      //   adapter.setListener(this);
         analytics=new Analytics(getActivity(),pageName);
-        mFilterViewModel.getFilters("2");
+        mSortViewModel.getSorts();
 
     }
 
@@ -104,8 +102,8 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     }
     private void subscribeToLiveData() {
-        mFilterViewModel.getFilterItemsLiveData().observe(this,
-                filters -> mFilterViewModel.addtoFilterList(filters));
+        mSortViewModel.getFilterItemsLiveData().observe(this,
+                filters -> mSortViewModel.addtoFilterList(filters));
     }
     @Override
     public void clearFilters() {

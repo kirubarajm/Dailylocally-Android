@@ -65,16 +65,13 @@
         <activity
             android:name=".ui.category.l2.CategoryL2Activity"
             android:screenOrientation="locked" />
-
         <activity
             android:name=".ui.address.googleAddress.GoogleAddressActivity"
             android:screenOrientation="locked">
-
         </activity>
         <activity
             android:name=".ui.subscription.SubscriptionActivity"
             android:screenOrientation="locked">
-
         </activity>
         <activity
             android:name=".ui.orderplaced.OrderPlacedActivity"
@@ -85,7 +82,6 @@
         <activity
             android:name=".ui.calendarView.CalendarActivity"
             android:screenOrientation="locked" />
-
         <activity
             android:name=".ui.favorites.FavoritesActivity"
             android:screenOrientation="locked" />
@@ -99,6 +95,7 @@
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"
              android:value="rzp_live_kelnGLZvTecvPV" />-->
+
         <meta-data
                           android:name="com.razorpay.ApiKey"
                           android:value="rzp_test_8ZBt2J9hAsxH9Q"

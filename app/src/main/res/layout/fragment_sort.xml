@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="filterViewModel"
-            type="com.dailylocally.ui.category.l2.products.filter.FilterViewModel">
+            name="sortViewModel"
+            type="com.dailylocally.ui.category.l2.products.sort.SortViewModel">
 
         </variable>
     </data>
@@ -41,12 +41,12 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="10dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="@{()->filterViewModel.clearAll()}"
+                    android:onClick="@{()->sortViewModel.clearAll()}"
                     android:paddingStart="10dp"
                     android:paddingTop="3dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="2dp"
-                    android:text="@string/clear_all"
+                    android:text="Clear"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_gray"
                     android:textSize="12sp"
@@ -60,7 +60,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_margin="10dp"
-                    android:text="Filter"
+                    android:text="Sort"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -68,7 +68,7 @@
 
 
                 <ImageView
-                    android:onClick="@{()->filterViewModel.close()}"
+                    android:onClick="@{()->sortViewModel.close()}"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
@@ -104,20 +104,6 @@
                     android:visibility="visible">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@{filterViewModel.filterTitle}"
-                        android:textAllCaps="true"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_filters"
                         android:layout_width="match_parent"
@@ -127,8 +113,8 @@
                         android:layout_marginEnd="20dp"
                         android:background="@android:color/white"
                         android:minHeight="200dp"
-                        app:filteradapter="@{filterViewModel.filterItems}"
-                        tools:listitem="@layout/list_item_filters"/>
+                        app:sortadapter="@{sortViewModel.sortItems}"
+                        tools:listitem="@layout/list_item_sort"/>
 
                 </LinearLayout>
 
@@ -146,7 +132,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/curve_stroke_gray"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="@{()->filterViewModel.apply()}"
+            android:onClick="@{()->sortViewModel.apply()}"
             android:paddingStart="25dp"
             android:paddingTop="7dp"
             android:paddingEnd="25dp"

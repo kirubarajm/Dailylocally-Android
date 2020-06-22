@@ -1,34 +1,31 @@
-package com.dailylocally.ui.category.l2.products.filter;
+package com.dailylocally.ui.category.l2.products.sort;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+public class SortItemViewModel {
 
 
-public class FilterItemViewModel {
-
-
-    public final ObservableField<String> filterTitle = new ObservableField<>();
+    public final ObservableField<String> sortTitle = new ObservableField<>();
 
     public final ObservableBoolean isClicked = new ObservableBoolean();
 
 
-    public final FilterItemViewModelListener mListener;
-    private final FilterItems.Result filterItems;
+    public final SortItemViewModelListener mListener;
+    private final SortItems.Result sorts;
 
     String  id;
 
-    public FilterItemViewModel(FilterItemViewModelListener mListener, FilterItems.Result filterItems) {
+    public SortItemViewModel(SortItemViewModelListener mListener, SortItems.Result sorts) {
 
 
         this.mListener = mListener;
-        this.filterItems = filterItems;
+        this.sorts = sorts;
 
-        id = filterItems.getBrand();
+        id = sorts.getSortid();
 
-        FilterRequestPojo filterRequestPojo;
+
 
         /*if (mListener.getFilters() != null) {
             Gson sGson = new GsonBuilder().create();
@@ -70,7 +67,7 @@ public class FilterItemViewModel {
 
         }*/
 
-        filterTitle.set(filterItems.getBrandname());
+        sortTitle.set(sorts.getSortname());
     }
 
 
@@ -87,7 +84,7 @@ public class FilterItemViewModel {
     }
 
 
-    interface FilterItemViewModelListener {
+    interface SortItemViewModelListener {
 
         void onItemClick(Integer id);
 

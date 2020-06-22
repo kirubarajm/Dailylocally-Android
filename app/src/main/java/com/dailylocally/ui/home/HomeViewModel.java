@@ -57,7 +57,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
 
-
     }
 
     public MutableLiveData<List<HomepageResponse.Result>> getCategoryListLiveData() {

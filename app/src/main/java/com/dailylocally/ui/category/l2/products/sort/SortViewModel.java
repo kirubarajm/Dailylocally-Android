@@ -1,8 +1,7 @@
-package com.dailylocally.ui.category.l2.products.filter;
+package com.dailylocally.ui.category.l2.products.sort;
 
 
 import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
@@ -20,26 +19,26 @@ import java.util.List;
 import dagger.Module;
 
 @Module
-public class FilterViewModel extends BaseViewModel<FilterNavigator> {
+public class SortViewModel extends BaseViewModel<SortNavigator> {
 
-    public ObservableList<FilterItems.Result> filterItems = new ObservableArrayList<>();
-    public ObservableField<String> filterTitle = new ObservableField<>();
-    private MutableLiveData<List<FilterItems.Result>> filterItemsLiveData;
+    public ObservableList<SortItems.Result> sortItems = new ObservableArrayList<>();
+    private MutableLiveData<List<SortItems.Result>> sortItemsLiveData;
 
-    public FilterViewModel(DataManager dataManager) {
+
+    public SortViewModel(DataManager dataManager) {
         super(dataManager);
-        filterItemsLiveData = new MutableLiveData<>();
+        sortItemsLiveData = new MutableLiveData<>();
     }
 
 
-    public void addtoFilterList(List<FilterItems.Result> results) {
-        filterItems.clear();
-        filterItems.addAll(results);
+    public void addtoFilterList(List<SortItems.Result> results) {
+        sortItems.clear();
+        sortItems.addAll(results);
     }
 
 
-    public MutableLiveData<List<FilterItems.Result>> getFilterItemsLiveData() {
-        return filterItemsLiveData;
+    public MutableLiveData<List<SortItems.Result>> getFilterItemsLiveData() {
+        return sortItemsLiveData;
     }
 
 
@@ -58,29 +57,26 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     public void clearAll() {
         getDataManager().saveIsFilterApplied(false);
         getNavigator().clearFilters();
-
-
     }
 
     public void close() {
         getNavigator().close();
-
     }
 
-    public void getFilters(String scl2id) {
+
+    public void getSorts() {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_FILTERS + scl2id, FilterItems.class, new Response.Listener<FilterItems>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_SORT, SortItems.class, new Response.Listener<SortItems>() {
                 @Override
-                public void onResponse(FilterItems response) {
+                public void onResponse(SortItems response) {
                     try {
                         if (response != null) {
                             if (response.getStatus()) {
                                 if (response.getResult() != null) {
-                                    filterTitle.set(response.getTitle());
-                                    filterItemsLiveData.setValue(response.getResult());
+                                    sortItemsLiveData.setValue(response.getResult());
                                 }
                             }
                         }

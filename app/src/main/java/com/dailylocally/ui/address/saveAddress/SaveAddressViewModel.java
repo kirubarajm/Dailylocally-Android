@@ -89,6 +89,7 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                     getDataManager().setCurrentLng(lon);
                                     getDataManager().setCurrentAddress(completeAddress);
                                     getDataManager().setCurrentAddressArea(city);
+                                    getDataManager().setCurrentAddressTitle(city);
                                     getDataManager().setAddressId(String.valueOf(response.getAid()));
                                     defaultAddress(String.valueOf(response.getAid()));
                                 }

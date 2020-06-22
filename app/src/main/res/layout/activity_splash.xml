@@ -8,22 +8,84 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <ImageView
+            android:adjustViewBounds="true"
             android:id="@+id/img_logo"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
+            android:scaleType="fitCenter"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_dl_logo" />
 
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_logo"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="FRESHY"
+                android:textColor="@color/dl_primary_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:tint="@color/dl_primary_color"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_typing_dot_primary" />
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="LOCALLY"
+                android:textColor="@color/dl_primary_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:tint="@color/dl_primary_color"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_typing_dot_primary" />
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="DAILY"
+                android:textColor="@color/dl_primary_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
         <com.dailylocally.utilities.fonts.poppins.ContentTextView
-            android:textSize="14sp"
-            android:text="@{splashViewModel.version}"
-            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:text="@{splashViewModel.version}"
+            android:textSize="14sp" />
 
 
     </RelativeLayout>

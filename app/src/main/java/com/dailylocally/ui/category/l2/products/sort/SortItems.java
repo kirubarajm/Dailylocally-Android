@@ -1,11 +1,11 @@
-package com.dailylocally.ui.category.l2.products.filter;
+package com.dailylocally.ui.category.l2.products.sort;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class FilterItems {
+public class SortItems {
     @SerializedName("success")
     @Expose
     private Boolean success;
@@ -53,28 +53,28 @@ public class FilterItems {
 
 
     public class Result {
-
-        @SerializedName("brand")
+        @SerializedName("sortid")
         @Expose
-        private String brand;
-        @SerializedName("brandname")
+        private String sortid;
+        @SerializedName("sortname")
         @Expose
-        private String brandname;
+        private String sortname;
 
-        public String getBrand() {
-            return brand;
+
+        public String getSortid() {
+            return sortid;
         }
 
-        public void setBrand(String brand) {
-            this.brand = brand;
+        public void setSortid(String sortid) {
+            this.sortid = sortid;
         }
 
-        public String getBrandname() {
-            return brandname;
+        public String getSortname() {
+            return sortname;
         }
 
-        public void setBrandname(String brandname) {
-            this.brandname = brandname;
+        public void setSortname(String sortname) {
+            this.sortname = sortname;
         }
     }
 }

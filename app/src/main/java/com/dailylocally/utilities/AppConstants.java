@@ -429,6 +429,8 @@ public class AppConstants {
   public static final String REFERRAL = URL_SERVER_IP_PORT + "/user/referral/";
   public static final String LOGOUT = URL_SERVER_IP_PORT + "/user/logout";
   public static final String GET_USER_ADDRESS = URL_SERVER_IP_PORT + "/user/address/";
+  public static final String GET_FILTERS = URL_SERVER_IP_PORT + "/user/brandlist/";
+  public static final String GET_SORT = URL_SERVER_IP_PORT + "/user/sortlist/";
   public static final String QUICK_SEARCH = URL_SERVER_IP_PORT + "/user/quicksearch";
   public static final String URL_SEARCH_PRODUCT = URL_SERVER_IP_PORT + "/user/search/catalogdata";
 

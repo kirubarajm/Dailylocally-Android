@@ -1,6 +1,6 @@
-package com.dailylocally.ui.category.l2.products.filter;
+package com.dailylocally.ui.category.l2.products.sort;
 
-public interface FilterNavigator {
+public interface SortNavigator {
 
     void handleError(Throwable throwable);
 

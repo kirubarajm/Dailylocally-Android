@@ -7,25 +7,16 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Map;
 
 public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
@@ -82,6 +73,18 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
     }
 
+    public void openFilter() {
+
+        getNavigator().openFilter();
+
+    }
+
+    public void openSort() {
+
+        getNavigator().openSort();
+
+    }
+
     public void fetchProducts(int scl2id) {
 
         if (getDataManager().getCurrentLat() != null) {
@@ -91,9 +94,9 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
             productsRequest.setUserid(getDataManager().getCurrentUserId());
             productsRequest.setLat(getDataManager().getCurrentLat());
-            productsRequest.setLon( getDataManager().getCurrentLng());
-            productsRequest.setScl1Id( 1);
-            productsRequest.setScl2Id( scl2id);
+            productsRequest.setLon(getDataManager().getCurrentLng());
+            productsRequest.setScl1Id(1);
+            productsRequest.setScl2Id(scl2id);
 
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
@@ -137,8 +140,8 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
         }
 
 
-      /*  ProductsPageRequest productsPageRequest = new ProductsPageRequest();
-           *//* homePageRequest.setUserid(getDataManager().getCurrentUserId());
+        /*  ProductsPageRequest productsPageRequest = new ProductsPageRequest();
+         *//* homePageRequest.setUserid(getDataManager().getCurrentUserId());
         homePageRequest.setLat(getDataManager().getCurrentLat());
         homePageRequest.setLon(getDataManager().getCurrentLng());*//*
 
@@ -196,8 +199,8 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             }) {
 
                 *//**
-                 * Passing some request headers
-                 *//*
+         * Passing some request headers
+         *//*
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
