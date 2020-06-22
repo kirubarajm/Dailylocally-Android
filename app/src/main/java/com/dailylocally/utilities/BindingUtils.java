@@ -57,6 +57,10 @@ import com.dailylocally.ui.category.l1.L1CategoriesAdapter;
 import com.dailylocally.ui.category.l1.L1CategoryResponse;
 import com.dailylocally.ui.category.l2.products.ProductListAdapter;
 import com.dailylocally.ui.category.l2.products.ProductsResponse;
+import com.dailylocally.ui.category.l2.products.filter.FilterAdapter;
+import com.dailylocally.ui.category.l2.products.filter.FilterItems;
+import com.dailylocally.ui.category.l2.products.sort.SortAdapter;
+import com.dailylocally.ui.category.l2.products.sort.SortItems;
 import com.dailylocally.ui.search.QuickSearchResponse;
 import com.dailylocally.ui.search.SearchProductListAdapter;
 import com.dailylocally.ui.search.SearchProductResponse;
@@ -99,6 +103,22 @@ public final class BindingUtils {
  @BindingAdapter({"adapter"})
     public static void addL1CategoryItems(RecyclerView recyclerView, List<L1CategoryResponse.Result> results) {
         L1CategoriesAdapter adapter = (L1CategoriesAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+ @BindingAdapter({"filteradapter"})
+    public static void addFilterItems(RecyclerView recyclerView, List<FilterItems.Result> results) {
+        FilterAdapter adapter = (FilterAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+ @BindingAdapter({"sortadapter"})
+    public static void addSortItems(RecyclerView recyclerView, List<SortItems.Result> results) {
+        SortAdapter adapter = (SortAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(results);

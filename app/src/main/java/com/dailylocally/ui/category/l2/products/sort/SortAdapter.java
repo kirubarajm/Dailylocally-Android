@@ -1,4 +1,4 @@
-package com.dailylocally.ui.category.l2.products.filter;
+package com.dailylocally.ui.category.l2.products.sort;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,27 +8,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.data.DataManager;
 import com.dailylocally.databinding.ListItemFiltersBinding;
+import com.dailylocally.databinding.ListItemSortBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
 
 import java.util.List;
 
-public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     public Integer type;
-    private List<FilterItems.Result> item_list;
+    private List<SortItems.Result> item_list;
     private FiltersAdapterListener mFiltersAdapterListener;
 
     private DataManager dataManager;
 
 
-    public FilterAdapter(List<FilterItems.Result> item_list) {
+    public SortAdapter(List<SortItems.Result> item_list) {
         this.item_list = item_list;
     }
 
-    public FilterAdapter(List<FilterItems.Result> item_list, DataManager dataManager) {
+    public SortAdapter(List<SortItems.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
@@ -39,7 +40,7 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         switch (i) {
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemFiltersBinding blogViewBinding1 = ListItemFiltersBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemSortBinding blogViewBinding1 = ListItemSortBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding1);
         }
@@ -73,7 +74,7 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<FilterItems.Result> blogList) {
+    public void addItems(List<SortItems.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -95,27 +96,27 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements FilterItemViewModel.FilterItemViewModelListener {
-        ListItemFiltersBinding mListItemLiveProductsBinding;
-        FilterItemViewModel mFilterItemViewModel;
+    public class LiveProductsViewHolder extends BaseViewHolder implements SortItemViewModel.SortItemViewModelListener {
+        ListItemSortBinding mListItemSortBinding;
+        SortItemViewModel mSortItemViewModel;
 
-        public LiveProductsViewHolder(ListItemFiltersBinding binding) {
+        public LiveProductsViewHolder(ListItemSortBinding binding) {
             super(binding.getRoot());
-            this.mListItemLiveProductsBinding = binding;
+            this.mListItemSortBinding = binding;
         }
 
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final FilterItems.Result blog = item_list.get(position);
-            mFilterItemViewModel = new FilterItemViewModel(this, blog);
-            mListItemLiveProductsBinding.setFilterItemViewModel(mFilterItemViewModel);
+            final SortItems.Result blog = item_list.get(position);
+            mSortItemViewModel = new SortItemViewModel(this, blog);
+            mListItemSortBinding.setSortItemViewModel(mSortItemViewModel);
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
-            mListItemLiveProductsBinding.executePendingBindings();
+            mListItemSortBinding.executePendingBindings();
         }
 
 

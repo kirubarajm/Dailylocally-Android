@@ -19,9 +19,9 @@
 
         <RelativeLayout
             android:id="@+id/rel_search_bar"
-            android:layout_margin="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search"
@@ -36,10 +36,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_below="@+id/rel_search_bar"
             android:id="@+id/before"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/rel_search_bar"
             android:background="@color/white">
 
             <ImageView
@@ -75,12 +75,12 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:visibility="gone"
-            android:layout_below="@+id/rel_search_bar"
             android:id="@+id/search_not_found"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_below="@+id/rel_search_bar"
+            android:background="@color/white"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/img_not_found"
@@ -113,41 +113,45 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_below="@+id/rel_search_bar"
-            android:id="@+id/search_suggestion"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_search_sub_category"
+            <LinearLayout
+                android:id="@+id/search_suggestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:adapter="@{searchViewModel.searchSubCategoryItemViewModels}"
-                tools:listitem="@layout/list_item_sub_category" />
-            
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_search_suggestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:adapter="@{searchViewModel.searchItemViewModels}"
-                tools:listitem="@layout/list_item_search" />
+                android:layout_below="@+id/rel_search_bar"
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_product"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="60dp"
-                android:visibility="gone"
-                android:background="@android:color/white"
-                app:adapter="@{searchViewModel.searchProductItemViewModels}"
-                tools:listitem="@layout/list_item_search_product_list" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_search_sub_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    app:adapter="@{searchViewModel.searchSubCategoryItemViewModels}"
+                    tools:listitem="@layout/list_item_sub_category" />
 
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_search_suggestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    app:adapter="@{searchViewModel.searchItemViewModels}"
+                    tools:listitem="@layout/list_item_search" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="60dp"
+                    android:background="@android:color/white"
+                    android:visibility="gone"
+                    app:adapter="@{searchViewModel.searchProductItemViewModels}"
+                    tools:listitem="@layout/list_item_search_product_list" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 
 </layout>

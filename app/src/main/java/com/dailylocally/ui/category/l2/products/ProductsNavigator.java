@@ -5,5 +5,8 @@ public interface ProductsNavigator {
 
     void handleError(Throwable throwable);
 
+    void openFilter();
+
+    void openSort();
 
 }

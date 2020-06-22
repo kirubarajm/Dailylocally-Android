@@ -40,6 +40,7 @@
                     android:weightSum="2">
 
                     <LinearLayout
+                        android:onClick="@{()->productsViewModel.openFilter()}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -82,6 +83,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:onClick="@{()->productsViewModel.openSort()}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

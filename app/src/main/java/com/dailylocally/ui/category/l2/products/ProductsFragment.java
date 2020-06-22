@@ -16,6 +16,7 @@ import com.dailylocally.databinding.FragmentProductsBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 
 import javax.inject.Inject;
@@ -57,6 +58,19 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     @Override
     public void handleError(Throwable throwable) {
+    }
+
+    @Override
+    public void openFilter() {
+
+        FilterFragment filterFragment = new FilterFragment();
+        filterFragment.show(getFragmentManager(), filterFragment.getTag());
+
+    }
+
+    @Override
+    public void openSort() {
+
     }
 
 
