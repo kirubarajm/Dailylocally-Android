@@ -45,6 +45,8 @@ import com.dailylocally.ui.onboarding.OnBoardingActivity;
 import com.dailylocally.ui.onboarding.OnBoardingActivityModule;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedModule;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsModule;
 import com.dailylocally.ui.search.SearchProvider;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.SignUpActivityModule;
@@ -151,5 +153,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {ViewAddressModule.class})
     abstract ViewAddressActivity bindViewAddressActivity();
+
+    @ContributesAndroidInjector(modules = {ProductDetailsModule.class})
+    abstract ProductDetailsActivity bindProductDetailsActivity();
 
 }
