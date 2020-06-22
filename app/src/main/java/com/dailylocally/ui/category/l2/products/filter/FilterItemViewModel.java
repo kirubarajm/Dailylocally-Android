@@ -76,24 +76,24 @@ public class FilterItemViewModel {
 
     public void onItemClick() {
 
-        /*if (isClicked.get()) {
+        if (isClicked.get()) {
             isClicked.set(false);
             mListener.removeFilter(id);
 
         } else {
             isClicked.set(true);
-            mListener.addfilter(id);
-        }*/
+           mListener.addfilter(id);
+        }
     }
 
 
     interface FilterItemViewModelListener {
 
-        void onItemClick(Integer id);
 
-        void addfilter(Integer id);
 
-        void removeFilter(Integer id);
+        void addfilter(String id);
+
+        void removeFilter(String id);
 
 
 

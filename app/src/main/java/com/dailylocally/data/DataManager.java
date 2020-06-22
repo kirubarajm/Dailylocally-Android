@@ -75,6 +75,8 @@ public interface DataManager extends PreferencesHelper {
 
     void saveCouponCode(String coupon);
 
+    void saveFiletrSort(String filterSort);
+
     void saveChatOrderID(String orderid);
 
     void saveSupportNumber(String number);

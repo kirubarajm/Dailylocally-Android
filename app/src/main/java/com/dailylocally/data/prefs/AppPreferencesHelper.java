@@ -53,6 +53,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_FIRST_LOCALLITY = "FIRST_LOCALITY";
     private static final String PREF_KEY_FIRST_CITY = "FIRST_CITY";
 
+    private static final String PREF_KEY_FILTER_SORT = "FILTER_SORT";
+
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
     private static final String PREF_KEY_REFUND_BALANCE = "PREF_KEY_REFUND_BALANCE";
@@ -493,6 +495,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setFirstCity(String city) {
         mPrefs.edit().putString(PREF_KEY_FIRST_CITY, city).apply();
+    }
+
+    @Override
+    public String getFilterSort() {
+        return mPrefs.getString(PREF_KEY_FILTER_SORT, null);
+    }
+
+    @Override
+    public void setFilterSort(String filterSort) {
+        mPrefs.edit().putString(PREF_KEY_FILTER_SORT, filterSort).apply();
     }
 
     @Override

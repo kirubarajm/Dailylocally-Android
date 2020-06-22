@@ -18,6 +18,8 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCategoryl12Binding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
+import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -31,7 +33,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 
-public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding, CategoryL2ViewModel> implements CategoryL2Navigator, HasSupportFragmentInjector {
+public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding, CategoryL2ViewModel> implements CategoryL2Navigator, HasSupportFragmentInjector, FilterListener {
 
     @Inject
     CategoryL2ViewModel mCategoryL2ViewModel;
@@ -40,6 +42,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     ActivityCategoryl12Binding mActivityCategoryl2Binding;
     String categoryid;
     String scl1id;
+    String vpid;
     ViewPager viewPager;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -73,6 +76,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         if (intent.getExtras() != null) {
             categoryid = intent.getExtras().getString("catid");
             scl1id = intent.getExtras().getString("scl1id");
+            vpid = intent.getExtras().getString("vpid");
             mCategoryL2ViewModel.fetchSubCategoryList(categoryid, scl1id);
         }
 
@@ -116,6 +120,22 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         onBackPressed();
     }
 
+    public void openFilter(String scl2id,String request) {
+
+        Bundle bundle=new Bundle();
+        bundle.getString("scl2id",scl2id);
+        bundle.getString("request",request);
+
+        FilterFragment filterFragment = new FilterFragment();
+        filterFragment.setArguments(bundle);
+        filterFragment.show(getSupportFragmentManager(), filterFragment.getTag());
+
+    }
+
+
+    public void openSort() {
+
+    }
     @Override
     public void viewCart() {
         Intent intent = MainActivity.newIntent(CategoryL2Activity.this);
@@ -208,6 +228,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
             }
         });
 
+
+
     }
 
 
@@ -274,6 +296,16 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    @Override
+    public void FilterRefresh(String vpid) {
+        Intent data=new Intent();
+        data.putExtra("vpid",vpid);
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(1111, RESULT_OK, data);
+        }
     }
 }
 

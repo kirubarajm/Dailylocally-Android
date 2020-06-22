@@ -12,9 +12,12 @@ import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.category.l2.products.ProductsRequest;
+import com.dailylocally.ui.category.l2.products.ProductsResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.Module;
@@ -26,9 +29,21 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     public ObservableField<String> filterTitle = new ObservableField<>();
     private MutableLiveData<List<FilterItems.Result>> filterItemsLiveData;
 
+    ProductsRequest productsRequest=new ProductsRequest();
+
+    List<ProductsRequest.Brandlist> brandlists=new ArrayList<>();
+
+
+
+
+public  String scl2id;
+
     public FilterViewModel(DataManager dataManager) {
         super(dataManager);
         filterItemsLiveData = new MutableLiveData<>();
+
+
+
     }
 
 
@@ -43,10 +58,22 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     }
 
 
-    public void addToFilter(Integer id) {
+    public void addToFilter(String id) {
+
+
+
+
+
+
+
     }
 
-    public void removeFromFilter(Integer id) {
+    public void removeFromFilter(String id) {
+
+
+
+
+
     }
 
     public void apply() {

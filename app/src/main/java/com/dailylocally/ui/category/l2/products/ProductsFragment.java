@@ -18,6 +18,7 @@ import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
+import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
@@ -63,16 +64,21 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     @Override
     public void openFilter() {
 
-        FilterFragment filterFragment = new FilterFragment();
-        filterFragment.show(getFragmentManager(), filterFragment.getTag());
+
+        Gson gson = new Gson();
+        String request = gson.toJson(mProductsViewModel.productsRequest);
+
+        ( (CategoryL2Activity)getActivity()).openFilter(  String.valueOf( mProductsViewModel.scl2id),request);
+
+       /* FilterFragment filterFragment = new FilterFragment();
+        filterFragment.show(getFragmentManager(), filterFragment.getTag());*/
 
     }
 
     @Override
     public void openSort() {
-
+        ( (CategoryL2Activity)getActivity()).openSort();
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +86,6 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         mProductsViewModel.setNavigator(this);
         productListAdapter.setListener(this);
         subscribeToLiveData();
-
     }
 
     @Override
@@ -94,11 +99,11 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         super.onViewCreated(view, savedInstanceState);
         mFragmentProductsBinding = getViewDataBinding();
 
-        int scl2id = getArguments().getInt("scl2id", 0);
+        mProductsViewModel.scl2id = getArguments().getInt("scl2id", 0);
 
-        mProductsViewModel.title.set(String.valueOf(scl2id));
+        mProductsViewModel.title.set(String.valueOf(   mProductsViewModel.scl2id));
 
-        mProductsViewModel.fetchProducts(scl2id);
+        mProductsViewModel.fetchProducts();
 
 
        /* mFragmentProductsBinding.productList.setLayoutManager(linearLayoutManager);

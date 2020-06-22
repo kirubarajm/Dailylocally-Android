@@ -6,29 +6,16 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
-import com.dailylocally.ui.account.LogoutRequest;
-import com.dailylocally.ui.account.LogoutResponse;
 import com.dailylocally.ui.base.BaseViewModel;
-import com.dailylocally.ui.home.HomePageRequest;
-import com.dailylocally.ui.home.HomepageResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Map;
 
 public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
@@ -36,16 +23,13 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableField<String> unserviceableTitle = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
-
-    private MutableLiveData<List<QuickSearchResponse.Result.ProductsList>> searchItemsLiveData;
     public ObservableList<QuickSearchResponse.Result.ProductsList> searchItemViewModels = new ObservableArrayList<>();
-
-    private MutableLiveData<List<QuickSearchResponse.Result.SubcategoryList>> searchSubCategoryItemsLiveData;
     public ObservableList<QuickSearchResponse.Result.SubcategoryList> searchSubCategoryItemViewModels = new ObservableArrayList<>();
-
-    private MutableLiveData<List<SearchProductResponse.Result>> searchProductItemsLiveData;
     public ObservableList<SearchProductResponse.Result> searchProductItemViewModels = new ObservableArrayList<>();
-    String strLat="",strLng="",userId="";
+    String strLat = "", strLng = "", userId = "";
+    private MutableLiveData<List<QuickSearchResponse.Result.ProductsList>> searchItemsLiveData;
+    private MutableLiveData<List<QuickSearchResponse.Result.SubcategoryList>> searchSubCategoryItemsLiveData;
+    private MutableLiveData<List<SearchProductResponse.Result>> searchProductItemsLiveData;
 
     public SearchViewModel(DataManager dataManager) {
         super(dataManager);
@@ -108,12 +92,45 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.QUICK_SEARCH,
-                    QuickSearchResponse.class, new QuickSearchRequest(searchWord,userId,strLat,strLng),
+                    QuickSearchResponse.class, new QuickSearchRequest(searchWord, userId, strLat, strLng),
                     new Response.Listener<QuickSearchResponse>() {
                         @Override
                         public void onResponse(QuickSearchResponse response) {
                             if (response.getStatus()) {
-                                if (response.getResult() != null && response.getResult().getProductsList().size() > 0 &&
+
+
+                                boolean dataAvailable = false;
+
+
+                                if (response.getResult() != null && response.getResult().getProductsList() != null) {
+                                    searchItemsLiveData.setValue(response.getResult().getProductsList());
+
+                                    if (response.getResult() != null && response.getResult().getProductsList().size() > 0) {
+                                        dataAvailable = true;
+                                    }
+
+                                }
+
+                                if (response.getResult() != null && response.getResult().getSubcategoryList() != null) {
+                                    searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
+                                    if (response.getResult() != null && response.getResult().getSubcategoryList().size() > 0) {
+                                        dataAvailable = true;
+                                    }
+                                }
+
+                                if (dataAvailable) {
+                                    if (getNavigator() != null) {
+                                        getNavigator().quickSearchSuccess();
+                                    }
+                                } else {
+                                    if (getNavigator() != null) {
+                                        getNavigator().searchNotFound();
+                                    }
+                                }
+
+
+
+                                /*if (response.getResult() != null && response.getResult().getProductsList().size() > 0 &&
                                         response.getResult().getSubcategoryList().size() > 0) {
                                     searchItemsLiveData.setValue(response.getResult().getProductsList());
                                     searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
@@ -126,20 +143,23 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                                     if (getNavigator() != null) {
                                         getNavigator().searchNotFound();
                                     }
-                                }
-                            }else {
+                                }*/
+                            } /*else {
                                 searchItemsLiveData.setValue(response.getResult().getProductsList());
                                 searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
                                 if (getNavigator() != null) {
                                     getNavigator().searchNotFound();
                                 }
-                            }
+                            }*/
                             setIsLoading(false);
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    if (getNavigator() != null) {
+                        getNavigator().searchNotFound();
+                    }
                 }
             }, AppConstants.API_VERSION_ONE);
 
@@ -151,23 +171,23 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
         }
     }
 
-    public void SearchProduct(String type,String id) {
+    public void SearchProduct(String type, String id) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SEARCH_PRODUCT,
-                    SearchProductResponse.class, new SearchProductRequest(strLat,strLng,type,id,userId,"product"),
+                    SearchProductResponse.class, new SearchProductRequest(strLat, strLng, type, id, userId, "product"),
                     new Response.Listener<SearchProductResponse>() {
                         @Override
                         public void onResponse(SearchProductResponse response) {
-                            if (response.getStatus()){
-                                if (response.getResult()!=null && response.getResult().size()>0) {
+                            if (response.getStatus()) {
+                                if (response.getResult() != null && response.getResult().size() > 0) {
                                     searchProductItemsLiveData.setValue(response.getResult());
                                 }
-                                if (getNavigator()!=null){
+                                if (getNavigator() != null) {
                                     getNavigator().suggestionProductSuccess();
                                 }
-                            }else {
+                            } else {
 
                             }
                             setIsLoading(false);

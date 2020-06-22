@@ -43,7 +43,8 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     public ObservableList<ProductsResponse.Result> productsList = new ObservableArrayList<>();
     private MutableLiveData<List<ProductsResponse.Result>> productsListLiveData;
 
-
+    public  ProductsRequest productsRequest = new ProductsRequest();
+    public int scl2id;
     public ProductsViewModel(DataManager dataManager) {
         super(dataManager);
         productsListLiveData = new MutableLiveData<>();
@@ -85,18 +86,28 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
     }
 
-    public void fetchProducts(int scl2id) {
+    public void fetchProducts() {
 
         if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-            ProductsRequest productsRequest = new ProductsRequest();
 
-            productsRequest.setUserid(getDataManager().getCurrentUserId());
-            productsRequest.setLat(getDataManager().getCurrentLat());
-            productsRequest.setLon(getDataManager().getCurrentLng());
-            productsRequest.setScl1Id(1);
-            productsRequest.setScl2Id(scl2id);
+            if (getDataManager().getFilterSort()!=null){
+
+            }else {
+                productsRequest.setUserid(getDataManager().getCurrentUserId());
+                productsRequest.setLat(getDataManager().getCurrentLat());
+                productsRequest.setLon(getDataManager().getCurrentLng());
+                productsRequest.setScl2Id(scl2id);
+
+
+
+
+
+
+            }
+
+
 
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {

@@ -84,13 +84,10 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface FiltersAdapterListener {
 
-        void onItemClickData(Integer id);
 
-        void addToFilter(Integer id);
+        void addToFilter(String id);
 
-        void removeFromFilter(Integer id);
-
-        Integer getSelectedOption();
+        void removeFromFilter(String id);
 
 
     }
@@ -119,19 +116,15 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
 
-        @Override
-        public void onItemClick(Integer id) {
-            mFiltersAdapterListener.onItemClickData(id);
-        }
 
         @Override
-        public void addfilter(Integer id) {
+        public void addfilter(String id) {
             mFiltersAdapterListener.addToFilter(id);
 
         }
 
         @Override
-        public void removeFilter(Integer id) {
+        public void removeFilter(String id) {
             mFiltersAdapterListener.removeFromFilter(id);
 
         }

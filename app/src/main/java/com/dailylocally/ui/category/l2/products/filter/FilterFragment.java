@@ -12,14 +12,13 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentFilterBinding;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
-import com.dailylocally.ui.category.l2.products.StartFilter;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
 
-public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBinding, FilterViewModel> implements FilterNavigator/*, FilterAdapter.FiltersAdapterListener*/ {
+public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBinding, FilterViewModel> implements FilterNavigator, FilterAdapter.FiltersAdapterListener {
 
 
     public static final String TAG = FilterFragment.class.getSimpleName();
@@ -32,29 +31,30 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     FilterAdapter adapter;
     @Inject
     LinearLayoutManager mLayoutManager;
- //   StartFilter startFilter;
+    FilterListener filterListener;
     Analytics analytics;
-    String pageName= AppConstants.SCREEN_KITCHEN_FILTER;
+    String pageName = AppConstants.SCREEN_KITCHEN_FILTER;
 
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof StartFilter) {
-            //init the listener
-            startFilter = (StartFilter) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement InteractionListener");
-        }
-
-    }*/
+    String scl2id;
 
     public static FilterFragment newInstance() {
         Bundle args = new Bundle();
         FilterFragment fragment = new FilterFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FilterListener) {
+            //init the listener
+            filterListener = (FilterListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement InteractionListener");
+        }
+
     }
 
     @Override
@@ -76,9 +76,9 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFilterViewModel.setNavigator(this);
-     //   adapter.setListener(this);
-        analytics=new Analytics(getActivity(),pageName);
-        mFilterViewModel.getFilters("2");
+        //   adapter.setListener(this);
+        analytics = new Analytics(getActivity(), pageName);
+
 
     }
 
@@ -92,6 +92,10 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         mFragmentFilterBinding.recyclerviewFilters.setAdapter(adapter);
         subscribeToLiveData();
 
+
+        mFilterViewModel.scl2id = getArguments().getString("scl2id",null);
+
+        mFilterViewModel.getFilters( mFilterViewModel.scl2id);
     }
 
     @Override
@@ -103,14 +107,17 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     public void handleError(Throwable throwable) {
 
     }
+
     private void subscribeToLiveData() {
         mFilterViewModel.getFilterItemsLiveData().observe(this,
                 filters -> mFilterViewModel.addtoFilterList(filters));
     }
+
     @Override
     public void clearFilters() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_CLEAR);
         //startFilter.applyFilter();
+        filterListener.FilterRefresh(scl2id);
         dismiss();
 
     }
@@ -118,15 +125,26 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     @Override
     public void applyFilter() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
+        filterListener.FilterRefresh(scl2id);
         dismiss();
-       // startFilter.applyFilter();
-
     }
 
     @Override
     public void close() {
         dismiss();
     }
+
+
+    @Override
+    public void addToFilter(String id) {
+        mFilterViewModel.addToFilter(id);
+    }
+
+    @Override
+    public void removeFromFilter(String id) {
+        mFilterViewModel.removeFromFilter(id);
+    }
+
 
 
    /* @Override

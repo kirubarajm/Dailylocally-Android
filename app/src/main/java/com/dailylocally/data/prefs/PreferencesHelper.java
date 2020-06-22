@@ -78,6 +78,9 @@ public interface PreferencesHelper {
     String getFirstCity();
     void setFirstCity(String city);
 
+    String getFilterSort();
+    void setFilterSort(String filterSort);
+
     String getMaster();
     void setMaster(String master);
 

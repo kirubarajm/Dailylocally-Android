@@ -173,6 +173,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveFiletrSort(String filterSort) {
+        setFilterSort(filterSort);
+    }
+
+    @Override
     public void saveChatOrderID(String orderid) {
         setChatOrderid(orderid);
     }
@@ -568,6 +573,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setFirstCity(String city) {
         mPreferencesHelper.setFirstCity(city);
+    }
+
+    @Override
+    public String getFilterSort() {
+        return mPreferencesHelper.getFilterSort();
+    }
+
+    @Override
+    public void setFilterSort(String filterSort) {
+mPreferencesHelper.setFilterSort(filterSort);
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.dailylocally.ui.category.l2.products;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ProductsRequest {
 
     @SerializedName("userid")
@@ -20,6 +22,12 @@ public class ProductsRequest {
     @SerializedName("scl2_id")
     @Expose
     private Integer scl2Id;
+    @SerializedName("sortid")
+    @Expose
+    private Integer sortid;
+    @SerializedName("brandlist")
+    @Expose
+    private List<Brandlist> brandlist = null;
 
     public String getUserid() {
         return userid;
@@ -61,4 +69,23 @@ public class ProductsRequest {
         this.scl2Id = scl2Id;
     }
 
+
+
+
+
+    public class Brandlist {
+
+        @SerializedName("brand")
+        @Expose
+        private Integer brand;
+
+        public Integer getBrand() {
+            return brand;
+        }
+
+        public void setBrand(Integer brand) {
+            this.brand = brand;
+        }
+
+    }
 }
