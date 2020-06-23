@@ -14,7 +14,7 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.productDetail;
+package com.dailylocally.ui.productDetail.productCancel;
 
 import androidx.databinding.ObservableField;
 
@@ -29,12 +29,12 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
 
-public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigator> {
+public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator> {
 
 
     public final ObservableField<String> aId = new ObservableField<>();
 
-    public ProductDetailsViewModel(DataManager dataManager) {
+    public ProductCancelViewModel(DataManager dataManager) {
         super(dataManager);
         fetchUserDetails();
     }
@@ -44,10 +44,9 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         try {
             String userID = getDataManager().getCurrentUserId();
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_DETAILS + userID,
-                    ProductDetailsResponse.class, new Response.Listener<ProductDetailsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_USER_ADDRESS + userID, UserAddressResponse.class, new Response.Listener<UserAddressResponse>() {
                 @Override
-                public void onResponse(ProductDetailsResponse response) {
+                public void onResponse(UserAddressResponse response) {
                 }
             }, new Response.ErrorListener() {
                 @Override

@@ -1,35 +1,37 @@
-package com.dailylocally.ui.productDetail;
+package com.dailylocally.ui.productDetail.productCancel;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.databinding.ActivityProductDetailsBinding;
+import com.dailylocally.databinding.ActivityProductCancelBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
+
 import javax.inject.Inject;
 
 
-public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsBinding, ProductDetailsViewModel> implements
-        ProductDetailsNavigator {
+public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBinding, ProductCancelViewModel> implements
+        ProductCancelNavigator {
 
 
-    public ActivityProductDetailsBinding mActivityProductDetailsBinding;
+    public ActivityProductCancelBinding mActivityProductCancelBinding;
     @Inject
-    public ProductDetailsViewModel mAddAddressViewModel;
+    public ProductCancelViewModel mAddAddressViewModel;
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, ProductDetailsActivity.class);
+        return new Intent(context, ProductCancelActivity.class);
     }
 
     @Override
     public int getBindingVariable() {
-        return BR.productDetailsViewModel;
+        return BR.productCancelViewModel;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     }
 
     @Override
-    public ProductDetailsViewModel getViewModel() {
+    public ProductCancelViewModel getViewModel() {
 
         return mAddAddressViewModel;
     }
@@ -56,7 +58,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityProductDetailsBinding = getViewDataBinding();
+        mActivityProductCancelBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
 
         analytics = new Analytics(this, pageName);

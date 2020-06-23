@@ -48,6 +48,8 @@ import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedModule;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsModule;
+import com.dailylocally.ui.productDetail.productCancel.ProductCancelActivity;
+import com.dailylocally.ui.productDetail.productCancel.ProductCancelModule;
 import com.dailylocally.ui.search.SearchProvider;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.SignUpActivityModule;
@@ -67,6 +69,10 @@ import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.splash.SplashModule;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.ui.subscription.SubscriptionModule;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryModule;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsModule;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.ui.update.UpdateModule;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -157,5 +163,14 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {ProductDetailsModule.class})
     abstract ProductDetailsActivity bindProductDetailsActivity();
+
+    @ContributesAndroidInjector(modules = {ProductCancelModule.class})
+    abstract ProductCancelActivity bindProductCancelActivity();
+
+    @ContributesAndroidInjector(modules = {TransactionDetailsModule.class})
+    abstract TransactionDetailsActivity bindTransactionDetailsActivity();
+
+    @ContributesAndroidInjector(modules = {TransactionHistoryModule.class})
+    abstract TransactionHistoryActivity bindTransactionHistoryActivity();
 
 }
