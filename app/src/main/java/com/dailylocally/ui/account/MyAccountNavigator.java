@@ -12,6 +12,8 @@ public interface MyAccountNavigator {
 
     void orderHistory();
 
+    void couponsAndOffers();
+
     void favourites();
 
     void referrals();

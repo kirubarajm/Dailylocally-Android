@@ -37,6 +37,8 @@ import com.dailylocally.ui.category.l2.CategoryL2Module;
 import com.dailylocally.ui.category.l2.products.ProductsProvider;
 
 import com.dailylocally.ui.category.l2.products.filter.FilterProvider;
+import com.dailylocally.ui.coupons.CouponsActivity;
+import com.dailylocally.ui.coupons.CouponsModule;
 import com.dailylocally.ui.favorites.FavoritesActivity;
 import com.dailylocally.ui.favorites.FavoritesModule;
 import com.dailylocally.ui.home.HomeProvider;
@@ -172,5 +174,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {TransactionHistoryModule.class})
     abstract TransactionHistoryActivity bindTransactionHistoryActivity();
+
+    @ContributesAndroidInjector(modules = {CouponsModule.class})
+    abstract CouponsActivity bindCouponsActivity();
 
 }

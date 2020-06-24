@@ -592,7 +592,7 @@
     <string name="coupons">Coupons</string>
     <string name="coupon_adjustments">Coupon Adjustments</string>
     <string name="use_refund_coupon_for_current_order">Use refund coupon for current order</string>
-    <string name="enter_coupon">ENTER COUPON CODE HERE</string>
+    <string name="enter_coupon">ENTER COUPON CODE</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="top_eat_suggestions">Top EAT Suggestions</string>
 
@@ -740,6 +740,8 @@
     <string name="apartment_or_gated_society">Apartment or Gated Society</string>
     <string name="individual_house">Individual House</string>
     <string name="delivery_address">Delivery Address</string>
+    <string name="rupees_symbol">₹</string>
+    <string name="coupons_and_offers">Coupons and Offers</string>
 
 
 </resources>

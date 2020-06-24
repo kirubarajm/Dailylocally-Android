@@ -47,6 +47,10 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getNavigator().orderHistory();
     }
 
+    public void couponsAndOffers() {
+        getNavigator().orderHistory();
+    }
+
 
     public void favourites() {
         //getDataManager().setIsFav(true);

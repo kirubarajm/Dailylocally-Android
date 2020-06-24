@@ -25,5 +25,7 @@ public interface SaveAddressNavigator {
 
     void editClick();
 
+    void saveAddressFailed();
+
     void showToast(String msg,boolean trueOrFalse);
 }

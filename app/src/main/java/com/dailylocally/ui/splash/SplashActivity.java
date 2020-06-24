@@ -134,6 +134,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
         prefManager = new PrefManager(this);
 
+        //mSplashViewModel.getDataManager().setUserAddress(true);
+
         /*final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(SplashActivity.this).build();
         referrerClient.startConnection(new InstallReferrerStateListener() {
 

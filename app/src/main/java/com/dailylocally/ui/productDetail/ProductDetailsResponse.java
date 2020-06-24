@@ -121,7 +121,7 @@ public class ProductDetailsResponse {
         public Object targetedbaseprice;
         @SerializedName("discount_cost")
         @Expose
-        public Boolean discountCost;
+        public Integer discountCost;
         @SerializedName("gst")
         @Expose
         public Integer gst;
@@ -136,7 +136,7 @@ public class ProductDetailsResponse {
         public Integer subscription;
         @SerializedName("weight")
         @Expose
-        public Double weight;
+        public Integer weight;
         @SerializedName("uom")
         @Expose
         public Integer uom;
@@ -151,7 +151,7 @@ public class ProductDetailsResponse {
         public Integer tag;
         @SerializedName("short_desc")
         @Expose
-        public Object shortDesc;
+        public String shortDesc;
         @SerializedName("productdetails")
         @Expose
         public Object productdetails;
@@ -197,6 +197,9 @@ public class ProductDetailsResponse {
         @SerializedName("offer")
         @Expose
         public String offer;
+        @SerializedName("discount_cost_status")
+        @Expose
+        public Boolean discountCostStatus;
 
 
         public Integer getPid() {
@@ -231,7 +234,7 @@ public class ProductDetailsResponse {
             return targetedbaseprice;
         }
 
-        public Boolean getDiscountCost() {
+        public Integer getDiscountCost() {
             return discountCost;
         }
 
@@ -251,7 +254,7 @@ public class ProductDetailsResponse {
             return subscription;
         }
 
-        public Double getWeight() {
+        public Integer getWeight() {
             return weight;
         }
 
@@ -271,7 +274,7 @@ public class ProductDetailsResponse {
             return tag;
         }
 
-        public Object getShortDesc() {
+        public String getShortDesc() {
             return shortDesc;
         }
 
@@ -333,6 +336,10 @@ public class ProductDetailsResponse {
 
         public String getOffer() {
             return offer;
+        }
+
+        public Boolean getDiscountCostStatus() {
+            return discountCostStatus;
         }
     }
 }

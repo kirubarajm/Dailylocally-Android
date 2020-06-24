@@ -315,7 +315,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:onClick="@{()->myAccountViewModel.orderHistory()}">
+                        android:onClick="@{()->myAccountViewModel.couponsAndOffers()}">
 
                             <com.dailylocally.utilities.fonts.TovoTextView
                                 android:id="@+id/rel2"
@@ -335,7 +335,7 @@
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/rel2"
                             android:gravity="center_vertical"
-                            android:text="@string/order_history"
+                            android:text="@string/coupons_and_offers"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />

@@ -24,4 +24,6 @@ public interface ProductDetailsNavigator {
 
     void goBack();
 
+    void productsDetailsSuccess(ProductDetailsResponse.Result result);
+
 }

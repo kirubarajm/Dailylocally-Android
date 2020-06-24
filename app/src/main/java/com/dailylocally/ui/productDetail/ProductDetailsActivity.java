@@ -54,6 +54,12 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     }
 
     @Override
+    public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
+        mAddAddressViewModel.mrp.set(getResources().getString(R.string.rupees_symbol) + result.getMrp());
+        mAddAddressViewModel.offerCost.set(getResources().getString(R.string.rupees_symbol)+result.getMrp() + " OFF on " + result.getProductname());
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityProductDetailsBinding = getViewDataBinding();
