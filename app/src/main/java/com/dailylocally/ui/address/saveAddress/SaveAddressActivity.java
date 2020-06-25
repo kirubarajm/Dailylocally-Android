@@ -102,6 +102,11 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     }
 
     @Override
+    public void saveAddressFailed() {
+        Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showToast(String msg,boolean trueOrFalse) {
         if (trueOrFalse){
             Intent intent = MainActivity.newIntent(SaveAddressActivity.this);

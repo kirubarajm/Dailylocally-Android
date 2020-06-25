@@ -14,18 +14,21 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.saveAddress;
+package com.dailylocally.ui.productDetail.productCancel;
+
+import com.dailylocally.data.DataManager;
+
+import dagger.Module;
+import dagger.Provides;
 
 
-public interface SaveAddressNavigator {
+@Module
+public class ProductCancelModule {
 
-    void handleError(Throwable throwable);
 
-    void saveClick();
+    @Provides
+    ProductCancelViewModel provideAddAddressViewModel(DataManager dataManager) {
+        return new ProductCancelViewModel(dataManager);
+    }
 
-    void editClick();
-
-    void saveAddressFailed();
-
-    void showToast(String msg,boolean trueOrFalse);
 }

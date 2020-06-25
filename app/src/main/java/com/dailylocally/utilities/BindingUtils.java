@@ -62,7 +62,12 @@ import com.dailylocally.ui.category.l2.products.filter.FilterAdapter;
 import com.dailylocally.ui.category.l2.products.filter.FilterItems;
 import com.dailylocally.ui.category.l2.products.sort.SortAdapter;
 import com.dailylocally.ui.category.l2.products.sort.SortItems;
+
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
+
+import com.dailylocally.ui.coupons.CouponsAdapter;
+import com.dailylocally.ui.coupons.CouponsResponse;
+
 import com.dailylocally.ui.search.QuickSearchResponse;
 import com.dailylocally.ui.search.SearchProductListAdapter;
 import com.dailylocally.ui.search.SearchProductResponse;
@@ -218,6 +223,14 @@ public final class BindingUtils {
     @BindingAdapter({"adapter"})
     public static void addFaqItems(RecyclerView recyclerView, List<FaqResponse.ProductList> blogs) {
         FaqsAdapter adapter = (FaqsAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+    @BindingAdapter({"adapter"})
+    public static void addCouponsItems(RecyclerView recyclerView, List<CouponsResponse.Result> blogs) {
+        CouponsAdapter adapter = (CouponsAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(blogs);

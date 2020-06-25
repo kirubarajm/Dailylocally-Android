@@ -91,6 +91,7 @@
         <activity android:name=".ui.address.viewAddress.ViewAddressActivity" />
         <activity android:name=".ui.address.saveAddress.SaveAddressActivity" />
         <activity android:name=".ui.productDetail.ProductDetailsActivity" />
+        <activity android:name=".ui.coupons.CouponsActivity" />
 
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"

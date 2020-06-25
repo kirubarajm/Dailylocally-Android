@@ -14,6 +14,7 @@ import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
 import com.dailylocally.ui.calendarView.CalendarActivity;
+import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -98,6 +99,12 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void orderHistory() {
         //new Analytics().sendClickData(pageName, AppConstants.CLICK_ORDER_HISTORY);
         Intent intent = CalendarActivity.newIntent(getContext());
+        startActivity(intent);
+    }
+
+    @Override
+    public void couponsAndOffers() {
+        Intent intent = CouponsActivity.newIntent(getContext());
         startActivity(intent);
     }
 

@@ -1,44 +1,46 @@
-package com.dailylocally.ui.productDetail;
+package com.dailylocally.ui.transactionHistory.view;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
+
 import javax.inject.Inject;
 
 
-public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsBinding, ProductDetailsViewModel> implements
-        ProductDetailsNavigator {
+public class TransactionDetailsActivity extends BaseActivity<ActivityProductDetailsBinding, TransactionDetailsViewModel> implements
+        TransactionDetailsNavigator {
 
 
     public ActivityProductDetailsBinding mActivityProductDetailsBinding;
     @Inject
-    public ProductDetailsViewModel mAddAddressViewModel;
+    public TransactionDetailsViewModel mAddAddressViewModel;
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, ProductDetailsActivity.class);
+        return new Intent(context, TransactionDetailsActivity.class);
     }
 
     @Override
     public int getBindingVariable() {
-        return BR.productDetailsViewModel;
+        return BR.transactionDetailsViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_product_details;
+        return R.layout.activity_transaction_details;
     }
 
     @Override
-    public ProductDetailsViewModel getViewModel() {
+    public TransactionDetailsViewModel getViewModel() {
 
         return mAddAddressViewModel;
     }
@@ -51,12 +53,6 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     @Override
     public void goBack() {
         onBackPressed();
-    }
-
-    @Override
-    public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
-        mAddAddressViewModel.mrp.set(getResources().getString(R.string.rupees_symbol) + result.getMrp());
-        mAddAddressViewModel.offerCost.set(getResources().getString(R.string.rupees_symbol)+result.getMrp() + " OFF on " + result.getProductname());
     }
 
     @Override

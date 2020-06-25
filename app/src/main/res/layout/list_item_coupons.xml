@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="couponsItemViewModel"
+            type="com.dailylocally.ui.coupons.CouponsItemViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rel_coupons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:background="@drawable/coupons_bck_dotted"
+                android:text="@{couponsItemViewModel.couponName}"
+                android:layout_alignParentLeft="true"
+                android:padding="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                android:text="APPLY"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+            android:layout_below="@+id/rel_coupons"
+            android:text="Get 20% Off on all orders"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:id="@+id/txt_off"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            android:layout_below="@+id/txt_off"
+            android:text="@{couponsItemViewModel.description}"
+            android:layout_marginTop="5dp"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:id="@+id/txt_off_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            android:layout_below="@+id/txt_off_2"
+            android:text="@{couponsItemViewModel.offer1}"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:id="@+id/txt_validity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/view_1"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/txt_validity"
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"/>
+
+    </RelativeLayout>
+
+</layout>

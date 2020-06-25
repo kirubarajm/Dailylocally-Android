@@ -14,18 +14,14 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.saveAddress;
+package com.dailylocally.ui.productDetail.productCancel;
 
 
-public interface SaveAddressNavigator {
+
+public interface ProductCancelNavigator {
 
     void handleError(Throwable throwable);
 
-    void saveClick();
+    void goBack();
 
-    void editClick();
-
-    void saveAddressFailed();
-
-    void showToast(String msg,boolean trueOrFalse);
 }

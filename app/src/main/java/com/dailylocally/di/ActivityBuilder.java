@@ -37,7 +37,12 @@ import com.dailylocally.ui.category.l2.CategoryL2Module;
 import com.dailylocally.ui.category.l2.products.ProductsProvider;
 
 import com.dailylocally.ui.category.l2.products.filter.FilterProvider;
+
 import com.dailylocally.ui.category.l2.products.sort.SortProvider;
+
+import com.dailylocally.ui.coupons.CouponsActivity;
+import com.dailylocally.ui.coupons.CouponsModule;
+
 import com.dailylocally.ui.favorites.FavoritesActivity;
 import com.dailylocally.ui.favorites.FavoritesModule;
 import com.dailylocally.ui.home.HomeProvider;
@@ -49,6 +54,8 @@ import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedModule;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsModule;
+import com.dailylocally.ui.productDetail.productCancel.ProductCancelActivity;
+import com.dailylocally.ui.productDetail.productCancel.ProductCancelModule;
 import com.dailylocally.ui.search.SearchProvider;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.SignUpActivityModule;
@@ -68,6 +75,10 @@ import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.splash.SplashModule;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.ui.subscription.SubscriptionModule;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryModule;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsModule;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.ui.update.UpdateModule;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -158,5 +169,17 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {ProductDetailsModule.class})
     abstract ProductDetailsActivity bindProductDetailsActivity();
+
+    @ContributesAndroidInjector(modules = {ProductCancelModule.class})
+    abstract ProductCancelActivity bindProductCancelActivity();
+
+    @ContributesAndroidInjector(modules = {TransactionDetailsModule.class})
+    abstract TransactionDetailsActivity bindTransactionDetailsActivity();
+
+    @ContributesAndroidInjector(modules = {TransactionHistoryModule.class})
+    abstract TransactionHistoryActivity bindTransactionHistoryActivity();
+
+    @ContributesAndroidInjector(modules = {CouponsModule.class})
+    abstract CouponsActivity bindCouponsActivity();
 
 }

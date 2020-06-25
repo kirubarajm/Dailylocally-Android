@@ -433,6 +433,9 @@ public class AppConstants {
   public static final String GET_SORT = URL_SERVER_IP_PORT + "/user/sortlist/";
   public static final String QUICK_SEARCH = URL_SERVER_IP_PORT + "/user/quicksearch";
   public static final String URL_SEARCH_PRODUCT = URL_SERVER_IP_PORT + "/user/search/catalogdata";
+  public static final String URL_PRODUCT_DETAILS = URL_SERVER_IP_PORT + "/user/productdetail";
+  public static final String URL_COUPONS = URL_SERVER_IP_PORT + "/user/coupon";
+  public static final String URL_VALIDATE_COUPONS = URL_SERVER_IP_PORT + "/user/coupon/validate";
 
 
   public static final int SEARCH_CATEGORY = 1;

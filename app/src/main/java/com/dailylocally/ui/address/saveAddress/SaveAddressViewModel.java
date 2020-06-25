@@ -93,6 +93,10 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                     getDataManager().setAddressId(String.valueOf(response.getAid()));
                                     defaultAddress(String.valueOf(response.getAid()));
                                 }
+                            }else {
+                                if (getNavigator()!=null){
+                                    getNavigator().saveAddressFailed();
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -103,6 +107,10 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
             public void onErrorResponse(VolleyError error) {
                 SAVEcLICKED.set(true);
                 getDataManager().setUserAddress(false);
+                if (getNavigator()!=null){
+                    getNavigator().saveAddressFailed();
+                }
+
             }
         }, AppConstants.API_VERSION_ONE);
 

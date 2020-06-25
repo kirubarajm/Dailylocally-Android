@@ -14,18 +14,21 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.address.saveAddress;
+package com.dailylocally.ui.transactionHistory.view;
+
+import com.dailylocally.data.DataManager;
+
+import dagger.Module;
+import dagger.Provides;
 
 
-public interface SaveAddressNavigator {
+@Module
+public class TransactionDetailsModule {
 
-    void handleError(Throwable throwable);
 
-    void saveClick();
+    @Provides
+    TransactionDetailsViewModel provideAddAddressViewModel(DataManager dataManager) {
+        return new TransactionDetailsViewModel(dataManager);
+    }
 
-    void editClick();
-
-    void saveAddressFailed();
-
-    void showToast(String msg,boolean trueOrFalse);
 }
