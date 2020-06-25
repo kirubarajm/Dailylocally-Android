@@ -38,10 +38,14 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
     public ObservableList<L2CategoryResponse.Result> categoryList = new ObservableArrayList<>();
     private MutableLiveData<List<L2CategoryResponse.Result>> categoryListLiveData;
 
+  public ObservableList<L2CategoryResponse.GetSubCatImage> sliderList = new ObservableArrayList<>();
+    private MutableLiveData<List<L2CategoryResponse.GetSubCatImage>> sliderListLiveData;
+
 
     public CategoryL2ViewModel(DataManager dataManager) {
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
+        sliderListLiveData = new MutableLiveData<>();
         totalCart();
     }
 
@@ -57,6 +61,15 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
         categoryList.addAll(results);
     }
 
+ public void addSlidertoList(List<L2CategoryResponse.GetSubCatImage> results) {
+        sliderList.clear();
+     sliderList.addAll(results);
+    }
+
+
+    public MutableLiveData<List<L2CategoryResponse.GetSubCatImage>> getSliderListLiveData() {
+        return sliderListLiveData;
+    }
 
     public MutableLiveData<List<L2CategoryResponse.Result>> getCategoryListLiveData() {
         return categoryListLiveData;
@@ -91,9 +104,8 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());
 
 
-                        if (response.getGetSubCatImages()!=null&&response.getGetSubCatImages().size()>0){
-
-                            image.set(response.getGetSubCatImages().get(0).getImageUrl());
+                        if (response.getGetSubCatImages()!=null){
+                            sliderListLiveData.setValue(response.getGetSubCatImages());
                         }
 
 

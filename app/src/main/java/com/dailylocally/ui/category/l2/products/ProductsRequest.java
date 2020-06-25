@@ -21,7 +21,7 @@ public class ProductsRequest {
     private Integer scl1Id;
     @SerializedName("scl2_id")
     @Expose
-    private Integer scl2Id;
+    private String scl2Id;
     @SerializedName("sortid")
     @Expose
     private Integer sortid;
@@ -61,29 +61,45 @@ public class ProductsRequest {
         this.scl1Id = scl1Id;
     }
 
-    public Integer getScl2Id() {
+    public String getScl2Id() {
         return scl2Id;
     }
 
-    public void setScl2Id(Integer scl2Id) {
+    public void setScl2Id(String scl2Id) {
         this.scl2Id = scl2Id;
     }
 
+    public Integer getSortid() {
+        return sortid;
+    }
 
+    public void setSortid(Integer sortid) {
+        this.sortid = sortid;
+    }
 
+    public List<Brandlist> getBrandlist() {
+        return brandlist;
+    }
 
+    public void setBrandlist(List<Brandlist> brandlist) {
+        this.brandlist = brandlist;
+    }
 
-    public class Brandlist {
+    public static class Brandlist {
 
         @SerializedName("brand")
         @Expose
-        private Integer brand;
+        private String brand;
 
-        public Integer getBrand() {
+        public Brandlist(String brand) {
+            this.brand=brand;
+        }
+
+        public String getBrand() {
             return brand;
         }
 
-        public void setBrand(Integer brand) {
+        public void setBrand(String brand) {
             this.brand = brand;
         }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="sliderItemViewModel"
+            type="com.dailylocally.ui.category.l2.slider.SliderItemViewModel" />
+
+    </data>
+
+    <ImageView
+        android:adjustViewBounds="true"
+        imageUrl="@{sliderItemViewModel.url}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()->sliderItemViewModel.onItemClick()}"/>
+
+</layout>

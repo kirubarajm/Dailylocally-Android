@@ -23,7 +23,7 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private FiltersAdapterListener mFiltersAdapterListener;
 
     private DataManager dataManager;
-
+    private static int sSelected = -1;
 
     public SortAdapter(List<SortItems.Result> item_list) {
         this.item_list = item_list;
@@ -32,6 +32,16 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public SortAdapter(List<SortItems.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
+        sSelected = -1;
+    }
+
+    public void selectedItem() {
+        notifyDataSetChanged();
+    }
+
+    public void selectedItemClear() {
+        sSelected=-1;
+        notifyDataSetChanged();
     }
 
 
@@ -85,24 +95,21 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface FiltersAdapterListener {
 
-        void onItemClickData(Integer id);
 
-        void addToFilter(Integer id);
+        void addToFilter(String id);
 
-        void removeFromFilter(Integer id);
-
-        Integer getSelectedOption();
+        void removeFromFilter(String id);
 
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements SortItemViewModel.SortItemViewModelListener {
-        ListItemSortBinding mListItemSortBinding;
+    public class LiveProductsViewHolder extends BaseViewHolder implements SortItemViewModel.FilterItemViewModelListener {
+        ListItemSortBinding mListItemLiveProductsBinding;
         SortItemViewModel mSortItemViewModel;
 
         public LiveProductsViewHolder(ListItemSortBinding binding) {
             super(binding.getRoot());
-            this.mListItemSortBinding = binding;
+            this.mListItemLiveProductsBinding = binding;
         }
 
         @Override
@@ -110,34 +117,31 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (item_list.isEmpty()) return;
             final SortItems.Result blog = item_list.get(position);
             mSortItemViewModel = new SortItemViewModel(this, blog);
-            mListItemSortBinding.setSortItemViewModel(mSortItemViewModel);
+            mListItemLiveProductsBinding.setSortItemViewModel(mSortItemViewModel);
 
-            // Immediate Binding
-            // When a variable or observable changes, the binding will be scheduled to change before
-            // the next frame. There are times, however, when binding must be executed immediately.
-            // To force execution, use the executePendingBindings() method.
-            mListItemSortBinding.executePendingBindings();
+
+            if (sSelected == position) {
+                mListItemLiveProductsBinding.rButton.setChecked(true);
+            } else {
+                mListItemLiveProductsBinding.rButton.setChecked(false);
+            }
+
+            mListItemLiveProductsBinding.executePendingBindings();
         }
 
 
         @Override
-        public void onItemClick(Integer id) {
-            mFiltersAdapterListener.onItemClickData(id);
+        public void itemClick() {
+
+            if (sSelected==getAdapterPosition()){
+                sSelected=-1;
+
+            }else {
+                sSelected = getAdapterPosition();
+
+            }
+            notifyDataSetChanged();
         }
-
-        @Override
-        public void addfilter(Integer id) {
-            mFiltersAdapterListener.addToFilter(id);
-
-        }
-
-        @Override
-        public void removeFilter(Integer id) {
-            mFiltersAdapterListener.removeFromFilter(id);
-
-        }
-
-
     }
 
 }

@@ -13,9 +13,10 @@ import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.category.l2.products.ProductsRequest;
-import com.dailylocally.ui.category.l2.products.ProductsResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,20 +28,17 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
     public ObservableList<FilterItems.Result> filterItems = new ObservableArrayList<>();
     public ObservableField<String> filterTitle = new ObservableField<>();
+    public String scl2id;
     private MutableLiveData<List<FilterItems.Result>> filterItemsLiveData;
-
-    ProductsRequest productsRequest=new ProductsRequest();
-
-    List<ProductsRequest.Brandlist> brandlists=new ArrayList<>();
-
-
-
-
-public  String scl2id;
 
     public FilterViewModel(DataManager dataManager) {
         super(dataManager);
         filterItemsLiveData = new MutableLiveData<>();
+
+
+
+
+
 
 
 
@@ -59,19 +57,33 @@ public  String scl2id;
 
 
     public void addToFilter(String id) {
+        List<ProductsRequest.Brandlist> brandlists = new ArrayList<>();
+        Gson sGson = new GsonBuilder().create();
+        ProductsRequest productsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+
+        if (productsRequest != null) {
+
+            if (productsRequest.getBrandlist()!=null){
+
+                if (productsRequest.getBrandlist().size()>0){
 
 
 
+                }
+
+            }
 
 
+        }
+
+
+        Gson gson = new Gson();
+        String request = gson.toJson(productsRequest);
 
 
     }
 
     public void removeFromFilter(String id) {
-
-
-
 
 
     }
@@ -84,6 +96,7 @@ public  String scl2id;
 
     public void clearAll() {
         getDataManager().saveIsFilterApplied(false);
+        getDataManager().saveFiletrSort(null);
         getNavigator().clearFilters();
 
 
@@ -95,8 +108,22 @@ public  String scl2id;
     }
 
     public void getFilters(String scl2id) {
+
+
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
+
+
+            Gson sGson = new GsonBuilder().create();
+            ProductsRequest  fProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+            if (fProductsRequest!=null){
+                if (!fProductsRequest.getScl2Id().equals(scl2id)){
+                    getDataManager().saveFiletrSort(null);
+                }
+            }
+
+
+
 
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_FILTERS + scl2id, FilterItems.class, new Response.Listener<FilterItems>() {

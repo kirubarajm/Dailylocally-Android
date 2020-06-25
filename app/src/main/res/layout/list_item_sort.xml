@@ -28,6 +28,7 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/rButton"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical" />

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -20,11 +21,15 @@ import com.dailylocally.databinding.ActivityCategoryl12Binding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.category.l2.products.filter.FilterListener;
+import com.dailylocally.ui.category.l2.products.sort.SortFragment;
+import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import javax.inject.Inject;
 
@@ -39,6 +44,10 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     CategoryL2ViewModel mCategoryL2ViewModel;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+    @Inject
+    L2SliderAdapter adapter;
+
+
     ActivityCategoryl12Binding mActivityCategoryl2Binding;
     String categoryid;
     String scl1id;
@@ -81,12 +90,26 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         }
 
 
+
+        mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
+
+      //  mActivityCategoryl2Binding.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        mActivityCategoryl2Binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        mActivityCategoryl2Binding.imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        mActivityCategoryl2Binding.imageSlider.setIndicatorSelectedColor(Color.WHITE);
+        mActivityCategoryl2Binding.imageSlider.setIndicatorUnselectedColor(Color.GRAY);
+        mActivityCategoryl2Binding.imageSlider.setScrollTimeInSec(4); //set scroll delay in seconds :
+        mActivityCategoryl2Binding.imageSlider.startAutoCycle();
+
     }
 
 
     public void subscribeLiveData() {
         mCategoryL2ViewModel.getCategoryListLiveData().observe(this,
                 categoryList -> mCategoryL2ViewModel.addDatatoList(categoryList));
+
+ mCategoryL2ViewModel.getSliderListLiveData().observe(this,
+               sliderList -> mCategoryL2ViewModel.addSlidertoList(sliderList));
 
     }
 
@@ -123,8 +146,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     public void openFilter(String scl2id,String request) {
 
         Bundle bundle=new Bundle();
-        bundle.getString("scl2id",scl2id);
-        bundle.getString("request",request);
+        bundle.putString("scl2id",scl2id);
+        bundle.putString("request",request);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);
@@ -133,8 +156,13 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     }
 
 
-    public void openSort() {
+    public void openSort(String scl2id) {
+        Bundle bundle=new Bundle();
+        bundle.putString("scl2id",scl2id);
 
+        SortFragment sortFragment = new SortFragment();
+        sortFragment.setArguments(bundle);
+        sortFragment.show(getSupportFragmentManager(), sortFragment.getTag());
     }
     @Override
     public void viewCart() {
@@ -215,6 +243,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mActivityCategoryl2Binding.frameLayout.setCurrentItem(tab.getPosition());
+                mCategoryL2ViewModel.getDataManager().saveFiletrSort(null);
             }
 
             @Override
@@ -299,9 +328,9 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     }
 
     @Override
-    public void FilterRefresh(String vpid) {
+    public void FilterRefresh(String scl2id) {
         Intent data=new Intent();
-        data.putExtra("vpid",vpid);
+        data.putExtra("scl2id",scl2id);
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(1111, RESULT_OK, data);

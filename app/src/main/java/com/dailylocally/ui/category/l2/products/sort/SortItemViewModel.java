@@ -3,6 +3,16 @@ package com.dailylocally.ui.category.l2.products.sort;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.dailylocally.data.prefs.AppPreferencesHelper;
+import com.dailylocally.ui.category.l2.products.ProductsRequest;
+import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SortItemViewModel {
 
@@ -12,85 +22,72 @@ public class SortItemViewModel {
     public final ObservableBoolean isClicked = new ObservableBoolean();
 
 
-    public final SortItemViewModelListener mListener;
-    private final SortItems.Result sorts;
+    public final FilterItemViewModelListener mListener;
+    private final SortItems.Result result;
 
-    String  id;
+    int id;
 
-    public SortItemViewModel(SortItemViewModelListener mListener, SortItems.Result sorts) {
+    public SortItemViewModel(FilterItemViewModelListener mListener, SortItems.Result result) {
 
 
         this.mListener = mListener;
-        this.sorts = sorts;
+        this.result = result;
 
-        id = sorts.getSortid();
+        id = result.getSortid();
 
-
-
-        /*if (mListener.getFilters() != null) {
-            Gson sGson = new GsonBuilder().create();
-            filterRequestPojo = sGson.fromJson(mListener.getFilters(), FilterRequestPojo.class);
-
-            if (type == 1) {
-
-                if (filterRequestPojo.getSortid().equals(id)){
-                    isClicked.set(true);
-                }
-
-            } else if (type == 2) {
-
-                if (filterRequestPojo.getRegionlist() != null) {
-                    for (int i = 0; i < filterRequestPojo.getRegionlist().size(); i++) {
+        sortTitle.set(result.getSortname());
 
 
-                        if (filterRequestPojo.getRegionlist().get(i).getRegion().equals(id)) {
 
-                            isClicked.set(true);
-                        }
-
-                    }
-                }
-
-            } else if (type == 3) {
-
-                if (filterRequestPojo.getCusinelist() != null) {
-                    for (int i = 0; i < filterRequestPojo.getCusinelist().size(); i++) {
-
-                        if (filterRequestPojo.getCusinelist().get(i).getCusine().equals(id)) {
-
-                            isClicked.set(true);
-                        }
-
-                    }
-                }
+        /*AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
+        Gson sGson = new GsonBuilder().create();
+        ProductsRequest productsRequest = sGson.fromJson(appPreferencesHelper.getFilterSort(), ProductsRequest.class);
+        if (productsRequest != null) {
+            if (productsRequest.getSortid()==result.getSortid()){
+                mListener.itemClick();
             }
 
         }*/
 
-        sortTitle.set(sorts.getSortname());
+
+
+
     }
 
 
     public void onItemClick() {
 
-        /*if (isClicked.get()) {
-            isClicked.set(false);
-            mListener.removeFilter(id);
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
 
-        } else {
-            isClicked.set(true);
-            mListener.addfilter(id);
-        }*/
+
+        List<ProductsRequest.Brandlist> brandlists = new ArrayList<>();
+        Gson sGson = new GsonBuilder().create();
+        ProductsRequest productsRequest = sGson.fromJson(appPreferencesHelper.getFilterSort(), ProductsRequest.class);
+
+
+        if (productsRequest != null) {
+          productsRequest.setSortid(result.getSortid());
+
+        }else {
+            productsRequest=new ProductsRequest();
+            productsRequest.setSortid(result.getSortid());
+        }
+
+        Gson gson = new Gson();
+        String request = gson.toJson(productsRequest);
+
+        appPreferencesHelper.setFilterSort(request);
+
+
+
+        mListener.itemClick();
     }
 
 
-    interface SortItemViewModelListener {
+    interface FilterItemViewModelListener {
 
-        void onItemClick(Integer id);
 
-        void addfilter(Integer id);
-
-        void removeFilter(Integer id);
+        void itemClick();
 
 
 

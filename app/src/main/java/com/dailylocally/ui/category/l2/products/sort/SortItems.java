@@ -1,5 +1,7 @@
 package com.dailylocally.ui.category.l2.products.sort;
 
+import android.content.Intent;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -53,19 +55,19 @@ public class SortItems {
 
 
     public class Result {
+
         @SerializedName("sortid")
         @Expose
-        private String sortid;
+        private Integer sortid;
         @SerializedName("sortname")
         @Expose
         private String sortname;
 
-
-        public String getSortid() {
+        public Integer getSortid() {
             return sortid;
         }
 
-        public void setSortid(String sortid) {
+        public void setSortid(Integer sortid) {
             this.sortid = sortid;
         }
 

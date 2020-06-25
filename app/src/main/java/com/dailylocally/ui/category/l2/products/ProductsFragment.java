@@ -14,13 +14,13 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentProductsBinding;
 import com.dailylocally.ui.base.BaseFragment;
-import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
-import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ProductsFragment extends BaseFragment<FragmentProductsBinding, ProductsViewModel> implements ProductsNavigator, ProductListAdapter.ProductsAdapterListener {
 
@@ -34,9 +34,9 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     FragmentProductsBinding mFragmentProductsBinding;
 
-    public static ProductsFragment newInstance(int id) {
+    public static ProductsFragment newInstance(String id) {
         Bundle args = new Bundle();
-        args.putInt("scl2id", id);
+        args.putString("scl2id", id);
         ProductsFragment fragment = new ProductsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -68,7 +68,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         Gson gson = new Gson();
         String request = gson.toJson(mProductsViewModel.productsRequest);
 
-        ( (CategoryL2Activity)getActivity()).openFilter(  String.valueOf( mProductsViewModel.scl2id),request);
+        ((CategoryL2Activity) getActivity()).openFilter(mProductsViewModel.scl2id, request);
 
        /* FilterFragment filterFragment = new FilterFragment();
         filterFragment.show(getFragmentManager(), filterFragment.getTag());*/
@@ -77,7 +77,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     @Override
     public void openSort() {
-        ( (CategoryL2Activity)getActivity()).openSort();
+        ((CategoryL2Activity) getActivity()).openSort(mProductsViewModel.scl2id);
     }
 
     @Override
@@ -99,9 +99,9 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         super.onViewCreated(view, savedInstanceState);
         mFragmentProductsBinding = getViewDataBinding();
 
-        mProductsViewModel.scl2id = getArguments().getInt("scl2id", 0);
+        mProductsViewModel.scl2id = getArguments().getString("scl2id", null);
 
-        mProductsViewModel.title.set(String.valueOf(   mProductsViewModel.scl2id));
+        mProductsViewModel.title.set(String.valueOf(mProductsViewModel.scl2id));
 
         mProductsViewModel.fetchProducts();
 
@@ -138,7 +138,17 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     public void subscribeProduct(ProductsResponse.Result products) {
 
         Intent intent = SubscriptionActivity.newIntent(getContext());
-        intent.putExtra("pid",String.valueOf(products.getPid()));
+        intent.putExtra("pid", String.valueOf(products.getPid()));
         startActivity(intent);
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1111)
+            if (resultCode == RESULT_OK) {
+
+
+                mProductsViewModel.checkScl2Filter(data.getStringExtra("scl2id"));
+            }
     }
 }

@@ -117,7 +117,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     public void clearFilters() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_CLEAR);
         //startFilter.applyFilter();
-        filterListener.FilterRefresh(scl2id);
+        filterListener.FilterRefresh( mFilterViewModel.scl2id);
         dismiss();
 
     }
@@ -125,7 +125,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     @Override
     public void applyFilter() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
-        filterListener.FilterRefresh(scl2id);
+        filterListener.FilterRefresh( mFilterViewModel.scl2id);
         dismiss();
     }
 
@@ -147,23 +147,5 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
 
 
-   /* @Override
-    public void onItemClickData(Integer id) {
 
-    }
-
-    @Override
-    public void addToFilter(Integer id) {
-        mFilterViewModel.addToFilter(id);
-    }
-
-    @Override
-    public void removeFromFilter(Integer id) {
-        mFilterViewModel.removeFromFilter(id);
-    }
-
-    @Override
-    public Integer getSelectedOption() {
-        return mFilterViewModel.getSelectedOptions();
-    }*/
 }

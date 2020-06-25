@@ -55,12 +55,14 @@ import com.dailylocally.ui.cart.OrderNowAdapter;
 import com.dailylocally.ui.cart.SubscribeItemsAdapter;
 import com.dailylocally.ui.category.l1.L1CategoriesAdapter;
 import com.dailylocally.ui.category.l1.L1CategoryResponse;
+import com.dailylocally.ui.category.l2.L2CategoryResponse;
 import com.dailylocally.ui.category.l2.products.ProductListAdapter;
 import com.dailylocally.ui.category.l2.products.ProductsResponse;
 import com.dailylocally.ui.category.l2.products.filter.FilterAdapter;
 import com.dailylocally.ui.category.l2.products.filter.FilterItems;
 import com.dailylocally.ui.category.l2.products.sort.SortAdapter;
 import com.dailylocally.ui.category.l2.products.sort.SortItems;
+import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 import com.dailylocally.ui.search.QuickSearchResponse;
 import com.dailylocally.ui.search.SearchProductListAdapter;
 import com.dailylocally.ui.search.SearchProductResponse;
@@ -72,6 +74,7 @@ import com.dailylocally.ui.signup.faqs.FaqResponse;
 import com.dailylocally.ui.signup.faqs.FaqsAdapter;
 import com.dailylocally.utilities.chat.IssuesAdapter;
 import com.dailylocally.utilities.chat.IssuesListResponse;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
 
@@ -119,6 +122,15 @@ public final class BindingUtils {
  @BindingAdapter({"sortadapter"})
     public static void addSortItems(RecyclerView recyclerView, List<SortItems.Result> results) {
         SortAdapter adapter = (SortAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+
+@BindingAdapter({"l2slideradapter"})
+    public static void addL2SliderItems(SliderView recyclerView, List<L2CategoryResponse.GetSubCatImage> results) {
+        L2SliderAdapter adapter = (L2SliderAdapter) recyclerView.getSliderAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(results);

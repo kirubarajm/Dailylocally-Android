@@ -37,6 +37,7 @@ import com.dailylocally.ui.category.l2.CategoryL2Module;
 import com.dailylocally.ui.category.l2.products.ProductsProvider;
 
 import com.dailylocally.ui.category.l2.products.filter.FilterProvider;
+import com.dailylocally.ui.category.l2.products.sort.SortProvider;
 import com.dailylocally.ui.favorites.FavoritesActivity;
 import com.dailylocally.ui.favorites.FavoritesModule;
 import com.dailylocally.ui.home.HomeProvider;
@@ -91,7 +92,7 @@ public abstract class ActivityBuilder {
 
  @ContributesAndroidInjector(modules = {CategoryL1Module.class/*, OrderCanceledProvider.class*/})
     abstract CategoryL1Activity bindCategoryL1Activity();
-@ContributesAndroidInjector(modules = {CategoryL2Module.class, ProductsProvider.class, FilterProvider.class/*, OrderCanceledProvider.class*/})
+@ContributesAndroidInjector(modules = {CategoryL2Module.class, ProductsProvider.class, FilterProvider.class, SortProvider.class/*, OrderCanceledProvider.class*/})
     abstract CategoryL2Activity bindCategoryL2Activity();
     @ContributesAndroidInjector(modules = {
             MainActivityModule.class,

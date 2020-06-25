@@ -2,6 +2,7 @@ package com.dailylocally.ui.category.l2.products.sort;
 
 
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,9 +12,13 @@ import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.category.l2.products.ProductsRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.Module;
@@ -22,12 +27,15 @@ import dagger.Module;
 public class SortViewModel extends BaseViewModel<SortNavigator> {
 
     public ObservableList<SortItems.Result> sortItems = new ObservableArrayList<>();
-    private MutableLiveData<List<SortItems.Result>> sortItemsLiveData;
-
+    public ObservableField<String> sortTitle = new ObservableField<>();
+    public String scl2id;
+        private MutableLiveData<List<SortItems.Result>> sortItemsLiveData;
 
     public SortViewModel(DataManager dataManager) {
         super(dataManager);
         sortItemsLiveData = new MutableLiveData<>();
+
+
     }
 
 
@@ -37,15 +45,41 @@ public class SortViewModel extends BaseViewModel<SortNavigator> {
     }
 
 
-    public MutableLiveData<List<SortItems.Result>> getFilterItemsLiveData() {
+    public MutableLiveData<List<SortItems.Result>> getSortItemsLiveData() {
         return sortItemsLiveData;
     }
 
 
-    public void addToFilter(Integer id) {
+    public void addToFilter(String id) {
+        List<ProductsRequest.Brandlist> brandlists = new ArrayList<>();
+        Gson sGson = new GsonBuilder().create();
+        ProductsRequest productsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+
+        if (productsRequest != null) {
+
+            if (productsRequest.getBrandlist()!=null){
+
+                if (productsRequest.getBrandlist().size()>0){
+
+
+
+                }
+
+            }
+
+
+        }
+
+
+        Gson gson = new Gson();
+        String request = gson.toJson(productsRequest);
+
+
     }
 
-    public void removeFromFilter(Integer id) {
+    public void removeFromFilter(String id) {
+
+
     }
 
     public void apply() {
@@ -55,18 +89,36 @@ public class SortViewModel extends BaseViewModel<SortNavigator> {
 
 
     public void clearAll() {
-        getDataManager().saveIsFilterApplied(false);
+        Gson sGson = new GsonBuilder().create();
+        ProductsRequest productsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+
+        if (productsRequest!=null){
+            productsRequest.setSortid(0);
+            Gson gson = new Gson();
+            String request = gson.toJson(productsRequest);
+            getDataManager().saveFiletrSort(request);
+        }
+
         getNavigator().clearFilters();
+
+
     }
 
     public void close() {
         getNavigator().close();
+
     }
 
-
-    public void getSorts() {
+    public void getSortItemList(String scl2id) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
+            Gson sGson = new GsonBuilder().create();
+            ProductsRequest  fProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+            if (fProductsRequest!=null){
+                if (!fProductsRequest.getScl2Id().equals(scl2id)){
+                    getDataManager().saveFiletrSort(null);
+                }
+            }
 
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_SORT, SortItems.class, new Response.Listener<SortItems>() {
@@ -76,6 +128,7 @@ public class SortViewModel extends BaseViewModel<SortNavigator> {
                         if (response != null) {
                             if (response.getStatus()) {
                                 if (response.getResult() != null) {
+                                    sortTitle.set(response.getTitle());
                                     sortItemsLiveData.setValue(response.getResult());
                                 }
                             }

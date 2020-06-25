@@ -1,5 +1,6 @@
 package com.dailylocally.ui.category.l2.products.sort;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,44 +10,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.databinding.FragmentFilterBinding;
+import com.dailylocally.databinding.FragmentSortBinding;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
+import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
 
-public class SortFragment extends BaseBottomSheetFragment<FragmentFilterBinding, SortViewModel> implements SortNavigator/*, FilterAdapter.FiltersAdapterListener*/ {
+public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, SortViewModel> implements SortNavigator, SortAdapter.FiltersAdapterListener {
 
 
     public static final String TAG = SortFragment.class.getSimpleName();
     @Inject
     SortViewModel mSortViewModel;
 
-    FragmentFilterBinding mFragmentFilterBinding;
+    FragmentSortBinding mFragmentSortBinding;
 
     @Inject
     SortAdapter adapter;
     @Inject
     LinearLayoutManager mLayoutManager;
- //   StartFilter startFilter;
+    FilterListener filterListener;
     Analytics analytics;
-    String pageName= AppConstants.SCREEN_KITCHEN_FILTER;
+    String pageName = AppConstants.SCREEN_KITCHEN_FILTER;
 
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof StartFilter) {
-            //init the listener
-            startFilter = (StartFilter) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement InteractionListener");
-        }
-
-    }*/
+    String scl2id;
 
     public static SortFragment newInstance() {
         Bundle args = new Bundle();
@@ -56,13 +46,26 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentFilterBinding,
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FilterListener) {
+            //init the listener
+            filterListener = (FilterListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement InteractionListener");
+        }
+
+    }
+
+    @Override
     public int getBindingVariable() {
-        return BR.filterViewModel;
+        return BR.sortViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_filter;
+        return R.layout.fragment_sort;
     }
 
     @Override
@@ -74,22 +77,26 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentFilterBinding,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSortViewModel.setNavigator(this);
-     //   adapter.setListener(this);
-        analytics=new Analytics(getActivity(),pageName);
-        mSortViewModel.getSorts();
+        //   adapter.setListener(this);
+        analytics = new Analytics(getActivity(), pageName);
+
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mFragmentFilterBinding = getViewDataBinding();
+        mFragmentSortBinding = getViewDataBinding();
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mFragmentFilterBinding.recyclerviewFilters.setLayoutManager(mLayoutManager);
-        mFragmentFilterBinding.recyclerviewFilters.setAdapter(adapter);
+        mFragmentSortBinding.recyclerviewFilters.setLayoutManager(mLayoutManager);
+        mFragmentSortBinding.recyclerviewFilters.setAdapter(adapter);
         subscribeToLiveData();
 
+
+        mSortViewModel.scl2id = getArguments().getString("scl2id",null);
+
+        mSortViewModel.getSortItemList( mSortViewModel.scl2id);
     }
 
     @Override
@@ -101,14 +108,17 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentFilterBinding,
     public void handleError(Throwable throwable) {
 
     }
+
     private void subscribeToLiveData() {
-        mSortViewModel.getFilterItemsLiveData().observe(this,
+        mSortViewModel.getSortItemsLiveData().observe(this,
                 filters -> mSortViewModel.addtoFilterList(filters));
     }
+
     @Override
     public void clearFilters() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_CLEAR);
         //startFilter.applyFilter();
+        filterListener.FilterRefresh( mSortViewModel.scl2id);
         dismiss();
 
     }
@@ -116,9 +126,8 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentFilterBinding,
     @Override
     public void applyFilter() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
+        filterListener.FilterRefresh( mSortViewModel.scl2id);
         dismiss();
-       // startFilter.applyFilter();
-
     }
 
     @Override
@@ -127,23 +136,17 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentFilterBinding,
     }
 
 
-   /* @Override
-    public void onItemClickData(Integer id) {
-
+    @Override
+    public void addToFilter(String id) {
+        mSortViewModel.addToFilter(id);
     }
 
     @Override
-    public void addToFilter(Integer id) {
-        mFilterViewModel.addToFilter(id);
+    public void removeFromFilter(String id) {
+        mSortViewModel.removeFromFilter(id);
     }
 
-    @Override
-    public void removeFromFilter(Integer id) {
-        mFilterViewModel.removeFromFilter(id);
-    }
 
-    @Override
-    public Integer getSelectedOption() {
-        return mFilterViewModel.getSelectedOptions();
-    }*/
+
+
 }
