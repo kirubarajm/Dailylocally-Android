@@ -76,7 +76,7 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
-                    android:visibility="@{couponsViewModel.cartCoupon?View.VISIBLE:View.GONE}"
+                    android:visibility="@{couponsViewModel.flagApplyVisibility?View.VISIBLE:View.GONE}"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/coupons_bck"
                     android:id="@+id/enterCoupon"
@@ -132,10 +132,24 @@
                     android:id="@+id/recycler_coupons"
                     android:layout_below="@+id/view_1"
                     android:layout_marginTop="40dp"
+                    android:layout_above="@+id/btn_refer"
                     adapter="@{couponsViewModel.couponsItemViewModels}"
                     tools:listitem="@layout/list_item_coupons"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:onClick="@{()->couponsViewModel.referralClick()}"
+                    android:textColor="@color/dl_green"
+                    android:id="@+id/btn_refer"
+                    android:background="@drawable/transaction_bck"
+                    android:text="Refer a friend and Earn a coupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
 
             </RelativeLayout>
 

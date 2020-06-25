@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Transaction History"
+                    android:text="@string/transaction_history"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
@@ -76,7 +76,9 @@
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_favorites"
+                    android:id="@+id/recycler_transaction_history"
+                    adapter="@{transactionHistoryViewModel.transactionHistoryItemViewModels}"
+                    tools:listitem="@layout/list_item_transaction_history"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 

@@ -1,29 +1,21 @@
 package com.dailylocally.ui.transactionHistory;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.dailylocally.R;
-import com.dailylocally.databinding.ListItemCartBillBinding;
+import com.dailylocally.databinding.ListItemTransactionHistoryBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
-import com.dailylocally.ui.cart.BillItemViewModel;
-import com.dailylocally.ui.cart.CartResponse;
-import com.dailylocally.utilities.DailylocallyApp;
-
 import java.util.List;
 
 public class TransactionHistoryAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
-    private List<CartResponse.Cartdetail> item_list;
-    private BilldetailsInfoListener mBilldetailsInfoListener;
+    private List<TransactionHistoryResponse.Result> item_list;
+    private TransactionHistoryInfoListener mBilldetailsInfoListener;
 
-    public TransactionHistoryAdapter(List<CartResponse.Cartdetail> item_list) {
+    public TransactionHistoryAdapter(List<TransactionHistoryResponse.Result> item_list) {
         this.item_list = item_list;
 
     }
@@ -31,9 +23,9 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<BaseViewHold
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
-        ListItemCartBillBinding blogViewBinding = ListItemCartBillBinding.inflate(LayoutInflater.from(parent.getContext()),
+        ListItemTransactionHistoryBinding blogViewBinding = ListItemTransactionHistoryBinding.inflate(LayoutInflater.from(parent.getContext()),
                 parent, false);
-        return new LiveProductsViewHolder(blogViewBinding);
+        return new TransactionHistoryViewHolder(blogViewBinding);
 
     }
 
@@ -53,27 +45,27 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<BaseViewHold
         item_list.clear();
     }
 
-    public void addItems(List<CartResponse.Cartdetail> blogList) {
+    public void addItems(List<TransactionHistoryResponse.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
 
-    public void setListener(BilldetailsInfoListener listener) {
+    public void setListener(TransactionHistoryInfoListener listener) {
         this.mBilldetailsInfoListener = listener;
     }
 
-    public interface BilldetailsInfoListener {
+    public interface TransactionHistoryInfoListener {
 
-        void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView);
+        void viewClick(TransactionHistoryResponse.Result cartdetail);
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements BillItemViewModel.BilldetailsInfoViewModelListener {
+    public class TransactionHistoryViewHolder extends BaseViewHolder implements TransactionHistoryItemViewModel.TransactionHistoryViewModelListener {
 
-        ListItemCartBillBinding mListItemLiveProductsBinding;
-        BillItemViewModel mLiveProductsItemViewModel;
+        ListItemTransactionHistoryBinding mListItemLiveProductsBinding;
+        TransactionHistoryItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemCartBillBinding binding) {
+        public TransactionHistoryViewHolder(ListItemTransactionHistoryBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -81,64 +73,16 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<BaseViewHold
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final CartResponse.Cartdetail blog = item_list.get(position);
-            mLiveProductsItemViewModel = new BillItemViewModel(blog,this);
-            mListItemLiveProductsBinding.setBillItemViewModel(mLiveProductsItemViewModel);
+            final TransactionHistoryResponse.Result blog = item_list.get(position);
+            mLiveProductsItemViewModel = new TransactionHistoryItemViewModel(blog,this);
+            mListItemLiveProductsBinding.setTransactionHistoryItemViewModel(mLiveProductsItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
-
-
-            if (blog.getColorCode()!=null) {
-                int color = Color.parseColor(blog.getColorCode());
-                mListItemLiveProductsBinding.name.setTextColor(color);
-            }else {
-                mListItemLiveProductsBinding.name.setTextColor(DailylocallyApp.getInstance().getResources().getColor(R.color.dark_gray));
-            }
-
-/*
-            ToolTip toolTip = new ToolTip()
-                    .withContentView(LayoutInflater.from(MvvmApp.getInstance()).inflate(R.layout.tool_tip_address, null))
-                    // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
-                    .withColor(MvvmApp.getInstance().getResources().getColor(R.color.tracking_back))
-                    .withShadow()
-                    .withTextColor(Color.BLACK)
-                    .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW);
-            ToolTipView myToolTipView = mListItemLiveProductsBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mListItemLiveProductsBinding.info);
-
-            TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
-
-      //      String aTitle = mHomeTabViewModel.getDataManager().getCurrentAddressArea() == null ? "your location" : mHomeTabViewModel.getDataManager().getCurrentAddressArea();
-
-
-            String sTitle = "Now showing kitchens around \nClick to change location!";
-
-            title.setText(sTitle);*/
-
-          /*  myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
-                @Override
-                public void onToolTipViewClicked(ToolTipView toolTipView) {
-
-                    // selectAddress();
-                }
-            });
-
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (myToolTipView != null) {
-
-                        myToolTipView.remove();
-                        myToolTipView = null;
-                        mHomeTabViewModel.getDataManager().appStartedAgain(false);
-                    }
-                }
-            }, 10000);*/
 
         }
 
         @Override
-        public void onItemClick(CartResponse.Cartdetail cartdetail) {
-            mBilldetailsInfoListener.infoClick(cartdetail, mListItemLiveProductsBinding.info);
+        public void onItemClick(TransactionHistoryResponse.Result cartdetail) {
+            mBilldetailsInfoListener.viewClick(cartdetail);
         }
     }
 }

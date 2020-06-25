@@ -25,6 +25,8 @@ import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.coupons.CouponsRequest;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
@@ -36,34 +38,36 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
 
     public TransactionDetailsViewModel(DataManager dataManager) {
         super(dataManager);
-        fetchUserDetails();
     }
 
-    public void fetchUserDetails() {
+    public void getTransactionHistoryViewList(String orderid){
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-        try {
-            String userID = getDataManager().getCurrentUserId();
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_USER_ADDRESS + userID, UserAddressResponse.class, new Response.Listener<UserAddressResponse>() {
-                @Override
-                public void onResponse(UserAddressResponse response) {
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    try {
+        setIsLoading(true);
+        String userId = getDataManager().getCurrentUserId();
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_TRANSACTION_VIEW, TransactionViewResponse.class,
+                new TransactionViewRequest(orderid),
+                new Response.Listener<TransactionViewResponse>() {
+                    @Override
+                    public void onResponse(TransactionViewResponse response) {
+                        try {
+                            if (response!=null){
+                                if (response.getStatus()){
+
+                                }
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         setIsLoading(false);
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
                     }
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (Exception ee) {
-            ee.printStackTrace();
-        }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                setIsLoading(true);
+            }
+        }, AppConstants.API_VERSION_ONE);
+
+        DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
 

@@ -64,11 +64,15 @@
 
         </androidx.cardview.widget.CardView>
 
-        <RelativeLayout
+        <ScrollView
             android:layout_below="@+id/topBar"
-            android:id="@+id/rel_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rel_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:padding="20dp"
@@ -76,11 +80,260 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:id="@+id/linear_main"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            android:text="@string/transaction_id"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            android:text="523"
+                            android:textSize="14sp"
+                            android:id="@+id/txt_order_id"
+                            android:layout_toEndOf="@+id/txt_1"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_toStartOf="@+id/txt_price"
+                            android:text="@string/rupees_symbol"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            android:text="5362"
+                            android:textSize="14sp"
+                            android:id="@+id/txt_price"
+                            android:layout_alignParentEnd="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:text="@string/payment_id"
+                            android:textSize="12sp"
+                            android:textStyle="normal"
+                            android:id="@+id/txt_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:text="12345"
+                            android:textSize="12sp"
+                            android:id="@+id/txt_payment"
+                            android:textStyle="normal"
+                            android:layout_toEndOf="@+id/txt_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:text="(6 items)"
+                            android:textSize="12sp"
+                            android:layout_alignParentEnd="true"
+                            android:textStyle="normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            android:text="Items in my order"
+                            android:textSize="14sp"
+                            android:id="@+id/txt_heading"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <View
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/txt_heading"
+                            android:id="@+id/view_1"
+                            android:background="@color/light_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_below="@+id/view_1"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/recycler_products"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            android:text="@string/bill_details"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/recycler_products"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_heading_2"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rel_bill_1"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/txt_heading_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="@string/total_amount"
+                                android:textStyle="bold"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_toStartOf="@+id/txt_total_amt"
+                                android:text="@string/rupees_symbol"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="1235"
+                                android:textStyle="bold"
+                                android:layout_alignParentEnd="true"
+                                android:textSize="14sp"
+                                android:id="@+id/txt_total_amt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rel_bill_2"
+                            android:layout_marginTop="10dp"
+                            android:layout_below="@+id/rel_bill_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="@string/gst_amount"
+                                android:textStyle="bold"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_toStartOf="@+id/txt_gst_amt"
+                                android:text="@string/rupees_symbol"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="1235"
+                                android:textStyle="bold"
+                                android:layout_alignParentEnd="true"
+                                android:textSize="14sp"
+                                android:id="@+id/txt_gst_amt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rel_bill_3"
+                            android:layout_marginTop="10dp"
+                            android:layout_below="@+id/rel_bill_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="Delivery Charge"
+                                android:textStyle="bold"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_toStartOf="@+id/txt_delivery_charge"
+                                android:text="@string/rupees_symbol"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="1235"
+                                android:textStyle="bold"
+                                android:layout_alignParentEnd="true"
+                                android:textSize="14sp"
+                                android:id="@+id/txt_delivery_charge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@+id/rel_bill_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="To Pay"
+                                android:textStyle="bold"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_toStartOf="@+id/txt_to_pay"
+                                android:text="@string/rupees_symbol"
+                                android:textSize="14sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:text="1235"
+                                android:textStyle="bold"
+                                android:layout_alignParentEnd="true"
+                                android:textSize="14sp"
+                                android:id="@+id/txt_to_pay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
             </RelativeLayout>
 
-
         </RelativeLayout>
+
+        </ScrollView>
 
     </RelativeLayout>
 

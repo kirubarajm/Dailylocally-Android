@@ -2,6 +2,7 @@ package com.dailylocally.ui.coupons;
 
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ public class CouponsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<CouponsResponse.Result> item_list;
     private CouponsListener mBilldetailsInfoListener;
+    boolean flagApplyButton;
 
     public CouponsAdapter(List<CouponsResponse.Result> item_list) {
         this.item_list = item_list;
@@ -47,6 +49,10 @@ public class CouponsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
+    public void forApplyView(boolean flagApplyButton) {
+        this.flagApplyButton = flagApplyButton;
+    }
+
     public void addItems(List<CouponsResponse.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
@@ -58,7 +64,7 @@ public class CouponsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface CouponsListener {
 
-        void infoClick(CouponsResponse.Result cartdetail);
+        void onApplyClick(CouponsResponse.Result cartdetail);
 
     }
 
@@ -80,11 +86,16 @@ public class CouponsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemLiveProductsBinding.setCouponsItemViewModel(mLiveProductsItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
 
+            if (flagApplyButton){
+                mListItemLiveProductsBinding.txtApply.setVisibility(View.VISIBLE);
+            }else {
+                mListItemLiveProductsBinding.txtApply.setVisibility(View.GONE);
+            }
         }
 
         @Override
         public void onItemClick(CouponsResponse.Result cartdetail) {
-            mBilldetailsInfoListener.infoClick(cartdetail);
+            mBilldetailsInfoListener.onApplyClick(cartdetail);
         }
     }
 }

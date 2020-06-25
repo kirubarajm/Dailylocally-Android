@@ -73,6 +73,8 @@ import com.dailylocally.ui.search.SearchProductListAdapter;
 import com.dailylocally.ui.search.SearchProductResponse;
 import com.dailylocally.ui.search.SearchSubCategoryAdapter;
 import com.dailylocally.ui.search.SearchSuggestionAdapter;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryAdapter;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryResponse;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.dailylocally.R;
 import com.dailylocally.ui.signup.faqs.FaqResponse;
@@ -228,9 +230,19 @@ public final class BindingUtils {
             adapter.addItems(blogs);
         }
     }
+
     @BindingAdapter({"adapter"})
     public static void addCouponsItems(RecyclerView recyclerView, List<CouponsResponse.Result> blogs) {
         CouponsAdapter adapter = (CouponsAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addTransactionHistoryItems(RecyclerView recyclerView, List<TransactionHistoryResponse.Result> blogs) {
+        TransactionHistoryAdapter adapter = (TransactionHistoryAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(blogs);

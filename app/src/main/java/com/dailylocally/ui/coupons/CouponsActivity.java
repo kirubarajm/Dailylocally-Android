@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCouponsBinding;
+import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -44,7 +46,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
     public void validateCouponClick() {
         String couponName = mActivityCouponsBinding.code.getText().toString();
         if (!couponName.equals("")) {
-            mCouponsViewModel.validateCoupon();
+            mCouponsViewModel.validateCoupon(couponName);
         }else {
             Toast.makeText(this, "Enter coupon code", Toast.LENGTH_LONG).show();
         }
@@ -53,11 +55,18 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
     @Override
     public void validateCouponSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        finish();
     }
 
     @Override
     public void validateCouponFailure(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void refer() {
+        Intent intent = ReferralsActivity.newIntent(this);
+        startActivity(intent);
     }
 
     @Override
@@ -80,14 +89,21 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
         super.onCreate(savedInstanceState);
         mActivityCouponsBinding = getViewDataBinding();
         mCouponsViewModel.setNavigator(this);
+        mCouponsAdapter.setListener(this);
         analytics = new Analytics(this, pageName);
 
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-            String cartCoupon = bundle.getString("cartcoupon");
-            if (cartCoupon!=null){
-                mCouponsViewModel.cartCoupon.set(true);
+            String pageId = bundle.getString("page");
+            if (pageId!=null){
+                if (pageId.equals("8")){
+                    mCouponsViewModel.flagApplyVisibility.set(false);
+                    mCouponsAdapter.forApplyView(false);
+                }else {
+                    mCouponsViewModel.flagApplyVisibility.set(true);
+                    mCouponsAdapter.forApplyView(true);
+                }
             }
         }
 
@@ -129,7 +145,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
     }
 
     @Override
-    public void infoClick(CouponsResponse.Result cartdetail) {
-
+    public void onApplyClick(CouponsResponse.Result cartdetail) {
+        mCouponsViewModel.validateCoupon(cartdetail.getCouponName());
     }
 }
