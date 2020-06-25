@@ -136,10 +136,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void searchClick() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
         SearchFragment fragment = new SearchFragment();
         transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
+        transaction.commit();*/
+        ((MainActivity) getActivity()).openExplore();
     }
 
     @Override

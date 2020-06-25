@@ -49,21 +49,7 @@
                 android:layout_below="@+id/rel_search_bar"
                 android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview_search_sub_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    app:adapter="@{searchViewModel.searchSubCategoryItemViewModels}"
-                    tools:listitem="@layout/list_item_sub_category" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview_search_suggestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    app:adapter="@{searchViewModel.searchItemViewModels}"
-                    tools:listitem="@layout/list_item_search" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_product"
@@ -74,6 +60,13 @@
                     android:visibility="gone"
                     app:adapter="@{searchViewModel.searchProductItemViewModels}"
                     tools:listitem="@layout/list_item_search_product_list" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_search_sub_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    app:adapter="@{searchViewModel.searchSubCategoryItemViewModels}"
+                    tools:listitem="@layout/list_item_sub_category" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

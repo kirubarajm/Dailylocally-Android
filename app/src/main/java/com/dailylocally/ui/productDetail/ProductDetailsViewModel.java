@@ -49,13 +49,13 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
     public ProductDetailsViewModel(DataManager dataManager) {
         super(dataManager);
-        getProductDetails();
+
     }
 
-    public void getProductDetails(){
+    public void getProductDetails(String vpid){
         String userId = getDataManager().getCurrentUserId();
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_DETAILS, ProductDetailsResponse.class,
-                new ProductRequest(1,"13.05067500","80.00000000",18),
+                new ProductRequest(userId,getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),vpid),
                 new Response.Listener<ProductDetailsResponse>() {
                     @Override
                     public void onResponse(ProductDetailsResponse response) {

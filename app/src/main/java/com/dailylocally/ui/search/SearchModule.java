@@ -15,10 +15,7 @@ public class SearchModule {
         return new SearchViewModel(dataManager);
     }
 
-    @Provides
-    SearchSuggestionAdapter provideSearchAdapter() {
-        return new SearchSuggestionAdapter(new ArrayList<>());
-    }
+
 
     @Provides
     SearchSubCategoryAdapter provideSearchSubCategoryAdapter() {

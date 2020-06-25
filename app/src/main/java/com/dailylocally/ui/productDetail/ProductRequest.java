@@ -7,7 +7,7 @@ public class ProductRequest {
 
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public String userid;
     @SerializedName("lat")
     @Expose
     public String lat;
@@ -16,10 +16,10 @@ public class ProductRequest {
     public String lon;
     @SerializedName("vpid")
     @Expose
-    public Integer vpid;
+    public String vpid;
 
 
-    public ProductRequest(Integer userid, String lat, String lon, Integer vpid) {
+    public ProductRequest(String userid, String lat, String lon, String vpid) {
         this.userid = userid;
         this.lat = lat;
         this.lon = lon;

@@ -229,8 +229,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openExplore() {
-       /* new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
-        stopLoader();
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
+       // stopLoader();
         try {
             mMainViewModel.isExplore.set(true);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -242,7 +242,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             ee.printStackTrace();
         }
 
-        mMainViewModel.toolbarTitle.set("Explore");
+        mMainViewModel.toolbarTitle.set("Search");
 
         mMainViewModel.titleVisible.set(false);
 
@@ -251,7 +251,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isCart.set(false);
         mMainViewModel.isMyAccount.set(false);
 
-        mMainViewModel.updateAvailable.set(false);*/
+        mMainViewModel.updateAvailable.set(false);
 
 
     }

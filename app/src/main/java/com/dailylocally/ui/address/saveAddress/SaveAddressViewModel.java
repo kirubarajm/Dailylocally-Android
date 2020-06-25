@@ -110,7 +110,6 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                 if (getNavigator()!=null){
                     getNavigator().saveAddressFailed();
                 }
-
             }
         }, AppConstants.API_VERSION_ONE);
 

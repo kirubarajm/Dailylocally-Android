@@ -66,6 +66,10 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         mAddAddressViewModel.setNavigator(this);
 
         analytics = new Analytics(this, pageName);
+
+
+        mAddAddressViewModel.getProductDetails(getIntent().getExtras().getString("vpid"));
+
     }
 
     @Override

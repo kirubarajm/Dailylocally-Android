@@ -14,6 +14,7 @@ import com.dailylocally.databinding.FragmentSearchBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -22,13 +23,13 @@ import com.dailylocally.utilities.analytics.Analytics;
 import javax.inject.Inject;
 
 public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchViewModel> implements
-        SearchNavigator, SearchSuggestionAdapter.LiveProductsAdapterListener,SearchProductListAdapter.ProductsAdapterListener,
+        SearchNavigator,SearchProductListAdapter.ProductsAdapterListener,
         SearchSubCategoryAdapter.LiveProductsAdapterListener{
 
     @Inject
     SearchViewModel mSearchViewModel;
-    @Inject
-    SearchSuggestionAdapter adapter;
+   /* @Inject
+    SearchSuggestionAdapter adapter;*/
     @Inject
     SearchProductListAdapter productListAdapter;
     @Inject
@@ -64,19 +65,19 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void suggestionProductSuccess() {
-        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+      //  mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
         //mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void quickSearchSuccess() {
-        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+      //  mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
     }
 
     @Override
     public void searchNotFound() {
-            mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+         //   mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
             mFragmentSearchBinding.searchNotFound.setVisibility(View.VISIBLE);
     }
 
@@ -84,7 +85,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSearchViewModel.setNavigator(this);
-        adapter.setListener(this);
+        //adapter.setListener(this);
         productListAdapter.setListener(this);
         mSearchSubCategoryAdapter.setListener(this);
     }
@@ -108,9 +109,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         LinearLayoutManager mLayoutManagerSubCategory
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+      /*  mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setLayoutManager(mLayoutManager);
-        mFragmentSearchBinding.recyclerviewSearchSuggestion.setAdapter(adapter);
+        mFragmentSearchBinding.recyclerviewSearchSuggestion.setAdapter(adapter);*/
 
         mLayoutManagerProduct.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentSearchBinding.recyclerviewProduct.setLayoutManager(mLayoutManagerProduct);
@@ -138,12 +139,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 try {
                 if (s.length()>1){
                     mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
-                    mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+                  //  mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
                     mFragmentSearchBinding.before.setVisibility(View.GONE);
                     mSearchViewModel.quickSearch(s);
                 }else {
                     mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
-                    mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+                  //  mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
                     mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
                 }
                 }catch (Exception e) {
@@ -156,12 +157,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 try {
                     if (s.length()>1){
                         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
-                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+                     //   mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
                         mFragmentSearchBinding.before.setVisibility(View.GONE);
                         mSearchViewModel.quickSearch(s);
                     }else {
                         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
-                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+                      //  mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
                         mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
                         mFragmentSearchBinding.searchNotFound.setVisibility(View.GONE);
                     }
@@ -190,35 +191,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 catregoryItemViewModel -> mSearchViewModel.addSearchProductItemsToList(catregoryItemViewModel));
     }
 
-    @Override
-    public void onSuggestionItemClickData(QuickSearchResponse.Result.ProductsList result) {
-        try {
-/*
-            if (result!=null){
-                int type = Integer.parseInt(result.getType());
-                if (type== AppConstants.SEARCH_CATEGORY){
-                    Intent intent = CategoryL1Activity.newIntent(getContext());
-                    intent.putExtra("catid",String.valueOf(result.getId()));
-                    startActivity(intent);
-                } else if (type== AppConstants.SEARCH_L1_CATEGORY){
-                    Intent intent = CategoryL2Activity.newIntent(getContext());
-                    intent.putExtra("catid",String.valueOf(result.getId()));
-                    intent.putExtra("scl1id",String.valueOf("0"));
-                    startActivity(intent);
-                } else if (type== AppConstants.SEARCH_L2_CATEGORY){
-                    Intent intent = CategoryL2Activity.newIntent(getContext());
-                    intent.putExtra("catid",String.valueOf(result.getId()));
-                    intent.putExtra("scl1id",String.valueOf("0"));
-                    startActivity(intent);
-                } else if (type== AppConstants.SEARCH_PRODUCT){
-                    mSearchViewModel.SearchProduct(result.getType(),String.valueOf(result.getId()));
-                }
-            }
-*/
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+
 
     @Override
     public void refresh() {
@@ -227,13 +200,19 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void onProductItemClick(SearchProductResponse.Result products) {
-        Intent intent = CategoryL2Activity.newIntent(getContext());
+       /* Intent intent = CategoryL2Activity.newIntent(getContext());
+        intent.putExtra("scl1id",String.valueOf(products.getScl1Id()));
+        startActivity(intent);*/
+
+        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        intent.putExtra("vpid",String.valueOf(products.getVpid()));
         startActivity(intent);
     }
 
     @Override
     public void onSuggestionItemClickData(QuickSearchResponse.Result.SubcategoryList result) {
         Intent intent = CategoryL2Activity.newIntent(getContext());
+        intent.putExtra("scl1id",String.valueOf(result.getScl1Id()));
         startActivity(intent);
     }
 }

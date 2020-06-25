@@ -175,7 +175,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //   Log.e("", ""+error.getMessage());
-                    setIsLoading(false);
                     categoryLoading.set(false);
                     if (getNavigator() != null)
                         getNavigator().dataLoaded();
