@@ -92,6 +92,8 @@ public class OrderNowAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void reloadCart();
         String changeDate(CartResponse.Item product);
         void subscribe(CartResponse.Item product);
+
+        void orderNowItemClick(CartResponse.Item product);
     }
 
     public class OrderNowProductsViewHolder extends BaseViewHolder implements OrderNowItemViewModel.DishItemViewModelListener {
@@ -124,6 +126,11 @@ public class OrderNowAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void reload() {
          mLiveProductsAdapterListener.reloadCart();
+        }
+
+        @Override
+        public void itemClick(CartResponse.Item product) {
+           mLiveProductsAdapterListener.orderNowItemClick(product);
         }
 
         @Override

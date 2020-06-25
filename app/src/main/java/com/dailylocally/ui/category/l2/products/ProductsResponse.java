@@ -1,7 +1,5 @@
 package com.dailylocally.ui.category.l2.products;
 
-import android.content.Intent;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -164,6 +162,15 @@ public class ProductsResponse {
         @Expose
         private String discountCost;
 
+        @SerializedName("mrp_discount_amout")
+        @Expose
+        private String mrpDiscountAmount;
+
+        @SerializedName("discount_cost_status")
+        @Expose
+        private boolean discountCostStatus;
+
+
         @SerializedName("gst")
         @Expose
         private String gst;
@@ -184,13 +191,14 @@ public class ProductsResponse {
         @Expose
         private String weight;
 
- @SerializedName("unit")
+        @SerializedName("unit")
         @Expose
         private String unit;
 
         @SerializedName("tag")
         @Expose
         private String tag;
+
 
         @SerializedName("short_desc")
         @Expose
@@ -202,6 +210,23 @@ public class ProductsResponse {
 
         public String getPid() {
             return pid;
+        }
+
+
+        public String getMrpDiscountAmount() {
+            return mrpDiscountAmount;
+        }
+
+        public void setMrpDiscountAmount(String mrpDiscountAmount) {
+            this.mrpDiscountAmount = mrpDiscountAmount;
+        }
+
+        public boolean isDiscountCostStatus() {
+            return discountCostStatus;
+        }
+
+        public void setDiscountCostStatus(boolean discountCostStatus) {
+            this.discountCostStatus = discountCostStatus;
         }
 
         public void setPid(String pid) {

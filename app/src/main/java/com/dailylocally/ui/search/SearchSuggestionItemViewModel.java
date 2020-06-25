@@ -19,25 +19,20 @@ public class SearchSuggestionItemViewModel {
 
         this.mListener = mListener;
         this.result = result;
-        this.title.set(result.getName());
-        this.type.set(result.getWeight()+" "+result.getUnit()+" , In "+result.getBrandname());
-
+        this.title.set(result.getProductname());
+        this.type.set(result.getWeight()+" "+result.getUnit()+", in "+result.getName());
 /*
         if (result.getType() == 1) {
-
             this.type.set("PRODUCT");
-
 
         } else if (result.getType() == 2) {
             this.type.set("CATEGORY");
-
 
         } else if (result.getType() == 3) {
             this.type.set("Other");
         }*/
 
     }
-
 
     public void onItemClick() {
         mListener.onItemClick(result);

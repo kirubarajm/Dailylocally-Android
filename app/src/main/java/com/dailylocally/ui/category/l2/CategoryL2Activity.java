@@ -91,7 +91,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 
 
 
-        mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
+       /* mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
 
       //  mActivityCategoryl2Binding.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         mActivityCategoryl2Binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
@@ -99,7 +99,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         mActivityCategoryl2Binding.imageSlider.setIndicatorSelectedColor(Color.WHITE);
         mActivityCategoryl2Binding.imageSlider.setIndicatorUnselectedColor(Color.GRAY);
         mActivityCategoryl2Binding.imageSlider.setScrollTimeInSec(4); //set scroll delay in seconds :
-        mActivityCategoryl2Binding.imageSlider.startAutoCycle();
+        mActivityCategoryl2Binding.imageSlider.startAutoCycle();*/
 
     }
 

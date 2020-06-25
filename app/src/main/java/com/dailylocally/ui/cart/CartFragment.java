@@ -24,6 +24,7 @@ import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -334,6 +335,15 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid",String.valueOf(product.getPid()));
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void orderNowItemClick(CartResponse.Item product) {
+
+        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        intent.putExtra("vpid",String.valueOf(product.getPid()));
         startActivity(intent);
 
     }

@@ -26,4 +26,5 @@ public interface ProductDetailsNavigator {
 
     void productsDetailsSuccess(ProductDetailsResponse.Result result);
 
+    void viewCart();
 }

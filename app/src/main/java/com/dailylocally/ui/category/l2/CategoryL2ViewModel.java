@@ -112,7 +112,7 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
                         if (getNavigator() != null)
                             getNavigator().createtabs(response);
                         title.set(response.getCategoryTitle());
-                        //   image.set(response.get());
+                          image.set(response.getGetSubCatImages().get(0).getImageUrl());
 
                     }
 

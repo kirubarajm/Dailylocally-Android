@@ -149,6 +149,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp">
 
+                    <LinearLayout
+                        android:visibility="@{productsItemViewModel.showDiscount?View.VISIBLE:View.GONE}"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/disc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:singleLine="true"
+                            android:text="@{productsItemViewModel.discount}"
+                            android:textColor="@color/red"
+                            android:textSize="12sp"/>
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/mrp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:singleLine="true"
+                            android:text="@{productsItemViewModel.totalPrice}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"/>
+
+
+                    </LinearLayout>
+
+
+
+
+
                     <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                         android:id="@+id/price"
                         android:layout_width="wrap_content"

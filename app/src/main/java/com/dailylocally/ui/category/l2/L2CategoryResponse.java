@@ -235,7 +235,7 @@ public class L2CategoryResponse {
         private String name;
         @SerializedName("image")
         @Expose
-        private Object image;
+        private String image;
         @SerializedName("scl1_id")
         @Expose
         private Integer scl1Id;
@@ -262,11 +262,11 @@ public class L2CategoryResponse {
             this.name = name;
         }
 
-        public Object getImage() {
+        public String getImage() {
             return image;
         }
 
-        public void setImage(Object image) {
+        public void setImage(String image) {
             this.image = image;
         }
 

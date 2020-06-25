@@ -1,16 +1,14 @@
 package com.dailylocally.ui.category.l2.products;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dailylocally.databinding.ListItemL1CategoriesBinding;
 import com.dailylocally.databinding.ListItemProductsBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
-import com.dailylocally.ui.category.l1.L1CategoriesItemViewModel;
-
 
 import java.util.List;
 
@@ -57,7 +55,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface ProductsAdapterListener {
         void refresh();
+
         void subscribeProduct(ProductsResponse.Result products);
+
+        void productItemClick(ProductsResponse.Result products);
     }
 
 
@@ -75,9 +76,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final ProductsResponse.Result blog = item_list.get(position);
-            mCategoriesItemViewModel = new ProductsItemViewModel(this,blog);
+            mCategoriesItemViewModel = new ProductsItemViewModel(this, blog);
             mListItemCategoriesBinding.setProductsItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
+
+            mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
 
         }
@@ -91,6 +94,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void subscribeProduct(ProductsResponse.Result products) {
             mProductsAdapterListener.subscribeProduct(products);
+        }
+
+        @Override
+        public void onItemClick(ProductsResponse.Result products) {
+            mProductsAdapterListener.productItemClick(products);
         }
     }
 

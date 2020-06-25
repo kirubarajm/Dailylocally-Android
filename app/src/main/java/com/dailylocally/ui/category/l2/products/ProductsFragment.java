@@ -15,6 +15,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentProductsBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.google.gson.Gson;
 
@@ -140,6 +141,16 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid", String.valueOf(products.getPid()));
         startActivity(intent);
+    }
+
+    @Override
+    public void productItemClick(ProductsResponse.Result products) {
+
+        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        intent.putExtra("vpid",String.valueOf(products.getPid()));
+        startActivity(intent);
+
+
     }
 
 

@@ -22,10 +22,15 @@ public class ProductsItemViewModel {
     public final ObservableField<String> subscribeText = new ObservableField<>();
     public final ObservableField<String> weight = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
+
+    public final ObservableField<String> totalPrice = new ObservableField<>();
+    public final ObservableField<String> discount = new ObservableField<>();
+
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean subscribeAvailable = new ObservableBoolean();
+    public final ObservableBoolean showDiscount = new ObservableBoolean();
     private final ProductsResponse.Result products;
     private final ProductsItemViewModelListener mListener;
     private final List<CartRequest.Orderitem> results = new ArrayList<>();
@@ -39,7 +44,7 @@ public class ProductsItemViewModel {
         this.products = result;
         name.set(result.getProductname());
         weight.set(result.getWeight() + " " + result.getUnit());
-        price.set("INR " + result.getMrp());
+
         image.set(result.getImage());
         serviceable.set(result.getServicableStatus());
         if (products.getSubscription() != null)
@@ -48,10 +53,14 @@ public class ProductsItemViewModel {
             } else {
                 subscribeAvailable.set(false);
             }
-
-
-
-
+        showDiscount.set(result.isDiscountCostStatus());
+        if (result.isDiscountCostStatus()) {
+            discount.set("Save " + result.getDiscountCost());
+            totalPrice.set("Was " + result.getMrp());
+            price.set("INR " + result.getMrpDiscountAmount());
+        }else {
+            price.set("INR " + result.getMrp());
+        }
 
         if (!result.getServicableStatus())
             subscribeAvailable.set(false);
@@ -108,7 +117,7 @@ public class ProductsItemViewModel {
 
     public void onItemClick() {
         // if (coupon.isClickable())
-        //     mListener.onItemClick(result);
+             mListener.onItemClick(products);
 
     }
 
@@ -152,7 +161,14 @@ public class ProductsItemViewModel {
 
                         cartRequestPojoResult.setPid(products.getPid());
                         cartRequestPojoResult.setQuantity(quantity);
-                        cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+
+                        if (products.isDiscountCostStatus()) {
+                            cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
+                        }else {
+                            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+                        }
+
+
                         results.set(i, cartRequestPojoResult);
                     }
                 }
@@ -210,7 +226,12 @@ public class ProductsItemViewModel {
 
                             cartRequestPojoResult.setPid(products.getPid());
                             cartRequestPojoResult.setQuantity(quantity);
-                            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+
+                            if (products.isDiscountCostStatus()) {
+                                cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
+                            }else {
+                                cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+                            }
                             results.set(i, cartRequestPojoResult);
 
                         }
@@ -278,7 +299,12 @@ public class ProductsItemViewModel {
 
         cartRequestPojoResult.setPid(products.getPid());
         cartRequestPojoResult.setQuantity(quantity);
-        cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+
+        if (products.isDiscountCostStatus()) {
+            cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
+        }else {
+            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+        }
         results.add(cartRequestPojoResult);
 
         cartRequestPojo.setOrderitems(results);
@@ -299,6 +325,8 @@ public class ProductsItemViewModel {
         void refresh();
 
         void subscribeProduct(ProductsResponse.Result products);
+
+        void onItemClick(ProductsResponse.Result products);
     }
 
 }

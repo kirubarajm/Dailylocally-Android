@@ -7,6 +7,8 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import javax.inject.Inject;
@@ -57,6 +59,14 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
         mAddAddressViewModel.mrp.set(getResources().getString(R.string.rupees_symbol) + result.getMrp());
         mAddAddressViewModel.offerCost.set(getResources().getString(R.string.rupees_symbol)+result.getMrp() + " OFF on " + result.getProductname());
+    }
+
+    @Override
+    public void viewCart() {
+        Intent intent = MainActivity.newIntent(ProductDetailsActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("page", AppConstants.SCREEN_CART_PAGE);
+        startActivity(intent);
     }
 
     @Override

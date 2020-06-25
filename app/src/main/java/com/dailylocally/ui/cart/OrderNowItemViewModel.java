@@ -254,9 +254,16 @@ public class OrderNowItemViewModel {
 
     }
 
+  public void itemClick() {
+
+        String date = mListener.changeDate(dishList);
+
+mListener.itemClick(dishList);
+    }
+
     public interface DishItemViewModelListener {
         void reload();
-
+void itemClick(CartResponse.Item product);
         String changeDate(CartResponse.Item product);
 
         void subscribe(CartResponse.Item product);

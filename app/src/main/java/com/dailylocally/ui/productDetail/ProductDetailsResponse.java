@@ -172,7 +172,7 @@ public class ProductDetailsResponse {
         public Object updatedAt;
         @SerializedName("vpid")
         @Expose
-        public Integer vpid;
+        public String vpid;
         @SerializedName("zoneid")
         @Expose
         public String zoneid;
@@ -302,7 +302,7 @@ public class ProductDetailsResponse {
             return updatedAt;
         }
 
-        public Integer getVpid() {
+        public String getVpid() {
             return vpid;
         }
 
