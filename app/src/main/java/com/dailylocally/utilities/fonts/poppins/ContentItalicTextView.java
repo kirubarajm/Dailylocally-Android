@@ -13,19 +13,19 @@ public class ContentItalicTextView extends AppCompatTextView {
 
     public ContentItalicTextView(Context context) {
         super(context);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Poppins-Italic.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Light.ttf");
         this.setTypeface(face);
     }
 
     public ContentItalicTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Poppins-Italic.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Light.ttf");
         this.setTypeface(face);
     }
 
     public ContentItalicTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Poppins-Italic.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Light.ttf");
         this.setTypeface(face);
     }
 

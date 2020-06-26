@@ -15,12 +15,12 @@
     </data>
 
     <RelativeLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:id="@+id/cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
 
@@ -134,337 +134,430 @@
                 android:layout_height="match_parent"
                 android:background="@color/white">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_alignParentTop="true"
-                    android:id="@+id/recyclerview_orders"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/white"
-                    android:visibility="visible"
-                    app:cart_ordernow_adapter="@{cartViewModel.ordernowItemViewModels}"
-                    tools:itemCount="1" />
-
-                <View
-                    android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/medium_gray" />
-
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                    android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
-                    android:layout_marginTop="20dp"
-                    android:id="@+id/subsTitle"
-                    android:layout_marginStart="10dp"
-                    android:layout_below="@+id/recyclerview_orders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My subscription order"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
-                    android:layout_below="@+id/subsTitle"
-                    android:id="@+id/recyclerview_subscribe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/white"
-                    app:cart_subscribe_adapter="@{cartViewModel.subscribeItemViewModels}"
-                    tools:itemCount="1" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/medium_gray" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/recyclerview_subscribe"
-                    android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_orders"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/bill_details"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerview_bill"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:background="@android:color/white"
-                            android:visibility="visible"
-                            app:billdetails_adapter="@{cartViewModel.cartdetails}"
-                            tools:itemCount="3"
-                            tools:listitem="@layout/list_item_cart_bill" />
-
-                    </LinearLayout>
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/white"
+                        android:visibility="visible"
+                        app:cart_ordernow_adapter="@{cartViewModel.ordernowItemViewModels}"
+                        tools:itemCount="1" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginTop="10dp"
-                        android:background="@color/gray" />
+                        android:background="@color/medium_gray"
+                        android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}" />
+
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:id="@+id/subsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/recyclerview_orders"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="My subscription order"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_subscribe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/subsTitle"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/white"
+                        android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}"
+                        app:cart_subscribe_adapter="@{cartViewModel.subscribeItemViewModels}"
+                        tools:itemCount="1" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/medium_gray" />
 
 
                     <LinearLayout
-                        android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:onClick="@{()->cartViewModel.applyCoupon()}"
+                            android:visibility="@{cartViewModel.couponApplied?View.GONE:View.VISIBLE}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
 
-                            <RelativeLayout
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/curve_stroke_red"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp">
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_coupons"
+                                android:tint="@color/dark_gray" />
 
 
-                                <TextView
-                                    android:layout_centerInParent="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:text="!"
-                                    android:textColor="@color/red"
-                                    android:textSize="10sp"
-                                    android:textStyle="bold" />
-
-                            </RelativeLayout>
-
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                                android:layout_marginTop="1dp"
-                                android:layout_marginStart="5dp"
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="Please Note:"
-                                android:textColor="@color/red"
-                                android:textSize="12sp"
-                                android:textStyle="normal" />
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="Apply coupon"
+                                android:textAllCaps="true"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:onClick="@{()->cartViewModel.applyCoupon()}"
+                            android:visibility="@{cartViewModel.couponApplied?View.VISIBLE:View.GONE}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_coupons"
+                                android:tint="@color/dark_gray" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+
+                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:text="Promotion Applied"
+                                    android:textColor="@color/red"
+                                    android:textSize="18sp" />
+
+                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:text="@{cartViewModel.couponName}"
+                                    android:textColor="@color/dl_green"
+                                    android:textSize="18sp" />
+
+                                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:text="Change"
+                                    android:textColor="@color/red"
+                                    android:textSize="18sp" />
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
-
-
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                            android:layout_marginTop="5dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@{cartViewModel.lowCost}"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
-                            android:textStyle="normal" />
                     </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/medium_gray" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal">
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
 
                         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@{cartViewModel.grandTotalTitle}"
+                            android:text="@string/bill_details"
                             android:textColor="@color/black"
-                            android:textSize="14sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:orientation="horizontal">
-
-                                <com.dailylocally.utilities.fonts.TovoTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:text="@string/icon_inr"
-                                    android:textAlignment="center"
-                                    android:gravity="center"
-                                    android:textColor="@color/black"
-                                    android:textSize="10sp" />
-
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                                    android:id="@+id/price5"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="top"
-                                    android:text="@{cartViewModel.grand_total}"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:textStyle="normal" />
-
-                            </LinearLayout>
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_toLeftOf="@+id/select"
-                            android:orientation="vertical">
+                            android:layout_marginTop="20dp">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerview_bill"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:background="@android:color/white"
+                                android:visibility="visible"
+                                app:billdetails_adapter="@{cartViewModel.cartdetails}"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/list_item_cart_bill" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/gray" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical"
+                            android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
+                                <RelativeLayout
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/curve_stroke_red">
 
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="!"
+                                        android:textColor="@color/red"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold" />
+
+                                </RelativeLayout>
+
+                                <com.dailylocally.utilities.fonts.poppins.ContentTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:text="@string/deliver_to"
-                                    android:textColor="@color/dark_gray"
-                                    android:textSize="16sp"
-                                    android:textStyle="normal" />
-
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
-                                    android:singleLine="true"
-                                    android:text="@{cartViewModel.address}"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"
+                                    android:layout_marginTop="1dp"
+                                    android:text="Please Note:"
+                                    android:textColor="@color/red"
+                                    android:textSize="12sp"
                                     android:textStyle="normal" />
-
 
                             </LinearLayout>
+
 
                             <com.dailylocally.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:layout_marginTop="5dp"
-                                android:text="@{cartViewModel.current_address}"
-                                android:textColor="@color/medium_gray"
-                                android:textSize="12sp" />
+                                android:text="@{cartViewModel.lowCost}"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="horizontal">
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="@{cartViewModel.grandTotalTitle}"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:orientation="horizontal">
+
+                                    <com.dailylocally.utilities.fonts.TovoTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top"
+                                        android:gravity="center"
+                                        android:text="@string/icon_inr"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="10sp" />
+
+                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        android:id="@+id/price5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="top"
+                                        android:text="@{cartViewModel.grand_total}"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp"
+                                        android:textStyle="normal" />
+
+                                </LinearLayout>
+                            </RelativeLayout>
 
                         </LinearLayout>
 
 
-                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:id="@+id/select"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_toLeftOf="@+id/select"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+
+                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/deliver_to"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="16sp"
+                                        android:textStyle="normal" />
+
+                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="5dp"
+                                        android:singleLine="true"
+                                        android:text="@{cartViewModel.address}"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp"
+                                        android:textStyle="normal" />
+
+
+                                </LinearLayout>
+
+                                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@{cartViewModel.current_address}"
+                                    android:textColor="@color/medium_gray"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+
+                            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                                android:id="@+id/select"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:background="@drawable/curve_stroke"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:onClick="@{()->cartViewModel.changeAddress()}"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                android:text="@{cartViewModel.changeAddress}"
+                                android:textColor="@color/dl_primary_color"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:text="@{cartViewModel.lowCostShort}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}" />
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="45dp"
                             android:background="@drawable/curve_stroke"
-                            android:onClick="@{()->cartViewModel.changeAddress()}"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="10dp"
-                            android:paddingBottom="5dp"
-                            android:text="@{cartViewModel.changeAddress}"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:onClick="@{()->cartViewModel.proceedtopay()}"
+                            android:padding="10dp"
+                            android:text="@string/proceed_to_pay"
+                            android:textAllCaps="true"
                             android:textColor="@color/dl_primary_color"
-                            android:textSize="13sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
-                    </RelativeLayout>
 
-
-
-
-
-
-
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                        android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}"
-                        android:layout_marginTop="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@{cartViewModel.lowCostShort}"
-                      android:gravity="center"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-
-
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="45dp"
-                        android:background="@drawable/curve_stroke"
-                        android:onClick="@{()->cartViewModel.proceedtopay()}"
-                        android:padding="10dp"
-                        android:text="@string/proceed_to_pay"
-                        android:textAllCaps="true"
-                        android:gravity="center"
-                        android:textColor="@color/dl_primary_color"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
+                    </LinearLayout>
 
                 </LinearLayout>
-
-
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
-
-
 
 
         <com.nhaarman.supertooltips.ToolTipRelativeLayout
             android:id="@+id/activity_main_tooltipframelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
 
 
     </RelativeLayout>

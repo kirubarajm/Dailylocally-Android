@@ -219,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                             android:id="@+id/welcomeText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -242,6 +242,7 @@
                             android:textAlignment="textStart"
                             android:textColor="@color/dark_gray"
                             android:textSize="12sp"
+                            android:textStyle="italic"
                             android:visibility="visible" />
 
 

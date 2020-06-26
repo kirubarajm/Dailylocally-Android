@@ -13,7 +13,7 @@ public class TitleTextView extends AppCompatTextView {
 
     public TitleTextView(Context context) {
         super(context);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Poppins-Medium.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Medium.ttf");
         this.setTypeface(face,  Typeface.BOLD);
 
 
@@ -21,14 +21,14 @@ public class TitleTextView extends AppCompatTextView {
 
     public TitleTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Poppins-Medium.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Medium.ttf");
         this.setTypeface(face,  Typeface.BOLD);
 
     }
 
     public TitleTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Poppins-Medium.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Medium.ttf");
         this.setTypeface(face,  Typeface.BOLD);
 
     }

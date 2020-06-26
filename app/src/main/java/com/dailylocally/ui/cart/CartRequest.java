@@ -23,6 +23,10 @@ public class CartRequest {
     @Expose
     private String userid;
 
+@SerializedName("cid")
+    @Expose
+    private int cid;
+
 @SerializedName("aid")
     @Expose
     private String aid;
@@ -31,6 +35,13 @@ public class CartRequest {
     @Expose
     private int payment_type;
 
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
 
     public String getAid() {
         return aid;

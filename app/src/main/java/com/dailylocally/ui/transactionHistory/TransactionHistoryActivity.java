@@ -25,7 +25,7 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
     @Inject
     TransactionHistoryAdapter mTransactionHistoryAdapter;
     Analytics analytics;
-    String pageName = "Favorites";
+
     private ActivityTransactionHistoryBinding mActivityTransactionHistoryBinding;
 
     public static Intent newIntent(Context context) {
@@ -63,7 +63,7 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
         mActivityTransactionHistoryBinding = getViewDataBinding();
         mTransactionHistoryViewModel.setNavigator(this);
         mTransactionHistoryAdapter.setListener(this);
-        analytics = new Analytics(this, pageName);
+
 
 
         LinearLayoutManager mLayoutManager

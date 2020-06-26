@@ -23,6 +23,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
@@ -205,6 +206,15 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     public void orderGenerated(String orderId, String customerId, String amount) {
 
         ((MainActivity)getActivity()).makePayment(orderId,customerId,amount);
+    }
+
+    @Override
+    public void applyCoupon() {
+        Intent intent = CouponsActivity.newIntent(getContext());
+        intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_CART_FRAG);
+        startActivity(intent);
+
+
     }
 
 

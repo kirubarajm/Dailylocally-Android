@@ -22,4 +22,6 @@ public interface CartNavigator {
 
     void orderGenerated(String orderId, String customerId, String amount);
 
+    void applyCoupon();
+
 }

@@ -61,6 +61,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> cuisines = new ObservableField<>();
     public final ObservableField<String> region = new ObservableField<>();
     public final ObservableField<String> changeAddress = new ObservableField<>();
+    public final ObservableField<String> couponName = new ObservableField<>();
     public final ObservableBoolean payment = new ObservableBoolean();
     public final ObservableBoolean lowCostStatus = new ObservableBoolean();
     public final ObservableBoolean isFavourite = new ObservableBoolean();
@@ -75,6 +76,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean refundChecked = new ObservableBoolean();
     public final ObservableBoolean instructionClicked = new ObservableBoolean();
     public final ObservableBoolean xfactorClick = new ObservableBoolean();
+    public final ObservableBoolean couponApplied = new ObservableBoolean();
     public final ObservableField<String> previousPage = new ObservableField<>();
 
     public MutableLiveData<List<CartResponse.Item>> ordernowLiveData;
@@ -97,7 +99,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public CartViewModel(DataManager dataManager) {
         super(dataManager);
-      //  getStartDate();
+        //  getStartDate();
         grand_total.set("0");
 
         xfactorClick.set(true);
@@ -256,6 +258,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         getNavigator().changeAddress();
     }
 
+public void applyCoupon() {
+
+        getNavigator().applyCoupon();
+    }
+
     public void proceedtopay() {
 
         if (available.get()) {
@@ -277,6 +284,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 cartRequestPojo.setLon(getDataManager().getCurrentLng());
                 cartRequestPojo.setAid(getDataManager().getAddressId());
                 cartRequestPojo.setPayment_type(1);
+                cartRequestPojo.setCid(getDataManager().getCouponId());
 
                 Gson gson = new Gson();
                 String carts = gson.toJson(cartRequestPojo);
@@ -338,7 +346,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             } else {
                 emptyCart.set(true);
             }
-        }else {
+        } else {
             getNavigator().showToast(statusMessage.get());
         }
     }
@@ -393,23 +401,23 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             cartRequestPojoResult.setDayorderdate(cartRequestPojo.getOrderitems().get(i).getDayorderdate());
                         }
 
-
                     } else {
 
                         cartRequestPojoResult.setDayorderdate(availableDate);
-
                     }
-
 
                     cartRequestPojoResult.setPid(cartRequestPojo.getOrderitems().get(i).getPid());
                     cartRequestPojoResult.setQuantity(cartRequestPojo.getOrderitems().get(i).getQuantity());
                     cartRequestPojoResult.setPrice(String.valueOf(cartRequestPojo.getOrderitems().get(i).getPid()));
-                   // results.set(i, cartRequestPojoResult);
+                    // results.set(i, cartRequestPojoResult);
                     results.add(cartRequestPojoResult);
                 }
             }
         }
         cartRequestPojo.setOrderitems(results);
+
+        cartRequestPojo.setCid(getDataManager().getCouponId());
+
         Gson gson = new Gson();
         String json = gson.toJson(cartRequestPojo);
         getDataManager().setCartDetails(json);
@@ -476,7 +484,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 ordernowItemViewModels.clear();
                                 subscribeItemViewModels.clear();
 
-                                 ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+                                ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
                                 subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
 
                                 //  }
@@ -485,7 +493,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 if (cartPageResponse.getResult().get(0).getItem().size() > 0) {
 
 
-                                  //  ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+                                    //  ordernowLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
                                     emptyCart.set(false);
 
@@ -520,7 +528,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     showSubscription.set(true);
 
-                                  //  subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
+                                    //  subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
                                     emptyCart.set(false);
 
                                     cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());

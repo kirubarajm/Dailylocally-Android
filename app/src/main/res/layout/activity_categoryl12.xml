@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="categoryL2ViewModel"
             type="com.dailylocally.ui.category.l2.CategoryL2ViewModel" />
     </data>
 
     <RelativeLayout
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <RelativeLayout
             android:id="@+id/header"
@@ -22,20 +24,20 @@
             android:background="@color/white">
 
             <RelativeLayout
-                android:onClick="@{()->categoryL2ViewModel.goBack()}"
                 android:id="@+id/back"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentTop="true"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:onClick="@{()->categoryL2ViewModel.goBack()}">
 
                 <ImageView
                     android:id="@+id/loader"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerInParent="true"
-                    android:tint="@color/dark_gray"
-                    android:src="@drawable/ic_arrow_back_black_24dp" />
+                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    android:tint="@color/dark_gray" />
 
             </RelativeLayout>
 
@@ -57,9 +59,9 @@
         </RelativeLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_below="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
@@ -77,67 +79,75 @@
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:toolbarId="@+id/htab_toolbar">
 
-                    <ImageView
-                        android:visibility="invisible"
-                        imageUrl="@{categoryL2ViewModel.image}"
-                        android:id="@+id/htab_header"
+
+                    <LinearLayout
+                        app:layout_collapseMode="pin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitCenter"
-                        app:layout_collapseMode="parallax" />
-
-                    <!--<com.smarteist.autoimageslider.SliderView
-                        app:layout_collapseMode="parallax"
-                        l2slideradapter="@{categoryL2ViewModel.sliderList}"
-                        android:id="@+id/imageSlider"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:sliderAnimationDuration="600"
-                        app:sliderAutoCycleDirection="back_and_forth"
-                        app:sliderAutoCycleEnabled="true"
-                        app:sliderIndicatorAnimationDuration="600"
-                        app:sliderIndicatorGravity="center_horizontal|bottom"
-                        app:sliderIndicatorMargin="15dp"
-                        app:sliderIndicatorOrientation="horizontal"
-                        app:sliderIndicatorPadding="3dp"
-                        app:sliderIndicatorRadius="2dp"
-                        app:sliderIndicatorSelectedColor="#5A5A5A"
-                        app:sliderIndicatorUnselectedColor="#FFF"
-                        app:sliderScrollTimeInSec="1"
-                        app:sliderStartAutoCycle="true" />-->
+                        android:orientation="vertical">
 
 
-                     <androidx.appcompat.widget.Toolbar
-                         android:visibility="invisible"
-                         android:id="@+id/htab_toolbar"
-                         android:layout_width="match_parent"
-                         android:layout_height="?attr/actionBarSize"
-                         android:layout_alignParentStart="true"
-                         android:layout_alignParentBottom="true"
-                         android:gravity="bottom"
-                         android:minHeight="?android:attr/actionBarSize"
-                         app:layout_collapseMode="pin" />
+                        <ImageView
+                            android:id="@+id/htab_header"
+                            imageUrl="@{categoryL2ViewModel.image}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitCenter"
+                            android:visibility="invisible"
+                            app:layout_collapseMode="parallax" />
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/categorytabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="bottom"
-                        android:minHeight="?android:attr/actionBarSize"
-                        android:theme="@style/AppTheme.TabStyle"/>
+                        <!--<com.smarteist.autoimageslider.SliderView
+                            app:layout_collapseMode="parallax"
+                            l2slideradapter="@{categoryL2ViewModel.sliderList}"
+                            android:id="@+id/imageSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:sliderAnimationDuration="600"
+                            app:sliderAutoCycleDirection="back_and_forth"
+                            app:sliderAutoCycleEnabled="true"
+                            app:sliderIndicatorAnimationDuration="600"
+                            app:sliderIndicatorGravity="center_horizontal|bottom"
+                            app:sliderIndicatorMargin="15dp"
+                            app:sliderIndicatorOrientation="horizontal"
+                            app:sliderIndicatorPadding="3dp"
+                            app:sliderIndicatorRadius="2dp"
+                            app:sliderIndicatorSelectedColor="#5A5A5A"
+                            app:sliderIndicatorUnselectedColor="#FFF"
+                            app:sliderScrollTimeInSec="1"
+                            app:sliderStartAutoCycle="true" />-->
 
 
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/htab_toolbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:gravity="bottom"
+                            android:minHeight="?android:attr/actionBarSize"
+                            android:visibility="invisible"
+                            app:layout_collapseMode="pin" />
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/categorytabs"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="bottom"
+                            android:minHeight="?android:attr/actionBarSize"
+                            android:theme="@style/AppTheme.TabStyle" />
+
+                    </LinearLayout>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.core.widget.NestedScrollView
-                android:background="@color/white"
-                android:fillViewport="true"
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:clipToPadding="false"
+                android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <!--<include
@@ -145,11 +155,11 @@
                      layout="@layout/activity_categoryl12list"
                      app:categoryl12list="@{categoryL2ViewModel}" />-->
 
-                    <androidx.viewpager.widget.ViewPager
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                        android:id="@+id/frameLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/frameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
             </androidx.core.widget.NestedScrollView>
@@ -157,9 +167,9 @@
 
         <LinearLayout
             android:id="@+id/bottomContent"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -173,10 +183,10 @@
                 android:visibility="@{categoryL2ViewModel.cart?View.VISIBLE:View.GONE}">
 
                 <LinearLayout
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -214,11 +224,11 @@
 
 
                         <LinearLayout
-                            android:visibility="visible"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="visible">
 
                             <com.dailylocally.utilities.fonts.TovoTextView
                                 android:layout_width="wrap_content"
@@ -307,7 +317,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
-
 
 
             </LinearLayout>

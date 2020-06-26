@@ -635,7 +635,7 @@ public class AppConstants {
   public static final String PRODUCT_FEEDBACK = "prod_feedback";
   public static final String DELIVERY_FEEDBACK = "del_feedback";
 
-
+  public static final String PAGE = "page";
 
   //////Notification screens
   public static final String NOTIFY_SPLASH_ACTV = "1";
