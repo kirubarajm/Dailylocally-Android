@@ -16,6 +16,7 @@ public class TransactionHistoryItemViewModel {
     public final ObservableField<String> paymentId = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> transactionTime = new ObservableField<>();
+    public final ObservableField<String> productCount = new ObservableField<>();
 
     public final TransactionHistoryViewModelListener mListener;
     private final TransactionHistoryResponse.Result cartdetail;
@@ -27,6 +28,7 @@ public class TransactionHistoryItemViewModel {
         transactionId.set(String.valueOf(cartdetail.getOrderid()));
         paymentId.set(String.valueOf(cartdetail.getTsid()));
         price.set(String.valueOf(cartdetail.getPrice()));
+        productCount.set("("+cartdetail.getItems()+" items)");
 
         String strDateTime = cartdetail.getTransactionTime();
         String outputDateStr = "";

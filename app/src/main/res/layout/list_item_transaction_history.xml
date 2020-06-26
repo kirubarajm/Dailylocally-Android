@@ -86,7 +86,7 @@
 
 
                 <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                    android:text="(6 items)"
+                    android:text="@{transactionHistoryItemViewModel.productCount}"
                     android:textSize="12sp"
                     android:layout_alignParentEnd="true"
                     android:textStyle="normal"
