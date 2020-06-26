@@ -12,4 +12,6 @@ public interface CouponsNavigator {
 
     void validateCouponFailure(String message);
 
+    void refer();
+
 }

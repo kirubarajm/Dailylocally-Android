@@ -48,7 +48,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
     public void couponsAndOffers() {
-        getNavigator().orderHistory();
+        getNavigator().couponsAndOffers();
     }
 
 

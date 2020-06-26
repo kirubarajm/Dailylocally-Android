@@ -21,6 +21,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityProductDeta
     public ActivityProductDetailsBinding mActivityProductDetailsBinding;
     @Inject
     public TransactionDetailsViewModel mAddAddressViewModel;
+    String orderid = "";
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
@@ -61,12 +62,18 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityProductDeta
         mActivityProductDetailsBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            orderid = bundle.getString("orderid");
+        }
+
         analytics = new Analytics(this, pageName);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mAddAddressViewModel.getTransactionHistoryViewList(orderid);
     }
 
     @Override

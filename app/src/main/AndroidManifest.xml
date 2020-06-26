@@ -22,10 +22,6 @@
         <activity android:name=".utilities.nointernet.InternetErrorFragment" />
         <activity android:name=".ui.splash.SplashActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".ui.onboarding.OnBoardingActivity" />
@@ -92,6 +88,14 @@
         <activity android:name=".ui.address.saveAddress.SaveAddressActivity" />
         <activity android:name=".ui.productDetail.ProductDetailsActivity" />
         <activity android:name=".ui.coupons.CouponsActivity" />
+        <activity android:name=".ui.transactionHistory.TransactionHistoryActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".ui.transactionHistory.view.TransactionDetailsActivity" />
 
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"

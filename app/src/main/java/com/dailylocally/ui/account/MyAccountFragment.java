@@ -105,6 +105,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     @Override
     public void couponsAndOffers() {
         Intent intent = CouponsActivity.newIntent(getContext());
+        intent.putExtra("page",AppConstants.NOTIFY_MYACCOUNT_FRAG);
         startActivity(intent);
     }
 

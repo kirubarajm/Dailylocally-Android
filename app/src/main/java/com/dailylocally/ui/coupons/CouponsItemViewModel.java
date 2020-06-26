@@ -24,8 +24,7 @@ public class CouponsItemViewModel {
 
     }
 
-
-    public void infoClick() {
+    public void onApplyClick() {
         mListener.onItemClick(cartdetail);
     }
 

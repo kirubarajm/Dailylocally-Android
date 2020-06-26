@@ -315,6 +315,8 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
 
     public void getProductDetails(String vpid) {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_DETAILS, ProductDetailsResponse.class,
                 new ProductRequest(userId, getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), vpid),
@@ -386,14 +388,16 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
                                 }
                             }
+                            setIsLoading(false);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            setIsLoading(false);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                setIsLoading(false);
             }
         }, AppConstants.API_VERSION_ONE);
 

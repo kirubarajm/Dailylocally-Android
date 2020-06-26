@@ -20,7 +20,7 @@ import java.util.List;
 public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
 
     public final ObservableField<String> version = new ObservableField<>();
-    public final ObservableBoolean cartCoupon = new ObservableBoolean();
+    public final ObservableBoolean flagApplyVisibility = new ObservableBoolean();
     public ObservableList<CouponsResponse.Result> couponsItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<CouponsResponse.Result>> couponsItemsLiveData;
 
@@ -52,6 +52,7 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
     }
 
     public void getCouponsList(){
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COUPONS, CouponsResponse.class,
@@ -63,8 +64,6 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
                             if (response!=null){
                                 if (response.getStatus()){
                                     couponsItemsLiveData.setValue(response.getResult());
-                                }else {
-
                                 }
                             }
                         }catch (Exception e){
@@ -88,17 +87,20 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
         }
     }
 
-    public void validateCoupon(){
+    public void validateCoupon(String couponName){
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_VALIDATE_COUPONS, CouponsResponse.class,
-                new CouponsRequest("1",userId),
-                new Response.Listener<CouponsResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_VALIDATE_COUPONS, CouponValidateResponse.class,
+                new CouponsRequest(couponName,userId),
+                new Response.Listener<CouponValidateResponse>() {
                     @Override
-                    public void onResponse(CouponsResponse response) {
+                    public void onResponse(CouponValidateResponse response) {
                         try {
                             if (response!=null){
                                 if (response.getStatus()){
+                                    getDataManager().setCouponCode(response.getResult().get(0).getCouponName());
+                                    getDataManager().setCouponId(response.getResult().get(0).getCid());
                                     if (getNavigator()!=null){
                                         getNavigator().validateCouponSuccess("Success");
                                     }
@@ -124,5 +126,11 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
         }, AppConstants.API_VERSION_ONE);
 
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+    }
+
+    public void referralClick(){
+        if (getNavigator()!=null){
+            getNavigator().refer();
+        }
     }
 }
