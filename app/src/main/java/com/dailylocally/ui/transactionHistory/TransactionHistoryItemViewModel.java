@@ -34,7 +34,7 @@ public class TransactionHistoryItemViewModel {
         String outputDateStr = "";
         try {
             if (strDateTime != null) {
-                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
                 DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 Date date = currentFormat.parse(strDateTime);
                 outputDateStr = dateFormat.format(date);

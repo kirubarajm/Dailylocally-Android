@@ -11,4 +11,6 @@ public interface CalendarNavigator {
 
     void failure(String message);
 
+    void ratingClick();
+
 }

@@ -25,6 +25,7 @@ import java.util.List;
 public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
     public final ObservableField<String> addressTitle = new ObservableField<>();
+    public final ObservableField<String> rateDeliveryButton = new ObservableField<>();
     public final ObservableBoolean cart = new ObservableBoolean();
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
@@ -127,5 +128,11 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
         dayWiseItemViewModels.clear();
         dayWiseItemViewModels.addAll(results);
 
+    }
+
+    public void ratingClick(){
+        if (getNavigator()!=null){
+            getNavigator().ratingClick();
+        }
     }
 }
