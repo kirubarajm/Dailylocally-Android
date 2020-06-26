@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -150,6 +151,13 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         intent.putExtra("vpid",String.valueOf(products.getPid()));
         startActivity(intent);
 
+
+    }
+
+    @Override
+    public void showToast(String message) {
+
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 
     }
 

@@ -16,13 +16,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
-import com.dailylocally.ui.cart.OrderCreateResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -96,6 +94,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
         getNavigator().openSort();
 
     }
+
 
     public void fetchProducts() {
 
@@ -272,7 +271,6 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
         }
 
 
-
         Gson gson = new Gson();
         String request = gson.toJson(fProductsRequest);
         getDataManager().saveFiletrSort(request);
@@ -339,9 +337,6 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
                             Gson gson = new Gson();
                             ProductsResponse productsResponse = gson.fromJson(response.toString(), ProductsResponse.class);
-
-
-
 
 
                             if (response != null) {

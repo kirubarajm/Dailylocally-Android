@@ -59,6 +59,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void subscribeProduct(ProductsResponse.Result products);
 
         void productItemClick(ProductsResponse.Result products);
+
+
+        void showToast(String message);
     }
 
 
@@ -100,6 +103,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onItemClick(ProductsResponse.Result products) {
             mProductsAdapterListener.productItemClick(products);
         }
+
+        @Override
+        public void showToast(String message) {
+            mProductsAdapterListener.showToast(message);
+        }
+
+
     }
 
 }

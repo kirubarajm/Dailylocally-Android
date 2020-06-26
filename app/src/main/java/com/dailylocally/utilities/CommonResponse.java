@@ -15,11 +15,8 @@ public class CommonResponse {
 
     @SerializedName("favid")
     @Expose
-    private Integer favid;
+    private String favid;
 
-    @SerializedName("orderid")
-    @Expose
-    private Integer orderid;
 
 
     @SerializedName("status")
@@ -31,13 +28,7 @@ public class CommonResponse {
         return success;
     }
 
-    public Integer getOrderid() {
-        return orderid;
-    }
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
-    }
 
     public boolean isStatus() {
         return status;
@@ -47,11 +38,11 @@ public class CommonResponse {
         this.status = status;
     }
 
-    public Integer getFavid() {
+    public String getFavid() {
         return favid;
     }
 
-    public void setFavid(Integer favid) {
+    public void setFavid(String favid) {
         this.favid = favid;
     }
 

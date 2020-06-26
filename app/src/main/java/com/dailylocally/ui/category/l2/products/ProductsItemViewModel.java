@@ -1,12 +1,20 @@
 package com.dailylocally.ui.category.l2.products;
 
 
+import android.util.Log;
+
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.dailylocally.api.remote.GsonRequest;
+import com.dailylocally.data.AppDataManager;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,11 +39,13 @@ public class ProductsItemViewModel {
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean subscribeAvailable = new ObservableBoolean();
     public final ObservableBoolean showDiscount = new ObservableBoolean();
+    public final ObservableBoolean isFav = new ObservableBoolean();
     private final ProductsResponse.Result products;
     private final ProductsItemViewModelListener mListener;
     private final List<CartRequest.Orderitem> results = new ArrayList<>();
     private final CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
     int quantity = 0;
+    String favid;
     private CartRequest cartRequestPojo = new CartRequest();
 
 
@@ -58,9 +68,21 @@ public class ProductsItemViewModel {
             discount.set("Save " + result.getDiscountCost());
             totalPrice.set("Was " + result.getMrp());
             price.set("INR " + result.getMrpDiscountAmount());
-        }else {
+        } else {
             price.set("INR " + result.getMrp());
         }
+
+
+
+        if (result.getIsfav().equals("1")){
+            isFav.set(true);
+
+        }else {
+            isFav.set(false);
+        }
+
+        favid=result.getFavid();
+
 
         if (!result.getServicableStatus())
             subscribeAvailable.set(false);
@@ -116,10 +138,82 @@ public class ProductsItemViewModel {
     }
 
     public void onItemClick() {
-        // if (coupon.isClickable())
-             mListener.onItemClick(products);
+        mListener.onItemClick(products);
+    }
+
+    public void fav() {
+        if (isFav.get()){
+            remFromFav(favid);
+
+        }else {
+            addToFav(products.getPid());
+
+        }
 
     }
+
+
+
+    public void addToFav(String vpid) {
+
+
+        AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(DailylocallyApp.getInstance(),AppConstants.PREF_NAME);
+
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.ADD_FAV_URL, CommonResponse.class, new FavRequest(String.valueOf(appPreferencesHelper.getCurrentUserId()),vpid), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+                        favid = response.getFavid();
+                        mListener.showToast(response.getMessage());
+
+                        isFav.set(true);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void remFromFav(String favid) {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.DELETE_FAV_URL + favid, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+                        mListener.showToast(response.getMessage());
+                        isFav.set(false);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public void addClicked() {
 
@@ -164,7 +258,7 @@ public class ProductsItemViewModel {
 
                         if (products.isDiscountCostStatus()) {
                             cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
-                        }else {
+                        } else {
                             cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                         }
 
@@ -229,7 +323,7 @@ public class ProductsItemViewModel {
 
                             if (products.isDiscountCostStatus()) {
                                 cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
-                            }else {
+                            } else {
                                 cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                             }
                             results.set(i, cartRequestPojoResult);
@@ -302,7 +396,7 @@ public class ProductsItemViewModel {
 
         if (products.isDiscountCostStatus()) {
             cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
-        }else {
+        } else {
             cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
         }
         results.add(cartRequestPojoResult);
@@ -327,6 +421,9 @@ public class ProductsItemViewModel {
         void subscribeProduct(ProductsResponse.Result products);
 
         void onItemClick(ProductsResponse.Result products);
+
+
+        void showToast(String message);
     }
 
 }

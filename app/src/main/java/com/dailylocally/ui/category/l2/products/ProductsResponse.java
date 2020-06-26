@@ -199,6 +199,14 @@ public class ProductsResponse {
         @Expose
         private String tag;
 
+        @SerializedName("favid")
+        @Expose
+        private String favid;
+
+        @SerializedName("isfav")
+        @Expose
+        private String isfav;
+
 
         @SerializedName("short_desc")
         @Expose
@@ -208,10 +216,30 @@ public class ProductsResponse {
         @Expose
         private Boolean servicableStatus;
 
+
+        public String getFavid() {
+            return favid;
+        }
+
+        public void setFavid(String favid) {
+            this.favid = favid;
+        }
+
+        public String getIsfav() {
+            return isfav;
+        }
+
+        public void setIsfav(String isfav) {
+            this.isfav = isfav;
+        }
+
         public String getPid() {
             return pid;
         }
 
+        public void setPid(String pid) {
+            this.pid = pid;
+        }
 
         public String getMrpDiscountAmount() {
             return mrpDiscountAmount;
@@ -227,10 +255,6 @@ public class ProductsResponse {
 
         public void setDiscountCostStatus(boolean discountCostStatus) {
             this.discountCostStatus = discountCostStatus;
-        }
-
-        public void setPid(String pid) {
-            this.pid = pid;
         }
 
         public String getProductname() {

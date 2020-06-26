@@ -32,11 +32,11 @@
 
             <ImageView
                 android:id="@+id/loader"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_chevron_right_black_24dp" />
+                android:src="@drawable/ic_l1_arrow" />
 
             <com.dailylocally.utilities.fonts.poppins.ContentTextView
                 android:layout_marginEnd="50dp"
