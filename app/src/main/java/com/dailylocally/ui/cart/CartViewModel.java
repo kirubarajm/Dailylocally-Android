@@ -456,6 +456,12 @@ public void applyCoupon() {
                             statusMessage.set(cartPageResponse.getMessage());
                             available.set(cartPageResponse.getStatus());
 
+
+                            couponApplied.set(cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus());
+
+                            couponName.set("Code: "+ getDataManager().getCouponCode());
+
+
                             if (!cartPageResponse.getStatus()) {
 
                                 Toast.makeText(DailylocallyApp.getInstance(), cartPageResponse.getMessage(), Toast.LENGTH_SHORT).show();

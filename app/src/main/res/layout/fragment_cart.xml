@@ -249,7 +249,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
-                                    android:text="Promotion Applied"
+                                    android:text="Coupon Applied"
                                     android:textColor="@color/red"
                                     android:textSize="18sp" />
 
@@ -269,7 +269,7 @@
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
                                     android:text="Change"
-                                    android:textColor="@color/red"
+                                    android:textColor="@color/dark_gray"
                                     android:textSize="18sp" />
 
                             </LinearLayout>

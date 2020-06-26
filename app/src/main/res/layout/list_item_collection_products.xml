@@ -6,13 +6,12 @@
         <import type="android.view.View" />
 
         <variable
-            name="orderNowItemViewModel"
-            type="com.dailylocally.ui.cart.OrderNowItemViewModel" />
+            name="productsItemViewModel"
+            type="com.dailylocally.ui.collection.l2.products.CollectionProductsItemViewModel" />
 
     </data>
 
     <LinearLayout
-        android:onClick="@{()->orderNowItemViewModel.itemClick()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -20,63 +19,8 @@
         android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{()->productsItemViewModel.onItemClick()}"
         android:orientation="vertical">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp">
-
-
-            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                android:id="@+id/futureDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="@{orderNowItemViewModel.futureDate}"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
-                android:onClick="@{()->orderNowItemViewModel.changeDate()}"
-                android:orientation="horizontal">
-
-
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="Change date"
-                    android:textAllCaps="true"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_date"
-                    android:tint="@color/dl_primary_color" />
-
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/medium_gray" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -103,7 +47,7 @@
 
                         <ImageView
                             android:id="@+id/image"
-                            imageUrl="@{orderNowItemViewModel.image}"
+                            imageUrl="@{productsItemViewModel.image}"
                             loader="@{loader}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -122,29 +66,43 @@
                     </RelativeLayout>
 
 
-                    <RelativeLayout
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
                     <LinearLayout
-                        android:layout_toStartOf="@+id/delete"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:orientation="vertical">
 
-
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                            android:id="@+id/kitchen_name"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="@{orderNowItemViewModel.product_name}"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                android:id="@+id/kitchen_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:layout_toStartOf="@+id/fav"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="@{productsItemViewModel.name}"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:onClick="@{()->productsItemViewModel.fav()}"
+                                android:id="@+id/fav"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="2dp"
+                                android:src="@{productsItemViewModel.isFav?@drawable/ic_fav_filled:@drawable/ic_add_fav}" />
+
+
+                        </RelativeLayout>
 
                         <com.dailylocally.utilities.fonts.poppins.ContentTextView
                             android:id="@+id/weight"
@@ -154,73 +112,89 @@
                             android:layout_marginEnd="10dp"
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:text="@{orderNowItemViewModel.weight}"
+                            android:text="@{productsItemViewModel.weight}"
                             android:textColor="@color/dark_gray"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                        <!-- <RelativeLayout
+                             android:visibility="@{productsItemViewModel.serviceable?View.VISIBLE:View.GONE}"
+                             android:layout_width="match_parent"
+                             android:layout_height="match_parent">-->
 
-                            <RelativeLayout
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="10dp"
+                            android:visibility="@{productsItemViewModel.subscribeAvailable?View.VISIBLE:View.GONE}">
+
+                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="10dp">
-
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:gravity="center"
-                                    android:onClick="@{()->orderNowItemViewModel.subscribe()}"
-
-                                    android:paddingTop="10dp"
-                                    android:paddingEnd="15dp"
-                                    android:paddingBottom="7dp"
-                                    android:text="Subscribe"
-                                    android:textAlignment="center"
-                                    android:textAllCaps="true"
-                                    android:textColor="@color/dl_primary_color"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </RelativeLayout>
-
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:onClick="@{()->productsItemViewModel.subscribe()}"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="7dp"
+                                android:text="@{productsItemViewModel.subscribeText}"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/dl_primary_color"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
                         </RelativeLayout>
 
+                        <!-- </RelativeLayout>-->
+
                     </LinearLayout>
-
-
-
-            <ImageView
-                android:onClick="@{()->orderNowItemViewModel.delete()}"
-                android:foregroundGravity="center"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/delete"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_delete"
-                android:scaleType="centerInside" />
-
-        </RelativeLayout>
 
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1dp"
                     android:layout_marginStart="100dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/medium_gray" />
+                    android:background="@color/semi_gray" />
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="70dp">
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="@{productsItemViewModel.showDiscount?View.VISIBLE:View.GONE}">
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:id="@+id/disc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_horizontal"
+                            android:singleLine="true"
+                            android:text="@{productsItemViewModel.discount}"
+                            android:textColor="@color/red"
+                            android:textSize="12sp" />
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:id="@+id/mrp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_horizontal"
+                            android:singleLine="true"
+                            android:text="@{productsItemViewModel.totalPrice}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+
 
                     <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                         android:id="@+id/price"
@@ -231,7 +205,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:singleLine="true"
-                        android:text="@{orderNowItemViewModel.sprice}"
+                        android:text="@{productsItemViewModel.price}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -243,7 +217,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/addtocart_back">
+                        android:background="@drawable/addtocart_back"
+                        android:visibility="@{productsItemViewModel.serviceable?View.VISIBLE:View.GONE}">
 
                         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                             android:id="@+id/add"
@@ -251,7 +226,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            android:onClick="@{()->orderNowItemViewModel.enableAdd()}"
+                            android:onClick="@{()->productsItemViewModel.enableAdd()}"
 
                             android:text="@string/add"
                             android:textAlignment="center"
@@ -259,14 +234,14 @@
                             android:textColor="@color/dl_primary_color"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:visibility="@{orderNowItemViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
+                            android:visibility="@{productsItemViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
 
                         <RelativeLayout
                             android:id="@+id/num_picker"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:visibility="@{orderNowItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+                            android:visibility="@{productsItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
                             <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                                 android:id="@+id/minus"
@@ -274,7 +249,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
-                                android:onClick="@{()->orderNowItemViewModel.subClicked()}"
+                                android:onClick="@{()->productsItemViewModel.subClicked()}"
 
                                 android:text="@string/minus"
                                 android:textAlignment="center"
@@ -295,7 +270,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
 
-                                android:text="@{orderNowItemViewModel.sQuantity}"
+                                android:text="@{productsItemViewModel.sQuantity}"
                                 android:textAlignment="center"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
@@ -310,10 +285,10 @@
                             <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                                 android:id="@+id/plus"
                                 android:layout_width="20dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:onClick="@{()->orderNowItemViewModel.addClicked()}"
+                                android:onClick="@{()->productsItemViewModel.addClicked()}"
 
                                 android:text="@string/plus"
                                 android:textAlignment="center"
@@ -327,6 +302,11 @@
 
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/semi_gray" />
             </LinearLayout>
 
         </RelativeLayout>

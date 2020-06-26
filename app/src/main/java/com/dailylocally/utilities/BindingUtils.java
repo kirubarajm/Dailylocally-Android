@@ -65,6 +65,8 @@ import com.dailylocally.ui.category.l2.products.sort.SortItems;
 
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 
+import com.dailylocally.ui.collection.l2.products.CollectionProductListAdapter;
+import com.dailylocally.ui.collection.l2.products.CollectionProductsResponse;
 import com.dailylocally.ui.coupons.CouponsAdapter;
 import com.dailylocally.ui.coupons.CouponsResponse;
 
@@ -146,6 +148,14 @@ public final class BindingUtils {
 
 
  @BindingAdapter({"products_adapter"})
+    public static void addCollectionProductItems(RecyclerView recyclerView, List<CollectionProductsResponse.Result> results) {
+        CollectionProductListAdapter adapter = (CollectionProductListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+@BindingAdapter({"products_adapter"})
     public static void addProductItems(RecyclerView recyclerView, List<ProductsResponse.Result> results) {
         ProductListAdapter adapter = (ProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {

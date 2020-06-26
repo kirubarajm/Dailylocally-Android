@@ -227,7 +227,7 @@
                             android:layout_centerInParent="true"
                             android:gravity="center"
                             android:onClick="@{()->productsItemViewModel.enableAdd()}"
-                            android:paddingTop="3dp"
+
                             android:text="@string/add"
                             android:textAlignment="center"
                             android:textAllCaps="true"
@@ -250,7 +250,7 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
                                 android:onClick="@{()->productsItemViewModel.subClicked()}"
-                                android:paddingTop="3dp"
+
                                 android:text="@string/minus"
                                 android:textAlignment="center"
                                 android:textColor="@color/dl_primary_color"
@@ -269,7 +269,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:paddingTop="3dp"
+
                                 android:text="@{productsItemViewModel.sQuantity}"
                                 android:textAlignment="center"
                                 android:textColor="@color/black"
@@ -289,7 +289,7 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:onClick="@{()->productsItemViewModel.addClicked()}"
-                                android:paddingTop="3dp"
+
                                 android:text="@string/plus"
                                 android:textAlignment="center"
                                 android:textColor="@color/dl_primary_color"

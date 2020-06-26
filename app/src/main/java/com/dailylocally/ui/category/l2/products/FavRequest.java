@@ -3,7 +3,7 @@ package com.dailylocally.ui.category.l2.products;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class FavRequest {
+public class FavRequest {
 
     @SerializedName("userid")
     @Expose

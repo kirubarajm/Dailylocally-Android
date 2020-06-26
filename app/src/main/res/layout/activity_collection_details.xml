@@ -8,7 +8,7 @@
 
         <variable
             name="categoryL2ViewModel"
-            type="com.dailylocally.ui.category.l2.CategoryL2ViewModel" />
+            type="com.dailylocally.ui.collection.l2.CollectionDetailsViewModel" />
     </data>
 
     <RelativeLayout
@@ -78,39 +78,6 @@
                     app:contentScrim="?attr/colorPrimary"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:toolbarId="@+id/htab_toolbar">
-
-
-
-                        <ImageView
-                            android:id="@+id/htab_header"
-                            imageUrl="@{categoryL2ViewModel.image}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitCenter"
-                            android:visibility="invisible"
-                            app:layout_collapseMode="parallax" />
-
-                        <!--<com.smarteist.autoimageslider.SliderView
-                            app:layout_collapseMode="parallax"
-                            l2slideradapter="@{categoryL2ViewModel.sliderList}"
-                            android:id="@+id/imageSlider"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:sliderAnimationDuration="600"
-                            app:sliderAutoCycleDirection="back_and_forth"
-                            app:sliderAutoCycleEnabled="true"
-                            app:sliderIndicatorAnimationDuration="600"
-                            app:sliderIndicatorGravity="center_horizontal|bottom"
-                            app:sliderIndicatorMargin="15dp"
-                            app:sliderIndicatorOrientation="horizontal"
-                            app:sliderIndicatorPadding="3dp"
-                            app:sliderIndicatorRadius="2dp"
-                            app:sliderIndicatorSelectedColor="#5A5A5A"
-                            app:sliderIndicatorUnselectedColor="#FFF"
-                            app:sliderScrollTimeInSec="1"
-                            app:sliderStartAutoCycle="true" />-->
-
-
                         <androidx.appcompat.widget.Toolbar
                             android:id="@+id/htab_toolbar"
                             android:layout_width="match_parent"
