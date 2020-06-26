@@ -113,7 +113,13 @@ public class TransactionHistoryResponse {
         @SerializedName("address_type")
         @Expose
         public String addressType;
+        @SerializedName("items")
+        @Expose
+        public String items;
 
+        public String getItems() {
+            return items;
+        }
 
         public Integer getOrderid() {
             return orderid;
