@@ -26,8 +26,9 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:paddingBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/rel_1"
@@ -43,23 +44,52 @@
         </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rel_your_orders"
+                android:padding="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/rel_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
-                    android:text="Product Details"
-                    android:layout_marginLeft="5dp"
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:text="@string/your_orders"
                     android:textSize="16sp"
+                    android:textStyle="normal"
                     android:textColor="@color/black"
                     android:id="@+id/txt_product_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <androidx.recyclerview.widget.RecyclerView
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/rel_date"
                     android:layout_below="@+id/txt_product_title"
-                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                        android:text="2, Thursday"
+                        android:textSize="16sp"
+                        android:layout_marginStart="15dp"
+                        android:id="@+id/txt_date"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                        android:text="Help"
+                        android:textSize="14sp"
+                        android:layout_alignParentEnd="true"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/rel_date"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp"
                     app:adapter="@{calendarViewModel.dayWiseItemViewModels}"
                     tools:listitem="@layout/list_item_calendar"
                     android:id="@+id/recycler_day_wise_order"
@@ -67,6 +97,19 @@
                     android:layout_height="wrap_content"/>
 
             </RelativeLayout>
+
+            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_below="@+id/rel_your_orders"
+                android:textColor="@color/dl_primary_color"
+                android:id="@+id/btn_refer"
+                android:onClick="@{()->calendarViewModel.ratingClick()}"
+                android:background="@drawable/transaction_bck"
+                android:text="@{calendarViewModel.rateDeliveryButton}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 

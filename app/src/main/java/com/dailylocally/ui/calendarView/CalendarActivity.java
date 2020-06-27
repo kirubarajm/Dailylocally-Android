@@ -16,6 +16,9 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.rating.RatingActivity;
+import com.dailylocally.ui.signup.SignUpActivity;
+import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -56,6 +59,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     CaldroidListener listener = null;
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
+    Date dateRating = null;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, CalendarActivity.class);
@@ -107,6 +111,17 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     }
 
     @Override
+    public void ratingClick() {
+        try {
+            Intent intent = RatingActivity.newIntent(CalendarActivity.this);
+            intent.putExtra("date",dateRating.getTime());
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCalendarViewModel.setNavigator(this);
@@ -138,8 +153,22 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         listener = new CaldroidListener() {
             @Override
             public void onSelectDate(Date date, View view) {
-
+                dateRating = date;
                 mCalendarViewModel.getDayWiseOrderDetails(date);
+
+                String outputDateStr = "",dateStrsdf;
+                try {
+                    if (date != null) {
+                        java.text.DateFormat dateFormat = new SimpleDateFormat("dd,EEE");
+                        java.text.DateFormat dateFormat1 = new SimpleDateFormat("dd MMM YYYY");
+                        outputDateStr = dateFormat.format(date);
+                        dateStrsdf = dateFormat1.format(date);
+                        mFragmentHomeBinding.txtDate.setText(outputDateStr);
+                        mCalendarViewModel.rateDeliveryButton.set("Rate Delivery "+dateStrsdf);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

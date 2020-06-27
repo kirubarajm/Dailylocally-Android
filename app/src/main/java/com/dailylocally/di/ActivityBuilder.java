@@ -56,6 +56,8 @@ import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsModule;
 import com.dailylocally.ui.productDetail.productCancel.ProductCancelActivity;
 import com.dailylocally.ui.productDetail.productCancel.ProductCancelModule;
+import com.dailylocally.ui.rating.RatingActivity;
+import com.dailylocally.ui.rating.RatingModule;
 import com.dailylocally.ui.search.SearchProvider;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.SignUpActivityModule;
@@ -181,5 +183,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {CouponsModule.class})
     abstract CouponsActivity bindCouponsActivity();
+
+    @ContributesAndroidInjector(modules = {RatingModule.class})
+    abstract RatingActivity bindRatingActivity();
 
 }

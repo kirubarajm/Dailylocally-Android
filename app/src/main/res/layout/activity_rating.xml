@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ratingViewModel"
+            type="com.dailylocally.ui.rating.RatingViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:background="#eeeeee"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardElevation="1dp"
+            app:cardMaxElevation="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eeeeee"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/light_gray"
+                    android:onClick="@{()->ratingViewModel.goBack()}"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                </RelativeLayout>
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Rate your delivery"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:layout_below="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rel_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rel_1"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:id="@+id/txt_order"
+                    android:text="Order #1235 |"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/txt_order"
+                    android:text="15 Items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:id="@+id/txt_1"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/rel_1"
+                android:text="Please provide your valuable feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:id="@+id/txt_rating"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/txt_1"
+                android:text="@string/rate_your_delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:layout_below="@+id/txt_rating"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="20dp"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_centerHorizontal="true"
+                android:numStars="5"
+                android:progressTint="@color/dl_primary_color"
+                android:stepSize="1"
+                android:id="@+id/rating_bar_delivery"
+                android:rating="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:id="@+id/rel_2"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/rating_bar_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:text="@string/was_your_package_sealed"
+                    android:id="@+id/txt_package_sealed"
+                    android:textSize="12sp"
+                    android:textStyle="normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/chk_delivery_yes"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/yes"
+                    android:textSize="12sp"
+                    android:textStyle="normal"
+                    android:layout_toStartOf="@+id/chk_delivery_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/chk_delivery_no"
+                    android:text="@string/no"
+                    android:textSize="12sp"
+                    android:textStyle="normal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_4"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/rel_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        android:text="Share your feedbacks on the delivery!"
+                        android:id="@+id/txt_share"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_queries"
+                        android:layout_below="@+id/txt_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rating_feedback_bck"
+                        android:gravity="top"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:minLines="4"
+                        android:padding="5dp"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollHorizontally="false" />
+
+                </RelativeLayout>
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:id="@+id/txt_rating_product"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/rel_4"
+                    android:text="Rate your products"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:layout_below="@+id/txt_rating_product"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:numStars="5"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:progressTint="@color/dl_primary_color"
+                    android:stepSize="1"
+                    android:id="@+id/rating_bar_product"
+                    android:rating="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/rating_bar_product"
+                    android:id="@+id/rel_rating_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            android:text="@string/did_you_receive_all_the_products"
+                            android:id="@+id/txt_receive_all_product"
+                            android:textStyle="normal"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/chk_product_yes"
+                            android:layout_marginEnd="20dp"
+                            android:text="@string/yes"
+                            android:textSize="12sp"
+                            android:layout_toStartOf="@+id/chk_product_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/chk_product_no"
+                            android:text="@string/no"
+                            android:textSize="12sp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="30sp"
+                    android:layout_below="@+id/rel_rating_product"
+                    android:id="@+id/rel_product_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        android:text="What product did you not receive?"
+                        android:id="@+id/txt_what_product"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        tools:listitem="@layout/list_item_rating_product"
+                        android:layout_below="@+id/txt_what_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:layout_below="@+id/rel_product_delivery"
+                    android:text="@string/submit"
+                    android:background="@drawable/transaction_bck"
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>

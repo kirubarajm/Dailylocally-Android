@@ -747,6 +747,11 @@
     <string name="transaction_history">Transaction History</string>
     <string name="view">View</string>
     <string name="gst_amount">GST Amount</string>
+    <string name="move_pin_to_set_delivery_location">Move pin to set delivery location</string>
+    <string name="was_your_package_sealed">Was your package sealed?</string>
+    <string name="rate_your_delivery">Rate your delivery</string>
+    <string name="did_you_receive_all_the_products">Did you receive all the products?</string>
+    <string name="your_orders">Your Orders</string>
 
 
 </resources>

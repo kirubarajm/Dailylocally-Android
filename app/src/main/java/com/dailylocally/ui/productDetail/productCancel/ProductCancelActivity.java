@@ -36,7 +36,7 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_product_details;
+        return R.layout.activity_product_cancel;
     }
 
     @Override
@@ -67,6 +67,7 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     @Override
     protected void onResume() {
         super.onResume();
+        mAddAddressViewModel.getProductCancelDetails("","");
     }
 
     @Override

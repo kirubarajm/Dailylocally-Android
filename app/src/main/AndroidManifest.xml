@@ -103,6 +103,8 @@
 
         </activity>
         <activity android:name=".ui.transactionHistory.view.TransactionDetailsActivity" />
+        <activity android:name=".ui.productDetail.productCancel.ProductCancelActivity" />
+        <activity android:name=".ui.rating.RatingActivity" />
 
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"

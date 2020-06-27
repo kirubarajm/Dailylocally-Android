@@ -128,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:text="@string/residency_type"
+                            android:text="@string/move_pin_to_set_delivery_location"
                             android:textSize="16sp"
                             android:visibility="visible" />
 
