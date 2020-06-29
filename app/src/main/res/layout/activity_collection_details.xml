@@ -7,7 +7,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="categoryL2ViewModel"
+            name="collectionDetailsViewModel"
             type="com.dailylocally.ui.collection.l2.CollectionDetailsViewModel" />
     </data>
 
@@ -29,7 +29,7 @@
                 android:layout_height="50dp"
                 android:layout_alignParentTop="true"
                 android:background="@color/white"
-                android:onClick="@{()->categoryL2ViewModel.goBack()}">
+                android:onClick="@{()->collectionDetailsViewModel.goBack()}">
 
                 <ImageView
                     android:id="@+id/loader"
@@ -50,7 +50,7 @@
                 android:layout_marginStart="50dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{categoryL2ViewModel.title}"
+                android:text="@{collectionDetailsViewModel.title}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -114,7 +114,7 @@
                 <!--<include
                      android:id="@+id/categoryl12list"
                      layout="@layout/activity_categoryl12list"
-                     app:categoryl12list="@{categoryL2ViewModel}" />-->
+                     app:categoryl12list="@{collectionDetailsViewModel}" />-->
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/frameLayout"
@@ -139,9 +139,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@drawable/gradient_bt_back"
-                android:onClick="@{()->categoryL2ViewModel.viewCart()}"
+                android:onClick="@{()->collectionDetailsViewModel.viewCart()}"
                 android:padding="2dp"
-                android:visibility="@{categoryL2ViewModel.cart?View.VISIBLE:View.GONE}">
+                android:visibility="@{collectionDetailsViewModel.cart?View.VISIBLE:View.GONE}">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="@{categoryL2ViewModel.cartItems}"
+                            android:text="@{collectionDetailsViewModel.cartItems}"
                             android:textColor="@color/white"
                             android:textStyle="bold" />
 
@@ -206,7 +206,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="@{categoryL2ViewModel.cartPrice}"
+                                android:text="@{collectionDetailsViewModel.cartPrice}"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -254,7 +254,7 @@
                 android:orientation="vertical"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:visibility="@{categoryL2ViewModel.serviceable?View.GONE:View.VISIBLE}">
+                android:visibility="@{collectionDetailsViewModel.serviceable?View.GONE:View.VISIBLE}">
 
 
                 <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
@@ -263,7 +263,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@{categoryL2ViewModel.unserviceableTitle}"
+                    android:text="@{collectionDetailsViewModel.unserviceableTitle}"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -274,7 +274,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@{categoryL2ViewModel.unserviceableSubTitle}"
+                    android:text="@{collectionDetailsViewModel.unserviceableSubTitle}"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="12sp" />

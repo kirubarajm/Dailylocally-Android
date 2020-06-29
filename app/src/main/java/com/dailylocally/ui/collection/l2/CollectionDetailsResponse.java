@@ -226,18 +226,16 @@ public class CollectionDetailsResponse {
     }
     public class Result {
 
-        @SerializedName("scl2_id")
+        @SerializedName("scl1_id")
         @Expose
-        private Integer scl2Id;
+        private Integer scl1_id;
         @SerializedName("name")
         @Expose
         private String name;
         @SerializedName("image")
         @Expose
         private String image;
-        @SerializedName("scl1_id")
-        @Expose
-        private Integer scl1Id;
+
         @SerializedName("active_status")
         @Expose
         private Integer activeStatus;
@@ -245,12 +243,12 @@ public class CollectionDetailsResponse {
         @Expose
         private Boolean servicableStatus;
 
-        public Integer getScl2Id() {
-            return scl2Id;
+        public Integer getScl1_id() {
+            return scl1_id;
         }
 
-        public void setScl2Id(Integer scl2Id) {
-            this.scl2Id = scl2Id;
+        public void setScl1_id(Integer scl1_id) {
+            this.scl1_id = scl1_id;
         }
 
         public String getName() {
@@ -269,13 +267,7 @@ public class CollectionDetailsResponse {
             this.image = image;
         }
 
-        public Integer getScl1Id() {
-            return scl1Id;
-        }
 
-        public void setScl1Id(Integer scl1Id) {
-            this.scl1Id = scl1Id;
-        }
 
         public Integer getActiveStatus() {
             return activeStatus;

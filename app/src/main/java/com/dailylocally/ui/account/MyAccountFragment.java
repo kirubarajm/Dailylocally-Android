@@ -17,6 +17,7 @@ import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import javax.inject.Inject;
@@ -160,6 +161,12 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void editProfile() {
         Intent intent = RegistrationActivity.newIntent(getContext());
         intent.putExtra("edit","1");
+        startActivity(intent);
+    }
+
+    @Override
+    public void transactions() {
+        Intent intent = TransactionHistoryActivity.newIntent(getContext());
         startActivity(intent);
     }
 

@@ -5,12 +5,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.dailylocally.BR;
@@ -19,8 +17,8 @@ import com.dailylocally.databinding.FragmentHomeBinding;
 import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
+import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.ui.search.SearchFragment;
 
 import javax.inject.Inject;
 
@@ -69,10 +67,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
                 for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
 
-                    if (mHomeViewModel.categoryList.get(position).getCid()!=null){
+                    if (mHomeViewModel.categoryList.get(position).getCid() != null) {
                         return 2;
 
-                    }else return 1;
+                    } else return 1;
 
                 }
                 return 1;
@@ -150,7 +148,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         subscribeToLiveData();
 
 
-
     }
 
     @Override
@@ -182,20 +179,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void categoryItemClicked(HomepageResponse.Result result) {
 
 
-        if (result.getCid()!=null){
-            Toast.makeText(getContext(), "Collection click", Toast.LENGTH_SHORT).show();
+        if (result.getCid() != null) {
 
+            Intent intent = CollectionDetailsActivity.newIntent(getContext());
+            intent.putExtra("cid", result.getCid());
+            startActivity(intent);
 
-
-        }else {
+        } else {
             Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
         }
-
-
-
-
 
     }
 }

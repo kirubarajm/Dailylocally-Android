@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
+import com.dailylocally.databinding.FragmentCollectionProductsBinding;
 import com.dailylocally.databinding.FragmentProductsBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
@@ -24,7 +25,7 @@ import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
 
-public class CollectionProductFragment extends BaseFragment<FragmentProductsBinding, CollectionProductsViewModel> implements CollectionProductsNavigator, CollectionProductListAdapter.ProductsAdapterListener {
+public class CollectionProductFragment extends BaseFragment<FragmentCollectionProductsBinding, CollectionProductsViewModel> implements CollectionProductsNavigator, CollectionProductListAdapter.ProductsAdapterListener {
 
     @Inject
     CollectionProductsViewModel mCollectionProductsViewModel;
@@ -34,7 +35,7 @@ public class CollectionProductFragment extends BaseFragment<FragmentProductsBind
     LinearLayoutManager linearLayoutManager;
 
 
-    FragmentProductsBinding mFragmentProductsBinding;
+    private FragmentCollectionProductsBinding mFragmentProductsBinding;
 
     public static CollectionProductFragment newInstance(String id) {
         Bundle args = new Bundle();
@@ -51,7 +52,7 @@ public class CollectionProductFragment extends BaseFragment<FragmentProductsBind
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_products;
+        return R.layout.fragment_collection_products;
     }
 
     @Override

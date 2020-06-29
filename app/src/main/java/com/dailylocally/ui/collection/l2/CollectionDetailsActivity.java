@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.databinding.ActivityCategoryl12Binding;
+import com.dailylocally.databinding.ActivityCollectionDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 import com.dailylocally.ui.collection.l2.products.filter.FilterFragment;
@@ -36,7 +36,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 
-public class CollectionDetailsActivity extends BaseActivity<ActivityCategoryl12Binding, CollectionDetailsViewModel> implements CollectionDetailsNavigator, HasSupportFragmentInjector, FilterListener {
+public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDetailsBinding, CollectionDetailsViewModel> implements CollectionDetailsNavigator, HasSupportFragmentInjector, FilterListener {
 
     @Inject
     CollectionDetailsViewModel mCollectionDetailsViewModel;
@@ -46,7 +46,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCategoryl12B
     L2SliderAdapter adapter;
 
 
-    ActivityCategoryl12Binding mActivityCategoryl2Binding;
+    ActivityCollectionDetailsBinding mActivityCollectionDetailsBinding;
     String cid;
     String scl1id;
     String vpid;
@@ -76,12 +76,13 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCategoryl12B
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCollectionDetailsViewModel.setNavigator(this);
-        mActivityCategoryl2Binding = getViewDataBinding();
+        mActivityCollectionDetailsBinding = getViewDataBinding();
         subscribeLiveData();
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             cid = intent.getExtras().getString("cid");
+
             mCollectionDetailsViewModel.fetchSubCategoryList(cid);
         }
 
@@ -116,12 +117,12 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCategoryl12B
 
     @Override
     public int getBindingVariable() {
-        return BR.categoryL2ViewModel;
+        return BR.collectionDetailsViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_categoryl12;
+        return R.layout.activity_collection_details;
     }
 
     @Override
@@ -172,27 +173,27 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCategoryl12B
 
 
         if (response.getResult() == null) {
-            mActivityCategoryl2Binding.categorytabs.setVisibility(View.GONE);
+            mActivityCollectionDetailsBinding.categorytabs.setVisibility(View.GONE);
         } else if (response.getResult() != null && response.getResult().size() == 0) {
-            mActivityCategoryl2Binding.categorytabs.setVisibility(View.GONE);
+            mActivityCollectionDetailsBinding.categorytabs.setVisibility(View.GONE);
         }
 
 
-        mActivityCategoryl2Binding.categorytabs.addTab(mActivityCategoryl2Binding.categorytabs.newTab().setText("All"));
+        mActivityCollectionDetailsBinding.categorytabs.addTab(mActivityCollectionDetailsBinding.categorytabs.newTab().setText("All"));
 
         if (response.getResult() != null) {
             for (int k = 0; k < response.getResult().size(); k++) {
 
-                mActivityCategoryl2Binding.categorytabs.addTab(mActivityCategoryl2Binding.categorytabs.newTab().setText(response.getResult().get(k).getName()));
+                mActivityCollectionDetailsBinding.categorytabs.addTab(mActivityCollectionDetailsBinding.categorytabs.newTab().setText(response.getResult().get(k).getName()));
             }
         }
 
         CollectionTabPagerAdapter adapter = new CollectionTabPagerAdapter
-                (getSupportFragmentManager(), mActivityCategoryl2Binding.categorytabs.getTabCount(), response);
-        mActivityCategoryl2Binding.frameLayout.setAdapter(adapter);
+                (getSupportFragmentManager(), mActivityCollectionDetailsBinding.categorytabs.getTabCount(), response);
+        mActivityCollectionDetailsBinding.frameLayout.setAdapter(adapter);
 //        mActivityCategoryl2Binding.frameLayout.setOffscreenPageLimit(1);
-        mActivityCategoryl2Binding.frameLayout.setCurrentItem(0);
-        mActivityCategoryl2Binding.frameLayout.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mActivityCategoryl2Binding.categorytabs));
+        mActivityCollectionDetailsBinding.frameLayout.setCurrentItem(0);
+        mActivityCollectionDetailsBinding.frameLayout.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mActivityCollectionDetailsBinding.categorytabs));
 
 
 
@@ -227,17 +228,17 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCategoryl12B
 */
 
 
-        if (mActivityCategoryl2Binding.categorytabs.getTabCount() == 3) {
-            mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
+        if (mActivityCollectionDetailsBinding.categorytabs.getTabCount() == 3) {
+            mActivityCollectionDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
         } else {
-            mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+            mActivityCollectionDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
 
 
-        mActivityCategoryl2Binding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mActivityCollectionDetailsBinding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mActivityCategoryl2Binding.frameLayout.setCurrentItem(tab.getPosition());
+                mActivityCollectionDetailsBinding.frameLayout.setCurrentItem(tab.getPosition());
                 mCollectionDetailsViewModel.getDataManager().saveFiletrSort(null);
             }
 

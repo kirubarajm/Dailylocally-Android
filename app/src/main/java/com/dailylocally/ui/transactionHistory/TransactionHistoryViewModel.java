@@ -57,7 +57,7 @@ public class TransactionHistoryViewModel extends BaseViewModel<TransactionHistor
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_TRANSACTION_LIST, TransactionHistoryResponse.class,
-                new CouponsRequest("1"),
+                new CouponsRequest(getDataManager().getCurrentUserId()),
                 new Response.Listener<TransactionHistoryResponse>() {
                     @Override
                     public void onResponse(TransactionHistoryResponse response) {

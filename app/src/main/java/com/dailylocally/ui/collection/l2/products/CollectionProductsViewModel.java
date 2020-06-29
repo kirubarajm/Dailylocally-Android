@@ -105,10 +105,10 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
             collectionProductsRequest.setUserid(getDataManager().getCurrentUserId());
             collectionProductsRequest.setLat(getDataManager().getCurrentLat());
             collectionProductsRequest.setLon(getDataManager().getCurrentLng());
-            collectionProductsRequest.setScl2Id(scl1id);
+            collectionProductsRequest.setScl1Id(scl1id);
 
 
-            GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, CollectionProductsResponse.class, collectionProductsRequest, new Response.Listener<CollectionProductsResponse>() {
+            GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COLLECTION_PRODUCT_LIST, CollectionProductsResponse.class, collectionProductsRequest, new Response.Listener<CollectionProductsResponse>() {
 
                 @Override
                 public void onResponse(CollectionProductsResponse response) {

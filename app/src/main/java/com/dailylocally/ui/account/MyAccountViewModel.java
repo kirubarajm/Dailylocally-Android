@@ -42,6 +42,10 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getNavigator().changeAddress();
     }
 
+ public void transactions() {
+        getNavigator().transactions();
+    }
+
 
     public void orderHistory() {
         getNavigator().orderHistory();

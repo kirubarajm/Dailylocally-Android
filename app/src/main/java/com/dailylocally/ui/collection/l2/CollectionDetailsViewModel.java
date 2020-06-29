@@ -109,7 +109,6 @@ public class CollectionDetailsViewModel extends BaseViewModel<CollectionDetailsN
                         if (getNavigator() != null)
                             getNavigator().createtabs(response);
                         title.set(response.getCategoryTitle());
-                          image.set(response.getGetSubCatImages().get(0).getImageUrl());
 
                     }
 
