@@ -18,10 +18,10 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCollectionDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
+import com.dailylocally.ui.category.l2.products.filter.FilterListener;
+import com.dailylocally.ui.category.l2.products.sort.SortFragment;
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
-import com.dailylocally.ui.collection.l2.products.filter.FilterFragment;
-import com.dailylocally.ui.collection.l2.products.filter.FilterListener;
-import com.dailylocally.ui.collection.l2.products.sort.SortFragment;
 
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -144,6 +144,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
 
         Bundle bundle=new Bundle();
         bundle.putString("scl1id",scl1id);
+        bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_COLLECTION_ACTV);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);
@@ -152,9 +153,9 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
     }
 
 
-    public void openSort(String scl2id) {
+    public void openSort(String scl1id) {
         Bundle bundle=new Bundle();
-        bundle.putString("scl2id",scl2id);
+        bundle.putString("scl1id",scl1id);
 
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);
@@ -189,7 +190,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         }
 
         CollectionTabPagerAdapter adapter = new CollectionTabPagerAdapter
-                (getSupportFragmentManager(), mActivityCollectionDetailsBinding.categorytabs.getTabCount(), response);
+                (getSupportFragmentManager(), mActivityCollectionDetailsBinding.categorytabs.getTabCount(), response,cid);
         mActivityCollectionDetailsBinding.frameLayout.setAdapter(adapter);
 //        mActivityCategoryl2Binding.frameLayout.setOffscreenPageLimit(1);
         mActivityCollectionDetailsBinding.frameLayout.setCurrentItem(0);

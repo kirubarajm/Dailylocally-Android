@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -123,8 +125,8 @@ public class CaldroidFragment extends DialogFragment {
     /**
      * Caldroid view components
      */
-    private Button leftArrowButton;
-    private Button rightArrowButton;
+    private ImageView leftArrowButton;
+    private ImageView rightArrowButton;
     private TextView monthTitleTextView;
     private GridView weekdayGridView;
     private InfiniteViewPager dateViewPager;
@@ -319,11 +321,11 @@ public class CaldroidFragment extends DialogFragment {
     /**
      * To let user customize the navigation buttons
      */
-    public Button getLeftArrowButton() {
+    public ImageView getLeftArrowButton() {
         return leftArrowButton;
     }
 
-    public Button getRightArrowButton() {
+    public ImageView getRightArrowButton() {
         return rightArrowButton;
     }
 
@@ -1265,9 +1267,16 @@ public class CaldroidFragment extends DialogFragment {
         monthTitleTextView = (TextView) view
                 .findViewById(R.id.calendar_month_year_textview);
 
+
+
+        Typeface face = Typeface.createFromAsset(getActivity().getAssets(),
+                "Quicksand-Medium.ttf");
+        monthTitleTextView.setTypeface(face);
+
+
         // For the left arrow button
-        leftArrowButton = (Button) view.findViewById(R.id.calendar_left_arrow);
-        rightArrowButton = (Button) view
+        leftArrowButton = (ImageView) view.findViewById(R.id.calendar_left_arrow);
+        rightArrowButton = (ImageView) view
                 .findViewById(R.id.calendar_right_arrow);
 
         // Navigate to previous month when user click

@@ -70,6 +70,8 @@ import com.dailylocally.ui.collection.l2.products.CollectionProductsResponse;
 import com.dailylocally.ui.coupons.CouponsAdapter;
 import com.dailylocally.ui.coupons.CouponsResponse;
 
+import com.dailylocally.ui.favourites.products.FavProductListAdapter;
+import com.dailylocally.ui.favourites.products.FavProductsResponse;
 import com.dailylocally.ui.rating.RatingProductAdapter;
 import com.dailylocally.ui.rating.RatingResponse;
 import com.dailylocally.ui.search.QuickSearchResponse;
@@ -160,6 +162,15 @@ public final class BindingUtils {
 @BindingAdapter({"products_adapter"})
     public static void addProductItems(RecyclerView recyclerView, List<ProductsResponse.Result> results) {
         ProductListAdapter adapter = (ProductListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
+
+@BindingAdapter({"products_adapter"})
+    public static void addFavProductItems(RecyclerView recyclerView, List<FavProductsResponse.Result> results) {
+        FavProductListAdapter adapter = (FavProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(results);

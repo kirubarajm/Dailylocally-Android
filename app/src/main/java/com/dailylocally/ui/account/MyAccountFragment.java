@@ -15,8 +15,10 @@ import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.coupons.CouponsActivity;
+import com.dailylocally.ui.favourites.FavActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -112,6 +114,10 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void favourites() {
+
+        Intent intent = FavActivity.newIntent(getContext());
+        startActivity(intent);
+
     }
 
     @Override
@@ -151,10 +157,8 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void feedbackAndSupport() {
-        //new Analytics().sendClickData(pageName, AppConstants.CLICK_FEEDBACK_SUPPORT);
-
-        //Intent intent = FeedbackAndSupportActivity.newIntent(getContext());
-        //startActivity(intent);
+        Intent intent = FeedbackSupportActivity.newIntent(getContext());
+        startActivity(intent);
     }
 
     @Override

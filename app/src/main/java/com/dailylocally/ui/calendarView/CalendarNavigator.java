@@ -13,4 +13,5 @@ public interface CalendarNavigator {
 
     void ratingClick();
 
+    void goBack();
 }

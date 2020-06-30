@@ -29,6 +29,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     public ObservableList<FilterItems.Result> filterItems = new ObservableArrayList<>();
     public ObservableField<String> filterTitle = new ObservableField<>();
     public String scl2id;
+    public String scl1id;
     private MutableLiveData<List<FilterItems.Result>> filterItemsLiveData;
 
     public FilterViewModel(DataManager dataManager) {
@@ -107,7 +108,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
     }
 
-    public void getFilters(String scl2id) {
+    public void getL2Filters(String scl2id) {
 
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -127,6 +128,56 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_FILTERS + scl2id, FilterItems.class, new Response.Listener<FilterItems>() {
+                @Override
+                public void onResponse(FilterItems response) {
+                    try {
+                        if (response != null) {
+                            if (response.getStatus()) {
+                                if (response.getResult() != null) {
+                                    filterTitle.set(response.getTitle());
+                                    filterItemsLiveData.setValue(response.getResult());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    setIsLoading(false);
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+    public void getCollectionFilters(String scl1id) {
+
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+
+
+            Gson sGson = new GsonBuilder().create();
+            ProductsRequest  fProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+            if (fProductsRequest!=null){
+                if (!fProductsRequest.getScl2Id().equals(scl1id)){
+                    getDataManager().saveFiletrSort(null);
+                }
+            }
+
+
+
+
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_FILTERS + scl1id, FilterItems.class, new Response.Listener<FilterItems>() {
                 @Override
                 public void onResponse(FilterItems response) {
                     try {

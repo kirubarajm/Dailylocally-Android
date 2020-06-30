@@ -27,7 +27,8 @@ import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
-import com.dailylocally.ui.favorites.FavoritesActivity;
+
+import com.dailylocally.ui.favourites.FavActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
@@ -194,7 +195,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 intent = new Intent(this, CategoryL2Activity.class);
                 break;
             case AppConstants.NOTIFY_FAVORITES_ACTV:
-                intent = new Intent(this, FavoritesActivity.class);
+                intent = new Intent(this, FavActivity.class);
                 break;
             case AppConstants.NOTIFY_ORDER_PLACED_ACTV:
                 intent = new Intent(this, OrderPlacedActivity.class);

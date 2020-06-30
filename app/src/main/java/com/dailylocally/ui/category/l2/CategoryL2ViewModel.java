@@ -46,6 +46,7 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
         sliderListLiveData = new MutableLiveData<>();
+        getDataManager().saveFiletrSort(null);
         totalCart();
     }
 

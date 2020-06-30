@@ -18,16 +18,39 @@ public class ProductsRequest {
     private String lon;
     @SerializedName("scl1_id")
     @Expose
-    private Integer scl1Id;
+    private String scl1Id;
+
+    @SerializedName("catid")
+    @Expose
+    private String catid;
     @SerializedName("scl2_id")
     @Expose
     private String scl2Id;
+    @SerializedName("cid")
+    @Expose
+    private String cid;
     @SerializedName("sortid")
     @Expose
     private Integer sortid;
     @SerializedName("brandlist")
     @Expose
     private List<Brandlist> brandlist = null;
+
+    public String getCatid() {
+        return catid;
+    }
+
+    public void setCatid(String catid) {
+        this.catid = catid;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
 
     public String getUserid() {
         return userid;
@@ -53,11 +76,11 @@ public class ProductsRequest {
         this.lon = lon;
     }
 
-    public Integer getScl1Id() {
+    public String getScl1Id() {
         return scl1Id;
     }
 
-    public void setScl1Id(Integer scl1Id) {
+    public void setScl1Id(String scl1Id) {
         this.scl1Id = scl1Id;
     }
 

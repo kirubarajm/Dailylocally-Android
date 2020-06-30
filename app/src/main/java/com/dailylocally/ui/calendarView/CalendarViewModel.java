@@ -135,4 +135,9 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
             getNavigator().ratingClick();
         }
     }
+    public void goBack(){
+        if (getNavigator()!=null){
+            getNavigator().goBack();
+        }
+    }
 }

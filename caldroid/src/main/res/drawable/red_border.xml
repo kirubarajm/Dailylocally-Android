@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <stroke
+        android:width="0.6dp"
+        android:color="#8fc449"/>
+<solid
+    android:color="#FFFFFF"/>
+
+    <size
+        android:width="40dp"
+        android:height="40dp"/>
+</shape>
+
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
         android:bottom="0dp"
@@ -9,11 +24,11 @@
         <shape android:shape="rectangle" >
             <stroke
                 android:width="2dp"
-                android:color="#FFC6292D" />
-
-            <solid android:color="#FFFFFFFF" />
+                android:color="#8fc449" />
+            <solid
+                android:color="#FFFFFF"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>
 
-</layer-list>
+</layer-list>-->

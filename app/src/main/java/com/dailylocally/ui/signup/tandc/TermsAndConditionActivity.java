@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -85,6 +86,13 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
 
         analytics=new Analytics(this,pageName);
+
+        if (getIntent().getExtras()!=null&&getIntent().getExtras().getString(AppConstants.PAGE,"").equals(AppConstants.NOTIFY_SUPPORT_ACTV)){
+            mActivityTermsAndConditionBinding.acceptTandC.setVisibility(View.GONE);
+        }else {
+            mActivityTermsAndConditionBinding.acceptTandC.setVisibility(View.VISIBLE);
+        }
+
 
         mActivityTermsAndConditionBinding.webview.getSettings().setJavaScriptEnabled(true);
 

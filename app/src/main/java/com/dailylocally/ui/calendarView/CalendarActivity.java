@@ -122,6 +122,11 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     }
 
     @Override
+    public void goBack() {
+        finish();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCalendarViewModel.setNavigator(this);
@@ -155,6 +160,8 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             public void onSelectDate(Date date, View view) {
                 dateRating = date;
                 mCalendarViewModel.getDayWiseOrderDetails(date);
+                caldroidFragment.clearSelectedDates();
+                caldroidFragment.setSelectedDate(date);
 
                 String outputDateStr = "",dateStrsdf;
                 try {
@@ -169,6 +176,10 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+
+
             }
 
             @Override

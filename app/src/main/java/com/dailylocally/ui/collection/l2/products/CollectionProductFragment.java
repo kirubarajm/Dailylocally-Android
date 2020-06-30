@@ -37,9 +37,10 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
     private FragmentCollectionProductsBinding mFragmentProductsBinding;
 
-    public static CollectionProductFragment newInstance(String id) {
+    public static CollectionProductFragment newInstance(String id,String cid) {
         Bundle args = new Bundle();
         args.putString("scl1id", id);
+        args.putString("cid", cid);
         CollectionProductFragment fragment = new CollectionProductFragment();
         fragment.setArguments(args);
         return fragment;
@@ -103,6 +104,7 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
         mFragmentProductsBinding = getViewDataBinding();
 
         mCollectionProductsViewModel.scl1id = getArguments().getString("scl1id", null);
+        mCollectionProductsViewModel.cid = getArguments().getString("cid", null);
 
         mCollectionProductsViewModel.title.set(String.valueOf(mCollectionProductsViewModel.scl1id));
 

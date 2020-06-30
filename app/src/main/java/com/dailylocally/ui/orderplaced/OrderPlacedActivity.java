@@ -12,6 +12,7 @@ import com.dailylocally.R;
 
 import com.dailylocally.databinding.OrderPlacedBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -43,9 +44,8 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         startActivity(intent);
         finish();*/
 
-      /*  Intent intent = OrderHistoryActivity.newIntent(OrderPlacedActivity.this);
-        intent.putExtra("page", AppConstants.PAGE_ORDER_PLACED);
-        startActivity(intent);*/
+        Intent intent = CalendarActivity.newIntent(OrderPlacedActivity.this);
+        startActivity(intent);
 
     }
 

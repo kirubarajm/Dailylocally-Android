@@ -36,6 +36,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     String pageName = AppConstants.SCREEN_KITCHEN_FILTER;
 
     String scl2id;
+    String page;
 
     public static FilterFragment newInstance() {
         Bundle args = new Bundle();
@@ -92,10 +93,17 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         mFragmentFilterBinding.recyclerviewFilters.setAdapter(adapter);
         subscribeToLiveData();
 
+        page=getArguments().getString(AppConstants.PAGE,"");
+        if (getArguments().getString(AppConstants.PAGE,"").equals(AppConstants.NOTIFY_CATEGORY_L2_ACTV)){
+            mFilterViewModel.scl2id = getArguments().getString("scl2id",null);
+            mFilterViewModel.getL2Filters( mFilterViewModel.scl2id);
+        }else {
 
-        mFilterViewModel.scl2id = getArguments().getString("scl2id",null);
+            mFilterViewModel.scl1id = getArguments().getString("scl1id",null);
+            mFilterViewModel.getL2Filters( mFilterViewModel.scl2id);
 
-        mFilterViewModel.getFilters( mFilterViewModel.scl2id);
+        }
+
     }
 
     @Override
@@ -125,7 +133,11 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     @Override
     public void applyFilter() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
-        filterListener.FilterRefresh( mFilterViewModel.scl2id);
+        if (page.equals(AppConstants.NOTIFY_CATEGORY_L2_ACTV)) {
+            filterListener.FilterRefresh(mFilterViewModel.scl2id);
+        }else {
+            filterListener.FilterRefresh(mFilterViewModel.scl1id);
+        }
         dismiss();
     }
 

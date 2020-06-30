@@ -341,8 +341,10 @@ public class AppConstants {
   public static final String URL_CATEGORYL1_LIST = URL_SERVER_IP_PORT + "/user/subcategoryL1";/////POST method
   public static final String URL_CATEGORYL2_LIST = URL_SERVER_IP_PORT + "/user/subcategoryL2";/////POST method
   public static final String URL_COLLECTION_L1_list = URL_SERVER_IP_PORT + "/user/collection/subcategoryL1";/////POST method
+  public static final String URL_FAV_CAT_lIST = URL_SERVER_IP_PORT + "/user/fav/category";/////POST method
   public static final String URL_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/productlist";/////POST method
   public static final String URL_COLLECTION_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/collection/productlist";/////POST method
+  public static final String URL_FAV_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/fav/productlist";/////POST method
   public static final String URL_CART_DETAILS = URL_SERVER_IP_PORT + "/user/cartdetails";/////POST method
   public static final String URL_SUBS_DETAILS = URL_SERVER_IP_PORT + "/user/subscribeplan";/////POST method
   public static final String URL_GET_START_DATE = URL_SERVER_IP_PORT + "/user/startingdate";/////POST method
@@ -664,5 +666,7 @@ public class AppConstants {
   public static final String NOTIFY_TERMS_AND_CONDITION_ACTV = "20";
   public static final String NOTIFY_SUBSCRIPTION_ACTV = "21";
   public static final String NOTIFY_UPDATE_ACTV = "22";
+  public static final String NOTIFY_COLLECTION_ACTV = "23";
+  public static final String NOTIFY_SUPPORT_ACTV = "24";
 
 }

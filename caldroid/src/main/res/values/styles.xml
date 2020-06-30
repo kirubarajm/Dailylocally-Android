@@ -94,7 +94,7 @@
     </style>
 
     <style name="CaldroidDefaultDarkGridView" parent="CaldroidDefaultGridView">
-        <item name="android:background">@color/caldroid_middle_gray</item>
+        <item name="android:background">@color/caldroid_white</item>
     </style>
 
     <style name="CaldroidDefaultDarkCell" parent="CaldroidDefaultCell">

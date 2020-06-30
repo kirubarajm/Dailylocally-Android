@@ -3,6 +3,7 @@ package com.roomorama.caldroid;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,6 +44,9 @@ public class WeekdayArrayAdapter extends ArrayAdapter<String> {
         // To customize text size and color
         @SuppressLint("ViewHolder") TextView textView = (TextView) localInflater.inflate(R.layout.weekday_textview, null);
 
+        Typeface face = Typeface.createFromAsset(getContext().getAssets(),
+                "Quicksand-Medium.ttf");
+        textView.setTypeface(face);
         // Set content
         String item = getItem(position);
         textView.setText(item);

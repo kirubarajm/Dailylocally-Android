@@ -110,6 +110,9 @@
 
 
         </activity>
+        <activity android:name=".ui.favourites.FavActivity" />
+        <activity android:name=".ui.fandsupport.FeedbackSupportActivity" />
+        <activity android:name=".ui.fandsupport.support.SupportActivity" />
 
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"

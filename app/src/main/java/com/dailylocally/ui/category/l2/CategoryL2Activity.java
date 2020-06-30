@@ -147,7 +147,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 
         Bundle bundle=new Bundle();
         bundle.putString("scl2id",scl2id);
-        bundle.putString("request",request);
+        bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L2_ACTV);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);

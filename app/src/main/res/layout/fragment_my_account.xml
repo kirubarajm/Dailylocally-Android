@@ -228,6 +228,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:onClick="@{()->myAccountViewModel.favourites()}"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -399,7 +400,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:onClick="@{()->myAccountViewModel.favourites()}">
+                      >
 
                         <RelativeLayout
                             android:id="@+id/rel3"

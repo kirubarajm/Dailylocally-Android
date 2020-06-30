@@ -46,8 +46,13 @@ import com.dailylocally.ui.collection.l2.products.CollectionProductsProvider;
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.coupons.CouponsModule;
 
-import com.dailylocally.ui.favorites.FavoritesActivity;
-import com.dailylocally.ui.favorites.FavoritesModule;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
+import com.dailylocally.ui.fandsupport.FeedbackSupportModule;
+import com.dailylocally.ui.fandsupport.support.SupportActivity;
+import com.dailylocally.ui.fandsupport.support.SupportModule;
+import com.dailylocally.ui.favourites.FavActivity;
+import com.dailylocally.ui.favourites.FavModule;
+import com.dailylocally.ui.favourites.products.FavProductsProvider;
 import com.dailylocally.ui.home.HomeProvider;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.main.MainActivityModule;
@@ -112,8 +117,11 @@ public abstract class ActivityBuilder {
     abstract CategoryL2Activity bindCategoryL2Activity();
 
 
-    @ContributesAndroidInjector(modules = {CollectionDetailsModule.class, CollectionProductsProvider.class, FilterProvider.class, SortProvider.class/*, OrderCanceledProvider.class*/})
+    @ContributesAndroidInjector(modules = {CollectionDetailsModule.class, CollectionProductsProvider.class, FilterProvider.class,SortProvider.class/*, OrderCanceledProvider.class*/})
     abstract CollectionDetailsActivity bindCollectionDetailsActivity();
+
+ @ContributesAndroidInjector(modules = {FavModule.class, FavProductsProvider.class, SortProvider.class/*, OrderCanceledProvider.class*/})
+    abstract FavActivity bindFavActivity();
 
     @ContributesAndroidInjector(modules = {
             MainActivityModule.class,
@@ -126,6 +134,18 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = SplashModule.class)
     abstract SplashActivity bindSplashActivity();
+
+ @ContributesAndroidInjector(modules = FeedbackSupportModule.class)
+    abstract FeedbackSupportActivity bindFeedbackSupportActivity();
+
+
+
+ @ContributesAndroidInjector(modules = SupportModule.class)
+    abstract SupportActivity bindSupportActivity();
+
+
+
+
 
     @ContributesAndroidInjector(modules = OnBoardingActivityModule.class)
     abstract OnBoardingActivity bindOnBoardingActivity();
@@ -165,8 +185,6 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = ReferralsActivityModule.class)
     abstract ReferralsActivity bindReferralActivity();
 
-    @ContributesAndroidInjector(modules = FavoritesModule.class)
-    abstract FavoritesActivity bindFavoritesActivity();
 
     @ContributesAndroidInjector(modules = {AddressNewModule.class})
     abstract AddressNewActivity bindAddressNewActivity();

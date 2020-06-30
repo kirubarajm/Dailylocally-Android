@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.category.l2.products.ProductsRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
@@ -49,8 +50,9 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
 
 
     public ObservableList<CollectionProductsResponse.Result> productsList = new ObservableArrayList<>();
-    public CollectionProductsRequest collectionProductsRequest = new CollectionProductsRequest();
+    public ProductsRequest collectionProductsRequest = new ProductsRequest();
     public String scl1id;
+    public String cid;
     private MutableLiveData<List<CollectionProductsResponse.Result>> productsListLiveData;
 
     public CollectionProductsViewModel(DataManager dataManager) {
@@ -106,6 +108,7 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
             collectionProductsRequest.setLat(getDataManager().getCurrentLat());
             collectionProductsRequest.setLon(getDataManager().getCurrentLng());
             collectionProductsRequest.setScl1Id(scl1id);
+            collectionProductsRequest.setCid(cid);
 
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COLLECTION_PRODUCT_LIST, CollectionProductsResponse.class, collectionProductsRequest, new Response.Listener<CollectionProductsResponse>() {
@@ -240,34 +243,37 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
         }
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-        CollectionProductsRequest fCollectionProductsRequest = new CollectionProductsRequest();
+        ProductsRequest fCollectionProductsRequest = new ProductsRequest();
 
         if (getDataManager().getFilterSort() != null) {
 
             Gson sGson = new GsonBuilder().create();
-            fCollectionProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), CollectionProductsRequest.class);
+            fCollectionProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
 
             if (fCollectionProductsRequest != null) {
                 fCollectionProductsRequest.setUserid(getDataManager().getCurrentUserId());
                 fCollectionProductsRequest.setLat(getDataManager().getCurrentLat());
                 fCollectionProductsRequest.setLon(getDataManager().getCurrentLng());
                 fCollectionProductsRequest.setScl1Id(String.valueOf(scl1id));
+                fCollectionProductsRequest.setCid(String.valueOf(cid));
 
 
             } else {
-                fCollectionProductsRequest = new CollectionProductsRequest();
+                fCollectionProductsRequest = new ProductsRequest();
                 fCollectionProductsRequest.setUserid(getDataManager().getCurrentUserId());
                 fCollectionProductsRequest.setLat(getDataManager().getCurrentLat());
                 fCollectionProductsRequest.setLon(getDataManager().getCurrentLng());
                 fCollectionProductsRequest.setScl1Id(String.valueOf(scl1id));
+                fCollectionProductsRequest.setCid(String.valueOf(cid));
             }
 
         } else {
-            fCollectionProductsRequest = new CollectionProductsRequest();
+            fCollectionProductsRequest = new ProductsRequest();
             fCollectionProductsRequest.setUserid(getDataManager().getCurrentUserId());
             fCollectionProductsRequest.setLat(getDataManager().getCurrentLat());
             fCollectionProductsRequest.setLon(getDataManager().getCurrentLng());
             fCollectionProductsRequest.setScl1Id(String.valueOf(scl1id));
+            fCollectionProductsRequest.setCid(String.valueOf(cid));
         }
 
 
@@ -280,7 +286,7 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
     }
 
 
-    public void fetchFilterProducts(CollectionProductsRequest request) {
+    public void fetchFilterProducts(ProductsRequest request) {
 
         if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;

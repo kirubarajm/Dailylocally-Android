@@ -258,9 +258,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         getNavigator().changeAddress();
     }
 
-public void applyCoupon() {
+    public void applyCoupon() {
 
         getNavigator().applyCoupon();
+    }
+
+    public void clearCoupon() {
+        getDataManager().setCouponId(0);
+        fetchRepos();
     }
 
     public void proceedtopay() {
@@ -459,7 +464,7 @@ public void applyCoupon() {
 
                             couponApplied.set(cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus());
 
-                            couponName.set("Code: "+ getDataManager().getCouponCode());
+                            couponName.set("Code: " + getDataManager().getCouponCode());
 
 
                             if (!cartPageResponse.getStatus()) {
