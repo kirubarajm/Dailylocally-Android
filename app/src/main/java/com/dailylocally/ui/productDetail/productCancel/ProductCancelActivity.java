@@ -4,23 +4,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductCancelBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
+import com.dailylocally.ui.productDetail.dialogProductCancel.DialogProductCancel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
+import java.text.SimpleDateFormat;
+
 import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 
 public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBinding, ProductCancelViewModel> implements
-        ProductCancelNavigator {
+        ProductCancelNavigator, HasSupportFragmentInjector {
 
 
     public ActivityProductCancelBinding mActivityProductCancelBinding;
     @Inject
     public ProductCancelViewModel mAddAddressViewModel;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
@@ -56,6 +69,34 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     }
 
     @Override
+    public void cancelProductClick() {
+        Bundle bundle=new Bundle();
+        bundle.putString("doid","1");
+        bundle.putString("vpid","1");
+
+        DialogProductCancel filterFragment = new DialogProductCancel();
+        filterFragment.setArguments(bundle);
+        filterFragment.show(getSupportFragmentManager(), filterFragment.getTag());
+    }
+
+    @Override
+    public void success(int isCancelable,String date) {
+        try {
+            SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEE, MMM dd, YYYY");
+            String datesdf = dateDayFormat.format(date);
+
+            mAddAddressViewModel.productDate.set(datesdf);
+            if (isCancelable==0){
+                mAddAddressViewModel.isCancel.set(true);
+            }else {
+                mAddAddressViewModel.isCancel.set(false);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityProductCancelBinding = getViewDataBinding();
@@ -88,5 +129,10 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     @Override
     public void canceled() {
 
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
     }
 }

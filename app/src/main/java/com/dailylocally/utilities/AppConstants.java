@@ -446,6 +446,7 @@ public class AppConstants {
   public static final String URL_TRANSACTION_VIEW = URL_SERVER_IP_PORT + "/user/transaction/view";
   public static final String URL_DAY_ORDER_PRODUCT_DETAILS = URL_SERVER_IP_PORT + "/user/dayorder/productdetail";
   public static final String URL_USER_RATING = URL_SERVER_IP_PORT + "/user/rating";
+  public static final String URL_PRODUCT_CANCEL = URL_SERVER_IP_PORT + "/user/dayorder/productcancel";
 
 
   public static final int SEARCH_CATEGORY = 1;

@@ -64,36 +64,70 @@ public class CalendarDayWiseResponse {
 
         public class Item {
 
+            @SerializedName("unit")
+            @Expose
+            public String unit;
             @SerializedName("vpid")
             @Expose
-            public Integer pid;
+            public Integer vpid;
             @SerializedName("price")
             @Expose
             public Integer price;
+            @SerializedName("weight")
+            @Expose
+            public Integer weight;
             @SerializedName("quantity")
             @Expose
             public Integer quantity;
+            @SerializedName("brandname")
+            @Expose
+            public String brandname;
+            @SerializedName("dayorderpid")
+            @Expose
+            public Integer dayorderpid;
             @SerializedName("product_name")
             @Expose
             public String productName;
+            @SerializedName("quantity_info")
+            @Expose
+            public Integer quantityInfo;
 
 
-            public Integer getPid() {
-                return pid;
+            public String getUnit() {
+                return unit;
+            }
+
+            public Integer getVpid() {
+                return vpid;
             }
 
             public Integer getPrice() {
                 return price;
             }
 
+            public Integer getWeight() {
+                return weight;
+            }
+
             public Integer getQuantity() {
                 return quantity;
+            }
+
+            public String getBrandname() {
+                return brandname;
+            }
+
+            public Integer getDayorderpid() {
+                return dayorderpid;
             }
 
             public String getProductName() {
                 return productName;
             }
-        }
-    }
+
+            public Integer getQuantityInfo() {
+                return quantityInfo;
+            }
+        }    }
 
 }

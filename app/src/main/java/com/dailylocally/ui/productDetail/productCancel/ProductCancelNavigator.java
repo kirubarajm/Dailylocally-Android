@@ -24,4 +24,8 @@ public interface ProductCancelNavigator {
 
     void goBack();
 
+    void cancelProductClick();
+
+    void success(int isCancelable,String date);
+
 }

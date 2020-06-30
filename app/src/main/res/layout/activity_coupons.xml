@@ -143,7 +143,7 @@
                     android:layout_centerHorizontal="true"
                     android:padding="10dp"
                     android:onClick="@{()->couponsViewModel.referralClick()}"
-                    android:textColor="@color/dl_green"
+                    android:textColor="@color/dl_primary_color"
                     android:id="@+id/btn_refer"
                     android:background="@drawable/transaction_bck"
                     android:text="Refer a friend and Earn a coupon"

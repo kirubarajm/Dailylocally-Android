@@ -7,6 +7,7 @@ import java.util.List;
 
 public class ProductCancelResponse {
 
+
     @SerializedName("success")
     @Expose
     public Boolean success;
@@ -16,30 +17,6 @@ public class ProductCancelResponse {
     @SerializedName("serviceablestatus")
     @Expose
     public Boolean serviceablestatus;
-    @SerializedName("unserviceable_title")
-    @Expose
-    public String unserviceableTitle;
-    @SerializedName("unserviceable_subtitle")
-    @Expose
-    public String unserviceableSubtitle;
-    @SerializedName("empty_url")
-    @Expose
-    public String emptyUrl;
-    @SerializedName("empty_content")
-    @Expose
-    public String emptyContent;
-    @SerializedName("empty_subconent")
-    @Expose
-    public String emptySubconent;
-    @SerializedName("header_content")
-    @Expose
-    public String headerContent;
-    @SerializedName("header_subconent")
-    @Expose
-    public String headerSubconent;
-    @SerializedName("category_title")
-    @Expose
-    public String categoryTitle;
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
@@ -57,38 +34,6 @@ public class ProductCancelResponse {
         return serviceablestatus;
     }
 
-    public String getUnserviceableTitle() {
-        return unserviceableTitle;
-    }
-
-    public String getUnserviceableSubtitle() {
-        return unserviceableSubtitle;
-    }
-
-    public String getEmptyUrl() {
-        return emptyUrl;
-    }
-
-    public String getEmptyContent() {
-        return emptyContent;
-    }
-
-    public String getEmptySubconent() {
-        return emptySubconent;
-    }
-
-    public String getHeaderContent() {
-        return headerContent;
-    }
-
-    public String getHeaderSubconent() {
-        return headerSubconent;
-    }
-
-    public String getCategoryTitle() {
-        return categoryTitle;
-    }
-
     public List<Result> getResult() {
         return result;
     }
@@ -98,248 +43,176 @@ public class ProductCancelResponse {
         @SerializedName("id")
         @Expose
         public Integer id;
-        @SerializedName("doid")
+        @SerializedName("date")
         @Expose
-        public Integer doid;
-        @SerializedName("vpid")
+        public String date;
+        @SerializedName("userid")
         @Expose
-        public Integer vpid;
-        @SerializedName("orderid")
+        public Integer userid;
+        @SerializedName("dayorderstatus")
         @Expose
-        public Integer orderid;
-        @SerializedName("scm_status")
+        public Integer dayorderstatus;
+        @SerializedName("rating_skip")
         @Expose
-        public Integer scmStatus;
-        @SerializedName("productname")
+        public Object ratingSkip;
+        @SerializedName("zoneid")
         @Expose
-        public String productname;
-        @SerializedName("quantity")
-        @Expose
-        public Integer quantity;
-        @SerializedName("price")
-        @Expose
-        public Integer price;
-        @SerializedName("received_quantity")
-        @Expose
-        public Integer receivedQuantity;
-        @SerializedName("sorting_status")
-        @Expose
-        public Integer sortingStatus;
-        @SerializedName("popid")
-        @Expose
-        public Object popid;
-        @SerializedName("product_hsn_code")
-        @Expose
-        public Object productHsnCode;
-        @SerializedName("product_image")
-        @Expose
-        public String productImage;
-        @SerializedName("product_brand")
-        @Expose
-        public Integer productBrand;
-        @SerializedName("product_mrp")
-        @Expose
-        public Integer productMrp;
-        @SerializedName("product_basiccost")
-        @Expose
-        public Object productBasiccost;
-        @SerializedName("product_targetedbaseprice")
-        @Expose
-        public Object productTargetedbaseprice;
-        @SerializedName("product_discount_cost")
-        @Expose
-        public Integer productDiscountCost;
-        @SerializedName("product_gst")
-        @Expose
-        public Integer productGst;
-        @SerializedName("product_scl1_id")
-        @Expose
-        public Integer productScl1Id;
-        @SerializedName("product_scl2_id")
-        @Expose
-        public Integer productScl2Id;
-        @SerializedName("product_subscription")
-        @Expose
-        public Integer productSubscription;
-        @SerializedName("product_weight")
-        @Expose
-        public Double productWeight;
-        @SerializedName("product_uom")
-        @Expose
-        public Integer productUom;
-        @SerializedName("product_packetsize")
-        @Expose
-        public Object productPacketsize;
-        @SerializedName("product_vegtype")
-        @Expose
-        public Integer productVegtype;
-        @SerializedName("product_tag")
-        @Expose
-        public Integer productTag;
-        @SerializedName("product_short_desc")
-        @Expose
-        public String productShortDesc;
-        @SerializedName("product_productdetails")
-        @Expose
-        public Object productProductdetails;
-        @SerializedName("product_Perishable")
-        @Expose
-        public Object productPerishable;
+        public Integer zoneid;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
         @SerializedName("updated_at")
         @Expose
-        public Object updatedAt;
-        @SerializedName("prid")
+        public String updatedAt;
+        @SerializedName("items")
         @Expose
-        public Object prid;
-        @SerializedName("product_cancel_time")
-        @Expose
-        public Object productCancelTime;
-        @SerializedName("servicable_status")
-        @Expose
-        public Boolean servicableStatus;
+        public List<Item> items = null;
 
 
         public Integer getId() {
             return id;
         }
 
-        public Integer getDoid() {
-            return doid;
+        public String getDate() {
+            return date;
         }
 
-        public Integer getVpid() {
-            return vpid;
+        public Integer getUserid() {
+            return userid;
         }
 
-        public Integer getOrderid() {
-            return orderid;
+        public Integer getDayorderstatus() {
+            return dayorderstatus;
         }
 
-        public Integer getScmStatus() {
-            return scmStatus;
+        public Object getRatingSkip() {
+            return ratingSkip;
         }
 
-        public String getProductname() {
-            return productname;
-        }
-
-        public Integer getQuantity() {
-            return quantity;
-        }
-
-        public Integer getPrice() {
-            return price;
-        }
-
-        public Integer getReceivedQuantity() {
-            return receivedQuantity;
-        }
-
-        public Integer getSortingStatus() {
-            return sortingStatus;
-        }
-
-        public Object getPopid() {
-            return popid;
-        }
-
-        public Object getProductHsnCode() {
-            return productHsnCode;
-        }
-
-        public String getProductImage() {
-            return productImage;
-        }
-
-        public Integer getProductBrand() {
-            return productBrand;
-        }
-
-        public Integer getProductMrp() {
-            return productMrp;
-        }
-
-        public Object getProductBasiccost() {
-            return productBasiccost;
-        }
-
-        public Object getProductTargetedbaseprice() {
-            return productTargetedbaseprice;
-        }
-
-        public Integer getProductDiscountCost() {
-            return productDiscountCost;
-        }
-
-        public Integer getProductGst() {
-            return productGst;
-        }
-
-        public Integer getProductScl1Id() {
-            return productScl1Id;
-        }
-
-        public Integer getProductScl2Id() {
-            return productScl2Id;
-        }
-
-        public Integer getProductSubscription() {
-            return productSubscription;
-        }
-
-        public Double getProductWeight() {
-            return productWeight;
-        }
-
-        public Integer getProductUom() {
-            return productUom;
-        }
-
-        public Object getProductPacketsize() {
-            return productPacketsize;
-        }
-
-        public Integer getProductVegtype() {
-            return productVegtype;
-        }
-
-        public Integer getProductTag() {
-            return productTag;
-        }
-
-        public String getProductShortDesc() {
-            return productShortDesc;
-        }
-
-        public Object getProductProductdetails() {
-            return productProductdetails;
-        }
-
-        public Object getProductPerishable() {
-            return productPerishable;
+        public Integer getZoneid() {
+            return zoneid;
         }
 
         public String getCreatedAt() {
             return createdAt;
         }
 
-        public Object getUpdatedAt() {
+        public String getUpdatedAt() {
             return updatedAt;
         }
 
-        public Object getPrid() {
-            return prid;
+        public List<Item> getItems() {
+            return items;
         }
 
-        public Object getProductCancelTime() {
-            return productCancelTime;
-        }
+        public class Item {
 
-        public Boolean getServicableStatus() {
-            return servicableStatus;
+            @SerializedName("unit")
+            @Expose
+            public String unit;
+            @SerializedName("vpid")
+            @Expose
+            public Integer vpid;
+            @SerializedName("price")
+            @Expose
+            public Integer price;
+            @SerializedName("weight")
+            @Expose
+            public Integer weight;
+            @SerializedName("quantity")
+            @Expose
+            public Integer quantity;
+            @SerializedName("brandname")
+            @Expose
+            public String brandname;
+            @SerializedName("scm_status")
+            @Expose
+            public Integer scmStatus;
+            @SerializedName("product_date")
+            @Expose
+            public String productDate;
+            @SerializedName("product_name")
+            @Expose
+            public String productName;
+            @SerializedName("product_image")
+            @Expose
+            public String productImage;
+            @SerializedName("quantity_info")
+            @Expose
+            public Integer quantityInfo;
+            @SerializedName("dayorderstatus")
+            @Expose
+            public Integer dayorderstatus;
+            @SerializedName("scm_status_name")
+            @Expose
+            public String scmStatusName;
+            @SerializedName("Cancel_available")
+            @Expose
+            public Integer cancelAvailable;
+            @SerializedName("product_short_desc")
+            @Expose
+            public String productShortDesc;
+
+
+            public String getUnit() {
+                return unit;
+            }
+
+            public Integer getVpid() {
+                return vpid;
+            }
+
+            public Integer getPrice() {
+                return price;
+            }
+
+            public Integer getWeight() {
+                return weight;
+            }
+
+            public Integer getQuantity() {
+                return quantity;
+            }
+
+            public String getBrandname() {
+                return brandname;
+            }
+
+            public Integer getScmStatus() {
+                return scmStatus;
+            }
+
+            public String getProductDate() {
+                return productDate;
+            }
+
+            public String getProductName() {
+                return productName;
+            }
+
+            public String getProductImage() {
+                return productImage;
+            }
+
+            public Integer getQuantityInfo() {
+                return quantityInfo;
+            }
+
+            public Integer getDayorderstatus() {
+                return dayorderstatus;
+            }
+
+            public String getScmStatusName() {
+                return scmStatusName;
+            }
+
+            public Integer getCancelAvailable() {
+                return cancelAvailable;
+            }
+
+            public String getProductShortDesc() {
+                return productShortDesc;
+            }
         }
     }
 }

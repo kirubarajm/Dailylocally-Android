@@ -26,6 +26,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
     public final ObservableField<String> addressTitle = new ObservableField<>();
     public final ObservableField<String> rateDeliveryButton = new ObservableField<>();
+    public final ObservableField<String> dateDay = new ObservableField<>();
     public final ObservableBoolean cart = new ObservableBoolean();
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
@@ -86,8 +87,8 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
             String userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_DAY_WISE_ORDER_HISTORY,
-                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest(userId,
-                    dateString,monthString), new Response.Listener<CalendarDayWiseResponse>() {
+                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest("2",
+                    "2020-06-26","6"), new Response.Listener<CalendarDayWiseResponse>() {
                 @Override
                 public void onResponse(CalendarDayWiseResponse response) {
                     if (response!=null) {
@@ -135,6 +136,13 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
             getNavigator().ratingClick();
         }
     }
+
+    public void helpClick(){
+        if (getNavigator()!=null){
+            getNavigator().helpClick();
+        }
+    }
+
     public void goBack(){
         if (getNavigator()!=null){
             getNavigator().goBack();

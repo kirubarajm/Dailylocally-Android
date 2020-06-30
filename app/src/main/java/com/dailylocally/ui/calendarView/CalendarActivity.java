@@ -16,6 +16,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.productDetail.productCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
@@ -121,9 +122,14 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         }
     }
 
+
+    public void helpClick() {
+
+    }
+
     @Override
     public void goBack() {
-        finish();
+        onBackPressed();
     }
 
     @Override
@@ -239,12 +245,25 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void onResume() {
         super.onResume();
+        try {
         Date currentDate = Calendar.getInstance().getTime();////current date
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM YYYY");
+        SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        String rateDelivery = dateFormat1.format(currentDate);
+        String dateDay = dateDayFormat.format(currentDate);
         String yearString = yearFormat.format(currentDate);
         String monthString = monthFormat.format(currentDate);
         mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
+
+        dateRating = currentDate;
+        mCalendarViewModel.getDayWiseOrderDetails(currentDate);
+        mCalendarViewModel.rateDeliveryButton.set("Rate Delivery "+rateDelivery);
+        mCalendarViewModel.dateDay.set(dateDay);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void onDateSelected(Date selectedDate) {
@@ -2071,7 +2090,10 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
-
+        Intent intent = ProductCancelActivity.newIntent(CalendarActivity.this);
+        intent.putExtra("doid","");
+        intent.putExtra("vpid","");
+        startActivity(intent);
     }
 
     @Override
