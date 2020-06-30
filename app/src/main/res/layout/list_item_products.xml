@@ -78,7 +78,7 @@
                             android:layout_height="wrap_content">
 
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.poppins.TitleTextView
                                 android:id="@+id/kitchen_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -88,8 +88,7 @@
                                 android:maxLines="2"
                                 android:text="@{productsItemViewModel.name}"
                                 android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:onClick="@{()->productsItemViewModel.fav()}"

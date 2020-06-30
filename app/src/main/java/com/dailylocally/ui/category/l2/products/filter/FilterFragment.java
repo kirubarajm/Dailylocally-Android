@@ -100,7 +100,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         }else {
 
             mFilterViewModel.scl1id = getArguments().getString("scl1id",null);
-            mFilterViewModel.getL2Filters( mFilterViewModel.scl2id);
+            mFilterViewModel.getCollectionFilters( mFilterViewModel.scl2id);
 
         }
 

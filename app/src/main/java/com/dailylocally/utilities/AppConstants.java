@@ -353,6 +353,7 @@ public class AppConstants {
   public static final String URL_SUBS_TOTAL_AMOUNT = URL_SERVER_IP_PORT + "/user/subscribeplan/totalamount";/////POST method
   public static final String ADD_FAV_URL = URL_SERVER_IP_PORT + "/user/fav"; //POST
   public static final String DELETE_FAV_URL = URL_SERVER_IP_PORT + "/user/fav/";   //delete
+  public static final String URL_COLLECTION_FILTER_LIST = URL_SERVER_IP_PORT + "/user/collection/filterlist/";   //delete
 
 
   public static final String URL_OTP_VERIFICATION = URL_SERVER_IP_PORT + "/eat/otpverification";/////POST method
