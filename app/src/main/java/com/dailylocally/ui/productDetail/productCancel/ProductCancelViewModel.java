@@ -16,6 +16,7 @@
 
 package com.dailylocally.ui.productDetail.productCancel;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.android.volley.Request;
@@ -40,6 +41,9 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
     public final ObservableField<String> productname = new ObservableField<>();
     public final ObservableField<String> imageUrl = new ObservableField<>();
     public final ObservableField<String> mrp = new ObservableField<>();
+    public final ObservableField<String> productDate = new ObservableField<>();
+    public final ObservableField<String> isCancelable = new ObservableField<>();
+    public final ObservableBoolean isCancel = new ObservableBoolean();
 
     public ProductCancelViewModel(DataManager dataManager) {
         super(dataManager);
@@ -48,23 +52,26 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
     public void getProductCancelDetails(String doid,String vpid) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        String userId = getDataManager().getCurrentUserId();
-        String lat = getDataManager().getCurrentLat();
-        String lng = getDataManager().getCurrentLng();
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_DAY_ORDER_PRODUCT_DETAILS,
-                ProductCancelResponse.class, new ProductCancelRequest(1, 1, userId, "13.05067500","80.00000000"),
+                ProductCancelResponse.class, new ProductCancelRequest(1, 1),
                 new Response.Listener<ProductCancelResponse>() {
                     @Override
                     public void onResponse(ProductCancelResponse response) {
                         try {
-
                             if (response!=null){
                                 if (response.getResult()!=null && response.getResult().size()>0){
-                                //unit.set(response.getResult().get(0).getWeight() + " " + response.getResult().get(0).getUnit());
-                                short_desc.set(response.getResult().get(0).getProductShortDesc());
-                                productname.set(response.getResult().get(0).getProductname());
-                                imageUrl.set(String.valueOf(response.getResult().get(0).getProductImage()));
-                                mrp.set(String.valueOf(response.getResult().get(0).getProductMrp()));
+                                unit.set(response.getResult().get(0).getItems().get(0).getWeight() + " " +
+                                        response.getResult().get(0).getItems().get(0).getUnit());
+                                short_desc.set(response.getResult().get(0).getItems().get(0).getProductShortDesc());
+                                productname.set(response.getResult().get(0).getItems().get(0).getProductName());
+                                imageUrl.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductImage()));
+                                mrp.set(String.valueOf(response.getResult().get(0).getItems().get(0).getPrice()));
+                                //productDate.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));
+                                //isCancelable.set(String.valueOf(response.getResult().get(0).getItems().get(0).getCancelAvailable()));
+                                if (getNavigator()!=null){
+                                    getNavigator().success(response.getResult().get(0).getItems().get(0).getCancelAvailable(),
+                                            String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));
+                                }
                             }
                             }
                         }catch (Exception e){
@@ -81,10 +88,15 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
-
     public void goBack(){
         if (getNavigator()!=null){
             getNavigator().goBack();
+        }
+    }
+
+    public void cancelProduct(){
+        if (getNavigator()!=null){
+            getNavigator().cancelProductClick();
         }
     }
 }

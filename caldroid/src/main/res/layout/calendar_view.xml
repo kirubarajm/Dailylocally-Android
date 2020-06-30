@@ -6,13 +6,14 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/calendar_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
             android:padding="5dp"
-            android:background="@drawable/ic_arrow_back_black_24dp"
+            android:visibility="gone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/calendar_left_arrow" />
@@ -21,18 +22,31 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/calendar_month_year_textview" />
+            android:id="@+id/calendar_month_year_textviews" />
 
         <Button
             android:layout_alignParentRight="true"
             android:padding="5dp"
             android:scaleX="-1"
-            android:background="@drawable/ic_arrow_back_black_24dp"
+            android:visibility="gone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/calendar_right_arrow"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
+
+    <TextView
+        android:paddingLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendar_month_year_textview"
+        android:paddingStart="5dp" />
+
+    <View
+        android:layout_marginTop="5dp"
+        android:background="@color/caldroid_lighter_gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <GridView
         android:id="@+id/weekday_gridview"

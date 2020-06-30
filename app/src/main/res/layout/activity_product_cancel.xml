@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Product Details"
+                    android:text="@string/product_details"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
@@ -77,7 +77,7 @@
                 android:id="@+id/img_"
                 android:adjustViewBounds="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/badge_circle"
+                imageUrl="@{productCancelViewModel.imageUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -96,7 +96,7 @@
                 android:layout_marginTop="5dp"
                 android:textSize="12sp"
                 android:id="@+id/txt_weight"
-                android:text="150 gms"
+                android:text="@{productCancelViewModel.unit}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -111,7 +111,7 @@
 
 
             <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                android:text="Delivery Date"
+                android:text="@string/delivery_date"
                 android:layout_marginTop="50dp"
                 android:textSize="12sp"
                 android:id="@+id/txt_delivery_date"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"/>
 
             <com.dailylocally.utilities.fonts.poppins.TitleTextView
-                android:text="Sat, May 10, 2020"
+                android:text="@{productCancelViewModel.productDate}"
                 android:layout_marginTop="5dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -131,6 +131,7 @@
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                android:gravity="center_horizontal"
                 android:layout_marginTop="50dp"
                 android:layout_below="@+id/txt_delivery_date_value"
                 android:layout_width="match_parent"
@@ -143,7 +144,7 @@
                     android:layout_height="wrap_content">
 
                 <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                    android:text="Product Total"
+                    android:text="@string/product_total"
                     android:textSize="12sp"
                     android:id="@+id/txt_order_total"
                     android:textStyle="normal"
@@ -151,7 +152,7 @@
                     android:layout_height="wrap_content"/>
 
                 <com.dailylocally.utilities.fonts.poppins.TitleTextView
-                    android:text="Rs.100"
+                    android:text="@{productCancelViewModel.mrp}"
                     android:layout_marginTop="5dp"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -162,12 +163,14 @@
                 </LinearLayout>
 
                 <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:gravity="center_horizontal"
-                    android:text="Cancel Product"
+                    android:text="@string/cancel_product"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:padding="10dp"
+                    android:visibility="@{productCancelViewModel.isCancel?View.GONE:View.VISIBLE}"
+                    android:textStyle="normal"
+                    android:onClick="@{()->productCancelViewModel.cancelProduct()}"
+                    android:padding="5dp"
                     android:backgroundTint="@color/red"
                     android:textColor="@color/white"
                     android:background="@drawable/address_bck"

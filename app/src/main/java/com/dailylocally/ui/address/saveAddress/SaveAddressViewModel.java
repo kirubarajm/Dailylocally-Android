@@ -74,24 +74,25 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                     @Override
                     public void onResponse(GoogleAddressResponse response) {
                         try {
-                            if (response.getStatus()) {
+                            if (response!=null && response.getStatus()) {
                                 SAVEcLICKED.set(true);
                                 getDataManager().setUserAddress(true);
                                 if (getNavigator() != null)
                                     getNavigator().showToast(response.getMessage(),response.getStatus());
 
                                 if (response.getAid() != null) {
-                                    getDataManager().updateCurrentAddress("",
-                                            completeAddress, lat, lon,
+                                    getDataManager().updateCurrentAddress("", completeAddress, lat, lon,
                                             city, String.valueOf(response.getAid()));
-                                    //getDataManager().setCurrentAddressTitle(request.getAddressTitle());
                                     getDataManager().setCurrentLat(lat);
                                     getDataManager().setCurrentLng(lon);
                                     getDataManager().setCurrentAddress(completeAddress);
                                     getDataManager().setCurrentAddressArea(city);
                                     getDataManager().setCurrentAddressTitle(city);
                                     getDataManager().setAddressId(String.valueOf(response.getAid()));
-                                    defaultAddress(String.valueOf(response.getAid()));
+
+                                    if (!flagAddressEdit.get()) {
+                                        defaultAddress(String.valueOf(response.getAid()));
+                                    }
                                 }
                             }else {
                                 if (getNavigator()!=null){

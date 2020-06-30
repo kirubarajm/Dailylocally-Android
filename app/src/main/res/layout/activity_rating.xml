@@ -14,7 +14,7 @@
     </data>
 
     <RelativeLayout
-        android:background="#eeeeee"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,14 +28,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#eeeeee"
+                android:background="@color/white"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:foreground="?android:attr/selectableItemBackground"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:background="@color/light_gray"
+                    android:background="@color/white"
                     android:onClick="@{()->ratingViewModel.goBack()}"
                     android:orientation="horizontal">
 
@@ -130,7 +130,6 @@
                 android:layout_below="@+id/txt_rating"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="20dp"
-                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_centerHorizontal="true"
                 android:numStars="5"
                 android:progressTint="@color/dl_primary_color"
@@ -224,7 +223,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
                     android:numStars="5"
-                    style="?android:attr/ratingBarStyleIndicator"
                     android:progressTint="@color/dl_primary_color"
                     android:stepSize="1"
                     android:id="@+id/rating_bar_product"

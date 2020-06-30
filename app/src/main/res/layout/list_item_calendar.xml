@@ -15,35 +15,61 @@
         android:layout_height="wrap_content">-->
 
     <LinearLayout
+        android:onClick="@{()->calendarItemViewModel.onItemClick()}"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txt_hypen"
+                android:text="-"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_toEndOf="@+id/txt_hypen"
+                android:layout_marginStart="5dp"
+                android:id="@+id/txt_product_name"
+                android:text="@{calendarItemViewModel.productName}"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.dailylocally.utilities.fonts.poppins.ContentTextView
                 android:layout_width="wrap_content"
-                android:id="@+id/txt1"
-                android:text="@{calendarItemViewModel.productName}"
+                android:id="@+id/txt_units_in_weight"
+                android:text="@{calendarItemViewModel.unitWeight}"
                 android:layout_height="wrap_content"/>
 
             <com.dailylocally.utilities.fonts.poppins.ContentTextView
                 android:layout_width="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_alignParentEnd="true"
-                android:text="@{calendarItemViewModel.price}"
+                android:id="@+id/txt1"
+                android:layout_toEndOf="@+id/txt_units_in_weight"
+                android:text=" | "
                 android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txt_pckts"
+                android:layout_toEndOf="@+id/txt1"
+                android:text="@{calendarItemViewModel.quantity}"
+                android:layout_height="wrap_content"/>
+
 
         </RelativeLayout>
 
-        <com.dailylocally.utilities.fonts.poppins.ContentTextView
-            android:layout_width="match_parent"
-            android:text="@{calendarItemViewModel.quantity}"
-            android:layout_height="wrap_content"/>
 
         <View
             android:layout_marginTop="10dp"
