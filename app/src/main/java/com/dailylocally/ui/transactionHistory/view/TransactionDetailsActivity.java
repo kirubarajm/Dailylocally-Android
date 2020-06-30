@@ -4,27 +4,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.databinding.ActivityProductDetailsBinding;
+import com.dailylocally.databinding.ActivityTransactionDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.calendarView.CalendarActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
 
-public class TransactionDetailsActivity extends BaseActivity<ActivityProductDetailsBinding, TransactionDetailsViewModel> implements
-        TransactionDetailsNavigator {
+public class TransactionDetailsActivity extends BaseActivity<ActivityTransactionDetailsBinding, TransactionDetailsViewModel> implements
+        TransactionDetailsNavigator,TransactionProductAdapter.TransactionHistoryInfoListener,TransactionBillDetailAdapter.TransactionHistoryInfoListener {
 
 
-    public ActivityProductDetailsBinding mActivityProductDetailsBinding;
+    public ActivityTransactionDetailsBinding ActivityTransactionDetailsBinding;
     @Inject
-    public TransactionDetailsViewModel mAddAddressViewModel;
+    public TransactionDetailsViewModel mTransactionDetailsViewModel;
+    @Inject
+    public TransactionProductAdapter mTransactionProductAdapter;
+    @Inject
+    public TransactionBillDetailAdapter mTransactionBillDetailAdapter;
     String orderid = "";
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, TransactionDetailsActivity.class);
@@ -43,7 +52,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityProductDeta
     @Override
     public TransactionDetailsViewModel getViewModel() {
 
-        return mAddAddressViewModel;
+        return mTransactionDetailsViewModel;
     }
 
     @Override
@@ -57,23 +66,69 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityProductDeta
     }
 
     @Override
+    public void viewInCalendar() {
+        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this);
+        startActivity(intent);
+    }
+
+    @Override
+    public void success(String date) {
+        try {
+            SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEEE, dd MMM YYYY");
+            SimpleDateFormat currentFormat = new SimpleDateFormat("YYYY-mm-dd hh:mm:ss");
+            Date date1 = currentFormat.parse(date);
+            String datesdf = dateDayFormat.format(date1);
+
+            mTransactionDetailsViewModel.transacDate.set(datesdf);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityProductDetailsBinding = getViewDataBinding();
-        mAddAddressViewModel.setNavigator(this);
+        ActivityTransactionDetailsBinding = getViewDataBinding();
+        mTransactionDetailsViewModel.setNavigator(this);
+        mTransactionProductAdapter.setListener(this);
+        mTransactionBillDetailAdapter.setListener(this);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
             orderid = bundle.getString("orderid");
         }
 
-        analytics = new Analytics(this, pageName);
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        ActivityTransactionDetailsBinding.recyclerProducts.setLayoutManager(mLayoutManager);
+        ActivityTransactionDetailsBinding.recyclerProducts.setAdapter(mTransactionProductAdapter);
+
+        LinearLayoutManager mLayoutManagerBill
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        mLayoutManagerBill.setOrientation(LinearLayoutManager.VERTICAL);
+        ActivityTransactionDetailsBinding.recyclerBilDetails.setLayoutManager(mLayoutManagerBill);
+        ActivityTransactionDetailsBinding.recyclerBilDetails.setAdapter(mTransactionBillDetailAdapter);
+
+
+        subscribeToLiveData();
     }
+
+    private void subscribeToLiveData() {
+        mTransactionDetailsViewModel.getProductsItemsLiveData().observe(this,
+                catregoryItemViewModel -> mTransactionDetailsViewModel.addProductsItemsToList(catregoryItemViewModel));
+
+        mTransactionDetailsViewModel.getBilDetailsItemsLiveData().observe(this,
+                catregoryItemViewModel -> mTransactionDetailsViewModel.addBilDetailsItemsToList(catregoryItemViewModel));
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        mAddAddressViewModel.getTransactionHistoryViewList(orderid);
+        mTransactionDetailsViewModel.getTransactionHistoryViewList(orderid);
     }
 
     @Override
@@ -95,4 +150,12 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityProductDeta
     public void canceled() {
 
     }
+
+    @Override
+    public void onViewCalendarClick(TransactionViewResponse.Result.Item cartdetail) {
+        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this);
+        intent.putExtra("date",cartdetail.getProductDate());
+        startActivity(intent);
+    }
+
 }

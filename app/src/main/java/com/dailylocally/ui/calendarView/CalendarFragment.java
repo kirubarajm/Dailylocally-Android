@@ -16,10 +16,9 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.productDetail.productCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
-import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -33,8 +32,8 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, CalendarViewModel> implements CalendarNavigator,
-        CalendarDayWiseAdapter.CategoriesAdapterListener {
+public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, CalendarViewModel> implements
+        CalendarNavigator, CalendarDayWiseAdapter.CategoriesAdapterListener {
     @Inject
     CalendarViewModel mCalendarViewModel;
     @Inject
@@ -61,10 +60,9 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
     Date dateRating = null;
-    String date="";
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, CalendarActivity.class);
+        return new Intent(context, CalendarFragment.class);
     }
 
     @Override
@@ -109,13 +107,13 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void failure(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ratingClick() {
         try {
-            Intent intent = RatingActivity.newIntent(CalendarActivity.this);
+            Intent intent = RatingActivity.newIntent(getContext());
             intent.putExtra("date",dateRating.getTime());
             startActivity(intent);
         } catch (Exception e) {
@@ -130,7 +128,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void goBack() {
-        onBackPressed();
+
     }
 
     @Override
@@ -139,11 +137,6 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         mCalendarViewModel.setNavigator(this);
         mFragmentHomeBinding = getViewDataBinding();
         mCalendarDayWiseAdapter.setListener(this);
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle!=null){
-            date = bundle.getString("date");
-        }
 
         final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
         caldroidFragment = new CaldroidFragment();
@@ -161,7 +154,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
             caldroidFragment.setArguments(args);
         }
-        t = this.getSupportFragmentManager().beginTransaction();
+        t = getActivity().getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
 
@@ -188,6 +181,10 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+
+
             }
 
             @Override
@@ -224,7 +221,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             e.printStackTrace();
         }
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this,
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentHomeBinding.recyclerDayWiseOrder.setLayoutManager(mLayoutManager);
@@ -248,40 +245,21 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     public void onResume() {
         super.onResume();
         try {
-            if (date.isEmpty()) {
-                Date currentDate = Calendar.getInstance().getTime();////current date
-                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-                SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM YYYY");
-                SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
-                SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-                String rateDelivery = dateFormat1.format(currentDate);
-                String dateDay = dateDayFormat.format(currentDate);
-                String yearString = yearFormat.format(currentDate);
-                String monthString = monthFormat.format(currentDate);
-                mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
+        Date currentDate = Calendar.getInstance().getTime();////current date
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM YYYY");
+        SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        String rateDelivery = dateFormat1.format(currentDate);
+        String dateDay = dateDayFormat.format(currentDate);
+        String yearString = yearFormat.format(currentDate);
+        String monthString = monthFormat.format(currentDate);
+        mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
 
-                dateRating = currentDate;
-                mCalendarViewModel.getDayWiseOrderDetails(currentDate);
-                mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
-                mCalendarViewModel.dateDay.set(dateDay);
-            }else {
-                SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                dateRating = dbFormat.parse(date);
-
-                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-                SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
-                SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
-                SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-                String rateDelivery = dateFormat1.format(dateRating);
-                String dateDay = dateDayFormat.format(dateRating);
-                String yearString = yearFormat.format(dateRating);
-                String monthString = monthFormat.format(dateRating);
-                mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
-
-                mCalendarViewModel.getDayWiseOrderDetails(dateRating);
-                mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
-                mCalendarViewModel.dateDay.set(dateDay);
-            }
+        dateRating = currentDate;
+        mCalendarViewModel.getDayWiseOrderDetails(currentDate);
+        mCalendarViewModel.rateDeliveryButton.set("Rate Delivery "+rateDelivery);
+        mCalendarViewModel.dateDay.set(dateDay);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -1196,7 +1174,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
             } else {
                 Log.e("Cal", "" + selectedDate);
-                Toast.makeText(this, "No data for future date", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No data for future date", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -1595,7 +1573,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
         } else {
             Log.e("Cal", "" + selectedDate);
-            Toast.makeText(this, "No data for future date (" + selectedDate + ")", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No data for future date (" + selectedDate + ")", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -2111,28 +2089,14 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
-        Intent intent = ProductCancelActivity.newIntent(CalendarActivity.this);
+        Intent intent = ProductCancelActivity.newIntent(getContext());
         intent.putExtra("doid",result.getVpid());
         intent.putExtra("dayorderpid",result.getDayorderpid());
         startActivity(intent);
     }
 
     @Override
-    public void canceled() {
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        t.remove(caldroidFragment);
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        try {
-            super.onDestroy();
-        } catch (Exception dd) {
-        }
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

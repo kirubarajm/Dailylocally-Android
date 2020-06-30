@@ -173,9 +173,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     }
 
     private boolean validForProceed() {
-        if (mActivityRegistrationBinding.edtName.getText().toString().equals("") || mActivityRegistrationBinding.email.getText().toString().equals("")) {
+        if (mActivityRegistrationBinding.edtName.getText().toString().isEmpty() || mActivityRegistrationBinding.email.getText().toString().isEmpty()) {
 
-            if ((mActivityRegistrationBinding.edtName.getText().toString().equals(""))) {
+            if ((mActivityRegistrationBinding.edtName.getText().toString().isEmpty())) {
                 mActivityRegistrationBinding.inputName.setError("Enter your name");
 
             }
@@ -185,6 +185,12 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
             }
 
             return false;
+        }
+        if (mLoginViewModelMain.referral.get()) {
+            if (mActivityRegistrationBinding.referral.getText().toString().isEmpty()) {
+                mActivityRegistrationBinding.tlReferral.setError("Enter referral code");
+                return false;
+            }
         }
 
         return true;

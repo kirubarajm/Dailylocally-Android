@@ -81,6 +81,9 @@ import com.dailylocally.ui.search.SearchSubCategoryAdapter;
 import com.dailylocally.ui.search.SearchSuggestionAdapter;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryAdapter;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryResponse;
+import com.dailylocally.ui.transactionHistory.view.TransactionBillDetailAdapter;
+import com.dailylocally.ui.transactionHistory.view.TransactionProductAdapter;
+import com.dailylocally.ui.transactionHistory.view.TransactionViewResponse;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.dailylocally.R;
 import com.dailylocally.ui.signup.faqs.FaqResponse;
@@ -257,6 +260,24 @@ public final class BindingUtils {
     @BindingAdapter({"adapter"})
     public static void addCouponsItems(RecyclerView recyclerView, List<CouponsResponse.Result> blogs) {
         CouponsAdapter adapter = (CouponsAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addTransactionProductItems(RecyclerView recyclerView, List<TransactionViewResponse.Result.Item> blogs) {
+        TransactionProductAdapter adapter = (TransactionProductAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addTransactionBillDetailItems(RecyclerView recyclerView, List<TransactionViewResponse.Result.Cartdetail> blogs) {
+        TransactionBillDetailAdapter adapter = (TransactionBillDetailAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(blogs);

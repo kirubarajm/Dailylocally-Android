@@ -24,4 +24,8 @@ public interface TransactionDetailsNavigator {
 
     void goBack();
 
+    void viewInCalendar();
+
+    void success(String date);
+
 }

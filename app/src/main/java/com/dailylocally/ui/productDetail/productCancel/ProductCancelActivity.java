@@ -10,12 +10,12 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductCancelBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.productDetail.dialogProductCancel.DialogProductCancel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -37,6 +37,7 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
+    String doId ="",dayOrderPId="";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, ProductCancelActivity.class);
@@ -72,7 +73,7 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     public void cancelProductClick() {
         Bundle bundle=new Bundle();
         bundle.putString("doid","1");
-        bundle.putString("vpid","1");
+        bundle.putString("dayorderpid","1");
 
         DialogProductCancel filterFragment = new DialogProductCancel();
         filterFragment.setArguments(bundle);
@@ -83,7 +84,9 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     public void success(int isCancelable,String date) {
         try {
             SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEE, MMM dd, YYYY");
-            String datesdf = dateDayFormat.format(date);
+            SimpleDateFormat currentFormat = new SimpleDateFormat("YYYY-mm-dd hh:mm:ss");
+            Date date1 = currentFormat.parse(date);
+            String datesdf = dateDayFormat.format(date1);
 
             mAddAddressViewModel.productDate.set(datesdf);
             if (isCancelable==0){
@@ -102,13 +105,17 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
         mActivityProductCancelBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
 
-        analytics = new Analytics(this, pageName);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            doId = bundle.getString("doid");
+            dayOrderPId = bundle.getString("dayorderpid");
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mAddAddressViewModel.getProductCancelDetails("","");
+        mAddAddressViewModel.getProductCancelDetails(doId,dayOrderPId);
     }
 
     @Override

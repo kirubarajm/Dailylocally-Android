@@ -104,8 +104,8 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
 
     @Override
     public void viewClick(TransactionHistoryResponse.Result cartdetail) {
-      /*  Intent intent = TransactionDetailsActivity.newIntent(this);
+        Intent intent = TransactionDetailsActivity.newIntent(this);
         intent.putExtra("orderid",cartdetail.getOrderid());
-        startActivity(intent);*/
+        startActivity(intent);
     }
 }

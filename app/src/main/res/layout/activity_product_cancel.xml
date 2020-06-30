@@ -101,6 +101,26 @@
                 android:layout_height="wrap_content"/>
 
             <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                android:layout_below="@+id/txt_product"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:layout_toEndOf="@+id/txt_weight"
+                android:id="@+id/txt_hypen"
+                android:text=" | "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                android:layout_below="@+id/txt_product"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:layout_toEndOf="@+id/txt_hypen"
+                android:id="@+id/txt_pckts"
+                android:text="@{productCancelViewModel.quantity}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                 android:layout_below="@+id/txt_weight"
                 android:layout_marginTop="10dp"
                 android:textSize="12sp"
@@ -109,10 +129,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-
             <com.dailylocally.utilities.fonts.poppins.ContentTextView
                 android:text="@string/delivery_date"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="5dp"
                 android:textSize="12sp"
                 android:id="@+id/txt_delivery_date"
                 android:textStyle="normal"
@@ -132,7 +151,7 @@
 
             <RelativeLayout
                 android:gravity="center_horizontal"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/txt_delivery_date_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

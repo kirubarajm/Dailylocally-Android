@@ -63,6 +63,11 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     }
 
     @Override
+    public void helpClick() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRatingBinding = getViewDataBinding();

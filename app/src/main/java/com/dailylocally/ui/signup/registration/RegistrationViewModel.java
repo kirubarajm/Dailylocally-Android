@@ -67,7 +67,6 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
         } else {
             referral.set(true);
         }
-
     }
 
     public void referralCode() {

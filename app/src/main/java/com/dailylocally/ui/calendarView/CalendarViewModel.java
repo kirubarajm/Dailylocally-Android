@@ -87,8 +87,8 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
             String userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_DAY_WISE_ORDER_HISTORY,
-                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest("2",
-                    "2020-06-26","6"), new Response.Listener<CalendarDayWiseResponse>() {
+                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest(userId,
+                    dateString,monthString), new Response.Listener<CalendarDayWiseResponse>() {
                 @Override
                 public void onResponse(CalendarDayWiseResponse response) {
                     if (response!=null) {

@@ -16,7 +16,13 @@
 
 package com.dailylocally.ui.transactionHistory.view;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.dailylocally.data.DataManager;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryAdapter;
+
+import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,6 +35,21 @@ public class TransactionDetailsModule {
     @Provides
     TransactionDetailsViewModel provideAddAddressViewModel(DataManager dataManager) {
         return new TransactionDetailsViewModel(dataManager);
+    }
+
+    @Provides
+    TransactionProductAdapter provideTransactionProductAdapter() {
+        return new TransactionProductAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    TransactionBillDetailAdapter provideTransactionBillDetailAdapter() {
+        return new TransactionBillDetailAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    LinearLayoutManager provideLinearLayoutManager(TransactionDetailsActivity activity) {
+        return new LinearLayoutManager(activity);
     }
 
 }

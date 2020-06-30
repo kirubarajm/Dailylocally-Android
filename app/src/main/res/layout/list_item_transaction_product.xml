@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="transactionProductItemViewModel"
+            type="com.dailylocally.ui.transactionHistory.view.TransactionProductItemViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:text="@{transactionProductItemViewModel.productName}"
+                    android:textSize="12sp"
+                    android:id="@+id/txt_order_id"
+                    android:textStyle="normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:text="@{transactionProductItemViewModel.unitWeight}"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/txt_order_id"
+                    android:id="@+id/txt_unit_weight"
+                    android:textStyle="normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:text="@string/view_in_calendar"
+                    android:textSize="12sp"
+                    android:padding="5dp"
+                    android:onClick="@{()->transactionProductItemViewModel.viewInCalendarClick()}"
+                    android:background="@drawable/transaction_bck"
+                    android:layout_alignParentEnd="true"
+                    android:textAllCaps="true"
+                    android:id="@+id/txt_view_calendar"
+                    android:textStyle="normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

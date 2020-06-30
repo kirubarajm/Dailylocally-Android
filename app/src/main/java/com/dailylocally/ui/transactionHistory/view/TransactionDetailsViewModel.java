@@ -16,7 +16,10 @@
 
 package com.dailylocally.ui.transactionHistory.view;
 
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableList;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,29 +33,80 @@ import com.dailylocally.ui.transactionHistory.TransactionHistoryResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
+import java.util.List;
+
 
 public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetailsNavigator> {
 
 
     public final ObservableField<String> aId = new ObservableField<>();
+    public final ObservableField<String> paymentId = new ObservableField<>();
+    public final ObservableField<String> transactionOrderId = new ObservableField<>();
+    public final ObservableField<String> price = new ObservableField<>();
+    public final ObservableField<String> transacDate = new ObservableField<>();
+
+    public ObservableList<TransactionViewResponse.Result.Item> productItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<TransactionViewResponse.Result.Item>> productItemsLiveData;
+
+    public ObservableList<TransactionViewResponse.Result.Cartdetail> billDetailsItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<TransactionViewResponse.Result.Cartdetail>> billDetailsItemsLiveData;
 
     public TransactionDetailsViewModel(DataManager dataManager) {
         super(dataManager);
+        productItemsLiveData = new MutableLiveData<>();
+        billDetailsItemsLiveData = new MutableLiveData<>();
+    }
+
+    public MutableLiveData<List<TransactionViewResponse.Result.Item>> getProductsItemsLiveData() {
+        return productItemsLiveData;
+    }
+
+    public ObservableList<TransactionViewResponse.Result.Item> getProductsItemViewModels() {
+        return productItemViewModels;
+    }
+
+    public void addProductsItemsToList(List<TransactionViewResponse.Result.Item> ordersItems) {
+        if (ordersItems != null) {
+            productItemViewModels.clear();
+            productItemViewModels.addAll(ordersItems);
+        }
+    }
+
+     public MutableLiveData<List<TransactionViewResponse.Result.Cartdetail>> getBilDetailsItemsLiveData() {
+            return billDetailsItemsLiveData;
+        }
+
+    public ObservableList<TransactionViewResponse.Result.Cartdetail> getBilDetailsViewModels() {
+        return billDetailsItemViewModels;
+    }
+
+    public void addBilDetailsItemsToList(List<TransactionViewResponse.Result.Cartdetail> ordersItems) {
+        if (ordersItems != null) {
+            billDetailsItemViewModels.clear();
+            billDetailsItemViewModels.addAll(ordersItems);
+        }
     }
 
     public void getTransactionHistoryViewList(String orderid){
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        String userId = getDataManager().getCurrentUserId();
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_TRANSACTION_VIEW, TransactionViewResponse.class,
-                new TransactionViewRequest(orderid),
+                new TransactionViewRequest("5"),
                 new Response.Listener<TransactionViewResponse>() {
                     @Override
                     public void onResponse(TransactionViewResponse response) {
                         try {
                             if (response!=null){
                                 if (response.getStatus()){
+                                    if (getNavigator()!=null){
+                                        getNavigator().success(response.getResult().get(0).getTransactionTime());
+                                    }
+                                    paymentId.set(String.valueOf(response.getResult().get(0).getTsid()));
+                                    transactionOrderId.set(String.valueOf(response.getResult().get(0).getOrderid()));
+                                    price.set(String.valueOf(response.getResult().get(0).getPrice()));
 
+                                    productItemsLiveData.setValue(response.getResult().get(0).getItems());
+                                    billDetailsItemsLiveData.setValue(response.getResult().get(0).getCartdetails());
                                 }
                             }
                         }catch (Exception e){
@@ -70,10 +124,15 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
-
     public void goBack(){
         if (getNavigator()!=null){
             getNavigator().goBack();
+        }
+    }
+
+    public void viewInCalendar(){
+        if (getNavigator()!=null){
+            getNavigator().viewInCalendar();
         }
     }
 }

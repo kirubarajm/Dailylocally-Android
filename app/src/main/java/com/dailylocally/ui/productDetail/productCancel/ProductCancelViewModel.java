@@ -37,6 +37,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
 
     public final ObservableField<String> aId = new ObservableField<>();
     public final ObservableField<String> unit = new ObservableField<>();
+    public final ObservableField<String> quantity = new ObservableField<>();
     public final ObservableField<String> short_desc = new ObservableField<>();
     public final ObservableField<String> productname = new ObservableField<>();
     public final ObservableField<String> imageUrl = new ObservableField<>();
@@ -49,7 +50,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
         super(dataManager);
     }
 
-    public void getProductCancelDetails(String doid,String vpid) {
+    public void getProductCancelDetails(String doid,String dayOrderPId) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_DAY_ORDER_PRODUCT_DETAILS,
@@ -66,6 +67,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
                                 productname.set(response.getResult().get(0).getItems().get(0).getProductName());
                                 imageUrl.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductImage()));
                                 mrp.set(String.valueOf(response.getResult().get(0).getItems().get(0).getPrice()));
+                                    quantity.set(String.valueOf(response.getResult().get(0).getItems().get(0).getQuantity()));
                                 //productDate.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));
                                 //isCancelable.set(String.valueOf(response.getResult().get(0).getItems().get(0).getCancelAvailable()));
                                 if (getNavigator()!=null){
