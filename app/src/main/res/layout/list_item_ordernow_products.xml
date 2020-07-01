@@ -12,7 +12,6 @@
     </data>
 
     <LinearLayout
-        android:onClick="@{()->orderNowItemViewModel.itemClick()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -79,6 +78,7 @@
             android:background="@color/medium_gray" />
 
         <RelativeLayout
+            android:onClick="@{()->orderNowItemViewModel.itemClick()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

@@ -13,28 +13,28 @@ public class IssuesRequest {
     private Integer id;
     @SerializedName("userid")
     @Expose
-    private Long userid;
+    private String userid;
     @SerializedName("orderid")
     @Expose
-    private Long orderid;
+    private String orderid;
 
 
-    public IssuesRequest(Integer type, Long userid) {
+    public IssuesRequest(Integer type, String userid) {
         this.type = type;
         this.userid = userid;
     }
 
-    public IssuesRequest(Long userid,Integer issueid) {
+    public IssuesRequest(String userid,Integer issueid) {
         this.id = issueid;
         this.userid = userid;
     }
 
-    public IssuesRequest(Integer id, Long userid, Long orderid) {
+    public IssuesRequest(Integer id, String userid, String orderid) {
         this.id = id;
         this.userid = userid;
         this.orderid = orderid;
     }
- public IssuesRequest(Integer type,Integer id, Long userid, Long orderid) {
+ public IssuesRequest(Integer type,Integer id, String userid, String orderid) {
         this.id = id;
         this.userid = userid;
         this.orderid = orderid;
@@ -57,19 +57,19 @@ public class IssuesRequest {
         this.id = id;
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
-    public Long getOrderid() {
+    public String getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Long orderid) {
+    public void setOrderid(String orderid) {
         this.orderid = orderid;
     }
 }
