@@ -166,7 +166,7 @@ public final class BindingUtils {
         ProductListAdapter adapter = (ProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(results);
+            adapter.addItems(results,recyclerView);
         }
     }
 

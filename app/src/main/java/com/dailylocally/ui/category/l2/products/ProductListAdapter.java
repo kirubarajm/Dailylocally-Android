@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.databinding.ListItemProductsBinding;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
+    boolean loading;
     private List<ProductsResponse.Result> item_list;
     private ProductsAdapterListener mProductsAdapterListener;
 
@@ -44,7 +46,32 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<ProductsResponse.Result> blogList) {
+    public void loadingFalse() {
+        loading = false;
+    }
+
+    public void addItems(List<ProductsResponse.Result> blogList, RecyclerView recyclerView) {
+        if (item_list.size() > 3)
+            if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+                final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        int totalItemCount = linearLayoutManager.getItemCount();
+                        int lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+                        int visibleThreshold = 10;
+                        if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                            loading = true;
+                            mProductsAdapterListener.loadMore();
+
+                        }
+                    }
+                });
+            }
+
+
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -54,12 +81,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public interface ProductsAdapterListener {
+
         void refresh();
+
+        void loadMore();
 
         void subscribeProduct(ProductsResponse.Result products);
 
         void productItemClick(ProductsResponse.Result products);
-
 
         void showToast(String message);
     }

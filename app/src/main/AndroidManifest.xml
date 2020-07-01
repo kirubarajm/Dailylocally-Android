@@ -89,9 +89,6 @@
         <activity
             android:name=".ui.calendarView.CalendarActivity"
             android:screenOrientation="locked" />
-        <activity
-            android:name=".ui.favorites.FavoritesActivity"
-            android:screenOrientation="locked" />
         <activity android:name=".ui.address.addAddress.AddressNewActivity" >
 
         </activity>
@@ -113,6 +110,7 @@
         <activity android:name=".ui.favourites.FavActivity" />
         <activity android:name=".ui.fandsupport.FeedbackSupportActivity" />
         <activity android:name=".ui.fandsupport.support.SupportActivity" />
+        <activity android:name=".ui.fandsupport.help.HelpActivity" />
 
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"

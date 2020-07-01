@@ -51,6 +51,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     public ObservableList<ProductsResponse.Result> productsList = new ObservableArrayList<>();
     public ProductsRequest productsRequest = new ProductsRequest();
     public String scl2id;
+    public Integer page = 0;
     private MutableLiveData<List<ProductsResponse.Result>> productsListLiveData;
 
     public ProductsViewModel(DataManager dataManager) {
@@ -65,7 +66,8 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     }
 
     public void addCategoryToList(List<ProductsResponse.Result> items) {
-        productsList.clear();
+        if (page == 0)
+            productsList.clear();
         productsList.addAll(items);
 
     }
@@ -96,7 +98,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     }
 
 
-    public void fetchProducts() {
+    public void loadMoreProducts() {
 
         if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -106,6 +108,62 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             productsRequest.setLat(getDataManager().getCurrentLat());
             productsRequest.setLon(getDataManager().getCurrentLng());
             productsRequest.setScl2Id(scl2id);
+            productsRequest.setPage(page + 1);
+
+
+            GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
+
+                @Override
+                public void onResponse(ProductsResponse response) {
+
+                    if (response != null) {
+
+                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
+                       /* serviceable.set(response.getServiceablestatus());
+                        unserviceableTitle.set(response.getUnserviceableTitle());
+                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/
+                        emptyImageUrl.set(response.getEmptyUrl());
+                        emptyContent.set(response.getEmptyContent());
+                        emptySubContent.set(response.getEmptySubconent());
+                        headerContent.set(response.getHeaderContent());
+                        headerSubContent.set(response.getHeaderSubconent());
+                        categoryTitle.set(response.getCategoryTitle());
+
+                        if (response.getResult() != null && response.getResult().size() > 0) {
+                            fullEmpty.set(false);
+                            productsListLiveData.setValue(response.getResult());
+                        } else {
+                            fullEmpty.set(true);
+                        }
+
+                    } else {
+                        fullEmpty.set(true);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
+
+        }
+
+    }
+
+    public void fetchProducts() {
+        page = 0;
+        if (getDataManager().getCurrentLat() != null) {
+            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+            productsRequest.setUserid(getDataManager().getCurrentUserId());
+            productsRequest.setLat(getDataManager().getCurrentLat());
+            productsRequest.setLon(getDataManager().getCurrentLng());
+            productsRequest.setScl2Id(scl2id);
+            productsRequest.setPage(page);
 
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
@@ -242,6 +300,8 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
         ProductsRequest fProductsRequest = new ProductsRequest();
 
+        page = 0;
+
         if (getDataManager().getFilterSort() != null) {
 
             Gson sGson = new GsonBuilder().create();
@@ -252,6 +312,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 fProductsRequest.setLat(getDataManager().getCurrentLat());
                 fProductsRequest.setLon(getDataManager().getCurrentLng());
                 fProductsRequest.setScl2Id(String.valueOf(scl2id));
+                productsRequest.setPage(page);
 
 
             } else {
@@ -260,6 +321,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 fProductsRequest.setLat(getDataManager().getCurrentLat());
                 fProductsRequest.setLon(getDataManager().getCurrentLng());
                 fProductsRequest.setScl2Id(String.valueOf(scl2id));
+                productsRequest.setPage(page);
             }
 
         } else {
@@ -268,6 +330,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             fProductsRequest.setLat(getDataManager().getCurrentLat());
             fProductsRequest.setLon(getDataManager().getCurrentLng());
             fProductsRequest.setScl2Id(String.valueOf(scl2id));
+            productsRequest.setPage(page);
         }
 
 

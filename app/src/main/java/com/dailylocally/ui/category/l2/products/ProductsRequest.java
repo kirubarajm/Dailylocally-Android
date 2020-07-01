@@ -10,6 +10,9 @@ public class ProductsRequest {
     @SerializedName("userid")
     @Expose
     private String userid;
+    @SerializedName("page")
+    @Expose
+    private Integer page;
     @SerializedName("lat")
     @Expose
     private String lat;
@@ -35,6 +38,14 @@ public class ProductsRequest {
     @SerializedName("brandlist")
     @Expose
     private List<Brandlist> brandlist = null;
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
     public String getCatid() {
         return catid;

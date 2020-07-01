@@ -137,6 +137,11 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     }
 
     @Override
+    public void loadMore() {
+        mProductsViewModel.loadMoreProducts();
+    }
+
+    @Override
     public void subscribeProduct(ProductsResponse.Result products) {
 
         Intent intent = SubscriptionActivity.newIntent(getContext());
@@ -148,7 +153,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     public void productItemClick(ProductsResponse.Result products) {
 
         Intent intent = ProductDetailsActivity.newIntent(getContext());
-        intent.putExtra("vpid",String.valueOf(products.getPid()));
+        intent.putExtra("vpid", String.valueOf(products.getPid()));
         startActivity(intent);
 
 
