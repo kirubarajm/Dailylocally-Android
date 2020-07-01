@@ -59,6 +59,19 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/help"
+                    android:onClick="@{()->ratingViewModel.helpClick()}"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>

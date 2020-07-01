@@ -119,4 +119,10 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
     }
 */
 
+    public void helpClick(){
+        if (getNavigator()!=null){
+            getNavigator().helpClick();
+        }
+    }
+
 }

@@ -16,20 +16,18 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/light_gray"
+        android:background="@color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="18dp"
             app:cardElevation="3dp"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
     <RelativeLayout
         android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
         android:padding="20dp"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -37,7 +35,7 @@
 
         <ImageView
             android:id="@+id/img_1"
-            android:src="@drawable/ic_warning_black_24dp"
+            android:src="@drawable/ic_warning"
             android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
             android:layout_height="100dp"/>

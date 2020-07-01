@@ -22,4 +22,6 @@ public interface RatingNavigator {
     void handleError(Throwable throwable);
 
     void goBack();
+
+    void helpClick();
 }
