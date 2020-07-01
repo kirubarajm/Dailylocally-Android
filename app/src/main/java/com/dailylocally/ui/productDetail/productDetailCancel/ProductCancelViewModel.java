@@ -14,7 +14,7 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.productDetail.productCancel;
+package com.dailylocally.ui.productDetail.productDetailCancel;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -24,10 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
-import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.base.BaseViewModel;
-import com.dailylocally.ui.productDetail.ProductDetailsResponse;
-import com.dailylocally.ui.productDetail.ProductRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
@@ -43,7 +40,8 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
     public final ObservableField<String> imageUrl = new ObservableField<>();
     public final ObservableField<String> mrp = new ObservableField<>();
     public final ObservableField<String> productDate = new ObservableField<>();
-    public final ObservableField<String> isCancelable = new ObservableField<>();
+    public final ObservableField<String> vpid = new ObservableField<>();
+    public final ObservableField<String> doid1 = new ObservableField<>();
     public final ObservableBoolean isCancel = new ObservableBoolean();
 
     public ProductCancelViewModel(DataManager dataManager) {
@@ -68,6 +66,8 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
                                 imageUrl.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductImage()));
                                 mrp.set(String.valueOf(response.getResult().get(0).getItems().get(0).getPrice()));
                                     quantity.set(String.valueOf(response.getResult().get(0).getItems().get(0).getQuantity()));
+                                    vpid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getVpid()));
+                                    doid1.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
                                 //productDate.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));
                                 //isCancelable.set(String.valueOf(response.getResult().get(0).getItems().get(0).getCancelAvailable()));
                                 if (getNavigator()!=null){

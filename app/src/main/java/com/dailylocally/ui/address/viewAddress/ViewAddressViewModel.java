@@ -128,4 +128,10 @@ public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
 
     }
 
+    public void goBack(){
+        if (getNavigator()!=null){
+            getNavigator().goBack();
+        }
+    }
+
 }

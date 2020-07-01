@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -14,7 +15,9 @@ import com.dailylocally.databinding.ActivityRatingBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,6 +32,10 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     @Inject
     public RatingDayWiseAdapter mRatingProductAdapter;
     Date date = null;
+    int rateDelivery = 0, rateProduct = 0, productReceived,packageSealed;
+    List<CalendarDayWiseResponse.Result.Item> productList;
+    List<Integer> productIdList;
+    String doid = "";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, RatingActivity.class);
@@ -66,6 +73,34 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     }
 
     @Override
+    public void getProductList(List<CalendarDayWiseResponse.Result.Item> resultList) {
+        this.productList = new ArrayList<>();
+        this.productList = resultList;
+    }
+
+    @Override
+    public void submit() {
+        try {
+        if (validation()){
+            String comments = mActivityRatingBinding.edtComments.getText().toString();
+            if (mActivityRatingBinding.chkPackageSealedYes.isChecked()){
+                packageSealed = 1;
+            }else {
+                packageSealed = 0;
+            }
+            if (mActivityRatingBinding.chkProductYes.isChecked()){
+                productReceived = 1;
+            }else {
+                productReceived = 0;
+            }
+            mRatingViewModel.ratingAPICall(rateProduct,rateDelivery,productReceived,Integer.parseInt(doid),productIdList,comments,packageSealed);
+        }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRatingBinding = getViewDataBinding();
@@ -75,6 +110,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
              date = new Date(bundle.getLong("date"));
+             doid = bundle.getString("doid");
         }
 
         LinearLayoutManager mLayoutManager
@@ -87,20 +123,20 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
 
         mActivityRatingBinding.relProductDelivery.setVisibility(View.GONE);
 
-        mActivityRatingBinding.chkDeliveryNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mActivityRatingBinding.chkPackageSealedNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mActivityRatingBinding.chkDeliveryNo.isChecked()){
-                    mActivityRatingBinding.chkDeliveryYes.setChecked(false);
+                if (mActivityRatingBinding.chkPackageSealedNo.isChecked()){
+                    mActivityRatingBinding.chkPackageSealedYes.setChecked(false);
                 }
             }
         });
 
-        mActivityRatingBinding.chkDeliveryYes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mActivityRatingBinding.chkPackageSealedYes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mActivityRatingBinding.chkDeliveryYes.isChecked()){
-                    mActivityRatingBinding.chkDeliveryNo.setChecked(false);
+                if (mActivityRatingBinding.chkPackageSealedYes.isChecked()){
+                    mActivityRatingBinding.chkPackageSealedNo.setChecked(false);
                 }
             }
         });
@@ -130,7 +166,6 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     private void subscribeToLiveData() {
         mRatingViewModel.getOrdernowLiveData().observe(this,
                 ordernowItemViewModel -> mRatingViewModel.addOrderNowItemsToList(ordernowItemViewModel));
-
     }
 
     @Override
@@ -162,5 +197,65 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
 
+        if (productList!=null){
+        for (int i=0;i<productList.size();i++){
+            if (result.getDayorderpid().equals(productList.get(i).getDayorderpid())){
+                if (productList.get(i).getTrueOrFalse()==null){
+                    productList.get(i).setTrueOrFalse(true);
+                }else {
+                    if (productList.get(i).getTrueOrFalse()){
+                        productList.get(i).setTrueOrFalse(false);
+                    }else {
+                        productList.get(i).setTrueOrFalse(true);
+                    }
+                }
+            }
+        }
+
+            productIdList = new ArrayList<>();
+            for (int i = 0; i < productList.size(); i++) {
+                if (productList.get(i).getTrueOrFalse()!=null && productList.get(i).getTrueOrFalse()) {
+                    productIdList.add(productList.get(i).getDayorderpid());
+                }
+            }
+        }
+
+    }
+
+    public boolean validation(){
+        rateDelivery = (int) mActivityRatingBinding.ratingBarDelivery.getRating();
+        rateProduct = (int) mActivityRatingBinding.ratingBarProduct.getRating();
+        if (rateDelivery == 0) {
+            Toast.makeText(getApplicationContext(), "Please give delivery rating", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!mActivityRatingBinding.chkPackageSealedYes.isChecked() && !mActivityRatingBinding.chkPackageSealedNo.isChecked()){
+            Toast.makeText(getApplicationContext(), "Please check package sealed", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (rateProduct == 0) {
+            Toast.makeText(getApplicationContext(), "Please give Product rating", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!mActivityRatingBinding.chkProductYes.isChecked() && !mActivityRatingBinding.chkProductNo.isChecked()){
+            Toast.makeText(getApplicationContext(), "Please check receive all products", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(mActivityRatingBinding.chkProductNo.isChecked()){
+            if(productIdList==null || productIdList.size()==0){
+                Toast.makeText(getApplicationContext(), "Please check at least one product", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+        /*if (mActivityRatingBinding.edtComments.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(), "Please give comment", Toast.LENGTH_SHORT).show();
+            return false;
+        }*/
+
+        return true;
     }
 }

@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".utilities.nointernet.InternetErrorFragment" />
         <activity android:name=".ui.splash.SplashActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -101,7 +100,9 @@
 
         </activity>
         <activity android:name=".ui.transactionHistory.view.TransactionDetailsActivity" />
-        <activity android:name=".ui.productDetail.productCancel.ProductCancelActivity" />
+        <activity android:name=".ui.productDetail.productDetailCancel.ProductCancelActivity" >
+
+        </activity>
         <activity android:name=".ui.rating.RatingActivity" />
         <activity android:name=".ui.collection.l2.CollectionDetailsActivity" >
 

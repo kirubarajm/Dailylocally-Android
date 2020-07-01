@@ -27,7 +27,9 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
     public final ObservableField<String> addressTitle = new ObservableField<>();
     public final ObservableField<String> rateDeliveryButton = new ObservableField<>();
     public final ObservableField<String> dateDay = new ObservableField<>();
+    public final ObservableField<String> doid = new ObservableField<>();
     public final ObservableBoolean cart = new ObservableBoolean();
+    public final ObservableBoolean isRateBtn = new ObservableBoolean();
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
     public ObservableList<CalendarDayWiseResponse.Result.Item> dayWiseItemViewModels = new ObservableArrayList<>();
@@ -95,11 +97,15 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
+                                doid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
+                            }else {
+                                isRateBtn.set(true);
                             }
                         }else {
                             if (getNavigator()!=null) {
                                 getNavigator().failure("No data found");
                             }
+                            isRateBtn.set(true);
                         }
                     }
                     setIsLoading(false);

@@ -69,7 +69,7 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
 
         if (getArguments()!=null) {
             doid = getArguments().getString("doid", null);
-            vpid = getArguments().getString("dayorderpid", null);
+            vpid = getArguments().getString("vpid", null);
         }
     }
 

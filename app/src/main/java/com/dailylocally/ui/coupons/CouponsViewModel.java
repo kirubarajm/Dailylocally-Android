@@ -102,11 +102,11 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
                                     getDataManager().setCouponCode(response.getResult().get(0).getCouponName());
                                     getDataManager().setCouponId(response.getResult().get(0).getCid());
                                     if (getNavigator()!=null){
-                                        getNavigator().validateCouponSuccess("Success");
+                                        getNavigator().validateCouponSuccess(response.getMessage());
                                     }
                                 }else {
                                     if (getNavigator()!=null){
-                                        getNavigator().validateCouponFailure("Failed");
+                                        getNavigator().validateCouponFailure(response.getMessage());
                                     }
                                 }
                             }

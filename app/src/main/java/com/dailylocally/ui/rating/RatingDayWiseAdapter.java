@@ -76,7 +76,6 @@ public class RatingDayWiseAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
             mCategoriesAdapterListener.onItemClick(result);
-
         }
     }
 }

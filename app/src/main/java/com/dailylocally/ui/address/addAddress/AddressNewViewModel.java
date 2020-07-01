@@ -44,6 +44,11 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
             getNavigator().apartmentClick();
         }
     }
+    public void goBack(){
+        if (getNavigator()!=null){
+            getNavigator().goBack();
+        }
+    }
 
     public void individual(){
         if (getNavigator()!=null){

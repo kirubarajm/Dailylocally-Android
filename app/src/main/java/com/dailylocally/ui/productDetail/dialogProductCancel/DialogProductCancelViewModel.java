@@ -39,14 +39,15 @@ public class DialogProductCancelViewModel extends BaseViewModel<DialogProductCan
                     @Override
                     public void onResponse(ProductCancelResponse response) {
                         try {
-                            if (getNavigator()!=null){
-                                getNavigator().cancelSuccess("");
+                            if (response.getStatus()){
+                                if (getNavigator()!=null){
+                                    getNavigator().cancelSuccess("");
+                                }
+                            }else {
+                                if (getNavigator()!=null){
+                                    getNavigator().cancelFailed("");
+                                }
                             }
-
-                            if (getNavigator()!=null){
-                                getNavigator().cancelFailed("");
-                            }
-
                         }catch (Exception e){
                             e.printStackTrace();
                         }

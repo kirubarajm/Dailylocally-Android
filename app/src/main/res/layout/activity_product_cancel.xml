@@ -9,7 +9,7 @@
 
         <variable
             name="productCancelViewModel"
-            type="com.dailylocally.ui.productDetail.productCancel.ProductCancelViewModel" />
+            type="com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelViewModel" />
 
     </data>
 

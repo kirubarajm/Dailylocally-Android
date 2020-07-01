@@ -122,6 +122,9 @@ public class TransactionViewResponse {
         @SerializedName("discount_amount")
         @Expose
         public Integer discountAmount;
+        @SerializedName("itemscount")
+        @Expose
+        public Integer itemscount;
         @SerializedName("items")
         @Expose
         public List<Item> items = null;
@@ -129,6 +132,10 @@ public class TransactionViewResponse {
         @Expose
         public List<Cartdetail> cartdetails = null;
 
+
+        public Integer getItemscount() {
+            return itemscount;
+        }
 
         public Integer getOrderid() {
             return orderid;

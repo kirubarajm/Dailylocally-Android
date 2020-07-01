@@ -17,6 +17,10 @@
 package com.dailylocally.ui.rating;
 
 
+import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
+
+import java.util.List;
+
 public interface RatingNavigator {
 
     void handleError(Throwable throwable);
@@ -24,4 +28,8 @@ public interface RatingNavigator {
     void goBack();
 
     void helpClick();
+
+    void getProductList(List<CalendarDayWiseResponse.Result.Item> resultList);
+
+    void submit();
 }

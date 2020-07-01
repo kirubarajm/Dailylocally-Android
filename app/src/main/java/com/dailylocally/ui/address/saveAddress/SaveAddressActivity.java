@@ -26,6 +26,7 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -53,6 +54,8 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     String apartmentOrIndividual="",apartment="",towerBlock="",houseFlatNo="",housePlatNo="",floor="",address=""
             ,landmark="",googleAddress="",pinCode="",area="",lon="",lat="",aId="",edit="";
 
+    SupportMapFragment mapFragment;
+    GoogleMap map;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -98,6 +101,11 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
 
     @Override
     public void editClick() {
+        onBackPressed();
+    }
+
+    @Override
+    public void goBack() {
         onBackPressed();
     }
 
@@ -156,6 +164,18 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
                 mAddAddressViewModel.addressType.set("Individual House");
             }
         }
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragmentSaveAddress);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                map = googleMap;
+                map.getUiSettings().setZoomControlsEnabled(true);
+                LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+            }
+        });
     }
 
     @Override

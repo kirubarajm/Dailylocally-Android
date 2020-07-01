@@ -82,36 +82,8 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
                             }
-                        }
-                    }
-                    setIsLoading(false);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    setIsLoading(false);
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-/*
-    public void userRating(){
-        try {
-            String userId = getDataManager().getCurrentUserId();
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_USER_RATING,
-                    CalendarDayWiseResponse.class, new RatingRequest(1,
-                    1,1,1,,""), new Response.Listener<CalendarDayWiseResponse>() {
-                @Override
-                public void onResponse(CalendarDayWiseResponse response) {
-                    if (response!=null) {
-                        if (response.getStatus()) {
-                            if (response.getResult() != null && response.getResult().size() > 0) {
-                                dayWiseLiveData.setValue(response.getResult().get(0).getItems());
+                            if (getNavigator()!=null){
+                                getNavigator().getProductList(response.getResult().get(0).getItems());
                             }
                         }
                     }
@@ -128,7 +100,34 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
             e.printStackTrace();
         }
     }
-*/
+
+    public void ratingAPICall(int ratingProduct,int ratingDelivery,int productReceived,int doid,
+                              List<Integer> vpid,String comments,Integer packageSealed){
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_USER_RATING,
+                    CalendarDayWiseResponse.class, new RatingRequest(ratingProduct,
+                    ratingDelivery,productReceived,doid,vpid,comments,packageSealed), new Response.Listener<CalendarDayWiseResponse>() {
+                @Override
+                public void onResponse(CalendarDayWiseResponse response) {
+                    if (response!=null) {
+                        if (response.getStatus()) {
+
+                        }
+                    }
+                    setIsLoading(false);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void helpClick(){
         if (getNavigator()!=null){
@@ -136,39 +135,10 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
         }
     }
 
-    public void ratingAPICall(){
-        try {
-            /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-            String dateString = dateFormat.format(date);
-            String monthString = monthFormat.format(date);*/
-            String userId = getDataManager().getCurrentUserId();
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_DAY_WISE_ORDER_HISTORY,
-                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest(userId,
-                    "",""), new Response.Listener<CalendarDayWiseResponse>() {
-                @Override
-                public void onResponse(CalendarDayWiseResponse response) {
-                    if (response!=null) {
-                        if (response.getStatus()) {
-                            if (response.getResult() != null && response.getResult().size() > 0) {
 
-                            }
-                        }
-                    }
-                    setIsLoading(false);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    setIsLoading(false);
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void submitClick(){
+        if (getNavigator()!=null){
+            getNavigator().submit();
         }
     }
-
-
 }

@@ -28,4 +28,6 @@ public interface ViewAddressNavigator {
     void getAddressSuccess(UserAddressResponse.Result result);
 
     void getAddressFailure();
+
+    void goBack();
 }

@@ -1,4 +1,4 @@
-package com.dailylocally.ui.productDetail.productCancel;
+package com.dailylocally.ui.productDetail.productDetailCancel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -107,6 +107,9 @@ public class ProductCancelResponse {
 
         public class Item {
 
+            @SerializedName("doid")
+            @Expose
+            public Integer doid;
             @SerializedName("unit")
             @Expose
             public String unit;
@@ -153,6 +156,10 @@ public class ProductCancelResponse {
             @Expose
             public String productShortDesc;
 
+
+            public Integer getDoid() {
+                return doid;
+            }
 
             public String getUnit() {
                 return unit;

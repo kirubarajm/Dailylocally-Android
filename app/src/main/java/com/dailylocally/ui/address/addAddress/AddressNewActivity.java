@@ -200,6 +200,11 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityAddressNewBinding = getViewDataBinding();
@@ -229,17 +234,22 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                try {
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
                 if (bundle!=null) {
-                    turnOnGps();
-                    LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-                    initCameraIdle();
+                    //turnOnGps();
+                    if (lat!=null && lon!=null) {
+                        LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                        initCameraIdle();
+                    }
+                }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
-
         // dialog.show();
 
         mAddAddressViewModel.apartmentOrIndividual.set(true);
@@ -302,7 +312,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             @Override
             public void onClick(View v) {
                 locationDialog.dismiss();
-                turnOnGps();
+                //turnOnGps();
 
             }
         });
@@ -327,8 +337,8 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             public void onCameraIdle() {
                 center = map.getCameraPosition().target;
 
-                if (center.latitude != 0.0)
-                    getAddressFromLocation(center.latitude, center.longitude);
+                //if (center.latitude != 0.0)
+                    //getAddressFromLocation(center.latitude, center.longitude);
                 //getAddressFromLocation(12.99447060,80.25593567);
             }
         });

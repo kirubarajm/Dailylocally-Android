@@ -33,5 +33,7 @@ public interface AddressNewNavigator {
 
     void getAddressFailure();
 
+    void goBack();
+
 
 }

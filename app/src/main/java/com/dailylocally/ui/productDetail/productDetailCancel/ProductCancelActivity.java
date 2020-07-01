@@ -1,4 +1,4 @@
-package com.dailylocally.ui.productDetail.productCancel;
+package com.dailylocally.ui.productDetail.productDetailCancel;
 
 import android.content.Context;
 import android.content.Intent;
@@ -72,8 +72,8 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     @Override
     public void cancelProductClick() {
         Bundle bundle=new Bundle();
-        bundle.putString("doid","1");
-        bundle.putString("dayorderpid","1");
+        bundle.putString("doid",doId);
+        bundle.putString("vpid",mAddAddressViewModel.vpid.get());
 
         DialogProductCancel filterFragment = new DialogProductCancel();
         filterFragment.setArguments(bundle);

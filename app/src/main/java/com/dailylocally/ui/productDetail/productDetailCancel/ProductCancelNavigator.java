@@ -14,7 +14,7 @@
  *  limitations under the License
  */
 
-package com.dailylocally.ui.productDetail.productCancel;
+package com.dailylocally.ui.productDetail.productDetailCancel;
 
 
 
