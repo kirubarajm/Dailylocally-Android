@@ -7,10 +7,9 @@
 
         <variable
             name="ratingProductsItemViewModel"
-            type="com.dailylocally.ui.rating.RatingProductItemViewModel" />
+            type="com.dailylocally.ui.rating.RatingDayWiseItemViewModel" />
 
     </data>
-
 
     <RelativeLayout
         android:layout_width="match_parent"

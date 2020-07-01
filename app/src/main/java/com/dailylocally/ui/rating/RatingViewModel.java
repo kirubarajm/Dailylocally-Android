@@ -38,19 +38,30 @@ import java.util.List;
 
 public class RatingViewModel extends BaseViewModel<RatingNavigator> {
 
-    public final ObservableField<String> offer = new ObservableField<>();
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
     public ObservableList<CalendarDayWiseResponse.Result.Item> dayWiseItemViewModels = new ObservableArrayList<>();
 
+
     public RatingViewModel(DataManager dataManager) {
         super(dataManager);
+        dayWiseLiveData = new MutableLiveData<>();
     }
 
     public void goBack() {
         if (getNavigator() != null) {
             getNavigator().goBack();
         }
+    }
+
+    public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> getOrdernowLiveData() {
+        return dayWiseLiveData;
+    }
+
+    public void addOrderNowItemsToList(List<CalendarDayWiseResponse.Result.Item> results) {
+        dayWiseItemViewModels.clear();
+        dayWiseItemViewModels.addAll(results);
+
     }
 
     public void getDayWiseOrderDetails(Date date){
@@ -62,8 +73,8 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
             String userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_DAY_WISE_ORDER_HISTORY,
-                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest(userId,
-                    dateString,monthString), new Response.Listener<CalendarDayWiseResponse>() {
+                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest("2",
+                    "2020-06-26","6"), new Response.Listener<CalendarDayWiseResponse>() {
                 @Override
                 public void onResponse(CalendarDayWiseResponse response) {
                     if (response!=null) {
@@ -124,5 +135,40 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
             getNavigator().helpClick();
         }
     }
+
+    public void ratingAPICall(){
+        try {
+            /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+            String dateString = dateFormat.format(date);
+            String monthString = monthFormat.format(date);*/
+            String userId = getDataManager().getCurrentUserId();
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_DAY_WISE_ORDER_HISTORY,
+                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest(userId,
+                    "",""), new Response.Listener<CalendarDayWiseResponse>() {
+                @Override
+                public void onResponse(CalendarDayWiseResponse response) {
+                    if (response!=null) {
+                        if (response.getStatus()) {
+                            if (response.getResult() != null && response.getResult().size() > 0) {
+
+                            }
+                        }
+                    }
+                    setIsLoading(false);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

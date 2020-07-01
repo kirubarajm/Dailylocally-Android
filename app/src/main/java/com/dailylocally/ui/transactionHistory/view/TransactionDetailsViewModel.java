@@ -72,7 +72,7 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
         }
     }
 
-     public MutableLiveData<List<TransactionViewResponse.Result.Cartdetail>> getBilDetailsItemsLiveData() {
+    public MutableLiveData<List<TransactionViewResponse.Result.Cartdetail>> getBilDetailsItemsLiveData() {
             return billDetailsItemsLiveData;
         }
 

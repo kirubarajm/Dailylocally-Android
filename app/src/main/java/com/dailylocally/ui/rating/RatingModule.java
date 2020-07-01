@@ -38,8 +38,8 @@ public class RatingModule {
     }
 
     @Provides
-    RatingProductAdapter provideRatingProductAdapter() {
-        return new RatingProductAdapter(new ArrayList<>());
+    RatingDayWiseAdapter provideRatingProductAdapter() {
+        return new RatingDayWiseAdapter(new ArrayList<>());
     }
 
     @Provides

@@ -3,34 +3,32 @@ package com.dailylocally.ui.rating;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityRatingBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.analytics.Analytics;
+import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
 
-import java.time.DayOfWeek;
 import java.util.Date;
 
 import javax.inject.Inject;
 
 
 public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingViewModel> implements
-        RatingNavigator {
+        RatingNavigator, RatingDayWiseAdapter.CategoriesAdapterListener {
 
 
     public ActivityRatingBinding mActivityRatingBinding;
     @Inject
-    public RatingViewModel mAddAddressViewModel;
+    public RatingViewModel mRatingViewModel;
+    @Inject
+    public RatingDayWiseAdapter mRatingProductAdapter;
     Date date = null;
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, RatingActivity.class);
@@ -49,7 +47,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     @Override
     public RatingViewModel getViewModel() {
 
-        return mAddAddressViewModel;
+        return mRatingViewModel;
     }
 
     @Override
@@ -71,13 +69,21 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRatingBinding = getViewDataBinding();
-        mAddAddressViewModel.setNavigator(this);
+        mRatingViewModel.setNavigator(this);
+        mRatingProductAdapter.setListener(this);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
              date = new Date(bundle.getLong("date"));
         }
-        analytics = new Analytics(this, pageName);
+
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mActivityRatingBinding.recyclerProduct.setLayoutManager(mLayoutManager);
+        mActivityRatingBinding.recyclerProduct.setAdapter(mRatingProductAdapter);
+        subscribeToLiveData();
 
         mActivityRatingBinding.relProductDelivery.setVisibility(View.GONE);
 
@@ -104,7 +110,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (mActivityRatingBinding.chkProductNo.isChecked()){
                     mActivityRatingBinding.chkProductYes.setChecked(false);
-                    mActivityRatingBinding.relProductDelivery.setVisibility(View.GONE);
+                    mActivityRatingBinding.relProductDelivery.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -114,16 +120,23 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (mActivityRatingBinding.chkProductYes.isChecked()){
                     mActivityRatingBinding.chkProductNo.setChecked(false);
-                    mActivityRatingBinding.relProductDelivery.setVisibility(View.VISIBLE);
+                    mActivityRatingBinding.relProductDelivery.setVisibility(View.GONE);
                 }
             }
         });
+
+    }
+
+    private void subscribeToLiveData() {
+        mRatingViewModel.getOrdernowLiveData().observe(this,
+                ordernowItemViewModel -> mRatingViewModel.addOrderNowItemsToList(ordernowItemViewModel));
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mAddAddressViewModel.getDayWiseOrderDetails(date);
+        mRatingViewModel.getDayWiseOrderDetails(date);
     }
 
     @Override
@@ -143,6 +156,11 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
 
     @Override
     public void canceled() {
+
+    }
+
+    @Override
+    public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
 
     }
 }
