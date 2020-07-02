@@ -3,20 +3,15 @@ package com.dailylocally.ui.fandsupport.help;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -24,15 +19,15 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityHelpBinding;
 import com.dailylocally.ui.base.BaseActivity;
-
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
-
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.chat.IssuesAdapter;
 import com.dailylocally.utilities.chat.IssuesListResponse;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.zopim.android.sdk.api.ChatApi;
 import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.api.ZopimChatApi;
 import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
@@ -43,7 +38,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewModel> implements HelpNavigator,  HasSupportFragmentInjector, IssuesAdapter.IssuesAdapterListener {
+public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewModel> implements HelpNavigator, HasSupportFragmentInjector, IssuesAdapter.IssuesAdapterListener {
 
     @Inject
     HelpViewModel mHelpViewModel;
@@ -83,9 +78,12 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
         }
     };
 
-    public static Intent newIntent(Context context) {
-
-        return new Intent(context, HelpActivity.class);
+    public static Intent newIntent(Context context, String page, Integer type, String orderid) {
+        Intent intent = new Intent(context, HelpActivity.class);
+        intent.putExtra(AppConstants.PAGE,page);
+        intent.putExtra("type",type);
+        intent.putExtra("orderid",orderid);
+        return intent;
     }
 
     @Override
@@ -111,8 +109,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
     }
 
 
-
-
     @Override
     public void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -121,7 +117,63 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
     @Override
     public void createChat(String department, String tag, String note) {
 
+       /* ChatApi chatApi = ZopimChatApi.resume(this);
+        chatApi.endChat();
+        chatApi.endChat();
+
+        openChat(department, tag, note);*/
+
+        if (mHelpViewModel.getDataManager().getChatOrderid() != null) {
+
+            if (mHelpViewModel.getDataManager().getChatOrderid().equals(String.valueOf(mHelpViewModel.orderid))) {
+                openChat(department, tag, note);
+
+            } else {
+
+                ChatApi chatApi = ZopimChatApi.resume(this);
+                chatApi.endChat();
+                chatApi.endChat();
+                openChat(department, tag, note);
+            }
+
+        } else {
+            openChat(department, tag, note);
+        }
+    }
+
+    @Override
+    public void mapChat(String department, String tag, String note, int issueid, int tid) {
+
+        mHelpViewModel.mapTicketidToOrderid(issueid, tid, tag, department, note);
+
+        /*if (mHistoryHelpViewModel.getDataManager().getChatOrderid() != null) {
+            if (mHistoryHelpViewModel.getDataManager().getChatOrderid().equals(String.valueOf(mHistoryHelpViewModel.orderid))) {
+                openChat(department, tag, note);
+            } else {
+                mHistoryHelpViewModel.mapTicketidToOrderid(issueid,tid,tag,department,note);
+            }
+        } else {
+            openChat(department, tag, note);
+        }*/
+    }
+
+
+    public void openChat(String department, String tag, String note) {
+
+       /* ChatApi chatApi = ZopimChatApi.resume(this);
+        chatApi = new ZopimChatApi.SessionConfig()
+                .department("A department")
+                .tags("Old order", tag)
+                .build(HistoryHelpActivity.this);
+
+
+        chatApi.disconnect();
+
+        ZopimChat zopimChat= new ZopimChat();*/
+
+
         ZopimChat.init(getString(R.string.zopim_account_id));
+
         final VisitorInfo.Builder build = new VisitorInfo.Builder()
                 .email(mHelpViewModel.getDataManager().getCurrentUserEmail())
                 .name(mHelpViewModel.getDataManager().getCurrentUserName())
@@ -134,16 +186,18 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
                 .name(PreChatForm.Field.REQUIRED)
                 .email(PreChatForm.Field.NOT_REQUIRED)
                 .phoneNumber(PreChatForm.Field.REQUIRED)
-                .department(PreChatForm.Field.NOT_REQUIRED)
+                .department(PreChatForm.Field.OPTIONAL)
                 .message(PreChatForm.Field.NOT_REQUIRED)
                 .build();
 // build session config
         ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
                 .preChatForm(preChatForm)
-                .department(department)
-                .tags("Queries", tag);
+                .department(department);
 // start chat activity with config
+        mHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mHelpViewModel.orderid));
         ZopimChatActivity.startActivity(this, config);
+
+
     }
 
     @Override
@@ -174,12 +228,16 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
         analytics = new Analytics(this, pageName);
 
-       /* Bundle bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-          mHelpViewModel.orderid=getIntent().getExtras().getLong("orderid");
+            mHelpViewModel.orderid = getIntent().getExtras().getString("orderid");
+            mHelpViewModel.stype = getIntent().getExtras().getInt("type");
+            mHelpViewModel.getIssuesList(mHelpViewModel.stype);
+        }
 
-        }*/
-
+     /*   mActivityOrderHelpBinding.cancelReason1.setOnTouchListener(this);
+        mActivityOrderHelpBinding.cancelReason2.setOnTouchListener(this);
+        mActivityOrderHelpBinding.cancelReason3.setOnTouchListener(this);*/
 
         subscribeToLiveData();
 
@@ -197,14 +255,14 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
     }
 
 
+    public void showAlert() {
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-    }
-
-    public void startProgresDialog() {
-        dialog.show();
     }
 
 
@@ -254,8 +312,8 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
-
         mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
+
     }
 }
 

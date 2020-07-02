@@ -10,10 +10,10 @@ public class MapOrderidChatRequest {
 
     @SerializedName("userid")
     @Expose
-    private Long userid;
+    private String userid;
     @SerializedName("orderid")
     @Expose
-    private Long orderid;
+    private String orderid;
     @SerializedName("issueid")
     @Expose
     private Integer issueid;
@@ -22,7 +22,7 @@ public class MapOrderidChatRequest {
     private Integer type;
 
 
-    public MapOrderidChatRequest(Long userid, Long orderid, Integer issueid, Integer type) {
+    public MapOrderidChatRequest(String userid, String orderid, Integer issueid, Integer type) {
         this.userid = userid;
         this.orderid = orderid;
         this.issueid = issueid;
@@ -37,19 +37,19 @@ public class MapOrderidChatRequest {
         this.type = type;
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
-    public Long getOrderid() {
+    public String getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Long orderid) {
+    public void setOrderid(String orderid) {
         this.orderid = orderid;
     }
 

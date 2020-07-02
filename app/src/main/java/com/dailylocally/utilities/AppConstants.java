@@ -356,6 +356,11 @@ public class AppConstants {
   public static final String URL_COLLECTION_FILTER_LIST = URL_SERVER_IP_PORT + "/user/collection/filterlist/";   //delete
 
 
+
+
+
+
+
   public static final String URL_OTP_VERIFICATION = URL_SERVER_IP_PORT + "/eat/otpverification";/////POST method
   public static final String URL_NAME_GENDER_INSERT = URL_SERVER_IP_PORT + "/eat/edit";/////put method
   public static final String URL_APP_FEEDBACK = URL_SERVER_IP_PORT + "/eat/feedback";/////POST method
