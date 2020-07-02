@@ -48,6 +48,8 @@ import com.dailylocally.ui.coupons.CouponsModule;
 
 import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.fandsupport.FeedbackSupportModule;
+import com.dailylocally.ui.fandsupport.help.HelpActivity;
+import com.dailylocally.ui.fandsupport.help.HelpModule;
 import com.dailylocally.ui.fandsupport.support.SupportActivity;
 import com.dailylocally.ui.fandsupport.support.SupportModule;
 import com.dailylocally.ui.favourites.FavActivity;
@@ -133,7 +135,9 @@ public abstract class ActivityBuilder {
     })
     abstract MainActivity bindMainActivity();
 
-    @ContributesAndroidInjector(modules = SplashModule.class)
+    @ContributesAndroidInjector(modules = HelpModule.class)
+    abstract HelpActivity bindHelpActivity();
+ @ContributesAndroidInjector(modules = SplashModule.class)
     abstract SplashActivity bindSplashActivity();
 
  @ContributesAndroidInjector(modules = FeedbackSupportModule.class)

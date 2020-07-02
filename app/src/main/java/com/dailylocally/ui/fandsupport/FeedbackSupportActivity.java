@@ -8,6 +8,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityFeedbackSupportBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.fandsupport.support.SupportActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
@@ -71,7 +72,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
     @Override
     public void support() {
-        Intent intent = SupportActivity.newIntent(FeedbackSupportActivity.this);
+        Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this,AppConstants.NOTIFY_SUPPORT_ACTV,3,"0");
         startActivity(intent);
     }
 

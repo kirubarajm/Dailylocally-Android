@@ -120,7 +120,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
        /* ChatApi chatApi = ZopimChatApi.resume(this);
         chatApi.endChat();
         chatApi.endChat();
-
         openChat(department, tag, note);*/
 
         if (mHelpViewModel.getDataManager().getChatOrderid() != null) {

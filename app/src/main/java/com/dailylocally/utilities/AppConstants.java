@@ -354,7 +354,9 @@ public class AppConstants {
   public static final String ADD_FAV_URL = URL_SERVER_IP_PORT + "/user/fav"; //POST
   public static final String DELETE_FAV_URL = URL_SERVER_IP_PORT + "/user/fav/";   //delete
   public static final String URL_COLLECTION_FILTER_LIST = URL_SERVER_IP_PORT + "/user/collection/filterlist/";   //delete
-
+    public static final String URL_CHAT_ISSUES = URL_SERVER_IP_PORT + "/eat/zendesk/issues";
+    public static final String URL_CHAT_ISSUES_NOTE = URL_SERVER_IP_PORT + "/eat/zendesk/issuesdetails";
+    public static final String URL_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/eat/zendesk/requestcreate ";
 
 
 
