@@ -123,9 +123,6 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
                 }
             }
 
-
-
-
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_FILTERS + scl2id, FilterItems.class, new Response.Listener<FilterItems>() {
                 @Override

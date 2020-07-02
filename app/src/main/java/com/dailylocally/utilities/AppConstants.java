@@ -354,9 +354,9 @@ public class AppConstants {
   public static final String ADD_FAV_URL = URL_SERVER_IP_PORT + "/user/fav"; //POST
   public static final String DELETE_FAV_URL = URL_SERVER_IP_PORT + "/user/fav/";   //delete
   public static final String URL_COLLECTION_FILTER_LIST = URL_SERVER_IP_PORT + "/user/collection/filterlist/";   //delete
-    public static final String URL_CHAT_ISSUES = URL_SERVER_IP_PORT + "/eat/zendesk/issues";
-    public static final String URL_CHAT_ISSUES_NOTE = URL_SERVER_IP_PORT + "/eat/zendesk/issuesdetails";
-    public static final String URL_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/eat/zendesk/requestcreate ";
+    public static final String URL_CHAT_ISSUES = URL_SERVER_IP_PORT + "/user/zendesk/issues";
+    public static final String URL_CHAT_ISSUES_NOTE = URL_SERVER_IP_PORT + "/user/zendesk/issuesdetails";
+    public static final String URL_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/user/zendesk/requestcreate";
 
 
 
@@ -678,4 +678,11 @@ public class AppConstants {
   public static final String NOTIFY_COLLECTION_ACTV = "23";
   public static final String NOTIFY_SUPPORT_ACTV = "24";
 
+
+
+
+
+  public static final Integer CHAT_PAGE_TYPE_SUPPORT = 3;
+  public static final Integer CHAT_PAGE_TYPE_TRASACTION = 1;
+  public static final Integer CHAT_PAGE_TYPE_DAY_ORDER = 1;
 }

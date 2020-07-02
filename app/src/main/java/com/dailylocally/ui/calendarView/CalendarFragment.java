@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -16,6 +17,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
 import com.roomorama.caldroid.CaldroidFragment;
@@ -127,7 +129,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
     @Override
     public void goBack() {
-
+        ((MainActivity)getActivity()).openHome();
     }
 
     @Override
@@ -136,6 +138,16 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         mCalendarViewModel.setNavigator(this);
         mFragmentHomeBinding = getViewDataBinding();
         mCalendarDayWiseAdapter.setListener(this);
+
+
+        subscribeToLiveData();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mFragmentHomeBinding = getViewDataBinding();
+
 
         final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
         caldroidFragment = new CaldroidFragment();
@@ -226,7 +238,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         mFragmentHomeBinding.recyclerDayWiseOrder.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerDayWiseOrder.setAdapter(mCalendarDayWiseAdapter);
 
-        subscribeToLiveData();
+
     }
 
     @Override
@@ -2094,8 +2106,5 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         startActivity(intent);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
+
 }

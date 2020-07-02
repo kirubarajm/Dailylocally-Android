@@ -72,7 +72,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
     @Override
     public void support() {
-        Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this,AppConstants.NOTIFY_SUPPORT_ACTV,3,"0");
+        Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this,AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_SUPPORT,"0");
         startActivity(intent);
     }
 

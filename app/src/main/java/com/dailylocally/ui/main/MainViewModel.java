@@ -177,15 +177,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public void gotoOrders() {
-        getNavigator().openOrders();
-       /* if (!isOrder.get()) {
+        if (!isOrder.get()) {
             getNavigator().openOrders();
             isHome.set(false);
             isOrder.set(true);
             isExplore.set(false);
             isCart.set(false);
             isMyAccount.set(false);
-        }*/
+        }
     }
 
 

@@ -29,6 +29,7 @@ import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.address.viewAddress.ViewAddressModule;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.calendarView.CalendarModule;
+import com.dailylocally.ui.calendarView.CalendarProvider;
 import com.dailylocally.ui.cart.CartProvider;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l1.CategoryL1Module;
@@ -131,6 +132,7 @@ public abstract class ActivityBuilder {
             HomeProvider.class,
             CartProvider.class,
             SearchProvider.class,
+            CalendarProvider.class,
             MyAccountProvider.class
     })
     abstract MainActivity bindMainActivity();

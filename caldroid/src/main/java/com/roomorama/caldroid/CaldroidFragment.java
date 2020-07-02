@@ -1618,7 +1618,7 @@ public class CaldroidFragment extends DialogFragment {
 
     }
 
-    @Override
+   /* @Override
     public void onDetach() {
         super.onDetach();
 
@@ -1633,5 +1633,5 @@ public class CaldroidFragment extends DialogFragment {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }

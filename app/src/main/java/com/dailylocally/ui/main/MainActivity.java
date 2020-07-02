@@ -28,6 +28,7 @@ import com.dailylocally.databinding.ActivityMainBinding;
 import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
+import com.dailylocally.ui.calendarView.CalendarFragment;
 import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
@@ -197,10 +198,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openOrders() {
 
-        Intent intent = CalendarActivity.newIntent(MainActivity.this);
-        startActivity(intent);
+       /* Intent intent = CalendarActivity.newIntent(MainActivity.this);
+        startActivity(intent);*/
 
-       /* mMainViewModel.toolbarTitle.set("My Orders");
+        mMainViewModel.toolbarTitle.set("My Orders");
         mMainViewModel.titleVisible.set(true);
 
         mMainViewModel.isHome.set(false);
@@ -208,11 +209,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isCart.set(false);
         mMainViewModel.isOrder.set(true);
         mMainViewModel.isMyAccount.set(false);
-        mMainViewModel.updateAvailable.set(false);*/
+        mMainViewModel.updateAvailable.set(false);
 
 
 
-      /*  new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -223,7 +224,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             transaction.commit();
         } catch (Exception ee) {
             ee.printStackTrace();
-        }*/
+        }
 
     }
 
@@ -291,7 +292,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
-        if (mMainViewModel.isExplore.get()) {
+        /*if (mMainViewModel.isExplore.get()) {
             openHome();
         } else {
             new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_BACK_BUTTON);
@@ -311,7 +312,34 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     doubleBackToExitPressedOnce = false;
                 }
             }, 2000);
+        }*/
+
+
+        if (mMainViewModel.isHome.get()){
+
+            if (doubleBackToExitPressedOnce) {
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_EXIT_APP);
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+
+        }else {
+            openHome();
         }
+
+
+
 
     }
 

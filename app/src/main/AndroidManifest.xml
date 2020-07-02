@@ -116,6 +116,13 @@
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"
              android:value="rzp_live_kelnGLZvTecvPV" />-->
+        <activity
+            android:name="zendesk.support.request.RequestActivity"
+            android:theme="@style/ZendeskSupportTheme" />
+
+        <activity
+            android:name="zendesk.support.requestlist.RequestListActivity"
+            android:theme="@style/ZendeskSupportTheme" />
 
         <meta-data
                           android:name="com.razorpay.ApiKey"

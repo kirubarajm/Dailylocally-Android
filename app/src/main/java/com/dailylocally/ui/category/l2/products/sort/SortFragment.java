@@ -146,7 +146,4 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
         mSortViewModel.removeFromFilter(id);
     }
 
-
-
-
 }

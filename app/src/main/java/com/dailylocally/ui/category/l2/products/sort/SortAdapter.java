@@ -1,6 +1,7 @@
 package com.dailylocally.ui.category.l2.products.sort;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -118,12 +119,12 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             final SortItems.Result blog = item_list.get(position);
             mSortItemViewModel = new SortItemViewModel(this, blog);
             mListItemLiveProductsBinding.setSortItemViewModel(mSortItemViewModel);
-
+            mListItemLiveProductsBinding.rButton.setVisibility(View.GONE);
 
             if (sSelected == position) {
-                mListItemLiveProductsBinding.rButton.setChecked(true);
+                mListItemLiveProductsBinding.rButton.setVisibility(View.VISIBLE);
             } else {
-                mListItemLiveProductsBinding.rButton.setChecked(false);
+                mListItemLiveProductsBinding.rButton.setVisibility(View.GONE);
             }
 
             mListItemLiveProductsBinding.executePendingBindings();
@@ -135,12 +136,13 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             if (sSelected==getAdapterPosition()){
                 sSelected=-1;
-
+                mListItemLiveProductsBinding.rButton.setVisibility(View.GONE);
             }else {
                 sSelected = getAdapterPosition();
-
+                mListItemLiveProductsBinding.rButton.setVisibility(View.VISIBLE);
             }
-            notifyDataSetChanged();
+
+          notifyDataSetChanged();
         }
     }
 
