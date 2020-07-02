@@ -92,7 +92,7 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_TRANSACTION_VIEW, TransactionViewResponse.class,
-                new TransactionViewRequest("5"),
+                new TransactionViewRequest(orderid),
                 new Response.Listener<TransactionViewResponse>() {
                     @Override
                     public void onResponse(TransactionViewResponse response) {
