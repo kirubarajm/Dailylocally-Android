@@ -25,13 +25,18 @@ public class RatingRequest {
     @SerializedName("comments")
     @Expose
     public String comments;
+    @SerializedName("package_sealed")
+    @Expose
+    public Integer package_sealed;
 
-    public RatingRequest(Integer ratingProduct, Integer ratingDelivery, Integer productReceived, Integer doid, List<Integer> vpid, String comments) {
+    public RatingRequest(Integer ratingProduct, Integer ratingDelivery, Integer productReceived, Integer doid,
+                         List<Integer> vpid, String comments,Integer package_sealed) {
         this.ratingProduct = ratingProduct;
         this.ratingDelivery = ratingDelivery;
         this.productReceived = productReceived;
         this.doid = doid;
         this.vpid = vpid;
         this.comments = comments;
+        this.package_sealed = package_sealed;
     }
 }

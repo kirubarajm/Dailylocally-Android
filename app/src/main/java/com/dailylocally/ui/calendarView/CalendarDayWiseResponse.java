@@ -67,6 +67,9 @@ public class CalendarDayWiseResponse {
             @SerializedName("unit")
             @Expose
             public String unit;
+            @SerializedName("doid")
+            @Expose
+            public Integer doid;
             @SerializedName("vpid")
             @Expose
             public Integer vpid;
@@ -91,7 +94,23 @@ public class CalendarDayWiseResponse {
             @SerializedName("quantity_info")
             @Expose
             public Integer quantityInfo;
+            @SerializedName("trueOrFalse")
+            @Expose
+            public Boolean trueOrFalse;
 
+
+            public void setTrueOrFalse(Boolean trueOrFalse) {
+                this.trueOrFalse = trueOrFalse;
+            }
+
+            public Boolean getTrueOrFalse() {
+                return trueOrFalse;
+            }
+
+
+            public Integer getDoid() {
+                return doid;
+            }
 
             public String getUnit() {
                 return unit;

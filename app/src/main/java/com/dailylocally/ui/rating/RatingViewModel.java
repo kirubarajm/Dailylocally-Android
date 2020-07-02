@@ -38,19 +38,30 @@ import java.util.List;
 
 public class RatingViewModel extends BaseViewModel<RatingNavigator> {
 
-    public final ObservableField<String> offer = new ObservableField<>();
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
     public ObservableList<CalendarDayWiseResponse.Result.Item> dayWiseItemViewModels = new ObservableArrayList<>();
 
+
     public RatingViewModel(DataManager dataManager) {
         super(dataManager);
+        dayWiseLiveData = new MutableLiveData<>();
     }
 
     public void goBack() {
         if (getNavigator() != null) {
             getNavigator().goBack();
         }
+    }
+
+    public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> getOrdernowLiveData() {
+        return dayWiseLiveData;
+    }
+
+    public void addOrderNowItemsToList(List<CalendarDayWiseResponse.Result.Item> results) {
+        dayWiseItemViewModels.clear();
+        dayWiseItemViewModels.addAll(results);
+
     }
 
     public void getDayWiseOrderDetails(Date date){
@@ -62,14 +73,17 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
             String userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_DAY_WISE_ORDER_HISTORY,
-                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest(userId,
-                    dateString,monthString), new Response.Listener<CalendarDayWiseResponse>() {
+                    CalendarDayWiseResponse.class, new CalendarDayWiseRequest("2",
+                    "2020-06-26","6"), new Response.Listener<CalendarDayWiseResponse>() {
                 @Override
                 public void onResponse(CalendarDayWiseResponse response) {
                     if (response!=null) {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
+                            }
+                            if (getNavigator()!=null){
+                                getNavigator().getProductList(response.getResult().get(0).getItems());
                             }
                         }
                     }
@@ -87,21 +101,18 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
         }
     }
 
-/*
-    public void userRating(){
+    public void ratingAPICall(int ratingProduct,int ratingDelivery,int productReceived,int doid,
+                              List<Integer> vpid,String comments,Integer packageSealed){
         try {
-            String userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_USER_RATING,
-                    CalendarDayWiseResponse.class, new RatingRequest(1,
-                    1,1,1,,""), new Response.Listener<CalendarDayWiseResponse>() {
+                    CalendarDayWiseResponse.class, new RatingRequest(ratingProduct,
+                    ratingDelivery,productReceived,doid,vpid,comments,packageSealed), new Response.Listener<CalendarDayWiseResponse>() {
                 @Override
                 public void onResponse(CalendarDayWiseResponse response) {
                     if (response!=null) {
                         if (response.getStatus()) {
-                            if (response.getResult() != null && response.getResult().size() > 0) {
-                                dayWiseLiveData.setValue(response.getResult().get(0).getItems());
-                            }
+
                         }
                     }
                     setIsLoading(false);
@@ -117,7 +128,6 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
             e.printStackTrace();
         }
     }
-*/
 
     public void helpClick(){
         if (getNavigator()!=null){
@@ -125,4 +135,10 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
         }
     }
 
+
+    public void submitClick(){
+        if (getNavigator()!=null){
+            getNavigator().submit();
+        }
+    }
 }

@@ -7,10 +7,9 @@
 
         <variable
             name="ratingProductsItemViewModel"
-            type="com.dailylocally.ui.rating.RatingProductItemViewModel" />
+            type="com.dailylocally.ui.rating.RatingDayWiseItemViewModel" />
 
     </data>
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,6 +25,7 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
+            android:onClick="@{()->ratingProductsItemViewModel.onItemClick()}"
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>

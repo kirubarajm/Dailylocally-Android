@@ -50,6 +50,12 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
         }
     }
 
+    public void goBack(){
+        if (getNavigator()!=null){
+            getNavigator().goBack();
+        }
+    }
+
     public void editClick(){
         if (getNavigator()!=null){
             getNavigator().editClick();

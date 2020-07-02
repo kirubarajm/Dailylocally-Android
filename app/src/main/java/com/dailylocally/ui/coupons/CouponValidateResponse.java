@@ -15,13 +15,13 @@ public class CouponValidateResponse {
     public Boolean status;
     @SerializedName("message")
     @Expose
-    public Boolean message;
+    public String message;
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
 
 
-    public Boolean getMessage() {
+    public String getMessage() {
         return message;
     }
 

@@ -44,6 +44,7 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
     public final ObservableField<String> transactionOrderId = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> transacDate = new ObservableField<>();
+    public final ObservableField<String> itemCount = new ObservableField<>();
 
     public ObservableList<TransactionViewResponse.Result.Item> productItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<TransactionViewResponse.Result.Item>> productItemsLiveData;
@@ -72,7 +73,7 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
         }
     }
 
-     public MutableLiveData<List<TransactionViewResponse.Result.Cartdetail>> getBilDetailsItemsLiveData() {
+    public MutableLiveData<List<TransactionViewResponse.Result.Cartdetail>> getBilDetailsItemsLiveData() {
             return billDetailsItemsLiveData;
         }
 
@@ -104,6 +105,7 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
                                     paymentId.set(String.valueOf(response.getResult().get(0).getTsid()));
                                     transactionOrderId.set(String.valueOf(response.getResult().get(0).getOrderid()));
                                     price.set(String.valueOf(response.getResult().get(0).getPrice()));
+                                    itemCount.set(String.valueOf(response.getResult().get(0).getItemscount()));
 
                                     productItemsLiveData.setValue(response.getResult().get(0).getItems());
                                     billDetailsItemsLiveData.setValue(response.getResult().get(0).getCartdetails());

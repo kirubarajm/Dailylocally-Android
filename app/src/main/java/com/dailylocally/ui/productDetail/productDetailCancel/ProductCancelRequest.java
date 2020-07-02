@@ -1,4 +1,4 @@
-package com.dailylocally.ui.productDetail.productCancel;
+package com.dailylocally.ui.productDetail.productDetailCancel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

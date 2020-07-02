@@ -20,6 +20,11 @@ import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import javax.inject.Inject;
 
@@ -34,6 +39,9 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
+    SupportMapFragment mapFragment;
+    GoogleMap map;
+    Double lat,lon;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -82,6 +90,8 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
     public void getAddressSuccess(UserAddressResponse.Result result) {
         try {
             if (result!=null){
+                lat = result.getLat();
+                lon = result.getLon();
                 mActivityViewAddressBinding.txtFullAddress.setText(result.getCompleteAddress());
                 mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
                 mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
@@ -102,12 +112,34 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityViewAddressBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
 
         analytics = new Analytics(this, pageName);
+
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragmentViewAddress);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                try {
+                    map = googleMap;
+                    map.getUiSettings().setZoomControlsEnabled(true);
+                    LatLng latLng = new LatLng(lat, lon);
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override

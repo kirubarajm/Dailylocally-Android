@@ -16,10 +16,8 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.productDetail.productCancel.ProductCancelActivity;
+import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
-import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -117,12 +115,12 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         try {
             Intent intent = RatingActivity.newIntent(CalendarActivity.this);
             intent.putExtra("date",dateRating.getTime());
+            intent.putExtra("doid",mCalendarViewModel.doid.get());
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public void helpClick() {
 
@@ -251,7 +249,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             if (date.isEmpty()) {
                 Date currentDate = Calendar.getInstance().getTime();////current date
                 SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-                SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM YYYY");
+                SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
                 SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
                 String rateDelivery = dateFormat1.format(currentDate);
@@ -2112,7 +2110,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
         Intent intent = ProductCancelActivity.newIntent(CalendarActivity.this);
-        intent.putExtra("doid",result.getVpid());
+        intent.putExtra("doid",result.getDoid());
         intent.putExtra("dayorderpid",result.getDayorderpid());
         startActivity(intent);
     }
