@@ -101,6 +101,21 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
                     mActivityViewAddressBinding.txtAddressType.setText("Independent House");
                 }
             }
+
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    try {
+                        map = googleMap;
+                        map.getUiSettings().setZoomControlsEnabled(true);
+                        LatLng latLng = new LatLng(lat, lon);
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -126,20 +141,6 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
 
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragmentViewAddress);
-
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                try {
-                    map = googleMap;
-                    map.getUiSettings().setZoomControlsEnabled(true);
-                    LatLng latLng = new LatLng(lat, lon);
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @Override

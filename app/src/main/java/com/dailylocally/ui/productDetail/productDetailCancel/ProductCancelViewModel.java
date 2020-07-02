@@ -52,7 +52,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_DAY_ORDER_PRODUCT_DETAILS,
-                ProductCancelResponse.class, new ProductCancelRequest(1, 1),
+                ProductCancelResponse.class, new ProductCancelRequest(Integer.parseInt(doid), Integer.parseInt(dayOrderPId)),
                 new Response.Listener<ProductCancelResponse>() {
                     @Override
                     public void onResponse(ProductCancelResponse response) {
