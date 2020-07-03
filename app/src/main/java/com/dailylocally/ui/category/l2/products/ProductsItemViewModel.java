@@ -9,6 +9,7 @@ import androidx.databinding.ObservableField;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.AppDataManager;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
@@ -67,9 +68,9 @@ public class ProductsItemViewModel {
         if (result.isDiscountCostStatus()) {
             discount.set("Save " + result.getDiscountCost());
             totalPrice.set("Was " + result.getMrp());
-            price.set("INR " + result.getMrpDiscountAmount());
+            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + result.getMrpDiscountAmount());
         } else {
-            price.set("INR " + result.getMrp());
+            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + result.getMrp());
         }
 
 

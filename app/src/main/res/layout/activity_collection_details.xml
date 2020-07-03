@@ -191,16 +191,7 @@
                             android:orientation="horizontal"
                             android:visibility="visible">
 
-                            <com.dailylocally.utilities.fonts.TovoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal|center_vertical"
-                                android:paddingTop="8dp"
-                                android:paddingBottom="8dp"
-                                android:text="@string/icon_inr"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:textSize="12sp" />
+
 
                             <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="wrap_content"

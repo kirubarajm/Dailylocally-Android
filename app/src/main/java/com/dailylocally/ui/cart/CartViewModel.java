@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
@@ -516,13 +517,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
 
-                                    grand_total.set(String.valueOf(totalAmount));
+                                    grand_total.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(totalAmount));
 
                                     grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotaltitle());
 
 
-                                    gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                    delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                    gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                                    delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
                                     if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
@@ -550,13 +551,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
 
-                                    grand_total.set(String.valueOf(totalAmount));
+                                    grand_total.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(totalAmount));
 
                                     grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotaltitle());
 
 
-                                    gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                    delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                    gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                                    delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
                                     if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {

@@ -188,6 +188,7 @@
                                 </LinearLayout>
 
                                     <ImageView
+                                        android:visibility="@{subscriptionViewModel.edit?View.VISIBLE:View.GONE}"
                                         android:onClick="@{()->subscriptionViewModel.delete()}"
                                         android:foregroundGravity="center"
                                         android:padding="10dp"
@@ -196,8 +197,7 @@
                                         android:id="@+id/delete"
                                         android:layout_width="50dp"
                                         android:layout_height="50dp"
-                                        android:src="@drawable/ic_delete"
-                                        android:scaleType="centerInside" />
+                                        android:src="@drawable/ic_delete" />
                                 </RelativeLayout>
                             </LinearLayout>
 

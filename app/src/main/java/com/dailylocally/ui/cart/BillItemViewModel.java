@@ -4,6 +4,9 @@ package com.dailylocally.ui.cart;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.dailylocally.R;
+import com.dailylocally.utilities.DailylocallyApp;
+
 public class BillItemViewModel {
 
     public final ObservableField<String> title = new ObservableField<>();
@@ -25,9 +28,9 @@ public class BillItemViewModel {
         //charges.set(String.valueOf(cartdetail.getCharges()));
         aboveCost.set(cartdetail.getDefaultCostStatus());
         if (cartdetail.getDefaultCostStatus()){
-            charges.set(String.valueOf(cartdetail.getDefaultCost()));
+            charges.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(cartdetail.getDefaultCost()));
         }else {
-            charges.set(String.valueOf(cartdetail.getCharges()));
+            charges.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(cartdetail.getCharges()));
         }
 
         /*if (cartdetail.getCharges()!=null&&cartdetail.getCharges()>0){

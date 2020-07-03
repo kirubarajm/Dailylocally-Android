@@ -95,13 +95,6 @@
                     android:orientation="horizontal"
                     android:visibility="@{billItemViewModel.aboveCost?View.VISIBLE:View.GONE}">
 
-                    <com.dailylocally.utilities.fonts.TovoTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/icon_inr"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        android:visibility="invisible" />
 
                     <com.dailylocally.utilities.fonts.poppins.ContentTextView
                         android:layout_width="wrap_content"

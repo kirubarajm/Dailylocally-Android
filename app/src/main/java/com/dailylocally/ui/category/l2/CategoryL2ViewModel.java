@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
@@ -280,11 +281,11 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
 
             if (count == 1) {
                 cartItems.set(count + " Item");
-                cartPrice.set(String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
                 items.set("Item");
             } else {
                 cartItems.set(count + " Items");
-                cartPrice.set(String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
                 items.set("Items");
             }
         }

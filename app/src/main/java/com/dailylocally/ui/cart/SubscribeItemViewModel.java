@@ -3,6 +3,7 @@ package com.dailylocally.ui.cart;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.dailylocally.R;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -44,7 +45,7 @@ public class SubscribeItemViewModel {
         product_name.set(dishList.getProductname());
       // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
 
-        sprice.set("INR. " + String.valueOf(dishList.getAmount()));
+        sprice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + String.valueOf(dishList.getAmount()));
         image.set(dishList.getImage());
         weight.set(dishList.getWeight() +" "+dishList.getUnit()+" | "+dishList.getNoOfDeliveries() + " days");
 

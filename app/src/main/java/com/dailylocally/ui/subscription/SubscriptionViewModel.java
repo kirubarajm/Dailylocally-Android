@@ -9,6 +9,7 @@ import androidx.databinding.ObservableField;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
@@ -49,9 +50,10 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
     private final List<CartRequest.Subscription> results = new ArrayList<>();
     private final CartRequest.Subscription cartRequestPojoResult = new CartRequest.Subscription();
     public ObservableBoolean contact = new ObservableBoolean();
+    public ObservableBoolean edit = new ObservableBoolean();
     public ObservableField<String> support = new ObservableField<>();
     public int planId = 0;
-    public boolean edit = false;
+
     SubscriptionResponse mSubscriptionResponse;
     SubscriptionResponse.Result products;
     int quantity = 0;
@@ -71,7 +73,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
     public void delete() {
 
-        if (edit) {
+        if (edit.get()) {
 
             results.clear();
             getCart();
@@ -131,7 +133,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                     if (response.getResult() != null && response.getResult().size() > 0)
 
-                        if (edit) {
+                        if (edit.get()) {
                             results.clear();
                             getCart();
                             if (cartRequestPojo.getSubscription() != null) {
@@ -623,7 +625,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                             if (totalSize != 0) {
                                 for (int i = 0; i < totalSize; i++) {
                                     if (products.getPid().equals(results.get(i).getPid())) {
-                                        edit = true;
+                                        edit.set(true);
                                         isAddClicked.set(true);
                                         quantity = results.get(i).getQuantity();
                                         sQuantity.set(String.valueOf(results.get(i).getQuantity()));
@@ -686,7 +688,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                         }
 
-                        if (edit) {
+                        if (edit.get()) {
                             getStartDate(AppConstants.SUBSCRIBEPRODUCT_EDIT);
                         } else {
                             getStartDate(AppConstants.SUBSCRIBEPRODUCT_NEW);
@@ -696,7 +698,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                         name.set(response.getResult().get(0).getProductname());
                         image.set(response.getResult().get(0).getImage());
                         weight.set(response.getResult().get(0).getWeight());
-                        price.set("INR. " + response.getResult().get(0).getMrp());
+                        price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +response.getResult().get(0).getMrp());
 
 
 
