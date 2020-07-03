@@ -182,7 +182,7 @@
                     android:layout_below="@+id/rel_date"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="15dp"
-                    app:adapter="@{calendarViewModel.dayWiseItemViewModels}"
+                    app:day_adapter="@{calendarViewModel.dayWiseItemViewModels}"
                     tools:listitem="@layout/list_item_calendar"
                     android:id="@+id/recycler_day_wise_order"
                     android:layout_width="match_parent"

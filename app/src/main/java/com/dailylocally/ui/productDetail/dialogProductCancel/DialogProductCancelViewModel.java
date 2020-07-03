@@ -41,11 +41,11 @@ public class DialogProductCancelViewModel extends BaseViewModel<DialogProductCan
                         try {
                             if (response.getStatus()){
                                 if (getNavigator()!=null){
-                                    getNavigator().cancelSuccess("");
+                                    getNavigator().cancelSuccess(response.getMessage());
                                 }
                             }else {
                                 if (getNavigator()!=null){
-                                    getNavigator().cancelFailed("");
+                                    getNavigator().cancelFailed(response.getMessage());
                                 }
                             }
                         }catch (Exception e){
