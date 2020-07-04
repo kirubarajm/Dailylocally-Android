@@ -29,6 +29,7 @@ import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.datepicker.DatePickerActivity;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 import com.nhaarman.supertooltips.ToolTipView;
@@ -55,7 +56,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Inject
     BillListAdapter billListAdapter;
     Dialog dialog;
-
+    CartResponse.Item product;
     boolean infoClicked = false;
     private FragmentCartBinding mActivityCartBinding;
 
@@ -278,8 +279,15 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public String changeDate(CartResponse.Item product) {
 
+        this.product=product;
 
-        String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+
+        Intent intent = DatePickerActivity.newIntent(getBaseActivity());
+        intent.putExtra("date",product.getStarting_date());
+        startActivityForResult(intent,AppConstants.DATE_REQUESTCODE);
+
+
+       /* String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -291,7 +299,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
 
-      /*  Calendar calendar = Calendar.getInstance();
+      *//*  Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date tomorrow = calendar.getTime();
@@ -301,7 +309,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date dat = calendar.getTime();
 
-        String dayAftertomorrowDate =dateFormat.format(dat);*/
+        String dayAftertomorrowDate =dateFormat.format(dat);*//*
 
         int year = 0;
         int month = 0;
@@ -335,9 +343,9 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
             }
         }, year, month, day);
         dialog.getDatePicker().setMinDate(selectableDate.getTime());
-        dialog.show();
+        dialog.show();*/
 
-        return date[0];
+        return "";
     }
 
     @Override
@@ -383,6 +391,13 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
             if (resultCode == RESULT_OK) {
                 mCartViewModel.getStartDate();
             }
+        }else if (requestCode == AppConstants.DATE_REQUESTCODE) {
+
+            if (resultCode == RESULT_OK) {
+                mCartViewModel.productDateChange(data.getStringExtra("date"),product);
+
+            }
+
         }
     }
 

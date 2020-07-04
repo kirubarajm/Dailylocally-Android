@@ -401,7 +401,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             e.printStackTrace();
                         }
 
-                        if (date.after(availableCompareDate)) {
+                        assert date != null;
+                        assert availableCompareDate != null;
+                        if (date.getTime() < availableCompareDate.getTime()) {
+                       // if (date.after(availableCompareDate)) {
                             cartRequestPojoResult.setDayorderdate(availableDate);
                         } else {
                             cartRequestPojoResult.setDayorderdate(cartRequestPojo.getOrderitems().get(i).getDayorderdate());

@@ -19,6 +19,8 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.pronotion.bottom.PromotionFragment;
+import com.dailylocally.utilities.AppConstants;
 
 import javax.inject.Inject;
 
@@ -131,7 +133,18 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void changeHeaderText(String headerContent) {
         mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
     }
+    @Override
+    public void showPromotions(String url, boolean fullScreen, int type, int promotionid) {
 
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConstants.PROMOTION_TYPE, type);
+        bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
+        bundle.putString(AppConstants.PROMOTION_URL, url);
+
+        PromotionFragment bottomSheetFragment = new PromotionFragment();
+        bottomSheetFragment.setArguments(bundle);
+        bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
+    }
     @Override
     public void searchClick() {
         /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -162,6 +175,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         mFragmentHomeBinding = getViewDataBinding();
         mFragmentHomeBinding.loader.start();
         mHomeViewModel.fetchCategoryList();
+        mHomeViewModel.getPromotions();
     }
 
     @Override

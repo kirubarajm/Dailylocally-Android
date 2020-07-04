@@ -21,11 +21,11 @@
         </activity>
         <activity android:name=".utilities.nointernet.InternetErrorFragment" />
         <activity android:name=".ui.splash.SplashActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".ui.onboarding.OnBoardingActivity" />
         <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity" />
@@ -123,6 +123,10 @@
         <activity
             android:name="zendesk.support.requestlist.RequestListActivity"
             android:theme="@style/ZendeskSupportTheme" />
+        <activity android:name=".utilities.datepicker.DatePickerActivity" >
+
+        </activity>
+        <activity android:name=".ui.pronotion.AdActivity" />
 
         <meta-data
                           android:name="com.razorpay.ApiKey"

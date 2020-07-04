@@ -1,5 +1,6 @@
 package com.dailylocally.ui.subscription;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,9 +21,11 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySubscriptionBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
+import com.dailylocally.utilities.datepicker.DatePickerActivity;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import java.text.ParseException;
@@ -81,9 +84,12 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     @Override
     public void selectDate(String startdate) {
 
+        Intent intent = DatePickerActivity.newIntent(SubscriptionActivity.this);
+        intent.putExtra("date",startdate);
+        startActivityForResult(intent,AppConstants.DATE_REQUESTCODE);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
+        /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat sDay = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat sMonth = new SimpleDateFormat("MM", Locale.getDefault());
         SimpleDateFormat sYear = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -119,7 +125,7 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
         }, year, month - 1, day);
 
         dialog.getDatePicker().setMinDate(sDate.getTime());
-        dialog.show();
+        dialog.show();*/
 
 
     }
@@ -266,6 +272,24 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
     @Override
     public void selectedPlan(SubscriptionResponse.SubscriptionPlan subscriptionPlan) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==AppConstants.DATE_REQUESTCODE){
+
+            if (resultCode== Activity.RESULT_OK){
+
+                mSubscriptionViewModel.startDate.set(data.getStringExtra("date"));
+
+            }
+
+        }
+
+
 
     }
 }

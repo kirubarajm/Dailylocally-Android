@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tovologies.tovomoveit.ui.tandc.TermsAndConditionActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+
+        <variable
+            name="adViewModel"
+            type="com.dailylocally.ui.pronotion.AdViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/dark_gray"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+         <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:scaleType="centerInside"/>
+
+
+
+    </RelativeLayout>
+
+</layout>

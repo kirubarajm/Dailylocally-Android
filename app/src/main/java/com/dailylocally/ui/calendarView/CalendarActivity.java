@@ -163,7 +163,6 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
 
-
         // Setup listener
         listener = new CaldroidListener() {
             @Override

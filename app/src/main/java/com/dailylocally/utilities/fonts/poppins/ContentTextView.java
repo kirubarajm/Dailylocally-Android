@@ -13,19 +13,19 @@ public class ContentTextView extends AppCompatTextView {
 
     public ContentTextView(Context context) {
         super(context);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Light.ttf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Regular.ttf");
         this.setTypeface(face);
     }
 
     public ContentTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Light.ttf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Regular.ttf");
         this.setTypeface(face);
     }
 
     public ContentTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Light.ttf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Regular.ttf");
         this.setTypeface(face);
     }
 

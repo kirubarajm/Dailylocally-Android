@@ -95,6 +95,8 @@ import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsModule;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.ui.update.UpdateModule;
+import com.dailylocally.utilities.datepicker.DatePickerActivity;
+import com.dailylocally.utilities.datepicker.DatePickerModule;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.dailylocally.utilities.nointernet.InternetErrorModule;
 
@@ -144,6 +146,9 @@ public abstract class ActivityBuilder {
 
  @ContributesAndroidInjector(modules = FeedbackSupportModule.class)
     abstract FeedbackSupportActivity bindFeedbackSupportActivity();
+
+@ContributesAndroidInjector(modules = DatePickerModule.class)
+    abstract DatePickerActivity bindDatePickerActivity();
 
 
 

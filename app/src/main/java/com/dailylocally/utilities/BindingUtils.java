@@ -188,7 +188,6 @@ public final class BindingUtils {
         }
     }
 
-
 @BindingAdapter({"billdetails_adapter"})
     public static void addBillItems(RecyclerView recyclerView, List<CartResponse.Cartdetail> results) {
         BillListAdapter adapter = (BillListAdapter) recyclerView.getAdapter();
@@ -197,7 +196,6 @@ public final class BindingUtils {
             adapter.addItems(results);
         }
     }
-
 
 @BindingAdapter({"cart_ordernow_adapter"})
     public static void addOrderNowItems(RecyclerView recyclerView, List<CartResponse.Item> results) {

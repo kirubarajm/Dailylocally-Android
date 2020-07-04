@@ -67,13 +67,6 @@
                     android:layout_alignParentStart="true"
                     android:orientation="horizontal">
 
-                    <com.dailylocally.utilities.fonts.TovoTextView
-                        android:id="@+id/inr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/icon_inr"
-                        android:textColor="@color/black"
-                        android:textSize="10sp" />
 
                     <com.dailylocally.utilities.fonts.poppins.ContentTextView
                         android:id="@+id/amount"

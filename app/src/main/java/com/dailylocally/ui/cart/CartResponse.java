@@ -476,8 +476,18 @@ public class CartResponse {
         @SerializedName("deliverydate")
         @Expose
         private String deliverydate;
+ @SerializedName("starting_date")
+        @Expose
+        private String starting_date;
 
 
+        public String getStarting_date() {
+            return starting_date;
+        }
+
+        public void setStarting_date(String starting_date) {
+            this.starting_date = starting_date;
+        }
 
         public String getPid() {
             return pid;

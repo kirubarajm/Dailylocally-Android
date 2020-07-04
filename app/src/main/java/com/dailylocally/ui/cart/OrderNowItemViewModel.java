@@ -257,9 +257,11 @@ public class OrderNowItemViewModel {
 
   public void itemClick() {
 
-        String date = mListener.changeDate(dishList);
+     //   String date = mListener.changeDate(dishList);
 
 mListener.itemClick(dishList);
+
+
     }
 
     public interface DishItemViewModelListener {

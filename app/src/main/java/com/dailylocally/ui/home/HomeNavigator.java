@@ -12,6 +12,6 @@ public interface HomeNavigator {
     void changeAddress();
 
     void changeHeaderText(String headerContent);
-
+    void showPromotions(String url,boolean fullScreen, int type,int promotionid);
     void searchClick();
 }

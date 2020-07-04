@@ -33,6 +33,8 @@ public class AppConstants {
   public static final int COUPON_LIST_CODE = 1111;
   public static final int SELECT_ADDRESS_LIST_CODE = 1122;
 
+  public static final int DATE_REQUESTCODE = 2323;
+
 
   public static final String FCM_RECEIVER = "ALERT";
 
@@ -357,7 +359,7 @@ public class AppConstants {
     public static final String URL_CHAT_ISSUES = URL_SERVER_IP_PORT + "/user/zendesk/issues";
     public static final String URL_CHAT_ISSUES_NOTE = URL_SERVER_IP_PORT + "/user/zendesk/issuesdetails";
     public static final String URL_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/user/zendesk/requestcreate";
-
+  public static final String URL_PROMOTION = URL_SERVER_IP_PORT + "/user/promotion/homescreen";
 
 
 
