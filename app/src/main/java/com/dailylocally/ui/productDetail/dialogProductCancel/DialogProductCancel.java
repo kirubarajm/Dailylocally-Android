@@ -86,6 +86,7 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
     @Override
     public void cancelSuccess(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        dismiss();
     }
 
     @Override

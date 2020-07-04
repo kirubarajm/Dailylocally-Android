@@ -179,7 +179,7 @@ public final class BindingUtils {
         }
     }
 
-    @BindingAdapter({"adapter"})
+    @BindingAdapter({"day_adapter"})
     public static void addDayWiseCalendarItems(RecyclerView recyclerView, List<CalendarDayWiseResponse.Result.Item> results) {
         CalendarDayWiseAdapter adapter = (CalendarDayWiseAdapter) recyclerView.getAdapter();
         if (adapter != null) {

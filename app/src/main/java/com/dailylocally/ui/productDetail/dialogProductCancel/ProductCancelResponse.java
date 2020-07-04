@@ -10,6 +10,9 @@ public class ProductCancelResponse {
     @SerializedName("status")
     @Expose
     public Boolean status;
+    @SerializedName("message")
+    @Expose
+    public String message;
 
 
     public Boolean getSuccess() {
@@ -18,5 +21,9 @@ public class ProductCancelResponse {
 
     public Boolean getStatus() {
         return status;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

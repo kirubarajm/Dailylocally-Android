@@ -95,7 +95,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-            orderid = bundle.getString("orderid");
+            orderid = String.valueOf(bundle.getInt("orderid"));
         }
 
         LinearLayoutManager mLayoutManager
