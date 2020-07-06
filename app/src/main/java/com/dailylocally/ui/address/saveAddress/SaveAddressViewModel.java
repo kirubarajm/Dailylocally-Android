@@ -86,7 +86,7 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                 if (getNavigator() != null)
                                     getNavigator().showToast(response.getMessage(),response.getStatus());
 
-                                if (response.getAid() != null) {
+                                /*if (response.getAid() != null) {*/
                                     getDataManager().updateCurrentAddress("", completeAddress, lat, lon,
                                             city, String.valueOf(response.getAid()));
                                     getDataManager().setCurrentLat(lat);
@@ -99,10 +99,10 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                     if (!flagAddressEdit.get()) {
                                         defaultAddress(String.valueOf(response.getAid()));
                                     }
-                                }
+                                /*}*/
                             }else {
                                 if (getNavigator()!=null){
-                                    getNavigator().saveAddressFailed();
+                                    getNavigator().saveAddressFailed(response.getMessage());
                                 }
                             }
                         } catch (Exception e) {
@@ -115,7 +115,7 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                 SAVEcLICKED.set(true);
                 getDataManager().setUserAddress(false);
                 if (getNavigator()!=null){
-                    getNavigator().saveAddressFailed();
+                    getNavigator().saveAddressFailed("Failed");
                 }
             }
         }, AppConstants.API_VERSION_ONE);

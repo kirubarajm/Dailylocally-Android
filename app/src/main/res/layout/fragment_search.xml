@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img1"
                 android:layout_marginTop="10dp"
-                android:text="What do you want for tomorrow?"
+                android:text="@string/what_do_you_want_for_tomorrow"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tt1"
                 android:layout_marginTop="10dp"
-                android:text="Search for milk, bread, vegetables and many more"
+                android:text="@string/search_for_milk_bread_vegetables_and_many_more"
                 android:textAlignment="center"
                 android:textColor="@color/dark_gray"
                 android:textSize="12sp" />
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img_not_found"
                 android:layout_marginTop="10dp"
-                android:text="Oops! We're sorry"
+                android:text="@string/oops_we_re_sorry"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt1_not_found"
                 android:layout_marginTop="10dp"
-                android:text="No results matching your search"
+                android:text="@string/no_results_matching_your_search"
                 android:textAlignment="center"
                 android:textColor="@color/dark_gray"
                 android:textSize="12sp" />

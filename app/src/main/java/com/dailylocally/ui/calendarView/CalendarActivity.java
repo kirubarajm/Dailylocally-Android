@@ -142,13 +142,15 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         mFragmentHomeBinding = getViewDataBinding();
         mCalendarDayWiseAdapter.setListener(this);
 
+        caldroidFragment = new CaldroidFragment();
+
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
             date = bundle.getString("date");
         }
 
         final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-        caldroidFragment = new CaldroidFragment();
+
 
         if (savedInstanceState != null) {
             caldroidFragment.restoreStatesFromKey(savedInstanceState,
@@ -282,6 +284,8 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 mCalendarViewModel.getDayWiseOrderDetails(dateRating);
                 mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
                 mCalendarViewModel.dateDay.set(dateDay);
+
+                caldroidFragment.moveToDate(dateRating);
             }
         }catch (Exception e){
             e.printStackTrace();

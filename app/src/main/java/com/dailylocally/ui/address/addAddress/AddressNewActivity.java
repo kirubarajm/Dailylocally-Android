@@ -40,6 +40,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
@@ -218,7 +219,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             lat = bundle.getString("lat");
             lon = bundle.getString("lon");
             googleAddress = bundle.getString("locationAddress");
-            googleAddress = bundle.getString("pinCode");
+            pinCode = bundle.getString("pinCode");
             area = bundle.getString("area");
             edit = bundle.getString("edit");
             aId = bundle.getString("aid");
@@ -235,16 +236,19 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 try {
-                map = googleMap;
-                map.getUiSettings().setZoomControlsEnabled(true);
-                if (bundle!=null) {
-                    //turnOnGps();
-                    if (lat!=null && lon!=null) {
-                        LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                    LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                    map = googleMap;
+                    map.clear();
+                    map.getUiSettings().setZoomControlsEnabled(true);
+                    //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    if (bundle!=null) {
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                        map.addMarker(markerOptions);
                         initCameraIdle();
                     }
-                }
                 }catch (Exception e){
                     e.printStackTrace();
                 }

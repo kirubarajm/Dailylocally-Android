@@ -58,7 +58,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                         }
                     }else {
                         if (getNavigator()!=null) {
-                            getNavigator().failure("No Orders found");
+                            getNavigator().failure("");
                         }
                     }
                     setIsLoading(false);
@@ -96,16 +96,18 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                     if (response!=null) {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
+                                if (response.getRating_status()){
+                                    isRateBtn.set(true);
+                                }else {
+                                    isRateBtn.set(false);
+                                }
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
                                 doid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
-                            }else {
-                                isRateBtn.set(true);
                             }
                         }else {
                             if (getNavigator()!=null) {
-                                getNavigator().failure("No data found");
+                                getNavigator().failure("");
                             }
-                            isRateBtn.set(true);
                         }
                     }
                     setIsLoading(false);

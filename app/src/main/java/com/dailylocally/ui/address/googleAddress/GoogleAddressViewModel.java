@@ -17,6 +17,8 @@
 package com.dailylocally.ui.address.googleAddress;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Toast;
+
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.android.volley.Request;
@@ -50,6 +52,14 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
     public final ObservableBoolean home = new ObservableBoolean();
     public final ObservableBoolean office = new ObservableBoolean();
     public final ObservableBoolean flagAddressEdit = new ObservableBoolean();
+
+
+    public final ObservableField<String> googleAddress = new ObservableField<>();
+    public final ObservableField<String> googleLat = new ObservableField<>();
+    public final ObservableField<String> googleLon = new ObservableField<>();
+    public final ObservableField<String> googlePinCode = new ObservableField<>();
+    public final ObservableField<String> googleArea = new ObservableField<>();
+
     public TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,16 +85,13 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
         home.set(getDataManager().isHomeAddressAdded());
         office.set(getDataManager().isOfficeAddressAdded());
         clickOther();
-
     }
-
 
     public void locateMe() {
         if (getNavigator() != null)
             getNavigator().myLocationn();
 
     }
-
 
     public void clickHome() {
 
@@ -123,7 +130,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
 
     }
 
-
     public void goBack() {
         if (getNavigator() != null)
 
@@ -133,15 +139,11 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
     }
 
     public void searchAddress() {
-
         if (getNavigator() != null)
             getNavigator().searchAddress();
-
-
     }
 
     public void clickOther() {
-
 
         if (typeOther.get()) {
 
@@ -156,19 +158,39 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
 
     }
 
-
-    public void saveAddress(String lat, String lng, String pincode) {
-
+    public void saveAddress(String address,String area,String lat, String lng, String pincode) {
         request.setLat(lat);
         request.setLon(lng);
         request.setPincode(pincode);
-
+        googleAddress.set(address);
+        googleArea.set(area);
+        googleLat.set(lat);
+        googleLon.set(lng);
+        googlePinCode.set(pincode);
     }
 
     public void confirmLocation(String locationAddress, String house, String area, String landmark){
+
+        if (googleAddress.get()==null || googleAddress.get().isEmpty()){
+            Toast.makeText(DailylocallyApp.getInstance(), "Unable to find address", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (googleArea.get()==null || googleArea.get().isEmpty()){
+            Toast.makeText(DailylocallyApp.getInstance(), "Unable to find area", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (googleLat.get()==null || googleLat.get().isEmpty()){
+            Toast.makeText(DailylocallyApp.getInstance(), "Unable to find latitude", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (googleLon.get()==null || googleLon.get().isEmpty()){
+            Toast.makeText(DailylocallyApp.getInstance(), "Unable to find longitude", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (googlePinCode.get()==null || googlePinCode.get().isEmpty()){
+            Toast.makeText(DailylocallyApp.getInstance(), "Unable to find PinCode", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (getNavigator()!=null){
-            getNavigator().confirmLocationClick(locationAddress,house,area,landmark,request.getLat(),
-                    request.getLon(),request.getPincode());
+            getNavigator().confirmLocationClick(googleAddress.get(),googleArea.get(),googleLat.get(),
+                    googleLon.get(),googlePinCode.get());
         }
     }
 

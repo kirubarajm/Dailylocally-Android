@@ -757,6 +757,10 @@
     <string name="delivery_date">Delivery Date</string>
     <string name="product_details">Product Details</string>
     <string name="view_in_calendar">View in calendar</string>
+    <string name="what_do_you_want_for_tomorrow">What do you want for tomorrow?</string>
+    <string name="search_for_milk_bread_vegetables_and_many_more">Search for milk, bread, vegetables and many more</string>
+    <string name="oops_we_re_sorry">Oops! We\'re sorry</string>
+    <string name="no_results_matching_your_search">No results matching your search</string>
 
 
 </resources>
