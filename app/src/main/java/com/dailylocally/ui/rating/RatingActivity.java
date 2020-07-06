@@ -13,7 +13,10 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityRatingBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
+import com.dailylocally.ui.fandsupport.help.HelpActivity;
+import com.dailylocally.utilities.AppConstants;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,7 +72,8 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
 
     @Override
     public void helpClick() {
-
+        Intent intent = HelpActivity.newIntent(RatingActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_DAY_ORDER,doid);
+        startActivity(intent);
     }
 
     @Override

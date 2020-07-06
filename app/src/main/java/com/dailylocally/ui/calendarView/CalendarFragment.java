@@ -17,9 +17,11 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
+import com.dailylocally.utilities.AppConstants;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -124,7 +126,8 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
 
     public void helpClick() {
-
+        Intent intent = HelpActivity.newIntent(getBaseActivity(), AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_DAY_ORDER,mCalendarViewModel.doid.get());
+        startActivity(intent);
     }
 
     @Override

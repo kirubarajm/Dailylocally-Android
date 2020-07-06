@@ -180,8 +180,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void onResume() {
-        super.onResume();
         mHomeViewModel.updateAddressTitle();
+        super.onResume();
     }
 
     private void subscribeToLiveData() {
