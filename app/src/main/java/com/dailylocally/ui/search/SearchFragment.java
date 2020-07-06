@@ -217,6 +217,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onSuggestionItemClickData(QuickSearchResponse.Result.SubcategoryList result) {
         Intent intent = CategoryL2Activity.newIntent(getContext());
+        intent.putExtra("scl1id",String.valueOf(result.getScl1Id()));
         startActivity(intent);
     }
 }

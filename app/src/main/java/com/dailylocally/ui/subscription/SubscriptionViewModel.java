@@ -20,7 +20,10 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> {
@@ -322,13 +325,13 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                     } else if (editOrNew.equals(AppConstants.SUBSCRIBEPRODUCT_CHECK)) {
 
-                        startDate.set(response.getOrderDeliveryDay());
+                        startDate.set(parseDateToddMMyyyy(response.getOrderDeliveryDay()));
                     } else if (editOrNew.equals(AppConstants.SUBSCRIBEPRODUCT_CHANGE)) {
 
                         if (getNavigator() != null)
                             getNavigator().selectDate(response.getOrderDeliveryDay());
                     } else {
-                        startDate.set(response.getOrderDeliveryDay());
+                        startDate.set(parseDateToddMMyyyy(response.getOrderDeliveryDay()));
                     }
 
                 }
@@ -345,7 +348,23 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
     }
 
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
     public void clickDaily() {
 
         if (dailyClicked.get()) {
@@ -697,7 +716,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                         name.set(response.getResult().get(0).getProductname());
                         image.set(response.getResult().get(0).getImage());
-                        weight.set(response.getResult().get(0).getWeight());
+                        weight.set(response.getResult().get(0).getWeight()+" "+response.getResult().get(0).getUnit());
                         price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +response.getResult().get(0).getMrp());
 
 

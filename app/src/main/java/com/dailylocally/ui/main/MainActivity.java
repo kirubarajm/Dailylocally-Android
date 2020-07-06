@@ -185,6 +185,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isHome.set(true);
         mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(false);
+        mMainViewModel.isOrder.set(false);
         mMainViewModel.isMyAccount.set(false);
 
         if (mMainViewModel.update.get()) {

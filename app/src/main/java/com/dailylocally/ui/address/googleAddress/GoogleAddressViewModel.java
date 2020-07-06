@@ -163,7 +163,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
         request.setLon(lng);
         request.setPincode(pincode);
 
-
     }
 
     public void confirmLocation(String locationAddress, String house, String area, String landmark){

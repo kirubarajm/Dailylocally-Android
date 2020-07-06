@@ -82,6 +82,9 @@ public class SubscriptionResponse {
         @SerializedName("weight")
         @Expose
         private String weight;
+        @SerializedName("unit")
+        @Expose
+        private String unit;
         @SerializedName("packettype")
         @Expose
         private Object packettype;
@@ -109,6 +112,14 @@ public class SubscriptionResponse {
         @SerializedName("availablity")
         @Expose
         private Boolean availablity;
+
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
 
         public String getPid() {
             return pid;

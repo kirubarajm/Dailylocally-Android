@@ -51,6 +51,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     public ObservableList<ProductsResponse.Result> productsList = new ObservableArrayList<>();
     public ProductsRequest productsRequest = new ProductsRequest();
     public String scl2id;
+    public String scl1id;
     public Integer page = 0;
     private MutableLiveData<List<ProductsResponse.Result>> productsListLiveData;
 
@@ -108,6 +109,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             productsRequest.setLat(getDataManager().getCurrentLat());
             productsRequest.setLon(getDataManager().getCurrentLng());
             productsRequest.setScl2Id(scl2id);
+            productsRequest.setScl1Id(scl1id);
             productsRequest.setPage(page + 1);
 
 
@@ -163,6 +165,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             productsRequest.setLat(getDataManager().getCurrentLat());
             productsRequest.setLon(getDataManager().getCurrentLng());
             productsRequest.setScl2Id(scl2id);
+            productsRequest.setScl1Id(scl1id);
             productsRequest.setPage(page);
 
 
@@ -312,6 +315,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 fProductsRequest.setLat(getDataManager().getCurrentLat());
                 fProductsRequest.setLon(getDataManager().getCurrentLng());
                 fProductsRequest.setScl2Id(String.valueOf(scl2id));
+                fProductsRequest.setScl1Id(String.valueOf(scl1id));
                 productsRequest.setPage(page);
 
 
@@ -321,6 +325,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 fProductsRequest.setLat(getDataManager().getCurrentLat());
                 fProductsRequest.setLon(getDataManager().getCurrentLng());
                 fProductsRequest.setScl2Id(String.valueOf(scl2id));
+                fProductsRequest.setScl1Id(String.valueOf(scl1id));
                 productsRequest.setPage(page);
             }
 
@@ -330,6 +335,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             fProductsRequest.setLat(getDataManager().getCurrentLat());
             fProductsRequest.setLon(getDataManager().getCurrentLng());
             fProductsRequest.setScl2Id(String.valueOf(scl2id));
+            fProductsRequest.setScl1Id(String.valueOf(scl1id));
             productsRequest.setPage(page);
         }
 

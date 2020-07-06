@@ -36,9 +36,10 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     FragmentProductsBinding mFragmentProductsBinding;
 
-    public static ProductsFragment newInstance(String id) {
+    public static ProductsFragment newInstance(String scl2id,String scl1id) {
         Bundle args = new Bundle();
-        args.putString("scl2id", id);
+        args.putString("scl2id", scl2id);
+        args.putString("scl1id", scl1id);
         ProductsFragment fragment = new ProductsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -102,6 +103,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         mFragmentProductsBinding = getViewDataBinding();
 
         mProductsViewModel.scl2id = getArguments().getString("scl2id", null);
+        mProductsViewModel.scl1id = getArguments().getString("scl1id", null);
 
         mProductsViewModel.title.set(String.valueOf(mProductsViewModel.scl2id));
 

@@ -180,6 +180,7 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
     public void onBackPressed() {
         t.remove(caldroidFragment);
         setResult(Activity.RESULT_CANCELED);
+        super.onBackPressed();
     }
 
     @Override
