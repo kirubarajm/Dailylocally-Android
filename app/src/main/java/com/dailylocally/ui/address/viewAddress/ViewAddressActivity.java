@@ -25,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.inject.Inject;
 
@@ -106,10 +107,18 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     try {
-                        map = googleMap;
-                        map.getUiSettings().setZoomControlsEnabled(true);
                         LatLng latLng = new LatLng(lat, lon);
+
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(latLng);
+                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                        map = googleMap;
+                        map.clear();
+                        map.getUiSettings().setZoomControlsEnabled(true);
+                        //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                        map.addMarker(markerOptions);
+
                     }catch (Exception e){
                         e.printStackTrace();
                     }

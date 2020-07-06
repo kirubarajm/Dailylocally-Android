@@ -130,7 +130,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     @Override
     public void loginError(boolean strError) {
         continueClicked = false;
-        Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Something went wrong please try again later", Toast.LENGTH_LONG).show();
     }
 
     @Override

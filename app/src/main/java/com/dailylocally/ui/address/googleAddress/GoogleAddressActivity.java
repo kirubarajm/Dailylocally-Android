@@ -232,7 +232,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     }
 
     @Override
-    public void confirmLocationClick(String locationAddress, String house, String area, String landmark,
+    public void confirmLocationClick(String locationAddress, String area,
                                      String lat,String lon,String pinCode) {
         Intent intent = AddressNewActivity.newIntent(GoogleAddressActivity.this);
         intent.putExtra("locationAddress",locationAddress);
@@ -240,7 +240,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
         intent.putExtra("lon",lon);
         intent.putExtra("pinCode",pinCode);
         intent.putExtra("area",area);
-        intent.putExtra("aid",aid);
+        intent.putExtra("aid",mAddAddressViewModel.aId.get());
         intent.putExtra("edit",edit);
         startActivity(intent);
     }
@@ -254,7 +254,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-            aid = bundle.getString("aid");
+            //aid = bundle.getString("aid");
             edit = bundle.getString("edit");
             if (edit!=null){
                 mAddAddressViewModel.fetchUserDetails();
@@ -547,6 +547,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
         protected void onPostExecute(Address fetchedAddress) {
             super.onPostExecute(fetchedAddress);
 
+            try {
 
             if (fetchedAddress != null) {
 
@@ -569,7 +570,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
 
 
-                mAddAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
+                mAddAddressViewModel.saveAddress(address,fetchedAddress.getSubLocality(),String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
 
 
                 StringBuilder strAddress = new StringBuilder();
@@ -581,6 +582,9 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
             } else {
                 if (address == null)
                     printToast("Unable to find your address please mark your location on map..");
+            }
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
         }

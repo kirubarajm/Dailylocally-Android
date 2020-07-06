@@ -40,7 +40,7 @@ public class TransactionHistoryResponse {
         public Integer tsid;
         @SerializedName("price")
         @Expose
-        public Integer price;
+        public String price;
         @SerializedName("gst")
         @Expose
         public Integer gst;
@@ -129,7 +129,7 @@ public class TransactionHistoryResponse {
             return tsid;
         }
 
-        public Integer getPrice() {
+        public String getPrice() {
             return price;
         }
 

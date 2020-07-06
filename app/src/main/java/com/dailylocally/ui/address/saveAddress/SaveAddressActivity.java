@@ -31,6 +31,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.inject.Inject;
 
@@ -110,8 +111,8 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     }
 
     @Override
-    public void saveAddressFailed() {
-        Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show();
+    public void saveAddressFailed(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -170,10 +171,16 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                map = googleMap;
-                map.getUiSettings().setZoomControlsEnabled(true);
                 LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                map = googleMap;
+                map.clear();
+                map.getUiSettings().setZoomControlsEnabled(true);
+                //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                map.addMarker(markerOptions);
             }
         });
     }
