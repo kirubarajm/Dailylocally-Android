@@ -68,6 +68,9 @@ import com.dailylocally.ui.productDetail.ProductDetailsModule;
 import com.dailylocally.ui.productDetail.dialogProductCancel.DialogProductCancelProvider;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelModule;
+import com.dailylocally.ui.pronotion.AdActivity;
+import com.dailylocally.ui.pronotion.AdModule;
+import com.dailylocally.ui.pronotion.bottom.PromotionProvider;
 import com.dailylocally.ui.rating.RatingActivity;
 import com.dailylocally.ui.rating.RatingModule;
 import com.dailylocally.ui.search.SearchProvider;
@@ -135,6 +138,7 @@ public abstract class ActivityBuilder {
             CartProvider.class,
             SearchProvider.class,
             CalendarProvider.class,
+            PromotionProvider.class,
             MyAccountProvider.class
     })
     abstract MainActivity bindMainActivity();
@@ -224,5 +228,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {RatingModule.class})
     abstract RatingActivity bindRatingActivity();
+
+    @ContributesAndroidInjector(modules = {AdModule.class, PromotionProvider.class})
+    abstract AdActivity bindAdActivity();
 
 }
