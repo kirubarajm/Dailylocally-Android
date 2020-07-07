@@ -13,17 +13,9 @@ public class CalendarDayWiseResponse {
     @SerializedName("status")
     @Expose
     public Boolean status;
-    @SerializedName("rating_status")
-    @Expose
-    public Boolean rating_status;
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
-
-
-    public Boolean getRating_status() {
-        return rating_status;
-    }
 
     public Boolean getSuccess() {
         return success;
@@ -48,10 +40,18 @@ public class CalendarDayWiseResponse {
         @SerializedName("dayorderstatus")
         @Expose
         public Integer dayorderstatus;
+        @SerializedName("rating_status")
+        @Expose
+        public Boolean ratingStatus;
+
         @SerializedName("items")
         @Expose
         public List<Item> items = null;
 
+
+        public Boolean getRatingStatus() {
+            return ratingStatus;
+        }
 
         public Integer getUserid() {
             return userid;

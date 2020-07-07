@@ -94,16 +94,21 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                     dateString,monthString), new Response.Listener<CalendarDayWiseResponse>() {
                 @Override
                 public void onResponse(CalendarDayWiseResponse response) {
+                    try {
+
                     if (response!=null) {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
-                                if (response.getRating_status()){
+                                noDataFound.set(false);
+                                if (response.getResult().get(0).getRatingStatus()){
                                     isRateBtn.set(true);
                                 }else {
                                     isRateBtn.set(false);
                                 }
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
                                 doid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
+                            }else {
+                                noDataFound.set(true);
                             }
                         }else {
                             noDataFound.set(true);
@@ -115,6 +120,9 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                         noDataFound.set(true);
                     }
                     setIsLoading(false);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
