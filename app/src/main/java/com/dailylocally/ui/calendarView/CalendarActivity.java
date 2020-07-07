@@ -110,7 +110,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void failure(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
