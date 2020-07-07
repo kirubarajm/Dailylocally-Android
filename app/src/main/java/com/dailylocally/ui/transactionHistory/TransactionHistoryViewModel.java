@@ -2,6 +2,7 @@ package com.dailylocally.ui.transactionHistory;
 
 
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
@@ -22,6 +23,7 @@ import java.util.List;
 public class TransactionHistoryViewModel extends BaseViewModel<TransactionHistoryNavigator> {
 
     public final ObservableField<String> version = new ObservableField<>();
+    public final ObservableBoolean flagNoData  = new ObservableBoolean();
 
     public ObservableList<TransactionHistoryResponse.Result> transactionHistoryItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<TransactionHistoryResponse.Result>> transactionHistoryItemsLiveData;
@@ -65,7 +67,11 @@ public class TransactionHistoryViewModel extends BaseViewModel<TransactionHistor
                             if (response!=null){
                                 if (response.getStatus()){
                                     transactionHistoryItemsLiveData.setValue(response.getResult());
+                                }else {
+                                    flagNoData.set(true);
                                 }
+                            }else {
+                                flagNoData.set(true);
                             }
                         }catch (Exception e){
                             e.printStackTrace();

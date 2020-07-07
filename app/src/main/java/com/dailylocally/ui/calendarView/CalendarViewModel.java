@@ -97,7 +97,6 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                     if (response!=null) {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
-                                noDataFound.set(true);
                                 if (response.getRating_status()){
                                     isRateBtn.set(true);
                                 }else {
@@ -107,11 +106,13 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                                 doid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
                             }
                         }else {
+                            noDataFound.set(true);
                             if (getNavigator()!=null) {
                                 getNavigator().failure("");
                             }
-                            noDataFound.set(false);
                         }
+                    }else {
+                        noDataFound.set(true);
                     }
                     setIsLoading(false);
                 }
@@ -155,6 +156,12 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
     }
 
     public void goBack(){
+        if (getNavigator()!=null){
+            getNavigator().goBack();
+        }
+    }
+
+    public void goToHome(){
         if (getNavigator()!=null){
             getNavigator().goBack();
         }

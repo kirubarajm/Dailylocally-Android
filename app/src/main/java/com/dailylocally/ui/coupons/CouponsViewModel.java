@@ -21,6 +21,7 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
 
     public final ObservableField<String> version = new ObservableField<>();
     public final ObservableBoolean flagApplyVisibility = new ObservableBoolean();
+    public final ObservableBoolean flagNoDataFound = new ObservableBoolean();
     public ObservableList<CouponsResponse.Result> couponsItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<CouponsResponse.Result>> couponsItemsLiveData;
 
@@ -64,6 +65,7 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
                             if (response!=null){
                                 if (response.getStatus()){
                                     couponsItemsLiveData.setValue(response.getResult());
+                                    flagNoDataFound.set(true);
                                 }
                             }
                         }catch (Exception e){
@@ -131,6 +133,12 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
     public void referralClick(){
         if (getNavigator()!=null){
             getNavigator().refer();
+        }
+    }
+
+    public void goToHome(){
+        if (getNavigator()!=null){
+            getNavigator().goBack();
         }
     }
 }
