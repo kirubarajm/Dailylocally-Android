@@ -239,7 +239,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
-                    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                  //  markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                     map = googleMap;
                     map.clear();
                     map.getUiSettings().setZoomControlsEnabled(true);

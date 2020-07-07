@@ -111,7 +111,7 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
 
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
-                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                   //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                         map = googleMap;
                         map.clear();
                         map.getUiSettings().setZoomControlsEnabled(true);
