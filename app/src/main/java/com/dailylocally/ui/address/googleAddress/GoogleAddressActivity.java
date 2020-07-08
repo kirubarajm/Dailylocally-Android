@@ -121,7 +121,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     @Override
     public void addressSaved() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_SAVE);
-        Intent intent = MainActivity.newIntent(GoogleAddressActivity.this);
+        Intent intent = MainActivity.newIntent(GoogleAddressActivity.this,"","");
         startActivity(intent);
         finish();
         hideKeyboard();

@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +26,6 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityMainBinding;
 import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.calendarView.CalendarFragment;
 import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.home.HomeFragment;
@@ -53,8 +51,6 @@ import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import org.json.JSONObject;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -112,8 +108,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private MainViewModel mMainViewModel;
     private ActivityMainBinding mActivityMainBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+    public static Intent newIntent(Context context, String ToPage, String fromPage) {
+
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+
+        return intent;
     }
 
 
@@ -213,7 +214,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.updateAvailable.set(false);
 
 
-
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
 
         try {
@@ -232,7 +232,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openExplore() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
-       // stopLoader();
+        // stopLoader();
         try {
             mMainViewModel.isExplore.set(true);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -316,7 +316,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }*/
 
 
-        if (mMainViewModel.isHome.get()){
+        if (mMainViewModel.isHome.get()) {
 
             if (doubleBackToExitPressedOnce) {
                 new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_EXIT_APP);
@@ -335,11 +335,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 }
             }, 2000);
 
-        }else {
+        } else {
             openHome();
         }
-
-
 
 
     }
@@ -370,7 +368,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
         PushUtils.registerWithZendesk();
 
-       // openHome();
+        // openHome();
         saveFcmToken();
 
         //  updateUIalert();
@@ -378,8 +376,50 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(true);
 
-
         Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+
+            switch (intent.getExtras().getString(AppConstants.PAGE, "")) {
+
+                case AppConstants.NOTIFY_CART_FRAG:
+                    openCart(intent.getExtras().getString(AppConstants.PAGE, ""));
+                    break;
+
+                case AppConstants.NOTIFY_MYACCOUNT_FRAG:
+                    openAccount();
+                    break;
+
+                case AppConstants.NOTIFY_MY_ORDER_FRAG:
+                    openOrders();
+                    break;
+
+                case AppConstants.NOTIFY_HOME_FRAG:
+                    openHome();
+                    break;
+
+                case AppConstants.NOTIFY_SEARCH_FRAG:
+                    openExplore();
+                    break;
+
+                case AppConstants.NOTIFY_CHAT:
+                    openChat();
+                    break;
+                default:
+                    openHome();
+
+            }
+
+            if (intent.getExtras().getString("requestId") != null) {
+                RequestActivity.builder()
+                        .withRequestId(intent.getExtras().getString("requestId"))
+                        .show(this);
+
+            }
+
+
+        }
+
+        /*Intent intent = getIntent();
         if (intent.getExtras() != null) {
             cart = intent.getExtras().getBoolean("cart");
             navigationPage = intent.getExtras().getString("page");
@@ -434,22 +474,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             List<String> pathSegments = data.getPathSegments();
             if (data.getLastPathSegment().equals("cart")) cart = true;
 
-        }
-
-
+        }*/
         /*if (!mMainViewModel.isAddressAdded()) {
             startLoader();
             startLocationTracking();
         }*/
-
-        if (mMainViewModel.isAddressAdded()) {
+        /*if (mMainViewModel.isAddressAdded()) {
             if (cart) {
                 cart = false;
                 mMainViewModel.gotoCart(screenName);
             } else if (pageid.equals("") && pageid.equals("9")) {
-/*
+*//*
                 Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
-                startActivity(repliesIntent);*/
+                startActivity(repliesIntent);*//*
             } else {
 
                 if (navigationPage != null && navigationPage.equals(AppConstants.SCREEN_MY_ORDERS)) {
@@ -477,12 +514,33 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 }
             }
 
-        }
+        }*/
     }
 
 
     public void statusUpdate() {
         mMainViewModel.totalCart();
+    }
+
+    public void openChat() {
+        ZopimChat.init(getString(R.string.zopim_account_id));
+        final VisitorInfo.Builder build = new VisitorInfo.Builder()
+                .email(mMainViewModel.getDataManager().getCurrentUserEmail())
+                .name(mMainViewModel.getDataManager().getCurrentUserName())
+                .phoneNumber(mMainViewModel.getDataManager().getCurrentUserPhNo());
+        ZopimChat.setVisitorInfo(build.build());
+        // build pre chat form config
+        PreChatForm preChatForm = new PreChatForm.Builder()
+                .name(PreChatForm.Field.NOT_REQUIRED)
+                .email(PreChatForm.Field.NOT_REQUIRED)
+                .phoneNumber(PreChatForm.Field.NOT_REQUIRED)
+                .department(PreChatForm.Field.NOT_REQUIRED)
+                .message(PreChatForm.Field.NOT_REQUIRED)
+                .build();
+        // build session config
+        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
+                .preChatForm(preChatForm);
+        ZopimChatActivity.startActivity(this, config);
     }
 
 

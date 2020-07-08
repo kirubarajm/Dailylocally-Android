@@ -48,7 +48,7 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     @Override
     public void checkForUserLoginMode(boolean trueOrFlase) {
         if (trueOrFlase) {
-            Intent intent = MainActivity.newIntent(UpdateActivity.this);
+            Intent intent = MainActivity.newIntent(UpdateActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_UPDATE_ACTV);
             startActivity(intent);
             finish();
         } else {

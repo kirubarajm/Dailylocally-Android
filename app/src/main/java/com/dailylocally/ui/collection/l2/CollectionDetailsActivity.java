@@ -163,9 +163,8 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
     }
     @Override
     public void viewCart() {
-        Intent intent = MainActivity.newIntent(CollectionDetailsActivity.this);
+        Intent intent = MainActivity.newIntent(CollectionDetailsActivity.this,AppConstants.NOTIFY_CART_FRAG,AppConstants.NOTIFY_COLLECTION_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("page", AppConstants.SCREEN_CART_PAGE);
         startActivity(intent);
     }
 

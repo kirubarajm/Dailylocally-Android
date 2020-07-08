@@ -417,7 +417,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
                         .withShadow()
                         .withTextColor(Color.BLACK)
                         .withAnimationType(ToolTip.AnimationType.NONE);
-                myToolTipView = mActivityCartBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mActivityCartBinding.recyclerviewBill);
+                myToolTipView = mActivityCartBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, imageView);
              //   myToolTipView = relativeLayout.showToolTipForView(toolTip,imageView);
                 TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
                 StringBuilder sTitle = new StringBuilder();

@@ -24,6 +24,7 @@ import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.ui.update.UpdateActivity;
+import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -69,7 +70,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void checkForUserLogin(boolean status) {
         if (status) {
-            Intent intent = MainActivity.newIntent(SplashActivity.this);
+            Intent intent = MainActivity.newIntent(SplashActivity.this, AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_SPLASH_ACTV);
             //Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

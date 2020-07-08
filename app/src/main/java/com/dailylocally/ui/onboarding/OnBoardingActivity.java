@@ -119,7 +119,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     @Override
     public void checkForUserLoginMode(boolean trueOrFalse) {
         if (trueOrFalse) {
-            Intent intent = MainActivity.newIntent(OnBoardingActivity.this);
+            Intent intent = MainActivity.newIntent(OnBoardingActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_ONBOARDING_ACTV);
             startActivity(intent);
             finish();
         } else {

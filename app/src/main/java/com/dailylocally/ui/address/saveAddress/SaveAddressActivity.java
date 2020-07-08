@@ -118,7 +118,7 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     @Override
     public void showToast(String msg,boolean trueOrFalse) {
         if (trueOrFalse){
-            Intent intent = MainActivity.newIntent(SaveAddressActivity.this);
+            Intent intent = MainActivity.newIntent(SaveAddressActivity.this,AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
             startActivity(intent);
             finish();
         }

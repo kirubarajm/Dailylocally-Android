@@ -653,6 +653,7 @@ public class AppConstants {
   public static final String DELIVERY_FEEDBACK = "del_feedback";
 
   public static final String PAGE = "page";
+  public static final String FROM = "from";
 
   //////Notification screens
   public static final String NOTIFY_SPLASH_ACTV = "1";
@@ -679,6 +680,10 @@ public class AppConstants {
   public static final String NOTIFY_UPDATE_ACTV = "22";
   public static final String NOTIFY_COLLECTION_ACTV = "23";
   public static final String NOTIFY_SUPPORT_ACTV = "24";
+  public static final String NOTIFY_MY_ORDER_FRAG = "25";
+  public static final String NOTIFY_CHAT = "26";
+  public static final String NOTIFY_ONBOARDING_ACTV = "27";
+  public static final String NOTIFY_PRODUCT_DETAILS_ACTV = "28";
 
 
 

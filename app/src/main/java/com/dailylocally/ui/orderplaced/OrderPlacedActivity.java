@@ -44,14 +44,16 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         startActivity(intent);
         finish();*/
 
-        Intent intent = CalendarActivity.newIntent(OrderPlacedActivity.this);
+        Intent intent = MainActivity.newIntent(OrderPlacedActivity.this,AppConstants.NOTIFY_MY_ORDER_FRAG,AppConstants.NOTIFY_ORDER_PLACED_ACTV);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
 
     }
 
     @Override
     public void goHome() {
-        Intent intent = MainActivity.newIntent(OrderPlacedActivity.this);
+        Intent intent = MainActivity.newIntent(OrderPlacedActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_ORDER_PLACED_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

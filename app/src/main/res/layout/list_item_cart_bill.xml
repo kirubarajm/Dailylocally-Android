@@ -24,32 +24,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                android:id="@+id/name"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="3dp"
-                android:onClick="@{()->billItemViewModel.infoClick()}"
-                android:text="@{billItemViewModel.title}"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:gravity="center_vertical">
 
 
-            <ImageView
-                android:id="@+id/info"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="3dp"
-                android:layout_toEndOf="@+id/name"
-                android:onClick="@{()->billItemViewModel.infoClick()}"
-                android:src="@drawable/ic_info_outline_black_24dp"
-                android:visibility="@{billItemViewModel.showInfo?View.VISIBLE:View.GONE}" />
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->billItemViewModel.infoClick()}"
+                    android:text="@{billItemViewModel.title}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
+
+                <ImageView
+                    android:layout_toEndOf="@+id/name"
+                    android:scaleType="fitCenter"
+                    android:id="@+id/info"
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:onClick="@{()->billItemViewModel.infoClick()}"
+                    android:src="@drawable/ic_info_outline_black_24dp"
+                    android:visibility="@{billItemViewModel.showInfo?View.VISIBLE:View.GONE}" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -118,9 +123,9 @@
 
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
             android:orientation="horizontal"
             android:visibility="@{billItemViewModel.lowCost?View.VISIBLE:View.GONE}">
@@ -139,20 +144,20 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_marginTop="-2dp"
-                    android:background="@color/dark_gray"
                     android:layout_width="wrap_content"
                     android:layout_height="0.5dp"
+                    android:layout_marginTop="-2dp"
+                    android:background="@color/dark_gray"
                     android:orientation="vertical">
 
                     <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                        android:visibility="invisible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Note:"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
             </LinearLayout>

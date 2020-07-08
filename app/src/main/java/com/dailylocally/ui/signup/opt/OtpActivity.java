@@ -172,7 +172,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             unregisterReceiver(smsReceiver);
 
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
-            Intent intent = MainActivity.newIntent(OtpActivity.this);
+            Intent intent = MainActivity.newIntent(OtpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_OTP_ACTV);
             startActivity(intent);
             finish();
         } else {
@@ -249,7 +249,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 });
 
         Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
-        Intent intent = MainActivity.newIntent(OtpActivity.this);
+        Intent intent = MainActivity.newIntent(OtpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_OTP_ACTV);
         startActivity(intent);
         finish();
 
