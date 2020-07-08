@@ -9,11 +9,12 @@ import com.dailylocally.ui.category.l2.products.ProductsFragment;
 public class PlansPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     L2CategoryResponse response;
-
-    public PlansPagerAdapter(FragmentManager fm, int NumOfTabs, L2CategoryResponse response) {
+    String scl1id;
+    public PlansPagerAdapter(FragmentManager fm, int NumOfTabs, L2CategoryResponse response,String scl1id) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.response = response;
+        this.scl1id = scl1id;
     }
 
     @Override
@@ -26,10 +27,14 @@ public class PlansPagerAdapter extends FragmentStatePagerAdapter {
 */
 
         if (position == 0) {
-            return ProductsFragment.newInstance("0",String.valueOf(response.getResult().get(0).getScl1Id()));
+            return ProductsFragment.newInstance("0",scl1id);
         }else {
-            return ProductsFragment.newInstance(String.valueOf(response.getResult().get(position-1).getScl2Id()),String.valueOf(response.getResult().get(position-1).getScl1Id()));
+            if (response.getResult().size()>0) {
+                return ProductsFragment.newInstance(String.valueOf(response.getResult().get(position - 1).getScl2Id()), String.valueOf(response.getResult().get(position - 1).getScl1Id()));
+            }else {
+                return ProductsFragment.newInstance("0",scl1id);
 
+            }
         }
 
     }
