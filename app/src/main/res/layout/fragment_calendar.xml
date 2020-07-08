@@ -50,13 +50,13 @@
                         android:layout_gravity="center_vertical"
                         android:layout_margin="10dp"
                         android:src="@drawable/ic_arrow_back_black_24dp" />
+
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.poppins.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="My Orders"
@@ -94,12 +94,71 @@
         </RelativeLayout>
 
             <RelativeLayout
+                android:layout_below="@+id/rel_1"
+                android:visibility="@{calendarViewModel.noDataFound?View.VISIBLE:View.GONE}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_no_data"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_empty_calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    android:text="@string/no_orders_found"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:id="@+id/txt_no_order_found"
+                    android:layout_below="@+id/img_no_data"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    android:text="@string/place_your_order_before_11pm_and_get_delivered"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:id="@+id/txt_no_order_content"
+                    android:layout_below="@+id/txt_no_order_found"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_below="@+id/txt_no_order_content"
+                    android:onClick="@{()->calendarViewModel.goToHome()}"
+                    android:textColor="@color/dl_primary_color"
+                    android:id="@+id/btn_goto_home"
+                    android:textAllCaps="true"
+                    android:background="@drawable/transaction_bck"
+                    android:text="@string/go_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="@{calendarViewModel.noDataFound?View.GONE:View.VISIBLE}"
                 android:id="@+id/rel_your_orders"
                 android:padding="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/rel_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <com.dailylocally.utilities.fonts.poppins.ContentTextView
                     android:text="@string/your_orders"
@@ -178,16 +237,6 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                    android:text="@string/no_data_found_for_this_date"
-                    android:layout_below="@+id/rel_date"
-                    android:layout_marginTop="40dp"
-                    android:visibility="@{calendarViewModel.noDataFound?View.VISIBLE:View.GONE}"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_below="@+id/rel_date"
                     android:layout_marginTop="5dp"
@@ -198,21 +247,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-            </RelativeLayout>
+                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:visibility="@{calendarViewModel.isRateBtn?View.VISIBLE:View.GONE}"
+                    android:layout_below="@+id/recycler_day_wise_order"
+                    android:textColor="@color/dl_primary_color"
+                    android:id="@+id/btn_refer"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{()->calendarViewModel.ratingClick()}"
+                    android:background="@drawable/transaction_bck"
+                    android:text="@{calendarViewModel.rateDeliveryButton}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
-                android:visibility="@{calendarViewModel.isRateBtn?View.VISIBLE:View.GONE}"
-                android:layout_below="@+id/rel_your_orders"
-                android:textColor="@color/dl_primary_color"
-                android:id="@+id/btn_refer"
-                android:onClick="@{()->calendarViewModel.ratingClick()}"
-                android:background="@drawable/transaction_bck"
-                android:text="@{calendarViewModel.rateDeliveryButton}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 

@@ -57,7 +57,8 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBinding, GoogleAddressViewModel> implements GoogleAddressNavigator, LocationListener {
+public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBinding, GoogleAddressViewModel>
+        implements GoogleAddressNavigator, LocationListener {
 
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;

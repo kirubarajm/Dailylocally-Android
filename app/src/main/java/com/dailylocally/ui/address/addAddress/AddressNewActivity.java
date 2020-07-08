@@ -461,32 +461,32 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     public boolean validation(){
 
         if (mActivityAddressNewBinding.radio1.isChecked()){
-            if (mActivityAddressNewBinding.edtApartmentName.getText().toString().isEmpty()){
+            if (mActivityAddressNewBinding.edtApartmentName.getText().toString().trim().isEmpty()){
                 mActivityAddressNewBinding.edtApartmentName.setError("");
                 return false;
-            }else if (mActivityAddressNewBinding.edtTowerBlock.getText().toString().isEmpty()){
+            }else if (mActivityAddressNewBinding.edtTowerBlock.getText().toString().trim().isEmpty()){
                 mActivityAddressNewBinding.edtTowerBlock.setError("");
                 return false;
-            }else if (mActivityAddressNewBinding.edtFlatHouseNo.getText().toString().isEmpty()){
+            }else if (mActivityAddressNewBinding.edtFlatHouseNo.getText().toString().trim().isEmpty()){
                 mActivityAddressNewBinding.edtFlatHouseNo.setError("");
                 return false;
             }
         }
 
         if (mActivityAddressNewBinding.radio2.isChecked()){
-            if (mActivityAddressNewBinding.edtHousePlotNo.getText().toString().isEmpty()){
+            if (mActivityAddressNewBinding.edtHousePlotNo.getText().toString().trim().isEmpty()){
                 mActivityAddressNewBinding.edtHousePlotNo.setError("");
                 return false;
-            }else if (mActivityAddressNewBinding.edtFloor.getText().toString().isEmpty()){
+            }else if (mActivityAddressNewBinding.edtFloor.getText().toString().trim().isEmpty()){
                 mActivityAddressNewBinding.edtFloor.setError("");
                 return false;
             }
         }
 
-        if (mActivityAddressNewBinding.edtAddress.getText().toString().isEmpty()){
+        if (mActivityAddressNewBinding.edtAddress.getText().toString().trim().isEmpty()){
             mActivityAddressNewBinding.edtAddress.setError("");
             return false;
-        }else if (mActivityAddressNewBinding.edtLandmark.getText().toString().isEmpty()){
+        }else if (mActivityAddressNewBinding.edtLandmark.getText().toString().trim().isEmpty()){
             mActivityAddressNewBinding.edtLandmark.setError("");
             return false;
         }

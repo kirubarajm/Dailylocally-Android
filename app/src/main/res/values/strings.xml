@@ -762,6 +762,13 @@
     <string name="oops_we_re_sorry">Oops! We\'re sorry</string>
     <string name="no_results_matching_your_search">No results matching your search</string>
     <string name="no_data_found_for_this_date">No data found for this date</string>
+    <string name="no_coupons_found">No Coupons Found</string>
+    <string name="go_back">Go Back</string>
+    <string name="kindly_bear_with_us_until_we_bring_more_exiting_offers">Kindly bear with us until we bring more exiting offers</string>
+    <string name="place_your_order_before_11pm_and_get_delivered">Place your order before 11pm and get delivered</string>
+    <string name="no_orders_found">No orders found!</string>
+    <string name="pick_your_order_before_11pm_and_get_delivered">Pick your order before 11pm and get delivered</string>
+    <string name="no_transaction_found">No transaction found!</string>
 
 
 </resources>

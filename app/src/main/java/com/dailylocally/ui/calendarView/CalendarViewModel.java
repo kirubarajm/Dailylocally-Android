@@ -12,13 +12,10 @@ import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
-import com.dailylocally.ui.cart.CartResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+
 import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.time.Year;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
         dayWiseLiveData = new MutableLiveData<>();
     }
 
-    public void getMonthWiseOrderDate(String month, String year){
+    public void getMonthWiseOrderDate(String month, String year) {
         try {
             //SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
             //SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
@@ -50,15 +47,15 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_MONTH_WISE_ORDER_HISTORY,
                     CalendarMonthResponse.class, new CalendarMonthWiseRequest(userId,
-                    year,month), new Response.Listener<CalendarMonthResponse>() {
+                    year, month), new Response.Listener<CalendarMonthResponse>() {
                 @Override
                 public void onResponse(CalendarMonthResponse response) {
-                    if (response.getStatus()){
-                        if (getNavigator()!=null) {
+                    if (response.getStatus()) {
+                        if (getNavigator() != null) {
                             getNavigator().success(response.getResult());
                         }
-                    }else {
-                        if (getNavigator()!=null) {
+                    } else {
+                        if (getNavigator() != null) {
                             getNavigator().failure("");
                         }
                     }
@@ -81,7 +78,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
         }
     }
 
-    public void getDayWiseOrderDetails(Date date){
+    public void getDayWiseOrderDetails(Date date) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
@@ -91,31 +88,29 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.CALENDAR_DAY_WISE_ORDER_HISTORY,
                     CalendarDayWiseResponse.class, new CalendarDayWiseRequest(userId,
-                    dateString,monthString), new Response.Listener<CalendarDayWiseResponse>() {
+                    dateString, monthString), new Response.Listener<CalendarDayWiseResponse>() {
                 @Override
                 public void onResponse(CalendarDayWiseResponse response) {
-                    if (response!=null) {
+                    if (response != null) {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
-                                noDataFound.set(true);
+                                noDataFound.set(false);
 
-                                if (response.getRating_status()!=null) {
-                                    if (response.getRating_status()) {
-                                        isRateBtn.set(true);
-                                    } else {
-                                        isRateBtn.set(false);
-                                    }
-                                }else {
+                                if (response.getResult().get(0).getRatingStatus() != null) {
+                                    isRateBtn.set(response.getResult().get(0).getRatingStatus());
+                                } else {
                                     isRateBtn.set(false);
                                 }
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
                                 doid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
+                            }else {
+                                noDataFound.set(true);
                             }
-                        }else {
-                            if (getNavigator()!=null) {
+                        } else {
+                            if (getNavigator() != null) {
                                 getNavigator().failure("");
                             }
-                            noDataFound.set(false);
+                            noDataFound.set(true);
                         }
                     }
                     setIsLoading(false);
@@ -124,7 +119,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    if (getNavigator()!=null) {
+                    if (getNavigator() != null) {
                         getNavigator().failure("");
                     }
                 }
@@ -147,20 +142,26 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
     }
 
-    public void ratingClick(){
-        if (getNavigator()!=null){
+    public void ratingClick() {
+        if (getNavigator() != null) {
             getNavigator().ratingClick();
         }
     }
 
-    public void helpClick(){
-        if (getNavigator()!=null){
+    public void helpClick() {
+        if (getNavigator() != null) {
             getNavigator().helpClick();
         }
     }
 
-    public void goBack(){
-        if (getNavigator()!=null){
+    public void goBack() {
+        if (getNavigator() != null) {
+            getNavigator().goBack();
+        }
+    }
+
+    public void goToHome() {
+        if (getNavigator() != null) {
             getNavigator().goBack();
         }
     }

@@ -14,4 +14,5 @@ public interface CouponsNavigator {
 
     void refer();
 
+
 }
