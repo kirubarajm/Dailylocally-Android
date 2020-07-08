@@ -175,7 +175,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     private boolean validForProceed() {
         if (mActivityRegistrationBinding.edtName.getText().toString().trim().isEmpty() || mActivityRegistrationBinding.email.getText().toString().isEmpty()) {
 
-            if ((mActivityRegistrationBinding.edtName.getText().toString().isEmpty())) {
+            if ((mActivityRegistrationBinding.edtName.getText().toString().trim().isEmpty())) {
                 mActivityRegistrationBinding.inputName.setError("Enter your name");
 
             }

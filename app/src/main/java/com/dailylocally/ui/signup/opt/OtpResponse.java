@@ -26,6 +26,9 @@ public class OtpResponse {
     @SerializedName("genderstatus")
     @Expose
     private Boolean genderstatus;
+    @SerializedName("registrationstatus")
+    @Expose
+    private Boolean registrationstatus;
     @SerializedName("userid")
     @Expose
     private String userid;
@@ -42,6 +45,10 @@ public class OtpResponse {
     @Expose
     private List<Result> result = null;
 
+
+    public Boolean getRegistrationstatus() {
+        return registrationstatus;
+    }
 
     public String getRazerCustomerid() {
         return razerCustomerid;
