@@ -1,4 +1,4 @@
-package com.dailylocally.ui.pronotion.bottom;
+package com.dailylocally.ui.promotion.bottom;
 
 
 import androidx.databinding.ObservableBoolean;
@@ -48,7 +48,8 @@ public class PromotionViewModel extends BaseViewModel<PromotionNavigator> {
 
 
         getDataManager().savePromotionCustomerId(getDataManager().getCurrentUserId());
-
+        getDataManager().savePromotionDailyCount(getDataManager().getPromotionDailyCount()+1);
+        getDataManager().savePromotionAppStartAgain(false);
 
     }
 

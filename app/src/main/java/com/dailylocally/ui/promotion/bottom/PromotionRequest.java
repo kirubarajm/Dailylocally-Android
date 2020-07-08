@@ -1,4 +1,4 @@
-package com.dailylocally.ui.pronotion.bottom;
+package com.dailylocally.ui.promotion.bottom;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -112,9 +112,31 @@ public class SubscriptionResponse {
         @SerializedName("availablity")
         @Expose
         private Boolean availablity;
+        @SerializedName("mrp_discount_amout")
+        @Expose
+        private String mrpDiscountAmount;
 
+        @SerializedName("discount_cost_status")
+        @Expose
+        private boolean discountCostStatus;
         public String getUnit() {
             return unit;
+        }
+
+        public String getMrpDiscountAmount() {
+            return mrpDiscountAmount;
+        }
+
+        public void setMrpDiscountAmount(String mrpDiscountAmount) {
+            this.mrpDiscountAmount = mrpDiscountAmount;
+        }
+
+        public boolean isDiscountCostStatus() {
+            return discountCostStatus;
+        }
+
+        public void setDiscountCostStatus(boolean discountCostStatus) {
+            this.discountCostStatus = discountCostStatus;
         }
 
         public void setUnit(String unit) {

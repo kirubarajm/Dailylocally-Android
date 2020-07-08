@@ -93,7 +93,7 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
         super.onViewCreated(view, savedInstanceState);
         mFragmentProductsBinding = getViewDataBinding();
 
-        mFavProductsViewModel.catid = getArguments().getString("catid", null);
+        mFavProductsViewModel.catid = getArguments().getString("catid", "0");
 
         mFavProductsViewModel.title.set(String.valueOf(mFavProductsViewModel.catid));
 

@@ -25,8 +25,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
     public SplashViewModel(DataManager dataManager) {
         super(dataManager);
         getDataManager().appStartedAgain(true);
-
-
+        getDataManager().savePromotionAppStartAgain(true);
     }
 
     public void clearLatLng(){

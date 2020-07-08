@@ -19,7 +19,7 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.ui.pronotion.bottom.PromotionFragment;
+import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.utilities.AppConstants;
 
 import javax.inject.Inject;
@@ -144,6 +144,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         PromotionFragment bottomSheetFragment = new PromotionFragment();
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
+
     }
     @Override
     public void searchClick() {

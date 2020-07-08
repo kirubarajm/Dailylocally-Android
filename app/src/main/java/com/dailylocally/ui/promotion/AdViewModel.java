@@ -1,4 +1,4 @@
-package com.dailylocally.ui.pronotion;
+package com.dailylocally.ui.promotion;
 
 
 import com.dailylocally.data.DataManager;

@@ -1,4 +1,4 @@
-package com.dailylocally.ui.pronotion.bottom;
+package com.dailylocally.ui.promotion.bottom;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -68,9 +68,12 @@ public class PromotionResponse {
         @SerializedName("expiry_date")
         @Expose
         private String expiryDate;
-        @SerializedName("created_at")
+
+        @SerializedName("daily_show_count")
         @Expose
-        private String createdAt;
+        private Integer dailyShowCount;
+
+
         @SerializedName("updated_at")
         @Expose
         private Object updatedAt;
@@ -80,6 +83,15 @@ public class PromotionResponse {
         @SerializedName("full_screen")
         @Expose
         private Boolean fullScreen;
+
+
+        public Integer getDailyShowCount() {
+            return dailyShowCount;
+        }
+
+        public void setDailyShowCount(Integer dailyShowCount) {
+            this.dailyShowCount = dailyShowCount;
+        }
 
         public Integer getPid() {
             return pid;
@@ -137,13 +149,6 @@ public class PromotionResponse {
             this.expiryDate = expiryDate;
         }
 
-        public String getCreatedAt() {
-            return createdAt;
-        }
-
-        public void setCreatedAt(String createdAt) {
-            this.createdAt = createdAt;
-        }
 
         public Object getUpdatedAt() {
             return updatedAt;

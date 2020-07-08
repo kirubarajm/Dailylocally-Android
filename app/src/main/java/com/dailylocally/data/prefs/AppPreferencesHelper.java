@@ -103,8 +103,10 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_PROMOTION_SEEN = "PROMOTION_SEEN";
     private static final String PREF_KEY_PROMOTION_ID = "PROMOTION_ID";
+    private static final String PREF_KEY_PROMOTION_DAILY_COUNT = "PROMOTION_DAILY_COUNT";
     private static final String PREF_KEY_PROMOTION_SEEN_COUNT = "PROMOTION_SEEN_COUNT";
     private static final String PREF_KEY_PROMOTION_SEEN_DATE = "PROMOTION_SEEN_DATE";
+    private static final String PREF_KEY_PROMOTION_APP_START_AGAIN = "PROMOTION_APP_START";
 
     private static final String PREF_KEY_CHAT_ORDERID = "CHAT_ORDERID";
 
@@ -538,6 +540,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
+    public Integer getPromotionDailyCount() {
+        return mPrefs.getInt(PREF_KEY_PROMOTION_DAILY_COUNT, 0);
+    }
+
+    @Override
+    public void setPromotionDailyCount(int count) {
+        mPrefs.edit().putInt(PREF_KEY_PROMOTION_DAILY_COUNT, count).apply();
+    }
+
+    @Override
     public Integer getPromotionDisplayedCount() {
         return mPrefs.getInt(PREF_KEY_PROMOTION_SEEN_COUNT, 0);
     }
@@ -545,6 +557,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setPromotionDisplayedCount(Integer count) {
         mPrefs.edit().putInt(PREF_KEY_PROMOTION_SEEN_COUNT, count).apply();
+    }
+
+    @Override
+    public Boolean getPromotionAppStartAgain() {
+        return mPrefs.getBoolean(PREF_KEY_PROMOTION_APP_START_AGAIN, false);
+    }
+
+    @Override
+    public void setPromotionAppStartAgain(Boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_PROMOTION_APP_START_AGAIN, status).apply();
     }
 
     @Override

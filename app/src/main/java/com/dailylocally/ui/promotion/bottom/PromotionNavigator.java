@@ -1,4 +1,4 @@
-package com.dailylocally.ui.pronotion.bottom;
+package com.dailylocally.ui.promotion.bottom;
 
 public interface PromotionNavigator {
 

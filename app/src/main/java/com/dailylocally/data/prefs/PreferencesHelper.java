@@ -150,8 +150,14 @@ public interface PreferencesHelper {
     Integer getPromotionId();
     void setPromotionId(Integer promotionid);
 
+  Integer getPromotionDailyCount();
+    void setPromotionDailyCount(int count);
+
     Integer getPromotionDisplayedCount();
     void setPromotionDisplayedCount(Integer count);
+
+ Boolean getPromotionAppStartAgain();
+    void setPromotionAppStartAgain(Boolean count);
 
     boolean isUserRegistered();
     void setUserRegistrationStatus(boolean status);

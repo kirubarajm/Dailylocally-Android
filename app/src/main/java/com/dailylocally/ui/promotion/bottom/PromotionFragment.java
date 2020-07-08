@@ -1,4 +1,4 @@
-package com.dailylocally.ui.pronotion.bottom;
+package com.dailylocally.ui.promotion.bottom;
 
 import android.os.Bundle;
 import android.view.View;

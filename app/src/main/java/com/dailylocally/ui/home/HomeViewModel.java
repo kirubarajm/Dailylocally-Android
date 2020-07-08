@@ -16,8 +16,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
-import com.dailylocally.ui.pronotion.bottom.PromotionRequest;
-import com.dailylocally.ui.pronotion.bottom.PromotionResponse;
+import com.dailylocally.ui.promotion.bottom.PromotionRequest;
+import com.dailylocally.ui.promotion.bottom.PromotionResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
@@ -86,7 +86,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public void myOrders() {
         getNavigator().gotoOrders();
     }
- public void closeUnserviceable() {
+
+    public void closeUnserviceable() {
         serviceable.set(true);
     }
 
@@ -235,48 +236,53 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
                             //      getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(),response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
-                            if (response.getResult() != null && response.getResult().size() > 0) {
-                                if (response.getResult().get(0).getShowStatus()) {
+                            if (getDataManager().getPromotionAppStartAgain())
+                                if (response.getResult() != null && response.getResult().size() > 0) {
+                                    if (response.getResult().get(0).getShowStatus()) {
 
 
-                                    if (getDataManager().getCurrentUserId().equals(getDataManager().getCurrentPromotionUserId())) {
+                                        if (getDataManager().getCurrentUserId().equals(getDataManager().getCurrentPromotionUserId())) {
 
-                                        if (getDataManager().getPromotionId().equals(response.getResult().get(0).getPid())) {
+                                            if (getDataManager().getPromotionId().equals(response.getResult().get(0).getPid())) {
 
-                                            Date c = Calendar.getInstance().getTime();
-                                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                                            String currentdate = df.format(c);
+                                                Date c = Calendar.getInstance().getTime();
+                                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                                String currentdate = df.format(c);
 
-                                            String promotionDate = getDataManager().getPromotionShowedDate();
+                                                String promotionDate = getDataManager().getPromotionShowedDate();
 
-                                            if (!getDataManager().getPromotionShowedDate().equals(currentdate)) {
+                                                if (!getDataManager().getPromotionShowedDate().equals(currentdate)) {
 
-                                                //     if (!getDataManager().getPromotionSeen()) {
+                                                    if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
+                                                        getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+                                                    }
 
-                                                if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
-                                                    getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
-
+                                                } else {
+                                                    if (getDataManager().getPromotionDailyCount() <= response.getResult().get(0).getDailyShowCount()) {
+                                                        if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
+                                                            getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+                                                        }
+                                                    }
                                                 }
 
-                                                //    }
-                                            }
+                                            } else {
+                                                getDataManager().savePromotionDailyCount(0);
+                                                getDataManager().savePromotionDisplayedCount(0);
+                                                getDataManager().savePromotionSeen(false);
+                                                getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
+                                            }
                                         } else {
                                             getDataManager().savePromotionDisplayedCount(0);
+                                            getDataManager().savePromotionDailyCount(0);
                                             getDataManager().savePromotionSeen(false);
                                             getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
                                         }
-                                    } else {
-                                        getDataManager().savePromotionDisplayedCount(0);
-                                        getDataManager().savePromotionSeen(false);
-                                        getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
-
                                     }
+
+
                                 }
-
-
-                            }
 
                         }
                     }

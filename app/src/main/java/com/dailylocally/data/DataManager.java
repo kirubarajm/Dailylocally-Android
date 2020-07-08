@@ -44,6 +44,8 @@ public interface DataManager extends PreferencesHelper {
     void saveMaster(String master);
 
     void savePromotionId(int promotionid);
+    void savePromotionDailyCount(int count);
+    void savePromotionAppStartAgain(boolean ststus);
 
     void savePromotionCustomerId(String customerid);
 

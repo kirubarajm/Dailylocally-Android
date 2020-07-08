@@ -126,7 +126,7 @@
         <activity android:name=".utilities.datepicker.DatePickerActivity" >
 
         </activity>
-        <activity android:name=".ui.pronotion.AdActivity" />
+        <activity android:name=".ui.promotion.AdActivity" />
 
         <meta-data
                           android:name="com.razorpay.ApiKey"

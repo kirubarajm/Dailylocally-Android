@@ -1,4 +1,4 @@
-package com.dailylocally.ui.pronotion;
+package com.dailylocally.ui.promotion;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

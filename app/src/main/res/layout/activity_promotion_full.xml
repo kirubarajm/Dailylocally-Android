@@ -10,7 +10,7 @@
 
         <variable
             name="adViewModel"
-            type="com.dailylocally.ui.pronotion.AdViewModel" />
+            type="com.dailylocally.ui.promotion.AdViewModel" />
 
     </data>
 

@@ -59,6 +59,7 @@ public class FavProductsViewModel extends BaseViewModel<FavProductsNavigator> {
         productsListLiveData = new MutableLiveData<>();
         getDataManager().saveFiletrSort(null);
 //fetchProducts(1);
+        serviceable.set(true);
     }
 
     public MutableLiveData<List<FavProductsResponse.Result>> getProductsListLiveData() {
@@ -116,7 +117,7 @@ public class FavProductsViewModel extends BaseViewModel<FavProductsNavigator> {
 
                     if (response != null) {
 
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
+                      //  getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
                        /* serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/

@@ -717,8 +717,14 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                         name.set(response.getResult().get(0).getProductname());
                         image.set(response.getResult().get(0).getImage());
                         weight.set(response.getResult().get(0).getWeight()+" "+response.getResult().get(0).getUnit());
-                        price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +response.getResult().get(0).getMrp());
 
+
+
+                        if (response.getResult().get(0).isDiscountCostStatus()) {
+                            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + response.getResult().get(0).getMrpDiscountAmount());
+                        } else {
+                            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + response.getResult().get(0).getMrp());
+                        }
 
 
                     }

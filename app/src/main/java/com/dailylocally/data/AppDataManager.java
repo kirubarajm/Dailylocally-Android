@@ -106,6 +106,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void savePromotionDailyCount(int count) {
+        setPromotionDailyCount(count);
+    }
+
+    @Override
+    public void savePromotionAppStartAgain(boolean ststus) {
+        setPromotionAppStartAgain(ststus);
+    }
+
+    @Override
     public void savePromotionCustomerId(String customerid) {
         setCurrentPromotionUserId(customerid);
     }
@@ -616,6 +626,16 @@ mPreferencesHelper.setFilterSort(filterSort);
     }
 
     @Override
+    public Integer getPromotionDailyCount() {
+        return mPreferencesHelper.getPromotionDailyCount();
+    }
+
+    @Override
+    public void setPromotionDailyCount(int count) {
+mPreferencesHelper.setPromotionDailyCount(count);
+    }
+
+    @Override
     public Integer getPromotionDisplayedCount() {
         return mPreferencesHelper.getPromotionDisplayedCount();
     }
@@ -623,6 +643,16 @@ mPreferencesHelper.setFilterSort(filterSort);
     @Override
     public void setPromotionDisplayedCount(Integer count) {
         mPreferencesHelper.setPromotionDisplayedCount(count);
+    }
+
+    @Override
+    public Boolean getPromotionAppStartAgain() {
+        return mPreferencesHelper.getPromotionAppStartAgain();
+    }
+
+    @Override
+    public void setPromotionAppStartAgain(Boolean status) {
+mPreferencesHelper.setPromotionAppStartAgain(status);
     }
 
     @Override
