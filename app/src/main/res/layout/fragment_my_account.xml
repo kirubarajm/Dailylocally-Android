@@ -249,7 +249,7 @@
                             android:layout_toEndOf="@+id/rel_fav"
                             android:layout_toRightOf="@+id/rel_fav"
                             android:gravity="center_vertical"
-                            android:text="Favorites"
+                            android:text="Favourites"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />

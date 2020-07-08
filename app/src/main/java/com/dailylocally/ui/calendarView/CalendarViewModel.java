@@ -98,8 +98,13 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 noDataFound.set(true);
-                                if (response.getRating_status()){
-                                    isRateBtn.set(true);
+
+                                if (response.getRating_status()!=null) {
+                                    if (response.getRating_status()) {
+                                        isRateBtn.set(true);
+                                    } else {
+                                        isRateBtn.set(false);
+                                    }
                                 }else {
                                     isRateBtn.set(false);
                                 }

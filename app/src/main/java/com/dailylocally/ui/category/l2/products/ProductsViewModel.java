@@ -156,11 +156,9 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     }
 
     public void fetchProducts() {
-        page = 0;
+        page = 1;
         if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
-
             productsRequest.setUserid(getDataManager().getCurrentUserId());
             productsRequest.setLat(getDataManager().getCurrentLat());
             productsRequest.setLon(getDataManager().getCurrentLng());
@@ -173,9 +171,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
                 @Override
                 public void onResponse(ProductsResponse response) {
-
                     if (response != null) {
-
                         getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
                        /* serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());

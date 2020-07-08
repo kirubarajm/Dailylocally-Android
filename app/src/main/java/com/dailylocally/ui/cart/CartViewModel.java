@@ -124,10 +124,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             @Override
             public void onResponse(StartDateResponse response) {
                 if (response != null) {
+
                     availableDate = response.getOrderDeliveryDay();
                     fetchRepos();
-
-
                 }
 
             }
@@ -357,7 +356,23 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
     }
 
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
     public void fetchRepos() {
 
         String cc = getDataManager().getCartDetails();
@@ -405,14 +420,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         assert availableCompareDate != null;
                         if (date.getTime() < availableCompareDate.getTime()) {
                        // if (date.after(availableCompareDate)) {
-                            cartRequestPojoResult.setDayorderdate(availableDate);
+                            cartRequestPojoResult.setDayorderdate(parseDateToddMMyyyy(availableDate));
                         } else {
                             cartRequestPojoResult.setDayorderdate(cartRequestPojo.getOrderitems().get(i).getDayorderdate());
                         }
 
                     } else {
 
-                        cartRequestPojoResult.setDayorderdate(availableDate);
+                        cartRequestPojoResult.setDayorderdate(parseDateToddMMyyyy(availableDate));
                     }
 
                     cartRequestPojoResult.setPid(cartRequestPojo.getOrderitems().get(i).getPid());

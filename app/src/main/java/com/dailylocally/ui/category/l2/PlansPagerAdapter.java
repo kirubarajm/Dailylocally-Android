@@ -26,7 +26,7 @@ public class PlansPagerAdapter extends FragmentStatePagerAdapter {
 */
 
         if (position == 0) {
-            return ProductsFragment.newInstance("0",String.valueOf(response.getResult().get(0).getScl2Id()));
+            return ProductsFragment.newInstance("0",String.valueOf(response.getResult().get(0).getScl1Id()));
         }else {
             return ProductsFragment.newInstance(String.valueOf(response.getResult().get(position-1).getScl2Id()),String.valueOf(response.getResult().get(position-1).getScl1Id()));
 

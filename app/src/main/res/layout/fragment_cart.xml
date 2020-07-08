@@ -73,7 +73,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/empty_cart" />
+                    android:src="@drawable/ic_empty_cart" />
 
 
                 <com.dailylocally.utilities.fonts.poppins.SubTitleTextView

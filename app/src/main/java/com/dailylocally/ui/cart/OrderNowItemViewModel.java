@@ -10,7 +10,10 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -57,9 +60,31 @@ public class OrderNowItemViewModel {
 
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());
-        futureDate.set("Schedule for " + dishList.getDeliverydate());
+
+        futureDate.set("Schedule for " + parseDateToddMMyyyy(dishList.getDeliverydate()));
         isAddClicked.set(true);
     }
+
+
+
+    public String parseDateToddMMyyyy(String time) {
+        /*String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+        return time;
+    }
+
 
     public void addClicked() throws NullPointerException {
 

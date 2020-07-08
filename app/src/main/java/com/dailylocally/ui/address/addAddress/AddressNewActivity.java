@@ -490,7 +490,6 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mActivityAddressNewBinding.edtLandmark.setError("");
             return false;
         }
-
         return true;
     }
 }
