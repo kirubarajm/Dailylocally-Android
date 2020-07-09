@@ -32,4 +32,8 @@ public interface RatingNavigator {
     void getProductList(List<CalendarDayWiseResponse.Result.Item> resultList);
 
     void submit();
+
+    void ratingSuccess(String message);
+
+    void ratingFailure(String message);
 }

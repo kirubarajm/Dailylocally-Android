@@ -28,6 +28,8 @@ import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.calendarView.CalendarDayWiseRequest;
 import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
+import com.dailylocally.ui.coupons.CouponsRequest;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
@@ -100,33 +102,46 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
         }
     }
 
-    public void ratingAPICall(int ratingProduct,int ratingDelivery,int productReceived,int doid,
+    public void ratingAPICall(Integer ratingProduct,Integer ratingDelivery,Integer productReceived,Integer doid,
                               List<Integer> vpid,String comments,Integer packageSealed){
-        try {
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_USER_RATING,
-                    CalendarDayWiseResponse.class, new RatingRequest(ratingProduct,
-                    ratingDelivery,productReceived,doid,vpid,comments,packageSealed), new Response.Listener<CalendarDayWiseResponse>() {
-                @Override
-                public void onResponse(CalendarDayWiseResponse response) {
-                    if (response!=null) {
-                        if (response.getStatus()) {
-
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        setIsLoading(true);
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_USER_RATING,
+                RatingResponse.class, new RatingRequest(ratingProduct,
+                        ratingDelivery,productReceived,doid,vpid,comments,packageSealed),
+                new Response.Listener<RatingResponse>() {
+                    @Override
+                    public void onResponse(RatingResponse response) {
+                        try {
+                            if (response!=null) {
+                                if (response.getStatus()) {
+                                    if (getNavigator()!=null){
+                                        getNavigator().ratingSuccess(response.getMessage());
+                                    }
+                                }else {
+                                    if (getNavigator()!=null){
+                                        getNavigator().ratingFailure(response.getMessage());
+                                    }
+                                }
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
+                        setIsLoading(false);
                     }
-                    setIsLoading(false);
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                setIsLoading(false);
+                if (getNavigator()!=null){
+                    getNavigator().ratingFailure("Rating failed");
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    setIsLoading(false);
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            }
+        }, AppConstants.API_VERSION_ONE);
+
+        DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
+
 
     public void helpClick(){
         if (getNavigator()!=null){

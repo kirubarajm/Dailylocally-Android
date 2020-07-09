@@ -234,22 +234,9 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         mFragmentHomeBinding.recyclerDayWiseOrder.setAdapter(mCalendarDayWiseAdapter);
 
         subscribeToLiveData();
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
-    private void subscribeToLiveData() {
-        mCalendarViewModel.getOrdernowLiveData().observe(this,
-                ordernowItemViewModel -> mCalendarViewModel.addOrderNowItemsToList(ordernowItemViewModel));
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         try {
             if (date.isEmpty()) {
                 Date currentDate = Calendar.getInstance().getTime();////current date
@@ -290,6 +277,23 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         }catch (Exception e){
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    private void subscribeToLiveData() {
+        mCalendarViewModel.getOrdernowLiveData().observe(this,
+                ordernowItemViewModel -> mCalendarViewModel.addOrderNowItemsToList(ordernowItemViewModel));
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     public void onDateSelected(Date selectedDate) {

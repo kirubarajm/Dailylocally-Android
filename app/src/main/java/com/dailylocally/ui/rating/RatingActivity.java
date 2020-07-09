@@ -105,6 +105,17 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     }
 
     @Override
+    public void ratingSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    @Override
+    public void ratingFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRatingBinding = getViewDataBinding();

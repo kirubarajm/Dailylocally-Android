@@ -74,8 +74,8 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     @Override
     public void success(String date) {
         try {
-            SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEEE, dd MMM YYYY");
-            SimpleDateFormat currentFormat = new SimpleDateFormat("YYYY-mm-dd hh:mm:ss");
+            SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEEE, dd MMM yyyy");
+            SimpleDateFormat currentFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             Date date1 = currentFormat.parse(date);
             String datesdf = dateDayFormat.format(date1);
 

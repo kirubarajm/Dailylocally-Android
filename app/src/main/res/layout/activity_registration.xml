@@ -65,8 +65,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-
-
                     <ImageView
                         android:onClick="@{()->nameGenderViewModel.maleClicked()}"
                         android:layout_width="50dp"
@@ -82,10 +80,6 @@
                         android:layout_height="50dp"
                         android:src="@drawable/ic_female"
                         android:layout_margin="10dp"/>
-
-
-
-
 
                 </LinearLayout>
 
@@ -145,14 +139,19 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-
             </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="@{nameGenderViewModel.flagReferral?View.GONE:View.VISIBLE}"
+                android:id="@+id/rel_referral"
+                android:layout_below="@+id/rel_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                 android:id="@+id/referral_tx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rel_region"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:paddingStart="3dp"
@@ -164,7 +163,6 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rel_region"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="15dp"
                 android:onClick="@{()->nameGenderViewModel.viewReferral()}" />
@@ -194,6 +192,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            </RelativeLayout>
 
         </RelativeLayout>
 

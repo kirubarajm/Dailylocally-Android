@@ -21,6 +21,7 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
     public ObservableBoolean haveReferral = new ObservableBoolean();
     public ObservableBoolean referral = new ObservableBoolean();
     public ObservableBoolean regionotherClicked = new ObservableBoolean();
+    public ObservableBoolean flagReferral = new ObservableBoolean();
 
     public ObservableBoolean flagRegion = new ObservableBoolean();
     Response.ErrorListener errorListener;
@@ -32,7 +33,7 @@ public class RegistrationViewModel extends BaseViewModel<RegistrationNavigator> 
             male.set(true);
         }else {
             Integer gender =getDataManager().getGender();
-            if (gender==0){
+            if (gender==2){
                 male.set(false);
             }else {
                 male.set(true);
