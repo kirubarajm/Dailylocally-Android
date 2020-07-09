@@ -75,6 +75,19 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
     }
 
     @Override
+    public void DataLoaded(FavProductsResponse response) {
+        if (response != null) {
+            if (response.getResult() != null && response.getResult().size() > 0) {
+                ((FavActivity)getActivity()).emptyFav(false);
+            } else {
+                ((FavActivity)getActivity()).emptyFav(true);
+            }
+        } else {
+            ((FavActivity)getActivity()).emptyFav(false);
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFavProductsViewModel.setNavigator(this);

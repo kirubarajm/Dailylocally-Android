@@ -40,6 +40,7 @@
                     android:weightSum="2">
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:onClick="@{()->productsViewModel.openFilter()}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

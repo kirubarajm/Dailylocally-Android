@@ -8,5 +8,6 @@ public interface FavProductsNavigator {
     void openFilter();
 
     void openSort();
+    void DataLoaded(FavProductsResponse response);
 
 }

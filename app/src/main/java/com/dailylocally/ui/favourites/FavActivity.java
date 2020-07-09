@@ -21,7 +21,6 @@ import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.ui.category.l2.products.sort.SortFragment;
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
-
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -130,16 +129,17 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
 
     public void openSort(String catid) {
-        Bundle bundle=new Bundle();
-        bundle.putString("catid",catid);
+        Bundle bundle = new Bundle();
+        bundle.putString("catid", catid);
 
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);
         sortFragment.show(getSupportFragmentManager(), sortFragment.getTag());
     }
+
     @Override
     public void viewCart() {
-        Intent intent = MainActivity.newIntent(FavActivity.this,AppConstants.NOTIFY_CART_FRAG,AppConstants.NOTIFY_FAVORITES_ACTV);
+        Intent intent = MainActivity.newIntent(FavActivity.this, AppConstants.NOTIFY_CART_FRAG, AppConstants.NOTIFY_FAVORITES_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -232,7 +232,6 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
         });
 
 
-
     }
 
 
@@ -295,6 +294,10 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
     }
 
+    public void emptyFav(Boolean ststus) {
+        mFavViewModel.emptyFav(ststus);
+    }
+
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
@@ -303,8 +306,8 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
     @Override
     public void FilterRefresh(String catid) {
-        Intent data=new Intent();
-        data.putExtra("catid",catid);
+        Intent data = new Intent();
+        data.putExtra("catid", catid);
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(1111, RESULT_OK, data);

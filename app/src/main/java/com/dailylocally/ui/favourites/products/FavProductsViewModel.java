@@ -117,7 +117,7 @@ public class FavProductsViewModel extends BaseViewModel<FavProductsNavigator> {
 
                     if (response != null) {
 
-                      //  getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
+                        //  getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
                        /* serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/
@@ -138,6 +138,9 @@ public class FavProductsViewModel extends BaseViewModel<FavProductsNavigator> {
                     } else {
                         fullEmpty.set(true);
                     }
+
+                    if (getNavigator() != null)
+                        getNavigator().DataLoaded(response);
 
                 }
             }, new Response.ErrorListener() {

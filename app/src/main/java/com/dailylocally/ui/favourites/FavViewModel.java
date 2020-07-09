@@ -29,6 +29,7 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
     public final ObservableField<String> unserviceableTitle = new ObservableField<>();
     public final ObservableField<String> unserviceableSubTitle = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
+    public final ObservableBoolean favEmpty = new ObservableBoolean();
     public ObservableField<String> cartItems = new ObservableField<>();
     public ObservableField<String> cartPrice = new ObservableField<>();
     public ObservableField<String> noProductsString = new ObservableField<>();
@@ -53,11 +54,14 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
 
     }
 
+    public void emptyFav(Boolean status) {
+        favEmpty.set(status);
+    }
+
     public void addDatatoList(List<FavResponse.Result> results) {
         categoryList.clear();
         categoryList.addAll(results);
     }
-
 
 
     public MutableLiveData<List<FavResponse.Result>> getCategoryListLiveData() {
@@ -103,6 +107,7 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
     public void viewCart() {
         getNavigator().viewCart();
     }
+
     public void totalCart() {
         Gson sGson = new GsonBuilder().create();
         CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
@@ -119,7 +124,7 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
                 count = count + CartRequest.getOrderitems().size();
 
                 for (int i = 0; i < CartRequest.getOrderitems().size(); i++) {
-                  //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
+                    //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
                     price = price + ((Integer.parseInt(CartRequest.getOrderitems().get(i).getPrice())) * CartRequest.getOrderitems().get(i).getQuantity());
                 }
 
@@ -134,7 +139,7 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
                 count = count + CartRequest.getSubscription().size();
 
                 for (int i = 0; i < CartRequest.getSubscription().size(); i++) {
-                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())) );
+                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())));
                 }
 
             }
@@ -147,11 +152,11 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
 
             if (count == 1) {
                 cartItems.set(count + " Item");
-                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(price));
                 items.set("Item");
             } else {
                 cartItems.set(count + " Items");
-                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(price));
                 items.set("Items");
             }
         }
