@@ -118,6 +118,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         try {
             Intent intent = RatingActivity.newIntent(getContext());
             intent.putExtra("date",dateRating.getTime());
+            intent.putExtra("doid",mCalendarViewModel.doid.get());
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
@@ -242,6 +243,28 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         mFragmentHomeBinding.recyclerDayWiseOrder.setAdapter(mCalendarDayWiseAdapter);
 
 
+
+
+        try {
+            Date currentDate = Calendar.getInstance().getTime();////current date
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
+            SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+            String rateDelivery = dateFormat1.format(currentDate);
+            String dateDay = dateDayFormat.format(currentDate);
+            String yearString = yearFormat.format(currentDate);
+            String monthString = monthFormat.format(currentDate);
+            mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
+
+            dateRating = currentDate;
+            mCalendarViewModel.getDayWiseOrderDetails(currentDate);
+            mCalendarViewModel.rateDeliveryButton.set("Rate Delivery "+rateDelivery);
+            mCalendarViewModel.dateDay.set(dateDay);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -258,25 +281,6 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void onResume() {
         super.onResume();
-        try {
-        Date currentDate = Calendar.getInstance().getTime();////current date
-        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM YYYY");
-        SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-        String rateDelivery = dateFormat1.format(currentDate);
-        String dateDay = dateDayFormat.format(currentDate);
-        String yearString = yearFormat.format(currentDate);
-        String monthString = monthFormat.format(currentDate);
-        mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
-
-        dateRating = currentDate;
-        mCalendarViewModel.getDayWiseOrderDetails(currentDate);
-        mCalendarViewModel.rateDeliveryButton.set("Rate Delivery "+rateDelivery);
-        mCalendarViewModel.dateDay.set(dateDay);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     public void onDateSelected(Date selectedDate) {
@@ -2104,7 +2108,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
         Intent intent = ProductCancelActivity.newIntent(getContext());
-        intent.putExtra("doid",result.getVpid());
+        intent.putExtra("doid",result.getDoid());
         intent.putExtra("dayorderpid",result.getDayorderpid());
         startActivity(intent);
     }

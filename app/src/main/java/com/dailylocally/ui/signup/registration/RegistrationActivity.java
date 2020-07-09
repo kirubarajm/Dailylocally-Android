@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
@@ -152,7 +153,8 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
                 String email = mLoginViewModelMain.getDataManager().getCurrentUserEmail();
                 mActivityRegistrationBinding.edtName.setText(name);
                 mActivityRegistrationBinding.email.setText(email);
-                //mActivityRegistrationBinding.referral.setText();
+                mActivityRegistrationBinding.txtNameAvator.setText("Edit Info");
+                mLoginViewModelMain.flagReferral.set(true);
             }
         }
         analytics=new Analytics(this, pageName);
