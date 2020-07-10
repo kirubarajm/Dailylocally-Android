@@ -136,6 +136,7 @@
                 <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                     android:layout_toEndOf="@+id/txt_rupees_symbol_1"
                     android:text="@{productDetailsViewModel.mrp}"
+                    android:layout_marginStart="3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -266,6 +267,7 @@
                 <com.dailylocally.utilities.fonts.poppins.TitleTextView
                     android:text="@{productDetailsViewModel.offerCost}"
                     android:textSize="12sp"
+                    android:layout_marginLeft="3dp"
                     android:layout_toEndOf="@+id/txt_rupees_symbol"
                     android:id="@+id/txt_offer_percentage"
                     android:layout_marginTop="5dp"
