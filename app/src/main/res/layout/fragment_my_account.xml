@@ -275,7 +275,7 @@
 
                         <ImageView
                             android:id="@+id/rel4"
-                            android:src="@drawable/ic_referrals"
+                            android:src="@drawable/ic_referrals_icon"
                             android:layout_centerVertical="true"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
