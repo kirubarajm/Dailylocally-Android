@@ -101,7 +101,7 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
             Bundle args = new Bundle();
             Calendar cal = Calendar.getInstance();
             //args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-            args.putString(CaldroidFragment.MIN_DATE, "2020-07-05");
+            args.putString(CaldroidFragment.MIN_DATE, date);
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
             args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
             caldroidFragment.setArguments(args);

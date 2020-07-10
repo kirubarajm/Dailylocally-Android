@@ -37,7 +37,7 @@ public class L2CategoryResponse {
     @SerializedName("header_subconent")
     @Expose
     private String headerSubconent;
-    @SerializedName("category_title")
+    @SerializedName("title")
     @Expose
     private String categoryTitle;
     @SerializedName("product_list")

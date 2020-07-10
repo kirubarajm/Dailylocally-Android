@@ -43,6 +43,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public final ObservableField<String> total = new ObservableField<>();
     public final ObservableField<String> grand_total = new ObservableField<>();
+    public final ObservableField<String> bookDeliveryText = new ObservableField<>();
     public final ObservableField<String> refundFare = new ObservableField<>();
     public final ObservableField<String> couponFare = new ObservableField<>();
     public final ObservableField<String> gst = new ObservableField<>();
@@ -479,6 +480,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             statusMessage.set(cartPageResponse.getMessage());
                             available.set(cartPageResponse.getStatus());
+
+
+                            if (cartPageResponse.getStatus()){
+                                bookDeliveryText.set("Book delivery");
+                            }else {
+                                bookDeliveryText.set(cartPageResponse.getMessage());
+                            }
 
 
                             couponApplied.set(cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus());

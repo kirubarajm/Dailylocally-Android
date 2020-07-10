@@ -81,7 +81,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/refferal_1" />
+                    android:src="@drawable/ic_referrals"/>
 
                 <RelativeLayout
                     android:id="@+id/rel_referr"

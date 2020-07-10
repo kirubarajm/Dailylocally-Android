@@ -21,7 +21,7 @@ public class L1CategoryResponse {
     @SerializedName("unserviceable_subtitle")
     @Expose
     private String unserviceableSubtitle;
-    @SerializedName("category_title")
+    @SerializedName("title")
     @Expose
     private String categoryTitle;
     @SerializedName("result")

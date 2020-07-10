@@ -61,6 +61,7 @@ public class OrderNowItemViewModel {
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());
 
+
         futureDate.set("Schedule for " + parseDateToddMMyyyy(dishList.getDeliverydate()));
         isAddClicked.set(true);
     }
@@ -68,7 +69,7 @@ public class OrderNowItemViewModel {
 
 
     public String parseDateToddMMyyyy(String time) {
-        /*String inputPattern = "yyyy-MM-dd";
+        String inputPattern = "yyyy-MM-dd";
         String outputPattern = "dd-MM-yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
@@ -81,8 +82,8 @@ public class OrderNowItemViewModel {
             str = outputFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
-        return time;
+        }
+        return str;
     }
 
 

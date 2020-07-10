@@ -135,6 +135,7 @@
                 android:background="@color/white">
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -343,7 +344,7 @@
                             android:background="@color/gray" />
 
 
-                        <LinearLayout
+                        <!--<LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="3dp"
@@ -399,7 +400,7 @@
                                 android:textColor="@color/dark_gray"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
-                        </LinearLayout>
+                        </LinearLayout>-->
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -520,7 +521,7 @@
                         </RelativeLayout>
 
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <!--<com.dailylocally.utilities.fonts.poppins.ContentTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -532,30 +533,25 @@
                             android:textColor="@color/dark_gray"
                             android:textSize="12sp"
                             android:textStyle="bold"
-                            android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}" />
-
+                            android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}" />-->
 
                         <com.dailylocally.utilities.fonts.poppins.ButtonTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="45dp"
-                            android:background="@drawable/curve_stroke"
+                            android:layout_marginBottom="10dp"
+                            android:background="@{cartViewModel.available?@drawable/gradient_bt_back:@drawable/gray_bt_back}"
                             android:foreground="?android:attr/selectableItemBackground"
                             android:gravity="center"
                             android:onClick="@{()->cartViewModel.proceedtopay()}"
                             android:padding="10dp"
-                            android:text="@string/proceed_to_pay"
+                            android:text="@{cartViewModel.bookDeliveryText}"
                             android:textAllCaps="true"
-                            android:textColor="@color/dl_primary_color"
+                            android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold" />
-
-
                     </LinearLayout>
 
                 </LinearLayout>

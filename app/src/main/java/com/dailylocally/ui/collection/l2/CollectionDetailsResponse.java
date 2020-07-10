@@ -36,9 +36,9 @@ public class CollectionDetailsResponse {
     @SerializedName("header_subconent")
     @Expose
     private String headerSubconent;
-    @SerializedName("category_title")
+    @SerializedName("title")
     @Expose
-    private String categoryTitle;
+    private String title;
     @SerializedName("product_list")
     @Expose
     private List<Object> productList = null;
@@ -141,12 +141,12 @@ public class CollectionDetailsResponse {
         this.headerSubconent = headerSubconent;
     }
 
-    public String getCategoryTitle() {
-        return categoryTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCategoryTitle(String categoryTitle) {
-        this.categoryTitle = categoryTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<Object> getProductList() {

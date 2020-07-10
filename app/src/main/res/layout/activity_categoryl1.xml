@@ -98,8 +98,7 @@
                         android:visibility="invisible"
                         app:layout_collapseMode="pin"/>
 
-                    <LinearLayout
-                        android:gravity="bottom"
+                    <RelativeLayout
                         android:layout_gravity="bottom"
                         android:background="@color/white"
                         app:layout_collapseMode="pin"
@@ -108,7 +107,8 @@
                         android:orientation="vertical">
 
                         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                            android:layout_gravity="center"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center_vertical"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -119,12 +119,14 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
                         <View
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="bottom"
                             android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:background="@color/semi_gray"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
             </com.google.android.material.appbar.AppBarLayout>

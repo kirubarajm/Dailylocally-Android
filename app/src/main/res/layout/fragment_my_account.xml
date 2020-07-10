@@ -316,7 +316,7 @@
 
                         <ImageView
                             android:id="@+id/re20"
-                            android:src="@drawable/ic_referrals"
+                            android:src="@drawable/ic_transaction"
                             android:layout_centerVertical="true"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
