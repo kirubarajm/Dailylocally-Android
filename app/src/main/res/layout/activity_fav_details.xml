@@ -12,6 +12,7 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -59,6 +60,7 @@
         </RelativeLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:background="@color/white"
             android:visibility="@{favViewModel.favEmpty?View.GONE:View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

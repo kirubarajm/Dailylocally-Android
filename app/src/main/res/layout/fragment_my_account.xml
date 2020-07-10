@@ -418,7 +418,7 @@
                             android:textColor="@color/black"
                             android:layout_marginEnd="15dp"
                             android:layout_marginRight="15dp"
-                            android:text="@string/feedback_and_support"
+                            android:text="FAQ's and Support"
                             android:textSize="16sp" />
 
                             <ImageView
