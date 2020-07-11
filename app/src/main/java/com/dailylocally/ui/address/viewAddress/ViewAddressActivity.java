@@ -93,13 +93,21 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
             if (result!=null){
                 lat = result.getLat();
                 lon = result.getLon();
-                mActivityViewAddressBinding.txtFullAddress.setText(result.getCompleteAddress());
+
                 mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
                 mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
-                if (result.getAddressType()==0){
+                if (result.getAddressType()==1){
                     mActivityViewAddressBinding.txtAddressType.setText("Apartment Or Gated Society");
+
+
+                    String completeAddress="House/Flat No."+result.getFlatHouseNo()+", "+result.getBlockName()+", "+result.getApartmentName()+","+result.getCompleteAddress();
+                    mActivityViewAddressBinding.txtFullAddress.setText(completeAddress);
+
+
                 }else {
                     mActivityViewAddressBinding.txtAddressType.setText("Independent House");
+                    String completeAddress="House/Plot No."+result.getPlotHouseNo()+", Floor-"+result.getFloor()+", "+result.getCompleteAddress();
+                    mActivityViewAddressBinding.txtFullAddress.setText(completeAddress);
                 }
             }
 

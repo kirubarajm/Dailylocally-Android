@@ -26,6 +26,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
         super(dataManager);
         getDataManager().appStartedAgain(true);
         getDataManager().savePromotionAppStartAgain(true);
+        getDataManager().setUpdateAvailable(false);
     }
 
     public void clearLatLng(){
@@ -81,11 +82,12 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
                 if (response != null)
                     if (response.getResult() != null && response.getStatus()) {
                         getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
-
+                        getDataManager().setUpdateAvailable(response.getResult().getVersionstatus());
                         if (getNavigator() != null)
                             getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getDluserforceupdatestatus());
 
                     } else {
+                        getDataManager().setUpdateAvailable(false);
                         if (getNavigator() != null)
                             getNavigator().update(false, false);
                     }
@@ -96,6 +98,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
+                getDataManager().setUpdateAvailable(false);
             }
         }, AppConstants.API_VERSION_ONE);
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);

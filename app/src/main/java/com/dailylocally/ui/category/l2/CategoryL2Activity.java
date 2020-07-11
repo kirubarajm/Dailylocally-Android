@@ -177,10 +177,10 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 
         if (response.getResult() == null) {
             mActivityCategoryl2Binding.categorytabs.setVisibility(View.GONE);
-            mActivityCategoryl2Binding.htabToolbar.setVisibility(View.GONE);
+           // mActivityCategoryl2Binding.htabToolbar.setVisibility(View.GONE);
         } else if (response.getResult() != null && response.getResult().size() == 0) {
             mActivityCategoryl2Binding.categorytabs.setVisibility(View.GONE);
-            mActivityCategoryl2Binding.htabToolbar.setVisibility(View.GONE);
+         //   mActivityCategoryl2Binding.htabToolbar.setVisibility(View.GONE);
         }
 
 

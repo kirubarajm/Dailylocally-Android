@@ -150,10 +150,10 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
         if (response.getResult() == null) {
             mActivityFavDetailsBinding.categorytabs.setVisibility(View.GONE);
-            mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
+          //  mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
         } else if (response.getResult() != null && response.getResult().size() == 0) {
             mActivityFavDetailsBinding.categorytabs.setVisibility(View.GONE);
-            mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
+       //     mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
         }
 
 

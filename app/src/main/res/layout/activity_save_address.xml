@@ -147,7 +147,6 @@
                             android:text="@{saveAddressViewModel.address}"
                             android:textSize="14sp"
                             android:layout_marginTop="5dp"
-                            android:gravity="center_horizontal"
                             android:textColor="@color/black"
                             android:layout_above="@+id/txt_addressType1"
                             android:id="@+id/txt_full_address"

@@ -344,50 +344,58 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:gravity="center_vertical"
-                android:background="@drawable/gradient_bt_back"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="60dp"
+                android:background="@drawable/gradient_bt_back"
+                android:visibility="@{homeViewModel.showRating?View.VISIBLE:View.GONE}">
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="10dp"
+                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:text="@{homeViewModel.ratingTitle}"
                     android:textColor="@color/white"
-                    android:text="How was your delivery?"/>
-
+                    android:textSize="14sp" />
 
 
                 <LinearLayout
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="30dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:text="@{homeViewModel.ratingDate}"
                         android:textColor="@color/white"
-                        android:text="25th june 2020"/>
+                        android:textSize="14sp" />
 
 
                     <ImageView
-                        android:layout_marginStart="5dp"
                         android:layout_width="10dp"
                         android:layout_height="10dp"
-                        android:tint="@color/white"
-                        android:src="@drawable/ic_l1_arrow" />
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/ic_l1_arrow"
+                        android:tint="@color/white" />
                 </LinearLayout>
 
 
-
-
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_close_black_24dp" />
 
             </RelativeLayout>
 
@@ -445,7 +453,92 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/gradient_bt_back"
+                android:orientation="vertical"
+                android:visibility="@{homeViewModel.updateAvailable?View.VISIBLE:View.GONE}">
 
+                <!--android:background="#9E9E9E"-->
+
+                <!--<View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/medium_gray"/>-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="8dp">
+
+
+                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:text="@{homeViewModel.updateTitle}"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="15dp">
+
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            android:id="@+id/later"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="@string/later"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+
+                        <!-- <com.facebook.shimmer.ShimmerFrameLayout
+                             android:layout_marginStart="20dp"
+                             android:id="@+id/update"
+                             app:duration="1000"
+                             app:repeat_mode="reverse"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content">-->
+
+
+                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                            android:layout_marginStart="10dp"
+                            android:visibility="@{homeViewModel.update?View.VISIBLE:View.GONE}"
+                            android:id="@+id/action"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:text="@{homeViewModel.updateAction}"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+                        <!-- </com.facebook.shimmer.ShimmerFrameLayout>-->
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout

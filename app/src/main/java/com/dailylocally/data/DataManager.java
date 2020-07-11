@@ -54,6 +54,7 @@ public interface DataManager extends PreferencesHelper {
     void savePromotionShowedDate(String date);
 
     void savePromotionSeen(boolean seen);
+    void updateAvailable(boolean available);
 
 
     void saveRazorpayCustomerId(String razorpayCustomerId);

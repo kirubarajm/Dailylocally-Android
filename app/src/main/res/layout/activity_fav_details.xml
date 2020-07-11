@@ -78,11 +78,9 @@
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
                     app:contentScrim="?attr/colorPrimary"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                    app:toolbarId="@+id/htab_toolbar">
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                     <LinearLayout
-                        android:layout_marginBottom="?attr/actionBarSize"
                         android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -111,7 +109,7 @@
 
                     </LinearLayout>
 
-                        <androidx.appcompat.widget.Toolbar
+                        <!--<androidx.appcompat.widget.Toolbar
                             android:id="@+id/htab_toolbar"
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
@@ -129,7 +127,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_gravity="bottom"
                             android:minHeight="?android:attr/actionBarSize"
-                            android:theme="@style/AppTheme.TabStyle" />
+                            android:theme="@style/AppTheme.TabStyle" />-->
 
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -143,17 +141,76 @@
                 android:clipToPadding="false"
                 android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <com.google.android.material.tabs.TabLayout
+                        app:tabIndicatorColor="@color/white"
+                        app:tabIndicatorHeight="2dp"
+                        android:background="@color/dl_primary_color"
+                        android:id="@+id/categorytabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:tabTextColor="@color/light_gray"
+                        app:tabSelectedTextColor="@color/white"
+                        app:tabIndicatorGravity="top"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        android:layout_gravity="bottom" />
+
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/frameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+                </LinearLayout>
                 <!--<include
                      android:id="@+id/categoryl12list"
                      layout="@layout/activity_categoryl12list"
-                     app:categoryl12list="@{favViewModel}" />-->
+                     app:categoryl12list="@{categoryL2ViewModel}" />-->
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/frameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
             </androidx.core.widget.NestedScrollView>

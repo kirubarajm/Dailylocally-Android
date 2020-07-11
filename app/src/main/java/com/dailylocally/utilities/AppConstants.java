@@ -360,6 +360,7 @@ public class AppConstants {
     public static final String URL_CHAT_ISSUES_NOTE = URL_SERVER_IP_PORT + "/user/zendesk/issuesdetails";
     public static final String URL_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/user/zendesk/requestcreate";
   public static final String URL_PROMOTION = URL_SERVER_IP_PORT + "/user/promotion/homescreen";
+  public static final String URL_RATING_CHECK = URL_SERVER_IP_PORT + "/user/rating/check";
 
 
 

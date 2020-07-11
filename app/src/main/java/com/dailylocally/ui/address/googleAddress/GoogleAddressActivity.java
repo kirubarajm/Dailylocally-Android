@@ -214,7 +214,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 mActivityAddAddressBinding.location.setText(result.getGoogleAddress());
 
                 LatLng latLng = new LatLng(result.getLat(), result.getLon());
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                 initCameraIdle();
             }
         }catch (Exception e){
@@ -324,7 +324,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                                 //LatLng latLng = new LatLng(12.99447060,80.25593567);
 
                                 LatLng latLng = new LatLng(location.latitude, location.longitude);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                                 initCameraIdle();
                             }
                     }
@@ -376,7 +376,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 Place place = Autocomplete.getPlaceFromIntent(data);
 
                 if (place.getLatLng() != null) {
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 14);
                     if (map != null)
                         map.animateCamera(cameraUpdate);
                 }
@@ -422,7 +422,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 if (dialog.isShowing())
                     dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                 initCameraIdle();
                 if (locationManager != null)
                     locationManager.removeUpdates(this);

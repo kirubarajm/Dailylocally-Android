@@ -53,11 +53,7 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (item_list != null && item_list.size() > 0) {
-            return item_list.size();
-        } else {
-            return 1;
-        }
+        return item_list.size();
     }
 
     @Override

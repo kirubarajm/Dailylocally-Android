@@ -46,6 +46,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public final ObservableField<String> headerSubContent = new ObservableField<>();
     public final ObservableField<String> categoryTitle = new ObservableField<>();
     public final ObservableField<String> collectionTitle = new ObservableField<>();
+    public final ObservableField<String> ratingTitle = new ObservableField<>();
+    public final ObservableField<String> ratingDate = new ObservableField<>();
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> kitchenImage = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
@@ -53,7 +55,14 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public final ObservableField<String> unserviceableSubTitle = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean categoryLoading = new ObservableBoolean();
+    public final ObservableBoolean showRating = new ObservableBoolean();
 
+    public final ObservableField<String> updateTitle = new ObservableField<>();
+    public final ObservableField<String> updateAction = new ObservableField<>();
+    public final ObservableField<String> screenName = new ObservableField<>();
+    public final ObservableBoolean updateAvailable = new ObservableBoolean();
+    public final ObservableBoolean enableLater = new ObservableBoolean();
+    public final ObservableBoolean update = new ObservableBoolean();
 
     public ObservableList<HomepageResponse.Result> categoryList = new ObservableArrayList<>();
     private MutableLiveData<List<HomepageResponse.Result>> categoryListLiveData;
@@ -62,6 +71,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public HomeViewModel(DataManager dataManager) {
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
+        updateAvailable.set(getDataManager().isUpdateAvailable());
 
     }
 
@@ -306,4 +316,48 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
 
     }
+
+
+    public void getRatings() {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_RATING_CHECK, PromotionResponse.class, new PromotionRequest(getDataManager().getCurrentUserId()), new Response.Listener<PromotionResponse>() {
+                @Override
+                public void onResponse(PromotionResponse response) {
+
+                    if (response != null) {
+
+                        if (response.getStatus()) {
+                            if (getDataManager().getPromotionAppStartAgain())
+                                if (response.getResult() != null && response.getResult().size() > 0) {
+
+                                }
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
+
 }

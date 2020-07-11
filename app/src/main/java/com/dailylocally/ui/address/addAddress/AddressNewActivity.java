@@ -245,7 +245,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     map.getUiSettings().setZoomControlsEnabled(true);
                     //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                     if (bundle!=null) {
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                         map.addMarker(markerOptions);
                         initCameraIdle();
                     }
@@ -299,7 +299,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                                 //LatLng latLng = new LatLng(12.99447060,80.25593567);
 
                                 LatLng latLng = new LatLng(location.latitude, location.longitude);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                                 initCameraIdle();
                             }
                     }

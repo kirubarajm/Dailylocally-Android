@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.dailylocally.BR;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 
@@ -106,7 +107,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     public void faqs() {
         new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_FAQS_AND_SUPPORT);
 
-        Intent intent = FaqsAndSupportActivity.newIntent(SignUpActivity.this);
+        Intent intent = FeedbackSupportActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
 
     }

@@ -53,7 +53,7 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/add_new_address"
+                    android:text="@string/manage_address"
                     android:textAllCaps="true"
                     android:textSize="16sp"
                     android:textStyle="bold" />

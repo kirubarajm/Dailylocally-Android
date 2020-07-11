@@ -104,6 +104,9 @@ public interface PreferencesHelper {
     boolean isOfficeAddressAdded();
     void setOfficeAddressAdded(boolean status);
 
+ boolean isUpdateAvailable();
+    void setUpdateAvailable(boolean available);
+
     int getCouponId();
     void setCouponId(int couponId);
 

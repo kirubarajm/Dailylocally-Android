@@ -136,6 +136,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void updateAvailable(boolean available) {
+        setUpdateAvailable(available);
+    }
+
+    @Override
     public void saveRazorpayCustomerId(String razorpayCustomerId) {
         setRazorpayCustomerId(razorpayCustomerId);
     }
@@ -441,6 +446,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setOfficeAddressAdded(boolean status) {
         mPreferencesHelper.setOfficeAddressAdded(status);
+    }
+
+    @Override
+    public boolean isUpdateAvailable() {
+        return mPreferencesHelper.isUpdateAvailable();
+    }
+
+    @Override
+    public void setUpdateAvailable(boolean available) {
+mPreferencesHelper.setUpdateAvailable(available);
     }
 
 

@@ -69,6 +69,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_VEG_TYPE = "VEG_TYPE";
 
     private static final String PREF_KEY_EMAIL_STATUS = "EMAIL_STATUS";
+    private static final String PREF_KEY_UPDATE_CHECK = "UPDATE_CHECK";
 
 
     private static final String PREF_KEY_IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
@@ -353,6 +354,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setOfficeAddressAdded(boolean status) {
         mPrefs.edit().putBoolean(PREF_KEY_OFFICE_ADDRESS_ADDED, status).apply();
+    }
+
+    @Override
+    public boolean isUpdateAvailable() {
+        return mPrefs.getBoolean(PREF_KEY_UPDATE_CHECK, false);
+    }
+
+    @Override
+    public void setUpdateAvailable(boolean available) {
+        mPrefs.edit().putBoolean(PREF_KEY_UPDATE_CHECK, available).apply();
     }
 
 

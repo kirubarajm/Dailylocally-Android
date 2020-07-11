@@ -343,6 +343,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
+    public void finishActivity(){
+        finish();
+    }
+
     public void saveFcmToken() {
 
         FirebaseInstanceId.getInstance().getInstanceId()
