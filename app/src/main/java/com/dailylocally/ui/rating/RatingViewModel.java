@@ -20,9 +20,11 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
@@ -32,10 +34,19 @@ import com.dailylocally.ui.coupons.CouponsRequest;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class RatingViewModel extends BaseViewModel<RatingNavigator> {
@@ -43,7 +54,8 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
     public ObservableList<CalendarDayWiseResponse.Result.Item> dayWiseItemViewModels = new ObservableArrayList<>();
-
+    public final ObservableField<String> itemCount = new ObservableField<>();
+    public final ObservableField<String> orderId = new ObservableField<>();
 
     public RatingViewModel(DataManager dataManager) {
         super(dataManager);
@@ -82,6 +94,7 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
+                                itemCount.set(response.getResult().get(0).getItemsCount()+" Items");
                             }
                             if (getNavigator()!=null){
                                 getNavigator().getProductList(response.getResult().get(0).getItems());
@@ -102,44 +115,63 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
         }
     }
 
-    public void ratingAPICall(Integer ratingProduct,Integer ratingDelivery,Integer productReceived,Integer doid,
-                              List<Integer> vpid,String comments,Integer packageSealed){
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_USER_RATING,
-                RatingResponse.class, new RatingRequest(ratingProduct,
-                        ratingDelivery,productReceived,doid,vpid,comments,packageSealed),
-                new Response.Listener<RatingResponse>() {
-                    @Override
-                    public void onResponse(RatingResponse response) {
-                        try {
-                            if (response!=null) {
-                                if (response.getStatus()) {
-                                    if (getNavigator()!=null){
-                                        getNavigator().ratingSuccess(response.getMessage());
-                                    }
-                                }else {
-                                    if (getNavigator()!=null){
-                                        getNavigator().ratingFailure(response.getMessage());
-                                    }
-                                }
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        setIsLoading(false);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                if (getNavigator()!=null){
-                    getNavigator().ratingFailure("Rating failed");
-                }
-            }
-        }, AppConstants.API_VERSION_ONE);
+    public void ratingAPICall(Integer ratingProduct, Integer ratingDelivery, Integer productReceived, Integer doid,
+                              ArrayList<Integer> vpid, String comments, Integer packageSealed){
 
-        DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        RatingRequest makeProductUpdateRequest = new RatingRequest(ratingProduct,
+                ratingDelivery,productReceived,doid,vpid,comments,packageSealed);
+
+        Gson gson = new GsonBuilder().create();
+        String strData = gson.toJson(makeProductUpdateRequest);
+
+        JsonObjectRequest jsonObjectRequest = null;
+        try {
+            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+            setIsLoading(true);
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_USER_RATING,
+                    new JSONObject(strData), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.getString("status").equals("true")){
+                            if (getNavigator()!=null){
+                                getNavigator().ratingSuccess(response.getString("message"));
+                            }
+                        }else {
+                            if (getNavigator()!=null){
+                                getNavigator().ratingFailure(response.getString("message"));
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    setIsLoading(true);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    if (getNavigator()!=null){
+                        getNavigator().ratingFailure("Rating failed");
+                    }
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                    headers.put("apptype","1");
+                    //  headers.put("Authorization","Bearer");
+                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                    return headers;
+                }
+            };
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
     }
 
 

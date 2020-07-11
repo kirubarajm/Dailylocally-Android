@@ -37,7 +37,7 @@ public class TransactionHistoryResponse {
         public Integer orderid;
         @SerializedName("tsid")
         @Expose
-        public Integer tsid;
+        public String tsid;
         @SerializedName("price")
         @Expose
         public String price;
@@ -125,7 +125,7 @@ public class TransactionHistoryResponse {
             return orderid;
         }
 
-        public Integer getTsid() {
+        public String getTsid() {
             return tsid;
         }
 

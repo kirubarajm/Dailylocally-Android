@@ -43,11 +43,18 @@ public class CalendarDayWiseResponse {
         @SerializedName("rating_status")
         @Expose
         public Boolean ratingStatus;
+        @SerializedName("itemscount")
+        @Expose
+        public Integer itemsCount;
 
         @SerializedName("items")
         @Expose
         public List<Item> items = null;
 
+
+        public Integer getItemsCount() {
+            return itemsCount;
+        }
 
         public Boolean getRatingStatus() {
             return ratingStatus;

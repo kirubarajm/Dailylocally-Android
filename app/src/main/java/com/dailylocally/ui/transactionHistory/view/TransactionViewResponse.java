@@ -37,7 +37,7 @@ public class TransactionViewResponse {
         public Integer orderid;
         @SerializedName("tsid")
         @Expose
-        public Integer tsid;
+        public String tsid;
         @SerializedName("price")
         @Expose
         public Integer price;
@@ -141,7 +141,7 @@ public class TransactionViewResponse {
             return orderid;
         }
 
-        public Integer getTsid() {
+        public String getTsid() {
             return tsid;
         }
 

@@ -37,7 +37,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     Date date = null;
     int rateDelivery = 0, rateProduct = 0, productReceived,packageSealed;
     List<CalendarDayWiseResponse.Result.Item> productList;
-    List<Integer> productIdList;
+    ArrayList<Integer> productIdList;
     String doid = "";
 
     public static Intent newIntent(Context context) {
@@ -126,6 +126,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
         if (bundle!=null){
              date = new Date(bundle.getLong("date"));
              doid = bundle.getString("doid");
+             mRatingViewModel.orderId.set("Order #"+doid +" | ");
         }
 
         LinearLayoutManager mLayoutManager

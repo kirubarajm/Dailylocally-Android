@@ -102,7 +102,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:id="@+id/txt_order"
-                    android:text="Order #1235 |"
+                    android:text="@{ratingViewModel.orderId}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -111,7 +111,7 @@
                     android:textStyle="bold"
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/txt_order"
-                    android:text="15 Items"
+                    android:text="@{ratingViewModel.itemCount}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -145,7 +145,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:numStars="5"
-                android:progressTint="@color/dl_primary_color"
+                android:theme="@style/RatingBar"
                 android:stepSize="1"
                 android:id="@+id/rating_bar_delivery"
                 android:rating="0"
@@ -236,7 +236,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
                     android:numStars="5"
-                    android:progressTint="@color/dl_primary_color"
+                    android:theme="@style/RatingBar"
                     android:stepSize="1"
                     android:id="@+id/rating_bar_product"
                     android:rating="0"
