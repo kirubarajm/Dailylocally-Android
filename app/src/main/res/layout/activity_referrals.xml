@@ -96,7 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="We recommended! You refer!"
+                        android:text="Refer and Spread the word!"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textSize="18sp"
@@ -112,7 +112,7 @@
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:text="Refer a friend and get exiting rewards! \nThey are just a click away!"
+                        android:text="Refer a friend, Earn an offer of rs.100 after \nhis first order"
                         android:textSize="14sp" />
 
                 </RelativeLayout>

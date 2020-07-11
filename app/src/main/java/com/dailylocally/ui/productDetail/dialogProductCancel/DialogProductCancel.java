@@ -1,5 +1,6 @@
 package com.dailylocally.ui.productDetail.dialogProductCancel;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.DialogProductCancelBinding;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
+import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 
 
 import javax.inject.Inject;
@@ -26,6 +28,7 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
     DialogProductCancelBinding mDialogProductCancelBinding;
 
     String doid , vpid;
+    ProductCancelListenerCallBack mProductCancelListenerCallBack;
 
 
     public static DialogProductCancel newInstance() {
@@ -74,6 +77,20 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ProductCancelListenerCallBack) {
+            //init the listener
+            mProductCancelListenerCallBack = (ProductCancelListenerCallBack) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement InteractionListener");
+        }
+
+    }
+
+
+    @Override
     public void productCancelClick() {
         mDialogRateKitchenViewModel.cancelProductAPICall(doid,vpid);
     }
@@ -87,6 +104,7 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
     public void cancelSuccess(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         dismiss();
+        mProductCancelListenerCallBack.sendData(true);
     }
 
     @Override

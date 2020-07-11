@@ -3,6 +3,7 @@ package com.dailylocally.ui.productDetail.productDetailCancel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 
@@ -11,6 +12,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductCancelBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.productDetail.dialogProductCancel.DialogProductCancel;
+import com.dailylocally.ui.productDetail.dialogProductCancel.ProductCancelListenerCallBack;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
@@ -25,7 +27,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 
 public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBinding, ProductCancelViewModel> implements
-        ProductCancelNavigator, HasSupportFragmentInjector {
+        ProductCancelNavigator, HasSupportFragmentInjector, ProductCancelListenerCallBack {
 
 
     public ActivityProductCancelBinding mActivityProductCancelBinding;
@@ -141,5 +143,11 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    @Override
+    public void sendData(boolean trueOrFalse) {
+        Log.e("dfgd","dfgd");
+        mAddAddressViewModel.isCancel.set(true);
     }
 }
