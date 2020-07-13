@@ -46,11 +46,12 @@ public class FavProductsItemViewModel {
     int quantity = 0;
     String favid;
     private CartRequest cartRequestPojo = new CartRequest();
+    Integer position;
 
-
-    public FavProductsItemViewModel(ProductsItemViewModelListener mListener, FavProductsResponse.Result result) {
+    public FavProductsItemViewModel(ProductsItemViewModelListener mListener, FavProductsResponse.Result result,Integer position) {
         this.mListener = mListener;
         this.products = result;
+        this.position=position;
         name.set(result.getProductname());
         weight.set(result.getWeight() + " " + result.getUnit());
 
@@ -197,6 +198,8 @@ public class FavProductsItemViewModel {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
+                     /*   mListener.removeProduct(position);*/
+                        mListener.refresh();
                         mListener.showToast(response.getMessage());
                         isFav.set(false);
                     }
@@ -422,6 +425,7 @@ public class FavProductsItemViewModel {
         void subscribeProduct(FavProductsResponse.Result products);
 
         void onItemClick(FavProductsResponse.Result products);
+        void removeProduct(Integer position);
 
 
         void showToast(String message);

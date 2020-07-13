@@ -170,8 +170,6 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1111)
             if (resultCode == RESULT_OK) {
-
-
                 mFavProductsViewModel.checkScl1Filter(data.getStringExtra("catid"));
             }
     }

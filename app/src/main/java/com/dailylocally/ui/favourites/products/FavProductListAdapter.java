@@ -80,7 +80,7 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final FavProductsResponse.Result blog = item_list.get(position);
-            mCategoriesItemViewModel = new FavProductsItemViewModel(this, blog);
+            mCategoriesItemViewModel = new FavProductsItemViewModel(this, blog,position);
             mListItemCategoriesBinding.setProductsItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
 
@@ -103,6 +103,14 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         @Override
         public void onItemClick(FavProductsResponse.Result products) {
             mProductsAdapterListener.productItemClick(products);
+        }
+
+        @Override
+        public void removeProduct(Integer position) {
+
+            item_list.remove(position);
+            notifyDataSetChanged();
+
         }
 
         @Override

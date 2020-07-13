@@ -105,7 +105,7 @@ public class OrderNowItemViewModel {
                     if (dishList.getPid().equals(results.get(i).getPid())) {
                         cartRequestPojoResult.setPid(dishList.getPid());
                         cartRequestPojoResult.setQuantity(quantity.get());
-                        cartRequestPojoResult.setDayorderdate(dishList.getDeliverydate());
+                        cartRequestPojoResult.setDayorderdate(parseDateToddMMyyyy(dishList.getDeliverydate()));
                         cartRequestPojoResult.setPrice(String.valueOf(dishList.getMrp()));
                         results.set(i, cartRequestPojoResult);
                     }
@@ -137,7 +137,7 @@ public class OrderNowItemViewModel {
                         } else {
                             cartRequestPojoResult.setPid(dishList.getPid());
                             cartRequestPojoResult.setQuantity(quantity.get());
-                            cartRequestPojoResult.setDayorderdate(dishList.getDeliverydate());
+                            cartRequestPojoResult.setDayorderdate(parseDateToddMMyyyy(dishList.getDeliverydate()));
                             cartRequestPojoResult.setPrice(String.valueOf(dishList.getMrp()));
                             results.set(i, cartRequestPojoResult);
 
@@ -188,7 +188,7 @@ public class OrderNowItemViewModel {
         cartRequestPojoResult.setPid(dishList.getPid());
         cartRequestPojoResult.setQuantity(quantity.get());
         cartRequestPojoResult.setPrice(String.valueOf(dishList.getMrp()));
-        cartRequestPojoResult.setDayorderdate(dishList.getDeliverydate());
+        cartRequestPojoResult.setDayorderdate(parseDateToddMMyyyy(dishList.getDeliverydate()));
         results.add(cartRequestPojoResult);
 
         cartRequestPojo.setOrderitems(results);

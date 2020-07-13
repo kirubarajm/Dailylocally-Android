@@ -101,7 +101,11 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                         }*/
                         cartRequestPojoResult.setPid(products.getVpid());
                         cartRequestPojoResult.setQuantity(quantity);
-                        cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+                        if (products.getDiscountCostStatus()){
+                            cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
+                        }else {
+                            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+                        }
                         results.set(i, cartRequestPojoResult);
                     }
                 }
@@ -158,7 +162,11 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
                             cartRequestPojoResult.setPid(products.getVpid());
                             cartRequestPojoResult.setQuantity(quantity);
-                            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+                            if (products.getDiscountCostStatus()){
+                                cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
+                            }else {
+                                cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+                            }
                             results.set(i, cartRequestPojoResult);
 
                         }
@@ -226,7 +234,15 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
         cartRequestPojoResult.setPid(products.getVpid());
         cartRequestPojoResult.setQuantity(quantity);
-        cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+
+
+        if (products.getDiscountCostStatus()){
+            cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
+        }else {
+            cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
+        }
+
+
         results.add(cartRequestPojoResult);
 
         cartRequestPojo.setOrderitems(results);
@@ -343,6 +359,13 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                                     short_desc.set(response.getResult().get(0).getShortDesc());
                                     productname.set(response.getResult().get(0).getProductname());
                                     discount_cost_status.set(response.getResult().get(0).getDiscountCostStatus());
+
+                                    if (response.getResult().get(0).getDiscountCostStatus()){
+                                        mrp.set(response.getResult().get(0).getMrpDiscountAmount());
+                                    }else {
+                                        mrp.set(response.getResult().get(0).getMrp());
+                                    }
+
                                     //mrp.set(String.valueOf(response.getResult().get(0).getMrp()));
                                     //offerCost.set("\u20B9"+response.getResult().get(0).getMrp() + " OFF on " + response.getResult().get(0).getProductname());
 

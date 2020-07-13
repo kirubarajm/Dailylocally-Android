@@ -171,6 +171,8 @@ public class ProductsResponse {
         private boolean discountCostStatus;
 
 
+
+
         @SerializedName("gst")
         @Expose
         private String gst;

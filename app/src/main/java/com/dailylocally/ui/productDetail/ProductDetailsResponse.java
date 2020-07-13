@@ -112,7 +112,7 @@ public class ProductDetailsResponse {
         public Integer brand;
         @SerializedName("mrp")
         @Expose
-        public Integer mrp;
+        public String mrp;
         @SerializedName("basiccost")
         @Expose
         public Object basiccost;
@@ -121,7 +121,7 @@ public class ProductDetailsResponse {
         public Object targetedbaseprice;
         @SerializedName("discount_cost")
         @Expose
-        public Integer discountCost;
+        public String discountCost;
         @SerializedName("gst")
         @Expose
         public Integer gst;
@@ -200,7 +200,19 @@ public class ProductDetailsResponse {
         @SerializedName("discount_cost_status")
         @Expose
         public Boolean discountCostStatus;
+        @SerializedName("mrp_discount_amout")
+        @Expose
+        private String mrpDiscountAmount;
 
+
+        public String getMrpDiscountAmount() {
+        //    return mrpDiscountAmount;
+            return mrp;
+        }
+
+        public void setMrpDiscountAmount(String mrpDiscountAmount) {
+            this.mrpDiscountAmount = mrpDiscountAmount;
+        }
 
         public Integer getPid() {
             return pid;
@@ -222,7 +234,7 @@ public class ProductDetailsResponse {
             return brand;
         }
 
-        public Integer getMrp() {
+        public String getMrp() {
             return mrp;
         }
 
@@ -234,7 +246,7 @@ public class ProductDetailsResponse {
             return targetedbaseprice;
         }
 
-        public Integer getDiscountCost() {
+        public String getDiscountCost() {
             return discountCost;
         }
 

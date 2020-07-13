@@ -99,7 +99,7 @@ public class L1CategoryResponse {
         @SerializedName("scid")
         @Expose
         private Integer scid;
-        @SerializedName("image_url")
+        @SerializedName("image")
         @Expose
         private String imageUrl;
         @SerializedName("id")
