@@ -156,7 +156,6 @@ public class ProductCancelResponse {
             @Expose
             public String productShortDesc;
 
-
             public Integer getDoid() {
                 return doid;
             }

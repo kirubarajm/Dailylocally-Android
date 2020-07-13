@@ -30,17 +30,13 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     public ObservableField<String> filterTitle = new ObservableField<>();
     public String scl2id;
     public String scl1id;
+    public String catid;
+    public String cid;
     private MutableLiveData<List<FilterItems.Result>> filterItemsLiveData;
 
     public FilterViewModel(DataManager dataManager) {
         super(dataManager);
         filterItemsLiveData = new MutableLiveData<>();
-
-
-
-
-
-
 
 
     }
@@ -169,8 +165,6 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
                     getDataManager().saveFiletrSort(null);
                 }
             }
-
-
 
 
             setIsLoading(true);
