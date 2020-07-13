@@ -181,7 +181,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 String outputDateStr = "",dateStrsdf;
                 try {
                     if (date != null) {
-                        java.text.DateFormat dateFormat = new SimpleDateFormat("dd,EEE");
+                        java.text.DateFormat dateFormat = new SimpleDateFormat("dd,EEEE");
                         java.text.DateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
                         outputDateStr = dateFormat.format(date);
                         dateStrsdf = dateFormat1.format(date);
@@ -273,6 +273,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 mCalendarViewModel.dateDay.set(dateDay);
 
                 caldroidFragment.moveToDate(dateRating);
+                caldroidFragment.refreshView();
             }
         }catch (Exception e){
             e.printStackTrace();
