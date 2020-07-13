@@ -45,6 +45,7 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> transacDate = new ObservableField<>();
     public final ObservableField<String> itemCount = new ObservableField<>();
+    public final ObservableField<String> transactionTime = new ObservableField<>();
 
     public ObservableList<TransactionViewResponse.Result.Item> productItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<TransactionViewResponse.Result.Item>> productItemsLiveData;
@@ -102,11 +103,15 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
                                     if (getNavigator()!=null){
                                         getNavigator().success(response.getResult().get(0).getTransactionTime());
                                     }
+                                    transactionTime.set(response.getResult().get(0).getTransactionTime());
                                     paymentId.set(String.valueOf(response.getResult().get(0).getTsid()));
                                     transactionOrderId.set(String.valueOf(response.getResult().get(0).getOrderid()));
                                     price.set(String.valueOf(response.getResult().get(0).getPrice()));
-                                    itemCount.set(String.valueOf(response.getResult().get(0).getItemscount()));
-
+                                    if (response.getResult().get(0).getItemscount()==1) {
+                                        itemCount.set("(" + response.getResult().get(0).getItemscount() + " item)");
+                                    }else {
+                                        itemCount.set("(" + response.getResult().get(0).getItemscount() + " items)");
+                                    }
                                     productItemsLiveData.setValue(response.getResult().get(0).getItems());
                                     billDetailsItemsLiveData.setValue(response.getResult().get(0).getCartdetails());
                                 }

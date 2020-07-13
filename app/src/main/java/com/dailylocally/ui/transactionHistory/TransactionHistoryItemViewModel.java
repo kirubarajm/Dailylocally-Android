@@ -28,7 +28,11 @@ public class TransactionHistoryItemViewModel {
         transactionId.set(String.valueOf(cartdetail.getOrderid()));
         paymentId.set(String.valueOf(cartdetail.getTsid()));
         price.set(String.valueOf(cartdetail.getPrice()));
-        productCount.set("("+cartdetail.getItems()+" items)");
+        if (cartdetail.getItems().equals("1")) {
+            productCount.set("(" + cartdetail.getItems() + " item)");
+        }else {
+            productCount.set("(" + cartdetail.getItems() + " items)");
+        }
 
         String strDateTime = cartdetail.getTransactionTime();
         String outputDateStr = "";

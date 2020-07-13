@@ -10,6 +10,9 @@ public class ReferralsResponse {
     @SerializedName("success")
     @Expose
     public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
@@ -19,16 +22,12 @@ public class ReferralsResponse {
         return success;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public Boolean getStatus() {
+        return status;
     }
 
     public List<Result> getResult() {
         return result;
-    }
-
-    public void setResult(List<Result> result) {
-        this.result = result;
     }
 
     public class Result {
@@ -36,27 +35,31 @@ public class ReferralsResponse {
         @SerializedName("referalcode")
         @Expose
         public String referalcode;
-        @SerializedName("applink")
+        @SerializedName("message")
         @Expose
-        public String applink;
+        public String message;
+        @SerializedName("title")
+        @Expose
+        public String title;
+        @SerializedName("sub_title")
+        @Expose
+        public String subTitle;
 
 
         public String getReferalcode() {
             return referalcode;
         }
 
-        public void setReferalcode(String referalcode) {
-            this.referalcode = referalcode;
+        public String getMessage() {
+            return message;
         }
 
-        public String getApplink() {
-            return applink;
+        public String getTitle() {
+            return title;
         }
 
-        public void setApplink(String applink) {
-            this.applink = applink;
+        public String getSubTitle() {
+            return subTitle;
         }
     }
-
-
 }

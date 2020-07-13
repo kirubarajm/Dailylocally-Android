@@ -17,6 +17,8 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
 
     public final ObservableField<String> referalcode = new ObservableField<>();
     public final ObservableField<String> referalMessage = new ObservableField<>();
+    public final ObservableField<String> referralTitle = new ObservableField<>();
+    public final ObservableField<String> referralSubTitle = new ObservableField<>();
     public String referallink = "";
 
     public ReferralsActivityViewModel(DataManager dataManager) {
@@ -46,8 +48,10 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
                             referalcode.set(response.getResult().get(0).getReferalcode());
-                            referallink = response.getResult().get(0).getApplink();
-                            referalMessage.set(response.getResult().get(0).getApplink());
+                            referallink = response.getResult().get(0).getMessage();
+                            referalMessage.set(response.getResult().get(0).getMessage());
+                            referralTitle.set(response.getResult().get(0).getTitle());
+                            referralSubTitle.set(response.getResult().get(0).getSubTitle());
                             if (getNavigator() != null)
                             getNavigator().success(String.valueOf(referallink));
                         }

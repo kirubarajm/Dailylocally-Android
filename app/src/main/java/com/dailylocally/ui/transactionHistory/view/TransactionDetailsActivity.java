@@ -96,6 +96,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
             orderid = String.valueOf(bundle.getInt("orderid"));
+            mTransactionDetailsViewModel.getTransactionHistoryViewList(orderid);
         }
 
         LinearLayoutManager mLayoutManager
@@ -128,7 +129,6 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     @Override
     protected void onResume() {
         super.onResume();
-        mTransactionDetailsViewModel.getTransactionHistoryViewList(orderid);
     }
 
     @Override
