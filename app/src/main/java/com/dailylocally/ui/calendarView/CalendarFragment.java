@@ -1,5 +1,6 @@
 package com.dailylocally.ui.calendarView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -2116,5 +2118,29 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         startActivity(intent);
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AppConstants.RATING_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                String datee = bundle.getString("date");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = null;
+                try {
+                    date = dateFormat.parse(datee);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                mCalendarViewModel.getDayWiseOrderDetails(date);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+
+            }
+        }
+    }
 
 }

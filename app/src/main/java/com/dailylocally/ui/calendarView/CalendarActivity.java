@@ -120,11 +120,6 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void ratingClick() {
         try {
-            //Intent intent = RatingActivity.newIntent(CalendarActivity.this);
-            //intent.putExtra("date",dateRating.getTime());
-            //intent.putExtra("doid",mCalendarViewModel.doid.get());
-            //startActivity(intent);
-
             Intent intent = TermsAndConditionActivity.newIntent(CalendarActivity.this);
             intent.putExtra("date",dateRating.getTime());
             intent.putExtra("doid",mCalendarViewModel.doid.get());
@@ -265,32 +260,38 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
                 mCalendarViewModel.dateDay.set(dateDay);
             }else {
-                SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                dateRating = dbFormat.parse(date);
-
-                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-                SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
-                SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
-                SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
-                String rateDelivery = dateFormat1.format(dateRating);
-                String dateDay = dateDayFormat.format(dateRating);
-                String yearString = yearFormat.format(dateRating);
-                String monthString = monthFormat.format(dateRating);
-                mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
-
-                mCalendarViewModel.getDayWiseOrderDetails(dateRating);
-                mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
-                mCalendarViewModel.dateDay.set(dateDay);
-
-             //   caldroidFragment.moveToDate(dateRating);
-                caldroidFragment.setSelectedDate(dateRating);
-              //  caldroidFragment.
-                caldroidFragment.refreshView();
+                selectedDateAPICall(date);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
 
+    }
+
+    public void selectedDateAPICall(String datess){
+        try {
+        SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        dateRating = dbFormat.parse(datess);
+
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        String rateDelivery = dateFormat1.format(dateRating);
+        String dateDay = dateDayFormat.format(dateRating);
+        String yearString = yearFormat.format(dateRating);
+        String monthString = monthFormat.format(dateRating);
+        mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
+
+        mCalendarViewModel.getDayWiseOrderDetails(dateRating);
+        mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
+        mCalendarViewModel.dateDay.set(dateDay);
+
+        caldroidFragment.setSelectedDate(dateRating);
+        caldroidFragment.refreshView();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -2164,6 +2165,9 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         if (requestCode == AppConstants.RATING_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
 
+                Bundle bundle = data.getExtras();
+                String datee = bundle.getString("date");
+                selectedDateAPICall(datee);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
 

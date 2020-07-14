@@ -109,6 +109,9 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     public void ratingSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         finish();
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("date",date);
+        setResult(Activity.RESULT_OK, returnIntent);
     }
 
     @Override
