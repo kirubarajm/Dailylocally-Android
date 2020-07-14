@@ -19,6 +19,7 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.promotion.bottom.PromotionRequest;
 import com.dailylocally.ui.promotion.bottom.PromotionResponse;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +27,7 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,6 +67,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     public final ObservableBoolean update = new ObservableBoolean();
 
     public ObservableList<HomepageResponse.Result> categoryList = new ObservableArrayList<>();
+    public String ratingDOID = "0";
     private MutableLiveData<List<HomepageResponse.Result>> categoryListLiveData;
 
 
@@ -99,6 +102,10 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public void closeUnserviceable() {
         serviceable.set(true);
+    }
+
+    public void closeRating() {
+        showRating.set(false);
     }
 
     public void changeAddress() {
@@ -325,24 +332,93 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_RATING_CHECK, PromotionResponse.class, new PromotionRequest(getDataManager().getCurrentUserId()), new Response.Listener<PromotionResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_RATING_CHECK, RatingCheckResponse.class, new PromotionRequest("7"), new Response.Listener<RatingCheckResponse>() {
                 @Override
-                public void onResponse(PromotionResponse response) {
+                public void onResponse(RatingCheckResponse response) {
 
                     if (response != null) {
 
-                        if (response.getStatus()) {
-                            if (getDataManager().getPromotionAppStartAgain())
-                                if (response.getResult() != null && response.getResult().size() > 0) {
+
+                        if (response.getRatingStatus()) {
+
+                            if (response.getResult() != null && response.getResult().size() > 0)
+
+                                if (response.getResult().get(0).getRatingSkip() != null) {
+                                    if (Integer.parseInt(response.getResult().get(0).getRatingSkip()) <= response.getResult().get(0).getRatingSkipAvailable()) {
+                                        ratingDOID = response.getResult().get(0).getId();
+                                        showRating.set(true);
+                                        ratingTitle.set(response.getTitle());
+                                        ratingDate.set(response.getResult().get(0).getDate());
+                                        skipRating();
+                                    }
+                                } else {
+                                    ratingDOID = response.getResult().get(0).getId();
+                                    showRating.set(true);
+                                    ratingTitle.set(response.getTitle());
+                                    ratingDate.set(parseDateToddMMyyyy(response.getResult().get(0).getDate()));
+                                    skipRating();
 
                                 }
                         }
+
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
+
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd HH:mm:ss";
+        String outputPattern = "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+
+    public void skipRating() {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_RATING_SKIP, CommonResponse.class, new RatingSkipRequest(ratingDOID), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
                 }
             }, AppConstants.API_VERSION_ONE);
 
