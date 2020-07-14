@@ -412,14 +412,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     openHome();
 
             }
-
             if (intent.getExtras().getString("requestId") != null) {
                 RequestActivity.builder()
                         .withRequestId(intent.getExtras().getString("requestId"))
                         .show(this);
 
             }
-
 
         }
 
@@ -741,6 +739,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
 }

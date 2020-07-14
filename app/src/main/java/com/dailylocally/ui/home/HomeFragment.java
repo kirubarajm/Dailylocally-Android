@@ -191,6 +191,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         mFragmentHomeBinding.loader.start();
         mHomeViewModel.fetchCategoryList();
         mHomeViewModel.getPromotions();
+        mHomeViewModel.getRatings();
 
         appUpdateManager = AppUpdateManagerFactory.create(getContext());
 
@@ -389,4 +390,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+    }
 }
