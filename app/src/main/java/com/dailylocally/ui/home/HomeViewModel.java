@@ -336,8 +336,11 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 @Override
                 public void onResponse(RatingCheckResponse response) {
 
+                    try {
+
                     if (response != null) {
 
+                        if (response.getStatus()){
 
                         if (response.getRatingStatus()) {
 
@@ -360,7 +363,10 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
                                 }
                         }
-
+                    }
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -433,6 +439,12 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         }
 
 
+    }
+
+    public void ratingClick(){
+        if (getNavigator()!=null){
+            getNavigator().ratingClick();
+        }
     }
 
 

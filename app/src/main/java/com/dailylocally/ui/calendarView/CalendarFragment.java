@@ -23,6 +23,7 @@ import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
+import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -118,10 +119,10 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void ratingClick() {
         try {
-            Intent intent = RatingActivity.newIntent(getContext());
+            Intent intent = TermsAndConditionActivity.newIntent(getContext());
             intent.putExtra("date",dateRating.getTime());
             intent.putExtra("doid",mCalendarViewModel.doid.get());
-            startActivity(intent);
+            startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package com.dailylocally.ui.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
@@ -22,6 +23,10 @@ import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
+import com.dailylocally.ui.rating.RatingActivity;
+import com.dailylocally.ui.signup.registration.RegistrationActivity;
+import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
+import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -32,6 +37,10 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.OnSuccessListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -167,6 +176,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();*/
         ((MainActivity) getActivity()).openExplore();
+    }
+
+    @Override
+    public void ratingClick() {
+        Intent intent = TermsAndConditionActivity.newIntent(getContext());
+        intent.putExtra("doid",mHomeViewModel.ratingDOID);
+        startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
     }
 
     @Override
@@ -393,7 +409,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.RATING_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+               mHomeViewModel.showRating.set(false);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
 
-
+            }
+        }
     }
 }
