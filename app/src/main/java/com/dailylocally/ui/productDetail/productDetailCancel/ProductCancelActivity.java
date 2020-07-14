@@ -86,7 +86,7 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     public void success(int isCancelable,String date) {
         try {
             SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEE, MMM dd, yyyy");
-            SimpleDateFormat currentFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            SimpleDateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Date date1 = currentFormat.parse(date);
             String datesdf = dateDayFormat.format(date1);
 

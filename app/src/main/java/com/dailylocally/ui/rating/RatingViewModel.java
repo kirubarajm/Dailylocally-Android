@@ -117,9 +117,14 @@ public class RatingViewModel extends BaseViewModel<RatingNavigator> {
 
     public void ratingAPICall(Integer ratingProduct, Integer ratingDelivery, Integer productReceived, Integer doid,
                               ArrayList<Integer> vpid, String comments, Integer packageSealed){
-
-        RatingRequest makeProductUpdateRequest = new RatingRequest(ratingProduct,
-                ratingDelivery,productReceived,doid,vpid,comments,packageSealed);
+        RatingRequest makeProductUpdateRequest;
+        if (productReceived==0) {
+            makeProductUpdateRequest = new RatingRequest(ratingProduct,
+                    ratingDelivery, productReceived, doid, vpid, comments, packageSealed);
+        }else {
+            makeProductUpdateRequest = new RatingRequest(ratingProduct,
+                    ratingDelivery, productReceived, doid, comments, packageSealed);
+        }
 
         Gson gson = new GsonBuilder().create();
         String strData = gson.toJson(makeProductUpdateRequest);

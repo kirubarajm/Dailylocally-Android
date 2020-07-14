@@ -1,5 +1,6 @@
 package com.dailylocally.ui.rating;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -203,6 +204,10 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
     }
 
     @Override
@@ -274,4 +279,5 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
 
         return true;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.dailylocally.ui.calendarView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -20,6 +22,8 @@ import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
+import com.dailylocally.ui.signup.SignUpActivity;
+import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -116,10 +120,16 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void ratingClick() {
         try {
-            Intent intent = RatingActivity.newIntent(CalendarActivity.this);
+            //Intent intent = RatingActivity.newIntent(CalendarActivity.this);
+            //intent.putExtra("date",dateRating.getTime());
+            //intent.putExtra("doid",mCalendarViewModel.doid.get());
+            //startActivity(intent);
+
+            Intent intent = TermsAndConditionActivity.newIntent(CalendarActivity.this);
             intent.putExtra("date",dateRating.getTime());
             intent.putExtra("doid",mCalendarViewModel.doid.get());
-            startActivity(intent);
+            startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2145,6 +2155,19 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         try {
             super.onDestroy();
         } catch (Exception dd) {
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.RATING_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+
+            }
         }
     }
 }

@@ -693,4 +693,5 @@ public class AppConstants {
   public static final Integer CHAT_PAGE_TYPE_SUPPORT = 3;
   public static final Integer CHAT_PAGE_TYPE_TRASACTION = 1;
   public static final Integer CHAT_PAGE_TYPE_DAY_ORDER = 1;
+  public static final int RATING_REQUEST_CODE = 70;
 }
