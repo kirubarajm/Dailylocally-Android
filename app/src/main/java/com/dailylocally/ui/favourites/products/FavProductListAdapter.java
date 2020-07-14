@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dailylocally.databinding.ListItemCollectionProductsBinding;
 import com.dailylocally.databinding.ListItemFavProductsBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
 
@@ -61,6 +60,7 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
         void productItemClick(FavProductsResponse.Result products);
 
+        void reloadProducts();
 
         void showToast(String message);
     }
@@ -80,7 +80,7 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final FavProductsResponse.Result blog = item_list.get(position);
-            mCategoriesItemViewModel = new FavProductsItemViewModel(this, blog,position);
+            mCategoriesItemViewModel = new FavProductsItemViewModel(this, blog, position);
             mListItemCategoriesBinding.setProductsItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
 
@@ -108,8 +108,9 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         @Override
         public void removeProduct(Integer position) {
 
-            item_list.remove(position);
-            notifyDataSetChanged();
+            mProductsAdapterListener.reloadProducts();
+            /*item_list.remove(position);
+            notifyItemRemoved(position);*/
 
         }
 

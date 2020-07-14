@@ -138,6 +138,7 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
 
     @Override
     public void refresh() {
+      //  mFavProductsViewModel.fetchProducts();
         ((FavActivity) getActivity()).refreshCart();
     }
 
@@ -157,6 +158,11 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
         startActivity(intent);
 
 
+    }
+
+    @Override
+    public void reloadProducts() {
+        mFavProductsViewModel.fetchProducts();
     }
 
     @Override

@@ -272,7 +272,9 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
                 mCalendarViewModel.dateDay.set(dateDay);
 
-                caldroidFragment.moveToDate(dateRating);
+             //   caldroidFragment.moveToDate(dateRating);
+                caldroidFragment.setSelectedDate(dateRating);
+              //  caldroidFragment.
                 caldroidFragment.refreshView();
             }
         }catch (Exception e){

@@ -174,6 +174,9 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         t.commit();
 
 
+
+
+
         // Setup listener
         listener = new CaldroidListener() {
             @Override

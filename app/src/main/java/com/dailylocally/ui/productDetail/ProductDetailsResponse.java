@@ -206,8 +206,8 @@ public class ProductDetailsResponse {
 
 
         public String getMrpDiscountAmount() {
-        //    return mrpDiscountAmount;
-            return mrp;
+            return mrpDiscountAmount;
+
         }
 
         public void setMrpDiscountAmount(String mrpDiscountAmount) {

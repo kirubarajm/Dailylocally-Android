@@ -198,8 +198,8 @@ public class FavProductsItemViewModel {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-                     /*   mListener.removeProduct(position);*/
-                        mListener.refresh();
+                        mListener.removeProduct(position);
+                        //mListener.refresh();
                         mListener.showToast(response.getMessage());
                         isFav.set(false);
                     }
