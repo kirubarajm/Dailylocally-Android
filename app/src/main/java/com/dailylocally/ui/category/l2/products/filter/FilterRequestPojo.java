@@ -3,233 +3,33 @@ package com.dailylocally.ui.category.l2.products.filter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class FilterRequestPojo {
-    @SerializedName("search")
-    @Expose
-    private String search;
-
-
-    @SerializedName("lat")
-    @Expose
-    private String lat;
-    @SerializedName("lon")
-    @Expose
-    private String lon;
-
-
-    @SerializedName("address")
-    @Expose
-    private String address;
-
-    @SerializedName("locality")
-    @Expose
-    private String locality;
-
-    @SerializedName("city")
-    @Expose
-    private String city;
-
-
-    @SerializedName("eatuserid")
-    @Expose
-    private Long eatuserid;
-
-    @SerializedName("sortid")
-    @Expose
-    private Integer sortid = 0;
-
-    @SerializedName("page")
-    @Expose
-    private Integer page = 0;
-
     @SerializedName("cid")
     @Expose
-    private Integer cid;
+    private String cid;
 
-    @SerializedName("regionlist")
+    @SerializedName("catid")
     @Expose
-    private List<Regionlist> regionlist = null;
-    @SerializedName("cuisinelist")
+    private String catid;
+    @SerializedName("scl1_id")
     @Expose
-    private List<Cusinelist> cusinelist = null;
-    @SerializedName("sortlist")
+    private String scl1id;
+
+    @SerializedName("scl2_id")
     @Expose
-    private List<Sortlist> sortlist = null;
-    @SerializedName("vegtype")
-    @Expose
-    private Integer vegtype;
+    private String scl2id;
 
-    public Integer getPageid() {
-        return page;
-    }
 
-    public void setPageid(Integer pageid) {
-        this.page = pageid;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getLocality() {
-        return locality;
-    }
-
-    public void setLocality(String locality) {
-        this.locality = locality;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Integer getCid() {
-        return cid;
-    }
-
-    public void setCid(Integer cid) {
+    public FilterRequestPojo(String cid, String scl1id,String type) {
         this.cid = cid;
+        this.scl1id = scl1id;
     }
 
-    public Integer getVegtype() {
-        return vegtype;
+     public FilterRequestPojo(String scl1id, String scl2id) {
+        this.scl1id = scl1id;
+        this.scl2id = scl2id;
     }
 
-    public void setVegtype(Integer vegtype) {
-        this.vegtype = vegtype;
-    }
-
-    public Integer getSortid() {
-        return sortid;
-    }
-
-    public void setSortid(Integer sortid) {
-        this.sortid = sortid;
-    }
-
-    public String getSearch() {
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
-    }
-
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLon() {
-        return lon;
-    }
-
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
-
-    public Long getEatuserid() {
-        return eatuserid;
-    }
-
-    public void setEatuserid(Long eatuserid) {
-        this.eatuserid = eatuserid;
-    }
-
-    public List<Regionlist> getRegionlist() {
-        return regionlist;
-    }
-
-    public void setRegionlist(List<Regionlist> regionlist) {
-        this.regionlist = regionlist;
-    }
-
-    public List<Cusinelist> getCusinelist() {
-        return cusinelist;
-    }
-
-    public void setCusinelist(List<Cusinelist> cusinelist) {
-        this.cusinelist = cusinelist;
-    }
-
-    public List<Sortlist> getSortlist() {
-        return sortlist;
-    }
-
-    public void setSortlist(List<Sortlist> sortlist) {
-        this.sortlist = sortlist;
-    }
-
-    public static class Cusinelist {
-        @SerializedName("cuisine")
-        @Expose
-        private Integer cusine;
-
-        public Cusinelist(Integer cusine) {
-            this.cusine = cusine;
-        }
-
-        public Integer getCusine() {
-            return cusine;
-        }
-
-        public void setCusine(Integer cusine) {
-            this.cusine = cusine;
-        }
-
-    }
-
-    public static class Regionlist {
-
-        @SerializedName("region")
-        @Expose
-        private Integer region;
-
-        public Regionlist(Integer region) {
-            this.region = region;
-        }
-
-        public Integer getRegion() {
-            return region;
-        }
-
-        public void setRegion(Integer region) {
-            this.region = region;
-        }
-
-    }
-
-    public static class Sortlist {
 
 
-        @SerializedName("sort")
-        @Expose
-        private Integer sort;
-
-        public Sortlist(Integer sort) {
-            this.sort = sort;
-        }
-
-        public Integer getSort() {
-            return sort;
-        }
-
-        public void setSort(Integer sort) {
-            this.sort = sort;
-        }
-
-    }
 }

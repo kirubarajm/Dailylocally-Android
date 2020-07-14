@@ -413,9 +413,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             if (resultCode == Activity.RESULT_OK) {
                mHomeViewModel.showRating.set(false);
             }
-            if (resultCode == Activity.RESULT_CANCELED) {
 
-            }
         }
     }
 }

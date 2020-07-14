@@ -95,14 +95,13 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
         page=getArguments().getString(AppConstants.PAGE,"");
         if (getArguments().getString(AppConstants.PAGE,"").equals(AppConstants.NOTIFY_CATEGORY_L2_ACTV)){
+            mFilterViewModel.scl1id = getArguments().getString("scl1id",null);
             mFilterViewModel.scl2id = getArguments().getString("scl2id",null);
-            mFilterViewModel.scl2id = getArguments().getString("scl2id",null);
-            mFilterViewModel.getL2Filters( mFilterViewModel.scl2id);
+            mFilterViewModel.getL2Filters( mFilterViewModel.scl1id, mFilterViewModel.scl2id);
         }else {
-
+            mFilterViewModel.cid = getArguments().getString("cid",null);
             mFilterViewModel.scl1id = getArguments().getString("scl1id",null);
-            mFilterViewModel.scl1id = getArguments().getString("scl1id",null);
-            mFilterViewModel.getCollectionFilters( mFilterViewModel.scl1id);
+            mFilterViewModel.getCollectionFilters( mFilterViewModel.cid,mFilterViewModel.scl1id);
 
         }
 

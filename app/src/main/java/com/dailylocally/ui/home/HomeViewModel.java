@@ -332,7 +332,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_RATING_CHECK, RatingCheckResponse.class, new PromotionRequest("7"), new Response.Listener<RatingCheckResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_RATING_CHECK, RatingCheckResponse.class, new PromotionRequest(getDataManager().getCurrentUserId()), new Response.Listener<RatingCheckResponse>() {
                 @Override
                 public void onResponse(RatingCheckResponse response) {
 

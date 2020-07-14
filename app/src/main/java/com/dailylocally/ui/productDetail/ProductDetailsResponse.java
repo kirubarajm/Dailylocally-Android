@@ -136,7 +136,7 @@ public class ProductDetailsResponse {
         public Integer subscription;
         @SerializedName("weight")
         @Expose
-        public Integer weight;
+        public String weight;
         @SerializedName("uom")
         @Expose
         public Integer uom;
@@ -266,7 +266,7 @@ public class ProductDetailsResponse {
             return subscription;
         }
 
-        public Integer getWeight() {
+        public String getWeight() {
             return weight;
         }
 

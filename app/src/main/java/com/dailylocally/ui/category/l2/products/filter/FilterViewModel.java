@@ -104,7 +104,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
     }
 
-    public void getL2Filters(String scl2id) {
+    public void getL2Filters(String sScl1id,String sScl2id) {
 
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -120,7 +120,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             }
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_FILTERS + scl2id, FilterItems.class, new Response.Listener<FilterItems>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.GET_FILTERS, FilterItems.class,new FilterRequestPojo(sScl1id,sScl2id) ,new Response.Listener<FilterItems>() {
                 @Override
                 public void onResponse(FilterItems response) {
                     try {
@@ -151,7 +151,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             ee.printStackTrace();
         }
     }
-    public void getCollectionFilters(String scl1id) {
+    public void getCollectionFilters(String sCid,String sScl1id) {
 
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -168,7 +168,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_COLLECTION_FILTER_LIST + scl1id, FilterItems.class, new Response.Listener<FilterItems>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COLLECTION_FILTER_LIST , FilterItems.class,new FilterRequestPojo(sCid,sScl1id,"") , new Response.Listener<FilterItems>() {
                 @Override
                 public void onResponse(FilterItems response) {
                     try {

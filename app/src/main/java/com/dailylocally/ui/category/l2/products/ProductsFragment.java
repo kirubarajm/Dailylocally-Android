@@ -71,7 +71,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         Gson gson = new Gson();
         String request = gson.toJson(mProductsViewModel.productsRequest);
 
-        ((CategoryL2Activity) getActivity()).openFilter(mProductsViewModel.scl2id, request);
+        ((CategoryL2Activity) getActivity()).openFilter(mProductsViewModel.scl1id, mProductsViewModel.scl2id);
 
        /* FilterFragment filterFragment = new FilterFragment();
         filterFragment.show(getFragmentManager(), filterFragment.getTag());*/

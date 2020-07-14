@@ -143,9 +143,10 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         onBackPressed();
     }
 
-    public void openFilter(String scl2id,String request) {
+    public void openFilter(String scl1id,String scl2id) {
 
         Bundle bundle=new Bundle();
+        bundle.putString("scl1id",scl1id);
         bundle.putString("scl2id",scl2id);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L2_ACTV);
 
