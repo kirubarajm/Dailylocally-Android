@@ -146,7 +146,8 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
 
     @Override
     public void sendData(boolean trueOrFalse) {
-        mAddAddressViewModel.getProductCancelDetails(doId,dayOrderPId);
+        //mAddAddressViewModel.getProductCancelDetails(doId,dayOrderPId);
       //  mAddAddressViewModel.isCancel.set(true);
+        finish();
     }
 }

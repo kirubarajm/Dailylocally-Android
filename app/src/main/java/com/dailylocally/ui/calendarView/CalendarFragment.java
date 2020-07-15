@@ -64,6 +64,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     List<CalendarMonthResponse.Result> results = new ArrayList<>();
     CaldroidListener listener = null;
     private boolean undo = false;
+    Date dateCancel = null;
     private CaldroidFragment caldroidFragment;
     Date dateRating = null;
 
@@ -184,6 +185,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             @Override
             public void onSelectDate(Date date, View view) {
                 dateRating = date;
+                dateCancel = date;
                 mCalendarViewModel.getDayWiseOrderDetails(date);
                 caldroidFragment.clearSelectedDates();
                 caldroidFragment.setSelectedDate(date);
@@ -260,6 +262,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             String dateDay = dateDayFormat.format(currentDate);
             String yearString = yearFormat.format(currentDate);
             String monthString = monthFormat.format(currentDate);
+
             mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
 
             dateRating = currentDate;
@@ -286,6 +289,9 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void onResume() {
         super.onResume();
+        if (dateCancel!=null){
+            mCalendarViewModel.getDayWiseOrderDetails(dateCancel);
+        }
     }
 
     public void onDateSelected(Date selectedDate) {
