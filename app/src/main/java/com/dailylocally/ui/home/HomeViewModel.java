@@ -106,6 +106,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public void closeRating() {
         showRating.set(false);
+        skipRating();
     }
 
     public void changeAddress() {
@@ -351,15 +352,15 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                                         ratingDOID = response.getResult().get(0).getId();
                                         showRating.set(true);
                                         ratingTitle.set(response.getTitle());
-                                        ratingDate.set(response.getResult().get(0).getDate());
-                                        skipRating();
+                                        ratingDate.set(parseDateToddMMyyyy(response.getResult().get(0).getDate()));
+                                       // skipRating();
                                     }
                                 } else {
                                     ratingDOID = response.getResult().get(0).getId();
                                     showRating.set(true);
                                     ratingTitle.set(response.getTitle());
                                     ratingDate.set(parseDateToddMMyyyy(response.getResult().get(0).getDate()));
-                                    skipRating();
+                                   // skipRating();
 
                                 }
                         }

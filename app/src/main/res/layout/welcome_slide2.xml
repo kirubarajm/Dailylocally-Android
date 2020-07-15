@@ -21,12 +21,20 @@
         tools:ignore="MissingConstraints">
 
 
+       <!-- <ImageView
+            android:layout_marginTop="20dp"
+            android:id="@+id/img1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:src="@drawable/onboarding_2" />-->
+
         <ImageView
             android:layout_marginTop="20dp"
             android:id="@+id/img1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:src="@drawable/onboarding_2" />
+            android:src="@drawable/ic_dl" />
     </LinearLayout>
 </layout>
