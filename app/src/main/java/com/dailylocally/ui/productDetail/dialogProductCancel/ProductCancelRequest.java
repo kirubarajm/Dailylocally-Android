@@ -8,13 +8,13 @@ public class ProductCancelRequest {
     @SerializedName("doid")
     @Expose
     public String doid;
-    @SerializedName("vpid")
+    @SerializedName("id")
     @Expose
-    public String vpid;
+    public String id;
 
 
     public ProductCancelRequest(String doid, String vpid) {
         this.doid = doid;
-        this.vpid = vpid;
+        this.id = vpid;
     }
 }

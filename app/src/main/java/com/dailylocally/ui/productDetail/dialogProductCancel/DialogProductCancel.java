@@ -12,7 +12,6 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.DialogProductCancelBinding;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
-import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 
 
 import javax.inject.Inject;
@@ -27,7 +26,7 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
 
     DialogProductCancelBinding mDialogProductCancelBinding;
 
-    String doid , vpid;
+    String doid , dayOrderPid;
     ProductCancelListenerCallBack mProductCancelListenerCallBack;
 
 
@@ -72,7 +71,7 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
 
         if (getArguments()!=null) {
             doid = getArguments().getString("doid", null);
-            vpid = getArguments().getString("vpid", null);
+            dayOrderPid = getArguments().getString("dayOrderPid", null);
         }
     }
 
@@ -92,7 +91,7 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
 
     @Override
     public void productCancelClick() {
-        mDialogRateKitchenViewModel.cancelProductAPICall(doid,vpid);
+        mDialogRateKitchenViewModel.cancelProductAPICall(doid, dayOrderPid);
     }
 
     @Override

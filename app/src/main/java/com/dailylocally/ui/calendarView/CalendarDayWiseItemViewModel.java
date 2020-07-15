@@ -18,7 +18,7 @@ public class CalendarDayWiseItemViewModel {
         this.mListener = mListener;
         this.result = result;
         productName.set(result.getProductName());
-        quantity.set(String.valueOf(result.getQuantity()));
+        quantity.set("(" + result.getQuantityInfo() + result.getPkts() + ")");
         units.set(result.getUnit());
         weight.set(String.valueOf(result.getWeight()));
         unitWeight.set(result.getWeight()+result.getUnit());

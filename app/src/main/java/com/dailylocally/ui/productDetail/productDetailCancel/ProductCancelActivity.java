@@ -3,7 +3,6 @@ package com.dailylocally.ui.productDetail.productDetailCancel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 
@@ -75,7 +74,7 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     public void cancelProductClick() {
         Bundle bundle=new Bundle();
         bundle.putString("doid",doId);
-        bundle.putString("vpid",mAddAddressViewModel.vpid.get());
+        bundle.putString("dayOrderPid",dayOrderPId);
 
         DialogProductCancel filterFragment = new DialogProductCancel();
         filterFragment.setArguments(bundle);

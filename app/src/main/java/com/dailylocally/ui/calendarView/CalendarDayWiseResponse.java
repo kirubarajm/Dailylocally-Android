@@ -81,6 +81,9 @@ public class CalendarDayWiseResponse {
             @SerializedName("unit")
             @Expose
             public String unit;
+            @SerializedName("pkts")
+            @Expose
+            public String pkts;
             @SerializedName("doid")
             @Expose
             public Integer doid;
@@ -112,6 +115,10 @@ public class CalendarDayWiseResponse {
             @Expose
             public Boolean trueOrFalse;
 
+
+            public String getPkts() {
+                return pkts;
+            }
 
             public void setTrueOrFalse(Boolean trueOrFalse) {
                 this.trueOrFalse = trueOrFalse;

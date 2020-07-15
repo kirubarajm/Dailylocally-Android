@@ -120,7 +120,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void ratingClick() {
         try {
-            Intent intent = TermsAndConditionActivity.newIntent(CalendarActivity.this);
+            Intent intent = RatingActivity.newIntent(CalendarActivity.this);
             intent.putExtra("date",dateRating.getTime());
             intent.putExtra("doid",mCalendarViewModel.doid.get());
             startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);

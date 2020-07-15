@@ -119,7 +119,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void ratingClick() {
         try {
-            Intent intent = TermsAndConditionActivity.newIntent(getContext());
+            Intent intent = RatingActivity.newIntent(getContext());
             intent.putExtra("date",dateRating.getTime());
             intent.putExtra("doid",mCalendarViewModel.doid.get());
             startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
@@ -127,7 +127,6 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             e.printStackTrace();
         }
     }
-
 
     public void helpClick() {
         Intent intent = HelpActivity.newIntent(getBaseActivity(), AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_DAY_ORDER,mCalendarViewModel.doid.get());
