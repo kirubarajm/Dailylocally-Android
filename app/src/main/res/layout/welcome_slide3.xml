@@ -13,28 +13,67 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:orientation="vertical"
+        android:weightSum="4"
         tools:ignore="MissingConstraints">
 
-
-       <!-- <ImageView
-            android:layout_marginTop="20dp"
-            android:id="@+id/img1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
-            android:src="@drawable/onboarding_3" />-->
-
         <ImageView
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
             android:id="@+id/img1"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="3"
+            android:scaleType="fitEnd"
+            android:src="@drawable/onboarding_3" />
+
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_dl" />
+            android:background="@color/white"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+
+            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order today and  get tomorrow"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order by 9 PM, Get by 12 PM noon tomorrow"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 </layout>
