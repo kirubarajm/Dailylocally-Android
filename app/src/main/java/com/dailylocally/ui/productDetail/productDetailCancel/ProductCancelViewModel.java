@@ -40,7 +40,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
     public final ObservableField<String> imageUrl = new ObservableField<>();
     public final ObservableField<String> mrp = new ObservableField<>();
     public final ObservableField<String> productDate = new ObservableField<>();
-    public final ObservableField<String> vpid = new ObservableField<>();
+    //public final ObservableField<String> dayOrderPIds = new ObservableField<>();
     public final ObservableField<String> doid1 = new ObservableField<>();
     public final ObservableBoolean isCancel = new ObservableBoolean();
 
@@ -65,8 +65,9 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
                                 productname.set(response.getResult().get(0).getItems().get(0).getProductName());
                                 imageUrl.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductImage()));
                                 mrp.set(String.valueOf(response.getResult().get(0).getItems().get(0).getPrice()));
-                                    quantity.set(String.valueOf(response.getResult().get(0).getItems().get(0).getQuantity()));
-                                    vpid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getVpid()));
+                                    quantity.set("("+response.getResult().get(0).getItems().get(0).getQuantityInfo() + " "+
+                                            response.getResult().get(0).getItems().get(0).getPkts()+")");
+                                    //dayOrderPIds.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDayorderpid()));
                                     doid1.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
                                 //productDate.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));
                                 //isCancelable.set(String.valueOf(response.getResult().get(0).getItems().get(0).getCancelAvailable()));

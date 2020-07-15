@@ -110,6 +110,9 @@ public class ProductCancelResponse {
             @SerializedName("doid")
             @Expose
             public Integer doid;
+            @SerializedName("pkts")
+            @Expose
+            public String pkts;
             @SerializedName("unit")
             @Expose
             public String unit;
@@ -155,6 +158,18 @@ public class ProductCancelResponse {
             @SerializedName("product_short_desc")
             @Expose
             public String productShortDesc;
+            @SerializedName("dayorderpid")
+            @Expose
+            public Integer dayorderpid;
+
+
+            public Integer getDayorderpid() {
+                return dayorderpid;
+            }
+
+            public String getPkts() {
+                return pkts;
+            }
 
             public Integer getDoid() {
                 return doid;
