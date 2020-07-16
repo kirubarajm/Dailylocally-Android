@@ -32,6 +32,7 @@ public class OrderNowItemViewModel {
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableField<String> availability = new ObservableField<>();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
+    public final ObservableBoolean subscribeAvailable = new ObservableBoolean();
     public final ObservableBoolean isAvailable = new ObservableBoolean();
     public final ObservableBoolean isVeg = new ObservableBoolean();
     public final ObservableField<String> weight = new ObservableField<>();
@@ -54,9 +55,9 @@ public class OrderNowItemViewModel {
         // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
 
 
-        sprice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + String.valueOf(dishList.getAmount()));
+        sprice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(dishList.getAmount()));
         image.set(dishList.getImage());
-        weight.set(dishList.getWeight()+" "+dishList.getUnit());
+        weight.set(dishList.getWeight() + " " + dishList.getUnit());
 
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());
@@ -64,8 +65,15 @@ public class OrderNowItemViewModel {
 
         futureDate.set("Schedule for " + parseDateToddMMyyyy(dishList.getDeliverydate()));
         isAddClicked.set(true);
-    }
 
+        if (dishList.getSubscription() != null) {
+            if (dishList.getSubscription() == 1) {
+                subscribeAvailable.set(true);
+            } else {
+                subscribeAvailable.set(false);
+            }
+        }
+    }
 
 
     public String parseDateToddMMyyyy(String time) {
@@ -281,18 +289,20 @@ public class OrderNowItemViewModel {
 
     }
 
-  public void itemClick() {
+    public void itemClick() {
 
-     //   String date = mListener.changeDate(dishList);
+        //   String date = mListener.changeDate(dishList);
 
-mListener.itemClick(dishList);
+        mListener.itemClick(dishList);
 
 
     }
 
     public interface DishItemViewModelListener {
         void reload();
-void itemClick(CartResponse.Item product);
+
+        void itemClick(CartResponse.Item product);
+
         String changeDate(CartResponse.Item product);
 
         void subscribe(CartResponse.Item product);

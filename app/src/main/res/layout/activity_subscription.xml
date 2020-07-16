@@ -874,43 +874,37 @@
 
 
 
-
-                 <RelativeLayout
-                     android:background="@drawable/gradient_bt_back"
-                    android:onClick="@{()->subscriptionViewModel.createSubscription()}"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp">
-
-
-                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                            android:layout_centerInParent="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:paddingStart="15dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="2dp"
-                            android:singleLine="true"
-                            android:text="Create subscription"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-
-
-                </RelativeLayout>
-
-
-
-
-
-
-
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/gradient_bt_back"
+            android:onClick="@{()->subscriptionViewModel.createSubscription()}"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp">
+
+
+            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingStart="15dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="2dp"
+                android:singleLine="true"
+                android:text="Create subscription"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

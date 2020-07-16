@@ -19,6 +19,12 @@
         <item name="android:background">?colorPrimary</item>
 
     </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/quicksand_semibold</item>
+    </style>
+
+
     <style name="AppTheme.TabStyle" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/AppTheme.TextStyle</item>
         <item name="tabTextColor">@color/white</item>

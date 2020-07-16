@@ -19,7 +19,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@color/white"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="@{()->l1CategoriesItemViewModel.onItemClick()}"
         android:orientation="vertical">
 

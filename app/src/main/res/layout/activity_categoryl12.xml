@@ -59,6 +59,7 @@
         </RelativeLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_above="@+id/bottomContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/header">
@@ -159,6 +160,7 @@
                         app:tabIndicatorColor="@color/white"
                         app:tabIndicatorHeight="2dp"
                         app:tabIndicatorGravity="top"
+                        app:tabTextAppearance="@style/tab_text"
                         android:layout_gravity="bottom" />
 
 

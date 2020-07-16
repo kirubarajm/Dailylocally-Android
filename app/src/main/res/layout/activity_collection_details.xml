@@ -59,6 +59,7 @@
         </RelativeLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_above="@+id/bottomContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/header">
@@ -114,6 +115,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     <com.google.android.material.tabs.TabLayout
+                        app:tabTextAppearance="@style/tab_text"
                         android:background="@color/dl_primary_color"
                         android:id="@+id/categorytabs"
                         android:layout_width="match_parent"
