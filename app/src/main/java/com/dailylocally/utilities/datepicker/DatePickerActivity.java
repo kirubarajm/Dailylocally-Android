@@ -103,7 +103,7 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
             //args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putString(CaldroidFragment.MIN_DATE, date);
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
             args.putBoolean(CaldroidFragment.SELECTED_DATES, false);
             caldroidFragment.setArguments(args);
         }

@@ -26,7 +26,12 @@
             android:orientation="vertical">
 
 
-
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_no_internet" />
 
         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
             android:layout_gravity="center_horizontal"
@@ -51,18 +56,10 @@
                 android:textStyle="bold" />
 
 
-            <ImageView
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:rotation="180"
-                android:src="@drawable/connection_error"
-                android:tint="@color/dark_gray" />
+
 
 
         <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-            android:foreground="?android:attr/selectableItemBackground"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

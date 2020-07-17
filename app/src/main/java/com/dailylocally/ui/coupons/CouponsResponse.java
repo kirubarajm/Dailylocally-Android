@@ -58,6 +58,16 @@ public class CouponsResponse {
         @SerializedName("expiry_date")
         @Expose
         public String expiryDate;
+
+        @SerializedName("Coupon_title")
+        @Expose
+        public String CouponTitle;
+
+         @SerializedName("validity_content")
+        @Expose
+        public String validityContent;
+
+
         @SerializedName("minprice_limit")
         @Expose
         public Integer minpriceLimit;
@@ -74,6 +84,13 @@ public class CouponsResponse {
         @Expose
         public Boolean couponstatus;
 
+        public String getCouponTitle() {
+            return CouponTitle;
+        }
+
+        public String getValidityContent() {
+            return validityContent;
+        }
 
         public Integer getCid() {
             return cid;

@@ -73,7 +73,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <TextView
                         android:id="@+id/amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

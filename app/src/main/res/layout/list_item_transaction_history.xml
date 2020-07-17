@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <TextView
                     android:text="@{transactionHistoryItemViewModel.price}"
                     android:textSize="14sp"
                     android:id="@+id/txt_price"

@@ -175,7 +175,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
 
             caldroidFragment.setArguments(args);
         }
