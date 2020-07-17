@@ -94,24 +94,24 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void success(List<CalendarMonthResponse.Result> resultsList) {
         this.results = resultsList;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String strDate = "";
 
-        for (int i = 0; i < results.size(); i++) {
-            strDate = results.get(i).getDate();
-            try {
-                Date dateOrder = dateFormat.parse(strDate);
-                ColorDrawable blues = new ColorDrawable(getResources().getColor(R.color.light_blue));
-                caldroidFragment.setBackgroundDrawableForDate(blues, dateOrder);
 
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0; i < resultsList.size(); i++) {
+            setCalTextColor(resultsList.get(i).getDate());
         }
 
-        caldroidFragment.refreshView();
     }
-
+    public void setCalTextColor(String date){
+        //   java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd");
+        java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            Date dd = dateFormat22.parse(date);
+            caldroidFragment.setTextColorForDate(R.color.dl_primary_color, dd);
+            caldroidFragment.refreshView();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void failure(String message) {
         //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -254,7 +254,8 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 String yearString = yearFormat.format(currentDate);
                 String monthString = monthFormat.format(currentDate);
                 mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
-
+                caldroidFragment.setSelectedDate(currentDate);
+                caldroidFragment.refreshView();
                 dateRating = currentDate;
                 mCalendarViewModel.getDayWiseOrderDetails(currentDate);
                 mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);

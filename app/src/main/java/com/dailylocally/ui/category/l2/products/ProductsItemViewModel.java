@@ -93,6 +93,7 @@ public class ProductsItemViewModel {
 
         subscribeText.set("Subscribe");
 
+
         results.clear();
         getCart();
         if (cartRequestPojo.getOrderitems() != null) {

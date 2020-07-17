@@ -653,7 +653,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     getNavigator().cartLoaded();
                 emptyCart.set(true);
                 ee.printStackTrace();
-            }
+             }
 
         } else {
             emptyCart.set(true);

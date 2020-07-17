@@ -58,7 +58,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     @Override
     public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
       //  mAddAddressViewModel.mrp.set(""+result.getMrp());
-        mAddAddressViewModel.offerCost.set(result.getMrp() + " OFF on " + result.getProductname());
+        mAddAddressViewModel.offerCost.set(result.getDiscountCost() + " OFF on " + result.getProductname());
     }
 
     @Override

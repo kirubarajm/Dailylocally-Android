@@ -34,6 +34,7 @@ import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 import com.nhaarman.supertooltips.ToolTipView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -275,7 +276,23 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         startActivity(intent);
 
     }
+    public String parseDateToddMMyyyy(String time) {
+        String outputPattern = "yyyy-MM-dd";
+        String  inputPattern= "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
     @Override
     public String changeDate(CartResponse.Item product) {
 
@@ -283,7 +300,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
 
         Intent intent = DatePickerActivity.newIntent(getBaseActivity());
-        intent.putExtra("date",product.getStarting_date());
+        intent.putExtra("date",parseDateToddMMyyyy(product.getStarting_date()));
         startActivityForResult(intent,AppConstants.DATE_REQUESTCODE);
 
 

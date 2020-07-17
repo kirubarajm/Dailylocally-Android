@@ -1487,8 +1487,8 @@ public class CaldroidFragment extends DialogFragment {
         }
 
         public void setCurrentDateTime(DateTime dateTime) {
-            this.currentDateTime = dateTime;
-            setCalendarDateTime(currentDateTime);
+           /* this.currentDateTime = dateTime;
+            setCalendarDateTime(currentDateTime);*/
         }
 
         /**

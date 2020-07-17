@@ -94,7 +94,14 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void success(List<CalendarMonthResponse.Result> resultsList) {
         this.results = resultsList;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+
+        for (int i = 0; i < resultsList.size(); i++) {
+            setCalTextColor(resultsList.get(i).getDate());
+        }
+
+
+        /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String strDate = "";
 
         for (int i = 0; i < results.size(); i++) {
@@ -109,7 +116,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             }
         }
 
-        caldroidFragment.refreshView();
+        caldroidFragment.refreshView();*/
     }
 
     @Override
@@ -177,6 +184,11 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         t.commit();
 
 
+
+
+
+
+     //   setCalTextColor("2020-07-18 00:00:00");
 
 
 
@@ -263,6 +275,9 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             String yearString = yearFormat.format(currentDate);
             String monthString = monthFormat.format(currentDate);
 
+            caldroidFragment.setSelectedDate(currentDate);
+            caldroidFragment.refreshView();
+
             mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
 
             dateRating = currentDate;
@@ -284,6 +299,19 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         mCalendarViewModel.getOrdernowLiveData().observe(this,
                 ordernowItemViewModel -> mCalendarViewModel.addOrderNowItemsToList(ordernowItemViewModel));
 
+    }
+
+
+    public void setCalTextColor(String date){
+     //   java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd");
+        java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            Date dd = dateFormat22.parse(date);
+            caldroidFragment.setTextColorForDate(R.color.dl_primary_color, dd);
+            caldroidFragment.refreshView();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

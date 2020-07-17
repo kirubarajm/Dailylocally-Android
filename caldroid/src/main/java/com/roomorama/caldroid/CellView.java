@@ -12,7 +12,8 @@ import java.util.ArrayList;
  */
 public class CellView extends TextView {
 
-    public static final int STATE_TODAY = R.attr.state_date_today;
+  //  public static final int STATE_TODAY = R.attr.state_date_today;
+    public static final int STATE_TODAY = R.attr.state_date_selected;
     public static final int STATE_SELECTED = R.attr.state_date_selected;
     public static final int STATE_DISABLED = R.attr.state_date_disabled;
     public static final int STATE_PREV_NEXT_MONTH = R.attr.state_date_prev_next_month;

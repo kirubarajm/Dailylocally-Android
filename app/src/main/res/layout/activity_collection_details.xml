@@ -116,13 +116,13 @@
                     android:orientation="vertical">
                     <com.google.android.material.tabs.TabLayout
                         app:tabTextAppearance="@style/tab_text"
-                        android:background="@color/dl_primary_color"
+                        android:background="@color/white"
                         android:id="@+id/categorytabs"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        app:tabTextColor="@color/light_gray"
-                        app:tabSelectedTextColor="@color/white"
-                        app:tabIndicatorColor="@color/white"
+                        app:tabTextColor="@color/black"
+                        app:tabSelectedTextColor="@color/dl_primary_color"
+                        app:tabIndicatorColor="@color/dl_primary_color"
                         app:tabIndicatorHeight="2dp"
                         app:tabIndicatorGravity="top"
                         android:layout_gravity="bottom" />
@@ -195,7 +195,7 @@
                         android:layout_marginStart="5dp"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"

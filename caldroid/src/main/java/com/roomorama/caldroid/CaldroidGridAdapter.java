@@ -296,9 +296,9 @@ public class CaldroidGridAdapter extends BaseAdapter {
         cellView.resetCustomStates();
         resetCustomResources(cellView);
 
-        if (dateTime.equals(getToday())) {
+        /*if (dateTime.equals(getToday())) {
             cellView.addCustomState(CellView.STATE_TODAY);
-        }
+        }*/
 
         // Set color of the dates in previous / next month
         if (dateTime.getMonth() != month) {

@@ -104,6 +104,7 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
             args.putString(CaldroidFragment.MIN_DATE, date);
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
             args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+            args.putBoolean(CaldroidFragment.SELECTED_DATES, false);
             caldroidFragment.setArguments(args);
         }
         t = this.getSupportFragmentManager().beginTransaction();
@@ -111,7 +112,8 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
         t.commit();
 
 
-      //  caldroidFragment.setMinDateFromString(date, "dd-MM-yyyy");
+        caldroidFragment.setMinDateFromString(date, "yyyy-MM-dd");
+
 
 
         // Setup listener

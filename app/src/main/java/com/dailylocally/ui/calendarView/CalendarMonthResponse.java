@@ -32,68 +32,18 @@ public class CalendarMonthResponse {
 
     public class Result {
 
-        @SerializedName("userid")
-        @Expose
-        public Integer userid;
         @SerializedName("date")
         @Expose
         public String date;
-        @SerializedName("dayorderstatus")
-        @Expose
-        public Integer dayorderstatus;
-        @SerializedName("items")
-        @Expose
-        public List<Item> items = null;
 
 
-        public Integer getUserid() {
-            return userid;
-        }
 
         public String getDate() {
             return date;
         }
 
-        public Integer getDayorderstatus() {
-            return dayorderstatus;
-        }
-
-        public List<Item> getItems() {
-            return items;
-        }
-
-        public class Item {
-
-            @SerializedName("vpid")
-            @Expose
-            public Integer pid;
-            @SerializedName("price")
-            @Expose
-            public Integer price;
-            @SerializedName("quantity")
-            @Expose
-            public Integer quantity;
-            @SerializedName("product_name")
-            @Expose
-            public Integer productName;
 
 
-            public Integer getPid() {
-                return pid;
-            }
-
-            public Integer getPrice() {
-                return price;
-            }
-
-            public Integer getQuantity() {
-                return quantity;
-            }
-
-            public Integer getProductName() {
-                return productName;
-            }
-        }
 
     }
 
