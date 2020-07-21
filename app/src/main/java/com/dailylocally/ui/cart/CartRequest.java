@@ -157,6 +157,11 @@ public class CartRequest {
         @SerializedName("vpid")
         @Expose
         private String pid;
+
+        @SerializedName("pkt_size")
+        @Expose
+        private String pktSize;
+
         @SerializedName("quantity")
         @Expose
         private Integer quantity;
@@ -200,6 +205,13 @@ public class CartRequest {
         @Expose
         private Integer sun;
 
+        public String getPktSize() {
+            return pktSize;
+        }
+
+        public void setPktSize(String pktSize) {
+            this.pktSize = pktSize;
+        }
 
         public Integer getMon() {
             return mon;

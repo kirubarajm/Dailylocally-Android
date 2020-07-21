@@ -134,9 +134,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/semi_gray" />
+                android:background="@color/medium_gray" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:overScrollMode="never"
                 android:id="@+id/productList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

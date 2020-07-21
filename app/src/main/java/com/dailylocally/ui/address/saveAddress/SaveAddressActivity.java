@@ -162,13 +162,13 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
             if (apartmentOrIndividual.equals("1")){
                 mAddAddressViewModel.addressType.set("Apartment or Gated Society");
 
-                String completeAddress="House/Flat No."+houseFlatNo+", "+towerBlock+", "+apartment+","+address;
+                String completeAddress="No."+houseFlatNo+", "+towerBlock+", "+apartment+","+address;
                 mAddAddressViewModel.address.set(completeAddress);
 
             }else {
                 mAddAddressViewModel.addressType.set("Individual House");
 
-                String completeAddress="House/Plot No."+housePlatNo+", Floor-"+floor+", "+address;
+                String completeAddress="No."+housePlatNo+", Floor-"+floor+", "+address;
                 mAddAddressViewModel.address.set(completeAddress);
 
             }

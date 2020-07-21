@@ -1,5 +1,6 @@
 package com.dailylocally.ui.productDetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,7 +53,8 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void goBack() {
-        onBackPressed();
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 
     @Override
@@ -98,6 +100,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void onBackPressed() {
+        setResult(Activity.RESULT_OK);
         super.onBackPressed();
     }
 

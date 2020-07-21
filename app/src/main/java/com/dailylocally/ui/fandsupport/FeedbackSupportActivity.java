@@ -14,6 +14,10 @@ import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
+import com.zopim.android.sdk.prechat.PreChatForm;
+import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import javax.inject.Inject;
 
@@ -72,8 +76,31 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
     @Override
     public void support() {
-        Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this,AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_SUPPORT,"0");
-        startActivity(intent);
+
+        if (mAddAddressViewModel.getDataManager().getCurrentUserId()!=null) {
+            Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, AppConstants.CHAT_PAGE_TYPE_SUPPORT, "0");
+            startActivity(intent);
+        }else {
+
+            ZopimChat.init(getString(R.string.zopim_account_id));
+
+            PreChatForm preChatForm = new PreChatForm.Builder()
+                    .name(PreChatForm.Field.REQUIRED)
+                    .email(PreChatForm.Field.NOT_REQUIRED)
+                    .phoneNumber(PreChatForm.Field.REQUIRED)
+                    .department(PreChatForm.Field.OPTIONAL)
+                    .message(PreChatForm.Field.NOT_REQUIRED)
+                    .build();
+            final VisitorInfo.Builder build = new VisitorInfo.Builder()
+                    .note("New User");
+            ZopimChat.setVisitorInfo(build.build());
+            ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
+                    .preChatForm(preChatForm)
+                    .tags("login_issue")
+                    .department("Daily locally");
+            ZopimChatActivity.startActivity(this, config);
+
+        }
     }
 
     @Override

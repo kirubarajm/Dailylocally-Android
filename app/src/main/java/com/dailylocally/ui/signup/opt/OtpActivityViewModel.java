@@ -68,62 +68,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }*/
 
 
-    public void login(String strPhoneNumber, String strPassword) {
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-        try {
-
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOGIN_MAIN, LoginResponse.class, new LoginRequest(strPhoneNumber, strPassword), new Response.Listener<LoginResponse>() {
-                @Override
-                public void onResponse(LoginResponse response) {
-                    if (response != null) {
-                        if (response.getStatus()) {
-                            if (response.getResult() != null && response.getResult().size() > 0) {
-                                try {
-                                    String userId = response.getResult().get(0).getUserid();
-                                    String UserName = response.getResult().get(0).getName();
-                                    String UserEmail = response.getResult().get(0).getEmail();
-                                    String userPhoneNumber = response.getResult().get(0).getPhoneno();
-                                    String userReferralCode = response.getResult().get(0).getPhoneno();
-
-                                    getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
-
-                                    if (response.getResult().get(0).getAid() != null) {
-                                        //getDataManager().setCurrentAddressTitle(response.getResult().get(0).getLocality());
-                                        getDataManager().setCurrentAddressTitle(response.getResult().get(0).getCity());
-                                        getDataManager().setCurrentLat(response.getResult().get(0).getLat());
-                                        getDataManager().setCurrentLng(response.getResult().get(0).getLon());
-                                        getDataManager().setAddressId(response.getResult().get(0).getAid());
-                                        getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
-
-                                    }
-
-                                } catch (NumberFormatException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-
-                            getNavigator().loginSuccess();
-                        } else {
-                            getNavigator().loginFailure();
-                        }
-                    }
-                }
-            }, errorListener = new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    setIsLoading(false);
-                    getNavigator().loginFailure();
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (Exception ee) {
-
-            ee.printStackTrace();
-
-        }
-    }
 
     public void loginClick() {
         getNavigator().login();
@@ -312,7 +256,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_FCM_TOKEN, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {

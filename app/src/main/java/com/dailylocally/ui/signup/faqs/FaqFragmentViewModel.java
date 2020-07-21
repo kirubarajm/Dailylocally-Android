@@ -20,8 +20,8 @@ import java.util.List;
 
 public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
 
-    public ObservableList<FaqResponse.ProductList> faqsItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<FaqResponse.ProductList>> faqsItemsLiveData;
+    public ObservableList<FaqResponse.Result> faqsItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<FaqResponse.Result>> faqsItemsLiveData;
 
     public FaqFragmentViewModel(DataManager dataManager) {
         super(dataManager);
@@ -29,16 +29,14 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
        // fetchRepos();
     }
 
-    public void addFaqsItemsToList(List<FaqResponse.ProductList> menuProductsItems) {
+    public void addFaqsItemsToList(List<FaqResponse.Result> menuProductsItems) {
         faqsItemViewModels.clear();
         faqsItemViewModels.addAll(menuProductsItems);
     }
 
-    public ObservableList<FaqResponse.ProductList> getFaqsItemViewModels() {
-        return faqsItemViewModels;
-    }
 
-    public MutableLiveData<List<FaqResponse.ProductList>> getFaqs() {
+
+    public MutableLiveData<List<FaqResponse.Result>> getFaqs() {
         return faqsItemsLiveData;
     }
 
@@ -53,14 +51,12 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
     public void fetchRepos() {
         if(!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-        //if(!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_FAQS + AppConstants.EAT, FaqResponse.class, new Response.Listener<FaqResponse>() {
-        //GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_FAQ+"/1", FaqResponse.class, new Response.Listener<FaqResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_FAQS + 4, FaqResponse.class, new Response.Listener<FaqResponse>() {
             @Override
             public void onResponse(FaqResponse response) {
-                if (response != null && response.getData() != null) {
-                    faqsItemsLiveData.setValue(response.getData());
+                if (response != null && response.getResult() != null) {
+                    faqsItemsLiveData.setValue(response.getResult());
                     Log.e("", response.getMessage());
                 }
 

@@ -1,5 +1,6 @@
 package com.dailylocally.ui.category.l2.products;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
+import com.dailylocally.utilities.AppConstants;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -33,6 +35,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     @Inject
     LinearLayoutManager linearLayoutManager;
 
+int subsPosition=0;
 
     FragmentProductsBinding mFragmentProductsBinding;
 
@@ -144,21 +147,22 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     }
 
     @Override
-    public void subscribeProduct(ProductsResponse.Result products) {
+    public void subscribeProduct(ProductsResponse.Result products,int position) {
 
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid", String.valueOf(products.getPid()));
-        startActivity(intent);
+        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        subsPosition=position;
     }
 
     @Override
-    public void productItemClick(ProductsResponse.Result products) {
+    public void productItemClick(ProductsResponse.Result products,int position) {
 
         Intent intent = ProductDetailsActivity.newIntent(getContext());
         intent.putExtra("vpid", String.valueOf(products.getPid()));
-        startActivity(intent);
+        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
 
-
+        subsPosition=position;
     }
 
     @Override
@@ -169,12 +173,26 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     }
 
 
+
+
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1111)
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.SUBSCRIPTION_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+               productListAdapter.refreshPosition(subsPosition);
+             //  productListAdapter.notifyDataSetChanged();
+            }
+
+        }else  if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
-
-
                 mProductsViewModel.checkScl2Filter(data.getStringExtra("scl2id"));
             }
+        }
     }
+
+
+
+
 }

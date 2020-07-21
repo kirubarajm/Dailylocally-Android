@@ -246,7 +246,7 @@ public final class BindingUtils {
     }
 
     @BindingAdapter({"adapter"})
-    public static void addFaqItems(RecyclerView recyclerView, List<FaqResponse.ProductList> blogs) {
+    public static void addFaqItems(RecyclerView recyclerView, List<FaqResponse.Result> blogs) {
         FaqsAdapter adapter = (FaqsAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();

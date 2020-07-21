@@ -38,8 +38,8 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     FaqFragmentViewModel mFaqViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
-   /* @Inject
-    FaqsAdapter mFaqsAdapter;*/
+    @Inject
+    FaqsAdapter mFaqsAdapter;
     private ActivityFaqsBinding mActivityFaqsBinding;
 
     Analytics analytics;
@@ -89,21 +89,16 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
 
               analytics=new Analytics(this, pageName);
 
-       /* mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityFaqsBinding.recyclerFaqs.setLayoutManager(mLayoutManager);
-        mActivityFaqsBinding.recyclerFaqs.setAdapter(mFaqsAdapter);*/
+        mActivityFaqsBinding.recyclerFaqs.setAdapter(mFaqsAdapter);
         subscribeToLiveData();
     }
 
 
     private void subscribeToLiveData() {
         mFaqViewModel.getFaqs().observe(this,
-                new Observer<List<FaqResponse.ProductList>>() {
-                    @Override
-                    public void onChanged(List<FaqResponse.ProductList> FaqFragmentViewModel) {
-                        mFaqViewModel.addFaqsItemsToList(FaqFragmentViewModel);
-                    }
-                });
+                FaqFragmentViewModel -> mFaqViewModel.addFaqsItemsToList(FaqFragmentViewModel));
     }
 
 

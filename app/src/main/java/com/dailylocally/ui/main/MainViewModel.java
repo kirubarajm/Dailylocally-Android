@@ -112,7 +112,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         setIsLoading(true);
         try {
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_FCM_TOKEN, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -289,37 +289,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
-    public void masterRequest() {
-        try {
-
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER, MasterPojo.class, new Response.Listener<MasterPojo>() {
-                @Override
-                public void onResponse(MasterPojo response) {
-                    if (response != null) {
-
-                        Gson gson = new Gson();
-                        String master = gson.toJson(response);
-                        getDataManager().saveMaster("");
-                        getDataManager().saveMaster(master);
-
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //  Log.e("", error.getMessage());
-                    setIsLoading(false);
-                }
-            }, AppConstants.API_VERSION_ONE);
-
-            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (Exception ee) {
-
-            ee.printStackTrace();
-
-        }
-
-    }
 
     public boolean checkInternet() {
         return DailylocallyApp.getInstance().onCheckNetWork();

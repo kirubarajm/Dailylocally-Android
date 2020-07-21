@@ -21,16 +21,15 @@ public class FaqsItemViewModel {
 
     public final FaqItemViewModelListener mListener;
 
-    private final FaqResponse.ProductList mBlog;
+    private final FaqResponse.Result mBlog;
 
 
-    public FaqsItemViewModel(FaqResponse.ProductList menuProducts, FaqItemViewModelListener listener) {
+    public FaqsItemViewModel(FaqResponse.Result menuProducts, FaqItemViewModelListener listener) {
 
         this.type.set(menuProducts.getType());
         this.question.set(menuProducts.getQuestion());
         this.answer.set(menuProducts.getAnswer());
         this.faqid.set(menuProducts.getFaqid());
-        this.created_at.set(menuProducts.getCreated_at());
 
         this.mListener = listener;
         this.mBlog = menuProducts;

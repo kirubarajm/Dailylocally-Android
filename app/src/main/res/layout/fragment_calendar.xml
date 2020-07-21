@@ -251,7 +251,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:padding="10dp"
-                    android:visibility="@{calendarViewModel.isRateBtn?View.GONE:View.VISIBLE}"
+                    android:visibility="@{calendarViewModel.isRateBtn?View.VISIBLE:View.GONE}"
                     android:layout_below="@+id/recycler_day_wise_order"
                     android:textColor="@color/dl_primary_color"
                     android:id="@+id/btn_refer"

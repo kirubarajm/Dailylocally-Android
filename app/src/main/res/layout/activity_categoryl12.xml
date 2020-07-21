@@ -236,7 +236,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="10dp"
                             android:orientation="vertical">
 
                             <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
@@ -263,7 +263,7 @@
                                     android:text="@{categoryL2ViewModel.cartPrice}"
                                     android:textColor="@color/white"
                                     android:textSize="16sp"
-                                    android:textStyle="bold" />
+                                    android:textStyle="normal" />
                             </LinearLayout>
                         </LinearLayout>
 

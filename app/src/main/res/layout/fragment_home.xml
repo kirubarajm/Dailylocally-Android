@@ -17,6 +17,60 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <RelativeLayout
+            android:visibility="@{homeViewModel.fullEmpty?View.VISIBLE:View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/search"
+            android:background="@color/white">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    imageUrl="@{homeViewModel.emptyImageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerInside" />
+
+                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="@{homeViewModel.emptyContent}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="@{homeViewModel.emptySubContent}"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/homemain"
@@ -25,78 +79,6 @@
             android:layout_above="@+id/bottom"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
-
-
-            <!-- <androidx.cardview.widget.CardView
-                 android:id="@+id/toolbar1"
-                 android:layout_width="match_parent"
-                 android:layout_height="50dp"
-                 android:layout_gravity="center_vertical"
-                 app:cardElevation="1dp">
-
-
-                 <RelativeLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center_vertical"
-                     android:layout_marginStart="20dp"
-                     android:layout_marginLeft="20dp"
-                     android:orientation="horizontal">
-
-                     <LinearLayout
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentStart="true"
-                         android:layout_centerVertical="true"
-                         android:onClick="@{()->homeViewModel.changeAddress()}"
-                         android:orientation="horizontal">
-
-                         <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="Delivering to "
-                             android:textColor="@color/medium_gray"
-                             android:textSize="12sp"
-                             android:textStyle="bold" />
-
-                         <LinearLayout
-                             android:id="@+id/delAddress"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:layout_marginStart="10dp"
-                             android:orientation="horizontal">
-
-                             <com.dailylocally.utilities.fonts.poppins.TitleTextView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:foreground="?android:attr/selectableItemBackground"
-                                 android:singleLine="true"
-                                 android:text="@{homeViewModel.addressTitle}"
-                                 android:textColor="@color/black"
-                                 android:textSize="14sp"
-                                 android:textStyle="bold" />
-
-                             <ImageView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginStart="5dp"
-                                 android:layout_marginEnd="25dp"
-                                 android:foreground="?android:attr/selectableItemBackground"
-                                 android:rotation="90"
-                                 android:src="@drawable/ic_chevron_right_black_24dp"
-                                 android:textSize="16sp"
-                                 android:tint="@color/dl_primary_color" />
-
-
-                         </LinearLayout>
-                     </LinearLayout>
-
-
-                 </RelativeLayout>
-
-
-             </androidx.cardview.widget.CardView>-->
-
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/fullScroll"
@@ -158,12 +140,12 @@
                                     android:textStyle="bold" />
 
                                 <ImageView
-                                    android:scaleType="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="25dp"
                                     android:rotation="90"
+                                    android:scaleType="center"
                                     android:src="@drawable/ic_chevron_right_black_24dp"
                                     android:tint="@color/dl_primary_color" />
 
@@ -261,7 +243,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
-                        android:text="Freshy"
+                        android:text="Freshly"
                         android:textAlignment="center"
                         android:textColor="@color/medium_gray"
                         android:textSize="40sp"
@@ -302,6 +284,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -309,7 +292,6 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/toolbar1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -345,10 +327,10 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:onClick="@{()->homeViewModel.ratingClick()}"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/gradient_bt_back"
+                android:onClick="@{()->homeViewModel.ratingClick()}"
                 android:visibility="@{homeViewModel.showRating?View.VISIBLE:View.GONE}">
 
                 <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
@@ -391,17 +373,16 @@
 
 
                 <ImageView
-                    android:onClick="@{()->homeViewModel.closeRating()}"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
+                    android:onClick="@{()->homeViewModel.closeRating()}"
                     android:src="@drawable/ic_close_black_24dp" />
 
             </RelativeLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -429,13 +410,13 @@
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
-                   <!-- <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_close_black_24dp" />-->
+                    <!-- <ImageView
+                         android:layout_width="15dp"
+                         android:layout_height="15dp"
+                         android:layout_alignParentEnd="true"
+                         android:layout_marginTop="5dp"
+                         android:layout_marginEnd="10dp"
+                         android:src="@drawable/ic_close_black_24dp" />-->
 
 
                 </RelativeLayout>
@@ -523,17 +504,17 @@
 
 
                         <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                            android:layout_marginStart="10dp"
-                            android:visibility="@{homeViewModel.update?View.VISIBLE:View.GONE}"
                             android:id="@+id/action"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:foreground="?android:attr/selectableItemBackground"
                             android:gravity="center"
                             android:text="@{homeViewModel.updateAction}"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            android:visibility="@{homeViewModel.update?View.VISIBLE:View.GONE}" />
                         <!-- </com.facebook.shimmer.ShimmerFrameLayout>-->
                     </LinearLayout>
 

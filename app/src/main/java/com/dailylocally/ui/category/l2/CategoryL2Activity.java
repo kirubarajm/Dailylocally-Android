@@ -1,5 +1,6 @@
 package com.dailylocally.ui.category.l2;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -206,12 +207,15 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         /*mActivityCategoryl2Binding.frameLayout.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
+             //   mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
+               *//* for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    fragment.onActivityResult(AppConstants.SUBSCRIPTION_CODE, Activity.RESULT_OK, null);
+                }*//*
             }
 
             @Override
             public void onPageSelected(int position) {
-                mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
+               // mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
             }
 
             @Override
@@ -246,6 +250,9 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
             public void onTabSelected(TabLayout.Tab tab) {
                 mActivityCategoryl2Binding.frameLayout.setCurrentItem(tab.getPosition());
                 mCategoryL2ViewModel.getDataManager().saveFiletrSort(null);
+               /* for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    fragment.onActivityResult(AppConstants.SUBSCRIPTION_CODE, Activity.RESULT_OK, null);
+                }*/
             }
 
             @Override
@@ -336,6 +343,15 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(1111, RESULT_OK, data);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

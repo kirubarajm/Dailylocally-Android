@@ -97,7 +97,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
             cartRequestPojo.setSubscription(results);
             saveCart(cartRequestPojo);
-            getNavigator().goBack();
+            getNavigator().subscribed();
 
         } else {
 
@@ -153,6 +153,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                                                 cartRequestPojoResult.setPid(products.getPid());
                                                 cartRequestPojoResult.setQuantity(quantity);
                                                 cartRequestPojoResult.setPlanid(planId);
+                                                cartRequestPojoResult.setPktSize(response.getResult().get(0).getPacketInfo()+" "+response.getResult().get(0).getPkts());
                                                 cartRequestPojoResult.setPrice(response.getResult().get(0).getAmount());
 
 
@@ -227,7 +228,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                             }
 
 
-                            getNavigator().goBack();
+                            getNavigator().subscribed();
 
                         } else {
 
@@ -238,6 +239,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                             cartRequestPojoResult.setQuantity(quantity);
                             cartRequestPojoResult.setPlanid(planId);
                             cartRequestPojoResult.setPrice(response.getResult().get(0).getAmount());
+                            cartRequestPojoResult.setPktSize(response.getResult().get(0).getPacketInfo()+" "+response.getResult().get(0).getPkts());
 
                             if (monClicked.get()) {
                                 cartRequestPojoResult.setMon(1);
@@ -290,7 +292,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                             saveCart(cartRequestPojo);
 
 
-                            getNavigator().goBack();
+                            getNavigator().subscribed();
                         }
 
                 }

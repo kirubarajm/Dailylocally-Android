@@ -46,6 +46,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
+
+    public void refreshPosition(int position) {
+
+        if (item_list.size()  > position) {
+            notifyItemChanged(position);
+        }
+
+    }
+
+
     public void loadingFalse() {
         loading = false;
     }
@@ -86,9 +96,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void loadMore();
 
-        void subscribeProduct(ProductsResponse.Result products);
+        void subscribeProduct(ProductsResponse.Result products,int position);
 
-        void productItemClick(ProductsResponse.Result products);
+        void productItemClick(ProductsResponse.Result products,int position);
 
         void showToast(String message);
     }
@@ -108,7 +118,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final ProductsResponse.Result blog = item_list.get(position);
-            mCategoriesItemViewModel = new ProductsItemViewModel(this, blog);
+            mCategoriesItemViewModel = new ProductsItemViewModel(this, blog,position);
             mListItemCategoriesBinding.setProductsItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
 
@@ -124,13 +134,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void subscribeProduct(ProductsResponse.Result products) {
-            mProductsAdapterListener.subscribeProduct(products);
+        public void subscribeProduct(ProductsResponse.Result products,int position) {
+            mProductsAdapterListener.subscribeProduct(products,position);
         }
 
         @Override
-        public void onItemClick(ProductsResponse.Result products) {
-            mProductsAdapterListener.productItemClick(products);
+        public void onItemClick(ProductsResponse.Result products,int position) {
+            mProductsAdapterListener.productItemClick(products,position);
         }
 
         @Override

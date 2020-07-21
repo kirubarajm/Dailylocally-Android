@@ -32,6 +32,7 @@ public class AppConstants {
   public static final int REFUND_LIST_CODE = 1110;
   public static final int COUPON_LIST_CODE = 1111;
   public static final int SELECT_ADDRESS_LIST_CODE = 1122;
+  public static final int SUBSCRIPTION_CODE = 1123;
 
   public static final int DATE_REQUESTCODE = 2323;
 
@@ -362,77 +363,8 @@ public class AppConstants {
   public static final String URL_PROMOTION = URL_SERVER_IP_PORT + "/user/promotion/homescreen";
   public static final String URL_RATING_CHECK = URL_SERVER_IP_PORT + "/user/rating/check";
   public static final String URL_RATING_SKIP = URL_SERVER_IP_PORT + "/user/orderskip";
-
-
-
-
-
-  public static final String URL_OTP_VERIFICATION = URL_SERVER_IP_PORT + "/eat/otpverification";/////POST method
-  public static final String URL_NAME_GENDER_INSERT = URL_SERVER_IP_PORT + "/eat/edit";/////put method
-  public static final String URL_APP_FEEDBACK = URL_SERVER_IP_PORT + "/eat/feedback";/////POST method
-  public static final String URL_LOGIN_MAIN = URL_SERVER_IP_PORT + "/eat/checklogin";/////POST method
-  public static final String URL_QUERY_INSERT = URL_SERVER_IP_PORT + "/query";/////POST method
-  public static final String URL_QUERY_REPLIES_COUNT = URL_SERVER_IP_PORT + "/repliescount";/////POST method
-  public static final String URL_QUERY_QUERIES_LIST = URL_SERVER_IP_PORT + "/querylist";/////POST method
-  public static final String URL_REPLIES_CHAT = URL_SERVER_IP_PORT + "/queryreplies/";/////GET method
-  public static final String URL_CHAT_ANSWER = URL_SERVER_IP_PORT + "/queryanswer/";/////GET method
-  public static final String URL_CHAT_REPLIES_READ = URL_SERVER_IP_PORT + "/repliesread/";/////GET method
-  public static final String URL_ORDERS_HISTORY_LIST = URL_SERVER_IP_PORT + "/eat/orders/";/////GET method
-  public static final String URL_ORDERS_HISTORY_VIEW = URL_SERVER_IP_PORT + "/eat/order/";/////GET method
-  public static final String URL_REFERRALS = URL_SERVER_IP_PORT + "/eat/referral/";/////GET method
-  public static final String URL_REGISTRATION = URL_SERVER_IP_PORT + "/eat/postregistration";/////GET method
-  public static final String URL_REGION_LIST = URL_SERVER_IP_PORT + "/masters/regionlist";/////GET method
-  public static final String URL_FORGOT_PASSWORD = URL_SERVER_IP_PORT + "/eat/forgot";/////GET method
-  public static final String URL_SET_CONFIRM_PASSWORD = URL_SERVER_IP_PORT + "/eat/password";/////GET method
-  public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
-  public static final String URL_ORDER_RATING_SKIP = URL_SERVER_IP_PORT + "/eat/orderskip";/////POST method
-  public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method0
-  public static final String URL_LOG_OUT = URL_SERVER_IP_PORT + "/eat/logout";/////POST method
-  public static final String URL_CANCEL_ORDER = URL_SERVER_IP_PORT + "/eat/order/cancel/";/////POST method
-  public static final String EAT_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/kitchenlist";
-  public static final String EAT_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/dishlist";
-  public static final String EAT_SEARCH_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/product/search";
-  public static final String EAT_FAV_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/dishlist/";
-  public static final String EAT_FAV_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/kitchenlist/";
-  public static final String EAT_KITCHEN_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/products";
-  public static final String EAT_ADD_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/address";
-  public static final String EAT_GET_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addresslist/";
-  public static final String EAT_DELETE_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addressdelete/";
-  public static final String EAT_ADD_ADDRESS_LIST_URL = URL_SERVER_IP_PORT + "/eat/address/";
-  public static final String EAT_FUNNEL_URL = URL_SERVER_IP_PORT + "/eat/tunnelorder";
-  public static final String EAT_REFUND_LIST_URL = URL_SERVER_IP_PORT + "/eat/refund/";
-  public static final String EAT_COUPON_LIST_URL = URL_SERVER_IP_PORT + "/eat/coupon/";
-  public static final String EAT_COUPON_CHECK_URL = URL_SERVER_IP_PORT + "/eat/coupon/validate/";
-  public static final String URL_FAQS = URL_SERVER_IP_PORT + "/faqs/";/////PUT method0
-  public static final String EAT_CART_DETAILS_URL = URL_SERVER_IP_PORT + "/eat/cartdetails/";
-  public static final String EAT_COLLECTION_DETAILS_URL = URL_SERVER_IP_PORT + "/eat/collectiondetails/";
-  public static final String EAT_CREATE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/proceedtopay";
-  public static final String EAT_ORDER_DETAILS_URL = URL_SERVER_IP_PORT + "/eat/order/";
-  public static final String EAT_ORDER_ETA = URL_SERVER_IP_PORT + "/eat/order/deliverytime";
-  public static final String EAT_LIVE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/liveorders/";
-  public static final String EAT_FAV_URL = URL_SERVER_IP_PORT + "/eat/fav/";
-  public static final String EAT_FCM_TOKEN_URL = URL_SERVER_IP_PORT + "/eat/pushid/add";
-  public static final String EAT_FCM_FORCE_UPDATE = URL_SERVER_IP_PORT + "/eat/versioncheck";
-  public static final String EAT_DEFAULT_ADDRESS = URL_SERVER_IP_PORT + "/eat/defaultaddress";
-  public static final String EAT_ORDER_SUCCESS = URL_SERVER_IP_PORT + "/eat/orderplace";
-  public static final String EAT_MASTER = URL_SERVER_IP_PORT + "/masters";
-  public static final String EAT_CUISINELIST = URL_SERVER_IP_PORT + "/masters/cuisinelist";
-  public static final String EAT_CUSTOMER_SUPPORT = URL_SERVER_IP_PORT + "/eat/customersupport";
-  public static final String EAT_X_FACTOR = URL_SERVER_IP_PORT + "/eat/getXfactors";
-  public static final String EAT_REGION_LIST = URL_SERVER_IP_PORT + "/eat/regionlist";
-  public static final String EAT_MASTER_REGION_LIST = URL_SERVER_IP_PORT + "/masters/regionlist";
-  public static final String EAT_MASTER_HOMETOWN_LIST = URL_SERVER_IP_PORT + "/masters/homedownlist";
-  public static final String EAT_REGION_KITCHEN_LIST = URL_SERVER_IP_PORT + "/eat/kitche/showmore";
-  public static final String EAT_EXPLORE_SEARCH = URL_SERVER_IP_PORT + "/eat/quicksearch";
-  public static final String EAT_STORIES_LIST = URL_SERVER_IP_PORT + "/eat/stories";
-  public static final String EAT_COLLECTION_LIST = URL_SERVER_IP_PORT + "/eat/collection";
-  public static final String EAT_COLLECTION_ICON_LIST = URL_SERVER_IP_PORT + "/eat/collectionicons";
-  public static final String EAT_PAYMENT_RETRY_URL = URL_SERVER_IP_PORT + "/eat/payment/retry";
-
-  public static final String EAT_PROMOTION_URL = URL_SERVER_IP_PORT + "/eat/promotion/homescreen";
-  public static final String EAT_CHAT_ISSUES_URL = URL_SERVER_IP_PORT + "/eat/zendesk/issues";
-  public static final String EAT_CHAT_ISSUES_NOTE_URL = URL_SERVER_IP_PORT + "/eat/zendesk/issuesdetails";
-  public static final String EAT_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/eat/zendesk/requestcreate ";
+  public static final String URL_FCM_TOKEN = URL_SERVER_IP_PORT + "/user/pushid/add";
+  public static final String URL_FAQS = URL_SERVER_IP_PORT + "/user/faqs/";/////PUT method0
 
   /////Daily locally
   public static final String FORCE_UPDATE = URL_SERVER_IP_PORT + "/user/app/versioncheck";
@@ -686,6 +618,8 @@ public class AppConstants {
   public static final String NOTIFY_CHAT = "26";
   public static final String NOTIFY_ONBOARDING_ACTV = "27";
   public static final String NOTIFY_PRODUCT_DETAILS_ACTV = "28";
+  public static final String NOTIFY_TRANS_LIST_ACTV = "29";
+  public static final String NOTIFY_TRANS_DETAILS_ACTV = "30";
 
 
 

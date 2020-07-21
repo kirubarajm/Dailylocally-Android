@@ -82,6 +82,13 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     }
 
     @Override
+    public void subscribed() {
+
+        setResult(Activity.RESULT_OK);
+        finish();
+    }
+
+    @Override
     public void selectDate(String startdate) {
 
         Intent intent = DatePickerActivity.newIntent(SubscriptionActivity.this);

@@ -35,7 +35,7 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
         contact.set(false);
         support.set("0");
         supportNumber.set(false);
-        getSupportContact();
+       // getSupportContact();
         //support.set(getDataManager().getSupportNumber());
     }
 
@@ -57,7 +57,7 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
 
 
 
-    public void getSupportContact() {
+    /*public void getSupportContact() {
 
         JsonObjectRequest jsonObjectRequest = null;
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CUSTOMER_SUPPORT, null, new Response.Listener<JSONObject>() {
@@ -86,9 +86,9 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
                     //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                 }
             }) {
-                /**
+                *//**
                  * Passing some request headers
-                 */
+                 *//*
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
@@ -99,7 +99,7 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
         DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
 
-    }
+    }*/
 
 
 

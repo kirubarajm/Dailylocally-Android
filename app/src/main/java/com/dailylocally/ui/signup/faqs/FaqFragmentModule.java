@@ -18,10 +18,10 @@ public class FaqFragmentModule {
         return new FaqFragmentViewModel(dataManager);
     }
 
-   /* @Provides
+    @Provides
     FaqsAdapter provideFaqsAdapter() {
         return new FaqsAdapter(new ArrayList<>());
-    }*/
+    }
 
     @Provides
     LinearLayoutManager provideLinearLayoutManager(FaqActivity activity) {

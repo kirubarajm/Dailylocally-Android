@@ -36,9 +36,11 @@ public class ProductsItemViewModel {
     public final ObservableField<String> discount = new ObservableField<>();
 
     public final ObservableField<String> sQuantity = new ObservableField<>();
+    public final ObservableField<String> paktSize = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean subscribeAvailable = new ObservableBoolean();
+    public final ObservableBoolean subscribed = new ObservableBoolean();
     public final ObservableBoolean showDiscount = new ObservableBoolean();
     public final ObservableBoolean isFav = new ObservableBoolean();
     private final ProductsResponse.Result products;
@@ -48,11 +50,12 @@ public class ProductsItemViewModel {
     int quantity = 0;
     String favid;
     private CartRequest cartRequestPojo = new CartRequest();
+int position=0;
 
-
-    public ProductsItemViewModel(ProductsItemViewModelListener mListener, ProductsResponse.Result result) {
+    public ProductsItemViewModel(ProductsItemViewModelListener mListener, ProductsResponse.Result result,int position) {
         this.mListener = mListener;
         this.products = result;
+        this.position = position;
         name.set(result.getProductname());
         weight.set(result.getWeight() + " " + result.getUnit());
 
@@ -114,6 +117,12 @@ public class ProductsItemViewModel {
                 if (products.getPid().equals(cartRequestPojo.getSubscription().get(i).getPid())) {
                     subscribeText.set("Edit subscription");
                     serviceable.set(false);
+                    subscribed.set(true);
+                    paktSize.set(cartRequestPojo.getSubscription().get(i).getPktSize());
+
+                }else {
+                    subscribeText.set("Subscription");
+                    subscribed.set(false);
                 }
             }
         }
@@ -140,7 +149,7 @@ public class ProductsItemViewModel {
     }
 
     public void onItemClick() {
-        mListener.onItemClick(products);
+        mListener.onItemClick(products,position);
     }
 
     public void fav() {
@@ -410,19 +419,19 @@ public class ProductsItemViewModel {
     }
 
     public void subscribe() {
-        mListener.subscribeProduct(products);
+        mListener.subscribeProduct(products,position);
     }
 
     public void delete() {
-        mListener.subscribeProduct(products);
+        mListener.subscribeProduct(products,position);
     }
 
     public interface ProductsItemViewModelListener {
         void refresh();
 
-        void subscribeProduct(ProductsResponse.Result products);
+        void subscribeProduct(ProductsResponse.Result products,int position);
 
-        void onItemClick(ProductsResponse.Result products);
+        void onItemClick(ProductsResponse.Result products,int position);
 
 
         void showToast(String message);

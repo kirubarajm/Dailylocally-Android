@@ -12,24 +12,24 @@
     </data>
 
     <LinearLayout
+
         android:id="@+id/kitchen_tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:onClick="@{()->l1CategoriesItemViewModel.onItemClick()}"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp">
 
             <ImageView
+                android:tint="@color/medium_gray"
                 android:id="@+id/loader"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
@@ -38,7 +38,8 @@
                 android:src="@drawable/ic_l1_arrow" />
 
             <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="10dp"
+              android:layout_toStartOf="@+id/loader"
                 android:id="@+id/kitchen_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +57,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/semi_gray"/>
+            android:background="@color/medium_gray"/>
 
     </LinearLayout>
 

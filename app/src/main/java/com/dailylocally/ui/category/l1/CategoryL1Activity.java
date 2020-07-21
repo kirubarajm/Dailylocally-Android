@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,9 +61,12 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mCategoryL1ViewModel.setNavigator(this);
         mActivityCategoryl1Binding = getViewDataBinding();
         l1CategoriesAdapter.setListener(this);
+
+
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             categoryid = intent.getExtras().getString("catid");

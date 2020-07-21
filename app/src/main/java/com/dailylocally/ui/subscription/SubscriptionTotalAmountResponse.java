@@ -46,6 +46,15 @@ public class SubscriptionTotalAmountResponse {
         @SerializedName("amount")
         @Expose
         private String amount;
+        @SerializedName("pkts")
+        @Expose
+        private String pkts;
+        @SerializedName("packet_info")
+        @Expose
+        private String packetInfo;
+        @SerializedName("packet_total_info")
+        @Expose
+        private String packetTotalInfo;
 
         public String getAmount() {
             return amount;
@@ -53,6 +62,30 @@ public class SubscriptionTotalAmountResponse {
 
         public void setAmount(String amount) {
             this.amount = amount;
+        }
+
+        public String getPkts() {
+            return pkts;
+        }
+
+        public void setPkts(String pkts) {
+            this.pkts = pkts;
+        }
+
+        public String getPacketInfo() {
+            return packetInfo;
+        }
+
+        public void setPacketInfo(String packetInfo) {
+            this.packetInfo = packetInfo;
+        }
+
+        public String getPacketTotalInfo() {
+            return packetTotalInfo;
+        }
+
+        public void setPacketTotalInfo(String packetTotalInfo) {
+            this.packetTotalInfo = packetTotalInfo;
         }
     }
 }

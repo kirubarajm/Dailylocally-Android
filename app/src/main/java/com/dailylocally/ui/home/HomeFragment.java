@@ -1,13 +1,18 @@
 package com.dailylocally.ui.home;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -228,8 +233,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 catregoryItemViewModel -> mHomeViewModel.addCategoryToList(catregoryItemViewModel));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void categoryItemClicked(HomepageResponse.Result result) {
+    public void categoryItemClicked(HomepageResponse.Result result, TextView view) {
 
 
         if (result.getCid() != null) {
@@ -241,6 +247,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         } else {
             Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
             intent.putExtra("catid", String.valueOf(result.getCatid()));
+/*
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(getBaseActivity(), view, result.getName());
+            // start the new activity
+            startActivity(intent, options.toBundle());*/
             startActivity(intent);
         }
 

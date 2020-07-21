@@ -17,10 +17,10 @@ public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    List<FaqResponse.ProductList> item_list;
+    List<FaqResponse.Result> item_list;
     FaqsAdapterListener mFaqsAdapterListener;
 
-    public FaqsAdapter(List<FaqResponse.ProductList> item_list) {
+    public FaqsAdapter(List<FaqResponse.Result> item_list) {
         this.item_list = item_list;
     }
 
@@ -82,7 +82,7 @@ public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if(item_list.isEmpty()) return;
-            final FaqResponse.ProductList blog = item_list.get(position);
+            final FaqResponse.Result blog = item_list.get(position);
             mFaqsItemViewModel = new FaqsItemViewModel(blog,this);
             mBinding.setFaqsItemViewModel(mFaqsItemViewModel);
 
@@ -106,7 +106,7 @@ public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<FaqResponse.ProductList> blogList) {
+    public void addItems(List<FaqResponse.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }

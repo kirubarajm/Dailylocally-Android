@@ -356,7 +356,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
         // if (!MvvmApp.getInstance().onCheckNetWork()) return;
         if (userIdMain == 0) return;
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(String.valueOf(userIdMain), token), new Response.Listener<CommonResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_FCM_TOKEN, CommonResponse.class, new TokenRequest(String.valueOf(userIdMain), token), new Response.Listener<CommonResponse>() {
             @Override
             public void onResponse(CommonResponse response) {
                 if (response != null) {

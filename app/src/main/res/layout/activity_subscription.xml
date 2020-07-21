@@ -108,8 +108,8 @@
                                 android:orientation="horizontal">
 
                                 <RelativeLayout
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
+                                    android:layout_width="107dp"
+                                    android:layout_height="80dp"
                                     android:layout_marginEnd="10dp">
 
                                     <ImageView
@@ -156,6 +156,7 @@
                                         android:layout_marginEnd="10dp"
                                         android:ellipsize="end"
                                         android:maxLines="2"
+                                        android:minLines="2"
                                         android:text="@{subscriptionViewModel.name}"
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
@@ -203,11 +204,11 @@
                             </LinearLayout>
 
                             <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginStart="100dp"
                                 android:layout_marginTop="10dp"
-                                android:background="@color/semi_gray" />
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginStart="117dp"
+                                android:background="@color/medium_gray" />
 
 
                             <RelativeLayout
@@ -249,7 +250,7 @@
                                         android:text="@string/add"
                                         android:textAlignment="center"
                                         android:textAllCaps="true"
-                                        android:textColor="@color/dl_primary_color"
+                                        android:textColor="@color/dark_gray"
                                         android:textSize="14sp"
                                         android:textStyle="bold"
                                         android:visibility="@{subscriptionViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
@@ -271,7 +272,7 @@
 
                                             android:text="@string/minus"
                                             android:textAlignment="center"
-                                            android:textColor="@color/dl_primary_color"
+                                            android:textColor="@color/dark_gray"
                                             android:textSize="18sp" />
 
 
@@ -279,7 +280,7 @@
                                             android:layout_width="1dp"
                                             android:layout_height="match_parent"
                                             android:layout_toEndOf="@+id/minus"
-                                            android:background="@color/dl_primary_color" />
+                                            android:background="@color/dark_gray" />
 
 
                                         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
@@ -297,7 +298,7 @@
                                             android:layout_width="1dp"
                                             android:layout_height="match_parent"
                                             android:layout_toStartOf="@+id/plus"
-                                            android:background="@color/dl_primary_color" />
+                                            android:background="@color/dark_gray" />
 
 
                                         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
@@ -310,7 +311,7 @@
 
                                             android:text="@string/plus"
                                             android:textAlignment="center"
-                                            android:textColor="@color/dl_primary_color"
+                                            android:textColor="@color/dark_gray"
                                             android:textSize="18sp" />
 
                                     </RelativeLayout>
@@ -324,7 +325,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
                                 android:layout_marginTop="10dp"
-                                android:background="@color/semi_gray" />
+                                android:background="@color/medium_gray" />
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -862,6 +863,7 @@
 
 
                     <ImageView
+                        android:tint="@color/medium_gray"
                         android:layout_marginTop="5dp"
                         android:layout_width="10dp"
                         android:layout_height="10dp"

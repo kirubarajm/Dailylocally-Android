@@ -553,8 +553,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
             if (fetchedAddress != null) {
 
 
-
-
                /* String address = fetchedAddress.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                 String city = fetchedAddress.getLocality();
                 String state = fetchedAddress.getAdminArea();
@@ -564,7 +562,10 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 Toast.makeText(AddAddressActivity.this, address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+knownName, Toast.LENGTH_LONG).show();*/
 
 
-                address = fetchedAddress.getAddressLine(0);
+              //  address = fetchedAddress.getAddressLine(0);
+                address = fetchedAddress.getSubLocality()+","+fetchedAddress.getLocality()+","+fetchedAddress.getAdminArea()+","+fetchedAddress.getCountryName()+","+fetchedAddress.getPostalCode();
+
+
                 mAddAddressViewModel.locationAddress.set(address);
 
                 mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());

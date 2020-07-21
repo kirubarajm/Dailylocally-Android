@@ -100,13 +100,13 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
                     mActivityViewAddressBinding.txtAddressType.setText("Apartment Or Gated Society");
 
 
-                    String completeAddress="House/Flat No."+result.getFlatHouseNo()+", "+result.getBlockName()+", "+result.getApartmentName()+","+result.getCompleteAddress();
+                    String completeAddress="No."+result.getFlatHouseNo()+", "+result.getBlockName()+", "+result.getApartmentName()+","+result.getCompleteAddress();
                     mActivityViewAddressBinding.txtFullAddress.setText(completeAddress);
 
 
                 }else {
                     mActivityViewAddressBinding.txtAddressType.setText("Independent House");
-                    String completeAddress="House/Plot No."+result.getPlotHouseNo()+", Floor-"+result.getFloor()+", "+result.getCompleteAddress();
+                    String completeAddress="No."+result.getPlotHouseNo()+", Floor-"+result.getFloor()+", "+result.getCompleteAddress();
                     mActivityViewAddressBinding.txtFullAddress.setText(completeAddress);
                 }
             }

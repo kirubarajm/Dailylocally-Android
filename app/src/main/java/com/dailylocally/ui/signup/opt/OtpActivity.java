@@ -215,10 +215,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void login() {
-        if (validForPassword()) {
-            String strPassword = mActivityOtpBinding.edtPassword.getText().toString();
-            mLoginViewModelMain.login(strPhoneNumber, strPassword);
-        }
+
     }
 
     @Override

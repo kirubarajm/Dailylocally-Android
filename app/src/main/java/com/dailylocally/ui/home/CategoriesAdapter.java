@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +58,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     public interface CategoriesAdapterListener {
-        void categoryItemClicked(HomepageResponse.Result result);
+        void categoryItemClicked(HomepageResponse.Result result, TextView view);
     }
 
 
@@ -85,7 +86,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(HomepageResponse.Result result) {
-            mCategoriesAdapterListener.categoryItemClicked(result);
+            mCategoriesAdapterListener.categoryItemClicked(result,mListItemCategoriesBinding.name);
 
         }
 

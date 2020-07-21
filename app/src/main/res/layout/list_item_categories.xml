@@ -13,12 +13,11 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/kitchen_tile"
+        android:id="@+id/tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()->categoriesItemViewModel.onItemClick()}"
         android:orientation="vertical">
 
@@ -54,7 +53,7 @@
                     android:foregroundGravity="center" />
 
                 <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                    android:id="@+id/kitchen_name"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
