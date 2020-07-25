@@ -142,9 +142,6 @@ public class OtpResponse {
         @SerializedName("userid")
         @Expose
         private String userid;
-        @SerializedName("address_title")
-        @Expose
-        private String addressTitle;
         @SerializedName("address")
         @Expose
         private String address;
@@ -172,15 +169,6 @@ public class OtpResponse {
         @SerializedName("address_type")
         @Expose
         private Integer addressType;
-        @SerializedName("delete_status")
-        @Expose
-        private Integer deleteStatus;
-        @SerializedName("address_default")
-        @Expose
-        private Integer addressDefault;
-        @SerializedName("created_at")
-        @Expose
-        private String createdAt;
         @SerializedName("city")
         @Expose
         private String city;
@@ -200,12 +188,7 @@ public class OtpResponse {
         @SerializedName("gender")
         @Expose
         private Integer gender;
-        @SerializedName("virtualkey")
-        @Expose
-        private Integer virtualkey;
-        @SerializedName("regionid")
-        @Expose
-        private Integer regionid;
+
 
         public String getCity() {
             return city;
@@ -255,21 +238,7 @@ public class OtpResponse {
             this.gender = gender;
         }
 
-        public Integer getVirtualkey() {
-            return virtualkey;
-        }
 
-        public void setVirtualkey(Integer virtualkey) {
-            this.virtualkey = virtualkey;
-        }
-
-        public Integer getRegionid() {
-            return regionid;
-        }
-
-        public void setRegionid(Integer regionid) {
-            this.regionid = regionid;
-        }
 
         public String getUserid() {
             return userid;
@@ -279,13 +248,7 @@ public class OtpResponse {
             this.userid = userid;
         }
 
-        public String getAddressTitle() {
-            return addressTitle;
-        }
 
-        public void setAddressTitle(String addressTitle) {
-            this.addressTitle = addressTitle;
-        }
 
         public String getAddress() {
             return address;
@@ -359,29 +322,7 @@ public class OtpResponse {
             this.addressType = addressType;
         }
 
-        public Integer getDeleteStatus() {
-            return deleteStatus;
-        }
 
-        public void setDeleteStatus(Integer deleteStatus) {
-            this.deleteStatus = deleteStatus;
-        }
-
-        public Integer getAddressDefault() {
-            return addressDefault;
-        }
-
-        public void setAddressDefault(Integer addressDefault) {
-            this.addressDefault = addressDefault;
-        }
-
-        public String getCreatedAt() {
-            return createdAt;
-        }
-
-        public void setCreatedAt(String createdAt) {
-            this.createdAt = createdAt;
-        }
 
 
     }

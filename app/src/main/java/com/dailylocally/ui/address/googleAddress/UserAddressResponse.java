@@ -94,7 +94,17 @@ public class UserAddressResponse {
         @SerializedName("apartment_name")
         @Expose
         public String apartmentName;
+ @SerializedName("note")
+        @Expose
+        public String note;
 
+        public String getNote() {
+            return note;
+        }
+
+        public void setNote(String note) {
+            this.note = note;
+        }
 
         public Integer getUserid() {
             return userid;

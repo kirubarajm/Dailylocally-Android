@@ -171,6 +171,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         Intent intent = MainActivity.newIntent(CategoryL2Activity.this,AppConstants.NOTIFY_CART_FRAG,AppConstants.NOTIFY_CATEGORY_L2_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -250,9 +251,9 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
             public void onTabSelected(TabLayout.Tab tab) {
                 mActivityCategoryl2Binding.frameLayout.setCurrentItem(tab.getPosition());
                 mCategoryL2ViewModel.getDataManager().saveFiletrSort(null);
-               /* for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                    fragment.onActivityResult(AppConstants.SUBSCRIPTION_CODE, Activity.RESULT_OK, null);
-                }*/
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    fragment.onActivityResult(AppConstants.REFRESH_CODE, Activity.RESULT_OK, null);
+                }
             }
 
             @Override
@@ -353,6 +354,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
+        mCategoryL2ViewModel.totalCart();
     }
 }
 

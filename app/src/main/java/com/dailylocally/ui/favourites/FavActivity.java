@@ -1,5 +1,6 @@
 package com.dailylocally.ui.favourites;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -58,6 +59,7 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
                 Intent inIntent = InternetErrorFragment.newIntent(FavActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };
@@ -142,6 +144,7 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
         Intent intent = MainActivity.newIntent(FavActivity.this, AppConstants.NOTIFY_CART_FRAG, AppConstants.NOTIFY_FAVORITES_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -218,6 +221,10 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
             public void onTabSelected(TabLayout.Tab tab) {
                 mActivityFavDetailsBinding.frameLayout.setCurrentItem(tab.getPosition());
                 mFavViewModel.getDataManager().saveFiletrSort(null);
+
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    fragment.onActivityResult(AppConstants.REFRESH_CODE, Activity.RESULT_OK, null);
+                }
             }
 
             @Override
@@ -312,6 +319,15 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(1111, RESULT_OK, data);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+        mFavViewModel.totalCart();
     }
 }
 

@@ -69,6 +69,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     public void viewInCalendar() {
         Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -156,6 +157,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this);
         intent.putExtra("date",cartdetail.getProductDate());
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 }

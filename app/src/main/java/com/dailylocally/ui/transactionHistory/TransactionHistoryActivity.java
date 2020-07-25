@@ -107,5 +107,6 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
         Intent intent = TransactionDetailsActivity.newIntent(this);
         intent.putExtra("orderid",cartdetail.getOrderid());
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

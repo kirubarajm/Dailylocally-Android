@@ -68,6 +68,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
     public void refer() {
         Intent intent = ReferralsActivity.newIntent(this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

@@ -457,7 +457,7 @@ public class CartResponse {
         @SerializedName("amount")
         @Expose
         private String amount;
-          @SerializedName("unit")
+        @SerializedName("unit")
         @Expose
         private String unit;
 
@@ -476,7 +476,7 @@ public class CartResponse {
         @SerializedName("deliverydate")
         @Expose
         private String deliverydate;
- @SerializedName("starting_date")
+        @SerializedName("starting_date")
         @Expose
         private String starting_date;
 
@@ -992,7 +992,9 @@ public class CartResponse {
         private String noOfDeliveries;
         @SerializedName("deliverydate")
         @Expose
-        private String deliverydate;
+        private String deliverydate; @SerializedName("starting_date")
+        @Expose
+        private String startingDate;
         @SerializedName("mon")
         @Expose
         private Integer mon;
@@ -1014,6 +1016,45 @@ public class CartResponse {
         @SerializedName("sun")
         @Expose
         private Integer sun;
+
+        @SerializedName("pkts")
+        @Expose
+        private String pkts;
+        @SerializedName("packet_info")
+        @Expose
+        private String packetInfo;
+
+        @SerializedName("packet_total_info")
+        @Expose
+        private String packetTotalInfo;
+
+        public String getStartingDate() {
+            return startingDate;
+        }
+
+        public String getPkts() {
+            return pkts;
+        }
+
+        public void setPkts(String pkts) {
+            this.pkts = pkts;
+        }
+
+        public String getPacketInfo() {
+            return packetInfo;
+        }
+
+        public void setPacketInfo(String packetInfo) {
+            this.packetInfo = packetInfo;
+        }
+
+        public String getPacketTotalInfo() {
+            return packetTotalInfo;
+        }
+
+        public void setPacketTotalInfo(String packetTotalInfo) {
+            this.packetTotalInfo = packetTotalInfo;
+        }
 
         public String getPid() {
             return pid;

@@ -65,6 +65,7 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
                 Intent inIntent = InternetErrorFragment.newIntent(SaveAddressActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+               overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };
@@ -120,6 +121,7 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
         if (trueOrFalse){
             Intent intent = MainActivity.newIntent(SaveAddressActivity.this,AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         }
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

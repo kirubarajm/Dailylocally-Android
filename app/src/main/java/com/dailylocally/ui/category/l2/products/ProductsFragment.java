@@ -152,6 +152,7 @@ int subsPosition=0;
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid", String.valueOf(products.getPid()));
         startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         subsPosition=position;
     }
 
@@ -161,7 +162,7 @@ int subsPosition=0;
         Intent intent = ProductDetailsActivity.newIntent(getContext());
         intent.putExtra("vpid", String.valueOf(products.getPid()));
         startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
-
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         subsPosition=position;
     }
 
@@ -181,10 +182,20 @@ int subsPosition=0;
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstants.SUBSCRIPTION_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-               productListAdapter.refreshPosition(subsPosition);
+            //   productListAdapter.refreshPosition(subsPosition);
+               productListAdapter.refreshItem(data.getStringExtra("pid"));
              //  productListAdapter.notifyDataSetChanged();
+               String sl2= mProductsViewModel.scl2id;
+
+
             }
 
+        }else  if (requestCode == AppConstants.REFRESH_CODE) {
+            if (resultCode == RESULT_OK) {
+                mProductsViewModel.productsList.clear();
+                subscribeToLiveData();
+
+            }
         }else  if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
                 mProductsViewModel.checkScl2Filter(data.getStringExtra("scl2id"));

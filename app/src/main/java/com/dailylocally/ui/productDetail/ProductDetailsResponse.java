@@ -133,7 +133,7 @@ public class ProductDetailsResponse {
         public Integer scl2Id;
         @SerializedName("subscription")
         @Expose
-        public Integer subscription;
+        public String subscription;
         @SerializedName("weight")
         @Expose
         public String weight;
@@ -262,7 +262,7 @@ public class ProductDetailsResponse {
             return scl2Id;
         }
 
-        public Integer getSubscription() {
+        public String getSubscription() {
             return subscription;
         }
 

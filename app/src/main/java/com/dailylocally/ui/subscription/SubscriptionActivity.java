@@ -1,7 +1,6 @@
 package com.dailylocally.ui.subscription;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -21,17 +19,11 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySubscriptionBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.datepicker.DatePickerActivity;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -57,6 +49,7 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
                 Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 InternetErrorFragment fragment = new InternetErrorFragment();
                 transaction.replace(R.id.content_main, fragment);
@@ -84,7 +77,9 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     @Override
     public void subscribed() {
 
-        setResult(Activity.RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra("pid", pid);
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
@@ -92,9 +87,9 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     public void selectDate(String startdate) {
 
         Intent intent = DatePickerActivity.newIntent(SubscriptionActivity.this);
-        intent.putExtra("date",startdate);
-        startActivityForResult(intent,AppConstants.DATE_REQUESTCODE);
-
+        intent.putExtra("date", startdate);
+        startActivityForResult(intent, AppConstants.DATE_REQUESTCODE);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat sDay = new SimpleDateFormat("dd", Locale.getDefault());
@@ -136,12 +131,13 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
 
     }
-    private int getIndex(AppCompatSpinner spinner, String myString){
+
+    private int getIndex(AppCompatSpinner spinner, String myString) {
 
         int index = 0;
 
-        for (int i=0;i<spinner.getCount();i++){
-            if (spinner.getItemAtPosition(i).equals(myString)){
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(myString)) {
                 index = i;
             }
         }
@@ -165,8 +161,8 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-          if (mSubscriptionViewModel.mSubscriptionResponse != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan() != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().size() > 0)
-               mSubscriptionViewModel.planId = mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(0).getSpid();
+                if (mSubscriptionViewModel.mSubscriptionResponse != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan() != null && mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().size() > 0)
+                    mSubscriptionViewModel.planId = mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(0).getSpid();
             }
         });
 
@@ -177,10 +173,9 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     public void selectedplan(int planid, SubscriptionResponse subscriptionPlan) {
 
 
-
-        if (subscriptionPlan.getSubscriptionPlan().size()>0)
-            for (int i=0;i<subscriptionPlan.getSubscriptionPlan().size();i++){
-                if (planid==subscriptionPlan.getSubscriptionPlan().get(i).getSpid()){
+        if (subscriptionPlan.getSubscriptionPlan().size() > 0)
+            for (int i = 0; i < subscriptionPlan.getSubscriptionPlan().size(); i++) {
+                if (planid == subscriptionPlan.getSubscriptionPlan().get(i).getSpid()) {
                     mActivitySubscriptionBinding.plans.setSelection(i);
                 }
 
@@ -286,16 +281,15 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==AppConstants.DATE_REQUESTCODE){
+        if (requestCode == AppConstants.DATE_REQUESTCODE) {
 
-            if (resultCode== Activity.RESULT_OK){
-
-                mSubscriptionViewModel.startDate.set(data.getStringExtra("date"));
+            if (resultCode == Activity.RESULT_OK) {
+                mSubscriptionViewModel.startDate.set(mSubscriptionViewModel.parseDateToYYYYMMDD(   data.getStringExtra("date")));
+                mSubscriptionViewModel.showDate.set(mSubscriptionViewModel.parseDateToddMMMyyyy(data.getStringExtra("date")));
 
             }
 
         }
-
 
 
     }

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.dailylocally.R;
 import com.dailylocally.utilities.CancelListener;
 import com.dailylocally.utilities.CommonUtils;
 import com.dailylocally.utilities.NetworkUtils;
@@ -149,5 +150,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected void onDestroy() {
         super.onDestroy();
 
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

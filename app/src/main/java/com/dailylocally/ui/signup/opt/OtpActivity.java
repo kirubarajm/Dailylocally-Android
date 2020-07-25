@@ -174,6 +174,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
             Intent intent = MainActivity.newIntent(OtpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_OTP_ACTV);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         } else {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_FAILED, Toast.LENGTH_SHORT).show();
@@ -185,6 +186,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         Intent intent = GoogleAddressActivity.newIntent(OtpActivity.this);
         intent.putExtra("aid",aid);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -210,6 +212,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         unregisterReceiver(smsReceiver);
         Intent intent = RegistrationActivity.newIntent(OtpActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
@@ -248,6 +251,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
         Intent intent = MainActivity.newIntent(OtpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_OTP_ACTV);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
 
     }
@@ -458,6 +462,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = SignUpActivity.newIntent(OtpActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
         return true;
     }

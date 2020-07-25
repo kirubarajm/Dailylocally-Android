@@ -46,6 +46,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
                 Intent inIntent = InternetErrorFragment.newIntent(CategoryL1Activity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };
@@ -165,6 +166,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
 
 
     @Override
+
     public void canceled() {
 
     }
@@ -176,8 +178,9 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
         intent.putExtra("catid",categoryid);
         intent.putExtra("scl1id",String.valueOf(result.getScl1Id()));
         startActivity(intent);
-
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
+
 }
 

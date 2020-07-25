@@ -54,6 +54,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
         Intent intent = FaqActivity.newIntent(this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

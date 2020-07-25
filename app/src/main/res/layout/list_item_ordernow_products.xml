@@ -142,7 +142,6 @@
                                     android:layout_marginEnd="10dp"
                                     android:ellipsize="end"
                                     android:maxLines="2"
-                                    android:minLines="2"
                                     android:text="@{orderNowItemViewModel.product_name}"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"
@@ -165,11 +164,11 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:gravity="center_vertical">
 
                             <com.dailylocally.utilities.fonts.poppins.ContentTextView
@@ -245,90 +244,111 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-
-                    <RelativeLayout
-                        android:layout_width="70dp"
-                        android:layout_height="25dp"
+                    <LinearLayout
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/addtocart_back">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/add"
+                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                           android:layout_marginBottom="10dp"
+                            android:visibility="@{orderNowItemViewModel.isAvailable?View.GONE:View.VISIBLE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
-                            android:onClick="@{()->orderNowItemViewModel.enableAdd()}"
-                            android:text="@string/add"
-                            android:textAlignment="center"
-                            android:textAllCaps="true"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:visibility="@{orderNowItemViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:singleLine="true"
+                            android:text="Temporarily unavailable "
+                            android:textColor="@color/red"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+
 
                         <RelativeLayout
-                            android:id="@+id/num_picker"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:visibility="@{orderNowItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+                            android:layout_width="70dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/addtocart_back">
 
                             <TextView
-                                android:id="@+id/minus"
-                                android:layout_width="20dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:onClick="@{()->orderNowItemViewModel.subClicked()}"
-                                android:text="@string/minus"
-                                android:textAlignment="center"
-                                android:textColor="@color/dark_gray"
-                                android:textSize="18sp" />
-
-
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:layout_toEndOf="@+id/minus"
-                                android:background="@color/dark_gray" />
-
-
-                            <TextView
-                                android:id="@+id/quan"
+                                android:id="@+id/add"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="@{orderNowItemViewModel.sQuantity}"
+                                android:gravity="center"
+                                android:onClick="@{()->orderNowItemViewModel.enableAdd()}"
+                                android:text="@string/add"
                                 android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:layout_toStartOf="@+id/plus"
-                                android:background="@color/dark_gray" />
-
-
-                            <TextView
-                                android:id="@+id/plus"
-                                android:layout_width="20dp"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:onClick="@{()->orderNowItemViewModel.addClicked()}"
-                                android:text="@string/plus"
-                                android:textAlignment="center"
+                                android:textAllCaps="true"
                                 android:textColor="@color/dark_gray"
-                                android:textSize="18sp" />
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:visibility="@{orderNowItemViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
+
+                            <RelativeLayout
+                                android:id="@+id/num_picker"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:visibility="@{orderNowItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+
+                                <TextView
+                                    android:id="@+id/minus"
+                                    android:layout_width="20dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:onClick="@{()->orderNowItemViewModel.subClicked()}"
+                                    android:text="@string/minus"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/dark_gray"
+                                    android:textSize="18sp" />
+
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_toEndOf="@+id/minus"
+                                    android:background="@color/dark_gray" />
+
+
+                                <TextView
+                                    android:id="@+id/quan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@{orderNowItemViewModel.sQuantity}"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_toStartOf="@+id/plus"
+                                    android:background="@color/dark_gray" />
+
+
+                                <TextView
+                                    android:id="@+id/plus"
+                                    android:layout_width="20dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:onClick="@{()->orderNowItemViewModel.addClicked()}"
+                                    android:text="@string/plus"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/dark_gray"
+                                    android:textSize="18sp" />
+
+                            </RelativeLayout>
+
 
                         </RelativeLayout>
 
-
-                    </RelativeLayout>
-
+                    </LinearLayout>
                 </RelativeLayout>
 
             </LinearLayout>

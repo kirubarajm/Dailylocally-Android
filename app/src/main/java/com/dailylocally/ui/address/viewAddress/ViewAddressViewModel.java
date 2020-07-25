@@ -31,6 +31,7 @@ public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
 
 
     public final ObservableField<String> aId = new ObservableField<>();
+    public final ObservableField<String> note = new ObservableField<>();
 
     public ViewAddressViewModel(DataManager dataManager) {
         super(dataManager);
@@ -55,6 +56,10 @@ public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
                         if (response!=null) {
                             if (response.getStatus()) {
                                 if (response.getResult()!=null && response.getResult().size()>0){
+
+                                    note.set(response.getResult().get(0).getNote());
+
+
                                     if (getNavigator()!=null){
                                         getNavigator().getAddressSuccess(response.getResult().get(0));
                                     }

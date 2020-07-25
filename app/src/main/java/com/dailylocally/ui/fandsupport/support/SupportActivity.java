@@ -71,6 +71,7 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
     public void faq() {
         Intent intent = FaqActivity.newIntent(SupportActivity.this);
         startActivity(intent);
+       overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

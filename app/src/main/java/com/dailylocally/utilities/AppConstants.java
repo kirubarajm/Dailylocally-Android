@@ -33,6 +33,7 @@ public class AppConstants {
   public static final int COUPON_LIST_CODE = 1111;
   public static final int SELECT_ADDRESS_LIST_CODE = 1122;
   public static final int SUBSCRIPTION_CODE = 1123;
+  public static final int REFRESH_CODE = 1124;
 
   public static final int DATE_REQUESTCODE = 2323;
 
@@ -364,6 +365,7 @@ public class AppConstants {
   public static final String URL_RATING_CHECK = URL_SERVER_IP_PORT + "/user/rating/check";
   public static final String URL_RATING_SKIP = URL_SERVER_IP_PORT + "/user/orderskip";
   public static final String URL_FCM_TOKEN = URL_SERVER_IP_PORT + "/user/pushid/add";
+  public static final String URL_CHECK_ADDRESS = URL_SERVER_IP_PORT + "/user/checkaddress";
   public static final String URL_FAQS = URL_SERVER_IP_PORT + "/user/faqs/";/////PUT method0
 
   /////Daily locally
@@ -626,7 +628,8 @@ public class AppConstants {
 
 
   public static final Integer CHAT_PAGE_TYPE_SUPPORT = 3;
-  public static final Integer CHAT_PAGE_TYPE_TRASACTION = 1;
-  public static final Integer CHAT_PAGE_TYPE_DAY_ORDER = 1;
+  public static final Integer CHAT_PAGE_TYPE_TRASACTION = 3;
+  public static final Integer CHAT_PAGE_TYPE_PROGRESS_ORDER = 1;
+  public static final Integer CHAT_PAGE_TYPE_COMPLETED_ORDER = 4;
   public static final int RATING_REQUEST_CODE = 70;
 }

@@ -197,6 +197,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
             Intent intent = ProductDetailsActivity.newIntent(getContext());
             intent.putExtra("vpid",String.valueOf(result.getVpid()));
             startActivity(intent);
+            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -212,6 +213,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         Intent intent = CategoryL2Activity.newIntent(getContext());
         intent.putExtra("scl1id",String.valueOf(products.getScl1Id()));
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -219,5 +221,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         Intent intent = CategoryL2Activity.newIntent(getContext());
         intent.putExtra("scl1id",String.valueOf(result.getScl1Id()));
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

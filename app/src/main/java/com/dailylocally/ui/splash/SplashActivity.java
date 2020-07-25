@@ -47,6 +47,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
                 Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 InternetErrorFragment fragment = new InternetErrorFragment();
                 transaction.replace(R.id.content_main, fragment);
@@ -71,15 +72,16 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     public void checkForUserLogin(boolean status) {
         if (status) {
             Intent intent = MainActivity.newIntent(SplashActivity.this, AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_SPLASH_ACTV);
-            //Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
            /* SharedPreferences settings = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
             settings.edit().clear().apply();*/
             Intent intent = SignUpActivity.newIntent(SplashActivity.this);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 
@@ -89,8 +91,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         if (forceUpdateStatus) {
             Intent intent = UpdateActivity.newIntent(SplashActivity.this);
             intent.putExtra("forceUpdate", forceUpdateStatus);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
             mSplashViewModel.checkIsUserLoggedInOrNot();
         }
@@ -100,8 +103,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     public void userAlreadyRegistered(boolean status) {
         if (!status) {
             Intent intent = RegistrationActivity.newIntent(SplashActivity.this);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 
@@ -109,6 +113,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     public void userAddressActivity() {
         Intent intent = GoogleAddressActivity.newIntent(SplashActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
@@ -260,6 +265,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
                 if (!prefManager.isFirstTimeLaunch()) {
                     Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 } else {
 

@@ -215,7 +215,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         Intent intent = CouponsActivity.newIntent(getContext());
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_CART_FRAG);
         startActivity(intent);
-
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
@@ -274,8 +274,25 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid",String.valueOf(product.getPid()));
         startActivity(intent);
-
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
+    @Override
+    public void deleteSubcription(CartResponse.SubscriptionItem product) {
+
+        mCartViewModel.deleteSubsItem(product);
+        ((MainActivity)getActivity()).statusUpdate();
+    }
+
+    @Override
+    public void subsItemClick(CartResponse.SubscriptionItem product) {
+
+        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        intent.putExtra("vpid",String.valueOf(product.getPid()));
+        startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     public String parseDateToddMMyyyy(String time) {
         String outputPattern = "yyyy-MM-dd";
         String  inputPattern= "dd-MM-yyyy";
@@ -300,9 +317,9 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
 
         Intent intent = DatePickerActivity.newIntent(getBaseActivity());
-        intent.putExtra("date",parseDateToddMMyyyy(product.getStarting_date()));
+        intent.putExtra("date",(product.getStarting_date()));
         startActivityForResult(intent,AppConstants.DATE_REQUESTCODE);
-
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
        /* String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
 
@@ -371,7 +388,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid",String.valueOf(product.getPid()));
         startActivity(intent);
-
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -380,7 +397,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         Intent intent = ProductDetailsActivity.newIntent(getContext());
         intent.putExtra("vpid",String.valueOf(product.getPid()));
         startActivity(intent);
-
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -411,14 +428,30 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         }else if (requestCode == AppConstants.DATE_REQUESTCODE) {
 
             if (resultCode == RESULT_OK) {
-                mCartViewModel.productDateChange(data.getStringExtra("date"),product);
+                mCartViewModel.productDateChange(parseDateToYYYYMMDD(data.getStringExtra("date")),product);
 
             }
 
         }
     }
 
+    public String parseDateToYYYYMMDD(String time) {
+        String outputPattern = "yyyy-MM-dd";
+        String  inputPattern= "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat( inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
     @Override
     public void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView, ToolTipRelativeLayout relativeLayout) {
 

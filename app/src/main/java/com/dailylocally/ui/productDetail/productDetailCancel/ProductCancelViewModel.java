@@ -65,8 +65,8 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
                                 productname.set(response.getResult().get(0).getItems().get(0).getProductName());
                                 imageUrl.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductImage()));
                                 mrp.set(String.valueOf(response.getResult().get(0).getItems().get(0).getPrice()));
-                                    quantity.set("("+response.getResult().get(0).getItems().get(0).getQuantityInfo() + " "+
-                                            response.getResult().get(0).getItems().get(0).getPkts()+")");
+                                    quantity.set(" "+response.getResult().get(0).getItems().get(0).getQuantityInfo() + " "+
+                                            response.getResult().get(0).getItems().get(0).getPkts());
                                     //dayOrderPIds.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDayorderpid()));
                                     doid1.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
                                 //productDate.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));

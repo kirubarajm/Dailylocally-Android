@@ -36,11 +36,12 @@ public class ProductsItemViewModel {
     public final ObservableField<String> discount = new ObservableField<>();
 
     public final ObservableField<String> sQuantity = new ObservableField<>();
-    public final ObservableField<String> paktSize = new ObservableField<>();
+
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean subscribeAvailable = new ObservableBoolean();
     public final ObservableBoolean subscribed = new ObservableBoolean();
+    public final ObservableField<String> paktSize = new ObservableField<>();
     public final ObservableBoolean showDiscount = new ObservableBoolean();
     public final ObservableBoolean isFav = new ObservableBoolean();
     private final ProductsResponse.Result products;

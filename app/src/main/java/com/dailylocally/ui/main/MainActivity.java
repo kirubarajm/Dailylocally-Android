@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 Intent inIntent = InternetErrorFragment.newIntent(MainActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
         }

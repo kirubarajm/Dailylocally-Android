@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
 import com.dailylocally.BR;
@@ -89,6 +91,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 Intent inIntent = InternetErrorFragment.newIntent(GoogleAddressActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };
@@ -123,6 +126,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
         new Analytics().sendClickData(pageName, AppConstants.CLICK_SAVE);
         Intent intent = MainActivity.newIntent(GoogleAddressActivity.this,"","");
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
         hideKeyboard();
     }
@@ -152,6 +156,37 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         finish();
     }
+
+    @Override
+    public void showAlert(String title, String message,String locationAddress,String area,String lat,
+                          String lng,String pinCode) {
+        AlertDialog.Builder builder  = new AlertDialog.Builder(this);
+        //Uncomment the below code to Set the message and title from the strings.xml file
+        builder.setMessage(message) .setTitle(title);
+
+        //Setting message manually and performing action on button click
+        builder.setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        confirmLocationClick(locationAddress,area,lat,lng,pinCode);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.show();
+
+
+
+        }
 
     public void showLocationDialog() {
         locationDialog = new Dialog(this);
@@ -562,13 +597,20 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 Toast.makeText(AddAddressActivity.this, address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+knownName, Toast.LENGTH_LONG).show();*/
 
 
-              //  address = fetchedAddress.getAddressLine(0);
-                address = fetchedAddress.getSubLocality()+","+fetchedAddress.getLocality()+","+fetchedAddress.getAdminArea()+","+fetchedAddress.getCountryName()+","+fetchedAddress.getPostalCode();
+                address = fetchedAddress.getAddressLine(0);
+            //    address = fetchedAddress.getSubLocality()+","+fetchedAddress.getLocality()+","+fetchedAddress.getAdminArea()+","+fetchedAddress.getCountryName()+","+fetchedAddress.getPostalCode();
 
 
                 mAddAddressViewModel.locationAddress.set(address);
 
-                mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
+
+                if (fetchedAddress.getSubLocality()!=null){
+                    mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
+                }else {
+                    mAddAddressViewModel.area.set(fetchedAddress.getLocality());
+                }
+
+
                 //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
 
 

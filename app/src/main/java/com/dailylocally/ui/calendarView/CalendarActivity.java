@@ -18,12 +18,9 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
-import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -124,15 +121,19 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             intent.putExtra("date",dateRating.getTime());
             intent.putExtra("doid",mCalendarViewModel.doid.get());
             startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
-
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void helpClick() {
-        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_DAY_ORDER,mCalendarViewModel.doid.get());
+
+
+
+        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_PROGRESS_ORDER,mCalendarViewModel.doid.get());
         startActivity(intent);
+       overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -2139,6 +2140,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         intent.putExtra("doid",result.getDoid());
         intent.putExtra("dayorderpid",result.getDayorderpid());
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

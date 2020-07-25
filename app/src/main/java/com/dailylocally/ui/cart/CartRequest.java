@@ -109,6 +109,7 @@ public class CartRequest {
         @Expose
         private Integer quantity;
 
+
         @SerializedName("price")
         @Expose
         private String price;

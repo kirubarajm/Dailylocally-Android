@@ -15,9 +15,12 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
@@ -28,6 +31,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
     public final ObservableBoolean cart = new ObservableBoolean();
     public final ObservableBoolean isRateBtn = new ObservableBoolean();
     public final ObservableBoolean noDataFound = new ObservableBoolean();
+    public final ObservableBoolean isFutureOrder = new ObservableBoolean();
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
     public ObservableList<CalendarDayWiseResponse.Result.Item> dayWiseItemViewModels = new ObservableArrayList<>();
@@ -103,7 +107,10 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                                 }
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
                                 doid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
-                            }else {
+
+
+
+                            } else {
                                 noDataFound.set(true);
                             }
                         } else {

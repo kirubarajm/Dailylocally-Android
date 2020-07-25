@@ -1,5 +1,6 @@
 package com.dailylocally.ui.collection.l2.products;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
+import com.dailylocally.utilities.AppConstants;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -144,7 +146,8 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid", String.valueOf(products.getPid()));
-        startActivity(intent);
+        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -152,8 +155,8 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
         Intent intent = ProductDetailsActivity.newIntent(getContext());
         intent.putExtra("vpid",String.valueOf(products.getPid()));
-        startActivity(intent);
-
+        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
@@ -165,12 +168,35 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
     }
 
 
+
+
+
+
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1111)
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.SUBSCRIPTION_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                //   productListAdapter.refreshPosition(subsPosition);
+                collectionProductListAdapter.refreshItem(data.getStringExtra("pid"));
+                //  productListAdapter.notifyDataSetChanged();
+
+            }
+
+        }else  if (requestCode == AppConstants.REFRESH_CODE) {
             if (resultCode == RESULT_OK) {
+                mCollectionProductsViewModel.productsList.clear();
+                subscribeToLiveData();
 
-
+            }
+        }else  if (requestCode == 1111) {
+            if (resultCode == RESULT_OK) {
                 mCollectionProductsViewModel.checkScl1Filter(data.getStringExtra("scl1id"));
             }
+        }
     }
+
+
+
 }

@@ -29,6 +29,8 @@ public interface GoogleAddressNavigator {
     void myLocationn();
 
     void showToast(String msg);
+    void showAlert(String title,String message,String locationAddress,String area,String lat,
+                   String lng,String pinCode);
 
     void goBack();
 

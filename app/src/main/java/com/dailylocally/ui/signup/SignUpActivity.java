@@ -109,7 +109,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
         Intent intent = FeedbackSupportActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
-
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -117,6 +117,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_PRIVACY_POLICY);
         Intent intent = PrivacyActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
@@ -126,6 +127,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
         Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this);
         startActivityForResult(intent, AppConstants.TERMS_AND_CONDITION_REQUEST_CODE);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -143,6 +145,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         intent.putExtra("strPhoneNumber", strPhoneNumber);
         //intent.putExtra("UserId", UserId);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
@@ -150,6 +153,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     public void genderScreenFalse(boolean passwordSuccess) {
         Intent intent = RegistrationActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
@@ -157,6 +161,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     public void openHomeScreen(boolean passwordSuccess) {
         Intent intent = MainActivity.newIntent(SignUpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_SIGN_UP_ACTV);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
 
     }

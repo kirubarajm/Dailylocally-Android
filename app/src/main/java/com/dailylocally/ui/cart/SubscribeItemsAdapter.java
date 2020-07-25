@@ -89,6 +89,10 @@ public class SubscribeItemsAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
         void reloadCart();
         void edit(CartResponse.SubscriptionItem product);
+
+        void deleteSubcription(CartResponse.SubscriptionItem product);
+
+        void subsItemClick(CartResponse.SubscriptionItem product);
     }
 
     public class SubscribeProductsViewHolder extends BaseViewHolder implements SubscribeItemViewModel.SubscribeItemViewModelListener {
@@ -126,6 +130,16 @@ public class SubscribeItemsAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         @Override
         public void edit(CartResponse.SubscriptionItem product) {
              mSubscribeProductsAdapterListener.edit(product);
+        }
+
+        @Override
+        public void deleteSubcription(CartResponse.SubscriptionItem product) {
+            mSubscribeProductsAdapterListener.deleteSubcription(product);
+        }
+
+        @Override
+        public void subsItemClick(CartResponse.SubscriptionItem product) {
+            mSubscribeProductsAdapterListener.subsItemClick(product);
         }
 
     }

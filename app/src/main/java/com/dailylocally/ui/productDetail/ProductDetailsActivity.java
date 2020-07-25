@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
+
 import javax.inject.Inject;
 
 
@@ -25,6 +27,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
+    String vpid = "0";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, ProductDetailsActivity.class);
@@ -53,21 +56,32 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void goBack() {
-        setResult(Activity.RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra("pid", vpid);
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
     @Override
+    public void subscribe() {
+        Intent intent = SubscriptionActivity.newIntent(ProductDetailsActivity.this);
+        intent.putExtra("pid", vpid);
+        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+       overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
     public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
-      //  mAddAddressViewModel.mrp.set(""+result.getMrp());
+        //  mAddAddressViewModel.mrp.set(""+result.getMrp());
         mAddAddressViewModel.offerCost.set(result.getDiscountCost() + " OFF on " + result.getProductname());
     }
 
     @Override
     public void viewCart() {
-        Intent intent = MainActivity.newIntent(ProductDetailsActivity.this,AppConstants.NOTIFY_CART_FRAG,AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV);
+        Intent intent = MainActivity.newIntent(ProductDetailsActivity.this, AppConstants.NOTIFY_CART_FRAG, AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -78,14 +92,17 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
         analytics = new Analytics(this, pageName);
 
-
-        mAddAddressViewModel.getProductDetails(getIntent().getExtras().getString("vpid"));
+        vpid = getIntent().getExtras().getString("vpid");
+        mAddAddressViewModel.vpid=vpid;
+        mAddAddressViewModel.getProductDetails(vpid);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mAddAddressViewModel.checkCart();
+
     }
 
     @Override
@@ -100,7 +117,9 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void onBackPressed() {
-        setResult(Activity.RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra("pid", vpid);
+        setResult(Activity.RESULT_OK, intent);
         super.onBackPressed();
     }
 

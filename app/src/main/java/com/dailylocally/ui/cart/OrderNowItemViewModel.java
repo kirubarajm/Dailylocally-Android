@@ -52,10 +52,12 @@ public class OrderNowItemViewModel {
         this.dishList = dishList;
 
         product_name.set(dishList.getProductname());
+        isAvailable.set(dishList.getAvailablity());
+
         // product_name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
 
 
-        sprice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(dishList.getAmount()));
+        sprice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + String.valueOf(dishList.getAmount()));
         image.set(dishList.getImage());
         weight.set(dishList.getWeight() + " " + dishList.getUnit());
 
@@ -63,7 +65,7 @@ public class OrderNowItemViewModel {
         quantity.set(dishList.getCartquantity());
 
 
-        futureDate.set("Schedule for " + parseDateToddMMyyyy(dishList.getDeliverydate()));
+        futureDate.set("Schedule for " + parseDateToddMMMyyyy(dishList.getDeliverydate()));
         isAddClicked.set(true);
 
         if (dishList.getSubscription() != null) {
@@ -76,9 +78,9 @@ public class OrderNowItemViewModel {
     }
 
 
-    public String parseDateToddMMyyyy(String time) {
+    public String parseDateToddMMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";
-        String outputPattern = "dd-MM-yyyy";
+        String  outputPattern= "dd MMM yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
@@ -92,6 +94,24 @@ public class OrderNowItemViewModel {
             e.printStackTrace();
         }
         return str;
+    }
+
+  public String parseDateToddMMyyyy(String time) {
+       /* String inputPattern = "yyyy-MM-dd";
+        String  outputPattern= "dd MM yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+        return time;
     }
 
 

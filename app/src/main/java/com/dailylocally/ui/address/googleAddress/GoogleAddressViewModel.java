@@ -15,12 +15,14 @@
  */
 
 package com.dailylocally.ui.address.googleAddress;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -158,7 +160,7 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
 
     }
 
-    public void saveAddress(String address,String area,String lat, String lng, String pincode) {
+    public void saveAddress(String address, String area, String lat, String lng, String pincode) {
         request.setLat(lat);
         request.setLon(lng);
         request.setPincode(pincode);
@@ -169,28 +171,33 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
         googlePinCode.set(pincode);
     }
 
-    public void confirmLocation(String locationAddress, String house, String area, String landmark){
+    public void confirmLocation(String locationAddress, String house, String area, String landmark) {
 
-        if (googleAddress.get()==null || googleAddress.get().isEmpty()){
+        if (googleAddress.get() == null || googleAddress.get().isEmpty()) {
             Toast.makeText(DailylocallyApp.getInstance(), "Unable to find address", Toast.LENGTH_SHORT).show();
             return;
-        }else if (googleArea.get()==null || googleArea.get().isEmpty()){
+        } else if (googleArea.get() == null || googleArea.get().isEmpty()) {
             Toast.makeText(DailylocallyApp.getInstance(), "Unable to find area", Toast.LENGTH_SHORT).show();
             return;
-        }else if (googleLat.get()==null || googleLat.get().isEmpty()){
+        } else if (googleLat.get() == null || googleLat.get().isEmpty()) {
             Toast.makeText(DailylocallyApp.getInstance(), "Unable to find latitude", Toast.LENGTH_SHORT).show();
             return;
-        }else if (googleLon.get()==null || googleLon.get().isEmpty()){
+        } else if (googleLon.get() == null || googleLon.get().isEmpty()) {
             Toast.makeText(DailylocallyApp.getInstance(), "Unable to find longitude", Toast.LENGTH_SHORT).show();
             return;
-        }else if (googlePinCode.get()==null || googlePinCode.get().isEmpty()){
+        } else if (googlePinCode.get() == null || googlePinCode.get().isEmpty()) {
             Toast.makeText(DailylocallyApp.getInstance(), "Unable to find PinCode", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (getNavigator()!=null){
-            getNavigator().confirmLocationClick(googleAddress.get(),googleArea.get(),googleLat.get(),
-                    googleLon.get(),googlePinCode.get());
+        if (flagAddressEdit.get()) {
+            checkAddress(googleAddress.get(), googleArea.get(), googleLat.get(),
+                    googleLon.get(), googlePinCode.get());
+        } else {
+            if (getNavigator() != null) {
+                getNavigator().confirmLocationClick(googleAddress.get(), googleArea.get(), googleLat.get(),
+                        googleLon.get(), googlePinCode.get());
+            }
         }
     }
 
@@ -380,25 +387,25 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
                 @Override
                 public void onResponse(UserAddressResponse response) {
                     try {
-                        if (response!=null) {
+                        if (response != null) {
                             if (response.getStatus()) {
-                                if (response.getResult()!=null && response.getResult().size()>0){
-                                    if (getNavigator()!=null){
+                                if (response.getResult() != null && response.getResult().size() > 0) {
+                                    if (getNavigator() != null) {
                                         getNavigator().getAddressSuccess(response.getResult().get(0));
                                     }
                                 }
                                 aId.set(String.valueOf(response.getResult().get(0).getAid()));
-                            }else {
-                                if (getNavigator()!=null){
+                            } else {
+                                if (getNavigator() != null) {
                                     getNavigator().getAddressFailure();
                                 }
                             }
-                        }else {
-                            if (getNavigator()!=null){
+                        } else {
+                            if (getNavigator() != null) {
                                 getNavigator().getAddressFailure();
                             }
                         }
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -407,7 +414,7 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
                 public void onErrorResponse(VolleyError error) {
                     try {
                         setIsLoading(false);
-                        if (getNavigator()!=null){
+                        if (getNavigator() != null) {
                             getNavigator().getAddressFailure();
                         }
                     } catch (NullPointerException e) {
@@ -423,10 +430,62 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
         }
     }
 
-    public void locationClick(){
-        if (getNavigator()!=null){
+    public void locationClick() {
+        if (getNavigator() != null) {
             getNavigator().googleAddressClick();
         }
     }
+
+
+    public void checkAddress(String locationAddress, String area, String lat,
+                             String lng, String pinCode) {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHECK_ADDRESS, CheckAddressResponse.class, new CheckAddressRequest(getDataManager().getCurrentUserId(), lat, lng), new Response.Listener<CheckAddressResponse>() {
+                @Override
+                public void onResponse(CheckAddressResponse response) {
+                    if (!response.getStatus()) {
+                        if (response.getServicableStatus()) {
+
+                            if (getNavigator() != null)
+                                getNavigator().confirmLocationClick(googleAddress.get(), googleArea.get(), googleLat.get(),
+                                        googleLon.get(), googlePinCode.get());
+
+                        } else {
+
+                            if (getNavigator() != null)
+                                getNavigator().showAlert(response.getTitle(), response.getMessage(), locationAddress, area, lat, lng, pinCode);
+
+                        }
+                    } else {
+                        if (getNavigator() != null)
+                            getNavigator().confirmLocationClick(googleAddress.get(), googleArea.get(), googleLat.get(),
+                                    googleLon.get(), googlePinCode.get());
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
 
 }

@@ -55,6 +55,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
                 Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };
@@ -110,6 +111,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             Intent intent = UpdateActivity.newIntent(OnBoardingActivity.this);
             intent.putExtra("forceUpdate", forceUpdateStatus);
             startActivity(intent);
+           overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         } else {
             mOnBoardingActivityViewModel.checkIsUserLoggedInOrNot();
@@ -121,10 +123,12 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         if (trueOrFalse) {
             Intent intent = MainActivity.newIntent(OnBoardingActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_ONBOARDING_ACTV);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         } else {
             Intent intent = SignUpActivity.newIntent(OnBoardingActivity.this);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         }
     }

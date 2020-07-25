@@ -70,7 +70,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
         Intent intent = TermsAndConditionActivity.newIntent(FeedbackSupportActivity.this);
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_SUPPORT_ACTV);
         startActivity(intent);
-
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
@@ -107,6 +107,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
     public void faq() {
         Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

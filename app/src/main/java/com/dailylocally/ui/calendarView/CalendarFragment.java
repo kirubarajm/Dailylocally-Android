@@ -23,7 +23,6 @@ import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
-import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -63,10 +62,10 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     Date FirstOrderDate = null;
     List<CalendarMonthResponse.Result> results = new ArrayList<>();
     CaldroidListener listener = null;
-    private boolean undo = false;
     Date dateCancel = null;
-    private CaldroidFragment caldroidFragment;
     Date dateRating = null;
+    private boolean undo = false;
+    private CaldroidFragment caldroidFragment;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, CalendarFragment.class);
@@ -128,22 +127,32 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     public void ratingClick() {
         try {
             Intent intent = RatingActivity.newIntent(getContext());
-            intent.putExtra("date",dateRating.getTime());
-            intent.putExtra("doid",mCalendarViewModel.doid.get());
+            intent.putExtra("date", dateRating.getTime());
+            intent.putExtra("doid", mCalendarViewModel.doid.get());
             startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
+            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void helpClick() {
-        Intent intent = HelpActivity.newIntent(getBaseActivity(), AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_DAY_ORDER,mCalendarViewModel.doid.get());
+
+        int type = 1;
+        if (mCalendarViewModel.isFutureOrder.get()) {
+            type = 1;
+        } else {
+            type = 4;
+        }
+
+        Intent intent = HelpActivity.newIntent(getBaseActivity(), AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void goBack() {
-        ((MainActivity)getActivity()).openHome();
+        ((MainActivity) getActivity()).openHome();
     }
 
     @Override
@@ -184,12 +193,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         t.commit();
 
 
-
-
-
-
-     //   setCalTextColor("2020-07-18 00:00:00");
-
+        //   setCalTextColor("2020-07-18 00:00:00");
 
 
         // Setup listener
@@ -202,7 +206,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
                 caldroidFragment.clearSelectedDates();
                 caldroidFragment.setSelectedDate(date);
 
-                String outputDateStr = "",dateStrsdf;
+                String outputDateStr = "", dateStrsdf;
                 try {
                     if (date != null) {
                         java.text.DateFormat dateFormat = new SimpleDateFormat("dd,EEE");
@@ -210,13 +214,11 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
                         outputDateStr = dateFormat.format(date);
                         dateStrsdf = dateFormat1.format(date);
                         mFragmentHomeBinding.txtDate.setText(outputDateStr);
-                        mCalendarViewModel.rateDeliveryButton.set("Rate Delivery "+dateStrsdf);
+                        mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + dateStrsdf);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
 
 
             }
@@ -262,8 +264,6 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         mFragmentHomeBinding.recyclerDayWiseOrder.setAdapter(mCalendarDayWiseAdapter);
 
 
-
-
         try {
             Date currentDate = Calendar.getInstance().getTime();////current date
             SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
@@ -282,9 +282,9 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
             dateRating = currentDate;
             mCalendarViewModel.getDayWiseOrderDetails(currentDate);
-            mCalendarViewModel.rateDeliveryButton.set("Rate Delivery "+rateDelivery);
+            mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
             mCalendarViewModel.dateDay.set(dateDay);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -302,8 +302,8 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     }
 
 
-    public void setCalTextColor(String date){
-     //   java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd");
+    public void setCalTextColor(String date) {
+        //   java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd");
         java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
             Date dd = dateFormat22.parse(date);
@@ -317,7 +317,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void onResume() {
         super.onResume();
-        if (dateCancel!=null){
+        if (dateCancel != null) {
             mCalendarViewModel.getDayWiseOrderDetails(dateCancel);
         }
     }
@@ -2147,9 +2147,10 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
         Intent intent = ProductCancelActivity.newIntent(getContext());
-        intent.putExtra("doid",result.getDoid());
-        intent.putExtra("dayorderpid",result.getDayorderpid());
+        intent.putExtra("doid", result.getDoid());
+        intent.putExtra("dayorderpid", result.getDayorderpid());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 

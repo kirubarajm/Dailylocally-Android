@@ -19,22 +19,22 @@
         <activity android:name=".ui.main.MainActivity">
 
         </activity>
-        <activity android:name=".utilities.nointernet.InternetErrorFragment" />
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity android:name=".utilities.nointernet.InternetErrorFragment" android:screenOrientation="locked" />
+        <activity android:name=".ui.splash.SplashActivity" android:screenOrientation="locked">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.onboarding.OnBoardingActivity" />
-        <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity" />
-        <activity android:name=".ui.signup.privacy.PrivacyActivity" />
-        <activity android:name=".ui.signup.registration.RegistrationActivity" />
-        <activity android:name=".ui.signup.tandc.TermsAndConditionActivity" />
-        <activity android:name=".ui.signup.opt.OtpActivity" />
-        <activity android:name=".ui.signup.faqs.FaqActivity" />
-        <activity android:name=".ui.update.UpdateActivity" />
+        <activity android:name=".ui.onboarding.OnBoardingActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.signup.privacy.PrivacyActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.signup.registration.RegistrationActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.signup.tandc.TermsAndConditionActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.signup.opt.OtpActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.signup.faqs.FaqActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.update.UpdateActivity"  android:screenOrientation="locked"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -91,42 +91,44 @@
         <activity android:name=".ui.address.addAddress.AddressNewActivity" >
 
         </activity>
-        <activity android:name=".ui.address.viewAddress.ViewAddressActivity" />
-        <activity android:name=".ui.address.saveAddress.SaveAddressActivity" />
-        <activity android:name=".ui.productDetail.ProductDetailsActivity" />
-        <activity android:name=".ui.coupons.CouponsActivity" />
-        <activity android:name=".ui.transactionHistory.TransactionHistoryActivity" >
+        <activity android:name=".ui.address.viewAddress.ViewAddressActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.address.saveAddress.SaveAddressActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.productDetail.ProductDetailsActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.coupons.CouponsActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.transactionHistory.TransactionHistoryActivity"  android:screenOrientation="locked">
 
 
         </activity>
-        <activity android:name=".ui.transactionHistory.view.TransactionDetailsActivity" />
-        <activity android:name=".ui.productDetail.productDetailCancel.ProductCancelActivity" >
+        <activity android:name=".ui.transactionHistory.view.TransactionDetailsActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.productDetail.productDetailCancel.ProductCancelActivity" android:screenOrientation="locked" >
 
         </activity>
-        <activity android:name=".ui.rating.RatingActivity" />
-        <activity android:name=".ui.collection.l2.CollectionDetailsActivity" >
+        <activity android:name=".ui.rating.RatingActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.collection.l2.CollectionDetailsActivity"  android:screenOrientation="locked">
 
 
         </activity>
-        <activity android:name=".ui.favourites.FavActivity" />
-        <activity android:name=".ui.fandsupport.FeedbackSupportActivity" />
-        <activity android:name=".ui.fandsupport.support.SupportActivity" />
-        <activity android:name=".ui.fandsupport.help.HelpActivity" />
+        <activity android:name=".ui.favourites.FavActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.fandsupport.FeedbackSupportActivity" android:screenOrientation="locked" />
+        <activity android:name=".ui.fandsupport.support.SupportActivity"  android:screenOrientation="locked"/>
+        <activity android:name=".ui.fandsupport.help.HelpActivity"  android:screenOrientation="locked"/>
 
         <!-- <meta-data
              android:name="com.razorpay.ApiKey"
              android:value="rzp_live_kelnGLZvTecvPV" />-->
         <activity
+            android:screenOrientation="locked"
             android:name="zendesk.support.request.RequestActivity"
             android:theme="@style/ZendeskSupportTheme" />
 
         <activity
+            android:screenOrientation="locked"
             android:name="zendesk.support.requestlist.RequestListActivity"
             android:theme="@style/ZendeskSupportTheme" />
-        <activity android:name=".utilities.datepicker.DatePickerActivity" >
+        <activity android:name=".utilities.datepicker.DatePickerActivity"  android:screenOrientation="locked">
 
         </activity>
-        <activity android:name=".ui.promotion.AdActivity" />
+        <activity android:name=".ui.promotion.AdActivity"  android:screenOrientation="locked"/>
 
         <meta-data
                           android:name="com.razorpay.ApiKey"

@@ -174,6 +174,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                                     getNavigator().dataLoaded();
 
                             } else {
+                                serviceable.set(true);
                                 fullEmpty.set(true);
                                 if (getNavigator() != null)
                                     getNavigator().dataLoaded();
@@ -181,6 +182,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
 
                         } else {
+                            serviceable.set(true);
                             fullEmpty.set(true);
                             if (getNavigator() != null)
                                 getNavigator().dataLoaded();
@@ -200,6 +202,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //   Log.e("", ""+error.getMessage());
+                    fullEmpty.set(true);
+                    serviceable.set(true);
                     categoryLoading.set(false);
                     if (getNavigator() != null)
                         getNavigator().dataLoaded();

@@ -23,6 +23,7 @@ public interface ProductDetailsNavigator {
     void handleError(Throwable throwable);
 
     void goBack();
+    void subscribe();
 
     void productsDetailsSuccess(ProductDetailsResponse.Result result);
 

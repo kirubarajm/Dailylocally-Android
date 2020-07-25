@@ -155,6 +155,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         startActivity(intent);*/
         Intent intent = ViewAddressActivity.newIntent(getContext());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -185,9 +186,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void ratingClick() {
-        Intent intent = TermsAndConditionActivity.newIntent(getContext());
+        Intent intent =RatingActivity.newIntent(getContext());
         intent.putExtra("doid",mHomeViewModel.ratingDOID);
         startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -243,16 +245,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             Intent intent = CollectionDetailsActivity.newIntent(getContext());
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
+            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         } else {
             Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
             intent.putExtra("catid", String.valueOf(result.getCatid()));
+
 /*
             ActivityOptions options = ActivityOptions
                     .makeSceneTransitionAnimation(getBaseActivity(), view, result.getName());
             // start the new activity
             startActivity(intent, options.toBundle());*/
             startActivity(intent);
+            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
     }

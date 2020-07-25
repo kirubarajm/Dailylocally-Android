@@ -31,6 +31,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> startDate = new ObservableField<>();
+    public final ObservableField<String> showDate = new ObservableField<>();
     public final ObservableField<String> weight = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> sQuantity = new ObservableField<>();
@@ -148,14 +149,12 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                                                 results.remove(i);
                                                 break;
                                             } else {
-
-                                                cartRequestPojoResult.setStartDate(startDate.get());
+                                                cartRequestPojoResult.setStartDate((startDate.get()));
                                                 cartRequestPojoResult.setPid(products.getPid());
                                                 cartRequestPojoResult.setQuantity(quantity);
                                                 cartRequestPojoResult.setPlanid(planId);
                                                 cartRequestPojoResult.setPktSize(response.getResult().get(0).getPacketInfo()+" "+response.getResult().get(0).getPkts());
                                                 cartRequestPojoResult.setPrice(response.getResult().get(0).getAmount());
-
 
                                                 if (monClicked.get()) {
                                                     cartRequestPojoResult.setMon(1);
@@ -213,7 +212,6 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                             }
 
-
                             if (results.size() == 0) {
                                 saveCart(null);
 
@@ -227,14 +225,12 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                                 isAddClicked.set(false);
                             }
 
-
                             getNavigator().subscribed();
 
                         } else {
 
                             getCart();
-
-                            cartRequestPojoResult.setStartDate(startDate.get());
+                            cartRequestPojoResult.setStartDate((startDate.get()));
                             cartRequestPojoResult.setPid(products.getPid());
                             cartRequestPojoResult.setQuantity(quantity);
                             cartRequestPojoResult.setPlanid(planId);
@@ -327,13 +323,15 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                     } else if (editOrNew.equals(AppConstants.SUBSCRIBEPRODUCT_CHECK)) {
 
-                        startDate.set(parseDateToddMMyyyy(response.getOrderDeliveryDay()));
+                        showDate.set(parseDateToddMMMyyyy(response.getOrderDeliveryDay()));
+                        startDate.set(response.getOrderDeliveryDay());
                     } else if (editOrNew.equals(AppConstants.SUBSCRIBEPRODUCT_CHANGE)) {
 
                         if (getNavigator() != null)
                             getNavigator().selectDate(response.getOrderDeliveryDay());
                     } else {
-                        startDate.set(parseDateToddMMyyyy(response.getOrderDeliveryDay()));
+                        startDate.set(response.getOrderDeliveryDay());
+                        showDate.set(parseDateToddMMMyyyy(response.getOrderDeliveryDay()));
                     }
 
                 }
@@ -350,9 +348,9 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
     }
 
-    public String parseDateToddMMyyyy(String time) {
+    public String parseDateToddMMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";
-        String outputPattern = "dd-MM-yyyy";
+        String outputPattern = "dd-MMM-yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
@@ -367,6 +365,25 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
         }
         return str;
     }
+
+    public String parseDateToYYYYMMDD(String time) {
+        String outputPattern = "yyyy-MM-dd";
+        String  inputPattern= "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat( inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
     public void clickDaily() {
 
         if (dailyClicked.get()) {

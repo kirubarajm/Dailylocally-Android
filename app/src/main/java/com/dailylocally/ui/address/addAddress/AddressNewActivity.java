@@ -90,6 +90,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                 Intent inIntent = InternetErrorFragment.newIntent(AddressNewActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+               overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };

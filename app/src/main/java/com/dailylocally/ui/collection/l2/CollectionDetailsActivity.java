@@ -1,5 +1,6 @@
 package com.dailylocally.ui.collection.l2;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -60,13 +61,14 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
                 Intent inIntent = InternetErrorFragment.newIntent(CollectionDetailsActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };
 
     private TextView[] dots;
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context/*,String cid,String title*/) {
 
         return new Intent(context, CollectionDetailsActivity.class);
     }
@@ -166,6 +168,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         Intent intent = MainActivity.newIntent(CollectionDetailsActivity.this,AppConstants.NOTIFY_CART_FRAG,AppConstants.NOTIFY_COLLECTION_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -240,6 +243,9 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
             public void onTabSelected(TabLayout.Tab tab) {
                 mActivityCollectionDetailsBinding.frameLayout.setCurrentItem(tab.getPosition());
                 mCollectionDetailsViewModel.getDataManager().saveFiletrSort(null);
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    fragment.onActivityResult(AppConstants.REFRESH_CODE, Activity.RESULT_OK, null);
+                }
             }
 
             @Override
@@ -332,5 +338,18 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
             fragment.onActivityResult(1111, RESULT_OK, data);
         }
     }
+
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+        mCollectionDetailsViewModel.totalCart();
+    }
+
 }
 

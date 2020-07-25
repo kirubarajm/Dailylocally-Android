@@ -96,6 +96,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
         Intent intent = ViewAddressActivity.newIntent(getContext());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -103,6 +104,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         //new Analytics().sendClickData(pageName, AppConstants.CLICK_ORDER_HISTORY);
         Intent intent = CalendarActivity.newIntent(getContext());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -110,6 +112,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         Intent intent = CouponsActivity.newIntent(getContext());
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_MYACCOUNT_FRAG);
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -117,6 +120,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
         Intent intent = FavActivity.newIntent(getContext());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
@@ -125,6 +129,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         //new Analytics().sendClickData(pageName, AppConstants.CLICK_REFERRALS);
         Intent intent = ReferralsActivity.newIntent(getContext());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -147,6 +152,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         Intent intent = SignUpActivity.newIntent(getActivity());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         getActivity().finish();
     }
 
@@ -159,6 +165,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void feedbackAndSupport() {
         Intent intent = FeedbackSupportActivity.newIntent(getContext());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -166,12 +173,14 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         Intent intent = RegistrationActivity.newIntent(getContext());
         intent.putExtra("edit","1");
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void transactions() {
         Intent intent = TransactionHistoryActivity.newIntent(getContext());
         startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.dailylocally.ui.favourites.products;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.favourites.FavActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
+import com.dailylocally.utilities.AppConstants;
 
 import javax.inject.Inject;
 
@@ -147,7 +149,8 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
 
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid", String.valueOf(products.getPid()));
-        startActivity(intent);
+        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -155,8 +158,8 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
 
         Intent intent = ProductDetailsActivity.newIntent(getContext());
         intent.putExtra("vpid",String.valueOf(products.getPid()));
-        startActivity(intent);
-
+        startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
@@ -173,10 +176,35 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
     }
 
 
+
+
+
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1111)
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.SUBSCRIPTION_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                //   productListAdapter.refreshPosition(subsPosition);
+                favProductListAdapter.refreshItem(data.getStringExtra("pid"));
+                //  productListAdapter.notifyDataSetChanged();
+
+
+            }
+
+        }else  if (requestCode == AppConstants.REFRESH_CODE) {
+            if (resultCode == RESULT_OK) {
+                mFavProductsViewModel.productsList.clear();
+                subscribeToLiveData();
+
+            }
+        }else  if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
                 mFavProductsViewModel.checkScl1Filter(data.getStringExtra("catid"));
             }
+        }
     }
+
+
+
 }

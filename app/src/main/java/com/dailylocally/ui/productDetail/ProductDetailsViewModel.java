@@ -46,6 +46,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
     public final ObservableField<String> productname = new ObservableField<>();
     public final ObservableField<String> imageUrl = new ObservableField<>();
     public final ObservableField<String> mrp = new ObservableField<>();
+    public final ObservableField<String> pktSize = new ObservableField<>();
 
     public final ObservableField<String> aId = new ObservableField<>();
     public final ObservableBoolean discount_cost_status = new ObservableBoolean();
@@ -60,6 +61,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean subscribeAvailable = new ObservableBoolean();
+    public final ObservableBoolean subscribed = new ObservableBoolean();
     public final ObservableField<String> unserviceableTitle = new ObservableField<>();
     public final ObservableField<String> unserviceableSubTitle = new ObservableField<>();
     private final List<CartRequest.Orderitem> results = new ArrayList<>();
@@ -69,6 +71,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
     public ObservableField<String> noProductsString = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
     public ObservableBoolean cartItemAvailble = new ObservableBoolean();
+    public String vpid = "0";
     int quantity = 0;
     private ProductDetailsResponse.Result products;
     private CartRequest cartRequestPojo = new CartRequest();
@@ -102,9 +105,9 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                         }*/
                         cartRequestPojoResult.setPid(products.getVpid());
                         cartRequestPojoResult.setQuantity(quantity);
-                        if (products.getDiscountCostStatus()){
+                        if (products.getDiscountCostStatus()) {
                             cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
-                        }else {
+                        } else {
                             cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                         }
                         results.set(i, cartRequestPojoResult);
@@ -163,9 +166,9 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
                             cartRequestPojoResult.setPid(products.getVpid());
                             cartRequestPojoResult.setQuantity(quantity);
-                            if (products.getDiscountCostStatus()){
+                            if (products.getDiscountCostStatus()) {
                                 cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
-                            }else {
+                            } else {
                                 cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                             }
                             results.set(i, cartRequestPojoResult);
@@ -237,9 +240,9 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         cartRequestPojoResult.setQuantity(quantity);
 
 
-        if (products.getDiscountCostStatus()){
+        if (products.getDiscountCostStatus()) {
             cartRequestPojoResult.setPrice(String.valueOf(products.getMrpDiscountAmount()));
-        }else {
+        } else {
             cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
         }
 
@@ -275,7 +278,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         getNavigator().viewCart();
     }
 
-    public void totalCart() {
+    /*public void totalCart() {
         Gson sGson = new GsonBuilder().create();
         CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
         cartItemAvailble.set(false);
@@ -330,8 +333,61 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
             }
         }
 
-    }
+    }*/
+    public void totalCart() {
+        Gson sGson = new GsonBuilder().create();
+        CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+        cartItemAvailble.set(false);
+        if (CartRequest == null)
+            CartRequest = new CartRequest();
+        int count = 0;
+        int price = 0;
+        if (CartRequest.getOrderitems() != null) {
+            if (CartRequest.getOrderitems().size() == 0) {
+                cartItemAvailble.set(false);
+            } else {
 
+                count = count + CartRequest.getOrderitems().size();
+
+                for (int i = 0; i < CartRequest.getOrderitems().size(); i++) {
+                    //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
+                    price = price + ((Integer.parseInt(CartRequest.getOrderitems().get(i).getPrice())) * CartRequest.getOrderitems().get(i).getQuantity());
+                }
+
+            }
+        }
+
+
+        if (CartRequest.getSubscription() != null) {
+            if (CartRequest.getSubscription().size() == 0) {
+                cartItemAvailble.set(false);
+            } else {
+                count = count + CartRequest.getSubscription().size();
+
+                for (int i = 0; i < CartRequest.getSubscription().size(); i++) {
+                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())) );
+                }
+
+            }
+        }
+
+        if (count <= 0) {
+            cartItemAvailble.set(false);
+        } else {
+            cartItemAvailble.set(true);
+
+            if (count == 1) {
+                cartItems.set(count + " Item");
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
+                items.set("Item");
+            } else {
+                cartItems.set(count + " Items");
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
+                items.set("Items");
+            }
+        }
+
+    }
 
     public void getProductDetails(String vpid) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -363,10 +419,10 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                                     productname.set(response.getResult().get(0).getProductname());
                                     discount_cost_status.set(response.getResult().get(0).getDiscountCostStatus());
 
-                                    if (response.getResult().get(0).getDiscountCostStatus()){
-                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " +response.getResult().get(0).getMrpDiscountAmount());
-                                    }else {
-                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " +response.getResult().get(0).getMrp());
+                                    if (response.getResult().get(0).getDiscountCostStatus()) {
+                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + response.getResult().get(0).getMrpDiscountAmount());
+                                    } else {
+                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + response.getResult().get(0).getMrp());
                                     }
 
                                     //mrp.set(String.valueOf(response.getResult().get(0).getMrp()));
@@ -387,29 +443,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
                                     subscribeText.set("Subscribe");
 
-                                    results.clear();
-                                    getCart();
-                                    if (cartRequestPojo.getOrderitems() != null) {
-                                        int totalSize = cartRequestPojo.getOrderitems().size();
-                                        if (totalSize != 0) {
-                                            for (int i = 0; i < totalSize; i++) {
-                                                if (response.getResult().get(0).getVpid().equals(results.get(i).getPid())) {
-                                                    isAddClicked.set(true);
-                                                    quantity = results.get(i).getQuantity();
-                                                    sQuantity.set(String.valueOf(results.get(i).getQuantity()));
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getSubscription().size() > 0) {
-                                        for (int i = 0; i < cartRequestPojo.getSubscription().size(); i++) {
-                                            if (response.getResult().get(0).getVpid().equals(cartRequestPojo.getSubscription().get(i).getPid())) {
-                                                subscribeText.set("Edit subscription");
-                                                serviceable.set(false);
-                                            }
-                                        }
-                                    }
+                                 //   checkCart();
 
 
                                 }
@@ -430,9 +464,46 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
+
+    public void checkCart() {
+        results.clear();
+        getCart();
+        if (cartRequestPojo.getOrderitems() != null) {
+            int totalSize = cartRequestPojo.getOrderitems().size();
+            if (totalSize != 0) {
+                for (int i = 0; i < totalSize; i++) {
+                    if (vpid.equals(results.get(i).getPid())) {
+                        isAddClicked.set(true);
+                        quantity = results.get(i).getQuantity();
+                        sQuantity.set(String.valueOf(results.get(i).getQuantity()));
+                    }
+                }
+            }
+        }
+
+        if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getSubscription().size() > 0) {
+            for (int i = 0; i < cartRequestPojo.getSubscription().size(); i++) {
+                if (vpid.equals(cartRequestPojo.getSubscription().get(i).getPid())) {
+                    subscribeText.set("Edit subscription");
+                    serviceable.set(false);
+                    subscribed.set(true);
+                    pktSize.set(cartRequestPojo.getSubscription().get(i).getPktSize());
+
+                }
+            }
+        }
+
+    }
+
+
     public void goBack() {
         if (getNavigator() != null) {
             getNavigator().goBack();
         }
     }
+
+    public void subscribe() {
+        getNavigator().subscribe();
+    }
+
 }

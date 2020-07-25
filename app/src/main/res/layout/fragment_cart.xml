@@ -135,9 +135,9 @@
                 android:background="@color/white">
 
                 <LinearLayout
-                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -195,15 +195,15 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:onClick="@{()->cartViewModel.applyCoupon()}"
-                            android:visibility="@{cartViewModel.couponApplied?View.GONE:View.VISIBLE}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:gravity="center_vertical"
+                            android:onClick="@{()->cartViewModel.applyCoupon()}"
                             android:orientation="horizontal"
                             android:paddingTop="10dp"
-                            android:paddingBottom="10dp">
+                            android:paddingBottom="10dp"
+                            android:visibility="@{cartViewModel.couponApplied?View.GONE:View.VISIBLE}">
 
                             <ImageView
                                 android:layout_width="25dp"
@@ -224,14 +224,14 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:onClick="@{()->cartViewModel.applyCoupon()}"
-                            android:visibility="@{cartViewModel.couponApplied?View.VISIBLE:View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:onClick="@{()->cartViewModel.applyCoupon()}"
                             android:orientation="horizontal"
                             android:paddingTop="10dp"
-                            android:paddingBottom="10dp">
+                            android:paddingBottom="10dp"
+                            android:visibility="@{cartViewModel.couponApplied?View.VISIBLE:View.GONE}">
 
                             <ImageView
                                 android:layout_width="25dp"
@@ -252,19 +252,19 @@
                                     <com.dailylocally.utilities.fonts.poppins.TitleTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_alignParentStart="true"
                                         android:layout_marginStart="10dp"
                                         android:layout_marginEnd="10dp"
                                         android:text="@{cartViewModel.couponName}"
-                                        android:layout_alignParentStart="true"
                                         android:textColor="@color/dl_primary_color"
                                         android:textSize="18sp" />
 
                                     <ImageView
-                                        android:onClick="@{()->cartViewModel.clearCoupon()}"
-                                        android:layout_marginEnd="10dp"
-                                        android:layout_alignParentEnd="true"
                                         android:layout_width="25dp"
                                         android:layout_height="25dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_marginEnd="10dp"
+                                        android:onClick="@{()->cartViewModel.clearCoupon()}"
                                         android:src="@drawable/ic_close_black_24dp"
                                         android:tint="@color/dark_gray" />
 
@@ -310,6 +310,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:orientation="vertical">
+
+                        <com.nhaarman.supertooltips.ToolTipRelativeLayout
+                            android:id="@+id/activity_main_tooltipframelayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
 
                         <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
@@ -521,19 +526,33 @@
                         </RelativeLayout>
 
 
-                        <!--<com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="30dp"
-                            android:layout_marginRight="10dp"
-                            android:gravity="center"
-                            android:text="@{cartViewModel.lowCostShort}"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}" />-->
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            android:visibility="@{cartViewModel.showWarningNote?View.VISIBLE:View.GONE}">
+
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_round_warning" />
+
+                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="15dp"
+                                android:gravity="center"
+                                android:text="@{cartViewModel.statusMessage}"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <com.dailylocally.utilities.fonts.poppins.ButtonTextView
                             android:layout_width="match_parent"
@@ -557,12 +576,6 @@
                 </LinearLayout>
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
-
-
-        <com.nhaarman.supertooltips.ToolTipRelativeLayout
-            android:id="@+id/activity_main_tooltipframelayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
 
     </RelativeLayout>

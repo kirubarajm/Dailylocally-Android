@@ -50,10 +50,12 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
         if (trueOrFlase) {
             Intent intent = MainActivity.newIntent(UpdateActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_UPDATE_ACTV);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         } else {
             Intent intent = SignUpActivity.newIntent(UpdateActivity.this);
             startActivity(intent);
+          overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         }
     }
@@ -62,6 +64,7 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     public void checkForUserGenderStatus(boolean trueOrFalse) {
         Intent intent = RegistrationActivity.newIntent(UpdateActivity.this);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 

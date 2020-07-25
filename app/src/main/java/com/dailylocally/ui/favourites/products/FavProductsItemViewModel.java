@@ -32,7 +32,8 @@ public class FavProductsItemViewModel {
 
     public final ObservableField<String> totalPrice = new ObservableField<>();
     public final ObservableField<String> discount = new ObservableField<>();
-
+    public final ObservableBoolean subscribed = new ObservableBoolean();
+    public final ObservableField<String> paktSize = new ObservableField<>();
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
@@ -114,6 +115,12 @@ public class FavProductsItemViewModel {
                 if (products.getPid().equals(cartRequestPojo.getSubscription().get(i).getPid())) {
                     subscribeText.set("Edit subscription");
                     serviceable.set(false);
+                    subscribed.set(true);
+                    paktSize.set(cartRequestPojo.getSubscription().get(i).getPktSize());
+
+                }else {
+                    subscribeText.set("Subscription");
+                    subscribed.set(false);
                 }
             }
         }

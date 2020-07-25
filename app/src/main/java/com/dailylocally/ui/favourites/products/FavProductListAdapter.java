@@ -52,7 +52,20 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     public void setListener(ProductsAdapterListener listener) {
         this.mProductsAdapterListener = listener;
     }
+    public void refreshItem(String pid) {
 
+
+        for (int i=0;i<item_list.size();i++){
+
+            if (item_list.get(i).getPid().equals(pid)){
+
+                notifyItemChanged(i);
+
+            }
+
+        }
+
+    }
     public interface ProductsAdapterListener {
         void refresh();
 
