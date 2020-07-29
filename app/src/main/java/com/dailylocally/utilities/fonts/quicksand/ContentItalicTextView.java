@@ -1,4 +1,4 @@
-package com.dailylocally.utilities.fonts.poppins;
+package com.dailylocally.utilities.fonts.quicksand;
 
 import android.content.Context;
 import android.graphics.Canvas;

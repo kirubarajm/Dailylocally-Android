@@ -26,7 +26,7 @@
             android:orientation="horizontal">
 
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_alignParentStart="true"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"

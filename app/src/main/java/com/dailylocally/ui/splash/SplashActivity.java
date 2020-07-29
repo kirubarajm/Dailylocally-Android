@@ -112,9 +112,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void userAddressActivity() {
         Intent intent = GoogleAddressActivity.newIntent(SplashActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        finish();
     }
 
     @Override
@@ -264,9 +264,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
             public void run() {
                 if (!prefManager.isFirstTimeLaunch()) {
                     Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
                 } else {
 
                     mSplashViewModel.checkUpdate();

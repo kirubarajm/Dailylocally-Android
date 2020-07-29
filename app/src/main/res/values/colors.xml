@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <color name="colorPrimary">#96c940</color>
+    <color name="colorPrimary">#94c96b</color>
     <color name="colorPrimaryDark">#64A135</color>
     <color name="colorAccent">#64A135</color>
 
 
 
     <!--<color name="dl_primary_color">#2a9d92</color>-->
-    <color name="dl_primary_color">#96c940</color>
+    <color name="dl_primary_color">#94c96b</color>
     <color name="statuback">#ABE67E</color>
     <color name="dl_secondary">#00b09b</color>
     <color name="light_dl_primary_color">#DBFFF2</color>

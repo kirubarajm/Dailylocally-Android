@@ -285,12 +285,10 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
             if (resultCode == Activity.RESULT_OK) {
                 mSubscriptionViewModel.startDate.set(mSubscriptionViewModel.parseDateToYYYYMMDD(   data.getStringExtra("date")));
-                mSubscriptionViewModel.showDate.set(mSubscriptionViewModel.parseDateToddMMMyyyy(data.getStringExtra("date")));
-
+                mSubscriptionViewModel.showDate.set(mSubscriptionViewModel.parseDate(data.getStringExtra("date"),AppConstants.DATE_FORMAT_DDMMYYYY,AppConstants.DATE_FORMAT_DDMMMYYYY));
             }
 
         }
-
 
     }
 }

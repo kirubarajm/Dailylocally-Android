@@ -48,7 +48,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -137,7 +137,7 @@
 
 
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -173,7 +173,7 @@
                             android:layout_alignParentStart="true"
                             android:orientation="vertical">
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{()->addAddressViewModel.searchAddress()}"
@@ -285,7 +285,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:onClick="@{()->addAddressViewModel.confirmLocation(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString())}">
 
-                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -299,7 +299,7 @@
                     </RelativeLayout>
 
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -311,7 +311,7 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

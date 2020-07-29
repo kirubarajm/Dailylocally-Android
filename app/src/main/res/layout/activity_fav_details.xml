@@ -42,7 +42,7 @@
 
             </RelativeLayout>
 
-            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:id="@+id/kitchen_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                             android:src="@drawable/ic_fav_filled" />
 
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -200,7 +200,7 @@
                 android:src="@drawable/ic_fav_filled" />
 
 
-            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -264,7 +264,7 @@
                         android:layout_marginStart="5dp"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -306,7 +306,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/view_cart"
@@ -336,7 +336,7 @@
                 android:visibility="@{favViewModel.serviceable?View.GONE:View.VISIBLE}">
 
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -347,7 +347,7 @@
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

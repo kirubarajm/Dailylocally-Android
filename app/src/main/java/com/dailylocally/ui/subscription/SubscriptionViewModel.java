@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> {
     public final ObservableBoolean supportNumber = new ObservableBoolean();
@@ -364,6 +365,22 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             e.printStackTrace();
         }
         return str;
+
+    }
+
+ public String parseDate(String time,String inFormat,String outFormat) {
+     SimpleDateFormat inputFormat = new SimpleDateFormat(inFormat, Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outFormat, Locale.ENGLISH);
+        Date date;
+        String str = null;
+        try {
+            date = inputFormat.parse(time);
+            assert date != null;
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 
     public String parseDateToYYYYMMDD(String time) {
@@ -382,6 +399,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             e.printStackTrace();
         }
         return str;
+
     }
 
     public void clickDaily() {
@@ -669,6 +687,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                                         sQuantity.set(String.valueOf(results.get(i).getQuantity()));
                                         planId = results.get(i).getPlanid();
                                         startDate.set(results.get(i).getStartDate());
+                                        showDate.set(parseDate(results.get(i).getStartDate(),AppConstants.DATE_FORMAT_YYYYMMDD,AppConstants.DATE_FORMAT_DDMMMYYYY));
 
                                         if (getNavigator() != null)
                                             getNavigator().selectedplan(results.get(i).getPlanid(),response);

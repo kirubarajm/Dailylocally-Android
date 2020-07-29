@@ -57,7 +57,7 @@
                             android:layout_height="15dp"
                             android:src="@drawable/ic_calendar" />
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -71,7 +71,7 @@
                     </LinearLayout>
 
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -136,7 +136,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
@@ -159,7 +159,7 @@
                         </RelativeLayout>
 
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:id="@+id/weight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -188,7 +188,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -198,7 +198,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -208,7 +208,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -218,7 +218,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -228,7 +228,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -238,7 +238,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -288,7 +288,7 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -300,7 +300,7 @@
                             android:visibility="@{subscribeItemViewModel.isAvailable?View.GONE:View.VISIBLE}" />
 
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"

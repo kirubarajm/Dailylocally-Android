@@ -41,7 +41,7 @@
                 android:layout_gravity="center_horizontal" />
 
 
-            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +80,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/curve_stroke_empty_green"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{()->orderPlacedViewModel.gotoOrders()}"
                     android:orientation="horizontal">
 
@@ -94,7 +93,7 @@
                         android:tint="@color/dl_green" />
 
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -124,7 +123,6 @@
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/curve_stroke_empty_green"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{()->orderPlacedViewModel.goHome()}"
                     android:orientation="horizontal">
 
@@ -136,7 +134,7 @@
                         android:src="@drawable/ic_dl_logo"
                         android:tint="@color/dl_green" />
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"

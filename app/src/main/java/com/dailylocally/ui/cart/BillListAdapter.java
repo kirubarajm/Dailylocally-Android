@@ -64,7 +64,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface BilldetailsInfoListener {
 
-        void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView, ToolTipRelativeLayout relativeLayout);
+        void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView);
 
     }
 
@@ -138,7 +138,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(CartResponse.Cartdetail cartdetail) {
-            mBilldetailsInfoListener.infoClick(cartdetail, mListItemLiveProductsBinding.info,mListItemLiveProductsBinding.activityMainTooltipframelayout);
+            mBilldetailsInfoListener.infoClick(cartdetail, mListItemLiveProductsBinding.info);
         }
     }
 }

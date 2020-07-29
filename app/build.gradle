@@ -23,7 +23,7 @@ android {
         debug {
             minifyEnabled false
 
-             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
+             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
             //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:7000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'

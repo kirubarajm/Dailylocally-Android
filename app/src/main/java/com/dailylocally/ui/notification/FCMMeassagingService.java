@@ -27,7 +27,6 @@ import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
-
 import com.dailylocally.ui.favourites.FavActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
@@ -48,8 +47,10 @@ import com.dailylocally.utilities.PushUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.zendesk.util.StringUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
@@ -145,6 +146,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         Bundle bundle = new Bundle();
         Intent intent = null;
         String pageId = data.get("pageid");
+        String date = data.get("date");
         String title = data.get("title");
         String message = data.get("message");
 
@@ -184,7 +186,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 //intent = new Intent(this, CartFragment.class);
                 intent = new Intent(this, MainActivity.class);
                 break;
-                case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
+            case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
                 intent = new Intent(this, CategoryL1Activity.class);
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
@@ -227,7 +229,10 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 intent = new Intent(this, SplashActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
-
+        bundle.putString("pageid", pageId);
+        bundle.putString("date", date);
+        bundle.putString("title", title);
+        bundle.putString("message", message);
         intent.putExtras(bundle);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -351,29 +356,29 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
     public void saveToken(String token) {
         try {
-        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
-        long userIdMain = Integer.parseInt(appPreferencesHelper.getCurrentUserId());
+            AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
+            long userIdMain = Integer.parseInt(appPreferencesHelper.getCurrentUserId());
 
-        // if (!MvvmApp.getInstance().onCheckNetWork()) return;
-        if (userIdMain == 0) return;
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_FCM_TOKEN, CommonResponse.class, new TokenRequest(String.valueOf(userIdMain), token), new Response.Listener<CommonResponse>() {
-            @Override
-            public void onResponse(CommonResponse response) {
-                if (response != null) {
+            // if (!MvvmApp.getInstance().onCheckNetWork()) return;
+            if (userIdMain == 0) return;
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_FCM_TOKEN, CommonResponse.class, new TokenRequest(String.valueOf(userIdMain), token), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
 
-                    if (response.isStatus()) {
+                        if (response.isStatus()) {
 
+                        }
                     }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-            }
-        }, AppConstants.API_VERSION_ONE);
-        DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception e){
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

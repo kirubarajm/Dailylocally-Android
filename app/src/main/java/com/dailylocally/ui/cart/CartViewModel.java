@@ -493,7 +493,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             if (cartPageResponse.getResult() != null) {
 
                                 if (cartPageResponse.getStatus()) {
-                                    bookDeliveryText.set("Book delivery");
+                                    bookDeliveryText.set("Place order");
                                     showWarningNote.set(false);
                                 } else {
                                     if (!cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitStatus()) {
@@ -504,7 +504,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         showWarningNote.set(true);
                                     }else{
                                         showWarningNote.set(true);
-                                        bookDeliveryText.set("Book delivery");
+                                        bookDeliveryText.set("Place order");
                                     }
                                 }
 

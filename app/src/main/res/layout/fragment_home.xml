@@ -39,7 +39,7 @@
                     android:layout_gravity="center_horizontal"
                     android:scaleType="centerInside" />
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -51,7 +51,7 @@
                     android:textSize="14sp"
                     android:visibility="gone" />
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -106,12 +106,11 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:foreground="?android:attr/selectableItemBackground"
                             android:gravity="center_vertical"
                             android:onClick="@{()->homeViewModel.changeAddress()}"
                             android:orientation="horizontal">
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -129,7 +128,7 @@
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
@@ -169,7 +168,6 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="20dp"
-                            android:foreground="?android:attr/selectableItemBackground"
                             android:gravity="center"
                             android:onClick="@{()->homeViewModel.myOrders()}"
                             android:orientation="vertical"
@@ -181,7 +179,7 @@
                                 android:src="@drawable/ic_orders"
                                 android:textSize="20sp" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="My orders"
@@ -200,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:id="@+id/welcomeText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -212,7 +210,7 @@
                             android:textSize="14sp"
                             android:visibility="visible" />
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentItalicTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentItalicTextView
                             android:id="@+id/welcomeTextNote"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -267,13 +265,13 @@
                         android:textSize="40sp"
                         android:textStyle="bold" />
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Locally sourced product"
+                        android:text="Right Food for all"
                         android:textAlignment="center"
                         android:textColor="@color/medium_gray"
                         android:textSize="14sp" />
@@ -333,7 +331,7 @@
                 android:onClick="@{()->homeViewModel.ratingClick()}"
                 android:visibility="@{homeViewModel.showRating?View.VISIBLE:View.GONE}">
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -355,7 +353,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{homeViewModel.ratingDate}"
@@ -397,7 +395,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -422,7 +420,7 @@
                 </RelativeLayout>
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -461,7 +459,7 @@
                     android:layout_marginBottom="8dp">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -482,11 +480,10 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="15dp">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:id="@+id/later"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:foreground="?android:attr/selectableItemBackground"
                             android:gravity="center"
                             android:text="@string/later"
                             android:textColor="@color/white"
@@ -503,12 +500,11 @@
                              android:layout_height="wrap_content">-->
 
 
-                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                             android:id="@+id/action"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:foreground="?android:attr/selectableItemBackground"
                             android:gravity="center"
                             android:text="@{homeViewModel.updateAction}"
                             android:textAllCaps="true"

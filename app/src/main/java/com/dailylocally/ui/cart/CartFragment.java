@@ -453,7 +453,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         return str;
     }
     @Override
-    public void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView, ToolTipRelativeLayout relativeLayout) {
+    public void infoClick(CartResponse.Cartdetail cartdetail, ImageView imageView) {
 
 
         if (!infoClicked) {

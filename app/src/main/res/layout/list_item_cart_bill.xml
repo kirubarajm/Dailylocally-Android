@@ -19,10 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.nhaarman.supertooltips.ToolTipRelativeLayout
-                android:id="@+id/activity_main_tooltipframelayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -33,7 +29,7 @@
                 android:gravity="center_vertical">
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,7 +90,7 @@
                     android:visibility="@{billItemViewModel.aboveCost?View.VISIBLE:View.GONE}">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{billItemViewModel.charges}"
@@ -105,7 +101,7 @@
                 </LinearLayout>
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -136,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Note:"
@@ -151,7 +147,7 @@
                     android:background="@color/dark_gray"
                     android:orientation="vertical">
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Note:"
@@ -164,7 +160,7 @@
             </LinearLayout>
 
 
-            <com.dailylocally.utilities.fonts.poppins.ContentItalicTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentItalicTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

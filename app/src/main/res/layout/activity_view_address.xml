@@ -46,7 +46,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/txt_full_address">
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:id="@+id/txt_addressTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:id="@+id/txt_full_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/txt_landmark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/txt_addressType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                         android:layout_height="12dp"
                         android:src="@drawable/ic_info_outline_black_24dp" />
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                     android:background="@drawable/curve_stroke"
                     android:onClick="@{()->viewAddressViewModel.updateClick()}">
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"

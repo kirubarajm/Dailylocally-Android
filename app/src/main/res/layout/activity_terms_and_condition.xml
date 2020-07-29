@@ -60,7 +60,7 @@
 
 
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_centerInParent="true"
                     android:textAllCaps="true"
                     android:textStyle="bold"
@@ -110,8 +110,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                android:foreground="?android:attr/selectableItemBackground"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:onClick="@{()->termsViewModel.accept()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"

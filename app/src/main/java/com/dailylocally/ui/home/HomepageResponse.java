@@ -160,6 +160,15 @@ public class HomepageResponse {
         @Expose
         private Boolean servicableStatus;
 
+  @SerializedName("collection_status")
+        @Expose
+        private Boolean collectionStatus;
+
+  @SerializedName("tile_type")
+        @Expose
+        private String  tileType;
+
+
         public Integer getCatid() {
             return catid;
         }
@@ -199,6 +208,22 @@ public class HomepageResponse {
 
         public void setServicableStatus(Boolean servicableStatus) {
             this.servicableStatus = servicableStatus;
+        }
+
+        public Boolean getCollectionStatus() {
+            return collectionStatus;
+        }
+
+        public void setCollectionStatus(Boolean collectionStatus) {
+            this.collectionStatus = collectionStatus;
+        }
+
+        public String getTileType() {
+            return tileType;
+        }
+
+        public void setTileType(String tileType) {
+            this.tileType = tileType;
         }
     }
 }

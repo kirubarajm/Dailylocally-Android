@@ -1,16 +1,12 @@
 package com.dailylocally.ui.home;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,9 +25,6 @@ import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.rating.RatingActivity;
-import com.dailylocally.ui.signup.registration.RegistrationActivity;
-import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
-import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -43,22 +36,19 @@ import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.OnSuccessListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.inject.Inject;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> implements HomeNavigator, CategoriesAdapter.CategoriesAdapterListener, InstallStateUpdatedListener, OnSuccessListener<AppUpdateInfo> {
+    private static final int RC_APP_UPDATE = 55669;
     @Inject
     CategoriesAdapter categoriesAdapter;
     @Inject
     HomeViewModel mHomeViewModel;
     FragmentHomeBinding mFragmentHomeBinding;
     boolean downloading;
-    private static final int RC_APP_UPDATE = 55669;
     AppUpdateManager appUpdateManager;
     AppUpdateInfo appUpdateInfo;
+
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
@@ -91,7 +81,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseActivity(), 2);
 
 
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+       /* gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
 
@@ -105,7 +95,29 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 }
                 return 1;
             }
+        });*/
+
+
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+
+                for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
+
+                    if (mHomeViewModel.categoryList.get(position).getTileType().equals("2")) {
+                        return 2;
+                    } else return 1;
+
+
+                }
+                return 1;
+            }
         });
+
+
+
+
+
 
         /*gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -162,6 +174,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void changeHeaderText(String headerContent) {
         mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
     }
+
     @Override
     public void showPromotions(String url, boolean fullScreen, int type, int promotionid) {
 
@@ -175,6 +188,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
 
     }
+
     @Override
     public void searchClick() {
         /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -186,8 +200,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void ratingClick() {
-        Intent intent =RatingActivity.newIntent(getContext());
-        intent.putExtra("doid",mHomeViewModel.ratingDOID);
+        Intent intent = RatingActivity.newIntent(getContext());
+        intent.putExtra("doid", mHomeViewModel.ratingDOID);
         startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -197,7 +211,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         super.onCreate(savedInstanceState);
         mHomeViewModel.setNavigator(this);
         subscribeToLiveData();
-
 
     }
 
@@ -240,8 +253,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void categoryItemClicked(HomepageResponse.Result result, TextView view) {
 
 
-        if (result.getCid() != null) {
-
+        if (result.getCollectionStatus()) {
             Intent intent = CollectionDetailsActivity.newIntent(getContext());
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
@@ -250,12 +262,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         } else {
             Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
             intent.putExtra("catid", String.valueOf(result.getCatid()));
-
-/*
-            ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation(getBaseActivity(), view, result.getName());
-            // start the new activity
-            startActivity(intent, options.toBundle());*/
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -376,16 +382,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                         downloading = true;
                         mHomeViewModel.updateAvailable.set(false);
                     } else {
-                        final String appPackageName =getActivity(). getPackageName(); // getPackageName() from Context or Activity object
+                        final String appPackageName = getActivity().getPackageName(); // getPackageName() from Context or Activity object
                         try {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
                         } catch (android.content.ActivityNotFoundException anfe) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                         }
-                     //   finish();
+                        //   finish();
 
 
-                        ((MainActivity)getActivity()).finishActivity();
+                        ((MainActivity) getActivity()).finishActivity();
 
                     }
 
@@ -397,13 +403,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                         downloading = true;
                         mHomeViewModel.updateAvailable.set(false);
                     } else {
-                        final String appPackageName =getActivity(). getPackageName(); // getPackageName() from Context or Activity object
+                        final String appPackageName = getActivity().getPackageName(); // getPackageName() from Context or Activity object
                         try {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
                         } catch (android.content.ActivityNotFoundException anfe) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                         }
-                        ((MainActivity)getActivity()).finishActivity();
+                        ((MainActivity) getActivity()).finishActivity();
                     }
 
                 } else {
@@ -427,7 +433,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstants.RATING_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-               mHomeViewModel.showRating.set(false);
+                mHomeViewModel.showRating.set(false);
             }
 
         }

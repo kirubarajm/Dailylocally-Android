@@ -485,7 +485,6 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
             for (int i = 0; i < cartRequestPojo.getSubscription().size(); i++) {
                 if (vpid.equals(cartRequestPojo.getSubscription().get(i).getPid())) {
                     subscribeText.set("Edit subscription");
-                    serviceable.set(false);
                     subscribed.set(true);
                     pktSize.set(cartRequestPojo.getSubscription().get(i).getPktSize());
 

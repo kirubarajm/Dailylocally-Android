@@ -49,6 +49,12 @@ public class AppConstants {
   public static final String FCM_RECEIVER_ORDER = "ORDER RECEIVER";
 
 
+
+  public static final String DATE_FORMAT_YYYYMMDD = "yyyy-MM-dd";
+  public static final String DATE_FORMAT_DDMMYYYY = "dd-MM-yyyy";
+  public static final String DATE_FORMAT_DDMMMYYYY = "dd-MMM-yyyy";
+
+
   public static final String CURRENT_DATE = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
 

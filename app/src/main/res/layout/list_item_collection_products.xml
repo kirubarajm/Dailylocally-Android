@@ -72,7 +72,7 @@
                             android:layout_height="wrap_content">
 
 
-                            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                 android:id="@+id/kitchen_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                             android:layout_marginTop="10dp"
                             android:gravity="center_vertical">
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:id="@+id/weight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -119,17 +119,23 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:visibility="@{productsItemViewModel.isAddClicked?View.GONE:View.VISIBLE}">
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/square_btn_stroke"
                                 android:gravity="center_vertical"
                                 android:visibility="@{productsItemViewModel.subscribeAvailable?View.VISIBLE:View.GONE}">
 
-                                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                     android:visibility="@{productsItemViewModel.subscribed?View.GONE:View.VISIBLE}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -149,7 +155,7 @@
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
                             </RelativeLayout>
-
+                        </RelativeLayout>
                         </RelativeLayout>
                         <!-- <RelativeLayout
                              android:visibility="@{productsItemViewModel.serviceable?View.VISIBLE:View.GONE}"
@@ -181,7 +187,7 @@
                         android:orientation="vertical"
                         android:visibility="@{productsItemViewModel.showDiscount?View.VISIBLE:View.GONE}">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:id="@+id/disc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -192,7 +198,7 @@
                             android:textColor="@color/red"
                             android:textSize="12sp" />
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:id="@+id/mrp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -250,7 +256,7 @@
                                 android:visibility="@{productsItemViewModel.subscribeAvailable?View.VISIBLE:View.GONE}">
 
 
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                     android:layout_gravity="center_vertical"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -271,7 +277,7 @@
                             </LinearLayout>
 
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Subscribed"
@@ -299,7 +305,7 @@
                             android:background="@drawable/addtocart_back"
                             android:visibility="@{productsItemViewModel.serviceable?View.VISIBLE:View.GONE}">
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:id="@+id/add"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

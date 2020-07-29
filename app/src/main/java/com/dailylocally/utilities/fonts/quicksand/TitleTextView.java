@@ -1,4 +1,4 @@
-package com.dailylocally.utilities.fonts.poppins;
+package com.dailylocally.utilities.fonts.quicksand;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,8 +15,6 @@ public class TitleTextView extends AppCompatTextView {
         super(context);
         Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Medium.ttf");
         this.setTypeface(face,  Typeface.BOLD);
-
-
     }
 
     public TitleTextView(Context context, AttributeSet attrs) {

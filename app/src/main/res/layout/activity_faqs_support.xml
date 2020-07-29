@@ -43,7 +43,7 @@
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
             </RelativeLayout>
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_centerInParent="true"
                     android:textAllCaps="true"
                     android:textStyle="bold"
@@ -70,7 +70,6 @@
             android:padding="20sp">
 
             <RelativeLayout
-                android:foreground="?android:attr/selectableItemBackground"
                 android:onClick="@{()->faqsAndSupportViewModel.faq()}"
                 android:id="@+id/rel_1"
                 android:paddingBottom="5dp"
@@ -78,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/faq"
                     android:layout_alignParentTop="true"
                     android:textColor="@color/black"
@@ -90,7 +89,7 @@
                     android:textStyle="bold" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:textColor="@color/dark_gray"
                     android:layout_below="@+id/faq"
                     android:layout_width="wrap_content"
@@ -111,8 +110,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:foreground="?android:attr/selectableItemBackground"
-                android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:onClick="@{()->faqsAndSupportViewModel.supportClick()}"
                 android:layout_width="match_parent"
@@ -120,7 +117,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:textColor="@color/black"
                     android:id="@+id/support"
                     android:textAllCaps="true"
@@ -131,7 +128,7 @@
                     android:textStyle="bold" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/support_content"
                     android:textColor="@color/dark_gray"
                     android:layout_below="@+id/support"
@@ -165,7 +162,7 @@
                 android:orientation="horizontal">
 
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/support2"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
@@ -176,7 +173,7 @@
                     android:textStyle="bold" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/support_content2"
                     android:textColor="@color/dark_gray"
                     android:layout_below="@+id/support2"
@@ -186,7 +183,7 @@
                     android:textSize="12sp" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
                     android:layout_alignParentEnd="true"

@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"/>
 
-        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
             android:layout_below="@+id/img_1"
             android:layout_marginTop="10dp"
             android:id="@+id/txt_cancel_content"
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal"
                 android:text="@string/cancel_product"
@@ -73,7 +73,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal"
                 android:layout_marginLeft="5dp"

@@ -1,5 +1,7 @@
 package com.dailylocally.ui.promotion.bottom;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -16,6 +18,7 @@ import com.dailylocally.ui.base.BaseBottomSheetFragment;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.WebViewClientImpl;
 import com.dailylocally.utilities.analytics.Analytics;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import javax.inject.Inject;
 
@@ -59,7 +62,7 @@ public class PromotionFragment extends BaseBottomSheetFragment<FragmentPromotion
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPromotionViewModel.setNavigator(this);
-   //     setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
+        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
 
 
     }
@@ -69,8 +72,8 @@ public class PromotionFragment extends BaseBottomSheetFragment<FragmentPromotion
         super.onViewCreated(view, savedInstanceState);
         mFragmentPromotionBinding = getViewDataBinding();
 
-       /* setStyle(STYLE_NORMAL, R.style. AppBottomSheetDialogTheme);
-        getBaseActivity().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));*/
+      //  setStyle(STYLE_NORMAL, R.style.AppBottomSheetDialogTheme);
+        getBaseActivity().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         //  this.getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_bottom_sheet);
 

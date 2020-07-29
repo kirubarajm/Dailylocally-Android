@@ -45,7 +45,7 @@
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
             </RelativeLayout>
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_centerInParent="true"
                     android:textAllCaps="true"
                     android:textStyle="bold"
@@ -96,7 +96,7 @@
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_marginTop="10dp"
                     android:textColor="@color/dl_primary_color"
                     android:gravity="center"
@@ -238,7 +238,7 @@
                     app:pinTextBottomPadding="5dp" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:id="@+id/resend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
                     android:textStyle="bold" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/txt_message_sent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -262,7 +262,7 @@
                     android:textSize="14sp" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -277,7 +277,7 @@
                     android:textStyle="bold" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:id="@+id/txt_enter_otp"
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
@@ -295,8 +295,7 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="center">
 
-                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                    android:foreground="?android:attr/selectableItemBackground"
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:gravity="center"
                     android:visibility="visible"
                     android:id="@+id/btn_sign_in"
@@ -310,7 +309,7 @@
                     android:textColor="@color/dl_primary_color"
                     android:textStyle="bold" />
 
-                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:gravity="center"
                     android:visibility="gone"
                     android:id="@+id/btn_proceed"

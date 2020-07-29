@@ -9,7 +9,7 @@
         android:layout_margin="5dp"
         android:orientation="vertical">
 
-        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -19,7 +19,7 @@
             android:text="Other charges by Daily Locally"
             android:textSize="12sp" />
 
-        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
             android:textColor="@color/dark_gray"
             android:layout_marginStart="5dp"
             android:id="@+id/activity_main_redtv"

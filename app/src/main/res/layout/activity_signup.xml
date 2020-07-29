@@ -453,7 +453,7 @@
                                 android:singleLine="true" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:visibility="gone"
                             android:id="@+id/txt_message"
                             android:layout_width="match_parent"
@@ -489,7 +489,7 @@
                                 android:orientation="vertical">
 
 
-                                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -515,8 +515,8 @@
                             android:layout_marginTop="30dp"
                             android:gravity="center">
 
-                            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                                android:foreground="?android:attr/selectableItemBackground"
+                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+
                                 android:id="@+id/btn_sign_in"
                                 android:layout_width="160dp"
                                 android:layout_height="40dp"
@@ -562,7 +562,7 @@
                 android:orientation="vertical">
 
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -593,7 +593,7 @@
                 android:orientation="vertical">
 
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

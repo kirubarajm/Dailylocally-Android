@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
             android:text="@{ratingProductsItemViewModel.productName}"
             android:textSize="12sp"
             android:textStyle="normal"

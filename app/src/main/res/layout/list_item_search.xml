@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
-            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/title"
                 android:layout_width="wrap_content"

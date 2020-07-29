@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_marginEnd="30dp"
                     android:id="@+id/txt_3"
                     android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     android:src="@drawable/ic_arrow_drop_up_black_24dp"/>
             </RelativeLayout>
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_marginEnd="10dp"
                 android:visibility="@{faqsItemViewModel.expandClicked?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"

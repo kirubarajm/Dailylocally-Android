@@ -108,4 +108,37 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+
+
+    <style name="TitleTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+     <style name="ButtonTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#F00</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContentTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#F00</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+     <style name="SubtTitleTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#F00</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+     <style name="ListNameTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#F00</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+
+
+
 </resources>

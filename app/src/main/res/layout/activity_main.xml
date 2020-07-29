@@ -45,7 +45,6 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:background="@{viewModel.isHome?@color/light_color:@color/white}"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:onClick="@{()->viewModel.gotoHome()}"
                     android:orientation="vertical">
@@ -59,7 +58,7 @@
                         android:src="@drawable/ic_dl_logo"
                         android:tint="@{viewModel.isHome?@color/dl_primary_color:@color/dark_gray}" />
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -78,7 +77,6 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
                     android:background="@{viewModel.isCart?@color/light_color:@color/white}"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:onClick="@{()->viewModel.gotoCart(viewModel.screenName)}"
                     android:orientation="vertical">
@@ -103,7 +101,7 @@
                                 android:src="@drawable/ic_cart"
                                 android:tint="@{viewModel.isCart?@color/dl_primary_color:@color/dark_gray}" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -138,7 +136,6 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
                     android:background="@{viewModel.isOrder?@color/light_color:@color/white}"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:onClick="@{()->viewModel.gotoOrders()}"
                     android:orientation="vertical">
@@ -152,7 +149,7 @@
                         android:src="@drawable/ic_calendar"
                         android:tint="@{viewModel.isOrder?@color/dl_primary_color:@color/dark_gray}" />
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -172,7 +169,6 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
                     android:background="@{viewModel.isMyAccount?@color/light_color:@color/white}"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:onClick="@{()->viewModel.gotoAccount()}"
                     android:orientation="vertical">
@@ -186,7 +182,7 @@
                         android:src="@drawable/ic_my_account"
                         android:tint="@{viewModel.isMyAccount?@color/dl_primary_color:@color/dark_gray}" />
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

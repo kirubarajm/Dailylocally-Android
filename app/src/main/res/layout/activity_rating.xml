@@ -32,7 +32,6 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:background="@color/white"
@@ -49,7 +48,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -59,7 +58,7 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
-                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -98,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:id="@+id/txt_order"
@@ -106,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginStart="5dp"
@@ -117,7 +116,7 @@
 
             </RelativeLayout>
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:id="@+id/txt_1"
                 android:textSize="12sp"
                 android:textStyle="normal"
@@ -128,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:id="@+id/txt_rating"
@@ -159,7 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:text="@string/was_your_package_sealed"
                     android:id="@+id/txt_package_sealed"
                     android:textSize="12sp"
@@ -195,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:text="Share your feedbacks on the delivery!"
                         android:id="@+id/txt_share"
                         android:textSize="12sp"
@@ -219,7 +218,7 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:id="@+id/txt_rating_product"
@@ -250,7 +249,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="@string/did_you_receive_all_the_products"
                             android:id="@+id/txt_receive_all_product"
                             android:textStyle="normal"
@@ -284,7 +283,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:text="What product did you not receive?"
                         android:id="@+id/txt_what_product"
                         android:textSize="12sp"
@@ -303,7 +302,7 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_below="@+id/rel_product_delivery"
                     android:text="@string/submit"
                     android:background="@drawable/transaction_bck"

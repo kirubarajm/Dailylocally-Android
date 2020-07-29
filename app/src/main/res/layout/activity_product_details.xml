@@ -34,7 +34,6 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{()->productDetailsViewModel.goBack()}"
                     android:orientation="horizontal">
 
@@ -48,7 +47,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -106,7 +105,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp">
 
-                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                         android:id="@+id/txt_product"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -116,7 +115,7 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:id="@+id/txt_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -125,7 +124,7 @@
                         android:text="@{productDetailsViewModel.unit}"
                         android:textSize="12sp" />
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:id="@+id/txt_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -134,21 +133,18 @@
                         android:text="@{productDetailsViewModel.short_desc}"
                         android:textSize="12sp" />
 
+
+
+
+
+
                     <RelativeLayout
+                        android:gravity="center_vertical"
                         android:id="@+id/rel_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_description"
                         android:layout_marginTop="30dp">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@{productDetailsViewModel.mrp}"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp" />
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -176,7 +172,7 @@
                                     android:paddingBottom="5dp">
 
 
-                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
@@ -197,7 +193,7 @@
                                 </LinearLayout>
 
 
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="3dp"
@@ -210,32 +206,36 @@
 
                         </RelativeLayout>
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="@{productDetailsViewModel.mrp}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="14sp" />
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:orientation="horizontal"
                             android:visibility="@{productDetailsViewModel.serviceable?View.VISIBLE:View.GONE}">
 
-                            <LinearLayout
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
+                            <RelativeLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:visibility="@{productDetailsViewModel.subscribed?View.GONE:View.VISIBLE}">
 
                                 <RelativeLayout
+                                    android:id="@+id/subs"
+                                    android:layout_alignParentStart="true"
                                     android:onClick="@{()->productDetailsViewModel.subscribe()}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:background="@drawable/square_btn_stroke"
-                                    android:gravity="center_vertical"
                                     android:visibility="@{productDetailsViewModel.subscribeAvailable?View.VISIBLE:View.GONE}">
 
-                                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -243,9 +243,7 @@
                                         android:layout_centerVertical="true"
                                         android:layout_marginStart="5dp"
                                         android:layout_marginEnd="5dp"
-                                        android:gravity="center"
                                         android:text="Subscribe"
-                                        android:textAlignment="center"
                                         android:textAllCaps="true"
                                         android:textColor="@color/dl_primary_color"
                                         android:textSize="12sp"
@@ -253,6 +251,8 @@
                                 </RelativeLayout>
 
                                 <RelativeLayout
+                                    android:layout_toEndOf="@+id/subs"
+                                    android:id="@+id/addLay"
                                     android:layout_width="70dp"
                                     android:layout_height="30dp"
                                     android:layout_marginStart="10dp"
@@ -260,9 +260,9 @@
                                     android:background="@drawable/addtocart_back"
                                     android:visibility="@{productDetailsViewModel.serviceable?View.VISIBLE:View.GONE}">
 
-                                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                         android:id="@+id/add"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
                                         android:gravity="center"
@@ -279,17 +279,16 @@
                                         android:id="@+id/num_picker"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:layout_centerInParent="true"
+                                        android:layout_centerHorizontal="true"
                                         android:visibility="@{productDetailsViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
-                                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                             android:id="@+id/minus"
                                             android:layout_width="20dp"
                                             android:layout_height="wrap_content"
                                             android:layout_alignParentStart="true"
                                             android:layout_centerVertical="true"
                                             android:onClick="@{()->productDetailsViewModel.subClicked()}"
-
                                             android:text="@string/minus"
                                             android:textAlignment="center"
                                             android:textColor="@color/dark_gray"
@@ -303,7 +302,7 @@
                                             android:background="@color/dark_gray" />
 
 
-                                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                             android:id="@+id/quan"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -321,7 +320,7 @@
                                             android:background="@color/dark_gray" />
 
 
-                                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                             android:id="@+id/plus"
                                             android:layout_width="20dp"
                                             android:layout_height="wrap_content"
@@ -339,9 +338,10 @@
 
                                 </RelativeLayout>
 
-                            </LinearLayout>
+                            </RelativeLayout>
 
-                        </LinearLayout>
+                        </RelativeLayout>
+
                     </RelativeLayout>
 
                     <androidx.cardview.widget.CardView
@@ -361,7 +361,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp">
 
-                            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                 android:id="@+id/txt_offer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -380,7 +380,7 @@
                                 android:textColor="@color/dark_gray"
                                 android:textSize="12sp" />
 
-                            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                 android:id="@+id/txt_offer_percentage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -393,7 +393,7 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:id="@+id/txt_offer_validity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -463,7 +463,7 @@
                         android:layout_marginStart="5dp"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -505,7 +505,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/view_cart"
@@ -535,7 +535,7 @@
                 android:visibility="@{productDetailsViewModel.serviceable?View.GONE:View.VISIBLE}">
 
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -546,7 +546,7 @@
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

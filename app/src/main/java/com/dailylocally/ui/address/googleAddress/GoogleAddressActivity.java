@@ -32,12 +32,13 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddAddressBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.SingleShotLocationProvider;
 import com.dailylocally.utilities.analytics.Analytics;
-import com.dailylocally.utilities.fonts.poppins.ButtonTextView;
+import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
@@ -166,13 +167,16 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
         //Setting message manually and performing action on button click
         builder.setCancelable(true)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Get in touch", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        confirmLocationClick(locationAddress,area,lat,lng,pinCode);
+                       // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
+                        Intent intent = FeedbackSupportActivity.newIntent(GoogleAddressActivity.this);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Okay", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //  Action for 'NO' Button
                         dialog.cancel();

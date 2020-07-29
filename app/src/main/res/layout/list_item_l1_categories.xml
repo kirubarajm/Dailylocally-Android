@@ -37,7 +37,7 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_l1_arrow" />
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_marginEnd="10dp"
               android:layout_toStartOf="@+id/loader"
                 android:id="@+id/kitchen_name"

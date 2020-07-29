@@ -25,13 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:id="@+id/txt_hypen"
                 android:text="-"
                 android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:layout_toEndOf="@+id/txt_hypen"
                 android:layout_marginStart="5dp"
@@ -47,20 +47,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:id="@+id/txt_units_in_weight"
                 android:text="@{calendarItemViewModel.unitWeight}"
                 android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:id="@+id/txt1"
                 android:layout_toEndOf="@+id/txt_units_in_weight"
                 android:text=" | "
                 android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:id="@+id/txt_pckts"
                 android:layout_toEndOf="@+id/txt1"

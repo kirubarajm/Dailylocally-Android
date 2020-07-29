@@ -75,7 +75,7 @@
                         android:orientation="vertical">
 
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:id="@+id/kitchen_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:id="@+id/weight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp">
 
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                     android:paddingBottom="7dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp">
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
                         android:background="@drawable/addtocart_back"
                         android:visibility="@{searchProductsItemViewModel.serviceable?View.VISIBLE:View.GONE}">
 
-                        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:id="@+id/add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
                             android:layout_centerInParent="true"
                             android:visibility="@{searchProductsItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:id="@+id/minus"
                                 android:layout_width="20dp"
                                 android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
                                 android:background="@color/dl_primary_color" />
 
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:id="@+id/quan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
                                 android:background="@color/dl_primary_color" />
 
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:id="@+id/plus"
                                 android:layout_width="20dp"
                                 android:layout_height="wrap_content"

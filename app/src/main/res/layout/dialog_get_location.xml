@@ -26,7 +26,7 @@
             android:textStyle="bold" />-->
 
 
-        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,8 +64,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                android:foreground="?android:attr/selectableItemBackground"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+
                 android:id="@+id/cancelgps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,8 +82,8 @@
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                android:foreground="?android:attr/selectableItemBackground"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+
                 android:layout_marginStart="15dp"
                 android:id="@+id/allowgps"
                 android:layout_width="wrap_content"

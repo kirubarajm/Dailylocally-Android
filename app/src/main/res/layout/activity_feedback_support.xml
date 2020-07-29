@@ -46,7 +46,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -75,12 +75,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:onClick="@{()->feedbackSupportViewModel.support()}"
                 android:orientation="vertical">
 
 
-                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_marginStart="25dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -91,14 +90,13 @@
                     android:textStyle="bold" />
 
 
-                <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_marginStart="25dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/curve_stroke"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{()->feedbackSupportViewModel.support()}"
                     android:paddingStart="10dp"
                     android:paddingTop="7dp"
@@ -122,7 +120,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:onClick="@{()->feedbackSupportViewModel.faq()}"
                 android:orientation="vertical">
 
@@ -151,7 +148,7 @@
                             android:layout_marginStart="10dp">
 
 
-                            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
@@ -168,7 +165,7 @@
                 </LinearLayout>
 
 
-                <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -206,7 +203,7 @@
                         android:layout_height="15dp"
                         android:src="@drawable/ic_terms" />
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"

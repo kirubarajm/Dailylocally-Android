@@ -35,7 +35,6 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{()->transactionHistoryViewModel.goBack()}"
                     android:orientation="horizontal">
 
@@ -49,7 +48,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -104,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                         android:text="@string/no_transaction_found"
                         android:layout_marginTop="20dp"
                         android:textStyle="bold"
@@ -115,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:text="@string/pick_your_order_before_11pm_and_get_delivered"
                         android:layout_marginTop="20dp"
                         android:textSize="16sp"
@@ -125,7 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_centerHorizontal="true"
                         android:padding="10dp"
                         android:layout_marginTop="50dp"

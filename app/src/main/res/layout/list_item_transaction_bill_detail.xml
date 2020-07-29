@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
 
 
-        <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
             android:text="@{transactionBillDetailItemViewModel.txt}"
             android:textStyle="bold"
             android:textSize="14sp"

@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_typing_dot_primary" />
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -66,7 +66,7 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_typing_dot_primary" />
 
-            <com.dailylocally.utilities.fonts.poppins.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -78,7 +78,7 @@
 
         </LinearLayout>
 
-        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

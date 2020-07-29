@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
-            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:id="@+id/txt_name_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 android:textStyle="bold" />
 
 
-            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:id="@+id/txt_choose_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:foreground="?android:attr/selectableItemBackground"
+
                         android:onClick="@{()->nameGenderViewModel.maleClicked()}"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -76,7 +76,7 @@
                         android:layout_margin="10dp"/>
 
                     <ImageView
-                        android:foreground="?android:attr/selectableItemBackground"
+
                         android:tint="@{nameGenderViewModel.male? @color/medium_gray:@color/dl_primary_color}"
                         android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
                         android:layout_width="50dp"
@@ -151,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.poppins.TitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:id="@+id/referral_tx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -206,8 +206,8 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                android:foreground="?android:attr/selectableItemBackground"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"

@@ -19,7 +19,6 @@
         <RelativeLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{()->calendarViewModel.goBack()}"
             android:orientation="horizontal">
 
@@ -65,7 +64,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

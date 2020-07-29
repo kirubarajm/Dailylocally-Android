@@ -35,7 +35,6 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{()->couponsViewModel.goBack()}"
                     android:orientation="horizontal">
 
@@ -49,7 +48,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -95,7 +94,7 @@
                         android:textAllCaps="true"
                         android:textSize="14sp" />
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:id="@+id/apply"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -117,7 +116,7 @@
                     android:layout_below="@+id/enterCoupon"
                     android:visibility="@{couponsViewModel.flagNoDataFound?View.GONE:View.VISIBLE}">
 
-                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                         android:id="@+id/txt_heading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -167,7 +166,7 @@
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/ic_empty_coupon" />
 
-                        <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                             android:id="@+id/txt_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -179,7 +178,7 @@
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <com.dailylocally.utilities.fonts.poppins.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:id="@+id/text_2"
                             android:layout_width="match_parent"
                             android:textAlignment="center"
@@ -192,7 +191,7 @@
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
-                        <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                           android:visibility="gone"
                             android:id="@+id/btn_goto_home"
                             android:layout_width="wrap_content"
@@ -226,7 +225,7 @@
             android:orientation="vertical">
 
 
-            <com.dailylocally.utilities.fonts.poppins.ButtonTextView
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:id="@+id/btn_refer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -244,7 +243,7 @@
                 android:text="Refer and earn"
                 android:textColor="@color/dark_gray" />
 
-            <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:textSize="12sp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"

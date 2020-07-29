@@ -49,7 +49,7 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -88,7 +88,7 @@
                     android:layout_below="@+id/img_referrals"
                     android:layout_marginTop="20dp">
 
-                    <com.dailylocally.utilities.fonts.poppins.TitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                         android:id="@+id/txt_1"
                         android:textColor="@color/black"
                         android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:textColor="@color/dark_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -125,8 +125,7 @@
                     android:gravity="center"
                     android:padding="10dp">
 
-                    <com.dailylocally.utilities.fonts.poppins.ButtonTextView
-                        android:foreground="?android:attr/selectableItemBackground"
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20sp"

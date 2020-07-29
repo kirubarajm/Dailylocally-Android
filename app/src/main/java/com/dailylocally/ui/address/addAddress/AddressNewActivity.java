@@ -2,7 +2,6 @@ package com.dailylocally.ui.address.addAddress;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +31,7 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.SingleShotLocationProvider;
 import com.dailylocally.utilities.analytics.Analytics;
-import com.dailylocally.utilities.fonts.poppins.ButtonTextView;
+import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
