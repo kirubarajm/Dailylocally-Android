@@ -46,9 +46,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="@string/my_account"
-                    android:textAllCaps="true"
-                    android:gravity="center"
-                    android:textSize="16sp" />
+                    style="@style/HeaderTitleTextStyle"/>
 
             </LinearLayout>
 
@@ -68,31 +66,7 @@
             android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/curve_stroke"
-                android:gravity="center"
-                android:visibility="gone">
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{myAccountViewModel.gender}"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <com.dailylocally.utilities.fonts.TovoTextView
-                android:id="@+id/img_male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/male"
-                android:textSize="60sp"
-                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/profile"
@@ -100,16 +74,16 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp">
 
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{myAccountViewModel.userName}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/medium_black"
+                    android:textSize="@dimen/_22px"
                     android:textStyle="bold" />
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,26 +91,17 @@
                     android:onClick="@{()->myAccountViewModel.editProfile()}"
                     android:text="@string/edit"
                     android:textAllCaps="true"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="14sp"
+                    android:textColor="@color/medium_black"
+                    android:textSize="@dimen/_22px"
                     android:textStyle="bold" />
 
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:visibility="gone"
-                    android:id="@+id/region"
-                    android:gravity="top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/name"
-                    android:text="@{myAccountViewModel.regionname}"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+
 
                 <LinearLayout
                     android:id="@+id/contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/region"
+                    android:layout_below="@+id/name"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
@@ -144,9 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{myAccountViewModel.userPhoneNo}"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                      style="@style/ContentTextStyle" />
 
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:layout_width="wrap_content"
@@ -154,8 +117,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:text="*"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textColor="@color/medium_black"
+                        android:textSize="@dimen/_22px" />
 
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:layout_width="wrap_content"
@@ -163,8 +126,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:text="@{myAccountViewModel.userEmail}"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                      style="@style/ContentTextStyle"/>
 
                 </LinearLayout>
 
@@ -199,7 +161,7 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_location_marker" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_toStartOf="@+id/ma"
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
@@ -208,9 +170,7 @@
                             android:layout_toEndOf="@+id/rel1"
                             android:gravity="center_vertical"
                             android:text="@string/manage_address"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                          style="@style/SubtTitleTextStyle" />
 
                         <ImageView
                             android:id="@+id/ma"
@@ -237,7 +197,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -247,9 +207,7 @@
                             android:layout_toRightOf="@+id/rel_fav"
                             android:gravity="center_vertical"
                             android:text="Favourites"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            style="@style/SubtTitleTextStyle"  />
 
                         <ImageView
                             android:id="@+id/fav"
@@ -276,7 +234,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_toStartOf="@+id/r"
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
@@ -287,9 +245,7 @@
                             android:layout_toRightOf="@+id/rel4"
                             android:gravity="center_vertical"
                             android:text="@string/referrals"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            style="@style/SubtTitleTextStyle" />
 
                         <ImageView
                             android:id="@+id/r"
@@ -316,7 +272,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_toStartOf="@+id/ar"
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
@@ -327,9 +283,7 @@
                             android:layout_toRightOf="@+id/re20"
                             android:gravity="center_vertical"
                             android:text="Transaction history"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            style="@style/SubtTitleTextStyle" />
 
                         <ImageView
                             android:id="@+id/ar"
@@ -357,7 +311,7 @@
                                 android:layout_height="20dp"
                                 android:layout_centerVertical="true" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -368,9 +322,7 @@
                             android:layout_toRightOf="@+id/rel2"
                             android:gravity="center_vertical"
                             android:text="@string/coupons_and_offers"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            style="@style/SubtTitleTextStyle" />
 
                         <ImageView
                             android:id="@+id/oh"
@@ -399,7 +351,7 @@
                             android:layout_centerVertical="true"
                             android:layout_height="20dp" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_toStartOf="@+id/fi"
                             android:layout_toEndOf="@+id/fsi"
                             android:layout_gravity="center_vertical"
@@ -408,11 +360,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:layout_marginLeft="15dp"
-                            android:textColor="@color/black"
                             android:layout_marginEnd="15dp"
                             android:layout_marginRight="15dp"
                             android:text="FAQ's and Support"
-                            android:textSize="16sp" />
+                            style="@style/SubtTitleTextStyle"  />
 
                             <ImageView
                                 android:id="@+id/fi"
@@ -439,7 +390,7 @@
                             android:layout_height="20dp"
                             android:layout_centerVertical="true" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -450,9 +401,7 @@
                             android:layout_toRightOf="@+id/logout"
                             android:gravity="center_vertical"
                             android:text="@string/logout"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            style="@style/SubtTitleTextStyle"  />
 
                         <ImageView
                             android:id="@+id/img_logout"

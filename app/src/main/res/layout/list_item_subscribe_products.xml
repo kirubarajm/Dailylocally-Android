@@ -57,21 +57,19 @@
                             android:layout_height="15dp"
                             android:src="@drawable/ic_calendar" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="10dp"
                             android:singleLine="true"
-                            android:text="@{subscribeItemViewModel.startingDate}"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:text="@{subscribeItemViewModel.startingDate}" />
 
                     </LinearLayout>
 
 
-                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -80,9 +78,8 @@
                         android:singleLine="true"
                         android:text="Edit subscription"
                         android:textAllCaps="true"
-                        android:textColor="@color/dl_primary_color"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_22px" />
 
 
                 </RelativeLayout>
@@ -137,16 +134,15 @@
                             android:layout_height="wrap_content">
 
                             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                style="@style/SubtTitleTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
                                 android:layout_toStartOf="@+id/edit"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:text="@{subscribeItemViewModel.product_name}"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:minLines="2"
+                                android:text="@{subscribeItemViewModel.product_name}" />
 
                             <ImageView
                                 android:id="@+id/edit"
@@ -161,19 +157,17 @@
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:id="@+id/weight"
+                            style="@style/ContentTextStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="@{subscribeItemViewModel.weight}"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:singleLine="true"
+                            android:text="@{subscribeItemViewModel.weight}" />
 
 
                         <LinearLayout
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -184,7 +178,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="M"
-                                android:textColor="@{subscribeItemViewModel.mon? @color/dl_primary_color:@color/dark_gray}"
+                                android:textColor="@{subscribeItemViewModel.mon? @color/dl_primary_color:@color/medium_black}"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -194,7 +188,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="T"
-                                android:textColor="@{subscribeItemViewModel.tue? @color/dl_primary_color:@color/dark_gray}"
+                                android:textColor="@{subscribeItemViewModel.tue? @color/dl_primary_color:@color/medium_black}"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -204,7 +198,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="W"
-                                android:textColor="@{subscribeItemViewModel.wed? @color/dl_primary_color:@color/dark_gray}"
+                                android:textColor="@{subscribeItemViewModel.wed? @color/dl_primary_color:@color/medium_black}"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -214,7 +208,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="T"
-                                android:textColor="@{subscribeItemViewModel.thu? @color/dl_primary_color:@color/dark_gray}"
+                                android:textColor="@{subscribeItemViewModel.thu? @color/dl_primary_color:@color/medium_black}"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -224,7 +218,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="F"
-                                android:textColor="@{subscribeItemViewModel.fri? @color/dl_primary_color:@color/dark_gray}"
+                                android:textColor="@{subscribeItemViewModel.fri? @color/dl_primary_color:@color/medium_black}"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -234,7 +228,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="S"
-                                android:textColor="@{subscribeItemViewModel.sat? @color/dl_primary_color:@color/dark_gray}"
+                                android:textColor="@{subscribeItemViewModel.sat? @color/dl_primary_color:@color/medium_black}"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -244,7 +238,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="S"
-                                android:textColor="@{subscribeItemViewModel.sun? @color/dl_primary_color:@color/dark_gray}"
+                                android:textColor="@{subscribeItemViewModel.sun? @color/dl_primary_color:@color/medium_black}"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -274,40 +268,37 @@
                         android:layout_marginEnd="10dp"
                         android:singleLine="true"
                         android:text="@{subscribeItemViewModel.sprice}"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/medium_black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
 
                     <LinearLayout
-                        android:layout_marginEnd="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:gravity="center_horizontal"
+                        android:layout_marginEnd="10dp"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:singleLine="true"
                             android:text="Temporarily unavailable "
                             android:textColor="@color/red"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
+                            android:textSize="@dimen/_15px"
                             android:visibility="@{subscribeItemViewModel.isAvailable?View.GONE:View.VISIBLE}" />
 
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            android:layout_gravity="end"
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:text="@{subscribeItemViewModel.totalPktSize}"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:text="@{subscribeItemViewModel.totalPktSize}" />
 
                     </LinearLayout>
                 </RelativeLayout>

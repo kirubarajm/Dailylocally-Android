@@ -8,24 +8,24 @@ import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatTextView;
 
 
-public class SemiBoldTextView extends AppCompatTextView {
+public class ButtonTextView extends AppCompatTextView {
 
 
-    public SemiBoldTextView(Context context) {
+    public ButtonTextView(Context context) {
         super(context);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-SemiBold.ttf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Medium.ttf");
         this.setTypeface(face,  Typeface.BOLD);
     }
 
-    public SemiBoldTextView(Context context, AttributeSet attrs) {
+    public ButtonTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-SemiBold.ttf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Medium.ttf");
         this.setTypeface(face,  Typeface.BOLD);
     }
 
-    public SemiBoldTextView(Context context, AttributeSet attrs, int defStyle) {
+    public ButtonTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-SemiBold.ttf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "Quicksand-Medium.ttf");
         this.setTypeface(face,  Typeface.BOLD);
     }
 

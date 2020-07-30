@@ -47,15 +47,13 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/add_new_address"
-                    android:textAllCaps="true"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="@string/add_new_address" />
 
 
             </RelativeLayout>
@@ -76,11 +74,11 @@
                 android:layout_height="wrap_content">
 
                 <FrameLayout
-                    android:layout_alignParentTop="true"
                     android:id="@+id/frame"
-                    android:minHeight="300dp"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="300dp"
+                    android:layout_alignParentTop="true"
+                    android:minHeight="300dp">
 
                     <fragment
                         android:id="@+id/mapFragment"
@@ -108,20 +106,20 @@
                 </FrameLayout>
 
                 <RelativeLayout
-                    android:layout_below="@+id/frame"
-                    android:layout_alignParentBottom="true"
                     android:id="@+id/fields"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/frame"
+                    android:layout_alignParentBottom="true">
 
-                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:id="@+id/txt_address_title"
+                        style="@style/SubtTitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/residency_type"
-                        android:textSize="18sp" />
+                        android:text="@string/residency_type" />
 
                     <RelativeLayout
                         android:id="@+id/linear_address_type"
@@ -150,13 +148,13 @@
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/address_bck"
+                                    android:background="@drawable/btn_back_green"
                                     android:buttonTint="@color/dl_primary_color"
                                     android:onClick="@{()->addressNewViewModel.apartment()}"
                                     android:padding="10dp"
                                     android:text="@string/apartment_or_gated_society"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_15px" />
 
                                 <RadioButton
                                     android:id="@+id/radio_2"
@@ -165,13 +163,13 @@
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginStart="5dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/address_bck"
+                                    android:background="@drawable/btn_back_green"
                                     android:buttonTint="@color/dl_primary_color"
                                     android:onClick="@{()->addressNewViewModel.individual()}"
                                     android:padding="10dp"
                                     android:text="@string/individual_house"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_15px" />
 
                             </RadioGroup>
 
@@ -350,27 +348,18 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        style="@style/MediumGreenButtonTextStyle"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/linear_address_type"
+                        android:layout_centerHorizontal="true"
                         android:layout_margin="10dp"
-                        android:background="@drawable/curve_stroke"
+                        android:onClick="@{()->addressNewViewModel.confirmClick()}"
+                        android:text="Save and Proceed"
+                        android:textAllCaps="true" />
 
-                        android:onClick="@{()->addressNewViewModel.confirmClick()}">
-
-                        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:text="Save and Proceed"
-                            android:textAllCaps="true"
-                            android:textColor="@color/dl_primary_color"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
 
                 </RelativeLayout>
 

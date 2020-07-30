@@ -23,14 +23,6 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
-            <com.dailylocally.utilities.fonts.TovoTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/icon_selected"
-                android:textColor="@color/dl_green"
-                android:textSize="75sp"
-                android:visibility="gone" />
 
 
             <com.dailylocally.utilities.CheckView
@@ -48,7 +40,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/your_order_has_been_placed"
                 android:textColor="@color/dl_green"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_22px" />
 
 
         </LinearLayout>
@@ -79,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/curve_stroke_empty_green"
+                    android:background="@drawable/btn_back_green"
                     android:onClick="@{()->orderPlacedViewModel.gotoOrders()}"
                     android:orientation="horizontal">
 
@@ -93,7 +85,7 @@
                         android:tint="@color/dl_green" />
 
 
-                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -103,8 +95,8 @@
                         android:paddingBottom="7dp"
                         android:text="Go to orders"
                         android:textAlignment="center"
-                        android:textColor="@color/dl_green"
-                        android:textSize="14sp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_22px"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -122,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/curve_stroke_empty_green"
+                    android:background="@drawable/btn_back_green"
                     android:onClick="@{()->orderPlacedViewModel.goHome()}"
                     android:orientation="horizontal">
 
@@ -132,9 +124,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:src="@drawable/ic_dl_logo"
-                        android:tint="@color/dl_green" />
+                        android:tint="@color/colorPrimary" />
 
-                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -144,9 +136,8 @@
                         android:paddingBottom="7dp"
                         android:text="Go to Home"
                         android:textAlignment="center"
-                        android:textColor="@color/dl_green"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_22px" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -14,94 +14,76 @@
         android:paddingEnd="30dp"
         android:paddingBottom="20dp">
 
-<!--
-        <com.tovo.eat.utilities.fonts.TovoTextView
+        <!--
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/icon_error"
+                    android:textAlignment="center"
+                    android:textColor="@color/eat_color"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />-->
+
+
+        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+            style="@style/SubtTitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/icon_error"
-            android:textAlignment="center"
-            android:textColor="@color/eat_color"
-            android:textSize="20sp"
-            android:textStyle="bold" />-->
-
-
-        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="@string/we_need_your_permission_to_access_your_location"
-            android:textAlignment="center"
-            android:textColor="@color/dark_gray"
-            android:textSize="14sp" />
+            android:text="@string/we_need_your_permission_to_access_your_location" />
 
-<!--
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/no_location" />-->
+        <!--
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/no_location" />-->
 
-<!--
-        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text="@string/we_ll_serve_you_soon"
-            android:textAlignment="center"
-            android:textColor="@color/eat_color"
-            android:textSize="12sp" />-->
+        <!--
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="@string/we_ll_serve_you_soon"
+                    android:textAlignment="center"
+                    android:textColor="@color/eat_color"
+                    android:textSize="12sp" />-->
 
 
         <LinearLayout
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
             android:orientation="horizontal">
 
-            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
 
                 android:id="@+id/cancelgps"
+                style="@style/MediumBlackButtonTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/curve_stroke_gray"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/cancel"
-                android:textAllCaps="true"
-                android:textColor="@color/dark_gray"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:text="@string/cancel" />
 
-            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-
-                android:layout_marginStart="15dp"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:id="@+id/allowgps"
+                style="@style/MediumBlackButtonTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/curve_stroke_gray"
                 android:gravity="end"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/allow"
-                android:textAlignment="textEnd"
-                android:textAllCaps="true"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:text="@string/allow" />
 
         </LinearLayout>
 

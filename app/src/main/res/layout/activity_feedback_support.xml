@@ -51,11 +51,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
                     android:text="FAQs &amp; SUPPORT"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    style="@style/HeaderTitleTextStyle"/>
 
             </RelativeLayout>
 
@@ -85,27 +82,18 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:text="Need help with anything?"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/SubtTitleTextStyle"/>
 
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_marginStart="25dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/curve_stroke"
+                    style="@style/SmallGreenButtonTextStyle"
                     android:onClick="@{()->feedbackSupportViewModel.support()}"
-                    android:paddingStart="10dp"
-                    android:paddingTop="7dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="7dp"
-                    android:text="Chat with us"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:text="Chat with us"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -153,9 +141,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
                                 android:text="FAQ's"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                style="@style/SubtTitleTextStyle"/>
 
 
                         </RelativeLayout>
@@ -171,10 +157,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="10dp"
-                    android:text="Get general app details here"
-                    android:textColor="@color/medium_gray"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    style="@style/ContentTextStyle"
+                    android:text="Get general app details here" />
 
                 <View
                     android:layout_width="match_parent"
@@ -209,9 +193,7 @@
                         android:layout_alignParentStart="true"
                         android:text="Terms &amp; Condition"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        style="@style/SubtTitleTextStyle"/>
 
 
                 </LinearLayout>

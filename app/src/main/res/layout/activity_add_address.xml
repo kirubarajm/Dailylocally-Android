@@ -55,7 +55,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="@string/add_new_address"
-                    android:textSize="16sp"/>
+                    style="@style/HeaderTitleTextStyle"/>
 
 
             </RelativeLayout>
@@ -128,8 +128,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:text="@string/move_pin_to_set_delivery_location"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
+                            style="@style/ContentTextStyle"
                             android:visibility="visible" />
 
 
@@ -176,8 +175,7 @@
                                 android:layout_height="wrap_content"
                                 android:onClick="@{()->addAddressViewModel.searchAddress()}"
                                 android:text="@{addAddressViewModel.locationAddress}"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
+                                style="@style/SubtTitleTextStyle"
                                 android:visibility="visible" />
 
                             <View
@@ -274,27 +272,17 @@
 
                     </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/curve_stroke"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:onClick="@{()->addAddressViewModel.confirmLocation(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString())}">
-
-                        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
                             android:text="@string/confirm_delivery_location"
-                            android:textAllCaps="true"
-                            android:textColor="@color/dl_primary_color"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+                            style="@style/MediumBlackButtonTextStyle"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:onClick="@{()->addAddressViewModel.confirmLocation(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString())}"/>
+
+
 
 
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView

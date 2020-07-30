@@ -45,14 +45,11 @@
             </RelativeLayout>
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_centerInParent="true"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:text="@string/feedback_and_support"
-                    android:textSize="18sp" />
+                    style="@style/HeaderTitleTextStyle"
+                    android:text="@string/feedback_and_support" />
 
             </RelativeLayout>
 
@@ -80,22 +77,18 @@
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/faq"
                     android:layout_alignParentTop="true"
-                    android:textColor="@color/black"
-                    android:textAllCaps="true"
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/faqs"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="@string/faqs" />
 
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:textColor="@color/dark_gray"
+                  style="@style/ContentTextStyle"
                     android:layout_below="@+id/faq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/got_general_app_details_here"
-                    android:textSize="12sp" />
+                    android:text="@string/got_general_app_details_here" />
 
 
                 <ImageView
@@ -118,24 +111,20 @@
                 android:orientation="horizontal">
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:textColor="@color/black"
+                    style="@style/SubtTitleTextStyle"
                     android:id="@+id/support"
-                    android:textAllCaps="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/support"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="@string/support" />
 
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/support_content"
-                    android:textColor="@color/dark_gray"
+                 style="@style/ContentTextStyle"
                     android:layout_below="@+id/support"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/customer_care_and_support"
-                    android:textSize="12sp" />
+                    android:text="@string/customer_care_and_support"/>
 
 
 
@@ -164,35 +153,28 @@
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/support2"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/customer_care"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="@string/customer_care"/>
 
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/support_content2"
-                    android:textColor="@color/dark_gray"
                     android:layout_below="@+id/support2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{faqsAndSupportViewModel.support}"
-                    android:textSize="12sp" />
+                    style="@style/ContentTextStyle"
+                    android:text="@{faqsAndSupportViewModel.support}"/>
 
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_centerVertical="true"
-                    android:textAllCaps="true"
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/call_now"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/MediumBlackButtonTextStyle"
+                    android:text="@string/call_now"/>
 
             </RelativeLayout>
 

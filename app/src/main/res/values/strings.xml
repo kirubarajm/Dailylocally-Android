@@ -389,11 +389,11 @@
     <string name="enter_phone_num">Enter your mobile number</string>
     <string name="login_message">We will send you a one time OTP. Carrier charges might apply</string>
     <string name="enter_pass">Enter Password</string>
-    <string name="enter_name">ENTER YOUR NAME</string>
+    <string name="enter_name">Full Name</string>
     <string name="proceed">PROCEED</string>
     <string name="type_your_feedback">Type your feedback here</string>
     <string name="re_type_password">Re-type Password</string>
-    <string name="enter_email_password">ENTER EMAIL</string>
+    <string name="enter_email_password">Email</string>
 
 
     <string name="oh_snap">Oh Snap!</string>
@@ -577,7 +577,7 @@
     <string name="call_now">Call Now</string>
     <string name="have_referral_code">Have Referral code?</string>
     <string name="enter_referral_code_here">ENTER REFERRAL CODE HERE</string>
-    <string name="accept_and_continue">Accept and Continue</string>
+    <string name="accept_and_continue">AGREE &amp; ACCEPT</string>
     <string name="please_note">Please note!</string>
     <string name="refund_alert_msg">The refund coupon contains the entire amount of refund value and can be used only once per order. Do you wish to continue?</string>
     <string name="yes">Yes</string>
@@ -737,7 +737,7 @@
     <string name="floor">Floor*</string>
     <string name="house_no_plot_no">House no / Plot no*</string>
     <string name="landmark_instructions">Landmark / Instructions*</string>
-    <string name="apartment_or_gated_society">Apartment or Gated Society</string>
+    <string name="apartment_or_gated_society">Apartment </string>
     <string name="individual_house">Individual House</string>
     <string name="delivery_address">Delivery Address</string>
     <string name="rupees_symbol">₹</string>

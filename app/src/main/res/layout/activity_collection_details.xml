@@ -43,17 +43,16 @@
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:id="@+id/kitchen_name"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="50dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{collectionDetailsViewModel.title}"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/HeaderTitleTextStyle"
+                android:text="@{collectionDetailsViewModel.title}"/>
 
 
         </RelativeLayout>
@@ -76,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    app:contentScrim="?attr/colorPrimary"
+                    app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll">
                         <!--<androidx.appcompat.widget.Toolbar
                             android:id="@+id/htab_toolbar"
@@ -176,7 +175,6 @@
                         android:layout_gravity="center_vertical|center_horizontal"
                         android:layout_margin="5dp"
                         android:src="@drawable/ic_orders"
-                        android:text="@string/icon_error"
                         android:tint="@color/white" />
 
                     <View
@@ -196,6 +194,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textSize="@dimen/_15px"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -213,13 +212,13 @@
 
 
 
-                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:text="@{collectionDetailsViewModel.cartPrice}"
                                 android:textColor="@color/white"
-                                android:textSize="16sp"
+                                android:textSize="@dimen/_22px"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -238,12 +237,6 @@
                     android:orientation="horizontal">
 
 
-                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/view_cart"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="25dp"
@@ -275,20 +268,16 @@
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
                     android:text="@{collectionDetailsViewModel.unserviceableTitle}"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    style="@style/UnserviceableTextStyle"/>
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
                     android:text="@{collectionDetailsViewModel.unserviceableSubTitle}"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    style="@style/UnserviceableTextStyle"/>
 
 
             </LinearLayout>

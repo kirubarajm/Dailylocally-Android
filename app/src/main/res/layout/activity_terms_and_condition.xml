@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tovologies.tovomoveit.ui.tandc.TermsAndConditionActivity">
 
     <data>
@@ -16,16 +16,16 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
 
         <androidx.cardview.widget.CardView
-            android:layout_alignParentTop="true"
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_alignParentTop="true"
             app:cardElevation="1dp"
             app:cardMaxElevation="1dp">
 
@@ -36,41 +36,34 @@
                 android:orientation="horizontal">
 
 
-            <RelativeLayout
-                android:onClick="@{()->termsViewModel.goBack()}"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_margin="10dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_arrow_back_black_24dp" />
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:onClick="@{()->termsViewModel.goBack()}"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
 
 
-            </RelativeLayout>
-
-
-
-
-
+                </RelativeLayout>
 
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                    android:layout_centerInParent="true"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/terms_and_condition"
-                    android:textSize="18sp" />
+                    android:text="@string/terms_and_condition" />
 
             </RelativeLayout>
 
@@ -78,57 +71,45 @@
         </androidx.cardview.widget.CardView>
 
         <ScrollView
-            android:layout_above="@+id/acceptTandC"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/topBar">
+            android:layout_above="@+id/acceptTandC"
+            android:layout_below="@+id/topBar"
+            android:background="@color/white">
 
-              <!--  <com.eat.utilities.fonts.CircularTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/terms_and_conditions"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="14sp" />-->
+            <!--  <com.eat.utilities.fonts.CircularTextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/terms_and_conditions"
+                  android:textColor="@color/dark_gray"
+                  android:textSize="14sp" />-->
 
-                <WebView
-                    android:id="@+id/webview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </ScrollView>
 
 
-
-
         <RelativeLayout
-            android:background="@color/white"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentBottom="true"
             android:id="@+id/acceptTandC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
             android:gravity="center">
 
-            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-                android:onClick="@{()->termsViewModel.accept()}"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                style="@style/MediumBlackButtonTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/curve_stroke"
                 android:gravity="center"
-                android:text="@string/accept_and_continue"
-                android:textAllCaps="true"
-                android:textColor="@color/dl_primary_color"
-                android:textStyle="bold" />
+                android:onClick="@{()->termsViewModel.accept()}"
+                android:text="@string/accept_and_continue" />
 
         </RelativeLayout>
-
-
-
 
 
     </RelativeLayout>

@@ -54,9 +54,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="@string/add_new_address"
-                    android:textAllCaps="true"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    style="@style/HeaderTitleTextStyle"/>
 
 
             </RelativeLayout>
@@ -132,8 +130,7 @@
 
                             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:text="@string/delivery_address"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
+                                style="@style/ContentTextStyle"
                                 android:layout_marginStart="5dp"
                                 android:layout_toEndOf="@+id/img_location"
                                 android:gravity="center_horizontal"
@@ -143,11 +140,10 @@
 
                         </RelativeLayout>
 
-                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:text="@{saveAddressViewModel.address}"
-                            android:textSize="14sp"
+                            style="@style/SubtTitleTextStyle"
                             android:layout_marginTop="5dp"
-                            android:textColor="@color/black"
                             android:layout_above="@+id/txt_addressType1"
                             android:id="@+id/txt_full_address"
                             android:layout_width="wrap_content"
@@ -155,10 +151,9 @@
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="@{saveAddressViewModel.landmark}"
-                            android:textSize="12sp"
+                           style="@style/ContentTextStyle"
                             android:layout_marginTop="10dp"
                             android:gravity="center_horizontal"
-                            android:textColor="@color/black"
                             android:layout_above="@+id/txt_addressType"
                             android:id="@+id/txt_addressType1"
                             android:layout_width="wrap_content"
@@ -166,8 +161,7 @@
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="@{saveAddressViewModel.addressType}"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
+                        style="@style/ContentTextStyle"
                             android:layout_marginTop="10dp"
                             android:gravity="center_horizontal"
                             android:layout_centerHorizontal="true"
@@ -190,37 +184,27 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp">
 
-                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:padding="10dp"
+                        style="@style/MediumBlackButtonTextStyle"
                         android:layout_marginRight="5dp"
                         android:gravity="center_horizontal"
                         android:layout_weight="1"
                         android:onClick="@{()->saveAddressViewModel.editClick()}"
-                        android:background="@drawable/curve_stroke"
-                        android:text="Edit Location"
-                        android:textAllCaps="true"
-                        android:textColor="@color/dl_primary_color"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:text="Edit Location" />
 
-                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:padding="10dp"
+                        style="@style/MediumGreenButtonTextStyle"
                         android:layout_weight="1"
                         android:onClick="@{()->saveAddressViewModel.saveAddressClick()}"
                         android:layout_marginLeft="5dp"
                         android:gravity="center_horizontal"
-                        android:background="@drawable/curve_stroke"
-                        android:text="Confirm Location"
-                        android:textAllCaps="true"
-                        android:textColor="@color/dl_primary_color"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:text="Confirm Location" />
 
                 </LinearLayout>
 

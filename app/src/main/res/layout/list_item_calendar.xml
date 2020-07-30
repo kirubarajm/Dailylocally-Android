@@ -10,72 +10,76 @@
             type="com.dailylocally.ui.calendarView.CalendarDayWiseItemViewModel" />
     </data>
 
-   <!-- <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">-->
+    <!-- <androidx.cardview.widget.CardView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">-->
 
     <LinearLayout
-        android:onClick="@{()->calendarItemViewModel.onItemClick()}"
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:onClick="@{()->calendarItemViewModel.onItemClick()}"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_width="wrap_content"
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:id="@+id/txt_hypen"
-                android:text="-"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:layout_width="wrap_content"
-                android:layout_toEndOf="@+id/txt_hypen"
-                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content"
+                android:text="-" />
+
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:id="@+id/txt_product_name"
-                android:text="@{calendarItemViewModel.productName}"
-                android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                style="@style/SubtTitleTextStyle"
+                android:layout_toEndOf="@+id/txt_hypen"
+                android:text="@{calendarItemViewModel.productName}" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp">
 
             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_width="wrap_content"
                 android:id="@+id/txt_units_in_weight"
-                android:text="@{calendarItemViewModel.unitWeight}"
-                android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ContentTextStyle"
+                android:text="@{calendarItemViewModel.unitWeight}" />
 
             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_width="wrap_content"
                 android:id="@+id/txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ContentTextStyle"
                 android:layout_toEndOf="@+id/txt_units_in_weight"
-                android:text=" | "
-                android:layout_height="wrap_content"/>
+                android:text=" | " />
 
             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_width="wrap_content"
                 android:id="@+id/txt_pckts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/txt1"
-                android:text="@{calendarItemViewModel.quantity}"
-                android:layout_height="wrap_content"/>
+                style="@style/ContentTextStyle"
+                android:text="@{calendarItemViewModel.quantity}" />
 
 
         </RelativeLayout>
 
 
         <View
-            android:layout_marginTop="10dp"
-            android:background="#eeeeee"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="#eeeeee" />
 
     </LinearLayout>
 

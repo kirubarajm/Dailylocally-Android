@@ -52,9 +52,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="SUPPORT"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    style="@style/HeaderTitleTextStyle"/>
 
             </RelativeLayout>
 

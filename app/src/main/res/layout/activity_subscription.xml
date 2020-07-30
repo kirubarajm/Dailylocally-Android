@@ -54,10 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="Create new subscription"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    style="@style/HeaderTitleTextStyle"/>
 
             </RelativeLayout>
 
@@ -156,10 +153,8 @@
                                         android:ellipsize="end"
                                         android:maxLines="2"
                                         android:minLines="2"
-                                        android:text="@{subscriptionViewModel.name}"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
+                                        style="@style/SubtTitleTextStyle"
+                                        android:text="@{subscriptionViewModel.name}"/>
 
                                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                         android:id="@+id/weight"
@@ -169,22 +164,18 @@
                                         android:layout_marginEnd="10dp"
                                         android:ellipsize="end"
                                         android:maxLines="2"
-                                        android:text="@{subscriptionViewModel.weight}"
-                                        android:textColor="@color/dark_gray"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
+                                        style="@style/ContentTextStyle"
+                                        android:text="@{subscriptionViewModel.weight}"/>
 
-                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                    <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerVertical="true"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginEnd="10dp"
                                         android:singleLine="true"
-                                        android:text="@{subscriptionViewModel.price}"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
+                                        style="@style/SubtTitleTextStyle"
+                                        android:text="@{subscriptionViewModel.price}"/>
 
                                 </LinearLayout>
 
@@ -223,10 +214,8 @@
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
                                     android:singleLine="true"
-                                    android:text="Quantity per day"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
+                                    style="@style/SubtTitleTextStyle"
+                                    android:text="Quantity per day" />
 
 
                                 <RelativeLayout
@@ -235,7 +224,7 @@
                                     android:layout_alignParentEnd="true"
                                     android:layout_centerVertical="true"
                                     android:layout_marginEnd="10dp"
-                                    android:background="@drawable/addtocart_back"
+                                    android:background="@drawable/btn_back_black"
                                     android:visibility="@{subscriptionViewModel.serviceable?View.VISIBLE:View.GONE}">
 
                                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -249,8 +238,8 @@
                                         android:text="@string/add"
                                         android:textAlignment="center"
                                         android:textAllCaps="true"
-                                        android:textColor="@color/dark_gray"
-                                        android:textSize="14sp"
+                                        android:textColor="@color/medium_black"
+                                        android:textSize="@dimen/_15px"
                                         android:textStyle="bold"
                                         android:visibility="@{subscriptionViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
 
@@ -271,7 +260,7 @@
 
                                             android:text="@string/minus"
                                             android:textAlignment="center"
-                                            android:textColor="@color/dark_gray"
+                                            android:textColor="@color/medium_black"
                                             android:textSize="18sp" />
 
 
@@ -279,7 +268,7 @@
                                             android:layout_width="1dp"
                                             android:layout_height="match_parent"
                                             android:layout_toEndOf="@+id/minus"
-                                            android:background="@color/dark_gray" />
+                                            android:background="@color/medium_black" />
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -290,14 +279,14 @@
 
                                             android:text="@{subscriptionViewModel.sQuantity}"
                                             android:textAlignment="center"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp" />
+                                            android:textColor="@color/medium_black"
+                                            android:textSize="@dimen/_15px" />
 
                                         <View
                                             android:layout_width="1dp"
                                             android:layout_height="match_parent"
                                             android:layout_toStartOf="@+id/plus"
-                                            android:background="@color/dark_gray" />
+                                            android:background="@color/medium_black" />
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -310,7 +299,7 @@
 
                                             android:text="@string/plus"
                                             android:textAlignment="center"
-                                            android:textColor="@color/dark_gray"
+                                            android:textColor="@color/medium_black"
                                             android:textSize="18sp" />
 
                                     </RelativeLayout>
@@ -349,8 +338,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:text="Repeat mode"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        style="@style/SubtTitleTextStyle"/>
 
                 </LinearLayout>
 
@@ -399,9 +387,7 @@
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
                             android:text="Mon"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle"/>
 
                     </LinearLayout>
 
@@ -440,9 +426,7 @@
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
                             android:text="Tue"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle" />
 
                     </LinearLayout>
 
@@ -481,9 +465,7 @@
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
                             android:text="Wed"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle"/>
 
                     </LinearLayout>
 
@@ -522,9 +504,7 @@
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
                             android:text="Thu"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle" />
 
                     </LinearLayout>
 
@@ -563,9 +543,7 @@
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
                             android:text="Fri"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle" />
 
                     </LinearLayout>
 
@@ -603,9 +581,7 @@
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
                             android:text="Sat"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle" />
 
                     </LinearLayout>
 
@@ -644,9 +620,7 @@
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
                             android:text="Sun"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle"/>
 
                     </LinearLayout>
 
@@ -684,8 +658,9 @@
                                 android:paddingBottom="2dp"
                                 android:singleLine="true"
                                 android:text="Daily"
+                                android:textAllCaps="true"
                                 android:textColor="@{subscriptionViewModel.dailyClicked?@color/dl_primary_color:@color/dark_gray}"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/_15px"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>
@@ -715,8 +690,9 @@
                                 android:paddingBottom="2dp"
                                 android:singleLine="true"
                                 android:text="Weekdays"
+                                android:textAllCaps="true"
                                 android:textColor="@{subscriptionViewModel.weekClicked?@color/dl_primary_color:@color/dark_gray}"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/_15px"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>
@@ -746,8 +722,9 @@
                                 android:paddingBottom="2dp"
                                 android:singleLine="true"
                                 android:text="Weekends"
+                                android:textAllCaps="true"
                                 android:textColor="@{subscriptionViewModel.weekendClicked?@color/dl_primary_color:@color/dark_gray}"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/_15px"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>
@@ -784,9 +761,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="Choose deliveries"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
+                            style="@style/SubtTitleTextStyle"/>
 
                     </LinearLayout>
 
@@ -840,23 +815,19 @@
                             android:layout_marginStart="10dp"
                             android:singleLine="true"
                             android:text="Start date"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/ContentTextStyle"/>
                         </LinearLayout>
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:paddingStart="15dp"
+                            android:paddingStart="20dp"
                             android:paddingTop="2dp"
                             android:paddingEnd="15dp"
                             android:paddingBottom="2dp"
                             android:singleLine="true"
-                            android:text="@{subscriptionViewModel.showDate}"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            style="@style/SubtTitleTextStyle"
+                            android:text="@{subscriptionViewModel.showDate}"/>
 
                     </LinearLayout>
 
@@ -889,7 +860,7 @@
             android:layout_marginTop="20dp">
 
 
-            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -901,7 +872,7 @@
                 android:singleLine="true"
                 android:text="Create subscription"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="@dimen/_25px"
                 android:textStyle="bold" />
 
 

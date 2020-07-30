@@ -40,7 +40,7 @@
             android:orientation="horizontal" />
 
 
-        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
             android:id="@+id/btn_get_started"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,12 +51,8 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/onboard_stroke"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/get_started"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:visibility="gone" />
+            style="@style/MediumBlackButtonTextStyle"
+            android:text="@string/get_started"/>
 
 
     </RelativeLayout>

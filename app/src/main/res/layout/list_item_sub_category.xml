@@ -36,9 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:text="@{searchSubCategoryItemViewModel.title}"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/SubtTitleTextStyle"  />
 
             <View
                 android:layout_marginTop="10dp"

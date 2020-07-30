@@ -42,13 +42,12 @@
                 android:layout_height="15dp"
                 android:src="@drawable/ic_order_placed"/>
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@{sortItemViewModel.sortTitle}"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp" />
+                style="@style/SubtTitleTextStyle"  />
 
 
         </LinearLayout>

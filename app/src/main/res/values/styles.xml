@@ -32,6 +32,7 @@
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/quicksand_semibold</item>
+        <item name="android:textSize">@dimen/_22px</item>
     </style>
 
 
@@ -119,25 +120,114 @@
      <style name="CategoryNameTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/medium_black</item>
         <item name="android:textSize">@dimen/_28px</item>
-        <item name="android:textAlignment">center</item>
+        <item name="android:textAlignment">textStart</item>
     </style>
 
-     <style name="ButtonTextStyle" parent="@android:style/TextAppearance">
+     <style name="SmallButtonTextStyle" parent="@android:style/TextAppearance">
          <item name="android:textColor">@color/medium_black</item>
-         <item name="android:textSize">@dimen/_28px</item>
+         <item name="android:textSize">@dimen/_25px</item>
          <item name="android:textAlignment">center</item>
+         <item name="android:paddingBottom">10dp</item>
+         <item name="android:paddingTop">10dp</item>
+         <item name="android:paddingStart">15dp</item>
+         <item name="android:textAllCaps">true</item>
+         <item name="android:paddingEnd">15dp</item>
     </style>
+
+
+      <style name="SmallBlackButtonTextStyle" parent="@android:style/TextAppearance">
+         <item name="android:textColor">@color/medium_black</item>
+         <item name="android:textSize">@dimen/_15px</item>
+         <item name="android:textAlignment">center</item>
+         <item name="android:paddingBottom">10dp</item>
+         <item name="android:paddingTop">10dp</item>
+         <item name="android:paddingStart">15dp</item>
+         <item name="android:paddingEnd">15dp</item>
+          <item name="android:textAllCaps">true</item>
+         <item name="android:background">@drawable/btn_back_black</item>
+    </style>
+
+
+      <style name="SmallGreenButtonTextStyle" parent="@android:style/TextAppearance">
+         <item name="android:textColor">@color/colorPrimary</item>
+         <item name="android:textSize">@dimen/_15px</item>
+         <item name="android:textAlignment">center</item>
+         <item name="android:paddingBottom">10dp</item>
+         <item name="android:paddingTop">10dp</item>
+         <item name="android:paddingStart">15dp</item>
+         <item name="android:paddingEnd">15dp</item>
+          <item name="android:textAllCaps">true</item>
+         <item name="android:background">@drawable/btn_back_green</item>
+    </style>
+
+
+
+
+
+      <style name="MediumBlackButtonTextStyle" parent="@android:style/TextAppearance">
+         <item name="android:textColor">@color/medium_black</item>
+         <item name="android:textSize">@dimen/_22px</item>
+         <item name="android:textAlignment">center</item>
+         <item name="android:paddingBottom">10dp</item>
+         <item name="android:paddingTop">10dp</item>
+         <item name="android:paddingStart">15dp</item>
+         <item name="android:paddingEnd">15dp</item>
+          <item name="android:textAllCaps">true</item>
+         <item name="android:background">@drawable/btn_back_black</item>
+    </style>
+
+     <style name="MediumGreenButtonTextStyle" parent="@android:style/TextAppearance">
+         <item name="android:textColor">@color/colorPrimary</item>
+         <item name="android:textSize">@dimen/_22px</item>
+         <item name="android:textAlignment">center</item>
+         <item name="android:paddingBottom">10dp</item>
+         <item name="android:paddingTop">10dp</item>
+         <item name="android:paddingStart">15dp</item>
+         <item name="android:paddingEnd">15dp</item>
+         <item name="android:textAllCaps">true</item>
+         <item name="android:background">@drawable/btn_back_green</item>
+    </style>
+
+
+
+
+
+     <style name="LargeButtonTextStyle" parent="@android:style/TextAppearance">
+         <item name="android:textColor">@color/medium_black</item>
+         <item name="android:textSize">@dimen/_25px</item>
+         <item name="android:textAlignment">center</item>
+         <item name="android:paddingBottom">10dp</item>
+         <item name="android:paddingTop">10dp</item>
+         <item name="android:paddingStart">15dp</item>
+         <item name="android:paddingEnd">15dp</item>
+         <item name="android:textAllCaps">true</item>
+         <item name="android:background">@drawable/btn_back_black</item>
+    </style>
+
+
+
 
     <style name="ContentTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/light_black</item>
         <item name="android:textSize">@dimen/_15px</item>
-        <item name="android:textAlignment">center</item>
     </style>
 
      <style name="SubtTitleTextStyle" parent="@android:style/TextAppearance">
          <item name="android:textColor">@color/medium_black</item>
          <item name="android:textSize">@dimen/_22px</item>
+         <item name="android:textAlignment">textStart</item>
+    </style>
+
+
+      <style name="UnserviceableTextStyle" parent="@android:style/TextAppearance">
+         <item name="android:textColor">@color/white</item>
+         <item name="android:textSize">@dimen/_22px</item>
          <item name="android:textAlignment">center</item>
     </style>
+
+
+
+
+
 
 </resources>

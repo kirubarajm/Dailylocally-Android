@@ -26,27 +26,22 @@
                 android:id="@+id/txt_name_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:text="REGISTER"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                style="@style/HeaderTitleTextStyle"
+                android:text="REGISTER"/>
 
 
             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                android:layout_centerHorizontal="true"
                 android:id="@+id/txt_choose_avator"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_name_avator"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
                 android:gravity="left|center"
-                android:text="@string/choose_avator"
-                android:textAlignment="center"
-                android:textColor="@color/dark_gray"
-                android:textSize="14dp"
-                android:textStyle="bold" />
+                style="@style/SubtTitleTextStyle"
+                android:text="@string/choose_avator"/>
 
 
             <RelativeLayout
@@ -206,18 +201,14 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:background="@drawable/curve_stroke"
                 android:gravity="center"
+                style="@style/MediumGreenButtonTextStyle"
                 android:onClick="@{()->nameGenderViewModel.proceed()}"
-                android:text="@string/proceed"
-                android:textAllCaps="true"
-                android:textColor="@color/dl_primary_color"
-                android:textStyle="bold" />
+                android:text="@string/proceed"/>
 
         </RelativeLayout>
 

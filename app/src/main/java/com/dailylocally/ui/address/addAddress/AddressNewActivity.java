@@ -31,7 +31,7 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.SingleShotLocationProvider;
 import com.dailylocally.utilities.analytics.Analytics;
-import com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView;
+import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -311,7 +311,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         locationDialog.setCancelable(false);
         locationDialog.setContentView(R.layout.dialog_get_location);
 
-        SemiBoldTextView text = locationDialog.findViewById(R.id.allowgps);
+        ButtonTextView text = locationDialog.findViewById(R.id.allowgps);
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -321,7 +321,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             }
         });
 
-        SemiBoldTextView dialogButton = locationDialog.findViewById(R.id.cancelgps);
+        ButtonTextView dialogButton = locationDialog.findViewById(R.id.cancelgps);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

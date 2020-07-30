@@ -47,15 +47,13 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/manage_address"
-                    android:textAllCaps="true"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="@string/manage_address" />
 
 
             </RelativeLayout>
@@ -124,66 +122,61 @@
 
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:id="@+id/txt_addressTitle"
+                        style="@style/ContentTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/delivery_address"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:text="@string/delivery_address" />
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/txt_full_address"
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/txt_landmark"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp" />
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/txt_landmark"
+                    style="@style/ContentTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/txt_addressType"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:layout_marginTop="10dp" />
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/txt_addressType"
+                    style="@style/ContentTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/rel_update"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:layout_marginBottom="10dp" />
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
 
                     <ImageView
-                        android:scaleType="fitEnd"
-                        android:layout_gravity="center_vertical"
                         android:layout_width="12dp"
                         android:layout_height="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitEnd"
                         android:src="@drawable/ic_info_outline_black_24dp" />
 
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                        android:layout_gravity="center_vertical"
+                        style="@style/ContentTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="5dp"
-                        android:text="@{viewAddressViewModel.note}"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:text="@{viewAddressViewModel.note}" />
 
 
                 </LinearLayout>
@@ -197,17 +190,12 @@
                     android:background="@drawable/curve_stroke"
                     android:onClick="@{()->viewAddressViewModel.updateClick()}">
 
-                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        style="@style/LargeButtonTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:text="Update Location"
-                        android:textAllCaps="true"
-                        android:textColor="@color/dl_primary_color"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="Update Location" />
 
                 </RelativeLayout>
 

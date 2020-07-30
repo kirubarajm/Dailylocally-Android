@@ -53,10 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/transaction_history"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    style="@style/HeaderTitleTextStyle"/>
 
             </RelativeLayout>
 
@@ -106,34 +103,30 @@
                     <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                         android:text="@string/no_transaction_found"
                         android:layout_marginTop="20dp"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        style="@style/HeaderTitleTextStyle"
                         android:id="@+id/txt_no_order_found"
                         android:layout_below="@+id/img_no_data"
                         android:layout_centerHorizontal="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:text="@string/pick_your_order_before_11pm_and_get_delivered"
                         android:layout_marginTop="20dp"
-                        android:textSize="16sp"
+                        style="@style/SubtTitleTextStyle"
                         android:id="@+id/txt_no_order_content"
                         android:layout_below="@+id/txt_no_order_found"
                         android:layout_centerHorizontal="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_centerHorizontal="true"
-                        android:padding="10dp"
                         android:layout_marginTop="50dp"
                         android:layout_below="@+id/txt_no_order_content"
                         android:onClick="@{()->transactionHistoryViewModel.goBack()}"
-                        android:textColor="@color/dl_primary_color"
+                        style="@style/MediumBlackButtonTextStyle"
                         android:id="@+id/btn_goto_home"
-                        android:textAllCaps="true"
-                        android:background="@drawable/transaction_bck"
                         android:text="@string/go_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

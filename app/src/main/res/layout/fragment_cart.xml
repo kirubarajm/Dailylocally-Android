@@ -34,17 +34,13 @@
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:id="@+id/title_toolbar"
+                style="@style/HeaderTitleTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:minLines="2"
-                android:text="@string/cart"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="@string/cart" />
 
 
         </androidx.cardview.widget.CardView>
@@ -76,32 +72,29 @@
                     android:src="@drawable/ic_empty_cart" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:id="@+id/tt1"
-                    android:layout_width="match_parent"
+                    style="@style/HeaderTitleTextStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="your cart is empty!"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:text="your cart is empty!" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tt1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Order before 9 PM and get delivered tomorrow!"
-                    android:textAlignment="center"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="12sp" />
+                    android:text="Order before 9 PM and get delivered tomorrow!" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    style="@style/MediumBlackButtonTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -109,16 +102,8 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="25dp"
-                    android:background="@drawable/curve_stroke"
                     android:onClick="@{()->cartViewModel.goHome()}"
-                    android:paddingStart="20dp"
-                    android:paddingTop="7dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="7dp"
-                    android:text="Explore now"
-                    android:textAlignment="center"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="12sp" />
+                    android:text="Explore now" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -160,15 +145,13 @@
 
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:id="@+id/subsTitle"
+                        style="@style/SubtTitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/recyclerview_orders"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
                         android:text="My subscription order"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         android:visibility="@{cartViewModel.showSubscription?View.VISIBLE:View.GONE}" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -212,15 +195,15 @@
                                 android:tint="@color/dark_gray" />
 
 
-                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:text="Apply coupon"
                                 android:textAllCaps="true"
-                                android:textColor="@color/dark_gray"
-                                android:textSize="18sp" />
+                                android:textColor="@color/medium_black"
+                                android:textSize="@dimen/_25px" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -257,7 +240,7 @@
                                         android:layout_marginEnd="10dp"
                                         android:text="@{cartViewModel.couponName}"
                                         android:textColor="@color/dl_primary_color"
-                                        android:textSize="18sp" />
+                                        android:textSize="@dimen/_22px" />
 
                                     <ImageView
                                         android:layout_width="25dp"
@@ -273,22 +256,22 @@
 
 
                                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                    style="@style/SubtTitleTextStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
-                                    android:text="Coupon Applied on your order"
-                                    android:textColor="@color/dark_gray"
-                                    android:textSize="12sp" />
+                                    android:text="Coupon Applied on your order" />
 
-                                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="end"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
                                     android:text="Change"
-                                    android:textColor="@color/dl_primary_color"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/medium_black"
                                     android:textSize="18sp" />
 
                             </LinearLayout>
@@ -313,12 +296,10 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            style="@style/SubtTitleTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/bill_details"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:text="@string/bill_details" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -345,64 +326,6 @@
                             android:background="@color/gray" />
 
 
-                        <!--<LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:orientation="vertical"
-                            android:visibility="@{cartViewModel.lowCostStatus?View.GONE:View.VISIBLE}">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <RelativeLayout
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:background="@drawable/curve_stroke_red">
-
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:layout_gravity="center_vertical"
-                                        android:text="!"
-                                        android:textColor="@color/red"
-                                        android:textSize="10sp"
-                                        android:textStyle="bold" />
-
-                                </RelativeLayout>
-
-                                <com.dailylocally.utilities.fonts.poppins.SubTitleTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="1dp"
-                                    android:text="Please Note:"
-                                    android:textColor="@color/red"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-
-                            <com.dailylocally.utilities.fonts.poppins.ContentTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginTop="5dp"
-                                android:text="@{cartViewModel.lowCost}"
-                                android:textColor="@color/dark_gray"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>-->
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -412,13 +335,11 @@
                             android:orientation="horizontal">
 
                             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                style="@style/SubtTitleTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="@{cartViewModel.grandTotalTitle}"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:text="@{cartViewModel.grandTotalTitle}" />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -433,13 +354,11 @@
 
                                     <TextView
                                         android:id="@+id/price5"
+                                        style="@style/SubtTitleTextStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="top"
-                                        android:text="@{cartViewModel.grand_total}"
-                                        android:textColor="@color/black"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold" />
+                                        android:text="@{cartViewModel.grand_total}" />
 
                                 </LinearLayout>
                             </RelativeLayout>
@@ -469,54 +388,42 @@
                                     android:orientation="horizontal">
 
 
-                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                        style="@style/ContentTextStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:text="@string/deliver_to"
-                                        android:textColor="@color/dark_gray"
-                                        android:textSize="16sp"
-                                        android:textStyle="normal" />
+                                        android:text="@string/deliver_to" />
 
                                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                        style="@style/SubtTitleTextStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="5dp"
                                         android:singleLine="true"
-                                        android:text="@{cartViewModel.address}"
-                                        android:textColor="@color/black"
-                                        android:textSize="16sp"
-                                        android:textStyle="normal" />
+                                        android:text="@{cartViewModel.address}" />
 
 
                                 </LinearLayout>
 
                                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                    style="@style/ContentTextStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="@{cartViewModel.current_address}"
-                                    android:textColor="@color/medium_gray"
-                                    android:textSize="12sp" />
+                                    android:text="@{cartViewModel.current_address}" />
 
                             </LinearLayout>
 
 
-                            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                                 android:id="@+id/select"
+                                style="@style/MediumBlackButtonTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:background="@drawable/curve_stroke"
                                 android:onClick="@{()->cartViewModel.changeAddress()}"
-                                android:paddingLeft="10dp"
-                                android:paddingTop="5dp"
-                                android:paddingRight="10dp"
-                                android:paddingBottom="5dp"
-                                android:text="@{cartViewModel.changeAddress}"
-                                android:textColor="@color/dl_primary_color"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
+                                android:text="@{cartViewModel.changeAddress}" />
 
                         </RelativeLayout>
 
@@ -530,26 +437,26 @@
                             android:visibility="@{cartViewModel.showWarningNote?View.VISIBLE:View.GONE}">
 
                             <ImageView
-                                android:layout_gravity="center_horizontal"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
+                                android:layout_gravity="center_horizontal"
                                 android:src="@drawable/ic_round_warning" />
 
-                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginEnd="15dp"
                                 android:gravity="center"
+                                android:textAlignment="center"
                                 android:text="@{cartViewModel.statusMessage}"
-                                android:textColor="@color/dark_gray"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/medium_black"
+                                android:textSize="@dimen/_22px"/>
 
                         </LinearLayout>
 
-                        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
@@ -563,8 +470,7 @@
                             android:text="@{cartViewModel.bookDeliveryText}"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textSize="@dimen/_25px"/>
                     </LinearLayout>
 
                 </LinearLayout>

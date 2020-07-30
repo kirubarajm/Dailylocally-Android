@@ -18,63 +18,49 @@
         android:background="@color/white">
 
 
-
         <LinearLayout
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:orientation="vertical">
 
 
             <ImageView
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_no_internet" />
 
-        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/oh_snap"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-
-
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_gravity="center_horizontal"
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
-                android:text="@string/no_internet_connection_detected"
-                android:textColor="@color/black"
-                android:textSize="12sp"
+                android:text="@string/oh_snap"
+                android:textColor="@color/medium_black"
+                android:textSize="@dimen/_25px"
                 android:textStyle="bold" />
 
 
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                style="@style/SubtTitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:text="@string/no_internet_connection_detected" />
 
 
-
-        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/curve_stroke"
-            android:onClick="@{()->internetErrorViewModel.retry()}"
-            android:paddingStart="20dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="5dp"
-            android:text="@string/retry"
-            android:textAllCaps="true"
-            android:textColor="@color/dl_primary_color"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                style="@style/MediumBlackButtonTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:background="@drawable/curve_stroke"
+                android:onClick="@{()->internetErrorViewModel.retry()}"
+                android:text="@string/retry" />
 
         </LinearLayout>
 

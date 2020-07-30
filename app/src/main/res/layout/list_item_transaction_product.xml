@@ -21,41 +21,36 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:id="@+id/txt_order_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{transactionProductItemViewModel.productName}"
-                android:textSize="12sp"
-                android:textStyle="normal" />
+                style="@style/SubtTitleTextStyle" />
 
             <RelativeLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_alignParentStart="true"
                     android:id="@+id/txt_unit_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{transactionProductItemViewModel.unitWeight}"
-                    android:textSize="12sp"
-                    android:textStyle="normal" />
+                    style="@style/ContentTextStyle" />
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:id="@+id/txt_view_calendar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:background="@drawable/transaction_bck"
                     android:gravity="center_horizontal"
                     android:onClick="@{()->transactionProductItemViewModel.viewInCalendarClick()}"
-                    android:padding="5dp"
+                  style="@style/SmallBlackButtonTextStyle"
                     android:text="@string/view_in_calendar"
-                    android:textAllCaps="true"
-                    android:textSize="12sp"
-                    android:textStyle="normal" />
+                   />
             </RelativeLayout>
         </LinearLayout>
 

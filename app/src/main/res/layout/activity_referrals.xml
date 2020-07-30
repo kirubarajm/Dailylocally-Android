@@ -50,23 +50,20 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@string/referrals"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="@string/referrals" />
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
         <ScrollView
-            android:layout_below="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topBar">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -79,7 +76,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="40dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_referrals"/>
+                    android:src="@drawable/ic_referrals" />
 
                 <RelativeLayout
                     android:id="@+id/rel_referr"
@@ -90,57 +87,44 @@
 
                     <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                         android:id="@+id/txt_1"
-                        android:textColor="@color/black"
+                        style="@style/HeaderTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@{referralsViewModel.referralTitle}"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                        android:textColor="@color/dark_gray"
+                        style="@style/SubtTitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_1"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
-                        android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:text="@{referralsViewModel.referralSubTitle}"
-                        android:textSize="14sp" />
+                        android:text="@{referralsViewModel.referralSubTitle}" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="25dp"
-                    android:layout_below="@+id/rel_referr"
                     android:id="@+id/rel_send_referrals"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/rel_referr"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginTop="25dp"
                     android:gravity="center"
                     android:padding="10dp">
 
-                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20sp"
-                        android:background="@drawable/curve_stroke"
                         android:gravity="center"
+                        style="@style/MediumBlackButtonTextStyle"
                         android:onClick="@{()->referralsViewModel.sendReferrals()}"
-                        android:padding="7dp"
-                        android:paddingStart="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="10dp"
-                        android:paddingBottom="5dp"
-                        android:text="@string/send_referrals"
-                        android:textAllCaps="true"
-                        android:textColor="@color/dl_primary_color"
-                        android:textSize="16sp" />
+                        android:text="@string/send_referrals"/>
 
                 </RelativeLayout>
 

@@ -37,7 +37,7 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_l1_arrow" />
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:layout_marginEnd="10dp"
               android:layout_toStartOf="@+id/loader"
                 android:id="@+id/kitchen_name"
@@ -48,9 +48,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{l1CategoriesItemViewModel.name}"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/SubtTitleTextStyle"  />
 
         </RelativeLayout>
 

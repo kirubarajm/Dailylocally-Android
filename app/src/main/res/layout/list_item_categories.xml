@@ -52,7 +52,7 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:foregroundGravity="center" />
 
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,9 +62,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="@{categoriesItemViewModel.name}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    style="@style/CategoryNameTextStyle" />
 
 
             </RelativeLayout>

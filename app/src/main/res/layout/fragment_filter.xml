@@ -34,46 +34,36 @@
                 android:orientation="horizontal">
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    style="@style/SmallBlackButtonTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="10dp"
                     android:onClick="@{()->filterViewModel.clearAll()}"
-                    android:paddingStart="10dp"
-                    android:paddingTop="3dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/clear_all"
-                    android:textAllCaps="true"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:text="@string/clear_all" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_margin="10dp"
-                    android:text="Filter"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Filter" />
 
 
                 <ImageView
-                    android:onClick="@{()->filterViewModel.close()}"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
+                    android:onClick="@{()->filterViewModel.close()}"
                     android:src="@drawable/ic_close_black_24dp"
                     android:tint="@color/dark_gray" />
 
@@ -127,7 +117,7 @@
                         android:background="@android:color/white"
                         android:minHeight="200dp"
                         app:filteradapter="@{filterViewModel.filterItems}"
-                        tools:listitem="@layout/list_item_filters"/>
+                        tools:listitem="@layout/list_item_filters" />
 
                 </LinearLayout>
 
@@ -137,23 +127,15 @@
 
         </LinearLayout>
 
-        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+            style="@style/LargeButtonTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/top"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
-            android:background="@drawable/curve_stroke_gray"
             android:onClick="@{()->filterViewModel.apply()}"
-            android:paddingStart="25dp"
-            android:paddingTop="7dp"
-            android:paddingEnd="25dp"
-            android:paddingBottom="5dp"
-            android:text="@string/apply"
-            android:textAllCaps="true"
-            android:textColor="@color/dark_gray"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="@string/apply" />
 
 
     </RelativeLayout>

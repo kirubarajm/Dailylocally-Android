@@ -22,17 +22,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:background="@drawable/coupons_bck_dotted"
                 android:text="@{couponsItemViewModel.couponName}"
                 android:layout_alignParentLeft="true"
                 android:padding="15dp"
+                style="@style/SubtTitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:text="APPLY"
-                android:textSize="14sp"
+                android:textSize="@dimen/_22px"
                 android:textStyle="bold"
                 android:id="@+id/txt_apply"
                 android:layout_alignParentRight="true"
@@ -42,13 +43,12 @@
 
         </RelativeLayout>
 
-        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
             android:layout_below="@+id/rel_coupons"
             android:text="@{couponsItemViewModel.title}"
             android:layout_marginTop="20dp"
-            android:textStyle="bold"
             android:id="@+id/txt_off"
-            android:textSize="14sp"
+            style="@style/ContentTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -56,8 +56,7 @@
             android:layout_below="@+id/txt_off"
             android:text="@{couponsItemViewModel.description}"
             android:layout_marginTop="5dp"
-            android:textStyle="normal"
-            android:textSize="12sp"
+            style="@style/ContentTextStyle"
             android:id="@+id/txt_off_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -65,8 +64,7 @@
         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
             android:layout_below="@+id/txt_off_2"
             android:text="@{couponsItemViewModel.offer1}"
-            android:textStyle="normal"
-            android:textSize="12sp"
+            style="@style/ContentTextStyle"
             android:id="@+id/txt_validity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

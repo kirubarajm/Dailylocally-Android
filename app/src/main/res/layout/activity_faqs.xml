@@ -46,14 +46,11 @@
             </RelativeLayout>
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_centerInParent="true"
-                    android:textAllCaps="false"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:text="@string/faqs"
-                    android:textSize="18sp" />
+                    style="@style/HeaderTitleTextStyle"
+                    android:text="@string/faqs" />
 
             </RelativeLayout>
 

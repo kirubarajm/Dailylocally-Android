@@ -10,61 +10,51 @@
             type="com.dailylocally.ui.signup.faqs.FaqsItemViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/tLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:padding="15dp">
+            android:onClick="@{()->faqsItemViewModel.expandClick()}">
 
-            <RelativeLayout
-                android:onClick="@{()->faqsItemViewModel.expandClick()}"
-                android:id="@+id/tLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:layout_marginEnd="30dp"
-                    android:id="@+id/txt_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingLeft="10dp"
-                    android:text="@{faqsItemViewModel.question}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_alignParentEnd="true"
-                    android:rotation="@{faqsItemViewModel.expandClicked?180:90}"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentBottom="true"
-                    android:tint="@color/medium_gray"
-                    android:src="@drawable/ic_arrow_drop_up_black_24dp"/>
-            </RelativeLayout>
-
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_marginEnd="10dp"
-                android:visibility="@{faqsItemViewModel.expandClicked?View.VISIBLE:View.GONE}"
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                android:id="@+id/txt_3"
+                style="@style/SubtTitleTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tLayout"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/faq_answer_bck"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@{faqsItemViewModel.answer}"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:layout_marginEnd="30dp"
+                android:text="@{faqsItemViewModel.question}" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:rotation="@{faqsItemViewModel.expandClicked?180:90}"
+                android:src="@drawable/ic_arrow_drop_up_black_24dp"
+                android:tint="@color/medium_gray" />
         </RelativeLayout>
 
-    </RelativeLayout>
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+            style="@style/ContentTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tLayout"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:text="@{faqsItemViewModel.answer}"
+            android:visibility="@{faqsItemViewModel.expandClicked?View.VISIBLE:View.GONE}" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/_10px"
+            android:background="@color/semi_gray" />
+    </LinearLayout>
 
 </layout>

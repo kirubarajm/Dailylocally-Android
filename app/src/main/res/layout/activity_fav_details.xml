@@ -48,12 +48,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="50dp"
+                style="@style/HeaderTitleTextStyle"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="Favourites"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:text="Favourites" />
 
 
         </RelativeLayout>
@@ -78,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    app:contentScrim="?attr/colorPrimary"
+                    app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                     <LinearLayout
@@ -96,16 +94,15 @@
                             android:src="@drawable/ic_fav_filled" />
 
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="25dp"
                             android:background="@color/white"
-                            android:text="Favourites content will given by sushant"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="16sp" />
+                            style="@style/ContentTextStyle"
+                            android:text="Favourites content will given by sushant" />
 
 
                     </LinearLayout>
@@ -206,10 +203,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="25dp"
-                android:background="@color/white"
-                android:text="You currently don't have any items in your favourites"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp" />
+                style="@style/SubtTitleTextStyle"
+                android:text="You currently don't have any items in your favourites" />
 
 
         </LinearLayout>
@@ -264,13 +259,12 @@
                         android:layout_marginStart="5dp"
                         android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="@{favViewModel.cartItems}"
-                            android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textSize="@dimen/_15px"
+                            android:text="@{favViewModel.cartItems}"/>
 
 
                         <LinearLayout
@@ -287,7 +281,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="@{favViewModel.cartPrice}"
                                 android:textColor="@color/white"
-                                android:textSize="16sp"
+                                android:textSize="@dimen/_22px"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -305,13 +299,6 @@
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
-
-                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/view_cart"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="25dp"
@@ -342,10 +329,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@{favViewModel.unserviceableTitle}"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    style="@style/UnserviceableTextStyle"
+                    android:text="@{favViewModel.unserviceableTitle}"/>
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="match_parent"
@@ -353,10 +338,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@{favViewModel.unserviceableSubTitle}"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    style="@style/UnserviceableTextStyle"
+                    android:text="@{favViewModel.unserviceableSubTitle}"/>
 
 
             </LinearLayout>

@@ -54,10 +54,8 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/help"
-                    android:textAllCaps="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    style="@style/HeaderTitleTextStyle"
+                    android:text="@string/help"/>
 
             </RelativeLayout>
 

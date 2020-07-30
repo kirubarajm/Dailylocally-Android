@@ -15,7 +15,7 @@
     <color name="dl_green">#94C96B</color>
     <color name="light_gray">#ECEBEB</color>
     <color name="medium_light_gray">#DBDBDB</color>
-    <color name="gray">#F7F7F7</color>
+    <color name="gray">#F2F2F2</color>
     <color name="lgray">#FDFDFD</color>
     <color name="semi_gray">#979797</color>
     <color name="searchgrey">#DADADA</color>
@@ -36,7 +36,7 @@
     <color name="bg_color">#f7f7f7</color>
     <color name="black">#151515</color>
 
-    <color name="red">#d32f2f</color>
+    <color name="red">#FF0001</color>
     <color name="white">#ffffff</color>
     <color name="black_effective">#2a2a2a</color>
     <color name="shadow">#d0d8dc</color>

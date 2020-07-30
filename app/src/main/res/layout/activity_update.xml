@@ -22,17 +22,17 @@
 
 
         <LinearLayout
-            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_gravity="center_horizontal"
                 android:id="@+id/img_logo"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -47,12 +47,12 @@
                 app:layout_constraintVertical_bias="0.927" />
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -61,62 +61,44 @@
                 app:layout_constraintStart_toStartOf="parent">
 
 
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="We’re better than before!"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:text="We’re better than before!" />
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Please update to continue using DAILY LOCALLY app"
-                    android:textAlignment="center"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="12sp" />
+                    android:text="Please update to continue using DAILY LOCALLY app" />
 
 
             </LinearLayout>
 
 
-            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-                android:layout_gravity="center_horizontal"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:id="@+id/buttonTextView"
+                style="@style/MediumGreenButtonTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="52dp"
                 android:background="@drawable/curve_stroke"
                 android:onClick="@{()->updateViewModel. update()}"
-                android:paddingStart="20dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="5dp"
-                android:text="@string/update"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/dl_primary_color"
-                android:textSize="14sp"/>
+                android:text="@string/update" />
 
-            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-                android:layout_gravity="center_horizontal"
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:onClick="@{()->updateViewModel. checkIsUserLoggedInOrNot()}"
-                android:paddingStart="20dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="5dp"
+             style="@style/MediumBlackButtonTextStyle"
                 android:text="@string/not_now"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="13sp"
                 android:visibility="@{updateViewModel.forceUpdate?View.GONE:View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

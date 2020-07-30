@@ -14,12 +14,14 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/white"
+        android:background="@color/gray"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/header"
+            android:background="@color/gray"
+            app:cardBackgroundColor="@color/gray"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:cardElevation="1dp"
@@ -28,13 +30,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
                     android:onClick="@{()->ratingViewModel.goBack()}"
                     android:orientation="horizontal">
 
@@ -53,12 +53,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="Rate your delivery"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    style="@style/HeaderTitleTextStyle"/>
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -66,10 +63,7 @@
                     android:onClick="@{()->ratingViewModel.helpClick()}"
                     android:layout_marginEnd="5dp"
                     android:layout_alignParentEnd="true"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    style="@style/HeaderTitleTextStyle"/>
 
             </RelativeLayout>
 
@@ -97,9 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                  style="@style/SubtTitleTextStyle"
                     android:id="@+id/txt_order"
                     android:text="@{ratingViewModel.orderId}"
                     android:layout_width="wrap_content"
@@ -118,8 +111,7 @@
 
             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:id="@+id/txt_1"
-                android:textSize="12sp"
-                android:textStyle="normal"
+              style="@style/SubtTitleTextStyle"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:layout_below="@+id/rel_1"
@@ -127,9 +119,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                android:textSize="14sp"
-                android:textStyle="bold"
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+              style="@style/SubtTitleTextStyle"
                 android:id="@+id/txt_rating"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
@@ -158,11 +149,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:text="@string/was_your_package_sealed"
                     android:id="@+id/txt_package_sealed"
-                    android:textSize="12sp"
-                    android:textStyle="normal"
+                style="@style/SubtTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -170,7 +160,7 @@
                     android:id="@+id/chk_packageSealed_yes"
                     android:layout_marginEnd="20dp"
                     android:text="@string/yes"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/_15px"
                     android:textStyle="normal"
                     android:layout_toStartOf="@+id/chk_packageSealed_no"
                     android:layout_width="wrap_content"
@@ -179,7 +169,7 @@
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/chk_packageSealed_no"
                     android:text="@string/no"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/_15px"
                     android:textStyle="normal"
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
@@ -197,8 +187,7 @@
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:text="Share your feedbacks on the delivery!"
                         android:id="@+id/txt_share"
-                        android:textSize="12sp"
-                        android:textStyle="normal"
+                       style="@style/ContentTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -210,6 +199,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/rating_feedback_bck"
                         android:gravity="top"
+                        android:hint="type here..."
                         android:inputType="textCapSentences|textMultiLine"
                         android:minLines="4"
                         android:padding="5dp"
@@ -218,9 +208,8 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                   style="@style/SubtTitleTextStyle"
                     android:id="@+id/txt_rating_product"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
@@ -249,11 +238,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:text="@string/did_you_receive_all_the_products"
                             android:id="@+id/txt_receive_all_product"
-                            android:textStyle="normal"
-                            android:textSize="12sp"
+                            style="@style/SubtTitleTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -261,7 +249,7 @@
                             android:id="@+id/chk_product_yes"
                             android:layout_marginEnd="20dp"
                             android:text="@string/yes"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/_15px"
                             android:layout_toStartOf="@+id/chk_product_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -269,7 +257,7 @@
                         <com.google.android.material.checkbox.MaterialCheckBox
                             android:id="@+id/chk_product_no"
                             android:text="@string/no"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/_15px"
                             android:layout_alignParentEnd="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -286,7 +274,7 @@
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                         android:text="What product did you not receive?"
                         android:id="@+id/txt_what_product"
-                        android:textSize="12sp"
+                      style="@style/ContentTextStyle"
                         android:textStyle="normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -302,18 +290,15 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_below="@+id/rel_product_delivery"
                     android:text="@string/submit"
-                    android:background="@drawable/transaction_bck"
                     android:layout_marginTop="30dp"
-                    android:padding="5dp"
                     android:onClick="@{()->ratingViewModel.submitClick()}"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
+                    style="@style/MediumBlackButtonTextStyle"
                     android:layout_height="wrap_content"/>
 
             </RelativeLayout>

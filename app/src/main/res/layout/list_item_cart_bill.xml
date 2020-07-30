@@ -29,14 +29,13 @@
                 android:gravity="center_vertical">
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->billItemViewModel.infoClick()}"
                     android:text="@{billItemViewModel.title}"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    style="@style/SubtTitleTextStyle" />
 
 
                 <ImageView
@@ -74,8 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{billItemViewModel.charges}"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        style="@style/SubtTitleTextStyle" />
 
                 </LinearLayout>
 
@@ -90,26 +88,25 @@
                     android:visibility="@{billItemViewModel.aboveCost?View.VISIBLE:View.GONE}">
 
 
-                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{billItemViewModel.charges}"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
+                        style="@style/SubtTitleTextStyle"
                         android:visibility="invisible" />
 
                 </LinearLayout>
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/cost"
                     android:text="FREE"
-                    android:textColor="@color/dl_green"
-                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_22px"
                     android:visibility="@{billItemViewModel.aboveCost?View.VISIBLE:View.GONE}" />
 
 
@@ -136,9 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Note:"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    style="@style/SubtTitleTextStyle" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -151,22 +146,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Note:"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
+                        style="@style/SubtTitleTextStyle"
                         android:visibility="invisible" />
                 </LinearLayout>
 
             </LinearLayout>
 
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentItalicTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@{billItemViewModel.note}"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                style="@style/SubtTitleTextStyle" />
 
 
         </LinearLayout>

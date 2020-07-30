@@ -14,9 +14,9 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/toolbar_otp"
@@ -30,38 +30,39 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="horizontal">
-            <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:onClick="@{()->otpViewModel.goBack()}"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_arrow_back_black_24dp" />
-            </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:onClick="@{()->otpViewModel.goBack()}"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                </RelativeLayout>
+
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                    android:layout_centerInParent="true"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="@{otpViewModel.title}"
-                    android:textSize="18sp" />
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
 
         </androidx.cardview.widget.CardView>
-
-
 
 
         <RelativeLayout
@@ -89,22 +90,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/enter_pass"
+                        android:imeOptions="actionDone"
                         android:inputType="textWebPassword"
                         android:lines="1"
-                        android:imeOptions="actionDone"
                         android:maxLength="13"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/input_ph_no"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/dl_primary_color"
                     android:gravity="center"
                     android:onClick="@{()->otpViewModel.forgotPasswordClick()}"
-                    android:layout_below="@+id/input_ph_no"
                     android:text="@string/forgot_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@color/dl_primary_color" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -238,31 +239,28 @@
                     app:pinTextBottomPadding="5dp" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/resend"
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/otp_text"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
-                    android:text="@string/resend_otp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="@string/resend_otp" />
 
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/txt_message_sent"
+                    style="@style/ContentTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_enter_otp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="10dp" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -271,20 +269,17 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
-                    android:text="@{otpViewModel.timer}"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    style="@style/SubtTitleTextStyle"
+                    android:text="@{otpViewModel.timer}" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/txt_enter_otp"
+                    style="@style/SubtTitleTextStyle"
                     android:layout_width="match_parent"
-                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/enter_otp"
-                    android:textSize="16sp" />
+                    android:text="@string/enter_otp" />
 
 
             </RelativeLayout>
@@ -295,38 +290,34 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="center">
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-                    android:gravity="center"
-                    android:visibility="visible"
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:id="@+id/btn_sign_in"
+                    style="@style/MediumGreenButtonTextStyle"
                     android:layout_width="160dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/curve_stroke"
+                    android:gravity="center"
                     android:onClick="@{()->otpViewModel.continueClick()}"
                     android:text="@string/otp_continue"
-                    android:textAllCaps="true"
-                    android:textColor="@color/dl_primary_color"
-                    android:textStyle="bold" />
+                    android:visibility="visible" />
 
-                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
-                    android:gravity="center"
-                    android:visibility="gone"
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:id="@+id/btn_proceed"
                     android:layout_width="160dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/curve_stroke"
+                    android:gravity="center"
                     android:onClick="@{()->otpViewModel.loginClick()}"
                     android:text="@string/login"
                     android:textAllCaps="true"
                     android:textColor="@color/dl_primary_color"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
         </RelativeLayout>
-
 
 
     </RelativeLayout>

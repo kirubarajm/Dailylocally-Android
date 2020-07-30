@@ -3,10 +3,11 @@
 
 <dimen name="_10px">10sp</dimen>
 <dimen name="_12px">12sp</dimen>
-<dimen name="_15px">15sp</dimen>
+<dimen name="_15px">12sp</dimen>
 <dimen name="_18px">18sp</dimen>
-<dimen name="_22px">22sp</dimen>
-<dimen name="_25px">25sp</dimen>
-<dimen name="_28px">28sp</dimen>
-<dimen name="_65px">65sp</dimen>
+<dimen name="_22px">14sp</dimen>
+<dimen name="_25px">18sp</dimen>
+<dimen name="_28px">18sp</dimen>
+<dimen name="_65px">40sp</dimen>
+
 </resources>

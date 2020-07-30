@@ -54,10 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="Transaction View"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    style="@style/HeaderTitleTextStyle"/>
 
             </RelativeLayout>
 
@@ -90,20 +87,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:text="@string/transaction_id"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
+                          style="@style/SubtTitleTextStyle"
                             android:id="@+id/txt_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:text="@{transactionDetailsViewModel.transactionOrderId}"
-                            android:textSize="14sp"
+                            style="@style/SubtTitleTextStyle"
                             android:id="@+id/txt_order_id"
                             android:layout_toEndOf="@+id/txt_1"
-                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -116,12 +111,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:text="@{transactionDetailsViewModel.price}"
-                            android:textSize="14sp"
+                            style="@style/SubtTitleTextStyle"
                             android:id="@+id/txt_price"
                             android:layout_alignParentEnd="true"
-                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -133,17 +127,15 @@
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="@{transactionDetailsViewModel.transacDate}"
-                            android:textSize="12sp"
+                            style="@style/ContentTextStyle"
                             android:id="@+id/txt_date"
-                            android:textStyle="normal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="@{transactionDetailsViewModel.itemCount}"
-                            android:textSize="12sp"
+                            style="@style/ContentTextStyle"
                             android:layout_alignParentEnd="true"
-                            android:textStyle="normal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -154,11 +146,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:text="Items in my order"
-                            android:textSize="14sp"
+                            style="@style/SubtTitleTextStyle"
                             android:id="@+id/txt_heading"
-                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -206,7 +197,7 @@
                             android:layout_height="wrap_content">
 
                             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                android:textSize="14sp"
+                                style="@style/SubtTitleTextStyle"
                                 android:textStyle="bold"
                                 android:text="To Pay"
                                 android:layout_width="wrap_content"
@@ -216,17 +207,14 @@
                                 android:layout_toStartOf="@+id/txt_to_pay"
                                 android:layout_marginEnd="3dp"
                                 android:text="@string/rupees_symbol"
-                                android:textSize="16sp"
-                                android:textColor="@color/black"
+                                style="@style/SubtTitleTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
                             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
 
                                 android:id="@+id/txt_to_pay"
-                                android:textStyle="bold"
-                                android:textSize="16sp"
-                                android:textColor="@color/black"
+                                style="@style/SubtTitleTextStyle"
                                 android:layout_alignParentEnd="true"
                                 android:text="@{transactionDetailsViewModel.price}"
                                 android:layout_width="wrap_content"
@@ -234,14 +222,13 @@
 
                         </RelativeLayout>
 
-                        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                             android:layout_centerHorizontal="true"
                             android:text="@string/view_in_calendar"
                             android:layout_marginTop="30dp"
-                            android:padding="5dp"
+                            style="@style/MediumBlackButtonTextStyle"
                             android:onClick="@{()->transactionDetailsViewModel.viewInCalendar()}"
                             android:layout_marginBottom="20dp"
-                            android:background="@drawable/transaction_bck"
                             android:layout_below="@+id/rel_to_pay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
