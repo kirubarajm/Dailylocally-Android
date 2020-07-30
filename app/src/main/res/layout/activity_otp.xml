@@ -238,7 +238,7 @@
                     app:pinTextBottomPadding="5dp" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                     android:id="@+id/resend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -295,7 +295,7 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="center">
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                     android:gravity="center"
                     android:visibility="visible"
                     android:id="@+id/btn_sign_in"
@@ -309,7 +309,7 @@
                     android:textColor="@color/dl_primary_color"
                     android:textStyle="bold" />
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                     android:gravity="center"
                     android:visibility="gone"
                     android:id="@+id/btn_proceed"

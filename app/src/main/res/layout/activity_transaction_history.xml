@@ -124,7 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                         android:layout_centerHorizontal="true"
                         android:padding="10dp"
                         android:layout_marginTop="50dp"

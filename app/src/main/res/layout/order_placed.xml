@@ -93,7 +93,7 @@
                         android:tint="@color/dl_green" />
 
 
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -134,7 +134,7 @@
                         android:src="@drawable/ic_dl_logo"
                         android:tint="@color/dl_green" />
 
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"

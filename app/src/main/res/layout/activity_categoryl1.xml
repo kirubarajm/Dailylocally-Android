@@ -48,10 +48,8 @@
                 android:layout_marginStart="50dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{categoryL1ViewModel.title}"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                style="@style/HeaderTitleTextStyle"
+                android:text="@{categoryL1ViewModel.title}"/>
 
 
         </RelativeLayout>

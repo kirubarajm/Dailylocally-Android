@@ -94,7 +94,7 @@
                         android:textAllCaps="true"
                         android:textSize="14sp" />
 
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                         android:id="@+id/apply"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                           android:visibility="gone"
                             android:id="@+id/btn_goto_home"
                             android:layout_width="wrap_content"
@@ -225,7 +225,7 @@
             android:orientation="vertical">
 
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                 android:id="@+id/btn_refer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

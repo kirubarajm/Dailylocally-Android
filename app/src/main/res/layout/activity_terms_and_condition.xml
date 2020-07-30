@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                 android:onClick="@{()->termsViewModel.accept()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"

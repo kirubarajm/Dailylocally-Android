@@ -58,7 +58,7 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -302,7 +302,7 @@
 
                 </RelativeLayout>
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                     android:layout_below="@+id/rel_product_delivery"
                     android:text="@string/submit"
                     android:background="@drawable/transaction_bck"

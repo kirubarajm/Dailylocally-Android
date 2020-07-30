@@ -101,7 +101,7 @@
                     android:textSize="12sp" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -281,7 +281,7 @@
                                     android:textColor="@color/dark_gray"
                                     android:textSize="12sp" />
 
-                                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="end"
@@ -502,7 +502,7 @@
                             </LinearLayout>
 
 
-                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                                 android:id="@+id/select"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -549,7 +549,7 @@
 
                         </LinearLayout>
 
-                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"

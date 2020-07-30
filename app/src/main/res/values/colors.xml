@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <color name="colorPrimary">#94c96b</color>
+    <color name="colorPrimary">#94C96B</color>
     <color name="colorPrimaryDark">#64A135</color>
     <color name="colorAccent">#64A135</color>
 
 
 
     <!--<color name="dl_primary_color">#2a9d92</color>-->
-    <color name="dl_primary_color">#94c96b</color>
+    <color name="dl_primary_color">#94C96B</color>
     <color name="statuback">#ABE67E</color>
     <color name="dl_secondary">#00b09b</color>
     <color name="light_dl_primary_color">#DBFFF2</color>
     <color name="light_color">#E8ECFFF8</color>
-    <color name="dl_green">#94c96b</color>
+    <color name="dl_green">#94C96B</color>
     <color name="light_gray">#ECEBEB</color>
     <color name="medium_light_gray">#DBDBDB</color>
     <color name="gray">#F7F7F7</color>
@@ -22,16 +22,19 @@
 
     <color name="filter_selected">#CACACA</color>
     <color name="filter_unselected">#ECEBEB</color>
-0
 
-    <color name="dark_gray">#5C5B5B</color>
+    <color name="medium_black">#414042</color>
+    <color name="light_black">#6D6E71</color>
+
+
+    <color name="dark_gray">#414042</color>
     <color name="tracking_back">#ffd4dedd</color>
     <color name="funnel_back">#F5F8F7</color>
     <color name="medium_gray">#ACABAB</color>
     <color name="search_gray">#EAEAEA</color>
     <color name="extra_light_gray">#DADADA</color>
     <color name="bg_color">#f7f7f7</color>
-    <color name="black">#ff444444</color>
+    <color name="black">#151515</color>
 
     <color name="red">#d32f2f</color>
     <color name="white">#ffffff</color>

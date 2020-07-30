@@ -234,7 +234,7 @@
 
                         </RelativeLayout>
 
-                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                             android:layout_centerHorizontal="true"
                             android:text="@string/view_in_calendar"
                             android:layout_marginTop="30dp"

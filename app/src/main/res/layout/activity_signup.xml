@@ -515,7 +515,7 @@
                             android:layout_marginTop="30dp"
                             android:gravity="center">
 
-                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
 
                                 android:id="@+id/btn_sign_in"
                                 android:layout_width="160dp"

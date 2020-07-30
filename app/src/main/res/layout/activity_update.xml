@@ -82,7 +82,7 @@
             </LinearLayout>
 
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/buttonTextView"
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                 android:textColor="@color/dl_primary_color"
                 android:textSize="14sp"/>
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+            <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

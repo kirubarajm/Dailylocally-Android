@@ -146,10 +146,20 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     if (genderstatus) {
                                         if (response.getResult() != null && response.getResult().size() > 0) {
                                             if (response.getResult().get(0).getAid() !=null) {
-                                                getDataManager().setUserAddress(true);
-                                                if (getNavigator() != null) {
-                                                    getNavigator().openHomeActivity(true);
+
+                                                if (response.getResult().get(0).getAid() .equals("0")){
+                                                    getDataManager().setUserAddress(false);
+                                                    if (getNavigator() != null) {
+                                                        getNavigator().addAddressActivity(response.getResult().get(0).getAid());
+                                                    }
+                                                }else {
+                                                    getDataManager().setUserAddress(true);
+                                                    if (getNavigator() != null) {
+                                                        getNavigator().openHomeActivity(true);
+                                                    }
                                                 }
+
+
                                             } else {
                                                 getDataManager().setUserAddress(false);
                                                 if (getNavigator() != null) {

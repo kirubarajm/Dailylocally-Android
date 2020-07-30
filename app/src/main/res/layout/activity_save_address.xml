@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp">
 
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -206,7 +206,7 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"

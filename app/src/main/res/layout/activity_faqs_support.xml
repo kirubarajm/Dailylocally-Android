@@ -183,7 +183,7 @@
                     android:textSize="12sp" />
 
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                <com.dailylocally.utilities.fonts.quicksand.SemiBoldTextView
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
                     android:layout_alignParentEnd="true"
