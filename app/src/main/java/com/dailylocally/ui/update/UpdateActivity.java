@@ -49,23 +49,23 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     public void checkForUserLoginMode(boolean trueOrFlase) {
         if (trueOrFlase) {
             Intent intent = MainActivity.newIntent(UpdateActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_UPDATE_ACTV);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
         } else {
             Intent intent = SignUpActivity.newIntent(UpdateActivity.this);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-          overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 
     @Override
     public void checkForUserGenderStatus(boolean trueOrFalse) {
         Intent intent = RegistrationActivity.newIntent(UpdateActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        finish();
     }
 
     @Override

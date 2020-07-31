@@ -50,11 +50,11 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Create new subscription"
-                    style="@style/HeaderTitleTextStyle"/>
+                    android:text="Create new subscription" />
 
             </RelativeLayout>
 
@@ -63,11 +63,11 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:layout_marginBottom="60dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/topBar"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="60dp"
             android:background="@color/white">
 
 
@@ -129,75 +129,71 @@
                                 </RelativeLayout>
 
                                 <RelativeLayout
-                                    android:layout_marginStart="10dp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-
-
-
-
-
-                                <LinearLayout
-                                    android:layout_toStartOf="@+id/delete"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:layout_marginStart="10dp">
 
 
-                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                        android:id="@+id/kitchen_name"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginEnd="10dp"
-                                        android:ellipsize="end"
-                                        android:maxLines="2"
-                                        android:minLines="2"
-                                        style="@style/SubtTitleTextStyle"
-                                        android:text="@{subscriptionViewModel.name}"/>
+                                        android:layout_toStartOf="@+id/delete"
+                                        android:orientation="vertical">
 
-                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                        android:id="@+id/weight"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginEnd="10dp"
-                                        android:ellipsize="end"
-                                        android:maxLines="2"
-                                        style="@style/ContentTextStyle"
-                                        android:text="@{subscriptionViewModel.weight}"/>
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerVertical="true"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginEnd="10dp"
-                                        android:singleLine="true"
-                                        style="@style/SubtTitleTextStyle"
-                                        android:text="@{subscriptionViewModel.price}"/>
+                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                            android:id="@+id/kitchen_name"
+                                            style="@style/SubtTitleTextStyle"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="10dp"
+                                            android:ellipsize="end"
+                                            android:maxLines="2"
+                                            android:minLines="2"
+                                            android:text="@{subscriptionViewModel.name}" />
 
-                                </LinearLayout>
+                                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                            android:id="@+id/weight"
+                                            style="@style/ContentTextStyle"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:ellipsize="end"
+                                            android:maxLines="2"
+                                            android:text="@{subscriptionViewModel.weight}" />
+
+                                        <TextView
+                                            style="@style/SubtTitleTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:singleLine="true"
+                                            android:text="@{subscriptionViewModel.price}" />
+
+                                    </LinearLayout>
 
                                     <ImageView
-                                        android:visibility="@{subscriptionViewModel.edit?View.VISIBLE:View.GONE}"
-                                        android:onClick="@{()->subscriptionViewModel.delete()}"
-                                        android:foregroundGravity="center"
-                                        android:padding="10dp"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentEnd="true"
                                         android:id="@+id/delete"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
-                                        android:src="@drawable/ic_delete" />
+                                        android:layout_alignParentTop="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:foregroundGravity="center"
+                                        android:onClick="@{()->subscriptionViewModel.delete()}"
+                                        android:padding="10dp"
+                                        android:src="@drawable/ic_delete"
+                                        android:visibility="@{subscriptionViewModel.edit?View.VISIBLE:View.GONE}" />
                                 </RelativeLayout>
                             </LinearLayout>
 
                             <View
-                                android:layout_marginTop="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
                                 android:layout_marginStart="117dp"
+                                android:layout_marginTop="10dp"
                                 android:background="@color/medium_gray" />
 
 
@@ -207,6 +203,7 @@
 
                                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                     android:id="@+id/price"
+                                    style="@style/SubtTitleTextStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -214,17 +211,16 @@
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
                                     android:singleLine="true"
-                                    style="@style/SubtTitleTextStyle"
                                     android:text="Quantity per day" />
 
 
                                 <RelativeLayout
-                                    android:layout_width="70dp"
+                                    android:layout_width="80dp"
                                     android:layout_height="30dp"
                                     android:layout_alignParentEnd="true"
                                     android:layout_centerVertical="true"
                                     android:layout_marginEnd="10dp"
-                                    android:background="@drawable/btn_back_black"
+                                    android:background="@{subscriptionViewModel.isAddClicked?  @drawable/curve_stroke_rounded:@drawable/btn_back_black}"
                                     android:visibility="@{subscriptionViewModel.serviceable?View.VISIBLE:View.GONE}">
 
                                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -234,7 +230,6 @@
                                         android:layout_centerInParent="true"
                                         android:gravity="center"
                                         android:onClick="@{()->subscriptionViewModel.enableAdd()}"
-
                                         android:text="@string/add"
                                         android:textAlignment="center"
                                         android:textAllCaps="true"
@@ -246,8 +241,9 @@
                                     <RelativeLayout
                                         android:id="@+id/num_picker"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_centerInParent="true"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:gravity="center_vertical"
                                         android:visibility="@{subscriptionViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
                                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -257,18 +253,10 @@
                                             android:layout_alignParentStart="true"
                                             android:layout_centerVertical="true"
                                             android:onClick="@{()->subscriptionViewModel.subClicked()}"
-
                                             android:text="@string/minus"
                                             android:textAlignment="center"
-                                            android:textColor="@color/medium_black"
+                                            android:textColor="@color/colorPrimary"
                                             android:textSize="18sp" />
-
-
-                                        <View
-                                            android:layout_width="1dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_toEndOf="@+id/minus"
-                                            android:background="@color/medium_black" />
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -279,14 +267,8 @@
 
                                             android:text="@{subscriptionViewModel.sQuantity}"
                                             android:textAlignment="center"
-                                            android:textColor="@color/medium_black"
+                                            android:textColor="@color/colorPrimary"
                                             android:textSize="@dimen/_15px" />
-
-                                        <View
-                                            android:layout_width="1dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_toStartOf="@+id/plus"
-                                            android:background="@color/medium_black" />
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -296,10 +278,9 @@
                                             android:layout_alignParentEnd="true"
                                             android:layout_centerVertical="true"
                                             android:onClick="@{()->subscriptionViewModel.addClicked()}"
-
                                             android:text="@string/plus"
                                             android:textAlignment="center"
-                                            android:textColor="@color/medium_black"
+                                            android:textColor="@color/colorPrimary"
                                             android:textSize="18sp" />
 
                                     </RelativeLayout>
@@ -322,27 +303,26 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_repeat_mode"/>
+                        android:src="@drawable/ic_repeat_mode" />
 
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                        android:layout_marginStart="5dp"
+                        style="@style/SubtTitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:singleLine="true"
-                        android:text="Repeat mode"
-                        style="@style/SubtTitleTextStyle"/>
+                        android:text="Repeat mode" />
 
                 </LinearLayout>
-
-
 
 
                 <LinearLayout
@@ -382,12 +362,12 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
-                            android:text="Mon"
-                            style="@style/ContentTextStyle"/>
+                            android:text="Mon" />
 
                     </LinearLayout>
 
@@ -421,12 +401,12 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
-                            android:text="Tue"
-                            style="@style/ContentTextStyle" />
+                            android:text="Tue" />
 
                     </LinearLayout>
 
@@ -460,12 +440,12 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
-                            android:text="Wed"
-                            style="@style/ContentTextStyle"/>
+                            android:text="Wed" />
 
                     </LinearLayout>
 
@@ -499,12 +479,12 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
-                            android:text="Thu"
-                            style="@style/ContentTextStyle" />
+                            android:text="Thu" />
 
                     </LinearLayout>
 
@@ -538,12 +518,12 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
-                            android:text="Fri"
-                            style="@style/ContentTextStyle" />
+                            android:text="Fri" />
 
                     </LinearLayout>
 
@@ -576,12 +556,12 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
-                            android:text="Sat"
-                            style="@style/ContentTextStyle" />
+                            android:text="Sat" />
 
                     </LinearLayout>
 
@@ -615,12 +595,12 @@
 
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:singleLine="true"
-                            android:text="Sun"
-                            style="@style/ContentTextStyle"/>
+                            android:text="Sun" />
 
                     </LinearLayout>
 
@@ -636,10 +616,10 @@
                     android:weightSum="3">
 
                     <RelativeLayout
-                        android:gravity="center_horizontal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:onClick="@{()->subscriptionViewModel.clickDaily()}">
 
                         <RelativeLayout
@@ -669,9 +649,9 @@
 
                     <RelativeLayout
                         android:layout_width="0dp"
-                        android:gravity="center_horizontal"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:onClick="@{()->subscriptionViewModel.clickWeekDays()}">
 
                         <RelativeLayout
@@ -700,10 +680,10 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:gravity="center_horizontal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:onClick="@{()->subscriptionViewModel.clickWeekEnds()}">
 
                         <RelativeLayout
@@ -745,23 +725,25 @@
 
 
                     <LinearLayout
-                        android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="15dp"
-                            android:src="@drawable/ic_repeat_mode"/>
+                            android:src="@drawable/ic_repeat_mode" />
+
                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                            android:layout_marginStart="5dp"
+                            style="@style/SubtTitleTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Choose deliveries"
-                            style="@style/SubtTitleTextStyle"/>
+                            android:layout_marginStart="5dp"
+                            android:text="Choose deliveries" />
 
                     </LinearLayout>
 
@@ -789,62 +771,62 @@
 
 
                 <RelativeLayout
-                    android:onClick="@{()->subscriptionViewModel.selectDate()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{()->subscriptionViewModel.selectDate()}">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/ic_calendar"/>
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:singleLine="true"
-                            android:text="Start date"
-                            style="@style/ContentTextStyle"/>
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/ic_calendar" />
+
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                style="@style/ContentTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:singleLine="true"
+                                android:text="Start date" />
                         </LinearLayout>
+
                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            style="@style/SubtTitleTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:paddingStart="20dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="2dp"
+                            android:layout_marginStart="35dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:singleLine="true"
-                            style="@style/SubtTitleTextStyle"
-                            android:text="@{subscriptionViewModel.showDate}"/>
+                            android:text="@{subscriptionViewModel.showDate}" />
 
                     </LinearLayout>
 
 
                     <ImageView
-                        android:tint="@color/medium_gray"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_l1_arrow" />
+                        android:src="@drawable/ic_l1_arrow"
+                        android:tint="@color/medium_black" />
 
 
                 </RelativeLayout>
-
 
 
             </LinearLayout>
@@ -852,18 +834,18 @@
         </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/gradient_bt_back"
-            android:onClick="@{()->subscriptionViewModel.createSubscription()}"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp">
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/gradient_bt_back"
+            android:onClick="@{()->subscriptionViewModel.createSubscription()}">
 
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_margin="5dp"
                 android:paddingStart="15dp"
                 android:paddingTop="2dp"
@@ -874,7 +856,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_25px"
                 android:textStyle="bold" />
-
 
 
         </RelativeLayout>

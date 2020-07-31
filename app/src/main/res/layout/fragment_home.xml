@@ -119,7 +119,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="2dp"
-                                android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
                                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -131,13 +130,12 @@
                                     style="@style/SubtTitleTextStyle"/>
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_gravity="bottom"
                                     android:layout_marginEnd="25dp"
-                                    android:rotation="90"
-                                    android:scaleType="center"
-                                    android:src="@drawable/ic_chevron_right_black_24dp"
+                                    android:scaleType="fitEnd"
+                                    android:src="@drawable/ic_baseline_expand_more_24"
                                     android:tint="@color/dl_primary_color" />
 
 
@@ -247,7 +245,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="@color/search_gray"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="1dp"
                 app:cardElevation="0dp">
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView

@@ -12,49 +12,46 @@
             type="com.dailylocally.ui.onboarding.OnBoardingActivityViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:weightSum="4"
         tools:ignore="MissingConstraints">
 
         <ImageView
+            android:adjustViewBounds="true"
+            android:layout_alignParentBottom="true"
             android:id="@+id/img1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_weight="3"
             android:scaleType="fitEnd"
-            android:src="@drawable/onboarding_1" />
+            android:src="@drawable/onboard_1" />
 
 
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+
 
 
         <LinearLayout
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
 
 
-            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+            <com.dailylocally.utilities.fonts.league.FooterTextView
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Order daily"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:text="get\ndaily"
+                android:textColor="@color/medium_black"
+                android:textSize="40sp"
                 android:textStyle="bold" />
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
@@ -63,23 +60,14 @@
                 android:layout_marginStart="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Groceries delivered to your doorstep"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:text="order fresh &amp; clean produce \neveryday"
+                android:textColor="@color/medium_black"
+                android:textSize="@dimen/_18px" />
 
         </LinearLayout>
 
-        </RelativeLayout>
-
-        <!--<ImageView
-                android:layout_marginTop="20dp"
-                android:id="@+id/img1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_dl" />-->
 
 
-    </LinearLayout>
+
+    </RelativeLayout>
 </layout>

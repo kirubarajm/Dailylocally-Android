@@ -42,6 +42,7 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
         super(dataManager);
         serviceable.set(true);
         categoryListLiveData = new MutableLiveData<>();
+        serviceable.set(true);
         getDataManager().saveFiletrSort(null);
         totalCart();
         fetchSubCategoryList();

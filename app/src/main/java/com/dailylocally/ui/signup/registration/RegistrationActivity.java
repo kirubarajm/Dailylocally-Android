@@ -103,9 +103,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
             //mLoginViewModelMain.fetchUserDetails();
             Intent intent = GoogleAddressActivity.newIntent(RegistrationActivity.this);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
         }else{
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
             finish();
@@ -170,9 +170,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = SignUpActivity.newIntent(RegistrationActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        finish();
         return true;
     }
 

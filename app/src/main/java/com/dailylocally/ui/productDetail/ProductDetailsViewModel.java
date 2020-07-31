@@ -79,6 +79,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
     public ProductDetailsViewModel(DataManager dataManager) {
         super(dataManager);
+        serviceable.set(true);
         totalCart();
     }
 
@@ -420,9 +421,9 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                                     discount_cost_status.set(response.getResult().get(0).getDiscountCostStatus());
 
                                     if (response.getResult().get(0).getDiscountCostStatus()) {
-                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + response.getResult().get(0).getMrpDiscountAmount());
+                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + response.getResult().get(0).getMrpDiscountAmount());
                                     } else {
-                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + response.getResult().get(0).getMrp());
+                                        mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + response.getResult().get(0).getMrp());
                                     }
 
                                     //mrp.set(String.valueOf(response.getResult().get(0).getMrp()));

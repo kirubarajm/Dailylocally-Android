@@ -15,13 +15,67 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
-        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-            android:text="4"
-            android:gravity="center"
+        <ImageView
+            android:adjustViewBounds="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/img1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/onboard_4" />
+
+
+
+
+
+        <LinearLayout
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+
+            <com.dailylocally.utilities.fonts.league.FooterTextView
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="become \ndailylocally"
+                android:textColor="@color/medium_black"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="order before 12 midnight &amp; get \ndelivered before 12 noon"
+                android:textColor="@color/medium_black"
+                android:textSize="@dimen/_18px" />
+
+
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                android:id="@+id/btn_get_started"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/onboard_stroke"
+                android:gravity="center"
+                style="@style/MediumBlackButtonTextStyle"
+                android:text="@string/get_started"/>
+        </LinearLayout>
+
+
+
 
     </RelativeLayout>
 </layout>

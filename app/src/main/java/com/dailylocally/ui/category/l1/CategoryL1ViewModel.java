@@ -35,6 +35,7 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
     public CategoryL1ViewModel(DataManager dataManager) {
         super(dataManager);
         categoryListLiveData=new MutableLiveData<>();
+        serviceable.set(true);
     }
 
 

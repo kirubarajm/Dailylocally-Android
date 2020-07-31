@@ -80,17 +80,19 @@
                     android:layout_below="@+id/img1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="your cart is empty!" />
+                    android:text="Real Food For All" />
 
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    style="@style/SubtTitleTextStyle"
+                android:textAlignment="center"
+                    android:textColor="@color/medium_black"
+                    android:textSize="@dimen/_22px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tt1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Order before 9 PM and get delivered tomorrow!" />
+                    android:text="Your cart is empty. Add local produce" />
 
 
                 <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
@@ -103,7 +105,7 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="25dp"
                     android:onClick="@{()->cartViewModel.goHome()}"
-                    android:text="Explore now" />
+                    android:text="ADD PRODUCE" />
             </LinearLayout>
         </RelativeLayout>
 

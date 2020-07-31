@@ -378,7 +378,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void fetchRepos() {
 
         String cc = getDataManager().getCartDetails();
-
+        if (cc == null) return;
 
         List<CartRequest.Orderitem> results = new ArrayList<>();
 
@@ -499,10 +499,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                     if (!cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitStatus()) {
                                         showWarningNote.set(false);
                                         bookDeliveryText.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
-                                    }else if (cartPageResponse.getResult().get(0).getIsAvaliablezone()){
+                                    } else if (cartPageResponse.getResult().get(0).getIsAvaliablezone()) {
                                         bookDeliveryText.set("Unserviceable location");
                                         showWarningNote.set(true);
-                                    }else{
+                                    } else {
                                         showWarningNote.set(true);
                                         bookDeliveryText.set("Place order");
                                     }
@@ -745,7 +745,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         saveCart(cartRequestPojo);
 
         fetchRepos();
-
 
 
     }

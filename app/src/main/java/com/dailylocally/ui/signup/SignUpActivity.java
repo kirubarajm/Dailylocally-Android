@@ -152,9 +152,9 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     @Override
     public void genderScreenFalse(boolean passwordSuccess) {
         Intent intent = RegistrationActivity.newIntent(SignUpActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        finish();
     }
 
     @Override

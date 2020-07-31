@@ -48,7 +48,7 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        finish();
+
 
     }
 
@@ -58,7 +58,7 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
      overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        finish();
+
 
     }
 

@@ -221,6 +221,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:singleLine="true"
+                        android:textStyle="normal"
                         android:text="@{productsItemViewModel.price}" />
 
 
@@ -329,7 +330,6 @@
                                     android:layout_alignParentStart="true"
                                     android:layout_centerVertical="true"
                                     android:onClick="@{()->productsItemViewModel.subClicked()}"
-
                                     android:text="@string/minus"
                                     android:textAlignment="center"
                                     android:textColor="@color/colorPrimary"

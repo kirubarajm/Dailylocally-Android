@@ -68,11 +68,11 @@ public class FavProductsItemViewModel {
             }
         showDiscount.set(result.isDiscountCostStatus());
         if (result.isDiscountCostStatus()) {
-            discount.set("Save " + result.getDiscountCost());
-            totalPrice.set("Was " + result.getMrp());
-            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +result.getMrpDiscountAmount());
+            discount.set("Save " +DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getDiscountCost());
+            totalPrice.set("Was " +DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getMrp());
+            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" +result.getMrpDiscountAmount());
         } else {
-            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + result.getMrp());
+            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getMrp());
         }
 
 

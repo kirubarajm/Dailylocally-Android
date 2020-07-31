@@ -45,6 +45,7 @@ public class CollectionDetailsViewModel extends BaseViewModel<CollectionDetailsN
         super(dataManager);
         categoryListLiveData = new MutableLiveData<>();
         sliderListLiveData = new MutableLiveData<>();
+        serviceable.set(true);
         getDataManager().saveFiletrSort(null);
         totalCart();
     }

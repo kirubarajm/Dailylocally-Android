@@ -35,6 +35,7 @@ import com.dailylocally.utilities.AppConstants;
 
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
+import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -63,36 +64,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     private PrefManager prefManager;
     private TextView[] dots;
     private int[] layouts;
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageSelected(int position) {
-            addBottomDots(position);
 
-            if (position == layouts.length - 1) {
-                //mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
-                //mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
-                //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.VISIBLE);
-                mActivityOnboardingBinding.layoutDots.setVisibility(View.INVISIBLE);
-                mActivityOnboardingBinding.btnGetStarted.setVisibility(View.VISIBLE);
-            } else {
-                //mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
-                //mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
-                //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.GONE);
-                mActivityOnboardingBinding.layoutDots.setVisibility(View.VISIBLE);
-                mActivityOnboardingBinding.btnGetStarted.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
     private MyViewPagerAdapter myViewPagerAdapter;
 
     public static Intent newIntent(Context context) {
@@ -110,9 +82,9 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         if (forceUpdateStatus) {
             Intent intent = UpdateActivity.newIntent(OnBoardingActivity.this);
             intent.putExtra("forceUpdate", forceUpdateStatus);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-           overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
             mOnBoardingActivityViewModel.checkIsUserLoggedInOrNot();
         }
@@ -122,14 +94,14 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     public void checkForUserLoginMode(boolean trueOrFalse) {
         if (trueOrFalse) {
             Intent intent = MainActivity.newIntent(OnBoardingActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_ONBOARDING_ACTV);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
         } else {
             Intent intent = SignUpActivity.newIntent(OnBoardingActivity.this);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
         }
     }
 
@@ -169,47 +141,21 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         layouts = new int[]{
                 R.layout.welcome_slide1,
                 R.layout.welcome_slide2,
-                R.layout.welcome_slide3};
+                R.layout.welcome_slide3,
+                R.layout.welcome_slide4};
 
-        addBottomDots(0);
+
         changeStatusBarColor();
 
         myViewPagerAdapter = new MyViewPagerAdapter();
         mActivityOnboardingBinding.viewPager.setAdapter(myViewPagerAdapter);
-        mActivityOnboardingBinding.viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
 
-        mActivityOnboardingBinding.btnGetStarted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                new Analytics().sendClickData(AppConstants.SCREEN_ONBOARDING, AppConstants.CLICK_GET_STARTED);
-
-                launchHomeScreen();
-            }
-        });
 
     }
 
-    private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
 
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-
-        mActivityOnboardingBinding.layoutDots.removeAllViews();
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setPadding(0, 0, 20, 0);
-            dots[i].setTextColor(colorsInactive[currentPage]);
-            mActivityOnboardingBinding.layoutDots.addView(dots[i]);
-        }
-
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
-    }
 
     private int getItem(int i) {
         return mActivityOnboardingBinding.viewPager.getCurrentItem() + i;
@@ -301,6 +247,18 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
 
+
+            if (position==3) {
+                ButtonTextView textView = view.findViewById(R.id.btn_get_started);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        launchHomeScreen();
+
+                    }
+                });
+            }
 
             return view;
         }

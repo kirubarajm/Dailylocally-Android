@@ -22,6 +22,7 @@ import androidx.databinding.ObservableField;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
@@ -46,6 +47,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
 
     public ProductCancelViewModel(DataManager dataManager) {
         super(dataManager);
+
     }
 
     public void getProductCancelDetails(String doid,String dayOrderPId) {
@@ -64,7 +66,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
                                 short_desc.set(response.getResult().get(0).getItems().get(0).getProductShortDesc());
                                 productname.set(response.getResult().get(0).getItems().get(0).getProductName());
                                 imageUrl.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductImage()));
-                                mrp.set(String.valueOf(response.getResult().get(0).getItems().get(0).getPrice()));
+                                mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" +String.valueOf(response.getResult().get(0).getItems().get(0).getPrice()));
                                     quantity.set(" "+response.getResult().get(0).getItems().get(0).getQuantityInfo() + " "+
                                             response.getResult().get(0).getItems().get(0).getPkts());
                                     //dayOrderPIds.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDayorderpid()));
