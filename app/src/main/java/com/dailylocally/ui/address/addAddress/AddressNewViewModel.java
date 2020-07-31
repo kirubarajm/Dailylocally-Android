@@ -31,7 +31,7 @@ import com.dailylocally.utilities.DailylocallyApp;
 
 public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
 
-    public final ObservableBoolean apartmentOrIndividual = new ObservableBoolean();
+    public final ObservableBoolean isApartment = new ObservableBoolean();
     public final ObservableField<String> aId = new ObservableField<>();
 
 

@@ -13,9 +13,27 @@ public class CalendarDayWiseResponse {
     @SerializedName("status")
     @Expose
     public Boolean status;
+
+    @SerializedName("empty_title")
+    @Expose
+    public String emptyTitle;
+
+     @SerializedName("empty_content")
+    @Expose
+    public String emptyContent;
+
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
+
+
+    public String getEmptyTitle() {
+        return emptyTitle;
+    }
+
+    public String getEmptyContent() {
+        return emptyContent;
+    }
 
     public Boolean getSuccess() {
         return success;

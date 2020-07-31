@@ -2,8 +2,14 @@ package com.dailylocally.ui.base;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,18 +23,25 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.dailylocally.R;
+import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CancelListener;
 import com.dailylocally.utilities.CommonUtils;
 import com.dailylocally.utilities.NetworkUtils;
+import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import dagger.android.AndroidInjection;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity implements
         BaseFragment.Callback, CancelListener {
 
+
+
     private ProgressDialog mProgressDialog;
     private T mViewDataBinding;
     private V mViewModel;
+
+
+
 
     public abstract int getBindingVariable();
 
@@ -136,6 +149,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected void onPause() {
         super.onPause();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
     }
 
     @Override
@@ -151,6 +165,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         super.onDestroy();
 
     }
+
     @Override
     public void finish() {
         super.finish();

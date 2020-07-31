@@ -44,7 +44,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@{viewModel.isHome?@color/light_color:@color/white}"
+                    android:background="@color/white"
                     android:gravity="center"
                     android:onClick="@{()->viewModel.gotoHome()}"
                     android:orientation="vertical">
@@ -67,8 +67,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:background="@{viewModel.isCart?@color/light_color:@color/white}"
-                    android:gravity="center"
+                    android:background="@color/white"                    android:gravity="center"
                     android:onClick="@{()->viewModel.gotoCart(viewModel.screenName)}"
                     android:orientation="vertical">
 
@@ -115,8 +114,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:background="@{viewModel.isOrder?@color/light_color:@color/white}"
-                    android:gravity="center"
+                    android:background="@color/white"                    android:gravity="center"
                     android:onClick="@{()->viewModel.gotoOrders()}"
                     android:orientation="vertical">
 
@@ -139,8 +137,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:background="@{viewModel.isMyAccount?@color/light_color:@color/white}"
-                    android:gravity="center"
+                    android:background="@color/white"                    android:gravity="center"
                     android:onClick="@{()->viewModel.gotoAccount()}"
                     android:orientation="vertical">
 

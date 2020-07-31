@@ -38,6 +38,11 @@ public class TransactionHistoryViewModel extends BaseViewModel<TransactionHistor
             getNavigator().goBack();
         }
     }
+  public void goHome(){
+        if (getNavigator()!=null){
+            getNavigator().goHome();
+        }
+    }
 
     public MutableLiveData<List<TransactionHistoryResponse.Result>> getTransactionHistoryItemsLiveData() {
         return transactionHistoryItemsLiveData;

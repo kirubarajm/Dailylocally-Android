@@ -102,7 +102,7 @@
                             android:layout_marginBottom="25dp"
                             android:background="@color/white"
                             style="@style/ContentTextStyle"
-                            android:text="Favourites content will given by sushant" />
+                            android:text="Pick your favourite produce" />
 
 
                     </LinearLayout>
@@ -224,10 +224,12 @@
                 android:layout_gravity="bottom"
                 android:background="@drawable/gradient_bt_back"
                 android:onClick="@{()->favViewModel.viewCart()}"
-                android:padding="2dp"
+             android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:visibility="@{favViewModel.cart?View.VISIBLE:View.GONE}">
 
                 <LinearLayout
+                    android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -264,6 +266,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:textSize="@dimen/_15px"
+                            android:textColor="@color/white"
                             android:text="@{favViewModel.cartItems}"/>
 
 
@@ -281,8 +284,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="@{favViewModel.cartPrice}"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_22px"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/_22px"/>
                         </LinearLayout>
                     </LinearLayout>
 

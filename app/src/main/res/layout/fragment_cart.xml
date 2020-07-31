@@ -197,7 +197,7 @@
                                 android:tint="@color/dark_gray" />
 
 
-                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -458,7 +458,7 @@
 
                         </LinearLayout>
 
-                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"

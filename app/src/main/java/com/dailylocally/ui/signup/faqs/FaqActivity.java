@@ -45,6 +45,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     Analytics analytics;
     String pageName= AppConstants.SCREEN_FAQS;
 
+
     public static Intent newIntent(Context context) {
         return new Intent(context, FaqActivity.class);
     }

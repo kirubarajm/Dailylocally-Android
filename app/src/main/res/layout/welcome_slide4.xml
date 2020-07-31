@@ -36,7 +36,7 @@
 
         <LinearLayout
             android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="100dp"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,8 +53,8 @@
                 android:textSize="40sp"
                 android:textStyle="bold" />
 
-            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                android:layout_marginTop="5dp"
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,19 +63,23 @@
                 android:textSize="@dimen/_18px" />
 
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                android:id="@+id/btn_get_started"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/onboard_stroke"
-                android:gravity="center"
-                style="@style/MediumBlackButtonTextStyle"
-                android:text="@string/get_started"/>
+
         </LinearLayout>
 
 
-
+        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+            android:id="@+id/btn_get_started"
+            style="@style/MediumBlackButtonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="118dp"
+            android:background="@drawable/onboard_stroke"
+            android:gravity="center"
+            android:text="@string/get_started" />
 
     </RelativeLayout>
 </layout>

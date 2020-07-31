@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,9 +12,9 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/light_gray"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/header"
@@ -48,13 +47,13 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/add_new_address"
-                    style="@style/HeaderTitleTextStyle"/>
+                    android:text="@string/add_new_address" />
 
 
             </RelativeLayout>
@@ -75,10 +74,10 @@
                 android:tag="tag_map_fragment" />
 
             <FrameLayout
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/centerMarker"
@@ -92,120 +91,129 @@
         </FrameLayout>
 
         <androidx.cardview.widget.CardView
-            app:cardCornerRadius="18dp"
-            app:cardElevation="3dp"
             android:id="@+id/card_1"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="3dp">
 
-            <ImageView
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="5dp"
-                android:id="@+id/img_location"
-                android:src="@drawable/ic_location_on_black_24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <RelativeLayout
-                android:padding="30dp"
-                android:gravity="center|bottom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp">
+
+                <ImageView
+                    android:layout_marginStart="10dp"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/img_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location_on_black_24dp" />
 
                 <LinearLayout
+                    android:layout_toEndOf="@+id/img_location"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
                     android:id="@+id/linear_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <RelativeLayout
-                            android:layout_above="@+id/txt_full_address"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/txt_full_address">
 
                             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                android:text="@string/delivery_address"
-                                style="@style/ContentTextStyle"
-                                android:layout_marginStart="5dp"
-                                android:layout_toEndOf="@+id/img_location"
-                                android:gravity="center_horizontal"
                                 android:id="@+id/txt_addressTitle"
+                                style="@style/ContentTextStyle"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="@string/delivery_address" />
 
                         </RelativeLayout>
 
                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                            android:text="@{saveAddressViewModel.address}"
-                            style="@style/SubtTitleTextStyle"
-                            android:layout_marginTop="5dp"
-                            android:layout_above="@+id/txt_addressType1"
                             android:id="@+id/txt_full_address"
+                            style="@style/SubtTitleTextStyle"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/txt_addressType1"
+                            android:layout_marginTop="5dp"
+                            android:text="@{saveAddressViewModel.address}" />
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                            android:text="@{saveAddressViewModel.landmark}"
-                           style="@style/ContentTextStyle"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center_horizontal"
-                            android:layout_above="@+id/txt_addressType"
                             android:id="@+id/txt_addressType1"
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                            android:text="@{saveAddressViewModel.addressType}"
-                        style="@style/ContentTextStyle"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/txt_addressType"
                             android:layout_marginTop="10dp"
                             android:gravity="center_horizontal"
-                            android:layout_centerHorizontal="true"
+                            android:text="@{saveAddressViewModel.landmark}" />
+
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:id="@+id/txt_addressType"
+                            style="@style/ContentTextStyle"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_horizontal"
+                            android:text="@{saveAddressViewModel.addressType}" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_below="@+id/linear_1"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/rel_update"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:layout_below="@+id/linear_1"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        style="@style/MediumBlackButtonTextStyle"
-                        android:layout_marginRight="5dp"
+                    <LinearLayout
                         android:gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:onClick="@{()->saveAddressViewModel.editClick()}"
-                        android:text="Edit Location" />
-
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        style="@style/MediumGreenButtonTextStyle"
-                        android:layout_weight="1"
-                        android:onClick="@{()->saveAddressViewModel.saveAddressClick()}"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center_horizontal"
-                        android:text="Confirm Location" />
+                        android:layout_weight="1">
 
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            style="@style/MediumBlackButtonTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{()->saveAddressViewModel.editClick()}"
+                            android:text="Edit Location" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            style="@style/MediumGreenButtonTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{()->saveAddressViewModel.saveAddressClick()}"
+                            android:text="Confirm Location" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </RelativeLayout>

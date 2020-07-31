@@ -58,7 +58,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
-                android:background="@drawable/curve_stroke"
                 android:onClick="@{()->internetErrorViewModel.retry()}"
                 android:text="@string/retry" />
 

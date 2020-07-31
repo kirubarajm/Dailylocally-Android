@@ -1270,7 +1270,7 @@ public class CaldroidFragment extends DialogFragment {
 
 
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(),
-                "Quicksand-Medium.ttf");
+                "Quicksand-Regular.ttf");
         monthTitleTextView.setTypeface(face);
 
 
@@ -1446,7 +1446,7 @@ public class CaldroidFragment extends DialogFragment {
 
         for (int i = 0; i < 7; i++) {
             Date date = CalendarHelper.convertDateTimeToDate(nextDay);
-            list.add(fmt.format(date).toUpperCase());
+            list.add(fmt.format(date).toUpperCase().substring(0,1));
             nextDay = nextDay.plusDays(1);
         }
 

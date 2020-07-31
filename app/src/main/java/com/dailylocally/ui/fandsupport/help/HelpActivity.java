@@ -69,7 +69,7 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
                 Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-          overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 InternetErrorFragment fragment = new InternetErrorFragment();
                 transaction.replace(R.id.content_main, fragment);
@@ -81,9 +81,9 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     public static Intent newIntent(Context context, String page, Integer type, String orderid) {
         Intent intent = new Intent(context, HelpActivity.class);
-        intent.putExtra(AppConstants.PAGE,page);
-        intent.putExtra("type",type);
-        intent.putExtra("orderid",orderid);
+        intent.putExtra(AppConstants.PAGE, page);
+        intent.putExtra("type", type);
+        intent.putExtra("orderid", orderid);
         return intent;
     }
 
@@ -312,9 +312,9 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
-     //   mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
+        //   mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
 
-        mHelpViewModel.mapTicketidToOrderid(issues.getId(),issues.getTid(),issues.getTagName(),issues.getDepartmentName(),issues.getNote());
+        mHelpViewModel.mapTicketidToOrderid(issues.getId(), issues.getTid(), issues.getTagName(), issues.getDepartmentName(), issues.getNote());
 
 
     }

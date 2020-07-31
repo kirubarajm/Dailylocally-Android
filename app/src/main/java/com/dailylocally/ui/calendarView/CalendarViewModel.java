@@ -28,6 +28,8 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
     public final ObservableField<String> rateDeliveryButton = new ObservableField<>();
     public final ObservableField<String> dateDay = new ObservableField<>();
     public final ObservableField<String> doid = new ObservableField<>();
+    public final ObservableField<String> emptyTitle = new ObservableField<>();
+    public final ObservableField<String> emptyContent = new ObservableField<>();
     public final ObservableBoolean cart = new ObservableBoolean();
     public final ObservableBoolean isRateBtn = new ObservableBoolean();
     public final ObservableBoolean noDataFound = new ObservableBoolean();
@@ -112,12 +114,19 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
                             } else {
                                 noDataFound.set(true);
+                                emptyTitle.set(response.getEmptyTitle());
+                                emptyContent.set(response.getEmptyContent());
+
                             }
                         } else {
                             if (getNavigator() != null) {
                                 getNavigator().failure("");
                             }
                             noDataFound.set(true);
+
+                            emptyTitle.set(response.getEmptyTitle());
+                            emptyContent.set(response.getEmptyContent());
+
                         }
                     }
                     setIsLoading(false);

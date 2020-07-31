@@ -283,11 +283,11 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
 
             if (count == 1) {
                 cartItems.set(count + " Item");
-                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" +String.valueOf(price));
                 items.set("Item");
             } else {
                 cartItems.set(count + " Items");
-                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " +String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" +String.valueOf(price));
                 items.set("Items");
             }
         }

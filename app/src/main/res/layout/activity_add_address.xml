@@ -81,18 +81,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
-
                 <ImageView
                     android:id="@+id/centerMarker"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/back"
-                    android:src="@drawable/map_marker" />
+                    android:src="@drawable/ic_map_marker" />
 
             </FrameLayout>
         </FrameLayout>
-
 
         <ScrollView
             android:id="@+id/address"

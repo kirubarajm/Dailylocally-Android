@@ -153,6 +153,7 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     }
 
     private void unregisterWifiReceiver() {
+        if (mWifiReceiver!=null)
         unregisterReceiver(mWifiReceiver);
     }
 

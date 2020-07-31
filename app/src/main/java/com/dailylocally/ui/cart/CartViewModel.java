@@ -305,10 +305,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 Gson gson = new Gson();
                                 OrderCreateResponse orderCreateResponse = gson.fromJson(response.toString(), OrderCreateResponse.class);
 
-
-                                if (getNavigator() != null)
-                                    getNavigator().orderGenerated(orderCreateResponse.getOrderid(), orderCreateResponse.getRazerCustomerid(), orderCreateResponse.getPrice());
-
+                                if (orderCreateResponse.getStatus()) {
+                                    if (getNavigator() != null)
+                                        getNavigator().orderGenerated(orderCreateResponse.getOrderid(), orderCreateResponse.getRazerCustomerid(), orderCreateResponse.getPrice());
+                                } else {
+                                    Toast.makeText(DailylocallyApp.getInstance(), orderCreateResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
 
                             }
                         }
@@ -565,40 +567,42 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                                 }
+                                if (cartPageResponse.getResult().get(0).getSubscriptionItem() != null) {
+
+                                    if (cartPageResponse.getResult().get(0).getSubscriptionItem().size() > 0) {
+
+                                        showSubscription.set(true);
+
+                                        //  subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
+                                        emptyCart.set(false);
+
+                                        cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());
 
 
-                                if (cartPageResponse.getResult().get(0).getSubscriptionItem().size() > 0) {
-
-                                    showSubscription.set(true);
-
-                                    //  subscribeLiveData.setValue(cartPageResponse.getResult().get(0).getSubscriptionItem());
-                                    emptyCart.set(false);
-
-                                    cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartdetails());
+                                        totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
 
 
-                                    totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
+                                        total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
+
+                                        grand_total.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(totalAmount));
+
+                                        grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotaltitle());
 
 
-                                    total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
-
-                                    grand_total.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(totalAmount));
-
-                                    grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotaltitle());
+                                        gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                                        delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
-                                    gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                    delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                        if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
+                                            lowCostStatus.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitStatus());
+                                            lowCost.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitMessage());
+                                            lowCostShort.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
+                                        }
 
-
-                                    if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
-                                        lowCostStatus.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitStatus());
-                                        lowCost.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitMessage());
-                                        lowCostShort.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
-                                    }
-
+                                    } else showSubscription.set(false);
+                                } else {
+                                    showSubscription.set(false);
                                 }
-
 
                                 setAddressTitle();
 

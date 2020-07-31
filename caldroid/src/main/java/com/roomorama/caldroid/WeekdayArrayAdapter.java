@@ -45,7 +45,7 @@ public class WeekdayArrayAdapter extends ArrayAdapter<String> {
         @SuppressLint("ViewHolder") TextView textView = (TextView) localInflater.inflate(R.layout.weekday_textview, null);
 
         Typeface face = Typeface.createFromAsset(getContext().getAssets(),
-                "Quicksand-Medium.ttf");
+                "Quicksand-Regular.ttf");
         textView.setTypeface(face);
         // Set content
         String item = getItem(position);

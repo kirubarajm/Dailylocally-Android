@@ -207,7 +207,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginStart="110dp"
+                                    android:layout_marginStart="117dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginEnd="10dp"
                                     android:singleLine="true"
@@ -215,77 +215,85 @@
 
 
                                 <RelativeLayout
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/addLay"
                                     android:layout_width="80dp"
                                     android:layout_height="30dp"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
-                                    android:background="@{subscriptionViewModel.isAddClicked?  @drawable/curve_stroke_rounded:@drawable/btn_back_black}"
+                                    android:layout_centerVertical="true"
                                     android:visibility="@{subscriptionViewModel.serviceable?View.VISIBLE:View.GONE}">
 
-                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                        android:id="@+id/add"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:gravity="center"
-                                        android:onClick="@{()->subscriptionViewModel.enableAdd()}"
-                                        android:text="@string/add"
-                                        android:textAlignment="center"
-                                        android:textAllCaps="true"
-                                        android:textColor="@color/medium_black"
-                                        android:textSize="@dimen/_15px"
-                                        android:textStyle="bold"
-                                        android:visibility="@{subscriptionViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
-
                                     <RelativeLayout
-                                        android:id="@+id/num_picker"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerHorizontal="true"
-                                        android:gravity="center_vertical"
-                                        android:visibility="@{subscriptionViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+                                        android:layout_height="match_parent"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:background="@{subscriptionViewModel.isAddClicked?  @drawable/curve_stroke_rounded:@drawable/btn_back_black}"
+                                        android:visibility="@{subscriptionViewModel.serviceable?View.VISIBLE:View.GONE}">
 
-                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                            android:id="@+id/minus"
-                                            android:layout_width="20dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignParentStart="true"
-                                            android:layout_centerVertical="true"
-                                            android:onClick="@{()->subscriptionViewModel.subClicked()}"
-                                            android:text="@string/minus"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="18sp" />
-
-
-                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                            android:id="@+id/quan"
+                                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                            android:id="@+id/add"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerInParent="true"
-
-                                            android:text="@{subscriptionViewModel.sQuantity}"
+                                            android:gravity="center"
+                                            android:onClick="@{()->subscriptionViewModel.enableAdd()}"
+                                            android:text="@string/add"
                                             android:textAlignment="center"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="@dimen/_15px" />
+                                            android:textAllCaps="true"
+                                            android:textColor="@color/medium_black"
+                                            android:textSize="@dimen/_15px"
+                                            android:visibility="@{subscriptionViewModel.isAddClicked?View.GONE:View.VISIBLE}" />
+
+                                        <RelativeLayout
+                                            android:id="@+id/num_picker"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:gravity="center_vertical"
+                                            android:visibility="@{subscriptionViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+
+                                            <TextView
+                                                android:id="@+id/minus"
+                                                android:layout_width="20dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentStart="true"
+                                                android:layout_centerVertical="true"
+                                                android:onClick="@{()->subscriptionViewModel.subClicked()}"
+                                                android:text="@string/minus"
+                                                android:textAlignment="center"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textSize="18sp" />
 
 
-                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                            android:id="@+id/plus"
-                                            android:layout_width="20dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignParentEnd="true"
-                                            android:layout_centerVertical="true"
-                                            android:onClick="@{()->subscriptionViewModel.addClicked()}"
-                                            android:text="@string/plus"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="18sp" />
+                                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                android:id="@+id/quan"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerInParent="true"
+                                                android:text="@{subscriptionViewModel.sQuantity}"
+                                                android:textAlignment="center"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textSize="@dimen/_15px" />
+
+
+                                            <TextView
+                                                android:id="@+id/plus"
+                                                android:layout_width="20dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_centerVertical="true"
+                                                android:onClick="@{()->subscriptionViewModel.addClicked()}"
+                                                android:text="@string/plus"
+                                                android:textAlignment="center"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textSize="16sp" />
+
+                                        </RelativeLayout>
+
 
                                     </RelativeLayout>
-
-
                                 </RelativeLayout>
 
                             </RelativeLayout>
@@ -842,7 +850,7 @@
             android:onClick="@{()->subscriptionViewModel.createSubscription()}">
 
 
-            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -852,6 +860,7 @@
                 android:paddingEnd="15dp"
                 android:paddingBottom="2dp"
                 android:singleLine="true"
+                android:textAllCaps="true"
                 android:text="Create subscription"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_25px"

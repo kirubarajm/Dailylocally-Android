@@ -628,7 +628,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onResume() {
         super.onResume();
-
+registerWifiReceiver();
        /* appUpdateManager.registerListener(this);
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(this);
 */
@@ -666,7 +666,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onPause() {
         super.onPause();
-
+unregisterWifiReceiver();
         cart = false;
         pageid = "";
 

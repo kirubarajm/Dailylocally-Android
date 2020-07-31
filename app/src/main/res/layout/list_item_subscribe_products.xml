@@ -269,8 +269,7 @@
                         android:singleLine="true"
                         android:text="@{subscribeItemViewModel.sprice}"
                         android:textColor="@color/medium_black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
 
                     <LinearLayout

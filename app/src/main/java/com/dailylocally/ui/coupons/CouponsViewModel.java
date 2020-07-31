@@ -5,15 +5,16 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
-import com.dailylocally.ui.search.QuickSearchResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+
 import java.util.List;
 
 
@@ -31,8 +32,8 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
         couponsItemsLiveData = new MutableLiveData<>();
     }
 
-    public void goBack(){
-        if (getNavigator()!=null){
+    public void goBack() {
+        if (getNavigator() != null) {
             getNavigator().goBack();
         }
     }
@@ -52,7 +53,7 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
         }
     }
 
-    public void getCouponsList(){
+    public void getCouponsList() {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
@@ -62,13 +63,26 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
                     @Override
                     public void onResponse(CouponsResponse response) {
                         try {
-                            if (response!=null){
-                                if (response.getStatus()){
-                                    couponsItemsLiveData.setValue(response.getResult());
+                            if (response != null) {
+                                if (response.getStatus()) {
+
+                                    if (response.getResult() != null) {
+                                        if (response.getResult().size() == 0)
+                                            flagNoDataFound.set(true);
+                                        couponsItemsLiveData.setValue(response.getResult());
+                                        flagNoDataFound.set(false);
+                                    } else {
+                                        flagNoDataFound.set(true);
+                                    }
+
+
+                                } else {
                                     flagNoDataFound.set(true);
                                 }
+                            } else {
+                                flagNoDataFound.set(true);
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         setIsLoading(false);
@@ -83,36 +97,36 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
-    public void validateCouponClick(){
-        if (getNavigator()!=null){
+    public void validateCouponClick() {
+        if (getNavigator() != null) {
             getNavigator().validateCouponClick();
         }
     }
 
-    public void validateCoupon(String couponName){
+    public void validateCoupon(String couponName) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_VALIDATE_COUPONS, CouponValidateResponse.class,
-                new CouponsRequest(couponName,userId),
+                new CouponsRequest(couponName, userId),
                 new Response.Listener<CouponValidateResponse>() {
                     @Override
                     public void onResponse(CouponValidateResponse response) {
                         try {
-                            if (response!=null){
-                                if (response.getStatus()){
+                            if (response != null) {
+                                if (response.getStatus()) {
                                     getDataManager().setCouponCode(response.getResult().get(0).getCouponName());
                                     getDataManager().setCouponId(response.getResult().get(0).getCid());
-                                    if (getNavigator()!=null){
+                                    if (getNavigator() != null) {
                                         getNavigator().validateCouponSuccess(response.getMessage());
                                     }
-                                }else {
-                                    if (getNavigator()!=null){
+                                } else {
+                                    if (getNavigator() != null) {
                                         getNavigator().validateCouponFailure(response.getMessage());
                                     }
                                 }
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         setIsLoading(false);
@@ -121,7 +135,7 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(true);
-                if (getNavigator()!=null){
+                if (getNavigator() != null) {
                     getNavigator().validateCouponFailure("Failed");
                 }
             }
@@ -130,14 +144,14 @@ public class CouponsViewModel extends BaseViewModel<CouponsNavigator> {
         DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
-    public void referralClick(){
-        if (getNavigator()!=null){
+    public void referralClick() {
+        if (getNavigator() != null) {
             getNavigator().refer();
         }
     }
 
-    public void goToHome(){
-        if (getNavigator()!=null){
+    public void goToHome() {
+        if (getNavigator() != null) {
             getNavigator().goBack();
         }
     }

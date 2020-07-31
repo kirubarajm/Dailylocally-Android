@@ -7,6 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,10 +21,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
 import com.dailylocally.BR;
@@ -38,6 +49,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -121,13 +134,13 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     @Override
     public void apartmentClick() {
-        mAddAddressViewModel.apartmentOrIndividual.set(true);
+        mAddAddressViewModel.isApartment.set(true);
         mActivityAddressNewBinding.edtApartmentName.requestFocus();
     }
 
     @Override
     public void individualClick() {
-        mAddAddressViewModel.apartmentOrIndividual.set(false);
+        mAddAddressViewModel.isApartment.set(false);
         mActivityAddressNewBinding.edtHousePlotNo.requestFocus();
     }
 
@@ -145,7 +158,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         String address = mActivityAddressNewBinding.edtAddress.getText().toString();
         String landmark = mActivityAddressNewBinding.edtLandmark.getText().toString();
         String apartmentOrIndividual="";
-        if (mActivityAddressNewBinding.radio1.isChecked()){
+        if (mAddAddressViewModel.isApartment.get()){
             apartmentOrIndividual = "1";
         }else {
             apartmentOrIndividual = "2";
@@ -176,14 +189,12 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         try {
             if (result!=null){
                 if (result.getAddressType()==1){
-                    mActivityAddressNewBinding.radio1.setChecked(true);
-                    mAddAddressViewModel.apartmentOrIndividual.set(true);
+                    mAddAddressViewModel.isApartment.set(true);
                     mActivityAddressNewBinding.edtApartmentName.setText(result.getApartmentName());
                     mActivityAddressNewBinding.edtTowerBlock.setText(result.getBlockName());
                     mActivityAddressNewBinding.edtFlatHouseNo.setText(result.getFlatHouseNo());
                 }else {
-                    mAddAddressViewModel.apartmentOrIndividual.set(false);
-                    mActivityAddressNewBinding.radio2.setChecked(true);
+                    mAddAddressViewModel.isApartment.set(false);
                     mActivityAddressNewBinding.edtHousePlotNo.setText(result.getPlotHouseNo());
                     mActivityAddressNewBinding.edtFloor.setText(result.getFloor());
                 }
@@ -240,6 +251,13 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
                   //  markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+                    Bitmap bitmap = getBitmapFromVectorDrawable(AddressNewActivity.this,R.drawable.ic_map_marker);
+                    BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
+                    markerOptions.icon(descriptor);
+
+
+
                     map = googleMap;
                     map.clear();
                     map.getUiSettings().setZoomControlsEnabled(true);
@@ -256,11 +274,23 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         });
         // dialog.show();
 
-        mAddAddressViewModel.apartmentOrIndividual.set(true);
-        mActivityAddressNewBinding.radio1.setChecked(true);
+        mAddAddressViewModel.isApartment.set(true);
         mActivityAddressNewBinding.edtApartmentName.setFocusable(true);
     }
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable =  AppCompatResources.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
 
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
     public void turnOnGps() {
 
         new GpsUtils(this, AppConstants.GPS_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
@@ -460,7 +490,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     public boolean validation(){
 
-        if (mActivityAddressNewBinding.radio1.isChecked()){
+        if (mAddAddressViewModel.isApartment.get()){
             if (mActivityAddressNewBinding.edtApartmentName.getText().toString().trim().isEmpty()){
                 mActivityAddressNewBinding.edtApartmentName.setError("");
                 return false;
@@ -473,7 +503,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             }
         }
 
-        if (mActivityAddressNewBinding.radio2.isChecked()){
+        if (!mAddAddressViewModel.isApartment.get()){
             if (mActivityAddressNewBinding.edtHousePlotNo.getText().toString().trim().isEmpty()){
                 mActivityAddressNewBinding.edtHousePlotNo.setError("");
                 return false;

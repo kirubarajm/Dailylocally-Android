@@ -6,7 +6,7 @@
     <color name="caldroid_transparent">#00000000</color>
     <!-- For settings framework -->
     <color name="caldroid_lighter_gray">#ddd</color>
-    <color name="caldroid_gray">#CCC</color>
+    <color name="caldroid_gray">#F1F1F1</color>
     <color name="caldroid_darker_gray">#aaa</color>
     <color name="caldroid_middle_gray">#888</color>
     <!-- A light Holo shade of blue -->

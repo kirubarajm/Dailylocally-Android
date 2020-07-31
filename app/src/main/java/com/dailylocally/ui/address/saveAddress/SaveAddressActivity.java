@@ -6,20 +6,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySaveAddressBinding;
+import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -30,6 +37,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -184,6 +193,11 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
                 LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
+
+
+                Bitmap bitmap = getBitmapFromVectorDrawable(SaveAddressActivity.this,R.drawable.ic_map_marker);
+                BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
+                markerOptions.icon(descriptor);
               //  markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 map = googleMap;
                 map.clear();
@@ -194,7 +208,20 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
             }
         });
     }
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable =  AppCompatResources.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
 
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
     @Override
     protected void onResume() {
         super.onResume();

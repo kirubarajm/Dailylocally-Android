@@ -34,94 +34,34 @@ public class TransactionViewResponse {
 
         @SerializedName("orderid")
         @Expose
-        public Integer orderid;
+        public String orderid;
         @SerializedName("tsid")
         @Expose
         public String tsid;
         @SerializedName("price")
         @Expose
-        public Integer price;
+        public String price;
         @SerializedName("gst")
         @Expose
-        public Integer gst;
+        public String gst;
         @SerializedName("payment_status")
         @Expose
         public Integer paymentStatus;
-        @SerializedName("userid")
-        @Expose
-        public Integer userid;
-        @SerializedName("aid")
-        @Expose
-        public Integer aid;
-        @SerializedName("cus_lat")
-        @Expose
-        public Double cusLat;
-        @SerializedName("cus_lon")
-        @Expose
-        public String cusLon;
-        @SerializedName("cus_pincode")
-        @Expose
-        public String cusPincode;
-        @SerializedName("landmark")
-        @Expose
-        public String landmark;
-        @SerializedName("app_type")
-        @Expose
-        public String appType;
+
         @SerializedName("payment_type")
         @Expose
-        public Integer paymentType;
+        public String paymentType;
         @SerializedName("transaction_status")
         @Expose
         public String transactionStatus;
         @SerializedName("transaction_time")
         @Expose
         public String transactionTime;
-        @SerializedName("zoneid")
-        @Expose
-        public Integer zoneid;
-        @SerializedName("created_at")
-        @Expose
-        public String createdAt;
-        @SerializedName("updated_at")
-        @Expose
-        public String updatedAt;
-        @SerializedName("apartment_name")
-        @Expose
-        public String apartmentName;
-        @SerializedName("google_address")
-        @Expose
-        public String googleAddress;
-        @SerializedName("complete_address")
-        @Expose
-        public String completeAddress;
-        @SerializedName("flat_house_no")
-        @Expose
-        public String flatHouseNo;
-        @SerializedName("plot_house_no")
-        @Expose
-        public String plotHouseNo;
-        @SerializedName("floor")
-        @Expose
-        public String floor;
-        @SerializedName("block_name")
-        @Expose
-        public String blockName;
-        @SerializedName("city")
-        @Expose
-        public String city;
-        @SerializedName("address_type")
-        @Expose
-        public String addressType;
-        @SerializedName("delivery_charge")
-        @Expose
-        public String deliveryCharge;
-        @SerializedName("coupon")
-        @Expose
-        public Object coupon;
+
+
         @SerializedName("discount_amount")
         @Expose
-        public Integer discountAmount;
+        public String discountAmount;
         @SerializedName("itemscount")
         @Expose
         public Integer itemscount;
@@ -132,12 +72,7 @@ public class TransactionViewResponse {
         @Expose
         public List<Cartdetail> cartdetails = null;
 
-
-        public Integer getItemscount() {
-            return itemscount;
-        }
-
-        public Integer getOrderid() {
+        public String getOrderid() {
             return orderid;
         }
 
@@ -145,11 +80,11 @@ public class TransactionViewResponse {
             return tsid;
         }
 
-        public Integer getPrice() {
+        public String getPrice() {
             return price;
         }
 
-        public Integer getGst() {
+        public String getGst() {
             return gst;
         }
 
@@ -157,36 +92,16 @@ public class TransactionViewResponse {
             return paymentStatus;
         }
 
-        public Integer getUserid() {
-            return userid;
-        }
-
-        public Integer getAid() {
-            return aid;
-        }
-
-        public Double getCusLat() {
-            return cusLat;
-        }
-
-        public String getCusLon() {
-            return cusLon;
-        }
-
-        public String getCusPincode() {
-            return cusPincode;
-        }
-
-        public String getLandmark() {
-            return landmark;
-        }
-
-        public String getAppType() {
-            return appType;
-        }
-
-        public Integer getPaymentType() {
+        public String getPaymentType() {
             return paymentType;
+        }
+
+        public String getDiscountAmount() {
+            return discountAmount;
+        }
+
+        public Integer getItemscount() {
+            return itemscount;
         }
 
         public String getTransactionStatus() {
@@ -197,65 +112,6 @@ public class TransactionViewResponse {
             return transactionTime;
         }
 
-        public Integer getZoneid() {
-            return zoneid;
-        }
-
-        public String getCreatedAt() {
-            return createdAt;
-        }
-
-        public String getUpdatedAt() {
-            return updatedAt;
-        }
-
-        public String getApartmentName() {
-            return apartmentName;
-        }
-
-        public String getGoogleAddress() {
-            return googleAddress;
-        }
-
-        public String getCompleteAddress() {
-            return completeAddress;
-        }
-
-        public String getFlatHouseNo() {
-            return flatHouseNo;
-        }
-
-        public String getPlotHouseNo() {
-            return plotHouseNo;
-        }
-
-        public String getFloor() {
-            return floor;
-        }
-
-        public String getBlockName() {
-            return blockName;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public String getAddressType() {
-            return addressType;
-        }
-
-        public String getDeliveryCharge() {
-            return deliveryCharge;
-        }
-
-        public Object getCoupon() {
-            return coupon;
-        }
-
-        public Integer getDiscountAmount() {
-            return discountAmount;
-        }
 
         public List<Item> getItems() {
             return items;
@@ -272,22 +128,20 @@ public class TransactionViewResponse {
             public String unit;
             @SerializedName("vpid")
             @Expose
-            public Integer vpid;
+            public String vpid;
             @SerializedName("price")
             @Expose
-            public Integer price;
+            public String price;
             @SerializedName("weight")
             @Expose
-            public Integer weight;
+            public String weight;
             @SerializedName("quantity")
             @Expose
             public Integer quantity;
             @SerializedName("brandname")
             @Expose
             public String brandname;
-            @SerializedName("scm_status")
-            @Expose
-            public Integer scmStatus;
+
             @SerializedName("product_date")
             @Expose
             public String productDate;
@@ -312,17 +166,6 @@ public class TransactionViewResponse {
                 return unit;
             }
 
-            public Integer getVpid() {
-                return vpid;
-            }
-
-            public Integer getPrice() {
-                return price;
-            }
-
-            public Integer getWeight() {
-                return weight;
-            }
 
             public Integer getQuantity() {
                 return quantity;
@@ -330,10 +173,6 @@ public class TransactionViewResponse {
 
             public String getBrandname() {
                 return brandname;
-            }
-
-            public Integer getScmStatus() {
-                return scmStatus;
             }
 
             public String getProductDate() {
@@ -358,6 +197,18 @@ public class TransactionViewResponse {
 
             public Integer getCancelAvailable() {
                 return cancelAvailable;
+            }
+
+            public String getVpid() {
+                return vpid;
+            }
+
+            public String getPrice() {
+                return price;
+            }
+
+            public String getWeight() {
+                return weight;
             }
         }
 

@@ -374,7 +374,7 @@
     <string name="no_replies_found">No replies found</string>
     <string name="no_chat_found">No chat found</string>
     <string name="type_here">Enter Reply</string>
-    <string name="send_referrals">Refer and earn</string>
+    <string name="send_referrals">Refer &amp; earn</string>
 
     <string name="order_details">Order Details</string>
     <string name="my_account">My Account</string>
@@ -768,7 +768,7 @@
     <string name="place_your_order_before_11pm_and_get_delivered">Place your order before 11pm and get delivered</string>
     <string name="no_orders_found">No orders found!</string>
     <string name="pick_your_order_before_11pm_and_get_delivered">Pick your order before 11pm and get delivered</string>
-    <string name="no_transaction_found">No transaction found!</string>
+    <string name="no_transaction_found">No transactions found!</string>
 
 
 </resources>

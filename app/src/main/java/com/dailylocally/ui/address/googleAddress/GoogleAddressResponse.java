@@ -16,7 +16,7 @@ public class GoogleAddressResponse {
     public Boolean status;
     @SerializedName("aid")
     @Expose
-    public Integer aid;
+    public String aid;
 
 
     public Boolean getSuccess() {
@@ -31,7 +31,7 @@ public class GoogleAddressResponse {
         return status;
     }
 
-    public Integer getAid() {
+    public String getAid() {
         return aid;
     }
 }

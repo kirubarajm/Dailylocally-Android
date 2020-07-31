@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"/>
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:text="@string/no_orders_found"
+                    android:text="@{calendarViewModel.emptyTitle}"
                     android:layout_marginTop="20dp"
                   style="@style/SubtTitleTextStyle"
                     android:id="@+id/txt_no_order_found"
@@ -121,16 +121,19 @@
                     android:layout_height="wrap_content"/>
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:text="@string/place_your_order_before_11pm_and_get_delivered"
-                    android:layout_marginTop="20dp"
-                   style="@style/SubtTitleTextStyle"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@{calendarViewModel.emptyContent}"                    android:layout_marginTop="20dp"
+                  android:textSize="@dimen/_22px"
+                    android:textColor="@color/medium_black"
+                    android:textAlignment="center"
                     android:id="@+id/txt_no_order_content"
                     android:layout_below="@+id/txt_no_order_found"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+             <!--   <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="50dp"
                     android:layout_below="@+id/txt_no_order_content"
@@ -139,7 +142,7 @@
                 style="@style/MediumBlackButtonTextStyle"
                     android:text="@string/go_back"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"/>-->
 
             </RelativeLayout>
 

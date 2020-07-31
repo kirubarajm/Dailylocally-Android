@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,9 +13,9 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/header"
@@ -49,160 +48,166 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@string/product_details"
-                    style="@style/HeaderTitleTextStyle"/>
+                    android:text="Order details" />
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
         <ScrollView
-            android:layout_below="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:padding="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/img_"
-                android:adjustViewBounds="true"
-                android:layout_centerHorizontal="true"
-                imageUrl="@{productCancelViewModel.imageUrl}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                android:layout_below="@+id/img_"
-                android:layout_marginTop="40dp"
-                android:id="@+id/txt_product"
-                style="@style/SubtTitleTextStyle"
-                android:text="@{productCancelViewModel.productname}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_below="@+id/txt_product"
-                android:layout_marginTop="5dp"
-                style="@style/ContentTextStyle"
-                android:id="@+id/txt_weight"
-                android:text="@{productCancelViewModel.unit}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                android:layout_below="@+id/txt_product"
-                android:layout_marginTop="5dp"
-                style="@style/ContentTextStyle"
-                android:layout_toEndOf="@+id/txt_weight"
-                android:id="@+id/txt_hypen"
-                android:text=" | "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_below="@+id/txt_product"
-                android:layout_marginTop="5dp"
-                style="@style/SubtTitleTextStyle"
-                android:layout_toEndOf="@+id/txt_hypen"
-                android:id="@+id/txt_pckts"
-                android:text="@{productCancelViewModel.quantity}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_below="@+id/txt_weight"
-                android:layout_marginTop="10dp"
-                style="@style/SubtTitleTextStyle"
-                android:id="@+id/txt_description"
-                android:text="@{productCancelViewModel.short_desc}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:text="@string/delivery_date"
-                android:layout_marginTop="30dp"
-                style="@style/SubtTitleTextStyle"
-                android:id="@+id/txt_delivery_date"
-                android:layout_below="@+id/txt_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                android:text="@{productCancelViewModel.productDate}"
-                android:layout_marginTop="5dp"
-                style="@style/SubtTitleTextStyle"
-                android:id="@+id/txt_delivery_date_value"
-                android:layout_below="@+id/txt_delivery_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header">
 
             <RelativeLayout
-                android:gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/txt_delivery_date_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_alignParentStart="true"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img_"
+                    imageUrl="@{productCancelViewModel.imageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:adjustViewBounds="true" />
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:text="@string/product_total"
-                    style="@style/ContentTextStyle"
-                    android:id="@+id/txt_order_total"
-                    android:textStyle="normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_"
+                    android:padding="20dp">
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:id="@+id/txt_product"
+                        style="@style/SubtTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:text="@{productCancelViewModel.productname}" />
+
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        android:id="@+id/txt_weight"
+                        style="@style/ContentTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_product"
+                        android:layout_marginTop="5dp"
+                        android:text="@{productCancelViewModel.unit}" />
+
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        android:id="@+id/txt_hypen"
+                        style="@style/ContentTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_product"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/txt_weight"
+                        android:text=" | " />
+
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        android:id="@+id/txt_pckts"
+                        style="@style/ContentTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_product"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/txt_hypen"
+                        android:text="@{productCancelViewModel.quantity}" />
+
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        android:id="@+id/txt_description"
+                        style="@style/ContentTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_weight"
+                        android:layout_marginTop="10dp"
+                        android:text="@{productCancelViewModel.short_desc}" />
+
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        android:id="@+id/txt_delivery_date"
+                        style="@style/ContentTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_description"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/delivery_date" />
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:id="@+id/txt_delivery_date_value"
+                        style="@style/SubtTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_delivery_date"
+                        android:layout_marginTop="5dp"
+                        android:text="@{productCancelViewModel.productDate}" />
 
                     <RelativeLayout
-                        android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_delivery_date_value"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal">
 
-                        <TextView
-                            android:id="@+id/txt_order_total_value"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="3dp"
-                            android:text="@{productCancelViewModel.mrp}"
-                            style="@style/SubtTitleTextStyle" />
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                android:id="@+id/txt_order_total"
+                                style="@style/ContentTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/product_total"
+                                android:textStyle="normal" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:id="@+id/txt_order_total_value"
+                                    style="@style/SubtTitleTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="3dp"
+                                    android:text="@{productCancelViewModel.mrp}" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginEnd="0dp"
+                            android:background="@drawable/btn_back_red_filled"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{()->productCancelViewModel.cancelProduct()}"
+                            android:paddingStart="15dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="15dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/cancel_product"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_22px"
+                            android:textStyle="normal"
+                            android:visibility="@{productCancelViewModel.isCancel?View.INVISIBLE:View.VISIBLE}" />
 
                     </RelativeLayout>
 
-                </LinearLayout>
-
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="0dp"
-                    android:background="@drawable/btn_back_red_filled"
-                    android:gravity="center_horizontal"
-                    android:onClick="@{()->productCancelViewModel.cancelProduct()}"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/cancel_product"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_22px"
-                    android:textStyle="normal"
-                    android:visibility="@{productCancelViewModel.isCancel?View.INVISIBLE:View.VISIBLE}" />
-
+                </RelativeLayout>
             </RelativeLayout>
-
-        </RelativeLayout>
-
         </ScrollView>
 
     </RelativeLayout>

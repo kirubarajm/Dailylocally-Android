@@ -135,43 +135,110 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp">
 
-                            <RadioGroup
+
+                            <LinearLayout
+                                android:layout_marginStart="@dimen/_10px"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
+                                android:orientation="horizontal">
 
-                                <RadioButton
-                                    android:id="@+id/radio_1"
+
+                                <LinearLayout
+                                    android:layout_marginEnd="10dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/btn_back_green"
-                                    android:buttonTint="@color/dl_primary_color"
-                                    android:onClick="@{()->addressNewViewModel.apartment()}"
-                                    android:padding="10dp"
-                                    android:text="@string/apartment_or_gated_society"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="@dimen/_15px" />
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
 
-                                <RadioButton
-                                    android:id="@+id/radio_2"
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="horizontal">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_horizontal"
+                                            android:background="@{addressNewViewModel.isApartment? @drawable/btn_back_green:@drawable/btn_back_white}"
+                                            android:gravity="center_vertical"
+                                            android:onClick="@{()->addressNewViewModel.apartment()}"
+                                            android:orientation="horizontal">
+
+                                            <ImageView
+                                                android:layout_width="20dp"
+                                                android:layout_height="20dp"
+                                                android:layout_marginStart="10dp"
+                                                android:scaleType="fitCenter"
+                                                android:src="@drawable/ic_order_placed"
+                                                android:visibility="@{addressNewViewModel.isApartment? View.VISIBLE:View.INVISIBLE}" />
+
+                                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="5dp"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_marginEnd="10dp"
+                                                android:layout_marginBottom="10dp"
+                                                android:text="@string/apartment_or_gated_society"
+                                                android:textColor="@{addressNewViewModel.isApartment?@color/colorPrimary:@color/medium_black}"
+                                                android:textSize="@dimen/_15px" />
+
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_marginStart="10dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/btn_back_green"
-                                    android:buttonTint="@color/dl_primary_color"
-                                    android:onClick="@{()->addressNewViewModel.individual()}"
-                                    android:padding="10dp"
-                                    android:text="@string/individual_house"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="@dimen/_15px" />
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="horizontal">
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:background="@{addressNewViewModel.isApartment? @drawable/btn_back_white:@drawable/btn_back_green}"
+                                        android:gravity="center_vertical"
+                                        android:onClick="@{()->addressNewViewModel.individual()}"
+                                        android:orientation="horizontal">
 
-                            </RadioGroup>
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_marginStart="10dp"
+                                            android:scaleType="fitCenter"
+                                            android:src="@drawable/ic_order_placed"
+                                            android:visibility="@{addressNewViewModel.isApartment? View.INVISIBLE:View.VISIBLE}" />
+
+                                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginBottom="10dp"
+                                            android:text="@string/individual_house"
+                                            android:textColor="@{addressNewViewModel.isApartment?@color/medium_black:@color/colorPrimary}"
+                                            android:textSize="@dimen/_15px" />
+
+                                    </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
 
                         </RelativeLayout>
 
@@ -185,7 +252,7 @@
                                 android:id="@+id/rel_apartment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="@{addressNewViewModel.apartmentOrIndividual?View.VISIBLE:View.GONE}">
+                                android:visibility="@{addressNewViewModel.isApartment?View.VISIBLE:View.GONE}">
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/name_text_input"
@@ -258,7 +325,7 @@
                                 android:id="@+id/rel_individual"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="@{addressNewViewModel.apartmentOrIndividual?View.GONE:View.VISIBLE}">
+                                android:visibility="@{addressNewViewModel.isApartment?View.GONE:View.VISIBLE}">
 
                                 <LinearLayout
                                     android:id="@+id/linear_house"
