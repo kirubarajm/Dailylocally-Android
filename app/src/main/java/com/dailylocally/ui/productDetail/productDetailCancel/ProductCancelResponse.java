@@ -121,19 +121,17 @@ public class ProductCancelResponse {
             public Integer vpid;
             @SerializedName("price")
             @Expose
-            public Integer price;
-            @SerializedName("weight")
+            public String price;
+            @SerializedName("packetsize")
             @Expose
-            public String weight;
+            public String packetsize;
             @SerializedName("quantity")
             @Expose
-            public Integer quantity;
+            public String quantity;
             @SerializedName("brandname")
             @Expose
             public String brandname;
-            @SerializedName("scm_status")
-            @Expose
-            public Integer scmStatus;
+
             @SerializedName("product_date")
             @Expose
             public String productDate;
@@ -145,7 +143,7 @@ public class ProductCancelResponse {
             public String productImage;
             @SerializedName("quantity_info")
             @Expose
-            public Integer quantityInfo;
+            public String quantityInfo;
             @SerializedName("dayorderstatus")
             @Expose
             public Integer dayorderstatus;
@@ -162,6 +160,21 @@ public class ProductCancelResponse {
             @Expose
             public Integer dayorderpid;
 
+            public String getPrice() {
+                return price;
+            }
+
+            public String getPacketsize() {
+                return packetsize;
+            }
+
+            public String getQuantity() {
+                return quantity;
+            }
+
+            public String getQuantityInfo() {
+                return quantityInfo;
+            }
 
             public Integer getDayorderpid() {
                 return dayorderpid;
@@ -183,25 +196,13 @@ public class ProductCancelResponse {
                 return vpid;
             }
 
-            public Integer getPrice() {
-                return price;
-            }
 
-            public String getWeight() {
-                return weight;
-            }
 
-            public Integer getQuantity() {
-                return quantity;
-            }
 
             public String getBrandname() {
                 return brandname;
             }
 
-            public Integer getScmStatus() {
-                return scmStatus;
-            }
 
             public String getProductDate() {
                 return productDate;
@@ -215,9 +216,6 @@ public class ProductCancelResponse {
                 return productImage;
             }
 
-            public Integer getQuantityInfo() {
-                return quantityInfo;
-            }
 
             public Integer getDayorderstatus() {
                 return dayorderstatus;

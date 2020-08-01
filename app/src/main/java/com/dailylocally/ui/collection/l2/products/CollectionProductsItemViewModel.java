@@ -54,7 +54,7 @@ public class CollectionProductsItemViewModel {
         this.mListener = mListener;
         this.products = result;
         name.set(result.getProductname());
-        weight.set(result.getWeight() + " " + result.getUnit());
+        weight.set(result.getPacketsize() + " " + result.getUnit());
 
         image.set(result.getImage());
         serviceable.set(result.getServicableStatus());

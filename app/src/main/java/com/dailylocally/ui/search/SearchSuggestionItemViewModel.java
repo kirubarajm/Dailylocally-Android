@@ -20,7 +20,7 @@ public class SearchSuggestionItemViewModel {
         this.mListener = mListener;
         this.result = result;
         this.title.set(result.getProductname());
-        this.type.set(result.getWeight()+" "+result.getUnit()+", in "+result.getName());
+        this.type.set(result.getPacketsize()+" "+result.getUnit()+", in "+result.getName());
 /*
         if (result.getType() == 1) {
             this.type.set("PRODUCT");

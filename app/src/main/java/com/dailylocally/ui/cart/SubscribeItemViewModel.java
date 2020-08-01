@@ -53,7 +53,7 @@ public class SubscribeItemViewModel {
         sprice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + String.valueOf(dishList.getAmount()));
         image.set(dishList.getImage());
         //   weight.set(dishList.getWeight() +" "+dishList.getUnit()+" | "+dishList.getNoOfDeliveries() + " days");
-        weight.set(dishList.getWeight() + " " + dishList.getUnit() + " | " + dishList.getPacketInfo() + " " + dishList.getPkts());
+        weight.set(dishList.getPacketsize() + " " + dishList.getUnit() + " | " + dishList.getPacketInfo() + " " + dishList.getPkts());
         totalPktSize.set(dishList.getPacketTotalInfo() + " " + dishList.getPkts());
 
         startingDate.set("Starting on "+ parseDateChange(dishList.getStartingDate()));

@@ -75,8 +75,8 @@ public void refreshItem(String pid) {
     }
 
     public void addItems(List<ProductsResponse.Result> blogList, RecyclerView recyclerView) {
-        if (item_list.size() > 3)
-            if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+       // if (item_list.size() > 3)
+            /*if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
                 final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                     @Override
@@ -93,7 +93,7 @@ public void refreshItem(String pid) {
                         }
                     }
                 });
-            }
+            }*/
 
 
         item_list.addAll(blogList);

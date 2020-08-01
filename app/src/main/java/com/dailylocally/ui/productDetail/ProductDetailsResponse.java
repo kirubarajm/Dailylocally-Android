@@ -142,7 +142,7 @@ public class ProductDetailsResponse {
         public Integer uom;
         @SerializedName("packetsize")
         @Expose
-        public Object packetsize;
+        public String packetsize;
         @SerializedName("vegtype")
         @Expose
         public Integer vegtype;
@@ -274,7 +274,7 @@ public class ProductDetailsResponse {
             return uom;
         }
 
-        public Object getPacketsize() {
+        public String getPacketsize() {
             return packetsize;
         }
 

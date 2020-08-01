@@ -61,7 +61,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
                         try {
                             if (response!=null){
                                 if (response.getResult()!=null && response.getResult().size()>0){
-                                unit.set(response.getResult().get(0).getItems().get(0).getWeight() + " " +
+                                unit.set(response.getResult().get(0).getItems().get(0).getPacketsize() + " " +
                                         response.getResult().get(0).getItems().get(0).getUnit());
                                 short_desc.set(response.getResult().get(0).getItems().get(0).getProductShortDesc());
                                 productname.set(response.getResult().get(0).getItems().get(0).getProductName());

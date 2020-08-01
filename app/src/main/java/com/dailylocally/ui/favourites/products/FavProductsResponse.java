@@ -187,9 +187,9 @@ public class FavProductsResponse {
         @Expose
         private String subscription;
 
-        @SerializedName("weight")
+        @SerializedName("packetsize")
         @Expose
-        private String weight;
+        private String packetsize;
 
         @SerializedName("unit")
         @Expose
@@ -321,12 +321,8 @@ public class FavProductsResponse {
             this.subscription = subscription;
         }
 
-        public String getWeight() {
-            return weight;
-        }
-
-        public void setWeight(String weight) {
-            this.weight = weight;
+        public String getPacketsize() {
+            return packetsize;
         }
 
         public String getUnit() {

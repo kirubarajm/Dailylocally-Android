@@ -415,7 +415,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                                     }
                                     imageUrl.set(response.getResult().get(0).getImage());
                                     offer.set(response.getResult().get(0).getOffer());
-                                    unit.set(response.getResult().get(0).getWeight() + " " + response.getResult().get(0).getUnit());
+                                    unit.set(response.getResult().get(0).getPacketsize() + " " + response.getResult().get(0).getUnit());
                                     short_desc.set(response.getResult().get(0).getShortDesc());
                                     productname.set(response.getResult().get(0).getProductname());
                                     discount_cost_status.set(response.getResult().get(0).getDiscountCostStatus());

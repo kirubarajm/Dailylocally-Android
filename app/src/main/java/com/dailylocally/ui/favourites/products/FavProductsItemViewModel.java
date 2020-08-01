@@ -54,7 +54,7 @@ public class FavProductsItemViewModel {
         this.products = result;
         this.position=position;
         name.set(result.getProductname());
-        weight.set(result.getWeight() + " " + result.getUnit());
+        weight.set(result.getPacketsize() + " " + result.getUnit());
 
         image.set(result.getImage());
         serviceable.set(true);

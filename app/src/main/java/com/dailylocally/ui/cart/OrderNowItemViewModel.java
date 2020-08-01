@@ -59,7 +59,7 @@ public class OrderNowItemViewModel {
 
         sprice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + String.valueOf(dishList.getAmount()));
         image.set(dishList.getImage());
-        weight.set(dishList.getWeight() + " " + dishList.getUnit());
+        weight.set(dishList.getPacketsize() + " " + dishList.getUnit());
 
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());

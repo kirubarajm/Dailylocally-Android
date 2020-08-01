@@ -164,8 +164,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             productsRequest.setLon(getDataManager().getCurrentLng());
             productsRequest.setScl2Id(scl2id);
             productsRequest.setScl1Id(scl1id);
-            productsRequest.setPage(page);
-
+          //  productsRequest.setPage(0);
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
 

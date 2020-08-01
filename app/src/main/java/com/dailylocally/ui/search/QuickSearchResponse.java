@@ -101,9 +101,9 @@ public class QuickSearchResponse {
             @SerializedName("brandname")
             @Expose
             public String brandname;
-            @SerializedName("weight")
+            @SerializedName("packetsize")
             @Expose
-            public String weight;
+            public String packetsize;
 
             public String getProductname() {
                 return productname;
@@ -145,8 +145,8 @@ public class QuickSearchResponse {
                 return brandname;
             }
 
-            public String getWeight() {
-                return weight;
+            public String getPacketsize() {
+                return packetsize;
             }
         }
 

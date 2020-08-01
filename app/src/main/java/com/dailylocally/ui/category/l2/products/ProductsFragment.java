@@ -143,7 +143,7 @@ int subsPosition=0;
 
     @Override
     public void loadMore() {
-        mProductsViewModel.loadMoreProducts();
+       // mProductsViewModel.loadMoreProducts();
     }
 
     @Override
