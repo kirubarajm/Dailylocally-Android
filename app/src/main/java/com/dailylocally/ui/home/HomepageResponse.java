@@ -159,6 +159,9 @@ public class HomepageResponse {
         @SerializedName("servicable_status")
         @Expose
         private Boolean servicableStatus;
+ @SerializedName("clickable")
+        @Expose
+        private Boolean clickable;
 
   @SerializedName("collection_status")
         @Expose
@@ -168,6 +171,9 @@ public class HomepageResponse {
         @Expose
         private String  tileType;
 
+        public Boolean getClickable() {
+            return clickable;
+        }
 
         public Integer getCatid() {
             return catid;

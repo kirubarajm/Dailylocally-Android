@@ -98,7 +98,7 @@ public class FavProductsViewModel extends BaseViewModel<FavProductsNavigator> {
     }
 
 
-    public void fetchProducts() {
+    public void fetchProducts(String sCatid) {
 
         if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -107,7 +107,7 @@ public class FavProductsViewModel extends BaseViewModel<FavProductsNavigator> {
             favProductsRequest.setUserid(getDataManager().getCurrentUserId());
             favProductsRequest.setLat(getDataManager().getCurrentLat());
             favProductsRequest.setLon(getDataManager().getCurrentLng());
-            favProductsRequest.setCatid(catid);
+            favProductsRequest.setCatid(sCatid);
 
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_FAV_PRODUCT_LIST, FavProductsResponse.class, favProductsRequest, new Response.Listener<FavProductsResponse>() {

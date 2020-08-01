@@ -9,8 +9,8 @@ android {
         applicationId "com.dailylocally"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 15
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         dataBinding {
@@ -40,7 +40,7 @@ android {
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
-            buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
+            buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
            /* buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:7000"'*/
             // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:7000"'
 
@@ -128,7 +128,6 @@ dependencies {
     //ToolTips address
     implementation 'com.nhaarman.supertooltips:library:3.0.0'
 
-    implementation 'com.google.android.play:core:1.7.3'
 
 
     //Razorpay

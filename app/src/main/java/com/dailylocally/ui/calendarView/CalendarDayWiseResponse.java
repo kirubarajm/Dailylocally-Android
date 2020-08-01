@@ -18,7 +18,7 @@ public class CalendarDayWiseResponse {
     @Expose
     public String emptyTitle;
 
-     @SerializedName("empty_content")
+    @SerializedName("empty_content")
     @Expose
     public String emptyContent;
 
@@ -113,7 +113,7 @@ public class CalendarDayWiseResponse {
             public Integer price;
             @SerializedName("weight")
             @Expose
-            public Integer weight;
+            public String weight;
             @SerializedName("quantity")
             @Expose
             public Integer quantity;
@@ -138,14 +138,13 @@ public class CalendarDayWiseResponse {
                 return pkts;
             }
 
-            public void setTrueOrFalse(Boolean trueOrFalse) {
-                this.trueOrFalse = trueOrFalse;
-            }
-
             public Boolean getTrueOrFalse() {
                 return trueOrFalse;
             }
 
+            public void setTrueOrFalse(Boolean trueOrFalse) {
+                this.trueOrFalse = trueOrFalse;
+            }
 
             public Integer getDoid() {
                 return doid;
@@ -163,7 +162,7 @@ public class CalendarDayWiseResponse {
                 return price;
             }
 
-            public Integer getWeight() {
+            public String getWeight() {
                 return weight;
             }
 
@@ -186,6 +185,7 @@ public class CalendarDayWiseResponse {
             public Integer getQuantityInfo() {
                 return quantityInfo;
             }
-        }    }
+        }
+    }
 
 }

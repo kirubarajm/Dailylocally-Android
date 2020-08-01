@@ -103,7 +103,7 @@ public class QuickSearchResponse {
             public String brandname;
             @SerializedName("weight")
             @Expose
-            public Integer weight;
+            public String weight;
 
             public String getProductname() {
                 return productname;
@@ -145,7 +145,7 @@ public class QuickSearchResponse {
                 return brandname;
             }
 
-            public Integer getWeight() {
+            public String getWeight() {
                 return weight;
             }
         }

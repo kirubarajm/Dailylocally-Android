@@ -45,12 +45,23 @@ public class UpdateResponse {
         @SerializedName("versionstatus")
         @Expose
         private Boolean versionstatus=false;
+
+         @SerializedName("logout")
+        @Expose
+        private Boolean logout=false;
+
+
         @SerializedName("dluserforceupdatestatus")
         @Expose
         private Boolean dluserforceupdatestatus=false;
         @SerializedName("support")
         @Expose
         private String supportNumber="9790876528";
+
+
+        public Boolean getLogout() {
+            return logout;
+        }
 
         public String getSupportNumber() {
             return supportNumber;

@@ -21,7 +21,7 @@ public class Analytics {
 
     public Analytics() {
 
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
 
@@ -30,35 +30,35 @@ public class Analytics {
             
         if (mFirebaseAnalytics == null) {
             addProperties();
-        }
+        }*/
     }
 
 
     public Analytics(Context context, String screen_name) {
 
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         this.screen_name = screen_name;
-
+*/
         sendViewData(screen_name);
     }
 
     public Analytics(String screen_name) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+        /*if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         this.screen_name = screen_name;
 
-        sendViewData(screen_name);
+        sendViewData(screen_name);*/
     }
 
     public Analytics(int productid, String productname, int price, int quantity, String kitchenName) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+    //    if (BuildConfig.ENABLE_DEBUG) return;
      /*   if (mFirebaseAnalytics == null)
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
 
@@ -88,43 +88,43 @@ public class Analytics {
     }
 
     public Analytics(String screen_name, String click) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+      /*  if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
 
 
-       /* Bundle params = new Bundle();
+       *//* Bundle params = new Bundle();
         params.putString("screen_name", screen_name);
-        mFirebaseAnalytics.logEvent(click, params);*/
+        mFirebaseAnalytics.logEvent(click, params);*//*
 
         this.screen_name = screen_name;
 
         this.click = click;
-        sendClickData(screen_name, click);
+        sendClickData(screen_name, click);*/
     }
 
     public void addProperties() {
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(DailylocallyApp.getInstance());
+    /*    mFirebaseAnalytics = FirebaseAnalytics.getInstance(DailylocallyApp.getInstance());
         mFirebaseAnalytics.setUserId(String.valueOf(userid));
-        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));*/
     }
 
     public void sendViewData(String screen_name) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+        /*if (BuildConfig.ENABLE_DEBUG) return;
         Bundle params = new Bundle();
         params.putString("screen_name", screen_name);
-        mFirebaseAnalytics.logEvent("event_screen_view", params);
+        mFirebaseAnalytics.logEvent("event_screen_view", params);*/
     }
 
     public void sendClickData(String screen_name, String click) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null)
             addProperties();
         Bundle params = new Bundle();
         params.putString("screen_name", screen_name);
         params.putString(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(click, params);
+        mFirebaseAnalytics.logEvent(click, params);*/
     }
 
 
@@ -171,7 +171,7 @@ public class Analytics {
 
 
     public void userLogin(String user_id, String number) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -179,13 +179,13 @@ public class Analytics {
 
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, user_id);
-        bundle.putString(AppConstants.ANALYTICYS_MOBILE_NUMBER, number);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_USER_LOGIN, bundle);
+        bundle.putString(AppConstants.ANALYTICYS_MOBILE_NUMBER, number);*/
+   //     mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_USER_LOGIN, bundle);
     }
 
 
     public void paymentFailed(String order_id, int price) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -198,11 +198,11 @@ public class Analytics {
             bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
             bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
             mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_FAILED, bundle);
-        }
+        }*/
     }
 
     public void paymentSuccess(String order_id, int price) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -214,12 +214,12 @@ public class Analytics {
             bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
             bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
             mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_SUCCESS, bundle);
-        }
+        }*/
     }
 
 
     public void orderPlaced(String order_id, int price) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+      /*  if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -230,11 +230,11 @@ public class Analytics {
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ORDER_PLACED, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ORDER_PLACED, bundle);*/
     }
 
     public void createOrder(String order_id, int price) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+        /*if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -244,7 +244,7 @@ public class Analytics {
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CREATE_ORDER, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CREATE_ORDER, bundle);*/
     }
 
     public void search(String type, String name, String suggestion) {
@@ -291,7 +291,7 @@ public class Analytics {
 
 
     public void appFeedback(int rating, String feedback) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+      /*  if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -301,13 +301,13 @@ public class Analytics {
         bundle.putInt(AppConstants.ANALYTICYS_RATING, rating);
         bundle.putString(AppConstants.ANALYTICYS_feedback, feedback);
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(AppConstants.SCREEN_APP_FEEDBCK, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.SCREEN_APP_FEEDBCK, bundle);*/
     }
 
 
 
  public void orderRating(double prodRating,double delRating, String prodFeedback, String delFeedback) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+      /*  if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -319,7 +319,7 @@ public class Analytics {
         bundle.putString(AppConstants.PRODUCT_FEEDBACK, prodFeedback);
         bundle.putString(AppConstants.DELIVERY_FEEDBACK, delFeedback);
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_ORDER_RATING, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_ORDER_RATING, bundle);*/
     }
 
 
@@ -348,7 +348,7 @@ public class Analytics {
     }
 
     public void repeatOrder(String orderid) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -356,12 +356,12 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.ANALYTICYS_ORDER_ID, orderid);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REPEAT_ORDER, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REPEAT_ORDER, bundle);*/
     }
 
 
     public void selectKitchen(String type, String kitchenId) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -369,12 +369,12 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenId);
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(type, bundle);
+        mFirebaseAnalytics.logEvent(type, bundle);*/
     }
 
 
     public void kitchenViewcart(String type, String kitchenid) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+     /*   if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -382,7 +382,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenid);
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(type, bundle);
+        mFirebaseAnalytics.logEvent(type, bundle);*/
     }
 
     public void proceedToPay(int price) {
@@ -402,7 +402,7 @@ public class Analytics {
      */
     /////APP OPENS
     public void appOpensMetrics(String previousPage, String addressType,int serviceablestatus) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+     /*   if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -412,12 +412,12 @@ public class Analytics {
         bundle.putString(AppConstants.APP_OPENS_ADDRESS_TYPE, addressType);
         bundle.putInt(AppConstants.APP_OPENS_SERVICEABLESTATUS, serviceablestatus);
 
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_APP_OPENS, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_APP_OPENS, bundle);*/
     }
 
     /////APP OPENS
     public void appHomeMetrics(String previousPage,String addressType,int  categoryCount,int  collectionCount,int serviceablestatus) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+      /*  if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -429,7 +429,7 @@ public class Analytics {
         bundle.putInt(AppConstants.APP_HOME_SERVICEABLESTATUS, serviceablestatus);
         bundle.putInt(AppConstants.APP_COLLECRTION_COUNT, collectionCount);
 
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_APP_HOME, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_APP_HOME, bundle);*/
     }
 
     /////KITCHEN PAGE
@@ -466,7 +466,7 @@ public class Analytics {
     /////REGION PAGE
     public void regionPageMetrics(String previousPage, String regionId, String regionName, int serviceableCount, int unServiceableCount,/*String nextPage,*/String serviceableKitchensList
             , String unserviceableKitchensList) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -480,13 +480,13 @@ public class Analytics {
         bundle.putString(AppConstants.REGION_PAGE_SERVICEABLE_KITCHEN_LIST, serviceableKitchensList);
         bundle.putString(AppConstants.REGION_PAGE_UNSERVICEABLE_KITCHEN_LIST, unserviceableKitchensList);
 
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_REGION_PAGE, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_REGION_PAGE, bundle);*/
     }
 
     /////SEARCH
     public void searchMetrics(String prevPage, String wordSearched, int regionSuggestionCount, int kitchenSuggestionCount, int dishSuggestionCount, int type,
                               int uniqueId, String nextPage, String regionSuggestionList, String kitchenSuggestionList, String dishSuggestionList) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -504,12 +504,12 @@ public class Analytics {
         bundle.putString(AppConstants.DISH_SUGGESTION_LIST, dishSuggestionList);
    ///     bundle.putString(AppConstants.SEARCH_CLICK_TYPE, dishSuggestionList);
 
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_SEARCH, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_SEARCH, bundle);*/
     }
 
     /////ADD TO CART
     public void addToCartPageMetrics(String currentPage, int productId, int price, int quantity, String isProductFavorite, String action) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -523,12 +523,12 @@ public class Analytics {
         bundle.putString(AppConstants.ADD_TO_CART_IS_FAVORITE_PRODUCT, isProductFavorite);
         bundle.putString(AppConstants.ADD_TO_CART_ACTION, action);
 
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_ADD_TO_CART, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_ADD_TO_CART, bundle);*/
     }
 
     /////OPEN CART PAGE
     public void openCartPageMetrics(String previousScreen, String makeitId, int totalAmt, String promoCode, String deliveryAddressType, String nextPage, String cartProductIdQtyList) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
 
             addProperties();
@@ -542,7 +542,7 @@ public class Analytics {
         bundle.putString(AppConstants.OPEN_CART_PAGE_DELIVERY_ADDRESS_TYPE, deliveryAddressType);
         bundle.putString(AppConstants.OPEN_CART_PRODUCT_ID_AND_QUANTITY_LIST, cartProductIdQtyList);
 
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_OPEN_CART_PAGE, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_OPEN_CART_PAGE, bundle);*/
     }
 
     /////PAYMENT METHOD PAGE
@@ -595,7 +595,7 @@ public class Analytics {
 
     /////PROCEED TO PAY
     public void proceedToPayPageMetrics(String productIdList, String productQtyList, String totalAmt, int promoCodeId,String previousPage,int mincart) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+     /*   if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -609,7 +609,7 @@ public class Analytics {
         bundle.putString(AppConstants.PROCEED_TO_PAY_PREVIOUS_PAGE, previousPage);
         bundle.putInt(AppConstants.PROCEED_TO_PAY_MINCARTVALUE, mincart);
 
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_PROCEED_TO_PAY, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_PROCEED_TO_PAY, bundle);*/
     }
 
 }

@@ -24,19 +24,23 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     public SplashViewModel(DataManager dataManager) {
         super(dataManager);
+        try {
+         String userid= getDataManager().getCurrentUserId();
+         String aid=getDataManager().getAddressId();
+        }catch (Exception ee){
+            SharedPreferences settings = DailylocallyApp.getInstance().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+            settings.edit().clear().apply();
+
+            SharedPreferences onboarding = DailylocallyApp.getInstance().getSharedPreferences("dlwelcome", Context.MODE_PRIVATE);
+            onboarding.edit().clear().apply();
+
+        }
         getDataManager().appStartedAgain(true);
         getDataManager().savePromotionAppStartAgain(true);
         getDataManager().setUpdateAvailable(false);
     }
 
-    public void clearLatLng(){
 
-        if (getDataManager().getAddressId()==null) {
-            getDataManager().setCurrentLat(null);
-            getDataManager().setCurrentLng(null);
-        }
-
-    }
 
     public void checkIsUserLoggedInOrNot() {
         try {
@@ -81,6 +85,15 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
                 if (response != null)
                     if (response.getResult() != null && response.getStatus()) {
+
+                        if (response.getResult().getLogout()!=null&&response.getResult().getLogout()){
+                            SharedPreferences settings = DailylocallyApp.getInstance().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+                            settings.edit().clear().apply();
+                            SharedPreferences onboarding = DailylocallyApp.getInstance().getSharedPreferences("dlwelcome", Context.MODE_PRIVATE);
+                            onboarding.edit().clear().apply();
+                        }
+
+
                         getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
                         getDataManager().setUpdateAvailable(response.getResult().getVersionstatus());
                         if (getNavigator() != null)

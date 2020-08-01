@@ -207,7 +207,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
                 Log.e("Referrer","disconnected");
             }
         });*/
-        mSplashViewModel.clearLatLng();
+
 
 
         analytics = new Analytics(this, pageName);

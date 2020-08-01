@@ -124,7 +124,7 @@ public class ProductCancelResponse {
             public Integer price;
             @SerializedName("weight")
             @Expose
-            public Integer weight;
+            public String weight;
             @SerializedName("quantity")
             @Expose
             public Integer quantity;
@@ -187,7 +187,7 @@ public class ProductCancelResponse {
                 return price;
             }
 
-            public Integer getWeight() {
+            public String getWeight() {
                 return weight;
             }
 

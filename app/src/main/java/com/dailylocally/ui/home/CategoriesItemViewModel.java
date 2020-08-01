@@ -20,21 +20,20 @@ public class CategoriesItemViewModel {
         image.set(result.getImage());
 
 
-        if (result.getCid()!=null){
+        if (result.getCid() != null) {
             name.set("");
 
-        }else {
+        } else {
             name.set(result.getName());
         }
 
 
-
-       // name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
+        // name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
     }
 
 
     public void onItemClick() {
-      // if (coupon.isClickable())
+        if (result.getClickable())
             mListener.onItemClick(result);
 
     }

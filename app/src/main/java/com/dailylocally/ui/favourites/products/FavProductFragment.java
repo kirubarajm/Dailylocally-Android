@@ -94,7 +94,12 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
         super.onCreate(savedInstanceState);
         mFavProductsViewModel.setNavigator(this);
         favProductListAdapter.setListener(this);
-        subscribeToLiveData();
+
+        mFavProductsViewModel.catid = getArguments().getString("catid", "0");
+
+        mFavProductsViewModel.title.set(String.valueOf(mFavProductsViewModel.catid));
+
+        mFavProductsViewModel.fetchProducts(getArguments().getString("catid", "0"));
     }
 
     @Override
@@ -108,11 +113,7 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
         super.onViewCreated(view, savedInstanceState);
         mFragmentProductsBinding = getViewDataBinding();
 
-        mFavProductsViewModel.catid = getArguments().getString("catid", "0");
-
-        mFavProductsViewModel.title.set(String.valueOf(mFavProductsViewModel.catid));
-
-        mFavProductsViewModel.fetchProducts();
+        subscribeToLiveData();
 
 
        /* mFragmentProductsBinding.productList.setLayoutManager(linearLayoutManager);
@@ -165,7 +166,7 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
 
     @Override
     public void reloadProducts() {
-        mFavProductsViewModel.fetchProducts();
+        mFavProductsViewModel.fetchProducts(mFavProductsViewModel.catid);
     }
 
     @Override
