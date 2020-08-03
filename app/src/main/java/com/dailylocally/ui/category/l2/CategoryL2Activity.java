@@ -239,11 +239,11 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 */
 
 
-        if (mActivityCategoryl2Binding.categorytabs.getTabCount() == 3) {
+       /* if (mActivityCategoryl2Binding.categorytabs.getTabCount() == 3) {
             mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
         } else {
             mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        }
+        }*/
 
 
         mActivityCategoryl2Binding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

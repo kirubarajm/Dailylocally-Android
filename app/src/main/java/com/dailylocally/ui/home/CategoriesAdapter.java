@@ -23,6 +23,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.item_list = item_list;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+
+        if (item_list.get(position).getTileType().equals("2")){
+            return 2;
+        }else {return 1;}
+     //   return super.getItemViewType(position);
+    }
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {

@@ -209,11 +209,11 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 */
 
 
-        if (mActivityFavDetailsBinding.categorytabs.getTabCount() == 3) {
+       /* if (mActivityFavDetailsBinding.categorytabs.getTabCount() == 3) {
             mActivityFavDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
         } else {
             mActivityFavDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        }
+        }*/
 
 
         mActivityFavDetailsBinding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

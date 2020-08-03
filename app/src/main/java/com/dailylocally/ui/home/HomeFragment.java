@@ -97,26 +97,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             }
         });*/
 
-
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
                 for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
 
                     if (mHomeViewModel.categoryList.get(position).getTileType().equals("2")) {
                         return 2;
                     } else return 1;
 
-
                 }
                 return 1;
             }
         });
-
-
-
-
 
 
         /*gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {

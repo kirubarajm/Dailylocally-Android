@@ -231,11 +231,11 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
 */
 
 
-        if (mActivityCollectionDetailsBinding.categorytabs.getTabCount() == 3) {
+       /* if (mActivityCollectionDetailsBinding.categorytabs.getTabCount() == 3) {
             mActivityCollectionDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
         } else {
             mActivityCollectionDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        }
+        }*/
 
 
         mActivityCollectionDetailsBinding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

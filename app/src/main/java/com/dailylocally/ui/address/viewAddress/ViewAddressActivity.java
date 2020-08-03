@@ -134,6 +134,11 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
                         Bitmap bitmap = getBitmapFromVectorDrawable(ViewAddressActivity.this,R.drawable.ic_map_marker);
                         BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
                         markerOptions.icon(descriptor);
+
+
+
+
+
                    //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                         map = googleMap;
                         map.clear();
