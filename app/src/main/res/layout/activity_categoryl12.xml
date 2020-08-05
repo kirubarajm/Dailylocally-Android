@@ -90,15 +90,17 @@
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.core.widget.NestedScrollView
+            <!--<androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:clipToPadding="false"
                 android:fillViewport="true"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
                 <LinearLayout
+                    android:background="@color/white"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -115,7 +117,6 @@
                         app:tabTextAppearance="@style/tab_text"
                         android:layout_gravity="bottom" />
 
-
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/frameLayout"
                         android:layout_width="match_parent"
@@ -131,7 +132,7 @@
 
 
 
-            </androidx.core.widget.NestedScrollView>
+           <!-- </androidx.core.widget.NestedScrollView>-->
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <LinearLayout

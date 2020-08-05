@@ -112,6 +112,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         ordernowLiveData = new MutableLiveData<>();
         subscribeLiveData = new MutableLiveData<>();
 
+
+
     }
 
 

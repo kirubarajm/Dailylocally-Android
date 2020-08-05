@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dailylocally.databinding.ListItemLoaderBinding;
 import com.dailylocally.databinding.ListItemProductsBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
 
@@ -16,8 +16,11 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     boolean loading;
+    int TYPE_PRODUCT = 1;
+    int TYPE_LODER = 2;
     private List<ProductsResponse.Result> item_list;
     private ProductsAdapterListener mProductsAdapterListener;
+
 
     public ProductListAdapter(List<ProductsResponse.Result> item_list) {
         this.item_list = item_list;
@@ -26,9 +29,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        ListItemProductsBinding productsBinding = ListItemProductsBinding.inflate(LayoutInflater.from(parent.getContext()),
-                parent, false);
-        return new ProductsViewHolder(productsBinding);
+
+
+        if (i == TYPE_LODER) {
+            ListItemLoaderBinding productsBinding = ListItemLoaderBinding.inflate(LayoutInflater.from(parent.getContext()),
+                    parent, false);
+            return new LoaderViewHolder(productsBinding);
+        } else {
+            ListItemProductsBinding productsBinding = ListItemProductsBinding.inflate(LayoutInflater.from(parent.getContext()),
+                    parent, false);
+            return new ProductsViewHolder(productsBinding);
+
+        }
     }
 
     @Override
@@ -42,6 +54,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
+    @Override
+    public int getItemViewType(int position) {
+
+        if (item_list.get(position) == null) {
+            return TYPE_LODER;
+        } else return TYPE_PRODUCT;
+
+    }
+
     public void clearItems() {
         item_list.clear();
     }
@@ -49,17 +70,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void refreshPosition(int position) {
 
-        if (item_list.size()  > position) {
+        if (item_list.size() > position) {
             notifyItemChanged(position);
         }
 
     }
-public void refreshItem(String pid) {
+
+    public void refreshItem(String pid) {
 
 
-        for (int i=0;i<item_list.size();i++){
+        for (int i = 0; i < item_list.size(); i++) {
 
-            if (item_list.get(i).getPid().equals(pid)){
+            if (item_list.get(i).getPid().equals(pid)) {
 
                 notifyItemChanged(i);
 
@@ -71,11 +93,21 @@ public void refreshItem(String pid) {
 
 
     public void loadingFalse() {
+        if (item_list.size() > 0)
+            if (item_list.get(getItemCount() - 1) == null) {
+                item_list.remove(getItemCount() - 1);
+                notifyDataSetChanged();
+            }
         loading = false;
     }
 
+    public void addLoader() {
+        item_list.add(null);
+        loading = true;
+    }
+
     public void addItems(List<ProductsResponse.Result> blogList, RecyclerView recyclerView) {
-       // if (item_list.size() > 3)
+        // if (item_list.size() > 3)
             /*if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
                 final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -110,9 +142,9 @@ public void refreshItem(String pid) {
 
         void loadMore();
 
-        void subscribeProduct(ProductsResponse.Result products,int position);
+        void subscribeProduct(ProductsResponse.Result products, int position);
 
-        void productItemClick(ProductsResponse.Result products,int position);
+        void productItemClick(ProductsResponse.Result products, int position);
 
         void showToast(String message);
     }
@@ -132,12 +164,19 @@ public void refreshItem(String pid) {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final ProductsResponse.Result blog = item_list.get(position);
-            mCategoriesItemViewModel = new ProductsItemViewModel(this, blog,position);
+            mCategoriesItemViewModel = new ProductsItemViewModel(this, blog, position);
             mListItemCategoriesBinding.setProductsItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
 
             mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
+            if (getItemCount() > 0)
+                if ((position >= getItemCount() - 1)) {
+                    if (!loading) {
+                        addLoader();
+                        mProductsAdapterListener.loadMore();
+                    }
+                }
 
         }
 
@@ -148,18 +187,38 @@ public void refreshItem(String pid) {
         }
 
         @Override
-        public void subscribeProduct(ProductsResponse.Result products,int position) {
-            mProductsAdapterListener.subscribeProduct(products,position);
+        public void subscribeProduct(ProductsResponse.Result products, int position) {
+            mProductsAdapterListener.subscribeProduct(products, position);
         }
 
         @Override
-        public void onItemClick(ProductsResponse.Result products,int position) {
-            mProductsAdapterListener.productItemClick(products,position);
+        public void onItemClick(ProductsResponse.Result products, int position) {
+            mProductsAdapterListener.productItemClick(products, position);
         }
 
         @Override
         public void showToast(String message) {
             mProductsAdapterListener.showToast(message);
+        }
+
+
+    }
+
+
+    public class LoaderViewHolder extends BaseViewHolder {
+
+        ListItemLoaderBinding mListItemCategoriesBinding;
+
+        public LoaderViewHolder(ListItemLoaderBinding binding) {
+            super(binding.getRoot());
+            this.mListItemCategoriesBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            if (item_list.isEmpty()) return;
+            mListItemCategoriesBinding.executePendingBindings();
+
         }
 
 

@@ -4,19 +4,18 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowEnterTransition">@transition/change_image_tranform</item>
-        <item name="android:windowExitTransition">@transition/change_image_tranform</item>
-
-        <!-- specify shared element transitions -->
-        <item name="android:windowSharedElementEnterTransition">
-            @transition/change_image_tranform</item>
-        <item name="android:windowSharedElementExitTransition">
-            @transition/change_image_tranform</item>
-
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
+
+
+    <style name="WindowTitleBackground">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/medium_black</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
@@ -31,7 +30,7 @@
     </style>
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@font/quicksand_semibold</item>
+        <item name="android:fontFamily">@font/quicksand_medium</item>
         <item name="android:textSize">@dimen/_22px</item>
     </style>
 

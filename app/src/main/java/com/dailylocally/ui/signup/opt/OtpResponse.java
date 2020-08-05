@@ -137,6 +137,7 @@ public class OtpResponse {
     public void setResult(List<Result> result) {
         this.result = result;
     }
+
     public class Result {
 
         @SerializedName("userid")
@@ -179,6 +180,29 @@ public class OtpResponse {
         @SerializedName("email")
         @Expose
         private String email;
+
+        @SerializedName("complete_address")
+        @Expose
+        private String completeAddress;
+        @SerializedName("flat_house_no")
+        @Expose
+        private String flatHouseNo;
+
+        @SerializedName("plot_house_no")
+        @Expose
+        private String plotHouseNo;
+
+        @SerializedName("floor")
+        @Expose
+        private String floor;
+        @SerializedName("block_name")
+        @Expose
+        private String blockName;
+        @SerializedName("apartment_name")
+        @Expose
+        private String apartmentName;
+
+
         @SerializedName("phoneno")
         @Expose
         private String phoneno;
@@ -189,6 +213,29 @@ public class OtpResponse {
         @Expose
         private Integer gender;
 
+        public String getCompleteAddress() {
+            return completeAddress;
+        }
+
+        public String getFlatHouseNo() {
+            return flatHouseNo;
+        }
+
+        public String getPlotHouseNo() {
+            return plotHouseNo;
+        }
+
+        public String getFloor() {
+            return floor;
+        }
+
+        public String getBlockName() {
+            return blockName;
+        }
+
+        public String getApartmentName() {
+            return apartmentName;
+        }
 
         public String getCity() {
             return city;
@@ -239,7 +286,6 @@ public class OtpResponse {
         }
 
 
-
         public String getUserid() {
             return userid;
         }
@@ -247,7 +293,6 @@ public class OtpResponse {
         public void setUserid(String userid) {
             this.userid = userid;
         }
-
 
 
         public String getAddress() {
@@ -321,8 +366,6 @@ public class OtpResponse {
         public void setAddressType(Integer addressType) {
             this.addressType = addressType;
         }
-
-
 
 
     }

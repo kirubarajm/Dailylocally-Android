@@ -60,78 +60,82 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/topBar">
 
-            <RelativeLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/img_referrals"
-                    android:layout_width="300dp"
-                    android:layout_height="300dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_referrals" />
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true">
 
                 <RelativeLayout
-                    android:id="@+id/rel_referr"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/img_referrals"
-                    android:layout_marginTop="20dp">
+                    android:layout_height="wrap_content">
 
-                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                        android:id="@+id/txt_1"
-                        style="@style/HeaderTitleTextStyle"
+                    <ImageView
+                        android:id="@+id/img_referrals"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_referrals" />
+
+                    <RelativeLayout
+                        android:id="@+id/rel_referr"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/img_referrals"
+                        android:layout_marginTop="20dp">
+
+                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                            android:id="@+id/txt_1"
+                            style="@style/HeaderTitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@{referralsViewModel.referralTitle}"
+                            android:textColor="@color/black" />
+
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            style="@style/SubtTitleTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/txt_1"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            android:text="@{referralsViewModel.referralSubTitle}" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_send_referrals"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="@{referralsViewModel.referralTitle}"
-                        android:textColor="@color/black" />
-
-                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                        style="@style/SubtTitleTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_1"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="@{referralsViewModel.referralSubTitle}" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rel_send_referrals"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rel_referr"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center"
-                    android:padding="10dp">
-
-                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20sp"
+                        android:layout_below="@+id/rel_referr"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="25dp"
                         android:gravity="center"
-                        style="@style/MediumBlackButtonTextStyle"
-                        android:onClick="@{()->referralsViewModel.sendReferrals()}"
-                        android:text="@string/send_referrals"/>
+                        android:padding="10dp">
+
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            style="@style/MediumBlackButtonTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:onClick="@{()->referralsViewModel.sendReferrals()}"
+                            android:text="@string/send_referrals" />
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
-            </RelativeLayout>
-
-        </ScrollView>
-
+            </ScrollView>
+        </RelativeLayout>
     </RelativeLayout>
 
 </layout>

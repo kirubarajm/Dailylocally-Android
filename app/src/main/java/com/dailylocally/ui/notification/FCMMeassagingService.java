@@ -39,6 +39,7 @@ import com.dailylocally.ui.signup.registration.TokenRequest;
 import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CommonResponse;
@@ -181,6 +182,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 break;
             case AppConstants.NOTIFY_CALENDAR_ACTV:
                 intent = new Intent(this, CalendarActivity.class);
+                intent.putExtra("pageid", pageId);
+                intent.putExtra("date", date);
                 break;
             case AppConstants.NOTIFY_CART_FRAG:
                 //intent = new Intent(this, CartFragment.class);
@@ -224,6 +227,12 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             case AppConstants.NOTIFY_UPDATE_ACTV:
                 intent = new Intent(this, UpdateActivity.class);
                 break;
+            case AppConstants.NOTIFY_TRANS_LIST_ACTV:
+                intent = new Intent(this, TransactionHistoryActivity.class);
+                intent.putExtra("pageid", pageId);
+                intent.putExtra("date", date);
+                break;
+
 
             default:
                 intent = new Intent(this, SplashActivity.class);

@@ -140,7 +140,7 @@ public class ProductsResponse {
     }
 
 
-    public class Result {
+    public static class Result {
 
         @SerializedName("vpid")
         @Expose

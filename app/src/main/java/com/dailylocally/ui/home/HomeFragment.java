@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -48,7 +50,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     boolean downloading;
     AppUpdateManager appUpdateManager;
     AppUpdateInfo appUpdateInfo;
-
+    GridLayoutManager gridLayoutManager;
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
@@ -77,71 +79,29 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void dataLoaded() {
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getBaseActivity(), 2);
-
-
-       /* gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-
-                for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
-
-                    if (mHomeViewModel.categoryList.get(position).getCid() != null) {
-                        return 2;
-
-                    } else return 1;
-
-                }
-                return 1;
-            }
-        });*/
-
+         gridLayoutManager = new GridLayoutManager(getBaseActivity(), 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
-
-                    if (mHomeViewModel.categoryList.get(position).getTileType().equals("2")) {
-                        return 2;
-                    } else return 1;
-
-                }
-                return 1;
+                if (mHomeViewModel.categoryList.get(position).getTileType().equals("2")) {
+                    return 2;
+                } else return 1;
             }
         });
-
-
-        /*gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-
-                for (int i = 0; i < mHomeViewModel.categoryList.size(); i++) {
-
-                    if (position == 2 || position == 5 || position == 8 || position == 11) {
-                        *//*  if  (position % 2 == 0) {*//*
-                        return 2;
-                    } else {
-                        return 1;
-                    }
-
-                }
-                return 1;
-            }
-        });*/
-
         mFragmentHomeBinding.categoryList.setLayoutManager(gridLayoutManager);
         categoriesAdapter = new CategoriesAdapter(mHomeViewModel.categoryList);
         mFragmentHomeBinding.categoryList.setAdapter(categoriesAdapter);
         categoriesAdapter.setListener(this);
+       // mFragmentHomeBinding.loader.stop();
+        mFragmentHomeBinding.loader.stopShimmerAnimation();
 
-        mFragmentHomeBinding.loader.stop();
     }
 
     @Override
     public void dataLoading() {
 
-        mFragmentHomeBinding.loader.start();
+      //  mFragmentHomeBinding.loader.start();
+        mFragmentHomeBinding.loader.startShimmerAnimation();
 
     }
 
@@ -217,7 +177,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
-        mFragmentHomeBinding.loader.start();
+      // mFragmentHomeBinding.loader.start();
+        mFragmentHomeBinding.loader.startShimmerAnimation();
+
         mHomeViewModel.fetchCategoryList();
         mHomeViewModel.getPromotions();
         mHomeViewModel.getRatings();
@@ -226,6 +188,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         if (mHomeViewModel.updateAvailable.get())
             updatePopup(getString(R.string.update_available), getString(R.string.update), false, true, false);
+
+
+
+
+
     }
 
     @Override

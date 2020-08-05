@@ -123,8 +123,24 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                             getDataManager().setCurrentLat(response.getResult().get(0).getLat());
                                             getDataManager().setCurrentLng(response.getResult().get(0).getLon());
                                             getDataManager().setAddressId(response.getResult().get(0).getAid());
-                                            getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
+
                                             getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
+
+
+
+                                            if (response.getResult().get(0).getAddressType()==1){
+                                                String completeAddress="No."+response.getResult().get(0).getFlatHouseNo()+", "+response.getResult().get(0).getBlockName()+", "+response.getResult().get(0).getApartmentName()+","+response.getResult().get(0).getCompleteAddress();
+
+                                                getDataManager().setCurrentAddress(completeAddress);
+
+                                            }else {
+                                                String completeAddress="No."+response.getResult().get(0).getPlotHouseNo()+", Floor-"+response.getResult().get(0).getFloor()+", "+response.getResult().get(0).getCompleteAddress();
+                                                getDataManager().setCurrentAddress(completeAddress);
+                                            }
+
+
+
+
 
                                         }
 

@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -90,11 +91,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
             mCategoryL2ViewModel.fetchSubCategoryList(categoryid, scl1id);
         }
 
-
-
-       /* mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
-
-      //  mActivityCategoryl2Binding.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+      /*mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
+      //mActivityCategoryl2Binding.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         mActivityCategoryl2Binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         mActivityCategoryl2Binding.imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         mActivityCategoryl2Binding.imageSlider.setIndicatorSelectedColor(Color.WHITE);

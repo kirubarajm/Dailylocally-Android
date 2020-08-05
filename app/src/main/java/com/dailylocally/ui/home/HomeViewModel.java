@@ -447,6 +447,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
     }
 
     public void ratingClick(){
+        closeRating();
         if (getNavigator()!=null){
             getNavigator().ratingClick();
         }

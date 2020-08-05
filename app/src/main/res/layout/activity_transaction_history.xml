@@ -89,6 +89,8 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_centerInParent="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -113,7 +115,9 @@
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:text="Order or Subscribe and get your order delivered at your convenience"
                         android:layout_marginTop="20dp"
-                        style="@style/SubtTitleTextStyle"
+                       android:textColor="@color/medium_black"
+                        android:textSize="@dimen/_22px"
+                        android:textAlignment="center"
                         android:id="@+id/txt_no_order_content"
                         android:layout_below="@+id/txt_no_order_found"
                         android:layout_centerHorizontal="true"

@@ -276,7 +276,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.toolbarTitle.set("My Account");
         mMainViewModel.titleVisible.set(true);
         mMainViewModel.updateAvailable.set(false);
-
     }
 
     @Override

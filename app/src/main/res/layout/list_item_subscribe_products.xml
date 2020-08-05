@@ -57,8 +57,8 @@
                             android:layout_height="15dp"
                             android:src="@drawable/ic_calendar" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                            style="@style/ContentTextStyle"
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            style="@style/SubtTitleTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"

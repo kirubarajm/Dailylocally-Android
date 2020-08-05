@@ -203,6 +203,9 @@
                         android:inputType="textCapSentences|textMultiLine"
                         android:minLines="4"
                         android:padding="5dp"
+                        android:fontFamily="@font/quicksand_regular"
+                        android:textColor="@color/medium_black"
+                        android:textSize="@dimen/_15px"
                         android:scrollbarStyle="insideInset"
                         android:scrollHorizontally="false" />
 

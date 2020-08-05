@@ -32,6 +32,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
     public final ObservableBoolean cart = new ObservableBoolean();
     public final ObservableBoolean fullEmpty = new ObservableBoolean();
+    public final ObservableBoolean loading = new ObservableBoolean();
     public final ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public final ObservableField<String> emptyImageUrl = new ObservableField<>();
     public final ObservableField<String> emptyContent = new ObservableField<>();
@@ -67,7 +68,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     }
 
     public void addCategoryToList(List<ProductsResponse.Result> items) {
-        if (page == 0)
+        if (page == 1)
             productsList.clear();
         productsList.addAll(items);
 
@@ -103,21 +104,21 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
         if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
-
+            loading.set(true);
+            page = page + 1;
             productsRequest.setUserid(getDataManager().getCurrentUserId());
             productsRequest.setLat(getDataManager().getCurrentLat());
             productsRequest.setLon(getDataManager().getCurrentLng());
             productsRequest.setScl2Id(scl2id);
             productsRequest.setScl1Id(scl1id);
-            productsRequest.setPage(page + 1);
+            productsRequest.setPage(page);
 
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
 
                 @Override
                 public void onResponse(ProductsResponse response) {
-
+                    getNavigator().moreDataLoaded();
                     if (response != null) {
 
                         getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
@@ -133,20 +134,24 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
                         if (response.getResult() != null && response.getResult().size() > 0) {
                             fullEmpty.set(false);
-                            productsListLiveData.setValue(response.getResult());
+                            productsListLiveData.postValue(response.getResult());
                         } else {
                             fullEmpty.set(true);
+                            page = page - 1;
                         }
-
+                        loading.set(false);
                     } else {
                         fullEmpty.set(true);
+                        page = page - 1;
                     }
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    loading.set(false);
+                    page = page - 1;
+                    getNavigator().moreDataLoaded();
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
@@ -159,12 +164,13 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
         page = 1;
         if (getDataManager().getCurrentLat() != null) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+            loading.set(true);
             productsRequest.setUserid(getDataManager().getCurrentUserId());
             productsRequest.setLat(getDataManager().getCurrentLat());
             productsRequest.setLon(getDataManager().getCurrentLng());
             productsRequest.setScl2Id(scl2id);
             productsRequest.setScl1Id(scl1id);
-          //  productsRequest.setPage(0);
+            productsRequest.setPage(page);
 
             GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
 
@@ -187,17 +193,19 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                             productsListLiveData.setValue(response.getResult());
                         } else {
                             fullEmpty.set(true);
+                            page = page - 1;
                         }
-
+                        loading.set(false);
                     } else {
                         fullEmpty.set(true);
+                        page = page - 1;
                     }
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    loading.set(false);
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
@@ -298,7 +306,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
         ProductsRequest fProductsRequest = new ProductsRequest();
 
-        page = 0;
+        page = 1;
 
         if (getDataManager().getFilterSort() != null) {
 
@@ -312,7 +320,6 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 fProductsRequest.setScl2Id(String.valueOf(scl2id));
                 fProductsRequest.setScl1Id(String.valueOf(scl1id));
                 productsRequest.setPage(page);
-
 
             } else {
                 fProductsRequest = new ProductsRequest();
@@ -418,7 +425,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
                                 if (productsResponse.getResult() != null && productsResponse.getResult().size() > 0) {
                                     fullEmpty.set(false);
-                                    productsListLiveData.setValue(productsResponse.getResult());
+                                    productsListLiveData.postValue(productsResponse.getResult());
                                 } else {
                                     fullEmpty.set(true);
                                 }
