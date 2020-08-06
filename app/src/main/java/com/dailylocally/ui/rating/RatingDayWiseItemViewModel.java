@@ -22,8 +22,8 @@ public class RatingDayWiseItemViewModel {
         productName.set(result.getProductName());
         quantity.set(String.valueOf(result.getQuantity()));
         units.set(result.getUnit());
-        weight.set(String.valueOf(result.getWeight()));
-        unitWeight.set(result.getWeight()+result.getUnit());
+        weight.set(String.valueOf(result.getPacketSize()));
+        unitWeight.set(result.getPacketSize()+  " "+result.getUnit());
     }
 
     public void onItemClick() {

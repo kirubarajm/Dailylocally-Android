@@ -94,7 +94,7 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                     getDataManager().setCurrentAddress(completeAddress);
                                     getDataManager().setCurrentAddressArea(city);
                                     getDataManager().setCurrentAddressTitle(city);
-                                    getDataManager().setAddressId(aId);
+                                    getDataManager().setAddressId(response.getAid());
 
                                 if (addressType.equals("1")){
                                     String cAddress="No."+flatHouseNo+", "+blockName+", "+apartmentName+", "+completeAddress;

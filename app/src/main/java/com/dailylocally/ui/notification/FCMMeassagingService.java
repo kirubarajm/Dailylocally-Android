@@ -54,6 +54,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class FCMMeassagingService extends FirebaseMessagingService {
@@ -128,7 +131,23 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         saveToken(s);
         PushUtils.registerWithZendesk();
     }
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd hh:mm:ss";
+        String outputPattern = "yyyy-MM-dd";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
     private void sendNotification(Map<String, String> data) {
         /*Pageid_eat_order_post:1,
                 Pageid_eat_order_accept:2,
@@ -147,7 +166,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         Bundle bundle = new Bundle();
         Intent intent = null;
         String pageId = data.get("pageid");
-        String date = data.get("date");
+        String date = parseDateToddMMyyyy(data.get("date"));
         String title = data.get("title");
         String message = data.get("message");
 

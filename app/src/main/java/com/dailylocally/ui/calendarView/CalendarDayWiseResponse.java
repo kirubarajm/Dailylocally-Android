@@ -114,6 +114,9 @@ public class CalendarDayWiseResponse {
             @SerializedName("weight")
             @Expose
             public String weight;
+            @SerializedName("packet_size")
+            @Expose
+            public String packetSize;
             @SerializedName("quantity")
             @Expose
             public Integer quantity;
@@ -133,6 +136,12 @@ public class CalendarDayWiseResponse {
             @Expose
             public Boolean trueOrFalse;
 
+            public String getPacketSize() {
+                if (packetSize == null) {
+                    return weight;
+                } else
+                    return packetSize;
+            }
 
             public String getPkts() {
                 return pkts;

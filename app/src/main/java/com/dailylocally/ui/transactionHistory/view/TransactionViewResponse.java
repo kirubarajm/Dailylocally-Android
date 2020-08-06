@@ -141,6 +141,13 @@ public class TransactionViewResponse {
             @SerializedName("brandname")
             @Expose
             public String brandname;
+            @SerializedName("packet_size")
+            @Expose
+            public String packetSize;
+
+@SerializedName("pkts")
+            @Expose
+            public String pkts;
 
             @SerializedName("product_date")
             @Expose
@@ -150,7 +157,7 @@ public class TransactionViewResponse {
             public String productName;
             @SerializedName("quantity_info")
             @Expose
-            public Integer quantityInfo;
+            public String quantityInfo;
             @SerializedName("dayorderstatus")
             @Expose
             public Integer dayorderstatus;
@@ -161,6 +168,13 @@ public class TransactionViewResponse {
             @Expose
             public Integer cancelAvailable;
 
+            public String getPkts() {
+                return pkts;
+            }
+
+            public String getPacketSize() {
+                return packetSize;
+            }
 
             public String getUnit() {
                 return unit;
@@ -183,7 +197,7 @@ public class TransactionViewResponse {
                 return productName;
             }
 
-            public Integer getQuantityInfo() {
+            public String getQuantityInfo() {
                 return quantityInfo;
             }
 
@@ -211,7 +225,6 @@ public class TransactionViewResponse {
                 return weight;
             }
         }
-
 
 
         public class Cartdetail {

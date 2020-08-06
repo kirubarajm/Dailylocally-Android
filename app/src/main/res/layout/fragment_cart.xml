@@ -425,7 +425,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:onClick="@{()->cartViewModel.changeAddress()}"
-                                android:text="@{cartViewModel.changeAddress}" />
+                                android:text="Change" />
 
                         </RelativeLayout>
 

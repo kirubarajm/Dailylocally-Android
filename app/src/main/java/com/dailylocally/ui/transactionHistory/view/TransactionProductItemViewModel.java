@@ -21,7 +21,7 @@ public class TransactionProductItemViewModel {
         this.mListener = mListener;
 
         productName.set(String.valueOf(cartdetail.getProductName()));
-        unitWeight.set(cartdetail.getWeight()+" "+cartdetail.getUnit());
+        unitWeight.set(cartdetail.getQuantityInfo()+" "+cartdetail.getPkts());
         //itemsCount.set();
 
     }

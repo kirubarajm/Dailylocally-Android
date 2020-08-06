@@ -18,10 +18,10 @@ public class CalendarDayWiseItemViewModel {
         this.mListener = mListener;
         this.result = result;
         productName.set(result.getProductName());
-        quantity.set("(" + result.getQuantityInfo() + result.getPkts() + ")");
+        quantity.set( result.getQuantityInfo() +" "+ result.getPkts() );
         units.set(result.getUnit());
-        weight.set(String.valueOf(result.getWeight()));
-        unitWeight.set(result.getWeight()+result.getUnit());
+        weight.set(String.valueOf(result.getPacketSize()));
+        unitWeight.set(result.getPacketSize()+ " " +result.getUnit());
     }
 
     public void onItemClick() {

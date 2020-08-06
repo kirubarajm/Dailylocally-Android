@@ -707,6 +707,7 @@
 
     <!--deeplink-->
     <string name="deeplink_host">eatalltime.co.in</string>
+    <string name="deeplink_scheme_https">https</string>
     <string name="deeplink_scheme">http</string>
     <string name="deeplink_path_home">/applink/home</string>
     <string name="deeplink_path_kitchen">/applink/kitchen</string>

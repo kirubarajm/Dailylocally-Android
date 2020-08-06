@@ -146,6 +146,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
 
         Bundle bundle=new Bundle();
         bundle.putString("scl1id",scl1id);
+        bundle.putString("cid",cid);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_COLLECTION_ACTV);
 
         FilterFragment filterFragment = new FilterFragment();

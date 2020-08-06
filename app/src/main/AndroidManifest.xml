@@ -122,12 +122,8 @@
         <activity
             android:name=".ui.coupons.CouponsActivity"
             android:screenOrientation="locked" />
-        <activity
-            android:name=".ui.transactionHistory.TransactionHistoryActivity"
-            android:screenOrientation="locked">
 
 
-        </activity>
         <activity
             android:name=".ui.transactionHistory.view.TransactionDetailsActivity"
             android:screenOrientation="locked" />
@@ -177,13 +173,13 @@
             android:name=".ui.promotion.AdActivity"
             android:screenOrientation="locked" />
 
-        <meta-data
+        <!--<meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_8ZBt2J9hAsxH9Q" />
+            android:value="rzp_test_8ZBt2J9hAsxH9Q" />-->
 
-         <!--<meta-data
+         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_kelnGLZvTecvPV" />-->
+            android:value="rzp_live_kelnGLZvTecvPV" />
 
 
         <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">
@@ -199,6 +195,77 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </receiver>
+
+
+
+        <activity
+            android:name=".ui.transactionHistory.TransactionHistoryActivity"
+            android:screenOrientation="locked">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="/liveorders"
+                    android:scheme="@string/deeplink_scheme" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="bit.ly"
+                    android:pathPrefix="/2WIHsYs"
+                    android:scheme="@string/deeplink_scheme_https" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="bit.ly"
+                    android:pathPrefix="/3fBlYWb"
+                    android:scheme="@string/deeplink_scheme_https" />
+            </intent-filter>
+
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="dailylocally.page.link"
+                    android:pathPrefix="/6eZ4"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="/liveorders"
+                    android:scheme="@string/deeplink_scheme_https" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="/liveorders"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+            </intent-filter>
+
+        </activity>
 
 
     </application>
