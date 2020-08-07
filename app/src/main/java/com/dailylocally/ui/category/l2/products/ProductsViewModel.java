@@ -357,45 +357,6 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
 
-            /*GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, request, new Response.Listener<ProductsResponse>() {
-
-                @Override
-                public void onResponse(ProductsResponse response) {
-
-                    if (response != null) {
-
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                       *//* serviceable.set(response.getServiceablestatus());
-                        unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());*//*
-                        emptyImageUrl.set(response.getEmptyUrl());
-                        emptyContent.set(response.getEmptyContent());
-                        emptySubContent.set(response.getEmptySubconent());
-                        headerContent.set(response.getHeaderContent());
-                        headerSubContent.set(response.getHeaderSubconent());
-                        categoryTitle.set(response.getCategoryTitle());
-
-                        if (response.getResult() != null && response.getResult().size() > 0) {
-                            fullEmpty.set(false);
-                            productsListLiveData.setValue(response.getResult());
-                        } else {
-                            fullEmpty.set(true);
-                        }
-
-                    } else {
-                        fullEmpty.set(true);
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);*/
-
-
             Gson gson = new Gson();
             String filterRequest = gson.toJson(request);
 

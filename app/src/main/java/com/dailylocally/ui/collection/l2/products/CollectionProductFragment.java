@@ -71,8 +71,9 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
     public void openFilter() {
 
 
-        Gson gson = new Gson();
+      /*  Gson gson = new Gson();
         String request = gson.toJson(mCollectionProductsViewModel.collectionProductsRequest);
+        mCollectionProductsViewModel.getDataManager().saveFiletrSort(request);*/
 
         ((CollectionDetailsActivity) getActivity()).openFilter(mCollectionProductsViewModel.scl1id);
 
@@ -83,6 +84,9 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
     @Override
     public void openSort() {
+        /*Gson gson = new Gson();
+        String request = gson.toJson(mCollectionProductsViewModel.collectionProductsRequest);
+        mCollectionProductsViewModel.getDataManager().saveFiletrSort(request);*/
         ((CollectionDetailsActivity) getActivity()).openSort(mCollectionProductsViewModel.scl1id);
     }
 
@@ -192,7 +196,9 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
             }
         }else  if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
-                mCollectionProductsViewModel.checkScl1Filter(data.getStringExtra("scl1id"));
+                if (mCollectionProductsViewModel.scl1id.equals(data.getStringExtra("scl2id"))) {
+                    mCollectionProductsViewModel.checkScl1Filter(data.getStringExtra("scl2id"));
+                }
             }
         }
     }

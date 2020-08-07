@@ -1,6 +1,8 @@
 package com.dailylocally.ui.collection.l2.products;
 
 
+import android.util.Log;
+
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -13,8 +15,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.dailylocally.BuildConfig;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
+import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.category.l2.products.ProductsRequest;
 import com.dailylocally.utilities.AppConstants;
@@ -24,6 +28,7 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -152,87 +157,6 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
         }
 
 
-        /*  ProductsPageRequest productsPageRequest = new ProductsPageRequest();
-         *//* homePageRequest.setUserid(getDataManager().getCurrentUserId());
-        homePageRequest.setLat(getDataManager().getCurrentLat());
-        homePageRequest.setLon(getDataManager().getCurrentLng());*//*
-
-        productsPageRequest.setUserid("1");
-        productsPageRequest.setLat("12.979937");
-        productsPageRequest.setLon( "80.218418");
-        Gson gson = new Gson();
-      String  json = gson.toJson(productsPageRequest);
-        //  getDataManager().setFilterSort(json);
-
-
-        try {
-            setIsLoading(true);
-            //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject homepageResponse) {
-
-                    ProductsResponse response;
-                    Gson sGson = new GsonBuilder().create();
-                    response = sGson.fromJson(homepageResponse.toString(), ProductsResponse.class);
-
-
-
-                    if (response != null) {
-
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                        serviceable.set(response.getServiceablestatus());
-                        unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());
-                        emptyImageUrl.set(response.getEmptyUrl());
-                        emptyContent.set(response.getEmptyContent());
-                        emptySubContent.set(response.getEmptySubconent());
-                        headerContent.set(response.getHeaderContent());
-                        headerSubContent.set(response.getHeaderSubconent());
-                        categoryTitle.set(response.getCategoryTitle());
-
-
-
-                    }
-
-                }
-
-
-
-
-
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //   Log.e("", ""+error.getMessage());
-
-                }
-            }) {
-
-                *//**
-         * Passing some request headers
-         *//*
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                }
-            };
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (JSONException j) {
-            j.printStackTrace();
-        } catch (Exception ee) {
-
-            ee.printStackTrace();
-
-        }*/
-
     }
 
 
@@ -288,49 +212,63 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
 
     public void fetchFilterProducts(ProductsRequest request) {
 
-        if (getDataManager().getCurrentLat() != null) {
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        Gson gson = new Gson();
+        String filterRequest = gson.toJson(request);
 
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COLLECTION_PRODUCT_LIST, CollectionProductsResponse.class, request, new Response.Listener<CollectionProductsResponse>() {
 
-            /*GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, request, new Response.Listener<ProductsResponse>() {
+            @Override
+            public void onResponse(CollectionProductsResponse response) {
 
-                @Override
-                public void onResponse(ProductsResponse response) {
+                if (response != null) {
 
-                    if (response != null) {
-
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                       *//* serviceable.set(response.getServiceablestatus());
+                    getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
+                       /* serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());*//*
-                        emptyImageUrl.set(response.getEmptyUrl());
-                        emptyContent.set(response.getEmptyContent());
-                        emptySubContent.set(response.getEmptySubconent());
-                        headerContent.set(response.getHeaderContent());
-                        headerSubContent.set(response.getHeaderSubconent());
-                        categoryTitle.set(response.getCategoryTitle());
+                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/
+                    emptyImageUrl.set(response.getEmptyUrl());
+                    emptyContent.set(response.getEmptyContent());
+                    emptySubContent.set(response.getEmptySubconent());
+                    headerContent.set(response.getHeaderContent());
+                    headerSubContent.set(response.getHeaderSubconent());
+                    categoryTitle.set(response.getCategoryTitle());
 
-                        if (response.getResult() != null && response.getResult().size() > 0) {
-                            fullEmpty.set(false);
-                            productsListLiveData.setValue(response.getResult());
-                        } else {
-                            fullEmpty.set(true);
-                        }
-
+                    if (response.getResult() != null && response.getResult().size() > 0) {
+                        fullEmpty.set(false);
+                        productsListLiveData.setValue(response.getResult());
                     } else {
                         fullEmpty.set(true);
                     }
 
+                } else {
+                    fullEmpty.set(true);
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
 
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);*/
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }, AppConstants.API_VERSION_ONE);
+        DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
+
+    }
 
 
+
+
+
+
+
+
+
+
+
+        /*collectionProductsRequest=request;
+        if (getDataManager().getCurrentLat() != null) {
+            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
             Gson gson = new Gson();
             String filterRequest = gson.toJson(request);
 
@@ -344,13 +282,8 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
                             Gson gson = new Gson();
                             CollectionProductsResponse collectionProductsResponse = gson.fromJson(response.toString(), CollectionProductsResponse.class);
 
-
-                            if (response != null) {
-
                                 getDataManager().saveServiceableStatus(false, collectionProductsResponse.getUnserviceableTitle(), collectionProductsResponse.getUnserviceableSubtitle());
-                       /* serviceable.set(response.getServiceablestatus());
-                        unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/
+
                                 emptyImageUrl.set(collectionProductsResponse.getEmptyUrl());
                                 emptyContent.set(collectionProductsResponse.getEmptyContent());
                                 emptySubContent.set(collectionProductsResponse.getEmptySubconent());
@@ -365,11 +298,6 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
                                     fullEmpty.set(true);
                                 }
 
-                            } else {
-                                fullEmpty.set(true);
-                            }
-
-
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -378,12 +306,27 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
 
                     }
                 }) {
-                    /**
+                    *//**
                      * Passing some request headers
-                     */
+                     *//*
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
-                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+
+
+
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        //  headers.put("Content-Type", "application/json; charset=utf-8");
+                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                        headers.put("app-version", String.valueOf(BuildConfig.VERSION_CODE));
+                        headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
+                        //  headers.put("Authorization","Bearer");
+                        AppPreferencesHelper preferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
+                        headers.put("Authorization", "Bearer " + preferencesHelper.getApiToken());
+
+
+
+                        return headers;
                     }
                 };
 
@@ -397,10 +340,10 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
             }
 
 
-        }
+        }*/
 
 
-    }
+   // }
 
 
 }

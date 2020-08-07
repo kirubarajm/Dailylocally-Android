@@ -161,7 +161,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             Gson sGson = new GsonBuilder().create();
             ProductsRequest  fProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
             if (fProductsRequest!=null){
-                if (!fProductsRequest.getScl2Id().equals(scl1id)){
+                if (!fProductsRequest.getScl1Id().equals(scl1id)){
                     getDataManager().saveFiletrSort(null);
                 }
             }

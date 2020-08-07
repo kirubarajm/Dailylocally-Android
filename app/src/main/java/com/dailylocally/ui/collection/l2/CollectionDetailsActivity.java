@@ -159,6 +159,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
     public void openSort(String scl1id) {
         Bundle bundle=new Bundle();
         bundle.putString("scl1id",scl1id);
+        bundle.putString("type","2");
 
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);

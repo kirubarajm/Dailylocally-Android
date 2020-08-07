@@ -93,10 +93,17 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
         mFragmentSortBinding.recyclerviewFilters.setAdapter(adapter);
         subscribeToLiveData();
 
+        if (getArguments().getString("type", "1").equals("2")) {
 
-        mSortViewModel.scl2id = getArguments().getString("scl2id",null);
+            mSortViewModel.scl2id = getArguments().getString("scl1id", "0");
+            mSortViewModel.getCollectionSortItemList(mSortViewModel.scl2id);
+        }else {
+            mSortViewModel.scl2id = getArguments().getString("scl2id", "0");
+            mSortViewModel.getSortItemList(mSortViewModel.scl2id);
+        }
 
-        mSortViewModel.getSortItemList( mSortViewModel.scl2id);
+
+
     }
 
     @Override
@@ -118,7 +125,7 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
     public void clearFilters() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_CLEAR);
         //startFilter.applyFilter();
-        filterListener.FilterRefresh( mSortViewModel.scl2id);
+        filterListener.FilterRefresh(mSortViewModel.scl2id);
         dismiss();
 
     }
@@ -126,7 +133,7 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
     @Override
     public void applyFilter() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
-        filterListener.FilterRefresh( mSortViewModel.scl2id);
+        filterListener.FilterRefresh(mSortViewModel.scl2id);
         dismiss();
     }
 

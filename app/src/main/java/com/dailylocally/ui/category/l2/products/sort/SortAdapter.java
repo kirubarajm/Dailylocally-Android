@@ -8,9 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.data.DataManager;
+import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.ListItemFiltersBinding;
 import com.dailylocally.databinding.ListItemSortBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
+import com.dailylocally.ui.category.l2.products.ProductsRequest;
+import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -117,6 +123,17 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemLiveProductsBinding.setSortItemViewModel(mSortItemViewModel);
             mListItemLiveProductsBinding.rButton.setVisibility(View.GONE);
 
+            AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
+            Gson sGson = new GsonBuilder().create();
+            ProductsRequest productsRequest = sGson.fromJson(appPreferencesHelper.getFilterSort(), ProductsRequest.class);
+            if (productsRequest != null) {
+                if (productsRequest.getSortid()== item_list.get(position).getSortid()){
+                   sSelected=position;
+                }
+
+            }
+
+
             if (sSelected == position) {
                 mListItemLiveProductsBinding.rButton.setVisibility(View.VISIBLE);
             } else {
@@ -124,6 +141,7 @@ public class SortAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
             mListItemLiveProductsBinding.executePendingBindings();
+
         }
 
 

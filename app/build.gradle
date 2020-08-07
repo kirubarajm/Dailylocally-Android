@@ -9,7 +9,7 @@ android {
         applicationId "com.dailylocally"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 16
+        versionCode 17
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -23,7 +23,8 @@ android {
         debug {
             minifyEnabled false
 
-             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
+            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
+             buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
@@ -39,7 +40,8 @@ android {
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
-            buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
+           // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
+            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
 
             minifyEnabled false
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")

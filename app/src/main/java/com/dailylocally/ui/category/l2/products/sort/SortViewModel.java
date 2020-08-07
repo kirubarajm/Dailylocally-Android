@@ -152,5 +152,48 @@ public class SortViewModel extends BaseViewModel<SortNavigator> {
             ee.printStackTrace();
         }
     }
+ public void getCollectionSortItemList(String scl1id) {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+            Gson sGson = new GsonBuilder().create();
+            ProductsRequest  fProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+            if (fProductsRequest!=null){
+                if (!fProductsRequest.getScl1Id().equals(scl1id)){
+                    getDataManager().saveFiletrSort(null);
+                }
+            }
+
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.GET_SORT, SortItems.class, new Response.Listener<SortItems>() {
+                @Override
+                public void onResponse(SortItems response) {
+                    try {
+                        if (response != null) {
+                            if (response.getStatus()) {
+                                if (response.getResult() != null) {
+                                    sortTitle.set(response.getTitle());
+                                    sortItemsLiveData.setValue(response.getResult());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    setIsLoading(false);
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
 
 }

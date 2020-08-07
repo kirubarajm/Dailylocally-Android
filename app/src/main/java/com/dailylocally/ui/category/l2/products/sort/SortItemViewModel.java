@@ -39,7 +39,7 @@ public class SortItemViewModel {
 
 
 
-        /*AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
+       /* AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
         Gson sGson = new GsonBuilder().create();
         ProductsRequest productsRequest = sGson.fromJson(appPreferencesHelper.getFilterSort(), ProductsRequest.class);
         if (productsRequest != null) {
