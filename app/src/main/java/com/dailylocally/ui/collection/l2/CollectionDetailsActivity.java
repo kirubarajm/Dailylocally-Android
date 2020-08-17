@@ -80,11 +80,10 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         mCollectionDetailsViewModel.setNavigator(this);
         mActivityCollectionDetailsBinding = getViewDataBinding();
         subscribeLiveData();
-
+        startLoader();
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             cid = intent.getExtras().getString("cid");
-
             mCollectionDetailsViewModel.fetchSubCategoryList(cid);
         }
 
@@ -265,6 +264,11 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
 
     }
 
+    @Override
+    public void dataLoaded() {
+        stopLoader();
+    }
+
 
     @Override
     public void onResume() {
@@ -343,6 +347,15 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
 
 
 
+    public void stopLoader() {
+        mActivityCollectionDetailsBinding.pageLoader.stopShimmerAnimation();
+        mActivityCollectionDetailsBinding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mActivityCollectionDetailsBinding.pageLoader.setVisibility(View.VISIBLE);
+        mActivityCollectionDetailsBinding.pageLoader.startShimmerAnimation();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

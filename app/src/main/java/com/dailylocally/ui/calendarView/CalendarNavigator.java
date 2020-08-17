@@ -18,4 +18,5 @@ public interface CalendarNavigator {
 
     void goBack();
 
+    void dataLoaded();
 }

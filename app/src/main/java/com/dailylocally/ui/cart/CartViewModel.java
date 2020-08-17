@@ -623,9 +623,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         if (getNavigator() != null)
                             getNavigator().cartLoaded();
 
-                        if (getNavigator() != null) {
+                       /* if (getNavigator() != null) {
                             getNavigator().metricsCartOpen();
-                        }
+                        }*/
                     }
                 }, new Response.ErrorListener() {
                     @Override

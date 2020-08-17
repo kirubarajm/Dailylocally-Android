@@ -15,13 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCollectionProductsBinding;
-import com.dailylocally.databinding.FragmentProductsBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
-import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
@@ -39,13 +37,23 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
     private FragmentCollectionProductsBinding mFragmentProductsBinding;
 
-    public static CollectionProductFragment newInstance(String id,String cid) {
+    public static CollectionProductFragment newInstance(String id, String cid) {
         Bundle args = new Bundle();
         args.putString("scl1id", id);
         args.putString("cid", cid);
         CollectionProductFragment fragment = new CollectionProductFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public void stopLoader() {
+        mFragmentProductsBinding.pageLoader.stopShimmerAnimation();
+        mFragmentProductsBinding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mFragmentProductsBinding.pageLoader.setVisibility(View.VISIBLE);
+        mFragmentProductsBinding.pageLoader.startShimmerAnimation();
     }
 
     @Override
@@ -91,6 +99,11 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
     }
 
     @Override
+    public void DataLoaded() {
+        stopLoader();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCollectionProductsViewModel.setNavigator(this);
@@ -113,7 +126,7 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
         mCollectionProductsViewModel.cid = getArguments().getString("cid", null);
 
         mCollectionProductsViewModel.title.set(String.valueOf(mCollectionProductsViewModel.scl1id));
-
+        startLoader();
         mCollectionProductsViewModel.fetchProducts();
 
 
@@ -150,7 +163,7 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
         Intent intent = SubscriptionActivity.newIntent(getContext());
         intent.putExtra("pid", String.valueOf(products.getPid()));
-        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
@@ -158,8 +171,8 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
     public void productItemClick(CollectionProductsResponse.Result products) {
 
         Intent intent = ProductDetailsActivity.newIntent(getContext());
-        intent.putExtra("vpid",String.valueOf(products.getPid()));
-        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        intent.putExtra("vpid", String.valueOf(products.getPid()));
+        startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
@@ -170,11 +183,6 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 
     }
-
-
-
-
-
 
 
     @Override
@@ -188,21 +196,21 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
             }
 
-        }else  if (requestCode == AppConstants.REFRESH_CODE) {
+        } else if (requestCode == AppConstants.REFRESH_CODE) {
             if (resultCode == RESULT_OK) {
                 mCollectionProductsViewModel.productsList.clear();
                 subscribeToLiveData();
 
             }
-        }else  if (requestCode == 1111) {
+        } else if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
                 if (mCollectionProductsViewModel.scl1id.equals(data.getStringExtra("scl2id"))) {
+                    startLoader();
                     mCollectionProductsViewModel.checkScl1Filter(data.getStringExtra("scl2id"));
                 }
             }
         }
     }
-
 
 
 }

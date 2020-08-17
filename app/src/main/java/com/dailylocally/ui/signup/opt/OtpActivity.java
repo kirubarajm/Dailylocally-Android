@@ -157,13 +157,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                             //   Log.w(TAG, "getInstanceId failed", task.getException());
                             return;
                         }
-
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-
                         mLoginViewModelMain.saveToken(token);
-
-
                     }
                 });
 

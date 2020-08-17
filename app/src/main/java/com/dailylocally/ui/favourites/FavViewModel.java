@@ -35,6 +35,7 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
     public ObservableField<String> noProductsString = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
     public ObservableBoolean cart = new ObservableBoolean();
+    public ObservableBoolean loading = new ObservableBoolean();
     public ObservableList<FavResponse.Result> categoryList = new ObservableArrayList<>();
     private MutableLiveData<List<FavResponse.Result>> categoryListLiveData;
 
@@ -75,8 +76,8 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
 
     public void fetchSubCategoryList() {
 
-        if (getDataManager().getCurrentLat() != null) {
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        if (!DailylocallyApp.getInstance().onCheckNetWork()){loading.set(false); return;}
+        loading.set(true);
 
             FavRequest favRequest = new FavRequest(getDataManager().getCurrentUserId());
 
@@ -92,16 +93,25 @@ public class FavViewModel extends BaseViewModel<FavNavigator> {
 
                     }
 
+
+                    if (getNavigator()!=null){
+                        loading.set(false);
+                        getNavigator().dataLoaded();
+                    }
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    if (getNavigator()!=null){
+                        loading.set(false);
+                        getNavigator().dataLoaded();
+                    }
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-        }
+
 
     }
 

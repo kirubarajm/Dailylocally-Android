@@ -16,9 +16,9 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/topBar"
@@ -54,13 +54,13 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="My Orders"
-                    style="@style/HeaderTitleTextStyle"/>
+                    android:text="My Orders" />
 
             </RelativeLayout>
 
@@ -69,197 +69,461 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:layout_below="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:paddingBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:id="@+id/rel_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/calendar1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topBar">
 
             <RelativeLayout
-                android:layout_below="@+id/rel_1"
-                android:visibility="@{calendarViewModel.noDataFound?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingBottom="20dp">
 
                 <RelativeLayout
-                    android:layout_centerInParent="true"
+                    android:id="@+id/rel_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/img_no_data"
-                    android:layout_marginTop="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_empty_calendar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:text="@{calendarViewModel.emptyTitle}"
-                    android:layout_marginTop="20dp"
-                  style="@style/SubtTitleTextStyle"
-                    android:id="@+id/txt_no_order_found"
-                    android:layout_below="@+id/img_no_data"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@{calendarViewModel.emptyContent}"                    android:layout_marginTop="20dp"
-                  android:textSize="@dimen/_22px"
-                    android:textColor="@color/medium_black"
-                    android:textAlignment="center"
-                    android:id="@+id/txt_no_order_content"
-                    android:layout_below="@+id/txt_no_order_found"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-             <!--   <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
-                    android:layout_below="@+id/txt_no_order_content"
-                    android:onClick="@{()->calendarViewModel.goToHome()}"
-                    android:id="@+id/btn_goto_home"
-                style="@style/MediumBlackButtonTextStyle"
-                    android:text="@string/go_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>-->
-
-            </RelativeLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:visibility="@{calendarViewModel.noDataFound?View.GONE:View.VISIBLE}"
-                android:id="@+id/rel_your_orders"
-                android:padding="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/rel_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                    android:text="@string/your_orders"
-                  style="@style/SubtTitleTextStyle"
-                    android:id="@+id/txt_product_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <RelativeLayout
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/rel_date"
-                    android:layout_below="@+id/txt_product_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:gravity="center_horizontal"
-                        android:layout_alignParentStart="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                            android:textSize="30sp"
-                            android:text="."
-                            android:gravity="center_horizontal"
-                            android:textColor="@color/dl_primary_color"
-                            android:layout_marginStart="15dp"
-                            android:id="@+id/txt_dot"
-                            android:textStyle="bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                            style="@style/SubtTitleTextStyle"
-                            android:text="@{calendarViewModel.dateDay}"
-                            android:layout_marginTop="18dp"
-                            android:gravity="center_horizontal"
-                            android:layout_marginStart="10dp"
-                            android:id="@+id/txt_date"
-                            android:layout_toEndOf="@+id/txt_dot"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </RelativeLayout>
 
                     <LinearLayout
-                        android:padding="5dp"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center_horizontal"
-                        android:layout_alignParentEnd="true"
-                        android:onClick="@{()->calendarViewModel.helpClick()}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                            android:text="@string/help"
-                            style="@style/SubtTitleTextStyle"
-                            android:id="@+id/txt_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <ImageView
-                            android:rotation="-90"
-                            android:id="@+id/img_help"
-                            android:layout_alignParentEnd="true"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
+                        android:id="@+id/calendar1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
 
                 </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_below="@+id/rel_date"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="15dp"
-                    app:day_adapter="@{calendarViewModel.dayWiseItemViewModels}"
-                    tools:listitem="@layout/list_item_calendar"
-                    android:id="@+id/recycler_day_wise_order"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/rel_1"
+                    android:visibility="@{calendarViewModel.noDataFound?View.VISIBLE:View.GONE}">
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    style="@style/MediumBlackButtonTextStyle"
-                    android:visibility="@{calendarViewModel.isRateBtn?View.VISIBLE:View.GONE}"
-                    android:layout_below="@+id/recycler_day_wise_order"
-                    android:id="@+id/btn_refer"
-                    android:layout_marginTop="20dp"
-                    android:onClick="@{()->calendarViewModel.ratingClick()}"
-                    android:text="@{calendarViewModel.rateDeliveryButton}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:id="@+id/img_no_data"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="40dp"
+                            android:src="@drawable/ic_empty_calendar" />
+
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            android:id="@+id/txt_no_order_found"
+                            style="@style/SubtTitleTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_no_data"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="20dp"
+                            android:text="@{calendarViewModel.emptyTitle}" />
+
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            android:id="@+id/txt_no_order_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/txt_no_order_found"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:text="@{calendarViewModel.emptyContent}"
+                            android:textAlignment="center"
+                            android:textColor="@color/medium_black"
+                            android:textSize="@dimen/_22px" />
+
+                        <!--   <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                               android:layout_centerHorizontal="true"
+                               android:layout_marginTop="50dp"
+                               android:layout_below="@+id/txt_no_order_content"
+                               android:onClick="@{()->calendarViewModel.goToHome()}"
+                               android:id="@+id/btn_goto_home"
+                           style="@style/MediumBlackButtonTextStyle"
+                               android:text="@string/go_back"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"/>-->
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_your_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/rel_1"
+                    android:layout_marginTop="10dp"
+                    android:padding="20dp"
+                    android:visibility="@{calendarViewModel.noDataFound?View.GONE:View.VISIBLE}">
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:id="@+id/txt_product_title"
+                        style="@style/SubtTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_orders" />
+
+                    <RelativeLayout
+                        android:id="@+id/rel_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_product_title"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:gravity="center_horizontal">
+
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                android:id="@+id/txt_dot"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:gravity="center_horizontal"
+                                android:text="."
+                                android:textColor="@color/dl_primary_color"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                android:id="@+id/txt_date"
+                                style="@style/SubtTitleTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="18dp"
+                                android:layout_toEndOf="@+id/txt_dot"
+                                android:gravity="center_horizontal"
+                                android:text="@{calendarViewModel.dateDay}" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{()->calendarViewModel.helpClick()}"
+                            android:padding="5dp">
+
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                android:id="@+id/txt_id"
+                                style="@style/SubtTitleTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/help" />
+
+                            <ImageView
+                                android:id="@+id/img_help"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:rotation="-90"
+                                android:src="@drawable/ic_arrow_drop_down_black_24dp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_day_wise_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rel_date"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="5dp"
+                        app:day_adapter="@{calendarViewModel.dayWiseItemViewModels}"
+                        tools:listitem="@layout/list_item_calendar" />
+
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        android:id="@+id/btn_refer"
+                        style="@style/MediumBlackButtonTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/recycler_day_wise_order"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:onClick="@{()->calendarViewModel.ratingClick()}"
+                        android:text="@{calendarViewModel.rateDeliveryButton}"
+                        android:visibility="@{calendarViewModel.isRateBtn?View.VISIBLE:View.GONE}" />
+
+                </RelativeLayout>
+
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/page_loader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/rel_1"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/gray"
+                                android:orientation="vertical" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
 
             </RelativeLayout>
 
-        </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
 
-    </androidx.core.widget.NestedScrollView>
-
-</RelativeLayout>
+    </RelativeLayout>
 
 </layout>
 

@@ -37,6 +37,7 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
     public final ObservableField<String> addressTitle = new ObservableField<>();
 
     public final ObservableBoolean cart = new ObservableBoolean();
+    public final ObservableBoolean loading = new ObservableBoolean();
     public final ObservableBoolean fullEmpty = new ObservableBoolean();
     public final ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public final ObservableField<String> emptyImageUrl = new ObservableField<>();
@@ -105,9 +106,11 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
 
     public void fetchProducts() {
 
-        if (getDataManager().getCurrentLat() != null) {
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+            loading.set(false);
+            return;
+        }
+        loading.set(true);
 
             collectionProductsRequest.setUserid(getDataManager().getCurrentUserId());
             collectionProductsRequest.setLat(getDataManager().getCurrentLat());
@@ -144,17 +147,23 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
                     } else {
                         fullEmpty.set(true);
                     }
-
+                    if (getNavigator() != null) {
+                        getNavigator().DataLoaded();
+                        loading.set(false);
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    if (getNavigator() != null) {
+                        getNavigator().DataLoaded();
+                        loading.set(false);
+                    }
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-        }
+
 
 
     }
@@ -165,7 +174,11 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
         if (!scl1id.equals(sScl1id)) {
             return;
         }
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+            loading.set(false);
+            return;
+        }
+        loading.set(true);
 
         ProductsRequest fCollectionProductsRequest = new ProductsRequest();
 
@@ -212,7 +225,11 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
 
     public void fetchFilterProducts(ProductsRequest request) {
 
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+            loading.set(false);
+            return;
+        }
+        loading.set(true);
         Gson gson = new Gson();
         String filterRequest = gson.toJson(request);
 
@@ -244,12 +261,18 @@ public class CollectionProductsViewModel extends BaseViewModel<CollectionProduct
                 } else {
                     fullEmpty.set(true);
                 }
-
+                if (getNavigator() != null) {
+                    getNavigator().DataLoaded();
+                    loading.set(false);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                if (getNavigator() != null) {
+                    getNavigator().DataLoaded();
+                    loading.set(false);
+                }
             }
         }, AppConstants.API_VERSION_ONE);
         DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);

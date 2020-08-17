@@ -89,7 +89,15 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void handleError(Throwable throwable) {
     }
+    public void stopLoader() {
+        mFragmentHomeBinding.pageLoader.stopShimmerAnimation();
+        mFragmentHomeBinding.pageLoader.setVisibility(View.GONE);
+    }
 
+    public void startLoader() {
+        mFragmentHomeBinding.pageLoader.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.pageLoader.startShimmerAnimation();
+    }
     @Override
     public void success(List<CalendarMonthResponse.Result> resultsList) {
         this.results = resultsList;
@@ -120,6 +128,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
     @Override
     public void failure(String message) {
+        stopLoader();
         //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -153,6 +162,11 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void goBack() {
         ((MainActivity) getActivity()).openHome();
+    }
+
+    @Override
+    public void dataLoaded() {
+        stopLoader();
     }
 
     @Override
@@ -202,6 +216,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             public void onSelectDate(Date date, View view) {
                 dateRating = date;
                 dateCancel = date;
+                startLoader();
                 mCalendarViewModel.getDayWiseOrderDetails(date);
                 caldroidFragment.clearSelectedDates();
                 caldroidFragment.setSelectedDate(date);
@@ -281,6 +296,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
             mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
 
             dateRating = currentDate;
+            startLoader();
             mCalendarViewModel.getDayWiseOrderDetails(currentDate);
             mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
             mCalendarViewModel.dateDay.set(dateDay);
@@ -318,6 +334,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     public void onResume() {
         super.onResume();
         if (dateCancel != null) {
+            startLoader();
             mCalendarViewModel.getDayWiseOrderDetails(dateCancel);
         }
     }
@@ -2170,6 +2187,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                startLoader();
                 mCalendarViewModel.getDayWiseOrderDetails(date);
             }
             if (resultCode == Activity.RESULT_CANCELED) {

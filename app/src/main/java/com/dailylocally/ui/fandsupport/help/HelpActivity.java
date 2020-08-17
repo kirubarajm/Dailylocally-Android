@@ -166,7 +166,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
                 .tags("Old order", tag)
                 .build(HistoryHelpActivity.this);
 
-
         chatApi.disconnect();
 
         ZopimChat zopimChat= new ZopimChat();*/
@@ -196,7 +195,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 // start chat activity with config
         mHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mHelpViewModel.orderid));
         ZopimChatActivity.startActivity(this, config);
-
 
     }
 
@@ -312,9 +310,9 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
-        //   mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
+           mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
 
-        mHelpViewModel.mapTicketidToOrderid(issues.getId(), issues.getTid(), issues.getTagName(), issues.getDepartmentName(), issues.getNote());
+     //   mHelpViewModel.mapTicketidToOrderid(issues.getId(), issues.getTid(), issues.getTagName(), issues.getDepartmentName(), issues.getNote());
 
 
     }

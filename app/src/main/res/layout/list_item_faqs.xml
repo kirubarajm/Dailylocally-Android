@@ -31,13 +31,12 @@
                 android:text="@{faqsItemViewModel.question}" />
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:rotation="@{faqsItemViewModel.expandClicked?180:90}"
-                android:src="@drawable/ic_arrow_drop_up_black_24dp"
-                android:tint="@color/medium_gray" />
+                android:rotation="@{faqsItemViewModel.expandClicked?90:0}"
+                android:src="@drawable/stong_right_arrow" />
         </RelativeLayout>
 
         <com.dailylocally.utilities.fonts.quicksand.ContentTextView

@@ -82,10 +82,16 @@ public class TransactionHistoryViewModel extends BaseViewModel<TransactionHistor
                             e.printStackTrace();
                         }
                         setIsLoading(false);
+                        if (getNavigator()!=null){
+                            getNavigator().dataLoaded();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if (getNavigator()!=null){
+                    getNavigator().dataLoaded();
+                }
                 setIsLoading(true);
             }
         }, AppConstants.API_VERSION_ONE);

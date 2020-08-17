@@ -102,9 +102,12 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
     public void loadMoreProducts() {
 
-        if (getDataManager().getCurrentLat() != null) {
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-            loading.set(true);
+
+            if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+                loading.set(false);
+                return;
+            }
+
             page = page + 1;
             productsRequest.setUserid(getDataManager().getCurrentUserId());
             productsRequest.setLat(getDataManager().getCurrentLat());
@@ -144,7 +147,10 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                         fullEmpty.set(true);
                         page = page - 1;
                     }
-
+                    if (getNavigator() != null) {
+                        loading.set(false);
+                        getNavigator().dataLoaded();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -156,14 +162,16 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-        }
+
 
     }
 
     public void fetchProducts() {
         page = 1;
-        if (getDataManager().getCurrentLat() != null) {
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+            if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+                loading.set(false);
+                return;
+            }
             loading.set(true);
             productsRequest.setUserid(getDataManager().getCurrentUserId());
             productsRequest.setLat(getDataManager().getCurrentLat());
@@ -200,99 +208,24 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                         fullEmpty.set(true);
                         page = page - 1;
                     }
-
+                    if (getNavigator() != null) {
+                        loading.set(false);
+                        getNavigator().dataLoaded();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    loading.set(false);
+                    if (getNavigator() != null) {
+                        loading.set(false);
+                        getNavigator().dataLoaded();
+                    }
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-        }
 
 
-        /*  ProductsPageRequest productsPageRequest = new ProductsPageRequest();
-         *//* homePageRequest.setUserid(getDataManager().getCurrentUserId());
-        homePageRequest.setLat(getDataManager().getCurrentLat());
-        homePageRequest.setLon(getDataManager().getCurrentLng());*//*
-
-        productsPageRequest.setUserid("1");
-        productsPageRequest.setLat("12.979937");
-        productsPageRequest.setLon( "80.218418");
-        Gson gson = new Gson();
-      String  json = gson.toJson(productsPageRequest);
-        //  getDataManager().setFilterSort(json);
-
-
-        try {
-            setIsLoading(true);
-            //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject homepageResponse) {
-
-                    ProductsResponse response;
-                    Gson sGson = new GsonBuilder().create();
-                    response = sGson.fromJson(homepageResponse.toString(), ProductsResponse.class);
-
-
-
-                    if (response != null) {
-
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                        serviceable.set(response.getServiceablestatus());
-                        unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());
-                        emptyImageUrl.set(response.getEmptyUrl());
-                        emptyContent.set(response.getEmptyContent());
-                        emptySubContent.set(response.getEmptySubconent());
-                        headerContent.set(response.getHeaderContent());
-                        headerSubContent.set(response.getHeaderSubconent());
-                        categoryTitle.set(response.getCategoryTitle());
-
-
-
-                    }
-
-                }
-
-
-
-
-
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //   Log.e("", ""+error.getMessage());
-
-                }
-            }) {
-
-                *//**
-         * Passing some request headers
-         *//*
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                }
-            };
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (JSONException j) {
-            j.printStackTrace();
-        } catch (Exception ee) {
-
-            ee.printStackTrace();
-
-        }*/
 
     }
 
@@ -300,9 +233,14 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     public void checkScl2Filter(String sScl2id) {
 
         if (!scl2id.equals(sScl2id)) {
+            loading.set(false);
             return;
         }
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+            loading.set(false);
+            return;
+        }
 
         ProductsRequest fProductsRequest = new ProductsRequest();
 
@@ -353,76 +291,83 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
 
     public void fetchFilterProducts(ProductsRequest request) {
 
-        if (getDataManager().getCurrentLat() != null) {
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+            loading.set(false);
+            return;
+        }
+        Gson gson = new Gson();
+        String filterRequest = gson.toJson(request);
 
-            Gson gson = new Gson();
-            String filterRequest = gson.toJson(request);
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, new JSONObject(filterRequest), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
 
-            try {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, new JSONObject(filterRequest), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                    if (response != null) {
+
+                        Gson gson = new Gson();
+                        ProductsResponse productsResponse = gson.fromJson(response.toString(), ProductsResponse.class);
+
 
                         if (response != null) {
 
-                            Gson gson = new Gson();
-                            ProductsResponse productsResponse = gson.fromJson(response.toString(), ProductsResponse.class);
-
-
-                            if (response != null) {
-
-                                getDataManager().saveServiceableStatus(false, productsResponse.getUnserviceableTitle(), productsResponse.getUnserviceableSubtitle());
+                            getDataManager().saveServiceableStatus(false, productsResponse.getUnserviceableTitle(), productsResponse.getUnserviceableSubtitle());
                        /* serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/
-                                emptyImageUrl.set(productsResponse.getEmptyUrl());
-                                emptyContent.set(productsResponse.getEmptyContent());
-                                emptySubContent.set(productsResponse.getEmptySubconent());
-                                headerContent.set(productsResponse.getHeaderContent());
-                                headerSubContent.set(productsResponse.getHeaderSubconent());
-                                categoryTitle.set(productsResponse.getCategoryTitle());
+                            emptyImageUrl.set(productsResponse.getEmptyUrl());
+                            emptyContent.set(productsResponse.getEmptyContent());
+                            emptySubContent.set(productsResponse.getEmptySubconent());
+                            headerContent.set(productsResponse.getHeaderContent());
+                            headerSubContent.set(productsResponse.getHeaderSubconent());
+                            categoryTitle.set(productsResponse.getCategoryTitle());
 
-                                if (productsResponse.getResult() != null && productsResponse.getResult().size() > 0) {
-                                    fullEmpty.set(false);
-                                    productsListLiveData.postValue(productsResponse.getResult());
-                                } else {
-                                    fullEmpty.set(true);
-                                }
-
+                            if (productsResponse.getResult() != null && productsResponse.getResult().size() > 0) {
+                                fullEmpty.set(false);
+                                productsListLiveData.postValue(productsResponse.getResult());
                             } else {
                                 fullEmpty.set(true);
                             }
 
-
+                        } else {
+                            fullEmpty.set(true);
                         }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+
 
                     }
-                }) {
-                    /**
-                     * Passing some request headers
-                     */
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+
+                    if (getNavigator() != null) {
+                        loading.set(false);
+                        getNavigator().dataLoaded();
                     }
-                };
 
-                jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (getNavigator() != null) {
+                        loading.set(false);
+                        getNavigator().dataLoaded();
+                    }
+                }
+            }) {
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                }
+            };
 
-                DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-            } catch (Exception j) {
-                j.printStackTrace();
-            }
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-
+            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+        } catch (Exception j) {
+            j.printStackTrace();
         }
 
 

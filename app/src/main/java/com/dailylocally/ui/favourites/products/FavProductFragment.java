@@ -87,19 +87,32 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
         } else {
             ((FavActivity)getActivity()).emptyFav(false);
         }
+stopLoader();
+
     }
 
+    @Override
+    public void dataLoaded() {
+
+        stopLoader();
+
+    }
+    public void stopLoader() {
+        mFragmentProductsBinding.pageLoader.stopShimmerAnimation();
+        mFragmentProductsBinding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mFragmentProductsBinding.pageLoader.setVisibility(View.VISIBLE);
+        mFragmentProductsBinding.pageLoader.startShimmerAnimation();
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFavProductsViewModel.setNavigator(this);
         favProductListAdapter.setListener(this);
 
-        mFavProductsViewModel.catid = getArguments().getString("catid", "0");
 
-        mFavProductsViewModel.title.set(String.valueOf(mFavProductsViewModel.catid));
-
-        mFavProductsViewModel.fetchProducts(getArguments().getString("catid", "0"));
     }
 
     @Override
@@ -107,14 +120,18 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
         super.onPause();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentProductsBinding = getViewDataBinding();
 
         subscribeToLiveData();
+        mFavProductsViewModel.catid = getArguments().getString("catid", "0");
 
+        mFavProductsViewModel.title.set(String.valueOf(mFavProductsViewModel.catid));
+        startLoader();
+        mFavProductsViewModel.fetchProducts(getArguments().getString("catid", "0"));
 
        /* mFragmentProductsBinding.productList.setLayoutManager(linearLayoutManager);
         mFragmentProductsBinding.productList.setAdapter(productListAdapter);*/
@@ -166,6 +183,7 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
 
     @Override
     public void reloadProducts() {
+        startLoader();
         mFavProductsViewModel.fetchProducts(mFavProductsViewModel.catid);
     }
 
@@ -201,6 +219,7 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
             }
         }else  if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
+                startLoader();
                 mFavProductsViewModel.checkScl1Filter(data.getStringExtra("catid"));
             }
         }

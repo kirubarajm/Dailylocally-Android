@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -31,7 +32,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         TransactionDetailsNavigator,TransactionProductAdapter.TransactionHistoryInfoListener,TransactionBillDetailAdapter.TransactionHistoryInfoListener {
 
 
-    public ActivityTransactionDetailsBinding ActivityTransactionDetailsBinding;
+    public ActivityTransactionDetailsBinding mActivityTransactionDetailsBinding;
     @Inject
     public TransactionDetailsViewModel mTransactionDetailsViewModel;
     @Inject
@@ -121,7 +122,15 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+    public void stopLoader() {
+        mActivityTransactionDetailsBinding.pageLoader.stopShimmerAnimation();
+        mActivityTransactionDetailsBinding.pageLoader.setVisibility(View.GONE);
+    }
 
+    public void startLoader() {
+        mActivityTransactionDetailsBinding.pageLoader.setVisibility(View.VISIBLE);
+        mActivityTransactionDetailsBinding.pageLoader.startShimmerAnimation();
+    }
     @Override
     public void success(String date) {
         try {
@@ -137,13 +146,19 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     }
 
     @Override
+    public void dataLoaded() {
+        stopLoader();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityTransactionDetailsBinding = getViewDataBinding();
+        mActivityTransactionDetailsBinding = getViewDataBinding();
         mTransactionDetailsViewModel.setNavigator(this);
         mTransactionProductAdapter.setListener(this);
         mTransactionBillDetailAdapter.setListener(this);
 
+        startLoader();
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
             orderid = String.valueOf(bundle.getInt("orderid"));
@@ -154,15 +169,15 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        ActivityTransactionDetailsBinding.recyclerProducts.setLayoutManager(mLayoutManager);
-        ActivityTransactionDetailsBinding.recyclerProducts.setAdapter(mTransactionProductAdapter);
+        mActivityTransactionDetailsBinding.recyclerProducts.setLayoutManager(mLayoutManager);
+        mActivityTransactionDetailsBinding.recyclerProducts.setAdapter(mTransactionProductAdapter);
 
         LinearLayoutManager mLayoutManagerBill
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         mLayoutManagerBill.setOrientation(LinearLayoutManager.VERTICAL);
-        ActivityTransactionDetailsBinding.recyclerBilDetails.setLayoutManager(mLayoutManagerBill);
-        ActivityTransactionDetailsBinding.recyclerBilDetails.setAdapter(mTransactionBillDetailAdapter);
+        mActivityTransactionDetailsBinding.recyclerBilDetails.setLayoutManager(mLayoutManagerBill);
+        mActivityTransactionDetailsBinding.recyclerBilDetails.setAdapter(mTransactionBillDetailAdapter);
 
 
         subscribeToLiveData();

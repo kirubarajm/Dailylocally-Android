@@ -76,6 +76,8 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
         categoryListLiveData = new MutableLiveData<>();
         updateAvailable.set(getDataManager().isUpdateAvailable());
 
+
+
     }
 
     public MutableLiveData<List<HomepageResponse.Result>> getCategoryListLiveData() {

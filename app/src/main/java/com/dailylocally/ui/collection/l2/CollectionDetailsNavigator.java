@@ -5,4 +5,6 @@ public interface CollectionDetailsNavigator {
     void goBack();
     void viewCart();
     void createtabs(CollectionDetailsResponse response);
+
+    void dataLoaded();
 }

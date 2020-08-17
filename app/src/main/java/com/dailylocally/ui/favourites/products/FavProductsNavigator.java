@@ -10,4 +10,5 @@ public interface FavProductsNavigator {
     void openSort();
     void DataLoaded(FavProductsResponse response);
 
+    void dataLoaded();
 }

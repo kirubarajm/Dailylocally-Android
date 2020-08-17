@@ -5,4 +5,6 @@ public interface CategoryL2Navigator {
     void goBack();
     void viewCart();
     void createtabs(L2CategoryResponse response);
+
+    void dataLoaded();
 }

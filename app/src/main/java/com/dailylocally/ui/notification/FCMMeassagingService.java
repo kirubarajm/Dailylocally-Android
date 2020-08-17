@@ -166,7 +166,11 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         Bundle bundle = new Bundle();
         Intent intent = null;
         String pageId = data.get("pageid");
-        String date = parseDateToddMMyyyy(data.get("date"));
+        String date="2020-08-07 12:32:22";
+        if (data.get("date")!=null) {
+             date = parseDateToddMMyyyy(data.get("date"));
+        }
+
         String title = data.get("title");
         String message = data.get("message");
 

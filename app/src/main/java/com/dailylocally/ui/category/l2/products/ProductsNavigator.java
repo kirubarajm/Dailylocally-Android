@@ -10,4 +10,5 @@ public interface ProductsNavigator {
 
     void openSort();
 
+    void dataLoaded();
 }

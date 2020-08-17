@@ -7,4 +7,6 @@ public interface TransactionHistoryNavigator {
     void goBack();
 
     void goHome();
+
+    void dataLoaded();
 }

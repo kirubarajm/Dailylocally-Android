@@ -16,9 +16,7 @@ import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
-
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,10 +34,10 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
     public ObservableField<String> noProductsString = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
     public ObservableBoolean cart = new ObservableBoolean();
+    public ObservableBoolean loading = new ObservableBoolean();
     public ObservableList<L2CategoryResponse.Result> categoryList = new ObservableArrayList<>();
+    public ObservableList<L2CategoryResponse.GetSubCatImage> sliderList = new ObservableArrayList<>();
     private MutableLiveData<List<L2CategoryResponse.Result>> categoryListLiveData;
-
-  public ObservableList<L2CategoryResponse.GetSubCatImage> sliderList = new ObservableArrayList<>();
     private MutableLiveData<List<L2CategoryResponse.GetSubCatImage>> sliderListLiveData;
 
 
@@ -48,7 +46,7 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
         categoryListLiveData = new MutableLiveData<>();
         sliderListLiveData = new MutableLiveData<>();
         serviceable.set(true);
-
+        loading.set(true);
         getDataManager().saveFiletrSort(null);
         totalCart();
     }
@@ -65,9 +63,9 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
         categoryList.addAll(results);
     }
 
- public void addSlidertoList(List<L2CategoryResponse.GetSubCatImage> results) {
+    public void addSlidertoList(List<L2CategoryResponse.GetSubCatImage> results) {
         sliderList.clear();
-     sliderList.addAll(results);
+        sliderList.addAll(results);
     }
 
 
@@ -83,162 +81,66 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
         this.categoryListLiveData = categoryListLiveData;
     }
 
-    public void fetchSubCategoryList(String catid,String scl1id) {
+    public void fetchSubCategoryList(String catid, String scl1id) {
+        loading.set(true);
 
-        if (getDataManager().getCurrentLat() != null) {
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
-            L2CategoryRequest l2CategoryRequest = new L2CategoryRequest();
-            l2CategoryRequest.setUserid(getDataManager().getCurrentUserId());
-            l2CategoryRequest.setLat(getDataManager().getCurrentLat());
-            l2CategoryRequest.setLon(getDataManager().getCurrentLng());
-            l2CategoryRequest.setCatid(catid);
-            l2CategoryRequest.setScl1Id(scl1id);
-
-
-            GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CATEGORYL2_LIST, L2CategoryResponse.class, l2CategoryRequest, new Response.Listener<L2CategoryResponse>() {
-
-                @Override
-                public void onResponse(L2CategoryResponse response) {
-
-                    if (response != null) {
-                        // getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                        serviceable.set(response.getServiceablestatus());
-                        unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());
-
-
-                        if (response.getGetSubCatImages()!=null){
-                            sliderListLiveData.setValue(response.getGetSubCatImages());
-                        }
-
-
-                        if (getNavigator() != null)
-                            getNavigator().createtabs(response);
-                        title.set(response.getCategoryTitle());
-                          image.set(response.getGetSubCatImages().get(0).getImageUrl());
-
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
-
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+            loading.set(false);
+            return;
         }
 
-
-        /* HomePageRequest homePageRequest = new HomePageRequest();
-         *//* homePageRequest.setUserid(getDataManager().getCurrentUserId());
-        homePageRequest.setLat(getDataManager().getCurrentLat());
-        homePageRequest.setLon(getDataManager().getCurrentLng());*//*
-
-        homePageRequest.setUserid("1");
-        homePageRequest.setLat("12.979937");
-        homePageRequest.setLon( "80.218418");
-        Gson gson = new Gson();
-        String  json = gson.toJson(homePageRequest);
-        //  getDataManager().setFilterSort(json);
+        L2CategoryRequest l2CategoryRequest = new L2CategoryRequest();
+        l2CategoryRequest.setUserid(getDataManager().getCurrentUserId());
+        l2CategoryRequest.setLat(getDataManager().getCurrentLat());
+        l2CategoryRequest.setLon(getDataManager().getCurrentLng());
+        l2CategoryRequest.setCatid(catid);
+        l2CategoryRequest.setScl1Id(scl1id);
 
 
-        try {
-            setIsLoading(true);
-            //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_CATEGORY_LIST, new JSONObject(json), new Response.Listener<JSONObject>() {
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CATEGORYL2_LIST, L2CategoryResponse.class, l2CategoryRequest, new Response.Listener<L2CategoryResponse>() {
 
-                @Override
-                public void onResponse(JSONObject homepageResponse) {
+            @Override
+            public void onResponse(L2CategoryResponse response) {
 
-                    HomepageResponse response;
-                    Gson sGson = new GsonBuilder().create();
-                    response = sGson.fromJson(homepageResponse.toString(), HomepageResponse.class);
-
+                if (response != null) {
+                    // getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
+                    serviceable.set(response.getServiceablestatus());
+                    unserviceableTitle.set(response.getUnserviceableTitle());
+                    unserviceableSubTitle.set(response.getUnserviceableSubtitle());
 
 
-                    if (response != null) {
-
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
-                        serviceable.set(response.getServiceablestatus());
-                        unserviceableTitle.set(response.getUnserviceableTitle());
-                        unserviceableSubTitle.set(response.getUnserviceableSubtitle());
-                        emptyImageUrl.set(response.getEmptyUrl());
-                        emptyContent.set(response.getEmptyContent());
-                        emptySubContent.set(response.getEmptySubconent());
-                        headerContent.set(response.getHeaderContent());
-                        headerSubContent.set(response.getHeaderSubconent());
-                        categoryTitle.set(response.getCategoryTitle());
-
-
-                        if (getNavigator() != null)
-                            getNavigator().changeHeaderText(response.getHeaderContent());
-
-                        if (response.getResult() != null && response.getResult().size() > 0) {
-                            fullEmpty.set(false);
-                            categoryListLiveData.setValue(response.getResult());
-                            if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
-
-                        } else {
-                            fullEmpty.set(true);
-                            if (getNavigator() != null)
-                                getNavigator().kitchenLoaded();
-                        }
-
-
-                    } else {
-                        fullEmpty.set(true);
-                        if (getNavigator() != null)
-                            getNavigator().kitchenLoaded();
-
+                    if (response.getGetSubCatImages() != null) {
+                        sliderListLiveData.setValue(response.getGetSubCatImages());
                     }
 
-                }
 
-
-
-
-
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //   Log.e("", ""+error.getMessage());
                     if (getNavigator() != null)
-                        getNavigator().kitchenLoaded();
+                        getNavigator().createtabs(response);
+                    title.set(response.getCategoryTitle());
+                    image.set(response.getGetSubCatImages().get(0).getImageUrl());
+
                 }
-            }) {
+                if (getNavigator() != null)
+                    getNavigator().dataLoaded();
+                loading.set(false);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (getNavigator() != null)
+                    getNavigator().dataLoaded();
+                loading.set(false);
+            }
+        }, AppConstants.API_VERSION_ONE);
+        DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-                *//**
-         * Passing some request headers
-         *//*
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                }
-            };
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (JSONException j) {
-            j.printStackTrace();
-        } catch (Exception ee) {
-
-            ee.printStackTrace();
-
-        }*/
 
     }
 
     public void viewCart() {
         getNavigator().viewCart();
     }
+
     public void totalCart() {
         Gson sGson = new GsonBuilder().create();
         CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
@@ -255,7 +157,7 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
                 count = count + CartRequest.getOrderitems().size();
 
                 for (int i = 0; i < CartRequest.getOrderitems().size(); i++) {
-                  //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
+                    //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
                     price = price + ((Integer.parseInt(CartRequest.getOrderitems().get(i).getPrice())) * CartRequest.getOrderitems().get(i).getQuantity());
                 }
 
@@ -270,7 +172,7 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
                 count = count + CartRequest.getSubscription().size();
 
                 for (int i = 0; i < CartRequest.getSubscription().size(); i++) {
-                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())) );
+                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())));
                 }
 
             }
@@ -283,11 +185,11 @@ public class CategoryL2ViewModel extends BaseViewModel<CategoryL2Navigator> {
 
             if (count == 1) {
                 cartItems.set(count + " Item");
-                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" +String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + String.valueOf(price));
                 items.set("Item");
             } else {
                 cartItems.set(count + " Items");
-                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" +String.valueOf(price));
+                cartPrice.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + String.valueOf(price));
                 items.set("Items");
             }
         }

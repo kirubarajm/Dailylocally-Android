@@ -9,4 +9,5 @@ public interface CollectionProductsNavigator {
 
     void openSort();
 
+    void DataLoaded();
 }

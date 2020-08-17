@@ -159,8 +159,19 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             e.printStackTrace();
         }
     }
+
+    public void stopLoader() {
+        mFragmentHomeBinding.pageLoader.stopShimmerAnimation();
+        mFragmentHomeBinding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mFragmentHomeBinding.pageLoader.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.pageLoader.startShimmerAnimation();
+    }
     @Override
     public void failure(String message) {
+        stopLoader();
         //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -179,16 +190,21 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     public void helpClick() {
 
-
-
         Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_PROGRESS_ORDER,mCalendarViewModel.doid.get());
         startActivity(intent);
        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+
     }
 
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void dataLoaded() {
+        stopLoader();
     }
 
     @Override
@@ -230,6 +246,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             @Override
             public void onSelectDate(Date date, View view) {
                 dateRating = date;
+          startLoader();
                 mCalendarViewModel.getDayWiseOrderDetails(date);
                 caldroidFragment.clearSelectedDates();
                 caldroidFragment.setSelectedDate(date);
@@ -308,6 +325,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
                 caldroidFragment.setSelectedDate(currentDate);
                 caldroidFragment.refreshView();
                 dateRating = currentDate;
+                startLoader();
                 mCalendarViewModel.getDayWiseOrderDetails(currentDate);
                 mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
                 mCalendarViewModel.dateDay.set(dateDay);
@@ -334,7 +352,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         String yearString = yearFormat.format(dateRating);
         String monthString = monthFormat.format(dateRating);
         mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
-
+            startLoader();
         mCalendarViewModel.getDayWiseOrderDetails(dateRating);
         mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
         mCalendarViewModel.dateDay.set(dateDay);

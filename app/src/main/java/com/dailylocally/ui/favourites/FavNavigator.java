@@ -5,4 +5,6 @@ public interface FavNavigator {
     void goBack();
     void viewCart();
     void createtabs(FavResponse response);
+
+    void dataLoaded();
 }

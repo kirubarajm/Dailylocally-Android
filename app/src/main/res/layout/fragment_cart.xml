@@ -84,15 +84,15 @@
 
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                android:textAlignment="center"
-                    android:textColor="@color/medium_black"
-                    android:textSize="@dimen/_22px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tt1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Your cart is empty. Add local produce" />
+                    android:text="Your cart is empty. Add local produce"
+                    android:textAlignment="center"
+                    android:textColor="@color/medium_black"
+                    android:textSize="@dimen/_22px" />
 
 
                 <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
@@ -451,10 +451,10 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginEnd="15dp"
                                 android:gravity="center"
-                                android:textAlignment="center"
                                 android:text="@{cartViewModel.statusMessage}"
+                                android:textAlignment="center"
                                 android:textColor="@color/medium_black"
-                                android:textSize="@dimen/_22px"/>
+                                android:textSize="@dimen/_22px" />
 
                         </LinearLayout>
 
@@ -472,7 +472,7 @@
                             android:text="@{cartViewModel.bookDeliveryText}"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_25px"/>
+                            android:textSize="@dimen/_25px" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -480,6 +480,41 @@
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/cart_loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+
+
+            </LinearLayout>
+
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
 
         <com.nhaarman.supertooltips.ToolTipRelativeLayout
             android:id="@+id/activity_main_tooltipframelayout"

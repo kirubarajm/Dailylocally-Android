@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -103,6 +104,11 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
     }
 
     @Override
+    public void dataLoaded() {
+        stopLoader();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.transactionHistoryViewModel;
     }
@@ -156,6 +162,7 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+        startLoader();
        mTransactionHistoryViewModel.getTransactionHistoryList();
     }
 
@@ -163,7 +170,15 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
     public void canceled() {
 
     }
+    public void stopLoader() {
+        mActivityTransactionHistoryBinding.pageLoader.stopShimmerAnimation();
+        mActivityTransactionHistoryBinding.pageLoader.setVisibility(View.GONE);
+    }
 
+    public void startLoader() {
+        mActivityTransactionHistoryBinding.pageLoader.setVisibility(View.VISIBLE);
+        mActivityTransactionHistoryBinding.pageLoader.startShimmerAnimation();
+    }
     @Override
     public void viewClick(TransactionHistoryResponse.Result cartdetail) {
         Intent intent = TransactionDetailsActivity.newIntent(this);

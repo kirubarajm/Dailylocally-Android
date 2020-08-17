@@ -119,15 +119,19 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
                             }
                         } else {
-                            if (getNavigator() != null) {
+                            /*if (getNavigator() != null) {
                                 getNavigator().failure("");
-                            }
+                            }*/
                             noDataFound.set(true);
 
                             emptyTitle.set(response.getEmptyTitle());
                             emptyContent.set(response.getEmptyContent());
 
                         }
+                    }
+
+                    if (getNavigator()!=null){
+                        getNavigator().dataLoaded();
                     }
                     setIsLoading(false);
                 }

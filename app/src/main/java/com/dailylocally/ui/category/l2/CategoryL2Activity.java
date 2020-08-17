@@ -88,6 +88,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
             categoryid = intent.getExtras().getString("catid");
             scl1id = intent.getExtras().getString("scl1id");
             vpid = intent.getExtras().getString("vpid");
+            startLoader();
             mCategoryL2ViewModel.fetchSubCategoryList(categoryid, scl1id);
         }
 
@@ -135,6 +136,16 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     @Override
     public void handleError(Throwable throwable) {
 
+    }
+
+    public void stopLoader() {
+        mActivityCategoryl2Binding.pageLoader.stopShimmerAnimation();
+        mActivityCategoryl2Binding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mActivityCategoryl2Binding.pageLoader.setVisibility(View.VISIBLE);
+        mActivityCategoryl2Binding.pageLoader.startShimmerAnimation();
     }
 
     @Override
@@ -267,6 +278,11 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 
 
 
+    }
+
+    @Override
+    public void dataLoaded() {
+        stopLoader();
     }
 
 

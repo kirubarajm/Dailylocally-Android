@@ -243,6 +243,59 @@
 
         </ScrollView>
 
+
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/page_loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topBar"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/gray"/>
+
+                 <LinearLayout
+                     android:layout_marginTop="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:background="@color/gray"/>
+
+
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:background="@color/gray"/>
+
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+                <include layout="@layout/tile_loader" />
+
+            </LinearLayout>
+
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
     </RelativeLayout>
 
 </layout>

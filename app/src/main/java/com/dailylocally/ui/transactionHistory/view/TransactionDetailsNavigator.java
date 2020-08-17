@@ -28,4 +28,5 @@ public interface TransactionDetailsNavigator {
 
     void success(String date);
 
+    void dataLoaded();
 }

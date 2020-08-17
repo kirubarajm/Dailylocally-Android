@@ -119,12 +119,20 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
                         }catch (Exception e){
                             e.printStackTrace();
                         }
+                        if (getNavigator()!=null){
+                            getNavigator().dataLoaded();
+                        }
+
+
                         setIsLoading(false);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(true);
+                if (getNavigator()!=null){
+                    getNavigator().dataLoaded();
+                }
             }
         }, AppConstants.API_VERSION_ONE);
 

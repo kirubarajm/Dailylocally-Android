@@ -85,9 +85,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String screenName = "";
     Snackbar snackbar;
 
-    String orderId;
-
-
+    String orderId,  customerId,  amount;
+    JSONObject options;
     boolean downloading;
 
     boolean forceLocation = false;
@@ -703,10 +702,8 @@ unregisterWifiReceiver();
 
     public void makePayment(String orderId, String customerId, String amount) {
         this.orderId = orderId;
-
-
-        JSONObject options;
-
+        this.customerId = customerId;
+        this.amount = amount;
         final Activity activity = MainActivity.this;
 
         final Checkout co = new Checkout();
@@ -730,7 +727,6 @@ unregisterWifiReceiver();
             options.put("readonly", ReadOnly);
 
             co.open(activity, options);
-
 
         } catch (Exception e) {
             Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)

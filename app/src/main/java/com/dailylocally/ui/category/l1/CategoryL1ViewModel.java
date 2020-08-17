@@ -98,22 +98,19 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
                             categoriesCount.set(String.valueOf(response.getResult().size()) + " Categories");
 
 
-                        } else {
-
-
                         }
-
-                    } else {
-
-
                     }
 
+
+                    if (getNavigator() != null)
+                        getNavigator().cartLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
 
-                    Log.e("ERROR","Failed");
+                    if (getNavigator() != null)
+                        getNavigator().cartLoaded();
 
                 }
             }, AppConstants.API_VERSION_ONE);

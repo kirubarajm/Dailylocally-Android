@@ -29,13 +29,12 @@
             android:layout_marginEnd="10dp">
 
             <ImageView
-                android:tint="@color/medium_black"
                 android:id="@+id/loader"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_l1_arrow" />
+                android:src="@drawable/stong_right_arrow" />
 
             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:layout_marginEnd="10dp"

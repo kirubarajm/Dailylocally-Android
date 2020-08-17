@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.View;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -46,6 +47,11 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
         }
     };
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ProductDetailsActivity.class);
+    }
+
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -78,9 +84,6 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
             return true;
         } else return networkInfo != null
                 && networkInfo.isConnected();
-    }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ProductDetailsActivity.class);
     }
 
     @Override
@@ -116,8 +119,8 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     public void subscribe() {
         Intent intent = SubscriptionActivity.newIntent(ProductDetailsActivity.this);
         intent.putExtra("pid", vpid);
-        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
-       overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
@@ -135,6 +138,11 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     }
 
     @Override
+    public void dataLoaded() {
+        stopLoader();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityProductDetailsBinding = getViewDataBinding();
@@ -143,9 +151,22 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         analytics = new Analytics(this, pageName);
 
         vpid = getIntent().getExtras().getString("vpid");
-        mAddAddressViewModel.vpid=vpid;
+        mAddAddressViewModel.vpid = vpid;
+
+        startLoader();
         mAddAddressViewModel.getProductDetails(vpid);
 
+    }
+
+
+    public void stopLoader() {
+        mActivityProductDetailsBinding.pageLoader.stopShimmerAnimation();
+        mActivityProductDetailsBinding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mActivityProductDetailsBinding.pageLoader.setVisibility(View.VISIBLE);
+        mActivityProductDetailsBinding.pageLoader.startShimmerAnimation();
     }
 
     @Override

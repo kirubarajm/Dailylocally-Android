@@ -89,6 +89,40 @@ public Integer stype;
 
     }
 
+
+    public void getIssuesNote(int type,int issueid) {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHAT_ISSUES_NOTE, IssuesListResponse.class, new IssuesRequest(type,issueid,getDataManager().getCurrentUserId(),orderid), new Response.Listener<IssuesListResponse>() {
+                @Override
+                public void onResponse(IssuesListResponse response) {
+                    if (response != null) {
+                        if (response.getResult()!=null&&response.getResult().size()>0) {
+
+                            if (getNavigator()!=null)
+                                getNavigator().mapChat(response.getResult().get(0).getDepartmentName(),response.getResult().get(0).getTagName(),response.getResult().get(0).getNote(),issueid,response.getResult().get(0).getTid());
+                        }
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    setIsLoading(false);
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+
+    }
+
     public void mapTicketidToOrderid(int issueid, int tid, String tag, String department, String note) {
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;

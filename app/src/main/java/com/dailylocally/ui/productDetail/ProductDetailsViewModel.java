@@ -454,11 +454,20 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                             e.printStackTrace();
                             setIsLoading(false);
                         }
+                        if (getNavigator()!=null){
+                            getNavigator().dataLoaded();
+                        }
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
+                if (getNavigator()!=null){
+                    getNavigator().dataLoaded();
+                }
+
             }
         }, AppConstants.API_VERSION_ONE);
 

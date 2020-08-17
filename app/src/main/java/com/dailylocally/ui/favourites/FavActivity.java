@@ -78,7 +78,7 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
         mFavViewModel.setNavigator(this);
         mActivityFavDetailsBinding = getViewDataBinding();
         subscribeLiveData();
-
+        startLoader();
        /* mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
 
       //  mActivityCategoryl2Binding.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
@@ -153,10 +153,10 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
         if (response.getResult() == null) {
             mActivityFavDetailsBinding.categorytabs.setVisibility(View.GONE);
-          //  mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
+            //  mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
         } else if (response.getResult() != null && response.getResult().size() == 0) {
             mActivityFavDetailsBinding.categorytabs.setVisibility(View.GONE);
-       //     mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
+            //     mActivityFavDetailsBinding.htabToolbar.setVisibility(View.GONE);
         }
 
 
@@ -239,6 +239,22 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
         });
 
 
+    }
+
+
+    public void stopLoader() {
+        mActivityFavDetailsBinding.pageLoader.stopShimmerAnimation();
+        mActivityFavDetailsBinding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mActivityFavDetailsBinding.pageLoader.setVisibility(View.VISIBLE);
+        mActivityFavDetailsBinding.pageLoader.startShimmerAnimation();
+    }
+
+    @Override
+    public void dataLoaded() {
+        stopLoader();
     }
 
 

@@ -84,13 +84,18 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     @Override
     public void moreDataLoaded() {
-
+        stopLoader();
         productListAdapter.loadingFalse();
     }
 
     @Override
     public void openSort() {
         ((CategoryL2Activity) getActivity()).openSort(mProductsViewModel.scl2id);
+    }
+
+    @Override
+    public void dataLoaded() {
+        stopLoader();
     }
 
     @Override
@@ -116,12 +121,9 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         mProductsViewModel.scl1id = getArguments().getString("scl1id", null);
 
         mProductsViewModel.title.set(String.valueOf(mProductsViewModel.scl2id));
+        startLoader();
 
         mProductsViewModel.fetchProducts();
-
-
-       /* mFragmentProductsBinding.productList.setLayoutManager(linearLayoutManager);
-        mFragmentProductsBinding.productList.setAdapter(productListAdapter);*/
 
 
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -130,83 +132,6 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
         mFragmentProductsBinding.productList.setNestedScrollingEnabled(true);
 
-       /* final boolean[] loading = {false};
-        Paginate.Callbacks callbacks = new Paginate.Callbacks() {
-            @Override
-            public void onLoadMore() {
-                // Load next page of data (e.g. network or database)
-
-                //    loading[0] =true;
-                if (mProductsViewModel.page > 0){
-
-                    Toast.makeText(getContext(), "load more", Toast.LENGTH_SHORT).show();
-                    mProductsViewModel.loadMoreProducts();
-                }
-
-            }
-
-            @Override
-            public boolean isLoading() {
-                // Indicate whether new page loading is in progress or not
-                return loading[0];
-            }
-
-            @Override
-            public boolean hasLoadedAllItems() {
-                // Indicate whether all data (pages) are loaded or not
-                return false;
-            }
-        };
-
-
-        Paginate.with(mFragmentProductsBinding.productList, callbacks)
-                .setLoadingTriggerThreshold(5)
-                .addLoadingListItem(false)
-                .setLoadingListItemCreator(null)
-                .build();*/
-
-
-
-
-        /*mFragmentProductsBinding.productList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-               *//* if (dy > 0) { //check for scroll down
-                    visibleItemCount = linearLayoutManager.getChildCount();
-                    totalItemCount = linearLayoutManager.getItemCount();
-                    pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
-
-                //    if (loading[0]) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                           // loading[0] = false;
-                            Toast.makeText(getContext(), "loading.....", Toast.LENGTH_SHORT).show();
-                            // Do pagination.. i.e. fetch new data
-                   //     }
-                   }
-                }*//*
-
-                visibleItemCount = recyclerView.getChildCount();
-                totalItemCount = linearLayoutManager.getItemCount();
-                firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false;
-                        previousTotal = totalItemCount;
-                    }
-                }
-                if (!loading && (totalItemCount - visibleItemCount)
-                        <= (firstVisibleItem + 1)) {
-                    // End has been reached
-
-                    Toast.makeText(getContext(), "loading.....", Toast.LENGTH_SHORT).show();
-                    // Do something
-
-                    loading = true;
-                }
-
-            }
-        });*/
 
     }
 
@@ -228,8 +153,9 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     @Override
     public void loadMore() {
-        if (!mProductsViewModel.loading.get())
+        if (!mProductsViewModel.loading.get()) {
             mProductsViewModel.loadMoreProducts();
+        }
     }
 
     @Override
@@ -259,6 +185,16 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     }
 
+    public void stopLoader() {
+        mFragmentProductsBinding.pageLoader.stopShimmerAnimation();
+        mFragmentProductsBinding.pageLoader.setVisibility(View.GONE);
+    }
+
+    public void startLoader() {
+        mFragmentProductsBinding.pageLoader.setVisibility(View.VISIBLE);
+        mFragmentProductsBinding.pageLoader.startShimmerAnimation();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -280,6 +216,7 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
             }
         } else if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
+                startLoader();
                 mProductsViewModel.checkScl2Filter(data.getStringExtra("scl2id"));
             }
         }

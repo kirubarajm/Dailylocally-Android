@@ -43,22 +43,21 @@
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:id="@+id/kitchen_name"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
+                style="@style/HeaderTitleTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                style="@style/HeaderTitleTextStyle"
-                android:text="@{collectionDetailsViewModel.title}"/>
+                android:text="@{collectionDetailsViewModel.title}" />
 
 
         </RelativeLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_above="@+id/bottomContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/header">
@@ -77,25 +76,25 @@
                     android:fitsSystemWindows="true"
                     app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll">
-                        <!--<androidx.appcompat.widget.Toolbar
-                            android:id="@+id/htab_toolbar"
-                            android:layout_width="match_parent"
-                            android:layout_height="?attr/actionBarSize"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="bottom"
-                            android:minHeight="?android:attr/actionBarSize"
-                            android:visibility="invisible"
-                            app:layout_collapseMode="pin" />
+                    <!--<androidx.appcompat.widget.Toolbar
+                        android:id="@+id/htab_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="bottom"
+                        android:minHeight="?android:attr/actionBarSize"
+                        android:visibility="invisible"
+                        app:layout_collapseMode="pin" />
 
-                        <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/categorytabs"
-                            android:layout_width="match_parent"
-                            android:layout_height="?attr/actionBarSize"
-                            android:layout_alignParentBottom="true"
-                            android:layout_gravity="bottom"
-                            android:minHeight="?android:attr/actionBarSize"
-                            android:theme="@style/AppTheme.TabStyle" />-->
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/categorytabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom"
+                        android:minHeight="?android:attr/actionBarSize"
+                        android:theme="@style/AppTheme.TabStyle" />-->
 
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -109,22 +108,25 @@
                 android:clipToPadding="false"
                 android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <com.google.android.material.tabs.TabLayout
-                        app:tabTextAppearance="@style/tab_text"
-                        android:background="@color/white"
                         android:id="@+id/categorytabs"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        app:tabTextColor="@color/black"
-                        app:tabSelectedTextColor="@color/dl_primary_color"
+                        android:layout_gravity="bottom"
+                        android:background="@color/white"
                         app:tabIndicatorColor="@color/dl_primary_color"
-                        app:tabIndicatorHeight="2dp"
                         app:tabIndicatorGravity="top"
-                        android:layout_gravity="bottom" />
+                        app:tabIndicatorHeight="2dp"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="@color/dl_primary_color"
+                        app:tabTextAppearance="@style/tab_text"
+                        app:tabTextColor="@color/black" />
 
 
                     <androidx.viewpager.widget.ViewPager
@@ -141,7 +143,6 @@
                      app:categoryl12list="@{categoryL2ViewModel}" />-->
 
 
-
             </androidx.core.widget.NestedScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -152,102 +153,110 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:id="@+id/cart"
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@drawable/gradient_bt_back"
+                android:layout_margin="15dp"
                 android:onClick="@{()->collectionDetailsViewModel.viewCart()}"
-                android:visibility="@{collectionDetailsViewModel.cart?View.VISIBLE:View.GONE}">
+                android:orientation="vertical"
+                android:visibility="@{collectionDetailsViewModel.cart?View.VISIBLE:View.GONE}"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="20dp"
+                app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_marginStart="@dimen/_15px"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/cart"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_orders"
-                        android:tint="@color/white" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/white" />
+                    android:layout_gravity="bottom"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="5dp"
-                        android:orientation="vertical">
+                        android:layout_marginStart="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@{collectionDetailsViewModel.cartItems}"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_15px" />
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/ic_orders"
+                            android:tint="@color/white" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/white" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:orientation="horizontal"
-                            android:visibility="visible">
+                            android:layout_marginStart="5dp"
+                            android:orientation="vertical">
 
-
-
-                            <TextView
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="@{collectionDetailsViewModel.cartPrice}"
+                                android:text="@{collectionDetailsViewModel.cartItems}"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_22px" />
+                                android:textSize="@dimen/_15px" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@{collectionDetailsViewModel.cartPrice}"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_22px" />
+                            </LinearLayout>
                         </LinearLayout>
+
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal">
-
-
-
-                    <ImageView
-                        android:layout_width="25dp"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:rotation="180"
-                        android:src="@drawable/zui_ic_back" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:orientation="horizontal">
 
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:rotation="180"
+                            android:src="@drawable/zui_ic_back" />
 
 
-            </RelativeLayout>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:id="@+id/bottom"
@@ -261,27 +270,38 @@
 
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    style="@style/UnserviceableTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@{collectionDetailsViewModel.unserviceableTitle}"
-                    style="@style/UnserviceableTextStyle"/>
+                    android:text="@{collectionDetailsViewModel.unserviceableTitle}" />
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    style="@style/UnserviceableTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@{collectionDetailsViewModel.unserviceableSubTitle}"
-                    style="@style/UnserviceableTextStyle"/>
+                    android:text="@{collectionDetailsViewModel.unserviceableSubTitle}" />
 
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/page_loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="@{collectionDetailsViewModel.loading?View.VISIBLE:View.GONE}">
+
+            <include layout="@layout/l2_loader" />
+
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
 </layout>

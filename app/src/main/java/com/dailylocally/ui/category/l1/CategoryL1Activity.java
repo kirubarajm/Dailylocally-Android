@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -58,7 +59,15 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
         return new Intent(context, CategoryL1Activity.class);
     }
 
+    public void stopCartLoader() {
+        mActivityCategoryl1Binding.pageLoader.stopShimmerAnimation();
+        mActivityCategoryl1Binding.pageLoader.setVisibility(View.GONE);
+    }
 
+    public void startCartLoader() {
+        mActivityCategoryl1Binding.pageLoader.setVisibility(View.VISIBLE);
+        mActivityCategoryl1Binding.pageLoader.startShimmerAnimation();
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +80,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             categoryid = intent.getExtras().getString("catid");
+            startCartLoader();
             mCategoryL1ViewModel.fetchSubCategoryList(categoryid);
         }
         subscribeLiveData();
@@ -108,6 +118,11 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void cartLoaded() {
+        stopCartLoader();
     }
 
 
