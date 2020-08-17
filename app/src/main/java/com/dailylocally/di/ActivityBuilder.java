@@ -44,6 +44,8 @@ import com.dailylocally.ui.category.l2.products.sort.SortProvider;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsModule;
 import com.dailylocally.ui.collection.l2.products.CollectionProductsProvider;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivityModule;
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.coupons.CouponsModule;
 
@@ -231,5 +233,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {AdModule.class, PromotionProvider.class})
     abstract AdActivity bindAdActivity();
+
+    @ContributesAndroidInjector(modules = {CommunityOnBoardingActivityModule.class})
+    abstract CommunityOnBoardingActivity bindCommunityOnBoardingActivity();
 
 }

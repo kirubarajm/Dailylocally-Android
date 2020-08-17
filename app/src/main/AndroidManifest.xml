@@ -27,10 +27,6 @@
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="locked">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
@@ -263,6 +259,14 @@
                     android:host="@string/deferred_deeplink_host"
                     android:pathPrefix="/liveorders"
                     android:scheme="@string/deferred_deeplink_scheme" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".ui.communityOnboarding.CommunityOnBoardingActivity" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
