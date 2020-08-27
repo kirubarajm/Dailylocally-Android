@@ -701,6 +701,16 @@ mPreferencesHelper.setUserRegistrationStatus(status);
     }
 
     @Override
+    public Integer getFirstTimeLaunchCommunity() {
+        return mPreferencesHelper.getFirstTimeLaunchCommunity();
+    }
+
+    @Override
+    public void setFirstTimeLaunchCommunity(Integer firstTime) {
+        mPreferencesHelper.setFirstTimeLaunchCommunity(firstTime);
+    }
+
+    @Override
     public String getCartDetails() {
         return mPreferencesHelper.getCartDetails();
     }

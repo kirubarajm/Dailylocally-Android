@@ -149,6 +149,9 @@
         <activity
             android:name=".ui.fandsupport.help.HelpActivity"
             android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity"
+            android:screenOrientation="locked" />
 
 
         <activity
@@ -264,12 +267,17 @@
         </activity>
         <activity android:name=".ui.communityOnboarding.CommunityOnBoardingActivity" >
 
+
+        </activity>
+        <activity android:name=".ui.joinCommunity.CommunityActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
+        <activity android:name=".ui.joinCommunity.communityLocation.CommunityAddressActivity" />
 
 
     </application>

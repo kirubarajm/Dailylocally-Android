@@ -171,4 +171,7 @@ public interface PreferencesHelper {
     Integer getGender();
     void setGender(Integer gender);
 
+    Integer getFirstTimeLaunchCommunity();
+    void setFirstTimeLaunchCommunity(Integer firstTime);
+
 }

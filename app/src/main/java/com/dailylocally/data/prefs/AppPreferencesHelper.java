@@ -121,6 +121,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
+    private static final String PREF_KEY_FIRST_TIME_LAUNCH_COMMUNITY = "PREF_KEY_FIRST_TIME_LAUNCH_COMMUNITY";
 
     private final SharedPreferences mPrefs;
 
@@ -608,6 +609,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setGender(Integer gender) {
         mPrefs.edit().putInt(PREF_KEY_USER_GENDER, gender).apply();
+    }
+
+    @Override
+    public Integer getFirstTimeLaunchCommunity() {
+        return mPrefs.getInt(PREF_KEY_FIRST_TIME_LAUNCH_COMMUNITY, 0);
+    }
+
+    @Override
+    public void setFirstTimeLaunchCommunity(Integer firstTime) {
+        mPrefs.edit().putInt(PREF_KEY_FIRST_TIME_LAUNCH_COMMUNITY, firstTime).apply();
     }
 
     @Override

@@ -13,39 +13,85 @@
     </data>
 
 <RelativeLayout
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:ignore="MissingConstraints">
+    android:background="#50000000">
 
     <RelativeLayout
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/btn_register"
-        android:id="@+id/rel_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/img_1"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_dl_logo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+            android:layout_below="@+id/img_1"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/txt_1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12px"
+            android:text="Join DL Exclusive to enjoy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-        android:layout_alignParentBottom="true"
-        android:text="Register Community"
-        android:id="@+id/btn_register"
-        android:layout_marginBottom="10dp"
-        android:layout_centerHorizontal="true"
-        style="@style/MediumGreenButtonTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+            android:layout_below="@+id/txt_1"
+            android:id="@+id/txt_2"
+            android:textSize="@dimen/_12px"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:text="An All New Daily Locally Experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_below="@+id/txt_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                android:id="@+id/txt_3"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12px"
+                android:layout_centerHorizontal="true"
+                android:text="&#8226; 0 minimum basket value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                android:layout_below="@+id/txt_3"
+                android:id="@+id/txt_4"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/_12px"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:text="&#8226; Free delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                android:layout_below="@+id/txt_4"
+                android:id="@+id/txt_5"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12px"
+                android:layout_centerHorizontal="true"
+                android:text="&#8226; Cash on delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

@@ -67,6 +67,8 @@ import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 
 import com.dailylocally.ui.collection.l2.products.CollectionProductListAdapter;
 import com.dailylocally.ui.collection.l2.products.CollectionProductsResponse;
+import com.dailylocally.ui.joinCommunity.CommunityAdapter;
+import com.dailylocally.ui.joinCommunity.CommunityResponse;
 import com.dailylocally.ui.coupons.CouponsAdapter;
 import com.dailylocally.ui.coupons.CouponsResponse;
 
@@ -293,6 +295,15 @@ public final class BindingUtils {
     @BindingAdapter({"adapter"})
     public static void addTransactionHistoryItems(RecyclerView recyclerView, List<TransactionHistoryResponse.Result> blogs) {
         TransactionHistoryAdapter adapter = (TransactionHistoryAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addCommunityListItems(RecyclerView recyclerView, List<CommunityResponse.Result> blogs) {
+        CommunityAdapter adapter = (CommunityAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(blogs);

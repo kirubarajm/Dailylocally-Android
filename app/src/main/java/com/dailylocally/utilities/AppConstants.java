@@ -398,6 +398,11 @@ public class AppConstants {
   public static final String URL_DAY_ORDER_PRODUCT_DETAILS = URL_SERVER_IP_PORT + "/user/dayorder/productdetail";
   public static final String URL_USER_RATING = URL_SERVER_IP_PORT + "/user/rating";
   public static final String URL_PRODUCT_CANCEL = URL_SERVER_IP_PORT + "/user/dayorder/productcancel";
+  public static final String URL_COMMUNITY_LIST = URL_SERVER_IP_PORT + "/user/communitylist";
+  public static final String URL_COMMUNITY_SEARCH = URL_SERVER_IP_PORT + "/user/communitysearch";
+  public static final String URL_JOIN_THE_COMMUNITY = URL_SERVER_IP_PORT + "/user/joincommunity";
+  public static final String URL_COMPLETE_REGISTRATION = URL_SERVER_IP_PORT + "/user/new_community_registration";
+  public static final String URL_UPLOAD_DOCUMENT_PICKUP = URL_SERVER_IP_PORT + "/moveit/documentUpload";
 
 
   public static final int SEARCH_CATEGORY = 1;
@@ -443,6 +448,9 @@ public class AppConstants {
   public static final String TOAST_LOGIN_SUCCESS = "Login success";
   public static final String TOAST_LOGIN_FAILED = "Login failed";
   public static final int TERMS_AND_CONDITION_REQUEST_CODE = 701;
+  public static final int COMMUNITY_REQUEST_CODE = 702;
+  public static final int IMAGE_UPLOAD_JOIN = 703;
+  public static final int IMAGE_UPLOAD_REGISTRATION = 704;
   public static final String CANCEL_ORDER_MEAASAGE_1 = "I entered the wrong delivery address";
   public static final String CANCEL_ORDER_MEAASAGE_2 = "I added the wrong items";
   public static final String CANCEL_ORDER_MEAASAGE_3 = "Placed order by mistake";
