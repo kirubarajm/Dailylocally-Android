@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -121,9 +122,9 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         mProductsViewModel.scl1id = getArguments().getString("scl1id", null);
 
         mProductsViewModel.title.set(String.valueOf(mProductsViewModel.scl2id));
-        startLoader();
+      //  startLoader();
 
-        mProductsViewModel.fetchProducts();
+    //    mProductsViewModel.fetchProducts();
 
 
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -132,7 +133,31 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
         mFragmentProductsBinding.productList.setNestedScrollingEnabled(true);
 
+       /* mFragmentProductsBinding.productList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
+                View visi = recyclerView.getChildAt(recyclerView.getChildCount() - 1);
+
+                int lVV = recyclerView.getChildAdapterPosition(visi);
+                int itemCount = productListAdapter.getItemCount();
+                if (itemCount > 2) {
+                    if (dy > 0) {
+                        if (lVV >= itemCount - 2) {
+                            if (!mProductsViewModel.loadingMore.get()&&!mProductsViewModel.loading.get()) {
+                              //  productListAdapter.addLoader();
+                                loadMore();
+                            }
+                        }
+
+                    } else {
+                        // Scrolling down
+                        // Toast.makeText(getContext(),"Loading more", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });*/
     }
 
     @Override
@@ -153,9 +178,8 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
     @Override
     public void loadMore() {
-        if (!mProductsViewModel.loading.get()) {
-            mProductsViewModel.loadMoreProducts();
-        }
+         //   mProductsViewModel.loadMoreProducts(productListAdapter);
+
     }
 
     @Override
@@ -210,8 +234,11 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
 
         } else if (requestCode == AppConstants.REFRESH_CODE) {
             if (resultCode == RESULT_OK) {
-                mProductsViewModel.productsList.clear();
-                subscribeToLiveData();
+              /*  mProductsViewModel.productsList.clear();
+                subscribeToLiveData();*/
+
+                startLoader();
+                mProductsViewModel.fetchProducts();
 
             }
         } else if (requestCode == 1111) {

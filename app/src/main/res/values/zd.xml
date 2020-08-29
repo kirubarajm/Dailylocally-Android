@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="zd_url">https://dailylocallytest.zendesk.com</string>
-    <string name="zd_appid">1cc55505a35df4ac826922cfeb1461665dcf361044c76b64</string>
-    <string name="zd_oauth">mobile_sdk_client_8e9e4cfcabc051db133b</string>
-
-    <string name="zopim_account_id">Q2JPeo4Lk5pV19b5YGG76WreXsY3Sb8K</string>
-</resources>
-<!--<resources>
     <string name="zd_url">https://dailylocallyapp.zendesk.com</string>
     <string name="zd_appid">dcfe3dd71381031613262335e825f69ad08cf0cccfdcb699</string>
     <string name="zd_oauth">mobile_sdk_client_55e7cf3f78d61c8eb098</string>
 
     <string name="zopim_account_id">q5pgVVi7DBjNDno2rovGdnCPV5lntPdI</string>
-</resources>-->
+</resources>
 
+<!--<resources>
+<string name="zd_url">https://dailylocallytest.zendesk.com</string>
+<string name="zd_appid">1cc55505a35df4ac826922cfeb1461665dcf361044c76b64</string>
+<string name="zd_oauth">mobile_sdk_client_8e9e4cfcabc051db133b</string>
+
+<string name="zopim_account_id">Q2JPeo4Lk5pV19b5YGG76WreXsY3Sb8K</string>
+</resources>-->

@@ -239,7 +239,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
             productIdList = new ArrayList<>();
             for (int i = 0; i < productList.size(); i++) {
                 if (productList.get(i).getTrueOrFalse()!=null && productList.get(i).getTrueOrFalse()) {
-                    productIdList.add(productList.get(i).getDayorderpid());
+                    productIdList.add(Integer.valueOf(productList.get(i).getDayorderpid()));
                 }
             }
         }

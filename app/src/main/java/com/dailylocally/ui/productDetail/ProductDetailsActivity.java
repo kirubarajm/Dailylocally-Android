@@ -174,7 +174,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         super.onResume();
         registerWifiReceiver();
         mAddAddressViewModel.checkCart();
-
+mAddAddressViewModel.totalCart();
     }
 
     @Override

@@ -94,9 +94,19 @@ public Integer stype;
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         try {
+            IssuesRequest issuesRequest=null;
+            if (orderid.equals("0")){
+                 issuesRequest=new IssuesRequest(type,issueid,getDataManager().getCurrentUserId(),null);
+            }else {
+
+                 issuesRequest=new IssuesRequest(type,issueid,getDataManager().getCurrentUserId(),orderid);
+            }
+
+
+
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHAT_ISSUES_NOTE, IssuesListResponse.class, new IssuesRequest(type,issueid,getDataManager().getCurrentUserId(),orderid), new Response.Listener<IssuesListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHAT_ISSUES_NOTE, IssuesListResponse.class, issuesRequest, new Response.Listener<IssuesListResponse>() {
                 @Override
                 public void onResponse(IssuesListResponse response) {
                     if (response != null) {

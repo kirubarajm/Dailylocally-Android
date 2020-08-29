@@ -44,6 +44,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     public final ObservableBoolean isHome = new ObservableBoolean();
+    public final ObservableBoolean isCommunity = new ObservableBoolean();
     public final ObservableBoolean isOrder = new ObservableBoolean();
     public final ObservableBoolean isExplore = new ObservableBoolean();
     public final ObservableBoolean isCart = new ObservableBoolean();
@@ -91,6 +92,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(true);
             isMyAccount.set(false);
             isOrder.set(false);
+            isCommunity.set(false);
         }
     }
 
@@ -146,6 +148,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(false);
             isOrder.set(false);
             isMyAccount.set(true);
+            isCommunity.set(false);
         }
 
 
@@ -161,7 +164,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(false);
             isOrder.set(false);
             isMyAccount.set(false);
-
+            isCommunity.set(false);
         }
     }
 
@@ -173,8 +176,23 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(false);
             isMyAccount.set(false);
             isOrder.set(false);
+            isCommunity.set(false);
         }
     }
+
+
+   public void gotoCommunity() {
+        if (!isCommunity.get()) {
+            getNavigator().openCommunity();
+            isCommunity.set(true);
+            isHome.set(false);
+            isExplore.set(false);
+            isCart.set(false);
+            isMyAccount.set(false);
+            isOrder.set(false);
+        }
+    }
+
 
     public void gotoOrders() {
         if (!isOrder.get()) {
@@ -184,6 +202,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isExplore.set(false);
             isCart.set(false);
             isMyAccount.set(false);
+            isCommunity.set(false);
         }
     }
 

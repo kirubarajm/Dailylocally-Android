@@ -125,7 +125,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="200dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_orders"
@@ -368,68 +369,6 @@
                         </LinearLayout>
 
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="25dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginRight="20dp"
-                                android:layout_toLeftOf="@+id/select"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-
-                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                        style="@style/ContentTextStyle"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:text="@string/deliver_to" />
-
-                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                        style="@style/SubtTitleTextStyle"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="5dp"
-                                        android:singleLine="true"
-                                        android:text="@{cartViewModel.address}" />
-
-
-                                </LinearLayout>
-
-                                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                    style="@style/ContentTextStyle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:text="@{cartViewModel.current_address}" />
-
-                            </LinearLayout>
-
-
-                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                                android:id="@+id/select"
-                                style="@style/MediumBlackButtonTextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:onClick="@{()->cartViewModel.changeAddress()}"
-                                android:text="Change" />
-
-                        </RelativeLayout>
-
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -458,28 +397,129 @@
 
                         </LinearLayout>
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@{cartViewModel.available?@drawable/gradient_bt_back:@drawable/gray_bt_back}"
-                            android:gravity="center"
-                            android:onClick="@{()->cartViewModel.proceedtopay()}"
-                            android:padding="10dp"
-                            android:text="@{cartViewModel.bookDeliveryText}"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_25px" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
+        <com.nhaarman.supertooltips.ToolTipRelativeLayout
+            android:id="@+id/activity_main_tooltipframelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:background="#20676767"
+            android:visibility="@{cartViewModel.showPlaceOrderButton?View.VISIBLE:View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:visibility="@{cartViewModel.emptyCart?View.GONE:View.VISIBLE}"
+                android:background="@drawable/top_curve_stroke_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="3dp"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_toLeftOf="@+id/select"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+
+                                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                    style="@style/ContentTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/deliver_to" />
+
+                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                    style="@style/SubtTitleTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:singleLine="true"
+                                    android:text="@{cartViewModel.address}" />
+
+
+                            </LinearLayout>
+
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                style="@style/ContentTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="@{cartViewModel.current_address}" />
+
+                        </LinearLayout>
+
+
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            android:id="@+id/select"
+                            android:textAllCaps="true"
+                            android:textAlignment="center"
+                            android:background="@drawable/btn_back_black"
+                            android:textColor="@color/medium_black"
+                            android:textSize="@dimen/_15px"
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{()->cartViewModel.changeAddress()}"
+                            android:text="Change" />
+
+                    </RelativeLayout>
+
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:background="@{cartViewModel.available?@drawable/gradient_bt_back:@drawable/gray_bt_back}"
+                        android:gravity="center"
+                        android:onClick="@{()->cartViewModel.proceedtopay()}"
+                        android:padding="10dp"
+                        android:text="@{cartViewModel.bookDeliveryText}"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_25px" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -498,15 +538,25 @@
                 android:orientation="vertical">
 
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
+
                 <include layout="@layout/tile_loader" />
 
 
@@ -516,9 +566,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-        <com.nhaarman.supertooltips.ToolTipRelativeLayout
-            android:id="@+id/activity_main_tooltipframelayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+
+
     </RelativeLayout>
 </layout>

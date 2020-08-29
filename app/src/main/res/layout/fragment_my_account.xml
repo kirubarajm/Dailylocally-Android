@@ -174,12 +174,12 @@
 
                         <ImageView
                             android:id="@+id/ma"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="15dp"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:src="@drawable/light_right_arrow"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -211,12 +211,12 @@
 
                         <ImageView
                             android:id="@+id/fav"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="15dp"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:src="@drawable/light_right_arrow"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -249,12 +249,12 @@
 
                         <ImageView
                             android:id="@+id/r"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="15dp"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:src="@drawable/light_right_arrow"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -287,12 +287,12 @@
 
                         <ImageView
                             android:id="@+id/ar"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="15dp"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:src="@drawable/light_right_arrow"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -326,12 +326,12 @@
 
                         <ImageView
                             android:id="@+id/oh"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="15dp"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:src="@drawable/light_right_arrow"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -367,12 +367,12 @@
 
                             <ImageView
                                 android:id="@+id/fi"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="15dp"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/ic_chevron_right_black_24dp"
+                                android:src="@drawable/light_right_arrow"
                                 android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -405,12 +405,11 @@
 
                         <ImageView
                             android:id="@+id/img_logout"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="15dp"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:src="@drawable/light_right_arrow"
                             android:textSize="16sp" />
 
                     </RelativeLayout>

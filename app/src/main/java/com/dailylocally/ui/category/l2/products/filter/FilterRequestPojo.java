@@ -20,16 +20,20 @@ public class FilterRequestPojo {
     private String scl2id;
 
 
-    public FilterRequestPojo(String cid, String scl1id,String type) {
+    public FilterRequestPojo(String cid, String scl1id, String type) {
         this.cid = cid;
         this.scl1id = scl1id;
     }
 
-     public FilterRequestPojo(String scl1id, String scl2id) {
+    public FilterRequestPojo(String catid, String scl1id, String type, String type2) {
+        this.catid = catid;
+        this.scl1id = scl1id;
+    }
+
+    public FilterRequestPojo(String scl1id, String scl2id) {
         this.scl1id = scl1id;
         this.scl2id = scl2id;
     }
-
 
 
 }

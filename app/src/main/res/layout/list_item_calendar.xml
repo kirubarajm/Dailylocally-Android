@@ -29,26 +29,29 @@
                 android:id="@+id/txt_hypen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:text="-" />
 
             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                android:layout_toStartOf="@+id/view"
                 android:id="@+id/txt_product_name"
+                style="@style/SubtTitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginStart="5dp"
-                style="@style/SubtTitleTextStyle"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/view"
                 android:layout_toEndOf="@+id/txt_hypen"
                 android:text="@{calendarItemViewModel.productName}" />
 
             <ImageView
-                android:tint="@color/medium_black"
+                android:layout_marginTop="6dp"
                 android:id="@+id/view"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_l1_arrow" />
+                android:src="@drawable/light_right_arrow"
+                android:tint="@color/medium_black" />
 
         </RelativeLayout>
 
@@ -60,25 +63,25 @@
 
             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:id="@+id/txt_units_in_weight"
+                style="@style/ContentTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/ContentTextStyle"
                 android:text="@{calendarItemViewModel.unitWeight}" />
 
             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:id="@+id/txt1"
+                style="@style/ContentTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/ContentTextStyle"
                 android:layout_toEndOf="@+id/txt_units_in_weight"
                 android:text=" | " />
 
             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                 android:id="@+id/txt_pckts"
+                style="@style/ContentTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/txt1"
-                style="@style/ContentTextStyle"
                 android:text="@{calendarItemViewModel.quantity}" />
 
 

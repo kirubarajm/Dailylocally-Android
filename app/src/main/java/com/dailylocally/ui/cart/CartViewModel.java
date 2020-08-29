@@ -72,6 +72,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean suggestedProduct = new ObservableBoolean();
     public final ObservableBoolean available = new ObservableBoolean();
+    public final ObservableBoolean showPlaceOrderButton = new ObservableBoolean();
     public final ObservableBoolean showSubscription = new ObservableBoolean();
     public final ObservableBoolean refunds = new ObservableBoolean();
     public final ObservableBoolean refundSelected = new ObservableBoolean();
@@ -79,6 +80,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean refundChecked = new ObservableBoolean();
     public final ObservableBoolean instructionClicked = new ObservableBoolean();
     public final ObservableBoolean xfactorClick = new ObservableBoolean();
+    public final ObservableBoolean loading = new ObservableBoolean();
     public final ObservableBoolean couponApplied = new ObservableBoolean();
     public final ObservableBoolean showWarningNote = new ObservableBoolean();
     public final ObservableField<String> previousPage = new ObservableField<>();
@@ -111,7 +113,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         cartBillLiveData = new MutableLiveData<>();
         ordernowLiveData = new MutableLiveData<>();
         subscribeLiveData = new MutableLiveData<>();
-
 
 
     }
@@ -282,81 +283,92 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-            if (getCartPojoDetails() != null) {
+            if (!loading.get()) {
 
-                Gson sGson = new GsonBuilder().create();
-                CartRequest cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+                if (getCartPojoDetails() != null) {
 
-                cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
-                cartRequestPojo.setLat(getDataManager().getCurrentLat());
-                cartRequestPojo.setLon(getDataManager().getCurrentLng());
-                cartRequestPojo.setAid(getDataManager().getAddressId());
-                cartRequestPojo.setPayment_type(1);
-                cartRequestPojo.setCid(getDataManager().getCouponId());
+                    loading.set(true);
+                    Gson sGson = new GsonBuilder().create();
+                    CartRequest cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
 
-                Gson gson = new Gson();
-                String carts = gson.toJson(cartRequestPojo);
+                    cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
+                    cartRequestPojo.setLat(getDataManager().getCurrentLat());
+                    cartRequestPojo.setLon(getDataManager().getCurrentLng());
+                    cartRequestPojo.setAid(getDataManager().getAddressId());
+                    cartRequestPojo.setPayment_type(1);
+                    cartRequestPojo.setCid(getDataManager().getCouponId());
 
-                try {
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PROCEED_TO_PAY, new JSONObject(carts), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
+                    Gson gson = new Gson();
+                    String carts = gson.toJson(cartRequestPojo);
 
-                            if (response != null) {
+                    try {
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PROCEED_TO_PAY, new JSONObject(carts), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
 
-                                Gson gson = new Gson();
-                                OrderCreateResponse orderCreateResponse = gson.fromJson(response.toString(), OrderCreateResponse.class);
+                                if (response != null) {
+                                    loading.set(false);
+                                    Gson gson = new Gson();
+                                    OrderCreateResponse orderCreateResponse = gson.fromJson(response.toString(), OrderCreateResponse.class);
 
-                                if (orderCreateResponse.getStatus()) {
-                                    if (getNavigator() != null)
-                                        getNavigator().orderGenerated(orderCreateResponse.getOrderid(), orderCreateResponse.getRazerCustomerid(), orderCreateResponse.getPrice());
-                                } else {
-                                    Toast.makeText(DailylocallyApp.getInstance(), orderCreateResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                    if (orderCreateResponse.getStatus()) {
+                                        if (getNavigator() != null)
+                                            getNavigator().orderGenerated(orderCreateResponse.getOrderid(), orderCreateResponse.getRazerCustomerid(), orderCreateResponse.getPrice());
+                                    } else {
+                                        Toast.makeText(DailylocallyApp.getInstance(), orderCreateResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
-
                             }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                loading.set(false);
+                            }
+                        }) {
+                            /**
+                             * Passing some request headers
+                             */
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                            }
+                        };
 
-                        }
-                    }) {
-                        /**
-                         * Passing some request headers
-                         */
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                        }
-                    };
+                        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-                    jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
-                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+                    } catch (JSONException j) {
+                        loading.set(false);
+                        if (getNavigator() != null)
+                            getNavigator().cartLoaded();
+                        emptyCart.set(true);
+                        j.printStackTrace();
+                    } catch (NullPointerException n) {
+                        loading.set(false);
+                        if (getNavigator() != null)
+                            getNavigator().cartLoaded();
+                        emptyCart.set(true);
+                        n.printStackTrace();
+                    } catch (Exception ee) {
+                        loading.set(false);
+                        if (getNavigator() != null)
+                            getNavigator().cartLoaded();
+                        emptyCart.set(true);
+                        ee.printStackTrace();
+                    }
 
-                    DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-                } catch (JSONException j) {
-                    if (getNavigator() != null)
-                        getNavigator().cartLoaded();
+                } else {
+                    loading.set(false);
                     emptyCart.set(true);
-                    j.printStackTrace();
-                } catch (NullPointerException n) {
-                    if (getNavigator() != null)
-                        getNavigator().cartLoaded();
-                    emptyCart.set(true);
-                    n.printStackTrace();
-                } catch (Exception ee) {
-                    if (getNavigator() != null)
-                        getNavigator().cartLoaded();
-                    emptyCart.set(true);
-                    ee.printStackTrace();
                 }
 
-            } else {
-                emptyCart.set(true);
             }
+
         } else {
+            loading.set(false);
             getNavigator().showToast(statusMessage.get());
         }
     }
@@ -382,7 +394,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void fetchRepos() {
 
         String cc = getDataManager().getCartDetails();
-        if (cc == null) return;
+        if (cc == null) {
+            emptyCart.set(true);
+            return;
+        }
 
         List<CartRequest.Orderitem> results = new ArrayList<>();
 
@@ -610,12 +625,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                 serviceable.set(cartPageResponse.getResult().get(0).getIsAvaliablezone());
 
-                                try {
-                                    if (getNavigator() != null)
-                                        getNavigator().cartLoaded();
-                                } catch (Exception re) {
-                                    re.printStackTrace();
-                                }
+
                             }
                         }
 
@@ -750,9 +760,30 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         cartRequestPojo.setSubscription(results);
         saveCart(cartRequestPojo);
 
-        fetchRepos();
+        if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {
+
+            if (cartRequestPojo.getSubscription().size()==0&&cartRequestPojo.getOrderitems().size()==0){
+
+                getDataManager().setCartDetails(null);
+            }
+
+        }else {
+            getDataManager().setCartDetails(null);
+        }
 
 
+        String cc = getDataManager().getCartDetails();
+        if (cc == null) {
+            emptyCart.set(true);
+
+            if (getNavigator() != null)
+                getNavigator().cartLoaded();
+
+            return;
+        }else {
+            fetchRepos();
+
+        }
     }
 
     public void saveCart(CartRequest request) {

@@ -5,4 +5,6 @@ public interface CategoryL1Navigator {
     void goBack();
 
     void cartLoaded();
+
+    void viewAll();
 }

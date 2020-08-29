@@ -158,8 +158,8 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-            doId = String.valueOf(bundle.getInt("doid"));
-            dayOrderPId = String.valueOf(bundle.getInt("dayorderpid"));
+            doId = bundle.getString("doid");
+            dayOrderPId = bundle.getString("dayorderpid");
         }
     }
 

@@ -1,0 +1,7 @@
+{
+    "autoInit": true,
+    "autoRegisterForPush": true,
+    "disableFacebookReferralCheck": false,
+    "uiConfig": null,
+    "foregroundNotifications": false
+}

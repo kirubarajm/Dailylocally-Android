@@ -200,4 +200,51 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
         }
     }
 
+public void getCatFilters(String sCatid,String sScl1id) {
+
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+            Gson sGson = new GsonBuilder().create();
+            ProductsRequest  fProductsRequest = sGson.fromJson(getDataManager().getFilterSort(), ProductsRequest.class);
+            if (fProductsRequest!=null){
+                if (!fProductsRequest.getScl1Id().equals(scl1id)){
+                    getDataManager().saveFiletrSort(null);
+                }
+            }
+
+
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CAT_FILTER_LIST , FilterItems.class,new FilterRequestPojo(sCatid,sScl1id,"","") , new Response.Listener<FilterItems>() {
+                @Override
+                public void onResponse(FilterItems response) {
+                    try {
+                        if (response != null) {
+                            if (response.getStatus()) {
+                                if (response.getResult() != null) {
+                                    filterTitle.set(response.getTitle());
+                                    filterItemsLiveData.setValue(response.getResult());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    setIsLoading(false);
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+
 }

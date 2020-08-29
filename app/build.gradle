@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'im.getsocial'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -9,21 +10,29 @@ android {
         applicationId "com.dailylocally"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 17
-        versionName "2.0"
+        versionCode 18
+        versionName "2.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+      //  useLibrary 'org.apache.http.legacy'
+//        useUiLibrary true
         dataBinding {
             enabled = true
         }
         multiDexEnabled true
+        getsocial {
+            //    version "7.2.2" // e.g. "7.0.0"
+            appId "l8ti6M70Q87v"
+//                 useUiLibrary true
+          //  uiConfig "getsocial/ui-landscape.json"
+        }
+
     }
     buildTypes {
         debug {
             minifyEnabled false
 
-             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
-          //   buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
+              buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
+            //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
@@ -39,7 +48,7 @@ android {
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
-           // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
+            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
             buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
 
             minifyEnabled false
@@ -60,15 +69,15 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-core:17.4.1'
-    implementation 'com.google.firebase:firebase-messaging:20.1.7'
+    implementation 'com.google.firebase:firebase-core:17.5.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
 
     // Volley request
     implementation 'com.android.volley:volley:1.1.1'
@@ -94,7 +103,7 @@ dependencies {
     //Cardview
     implementation "androidx.cardview:cardview:1.0.0"
 
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
 
     //Zendesk chat
     implementation group: 'com.zopim.android', name: 'sdk', version: '1.4.8'
@@ -121,11 +130,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     //update ui
-    implementation 'com.google.android.play:core:1.7.3'
+    implementation 'com.google.android.play:core:1.8.0'
 
     //ToolTips address
     implementation 'com.nhaarman.supertooltips:library:3.0.0'
-
 
 
     //Razorpay
@@ -139,8 +147,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-places:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:18.0.0'
-    implementation 'com.google.android.gms:play-services-base:17.3.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-base:17.4.0'
     implementation 'com.google.android.gms:play-services-identity:17.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
 
@@ -156,14 +164,15 @@ dependencies {
 
 
     // Add the Firebase Crashlytics SDK.
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
 
     // Recommended: Add the Google Analytics SDK.
-    implementation 'com.google.firebase:firebase-analytics:17.4.3'
-    implementation 'com.android.support:design:28.0.0-alpha1'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.android.material:material:1.2.0'
 
     implementation 'com.github.smarteist:autoimageslider:1.3.9-appcompat'
 
-
+    //get social
+    implementation 'im.getsocial:getsocial-core:7.2.2'
+    implementation'im.getsocial:getsocial-ui:7.2.2'// Note: add this dependency only if you plan to use GetSocial UI
 }

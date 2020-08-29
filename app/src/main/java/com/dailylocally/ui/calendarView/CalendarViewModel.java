@@ -15,12 +15,9 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
@@ -37,6 +34,8 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
 
     public MutableLiveData<List<CalendarDayWiseResponse.Result.Item>> dayWiseLiveData;
     public ObservableList<CalendarDayWiseResponse.Result.Item> dayWiseItemViewModels = new ObservableArrayList<>();
+
+    public int dayOrderStatus = 0;
 
     public CalendarViewModel(DataManager dataManager) {
         super(dataManager);
@@ -101,6 +100,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 noDataFound.set(false);
+                                dayOrderStatus = response.getResult().get(0).getDayorderstatus();
 
                                 if (response.getResult().get(0).getRatingStatus() != null) {
                                     isRateBtn.set(response.getResult().get(0).getRatingStatus());
@@ -109,7 +109,6 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                                 }
                                 dayWiseLiveData.setValue(response.getResult().get(0).getItems());
                                 doid.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
-
 
 
                             } else {
@@ -130,7 +129,7 @@ public class CalendarViewModel extends BaseViewModel<CalendarNavigator> {
                         }
                     }
 
-                    if (getNavigator()!=null){
+                    if (getNavigator() != null) {
                         getNavigator().dataLoaded();
                     }
                     setIsLoading(false);

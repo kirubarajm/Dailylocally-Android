@@ -18,6 +18,7 @@ import com.dailylocally.databinding.ActivityTransactionDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -118,9 +119,13 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
 
     @Override
     public void viewInCalendar() {
+
         Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+
+
     }
     public void stopLoader() {
         mActivityTransactionDetailsBinding.pageLoader.stopShimmerAnimation();
@@ -134,8 +139,8 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     @Override
     public void success(String date) {
         try {
-            SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEEE, dd MMM yyyy");
-            SimpleDateFormat currentFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+            SimpleDateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Date date1 = currentFormat.parse(date);
             String datesdf = dateDayFormat.format(date1);
 
@@ -220,9 +225,10 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     }
 
     @Override
-    public void onViewCalendarClick(TransactionViewResponse.Result.Item cartdetail) {
-        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this);
-        intent.putExtra("date",cartdetail.getProductDate());
+    public void onViewCalendarClick(TransactionViewResponse.Result.Item item) {
+        Intent intent = ProductCancelActivity.newIntent(TransactionDetailsActivity.this);
+        intent.putExtra("doid", item.getDoid());
+        intent.putExtra("dayorderpid", item.getDayorderpid());
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

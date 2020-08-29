@@ -19,12 +19,9 @@ package com.dailylocally.utilities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-
-
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,6 +35,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,6 +45,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.dailylocally.R;
 import com.dailylocally.ui.calendarView.CalendarDayWiseAdapter;
 import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
 import com.dailylocally.ui.cart.BillListAdapter;
@@ -62,14 +61,12 @@ import com.dailylocally.ui.category.l2.products.filter.FilterAdapter;
 import com.dailylocally.ui.category.l2.products.filter.FilterItems;
 import com.dailylocally.ui.category.l2.products.sort.SortAdapter;
 import com.dailylocally.ui.category.l2.products.sort.SortItems;
-
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
-
 import com.dailylocally.ui.collection.l2.products.CollectionProductListAdapter;
 import com.dailylocally.ui.collection.l2.products.CollectionProductsResponse;
+import com.dailylocally.ui.community.CommunityPostListAdapter;
 import com.dailylocally.ui.coupons.CouponsAdapter;
 import com.dailylocally.ui.coupons.CouponsResponse;
-
 import com.dailylocally.ui.favourites.products.FavProductListAdapter;
 import com.dailylocally.ui.favourites.products.FavProductsResponse;
 import com.dailylocally.ui.rating.RatingDayWiseAdapter;
@@ -78,20 +75,21 @@ import com.dailylocally.ui.search.SearchProductListAdapter;
 import com.dailylocally.ui.search.SearchProductResponse;
 import com.dailylocally.ui.search.SearchSubCategoryAdapter;
 import com.dailylocally.ui.search.SearchSuggestionAdapter;
+import com.dailylocally.ui.signup.faqs.FaqResponse;
+import com.dailylocally.ui.signup.faqs.FaqsAdapter;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryAdapter;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryResponse;
 import com.dailylocally.ui.transactionHistory.view.TransactionBillDetailAdapter;
 import com.dailylocally.ui.transactionHistory.view.TransactionProductAdapter;
 import com.dailylocally.ui.transactionHistory.view.TransactionViewResponse;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.dailylocally.R;
-import com.dailylocally.ui.signup.faqs.FaqResponse;
-import com.dailylocally.ui.signup.faqs.FaqsAdapter;
 import com.dailylocally.utilities.chat.IssuesAdapter;
 import com.dailylocally.utilities.chat.IssuesListResponse;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
+
+import im.getsocial.sdk.communities.GetSocialActivity;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -107,8 +105,6 @@ public final class BindingUtils {
     }
 
 
-
-
     @BindingAdapter({"adapter"})
     public static void addIssuesItems(RecyclerView recyclerView, List<IssuesListResponse.Result> issues) {
         IssuesAdapter adapter = (IssuesAdapter) recyclerView.getAdapter();
@@ -118,7 +114,7 @@ public final class BindingUtils {
         }
     }
 
- @BindingAdapter({"adapter"})
+    @BindingAdapter({"adapter"})
     public static void addL1CategoryItems(RecyclerView recyclerView, List<L1CategoryResponse.Result> results) {
         L1CategoriesAdapter adapter = (L1CategoriesAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -126,7 +122,8 @@ public final class BindingUtils {
             adapter.addItems(results);
         }
     }
- @BindingAdapter({"filteradapter"})
+
+    @BindingAdapter({"filteradapter"})
     public static void addFilterItems(RecyclerView recyclerView, List<FilterItems.Result> results) {
         FilterAdapter adapter = (FilterAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -134,7 +131,8 @@ public final class BindingUtils {
             adapter.addItems(results);
         }
     }
- @BindingAdapter({"sortadapter"})
+
+    @BindingAdapter({"sortadapter"})
     public static void addSortItems(RecyclerView recyclerView, List<SortItems.Result> results) {
         SortAdapter adapter = (SortAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -143,7 +141,7 @@ public final class BindingUtils {
         }
     }
 
-@BindingAdapter({"l2slideradapter"})
+    @BindingAdapter({"l2slideradapter"})
     public static void addL2SliderItems(SliderView recyclerView, List<L2CategoryResponse.GetSubCatImage> results) {
         L2SliderAdapter adapter = (L2SliderAdapter) recyclerView.getSliderAdapter();
         if (adapter != null) {
@@ -153,7 +151,7 @@ public final class BindingUtils {
     }
 
 
- @BindingAdapter({"products_adapter"})
+    @BindingAdapter({"products_adapter"})
     public static void addCollectionProductItems(RecyclerView recyclerView, List<CollectionProductsResponse.Result> results) {
         CollectionProductListAdapter adapter = (CollectionProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -161,16 +159,17 @@ public final class BindingUtils {
             adapter.addItems(results);
         }
     }
-@BindingAdapter({"products_adapter"})
+
+    @BindingAdapter({"products_adapter"})
     public static void addProductItems(RecyclerView recyclerView, List<ProductsResponse.Result> results) {
         ProductListAdapter adapter = (ProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(results,recyclerView);
+            adapter.addItems(results, recyclerView);
         }
     }
 
-@BindingAdapter({"products_adapter"})
+    @BindingAdapter({"products_adapter"})
     public static void addFavProductItems(RecyclerView recyclerView, List<FavProductsResponse.Result> results) {
         FavProductListAdapter adapter = (FavProductListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -188,7 +187,7 @@ public final class BindingUtils {
         }
     }
 
-@BindingAdapter({"billdetails_adapter"})
+    @BindingAdapter({"billdetails_adapter"})
     public static void addBillItems(RecyclerView recyclerView, List<CartResponse.Cartdetail> results) {
         BillListAdapter adapter = (BillListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -197,7 +196,7 @@ public final class BindingUtils {
         }
     }
 
-@BindingAdapter({"cart_ordernow_adapter"})
+    @BindingAdapter({"cart_ordernow_adapter"})
     public static void addOrderNowItems(RecyclerView recyclerView, List<CartResponse.Item> results) {
         OrderNowAdapter adapter = (OrderNowAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -206,7 +205,7 @@ public final class BindingUtils {
         }
     }
 
-@BindingAdapter({"cart_subscribe_adapter"})
+    @BindingAdapter({"cart_subscribe_adapter"})
     public static void addSubscribeItems(RecyclerView recyclerView, List<CartResponse.SubscriptionItem> results) {
         SubscribeItemsAdapter adapter = (SubscribeItemsAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -290,6 +289,16 @@ public final class BindingUtils {
         }
     }
 
+    @BindingAdapter({"postadapter"})
+    public static void addPostItems(RecyclerView recyclerView, List<GetSocialActivity> blogs) {
+        CommunityPostListAdapter adapter = (CommunityPostListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+
     @BindingAdapter({"adapter"})
     public static void addTransactionHistoryItems(RecyclerView recyclerView, List<TransactionHistoryResponse.Result> blogs) {
         TransactionHistoryAdapter adapter = (TransactionHistoryAdapter) recyclerView.getAdapter();
@@ -299,6 +308,17 @@ public final class BindingUtils {
         }
     }
 
+    @BindingAdapter("imageTint")
+    public static void setImageTint(ImageView imageView, boolean status) {
+        Context context = imageView.getContext();
+        if (status) {
+            imageView.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
+        } else {
+            imageView.setColorFilter(ContextCompat.getColor(context, R.color.dark_gray));
+        }
+    }
+
+
     @BindingAdapter("imageUrl")
     public static void setImageUrl(RoundCornerImageView imageView, String url) {
         Context context = imageView.getContext();
@@ -306,18 +326,16 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-             //   .asBitmap()
+                //   .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-               // .listener(new LoggingListener<String, Bitmap>())
+                // .listener(new LoggingListener<String, Bitmap>())
                 .into(imageView);
 
 
     }
 
 
-
-
-    @BindingAdapter({"imageUrl","loader"})
+    @BindingAdapter({"imageUrl", "loader"})
     public static void setImageUrl(ImageView imageView, String url, final ImageView loader) {
         Context context = imageView.getContext();
 
@@ -326,19 +344,19 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-              //  .asBitmap()
+                //  .asBitmap()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
+                        loader.setVisibility(View.GONE);
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
+                        loader.setVisibility(View.GONE);
                         return false;
                     }
                 })
@@ -347,7 +365,8 @@ public final class BindingUtils {
 
 
     }
- @BindingAdapter({"imageimageUrl","loader"})
+
+    @BindingAdapter({"imageimageUrl", "loader"})
     public static void setImageImageUrl(ImageView imageView, String url, final ImageView loader) {
         Context context = imageView.getContext();
 
@@ -356,19 +375,19 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-              //  .asBitmap()
+                //  .asBitmap()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
+                        loader.setVisibility(View.GONE);
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
+                        loader.setVisibility(View.GONE);
                         return false;
                     }
                 })
@@ -378,50 +397,46 @@ public final class BindingUtils {
 
     }
 
-    @BindingAdapter({"roundimageUrl","roundloader"})
+    @BindingAdapter({"roundimageUrl", "roundloader"})
     public static void setRoundImageUrl(RoundCornerImageView imageView, String url, ImageView loader) {
         Context context = imageView.getContext();
 
         loader.setVisibility(View.VISIBLE);
 
 
-
-
     }
 
-@BindingAdapter({"imageUrl","shimmer"})
+    @BindingAdapter({"imageUrl", "shimmer"})
     public static void setImageUrl(ImageView imageView, String url, final ShimmerFrameLayout loader) {
         Context context = imageView.getContext();
 
         loader.setVisibility(View.VISIBLE);
         loader.startShimmerAnimation();
-    Glide.with(context)
-            .load(url)
-            //  .asBitmap()
-            .fitCenter()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    loader.setVisibility(View.GONE );
-                    return false;
-                }
+        Glide.with(context)
+                .load(url)
+                //  .asBitmap()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE);
+                        return false;
+                    }
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    loader.setVisibility(View.GONE );
-                    return false;
-                }
-            })
-            .error(R.drawable.imagenotavailable)
-            .into(imageView);
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);
 
     }
 
 
-
-
-        @BindingAdapter("imageUrl")
+    @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
 
@@ -434,7 +449,7 @@ public final class BindingUtils {
 
     }
 
-   public static Drawable getProgressBarIndeterminate() {
+    public static Drawable getProgressBarIndeterminate() {
         final int[] attrs = {android.R.attr.indeterminateDrawable};
         final int attrs_indeterminateDrawable_index = 0;
         TypedArray a = DailylocallyApp.getInstance().obtainStyledAttributes(android.R.style.Widget_Material_ProgressBar_Small, attrs);
@@ -445,29 +460,30 @@ public final class BindingUtils {
         }
     }
 
- @BindingAdapter("enter")
+    @BindingAdapter("enter")
     public static void closeKeyboaard(final EditText editText, boolean status) {
         final Context context = editText.getContext();
 
-     editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-         @Override
-         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-             if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
 
-                 InputMethodManager inputMethodManager = (InputMethodManager)context. getSystemService(INPUT_METHOD_SERVICE);
-                 inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
-             }
-             return false;
-         }
-     });
+                }
+                return false;
+            }
+        });
     }
-@BindingAdapter("closekey")
+
+    @BindingAdapter("closekey")
     public static void closeSoftKeyboaard(ImageView view, boolean status) {
         Context context = view.getContext();
 
-    InputMethodManager inputMethodManager = (InputMethodManager)context. getSystemService(INPUT_METHOD_SERVICE);
-    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
     }
 

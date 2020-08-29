@@ -89,6 +89,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     @Override
     public void handleError(Throwable throwable) {
     }
+
     public void stopLoader() {
         mFragmentHomeBinding.pageLoader.stopShimmerAnimation();
         mFragmentHomeBinding.pageLoader.setVisibility(View.GONE);
@@ -98,6 +99,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
         mFragmentHomeBinding.pageLoader.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.pageLoader.startShimmerAnimation();
     }
+
     @Override
     public void success(List<CalendarMonthResponse.Result> resultsList) {
         this.results = resultsList;
@@ -148,15 +150,16 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     public void helpClick() {
 
         int type = 1;
-        if (mCalendarViewModel.isFutureOrder.get()) {
-            type = 1;
+        if (mCalendarViewModel.dayOrderStatus < 10) {
+            type = AppConstants.CHAT_PAGE_TYPE_PROGRESS_ORDER;
         } else {
-            type = 4;
+            type = AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER;
         }
 
         Intent intent = HelpActivity.newIntent(getBaseActivity(), AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get());
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
     }
 
     @Override

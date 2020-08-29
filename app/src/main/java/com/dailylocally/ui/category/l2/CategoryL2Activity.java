@@ -253,7 +253,9 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         } else {
             mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         }*/
-
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(AppConstants.REFRESH_CODE, Activity.RESULT_OK, null);
+        }
 
         mActivityCategoryl2Binding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

@@ -24,7 +24,7 @@ public class IssuesRequest {
         this.userid = userid;
     }
 
-    public IssuesRequest(String userid,Integer issueid) {
+    public IssuesRequest(String userid, Integer issueid) {
         this.id = issueid;
         this.userid = userid;
     }
@@ -34,11 +34,12 @@ public class IssuesRequest {
         this.userid = userid;
         this.orderid = orderid;
     }
- public IssuesRequest(Integer type,Integer id, String userid, String orderid) {
+
+    public IssuesRequest(Integer type, Integer id, String userid, String orderid) {
         this.id = id;
         this.userid = userid;
         this.orderid = orderid;
-     this.type = type;
+        this.type = type;
     }
 
     public Integer getType() {

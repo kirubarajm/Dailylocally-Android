@@ -145,7 +145,7 @@ public class TransactionViewResponse {
             @Expose
             public String packetSize;
 
-@SerializedName("pkts")
+            @SerializedName("pkts")
             @Expose
             public String pkts;
 
@@ -155,6 +155,14 @@ public class TransactionViewResponse {
             @SerializedName("product_name")
             @Expose
             public String productName;
+
+            @SerializedName("dayorderpid")
+            @Expose
+            public String dayorderpid;
+            @SerializedName("doid")
+            @Expose
+            public String doid;
+
             @SerializedName("quantity_info")
             @Expose
             public String quantityInfo;
@@ -167,6 +175,18 @@ public class TransactionViewResponse {
             @SerializedName("Cancel_available")
             @Expose
             public Integer cancelAvailable;
+
+            public String getDoid() {
+                return doid;
+            }
+
+            public String getDayorderpid() {
+                return dayorderpid;
+            }
+
+            public void setDayorderpid(String dayorderpid) {
+                this.dayorderpid = dayorderpid;
+            }
 
             public String getPkts() {
                 return pkts;
