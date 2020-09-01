@@ -16,15 +16,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+  <RelativeLayout
+        android:layout_above="@+id/rel_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <fragment
-            android:layout_above="@+id/rel_buttons"
             android:id="@+id/mapFragment"
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <RelativeLayout
-            android:layout_above="@+id/rel_buttons"
             android:id="@+id/rel_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -59,17 +66,25 @@
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                            <androidx.appcompat.widget.SearchView
-                                android:id="@+id/search_community"
-                                android:layout_width="match_parent"
-                                android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
-                                android:layout_height="wrap_content"
+
+                            <androidx.cardview.widget.CardView
                                 android:layout_marginLeft="50dp"
+                                app:cardCornerRadius="10dp"
+                                android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
                                 android:layout_marginRight="50dp"
-                                android:background="@color/white"
-                                android:focusable="true"
-                                app:iconifiedByDefault="false"
-                                app:queryHint="Search here" />
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <androidx.appcompat.widget.SearchView
+                                    android:id="@+id/search_community"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:focusable="true"
+                                    app:iconifiedByDefault="false"
+                                    app:queryHint="Search here" />
+
+                            </androidx.cardview.widget.CardView>
 
                         </RelativeLayout>
 
@@ -170,13 +185,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
+                        <com.dailylocally.utilities.RoundCornerImageView
                             android:id="@+id/img_registration"
                             android:onClick="@{()->communityViewModel.registerCommunityUploadImageClick()}"
                             android:layout_centerHorizontal="true"
-                            android:src="@drawable/badge_circle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:src="@drawable/ic_group_482"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"/>
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="Upload profile photo"
@@ -187,75 +202,106 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_below="@+id/txt_upload"
+                            android:id="@+id/imput_community_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:hint="Community Name*"
+                                android:id="@+id/edt_community_name"
+                                android:textSize="@dimen/_15px"
+                                android:layout_marginTop="10dp"
+                                android:imeOptions="actionNext"
+                                android:layout_below="@+id/txt_upload"
+                                android:fontFamily="@font/quicksand_regular"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
                         <LinearLayout
                             android:layout_marginTop="10dp"
-                            android:id="@+id/linear_community_name"
-                            android:layout_below="@+id/txt_upload"
+                            android:id="@+id/linear_1"
+                            android:layout_below="@+id/imput_community_name"
                             android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:hint="Community Name*"
-                            android:id="@+id/edt_community_name"
-                            android:textSize="@dimen/_15px"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/quicksand_regular"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/imput_house_flat_no"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:hint="House/Flat No.*"
+                                    android:textSize="@dimen/_15px"
+                                    android:imeOptions="actionNext"
+                                    android:id="@+id/edt_house_flat_no"
+                                    android:fontFamily="@font/quicksand_regular"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/imput_floor_no_re"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:hint="Floor no*"
+                                    android:imeOptions="actionNext"
+                                    android:textSize="@dimen/_15px"
+                                    android:id="@+id/edt_floor_no_re"
+                                    android:fontFamily="@font/quicksand_regular"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_below="@+id/linear_1"
+                            android:id="@+id/imput_no_of_apartments"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:layout_below="@+id/edt_community_name"
+                                android:layout_below="@+id/linear_1"
                                 android:hint="No of Apartments"
-                                android:layout_weight="1"
+                                android:layout_marginTop="10dp"
+                                android:imeOptions="actionNext"
                                 android:textSize="@dimen/_15px"
                                 android:id="@+id/edt_no_of_apartments"
                                 android:fontFamily="@font/quicksand_regular"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
 
-                        </LinearLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <LinearLayout
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/linear_1"
-                            android:layout_below="@+id/linear_community_name"
-                            android:weightSum="2"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_below="@+id/imput_no_of_apartments"
+                            android:id="@+id/imput_community_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:layout_below="@+id/edt_community_name"
-                                android:hint="House/Flat No.*"
-                                android:layout_weight="1"
+                                android:hint="Community Address*"
+                                android:layout_marginTop="10dp"
+                                android:imeOptions="actionDone"
+                                android:layout_marginBottom="10dp"
+                                android:id="@+id/edt_community_address"
                                 android:textSize="@dimen/_15px"
-                                android:id="@+id/edt_house_flat_no"
                                 android:fontFamily="@font/quicksand_regular"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_below="@+id/edt_floor_no"
-                                android:hint="Floor no*"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/_15px"
-                                android:id="@+id/edt_floor_no_re"
-                                android:fontFamily="@font/quicksand_regular"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_below="@+id/linear_1"
-                            android:hint="Community Address*"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:id="@+id/edt_community_address"
-                            android:textSize="@dimen/_15px"
-                            android:fontFamily="@font/quicksand_regular"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </RelativeLayout>
 
@@ -270,21 +316,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
                     <RelativeLayout
                         android:padding="10dp"
                         android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
+                        <com.dailylocally.utilities.RoundCornerImageView
                             android:id="@+id/img_join"
                             android:onClick="@{()->communityViewModel.joinCommunityUploadImageClick()}"
                             android:layout_centerHorizontal="true"
-                            android:src="@drawable/badge_circle"
+                            android:src="@drawable/ic_group_482"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -299,113 +341,201 @@
 
                         <LinearLayout
                             android:weightSum="2"
+                            android:layout_marginBottom="10dp"
                             android:orientation="horizontal"
                             android:layout_below="@+id/txt_upload1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:hint="House Flat No.*"
-                                android:id="@+id/edt_house"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/_15px"
-                                android:fontFamily="@font/quicksand_regular"
+                            <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:hint="Floor No*"
-                                android:layout_weight="1"
-                                android:id="@+id/edt_floor_no"
-                                android:textSize="@dimen/_15px"
-                                android:fontFamily="@font/quicksand_regular"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:hint="House Flat No.*"
+                                    android:id="@+id/edt_house"
+                                    android:textSize="@dimen/_15px"
+                                    android:imeOptions="actionNext"
+                                    android:fontFamily="@font/quicksand_regular"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:hint="Floor No*"
+                                    android:layout_weight="1"
+                                    android:id="@+id/edt_floor_no"
+                                    android:imeOptions="actionDone"
+                                    android:textSize="@dimen/_15px"
+                                    android:fontFamily="@font/quicksand_regular"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
 
                     </RelativeLayout>
 
-                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_above="@+id/rel_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
+                android:id="@+id/recycler_community"
+                android:orientation="horizontal"
+
+                adapter="@{communityViewModel.communityItemViewModels}"
+                tools:listitem="@layout/list_item_community"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:background="@color/transparent"
+                android:id="@+id/rel_view_pager"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </RelativeLayout>
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_margin="10dp"
-            android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
-            android:id="@+id/recycler_community"
-            android:orientation="horizontal"
-            android:layout_marginBottom="25dp"
-            adapter="@{communityViewModel.communityItemViewModels}"
-            tools:listitem="@layout/list_item_community"
-            android:layout_above="@+id/rel_buttons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <RelativeLayout
-            android:id="@+id/rel_buttons"
             android:layout_alignParentBottom="true"
+            android:id="@+id/rel_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                android:text="Register Community"
+            <RelativeLayout
                 android:id="@+id/btn_register"
-                android:onClick="@{()->communityViewModel.onRegistrationClick()}"
-                android:layout_centerHorizontal="true"
-                android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
-                style="@style/communityMediumGreenButtonTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="60dp"
+                android:onClick="@{()->communityViewModel.onRegistrationClick()}"
+                android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
+                android:background="@drawable/gradient_bt_back">
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                android:text="Join Community"
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="2dp"
+                    android:singleLine="true"
+                    android:textAllCaps="true"
+                    android:text="Register Community"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_25px"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/btn_join_comm"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:onClick="@{()->communityViewModel.joinClick()}"
                 android:visibility="@{communityViewModel.joinExpandView?View.VISIBLE:View.GONE}"
-                android:layout_centerHorizontal="true"
-                style="@style/communityMediumGreenButtonTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:background="@drawable/gradient_bt_back">
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                android:text="Complete registration"
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="2dp"
+                    android:singleLine="true"
+                    android:textAllCaps="true"
+                    android:text="Join Community"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_25px"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/btn_complete_reg"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:onClick="@{()->communityViewModel.completeRegistrationClick()}"
                 android:visibility="@{communityViewModel.completeRegistration?View.VISIBLE:View.GONE}"
-                android:layout_centerHorizontal="true"
-                style="@style/communityMediumGreenButtonTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:background="@drawable/gradient_bt_back">
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                android:text="Join the community"
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="2dp"
+                    android:singleLine="true"
+                    android:textAllCaps="true"
+                    android:text="Complete registration"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_25px"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/btn_join_the_comm"
-                android:onClick="@{()->communityViewModel.joinTheCommunityClick()}"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:visibility="@{communityViewModel.joinTheCommunity?View.VISIBLE:View.GONE}"
-                android:layout_centerHorizontal="true"
-                style="@style/communityMediumGreenButtonTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:background="@drawable/gradient_bt_back"
+                android:onClick="@{()->communityViewModel.joinTheCommunityClick()}">
+
+                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="2dp"
+                    android:singleLine="true"
+                    android:textAllCaps="true"
+                    android:text="Join the community"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_25px"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:background="@color/transparent"
-            android:id="@+id/rel_view_pager"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
-                android:background="@color/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

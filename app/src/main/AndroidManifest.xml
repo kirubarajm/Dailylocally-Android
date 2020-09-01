@@ -160,7 +160,9 @@
             android:screenOrientation="locked" />
         <activity
             android:name=".ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity"
-            android:screenOrientation="locked" />
+            android:screenOrientation="locked" >
+
+        </activity>
 
 
         <activity
@@ -274,16 +276,20 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.communityOnboarding.CommunityOnBoardingActivity" >
+        <activity android:name=".ui.communityOnboarding.CommunityOnBoardingActivity"
+            android:screenOrientation="locked">
 
 
         </activity>
-        <activity android:name=".ui.joinCommunity.CommunityActivity" >
 
+        <activity android:name=".ui.joinCommunity.CommunityActivity"
+            android:screenOrientation="locked">
 
 
         </activity>
-        <activity android:name=".ui.joinCommunity.communityLocation.CommunityAddressActivity" />
+        <activity android:name=".ui.joinCommunity.communityLocation.CommunityAddressActivity"
+            android:screenOrientation="locked"/>
+        <activity android:name=".ui.aboutus.AboutUsActivity" />
 
 
     </application>

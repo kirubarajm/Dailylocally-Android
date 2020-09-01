@@ -45,6 +45,8 @@ public class PostListItemViewModel {
         showAction.set(result.getButton().getAction() != null);
         icon.set(result.getAuthor().getAvatarUrl());
 
+
+
         if (result.getAttachments() != null)
            if (result.getAttachments().size()>0) {
                attachmentAvailable.set(true);

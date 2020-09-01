@@ -16,6 +16,8 @@
 
 package com.dailylocally.di;
 
+import com.dailylocally.ui.aboutus.AboutUsActivity;
+import com.dailylocally.ui.aboutus.AboutUsModule;
 import com.dailylocally.ui.account.MyAccountProvider;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.account.referrals.ReferralsActivityModule;
@@ -176,7 +178,11 @@ public abstract class ActivityBuilder {
 
 
 
- @ContributesAndroidInjector(modules = SupportModule.class)
+ @ContributesAndroidInjector(modules = AboutUsModule.class)
+    abstract AboutUsActivity bindAboutUsActivity();
+
+
+@ContributesAndroidInjector(modules = SupportModule.class)
     abstract SupportActivity bindSupportActivity();
 
 

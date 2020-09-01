@@ -229,6 +229,9 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("test");
 
 
+
+
+
       //  ActivityFeedViewBuilder.create(query).show();
 
 

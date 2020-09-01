@@ -30,6 +30,8 @@ public interface CommunityActivityNavigator {
 
     void whatAppScreenSuccess(String message);
 
+    void whatAppScreenFailure(String message);
+
     void mapLatLngArray(List<CommunityResponse.Result> results);
 
 }

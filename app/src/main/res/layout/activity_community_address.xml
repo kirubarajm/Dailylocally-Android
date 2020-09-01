@@ -57,12 +57,9 @@
                     android:text="@string/register_your_community"
                     style="@style/HeaderTitleTextStyle"/>
 
-
             </RelativeLayout>
 
-
         </androidx.cardview.widget.CardView>
-
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -81,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
+
                 <ImageView
                     android:id="@+id/centerMarker"
                     android:layout_width="48dp"
@@ -90,6 +88,7 @@
                     android:src="@drawable/ic_map_marker" />
 
             </FrameLayout>
+
         </FrameLayout>
 
         <ScrollView
@@ -118,7 +117,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -159,51 +157,62 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp">
 
+                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                            android:text="Confirm Community Location"
+                            android:textSize="@dimen/_15px"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_title"
+                            android:layout_centerHorizontal="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
                         <ImageView
+                            android:layout_below="@+id/txt_title"
+                            android:layout_marginTop="15dp"
                             android:id="@+id/img_marker"
-                            android:src="@drawable/ic_map_marker"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <LinearLayout
+                            android:layout_below="@+id/txt_title"
+                            android:id="@+id/linear_2"
                             android:layout_marginLeft="5dp"
-                            android:weightSum="3"
                             android:orientation="horizontal"
                             android:layout_toEndOf="@+id/img_marker"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="wrap_content"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:enabled="false"
-                                android:layout_weight="2.5"
-                                android:layout_toLeftOf="@+id/txt_edit"
-                                android:id="@+id/txt_sub_locality"
-                                android:text="@{communityAddressViewModel.area}"
-                                style="@style/SubtTitleTextStyle"
-                                android:visibility="visible" />
+                                app:errorEnabled="true"
+                                app:errorTextAppearance="@style/error">
 
-                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                                android:id="@+id/txt_edit"
-                                android:layout_width="wrap_content"
-                                android:enabled="false"
-                                android:layout_weight="0.5"
-                                android:gravity="center"
-                                android:backgroundTint="@color/medium_gray"
-                                android:background="@drawable/community_get_started"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/_10px"
-                                android:layout_alignParentEnd="true"
-                                android:contentDescription="@string/back"
-                                android:onClick="@{()->communityAddressViewModel.editLocality()}"
-                                android:padding="5dp"
-                                android:text="Edit"
-                                android:textColor="@color/dark_gray"
-                                android:tint="@color/dl_primary_color"
-                                android:visibility="visible" />
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:textSize="@dimen/_12px"
+                                    android:id="@+id/txt_sub_locality"
+                                    android:text="@{communityAddressViewModel.area}"
+                                    android:visibility="visible" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
+
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            android:layout_below="@+id/linear_2"
+                            android:id="@+id/txt_message"
+                            android:visibility="gone"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toEndOf="@+id/img_marker"
+                            android:text="Please enter address manually or try again"
+                            android:textSize="@dimen/_12px"
+                            android:textColor="@color/dark_gray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
 
                         <!--
                                                 <LinearLayout
@@ -334,15 +343,34 @@
 
             </LinearLayout>
 
-                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="match_parent"
+                <RelativeLayout
                     android:layout_below="@+id/linear_1"
-                    android:layout_height="wrap_content"
-                    android:text="Next"
-                    style="@style/communityMediumGreenButtonTextStyle"
+                    android:id="@+id/btn_join_the_comm"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
                     android:layout_marginTop="20dp"
-                    android:onClick="@{()->communityAddressViewModel.nextClick()}"/>
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/gradient_bt_back"
+                    android:onClick="@{()->communityAddressViewModel.nextClick()}">
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="5dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="2dp"
+                        android:singleLine="true"
+                        android:textAllCaps="true"
+                        android:text="CONFIRM"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_25px"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
 
             </RelativeLayout>
 

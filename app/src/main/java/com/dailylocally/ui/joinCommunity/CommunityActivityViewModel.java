@@ -251,6 +251,10 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                             if (getNavigator()!=null){
                                 getNavigator().whatAppScreenSuccess(response.getString("message"));
                             }
+                        }else {
+                            if (getNavigator()!=null){
+                                getNavigator().whatAppScreenFailure(response.getString("message"));
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -261,7 +265,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
                     if (getNavigator() != null) {
-                        //getNavigator().updateFailure("Failed to update");
+                        getNavigator().whatAppScreenFailure("Error");
                     }
                 }
             }) {
