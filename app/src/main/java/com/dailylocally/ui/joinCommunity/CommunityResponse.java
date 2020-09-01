@@ -41,7 +41,7 @@ public class CommunityResponse {
         @SerializedName("lat")
         @Expose
         public String lat;
-        @SerializedName("long")
+        @SerializedName("lon")
         @Expose
         public String _long;
         @SerializedName("apartmentname")
@@ -58,7 +58,7 @@ public class CommunityResponse {
         public Integer status;
         @SerializedName("requested_userid")
         @Expose
-        public Object requestedUserid;
+        public String requestedUserid;
         @SerializedName("zoneid")
         @Expose
         public Integer zoneid;
@@ -67,14 +67,42 @@ public class CommunityResponse {
         public String noOfApartments;
         @SerializedName("flat_no")
         @Expose
-        public Object flatNo;
+        public String flatNo;
         @SerializedName("floor_no")
         @Expose
-        public Object floorNo;
+        public String floorNo;
         @SerializedName("community_address")
         @Expose
         public String communityAddress;
+        @SerializedName("area")
+        @Expose
+        public String area;
+        @SerializedName("whatsapp_group_link")
+        @Expose
+        public String whatsapp_group_link;
+        @SerializedName("updated_at")
+        @Expose
+        public String updated_at;
+        @SerializedName("status_msg")
+        @Expose
+        public String status_msg;
 
+
+        public String getArea() {
+            return area;
+        }
+
+        public String getWhatsapp_group_link() {
+            return whatsapp_group_link;
+        }
+
+        public String getUpdated_at() {
+            return updated_at;
+        }
+
+        public String getStatus_msg() {
+            return status_msg;
+        }
 
         public Integer getComid() {
             return comid;
@@ -108,7 +136,7 @@ public class CommunityResponse {
             return status;
         }
 
-        public Object getRequestedUserid() {
+        public String getRequestedUserid() {
             return requestedUserid;
         }
 
@@ -120,11 +148,11 @@ public class CommunityResponse {
             return noOfApartments;
         }
 
-        public Object getFlatNo() {
+        public String getFlatNo() {
             return flatNo;
         }
 
-        public Object getFloorNo() {
+        public String getFloorNo() {
             return floorNo;
         }
 

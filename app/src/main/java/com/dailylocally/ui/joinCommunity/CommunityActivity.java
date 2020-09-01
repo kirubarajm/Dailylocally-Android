@@ -150,6 +150,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         mOnBoardingActivityViewModel.completeRegistration.set(false);
         mOnBoardingActivityViewModel.joinExpandView.set(false);
         mOnBoardingActivityViewModel.joinTheCommunity.set(true);
+        mActivityOnboardingBinding.edtHouse.setText("");
+        mActivityOnboardingBinding.edtFloorNo.setText("");
     }
 
     @Override
@@ -437,20 +439,21 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
     @Override
     public void onItemClick(CommunityResponse.Result result) {
+        try {
         mOnBoardingActivityViewModel.register.set(false);
         mOnBoardingActivityViewModel.completeRegistration.set(false);
         mOnBoardingActivityViewModel.joinExpandView.set(true);
         mOnBoardingActivityViewModel.joinTheCommunity.set(false);
 
-
         mActivityOnboardingBinding.txtCommunityName.setText(result.getCommunityname());
         mActivityOnboardingBinding.txtLocation.setText(result.getCommunityAddress());
         mActivityOnboardingBinding.txtNoOfApartments.setText(result.getNoOfApartments());
-        if (result.getStatus()!=null && result.getStatus()==1) {
-            mActivityOnboardingBinding.txtStatus.setText("Live");
+        mActivityOnboardingBinding.txtStatus.setText(result.getStatus_msg());
+        /*if (result.getStatus()!=null && result.getStatus()==1) {
+            mActivityOnboardingBinding.txtStatus.setText(result.getStatus_msg());
         }else {
             mActivityOnboardingBinding.txtStatus.setText("Un-Live");
-        }
+        }*/
 
         mOnBoardingActivityViewModel.cmId.set(String.valueOf(result.getComid()));
 
@@ -462,6 +465,10 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         mMap.getUiSettings().setZoomControlsEnabled(true);
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -563,6 +570,11 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         Intent intent = ContactWhatsAppActivity.newIntent(CommunityActivity.this);
         startActivity(intent);
+    }
+
+    @Override
+    public void whatAppScreenFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -249,6 +249,10 @@
     </style>
 
 
+    <style name="error" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/red</item> <!--apply the color you wat here -->
+        <item name="android:textSize">12sp</item>
+    </style>
 
 
 

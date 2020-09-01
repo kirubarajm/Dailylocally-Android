@@ -13,18 +13,26 @@
     </data>
 
     <RelativeLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:ignore="MissingConstraints">
 
         <RelativeLayout
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/img_1"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_dl_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                 android:text="Hi Dhana"
+                android:layout_below="@+id/img_1"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/txt_name"
                 android:gravity="center"
@@ -32,7 +40,7 @@
                 android:layout_height="wrap_content"/>
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                android:text="Your Request is being processed"
+                android:text="We have received the registration request \nfor your community"
                 android:layout_below="@+id/txt_name"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
@@ -41,28 +49,118 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                android:text="Our DL exclusive team will get in touch \n with you within 24 hours!"
-                android:layout_below="@+id/txt_process_message"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:layout_marginTop="30dp"
-                android:id="@+id/txt_process_message1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
-            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                android:text="Contact us"
-                android:layout_marginTop="200dp"
-                android:onClick="@{()->contactWhatsAppViewModel.onWhatsAppClick()}"
-                android:layout_centerHorizontal="true"
-                style="@style/communityMediumGreenButtonTextStyle"
-                android:layout_below="@+id/txt_process_message1"
-                android:textAllCaps="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:padding="10dp"
+                    android:background="@drawable/contact_whatsapp_dl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:id="@+id/txt_message2"
+                        android:layout_marginTop="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="@dimen/_15px"
+                        android:layout_width="wrap_content"
+                        android:text="Our DL exclusive team will get in touch \nwith you within 24Hours"
+                        android:layout_height="wrap_content"/>
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:id="@+id/txt_message3"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:textSize="@dimen/_12px"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/txt_message2"
+                        android:layout_width="wrap_content"
+                        android:text="For more information"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_margin="20dp"
+                        android:layout_below="@+id/txt_message3"
+                        android:weightSum="2"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="5dp"
+                                android:paddingStart="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:background="#AADB84"
+                                android:paddingTop="2dp"
+                                android:paddingEnd="15dp"
+                                android:paddingBottom="2dp"
+                                android:singleLine="true"
+                                android:textAllCaps="true"
+                                android:text="Call"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12px"
+                                android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:gravity="center"
+                            android:background="#FFFFFF"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="5dp"
+                                android:paddingStart="15dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:paddingTop="2dp"
+                                android:onClick="@{()->contactWhatsAppViewModel.onWhatsAppClick()}"
+                                android:paddingEnd="15dp"
+                                android:paddingBottom="2dp"
+                                android:singleLine="true"
+                                android:textAllCaps="true"
+                                android:text="Chat with us"
+                                android:textColor="#94C96B"
+                                android:textSize="@dimen/_12px"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_centerInParent="true"
+                                android:tint="@color/dl_green"
+                                android:layout_marginRight="15dp"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/ic_path_419"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
+
 
     </RelativeLayout>
 

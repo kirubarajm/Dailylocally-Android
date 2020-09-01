@@ -4,10 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityContactWhatsAppBinding;
@@ -17,6 +21,8 @@ import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.net.URLEncoder;
 
 import javax.inject.Inject;
 
@@ -59,7 +65,16 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
 
     @Override
     public void onWhatsAppClick() {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        try {
+            String url = "https://wa.me/message/2DPUU5JCTASKN1";
+            i.setPackage("com.whatsapp");
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        } catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

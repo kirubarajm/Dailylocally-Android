@@ -11,6 +11,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.ViewCompat;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -632,16 +635,33 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
                 mAddAddressViewModel.locationAddress.set(address);
 
-
+                ColorStateList colorStateList;
                 if (fetchedAddress.getSubLocality()!=null){
                     mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
-                    mActivityCommunityBinding.txtEdit.setEnabled(false);
+                    //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
+                    //mActivityCommunityBinding.txtEdit.setEnabled(false);
+                    mActivityCommunityBinding.txtSubLocality.setEnabled(false);
+                    mActivityCommunityBinding.txtSubLocality.setHint("");
+                    colorStateList = ColorStateList.valueOf(Color.parseColor("#000000"));
+                    ViewCompat.setBackgroundTintList(mActivityCommunityBinding.txtSubLocality, colorStateList);
+                    mActivityCommunityBinding.txtMessage.setVisibility(View.GONE);
+                    mActivityCommunityBinding.imgMarker.setBackgroundResource(R.drawable.ic_group_2);
+
                 }else {
                     mAddAddressViewModel.area.set("");
-                    mActivityCommunityBinding.txtEdit.setEnabled(true);
+                    //mActivityCommunityBinding.txtEdit.setEnabled(true);
+                    mActivityCommunityBinding.txtSubLocality.setEnabled(true);
+                    //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
+                    mActivityCommunityBinding.txtSubLocality.setHint("Unable to identify location");
+                    mActivityCommunityBinding.txtSubLocality.setHintTextColor(Color.parseColor("#FF0001"));
+                    mActivityCommunityBinding.txtMessage.setVisibility(View.VISIBLE);
                     printToast("Unable to find your area please mark your location on map..");
+
+                    colorStateList = ColorStateList.valueOf(Color.parseColor("#FF0001"));
+                    ViewCompat.setBackgroundTintList(mActivityCommunityBinding.txtSubLocality, colorStateList);
+
+                    mActivityCommunityBinding.imgMarker.setBackgroundResource(R.drawable.ic_group_3);
                 }
-                mActivityCommunityBinding.txtSubLocality.setEnabled(false);
 
 
                 //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
