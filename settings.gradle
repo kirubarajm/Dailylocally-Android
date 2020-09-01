@@ -1,2 +1,3 @@
+include ':showcaseviewlib'
 rootProject.name='Daily Locally'
 include ':app','caldroid'

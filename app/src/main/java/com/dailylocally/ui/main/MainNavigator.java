@@ -32,4 +32,6 @@ public interface MainNavigator {
     void paymentSuccessed(boolean status);
 
     void openCommunity();
+
+    void openCommunityCat();
 }

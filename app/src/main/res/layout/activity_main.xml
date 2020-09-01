@@ -33,11 +33,11 @@
                 android:layout_height="40dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="5">
+                android:orientation="horizontal">
 
 
                 <LinearLayout
+                    android:visibility="@{viewModel.isCommunityUser?View.VISIBLE:View.GONE}"
                     android:id="@+id/community"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -60,8 +60,33 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:visibility="@{viewModel.isCommunityUser?View.VISIBLE:View.GONE}"
+                    android:id="@+id/communitycat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.gotoCommunityCat()}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        imageTint="@{viewModel.isCommunityCat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_comm_cat" />
+
+
+                </LinearLayout>
+
 
                 <LinearLayout
+                    android:visibility="@{viewModel.isCommunityUser?View.GONE:View.VISIBLE}"
                     android:id="@+id/home"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -73,14 +98,13 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        imageTint="@{viewModel.isHome}"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_dl"
-                        imageTint="@{viewModel.isHome}"
-                        />
+                        android:src="@drawable/ic_dl" />
 
 
                 </LinearLayout>
@@ -108,14 +132,13 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                imageTint="@{viewModel.isCart}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center_horizontal|center_vertical"
                                 android:gravity="center"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/ic_cart"
-                                imageTint="@{viewModel.isCart}"
-                              />
+                                android:src="@drawable/ic_cart" />
 
                         </LinearLayout>
 
@@ -146,13 +169,13 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        imageTint="@{viewModel.isOrder}"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_calendar"
-                        imageTint="@{viewModel.isOrder}"/>
+                        android:src="@drawable/ic_calendar" />
 
 
                 </LinearLayout>
@@ -170,13 +193,13 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        imageTint="@{viewModel.isMyAccount}"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_my_account"
-                        imageTint="@{viewModel.isMyAccount}"/>
+                        android:src="@drawable/ic_my_account" />
 
                 </LinearLayout>
 

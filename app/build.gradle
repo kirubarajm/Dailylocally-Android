@@ -4,14 +4,15 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.dailylocally"
         minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 18
-        versionName "2.0.1"
+        targetSdkVersion 30
+        versionCode 17
+        versionName "2.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
       //  useLibrary 'org.apache.http.legacy'
 //        useUiLibrary true
@@ -31,8 +32,14 @@ android {
         debug {
             minifyEnabled false
 
-              buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
+
+              buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
             //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
+
+           //  buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+             //buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
+             //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
+
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
@@ -153,6 +160,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
 
     implementation 'com.google.android.libraries.places:places:2.3.0'
+
     implementation project(':caldroid')
 
 
@@ -175,4 +183,10 @@ dependencies {
     //get social
     implementation 'im.getsocial:getsocial-core:7.2.2'
     implementation'im.getsocial:getsocial-ui:7.2.2'// Note: add this dependency only if you plan to use GetSocial UI
+
+    implementation 'com.github.mreram:showcaseview:1.1'
+
+    //Video player
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.15'
+
 }

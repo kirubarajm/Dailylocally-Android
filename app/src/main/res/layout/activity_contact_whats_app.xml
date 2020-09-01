@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="contactWhatsAppViewModel"
+            type="com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:text="Hi Dhana"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/txt_name"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:text="Your Request is being processed"
+                android:layout_below="@+id/txt_name"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/txt_process_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:text="Our DL exclusive team will get in touch \n with you within 24 hours!"
+                android:layout_below="@+id/txt_process_message"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:id="@+id/txt_process_message1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                android:text="Contact us"
+                android:layout_marginTop="200dp"
+                android:onClick="@{()->contactWhatsAppViewModel.onWhatsAppClick()}"
+                android:layout_centerHorizontal="true"
+                style="@style/communityMediumGreenButtonTextStyle"
+                android:layout_below="@+id/txt_process_message1"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

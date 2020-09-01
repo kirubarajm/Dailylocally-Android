@@ -47,7 +47,16 @@ import com.dailylocally.ui.category.viewall.products.CatProductFragProvider;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsModule;
 import com.dailylocally.ui.collection.l2.products.CollectionProductsProvider;
+
 import com.dailylocally.ui.community.CommunityProvider;
+import com.dailylocally.ui.community.catlist.CommunityCatProvider;
+import com.dailylocally.ui.joinCommunity.CommunityActivity;
+import com.dailylocally.ui.joinCommunity.CommunityActivityModule;
+import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
+import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressModule;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivityModule;
+
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.coupons.CouponsModule;
 
@@ -61,6 +70,8 @@ import com.dailylocally.ui.favourites.FavActivity;
 import com.dailylocally.ui.favourites.FavModule;
 import com.dailylocally.ui.favourites.products.FavProductsProvider;
 import com.dailylocally.ui.home.HomeProvider;
+import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
+import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppModule;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.main.MainActivityModule;
 import com.dailylocally.ui.onboarding.OnBoardingActivity;
@@ -147,6 +158,7 @@ public abstract class ActivityBuilder {
             CalendarProvider.class,
             PromotionProvider.class,
             CommunityProvider.class,
+            CommunityCatProvider.class,
             MyAccountProvider.class
     })
     abstract MainActivity bindMainActivity();
@@ -239,5 +251,17 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {AdModule.class, PromotionProvider.class})
     abstract AdActivity bindAdActivity();
+
+    @ContributesAndroidInjector(modules = {CommunityOnBoardingActivityModule.class})
+    abstract CommunityOnBoardingActivity bindCommunityOnBoardingActivity();
+
+    @ContributesAndroidInjector(modules = {CommunityActivityModule.class})
+    abstract CommunityActivity bindCommunityActivity();
+
+    @ContributesAndroidInjector(modules = {CommunityAddressModule.class})
+    abstract CommunityAddressActivity bindCommunityAddressActivity();
+
+    @ContributesAndroidInjector(modules = {ContactWhatsAppModule.class})
+    abstract ContactWhatsAppActivity bindContactWhatsAppActivity();
 
 }

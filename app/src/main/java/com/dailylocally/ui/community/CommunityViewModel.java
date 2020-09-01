@@ -7,8 +7,17 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.category.l2.L2CategoryRequest;
+import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -39,6 +48,8 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableBoolean categoryLoading = new ObservableBoolean();
     public final ObservableBoolean showRating = new ObservableBoolean();
 
+    public final ObservableBoolean showVideo = new ObservableBoolean();
+
     public final ObservableField<String> updateTitle = new ObservableField<>();
     public final ObservableField<String> updateAction = new ObservableField<>();
     public final ObservableField<String> screenName = new ObservableField<>();
@@ -46,6 +57,15 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableBoolean enableLater = new ObservableBoolean();
     public final ObservableBoolean update = new ObservableBoolean();
 
+    public final ObservableField<String> profilePic = new ObservableField<>();
+    public final ObservableField<String> nameText = new ObservableField<>();
+    public final ObservableField<String> name = new ObservableField<>();
+    public final ObservableField<String> members = new ObservableField<>();
+    public final ObservableField<String> membersText = new ObservableField<>();
+    public final ObservableField<String> communityName = new ObservableField<>();
+    public final ObservableField<String> communityArea = new ObservableField<>();
+    public final ObservableField<String> credits = new ObservableField<>();
+    public final ObservableField<String> creditsText = new ObservableField<>();
 
     public final ObservableField<String> eventImageUrl = new ObservableField<>();
     public final ObservableField<String> catImageUrl = new ObservableField<>();
@@ -68,6 +88,10 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableBoolean singleImage = new ObservableBoolean();
     public final ObservableBoolean attachmentAvailable = new ObservableBoolean();
 
+    public String whatsappgroupLink="";
+    public String sneakpeakVideoUrl;
+
+
     public ObservableList<GetSocialActivity> getSocialActivities = new ObservableArrayList<>();
     public String ratingDOID = "0";
     private MutableLiveData<List<GetSocialActivity>> socialActivitiesListLiveData;
@@ -78,7 +102,36 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
         socialActivitiesListLiveData = new MutableLiveData<>();
         updateAvailable.set(getDataManager().isUpdateAvailable());
 
-        eventImageUrl.set("https://eattovo.s3.ap-south-1.amazonaws.com/upload/admin/makeit/product/1595868674050-DLV2%20Category-Bakery.jpg");
+
+        if (getDataManager().getUserDetails() != null) {
+
+            Gson sGson = new GsonBuilder().create();
+            CommunityUserDetailsResponse communityUserDetailsResponse = sGson.fromJson(getDataManager().getUserDetails(), CommunityUserDetailsResponse.class);
+            if (communityUserDetailsResponse != null) {
+                if (communityUserDetailsResponse.getResult() != null) {
+                    if (communityUserDetailsResponse.getResult().size() > 0) {
+                        CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
+
+                        profilePic.set(result.getProfileImage());
+                        name.set(result.getName());
+                        nameText.set(result.getWelcomeText());
+                        members.set(result.getMembersCount());
+                        membersText.set(result.getMembers());
+                        communityName.set(result.getCommunityName());
+                        communityArea.set(result.getCommunityArea());
+                        credits.set(result.getTotalCredits());
+                        creditsText.set(result.getCreditsText());
+
+                    }
+                }
+
+            }
+
+        }
+
+        getHomeDetails();
+
+        /*eventImageUrl.set("https://eattovo.s3.ap-south-1.amazonaws.com/upload/admin/makeit/product/1595868674050-DLV2%20Category-Bakery.jpg");
         catImageUrl.set("https://eattovo.s3.ap-south-1.amazonaws.com/upload/admin/makeit/product/1595847977688-Category%20Milk-01.jpg");
         whatsImageUrl.set("https://dailylocally.s3.ap-south-1.amazonaws.com/admin/1596196480459-DLV2%20Category-Spreads.jpg");
         aboutUsTitle.set("About Us");
@@ -86,7 +139,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
         sneakTitle.set("Sneak Peak");
         sneakDes.set("Watch a short video on Daily Locally Exclusive");
         whatsTitle.set("What's Cooking in community");
-        whatsDes.set("Join your community's WhatsApp group and socialize with the members");
+        whatsDes.set("Join your community's WhatsApp group and socialize with the members");*/
 
     }
 
@@ -101,5 +154,105 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
     }
 
+
+    public void gotoCommunityCat() {
+        getNavigator().gotoCommunityHome();
+    }
+
+    public void aboutUs() {
+        getNavigator().aboutUs();
+    }
+
+    public void sneakPeak() {
+        getNavigator().sneakPeak();
+    }
+
+    public void whatsAppGroup() {
+        getNavigator().whatsAppGroup();
+    }
+
+public void communityEvent() {
+        getNavigator().communityEvent();
+    }
+
+
+    public void getHomeDetails() {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_HOME_DETAILS, CommunityHomeResponse.class, new L2CategoryRequest(getDataManager().getCurrentUserId(), getDataManager().getCurrentLat(), getDataManager().getCurrentLng()), new Response.Listener<CommunityHomeResponse>() {
+                @Override
+                public void onResponse(CommunityHomeResponse response) {
+
+                    if (response != null)
+                        if (response.getStatus()) {
+                            if (response.getResult() != null) {
+
+                                if (response.getResult().size() > 0) {
+
+                                    CommunityHomeResponse.Result result = response.getResult().get(0);
+
+
+                                    eventImageUrl.set(result.getEvent().getImageUrl());
+                                    catImageUrl.set(result.getCatList().getImageUrl());
+                                    //whatsImageUrl.set("https://dailylocally.s3.ap-south-1.amazonaws.com/admin/1596196480459-DLV2%20Category-Spreads.jpg");
+                                    aboutUsTitle.set(result.getAbout().getTitle());
+                                    aboutUsDes.set(result.getAbout().getDes());
+                                    sneakTitle.set(result.getSneakPeak().getTitle());
+                                    sneakDes.set(result.getSneakPeak().getDes());
+                                    whatsTitle.set(result.getWhatsapp().getTitle());
+                                    whatsDes.set(result.getWhatsapp().getDes());
+
+                                    whatsappgroupLink=result.getWhatsapp().getGroupUrl();
+                                    sneakpeakVideoUrl=result.getSneakPeak().getVideoUrl();
+
+
+                                } else {
+                                    /*if (getNavigator() != null)
+                                        getNavigator().openHome();*/
+                                }
+
+                            } else {
+                               /* if (getNavigator() != null)
+                                    getNavigator().openHome();*/
+                            }
+
+
+                        } else {
+                           /* if (getNavigator() != null)
+                                getNavigator().openHome();*/
+                        }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
+    public void closeVideo(){
+
+        getNavigator().stopVideo();
+
+        showVideo.set(false);
+    }
 
 }

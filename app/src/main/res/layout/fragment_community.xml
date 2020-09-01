@@ -73,9 +73,9 @@
 
                             <com.dailylocally.utilities.CircularImageView
                                 android:id="@+id/circleImage"
+                                imageUrl="@{communityViewModel.profilePic}"
                                 android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:src="@drawable/profile" />
+                                android:layout_height="80dp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                                     style="@style/SubtTitleTextStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Lucy" />
+                                    android:text="@{communityViewModel.name}" />
 
 
                                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
@@ -96,7 +96,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="Hi, Welcome to the Daily Locally community Exclusive club " />
+                                    android:text="@{communityViewModel.nameText}" />
 
 
                             </LinearLayout>
@@ -131,7 +131,7 @@
                                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="200"
+                                        android:text="@{communityViewModel.members}"
                                         android:textColor="@color/colorPrimary"
                                         android:textSize="@dimen/_22px" />
 
@@ -140,7 +140,7 @@
                                         style="@style/ContentTextStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Members" />
+                                        android:text="@{communityViewModel.membersText}" />
 
 
                                 </LinearLayout>
@@ -165,7 +165,7 @@
                                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Commander's court"
+                                        android:text="@{communityViewModel.communityName}"
                                         android:textColor="@color/colorPrimary"
                                         android:textSize="@dimen/_22px" />
 
@@ -174,7 +174,7 @@
                                         style="@style/ContentTextStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Egmore" />
+                                        android:text="@{communityViewModel.communityArea}" />
 
 
                                 </LinearLayout>
@@ -199,7 +199,7 @@
                                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="1500"
+                                        android:text="@{communityViewModel.credits}"
                                         android:textColor="@color/colorPrimary"
                                         android:textSize="@dimen/_22px" />
 
@@ -208,7 +208,7 @@
                                         style="@style/ContentTextStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="DL credits" />
+                                        android:text="@{communityViewModel.creditsText}" />
 
 
                                 </LinearLayout>
@@ -236,9 +236,9 @@
                         app:cardUseCompatPadding="true">
 
                         <RelativeLayout
-                            android:layout_marginBottom="15dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp">
 
                             <RelativeLayout
                                 android:id="@+id/topConts"
@@ -322,9 +322,9 @@
 
                             <LinearLayout
                                 android:id="@+id/images"
-                                android:layout_below="@+id/fullDes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_below="@+id/fullDes"
                                 android:orientation="vertical">
 
                                 <LinearLayout
@@ -344,10 +344,10 @@
                                         app:cardElevation="0dp">
 
                                         <ImageView
-                                            android:adjustViewBounds="true"
                                             imageUrl="@{communityViewModel.image1}"
                                             android:layout_width="match_parent"
-                                            android:layout_height="wrap_content" />
+                                            android:layout_height="wrap_content"
+                                            android:adjustViewBounds="true" />
 
                                     </androidx.cardview.widget.CardView>
 
@@ -361,10 +361,10 @@
                                         app:cardElevation="0dp">
 
                                         <ImageView
-                                            android:adjustViewBounds="true"
                                             imageUrl="@{communityViewModel.image2}"
                                             android:layout_width="match_parent"
-                                            android:layout_height="wrap_content" />
+                                            android:layout_height="wrap_content"
+                                            android:adjustViewBounds="true" />
 
                                     </androidx.cardview.widget.CardView>
 
@@ -447,6 +447,7 @@
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:onClick="@{()->communityViewModel.communityEvent()}"
                                 app:cardCornerRadius="10dp"
                                 app:cardUseCompatPadding="true">
 
@@ -491,6 +492,7 @@
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:onClick="@{()->communityViewModel.gotoCommunityCat()}"
                                 app:cardCornerRadius="10dp"
                                 app:cardUseCompatPadding="true">
 
@@ -559,6 +561,7 @@
                                     <androidx.cardview.widget.CardView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:onClick="@{()->communityViewModel.aboutUs()}"
                                         app:cardCornerRadius="10dp"
                                         app:cardUseCompatPadding="true">
 
@@ -600,7 +603,7 @@
                                                 android:layout_alignParentEnd="true"
                                                 android:layout_margin="10dp"
                                                 android:adjustViewBounds="true"
-                                                android:src="@drawable/update" />
+                                                android:src="@drawable/ic_dl" />
 
 
                                         </RelativeLayout>
@@ -617,6 +620,7 @@
                                     <androidx.cardview.widget.CardView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:onClick="@{()->communityViewModel.sneakPeak()}"
                                         app:cardCornerRadius="10dp"
                                         app:cardUseCompatPadding="true">
 
@@ -657,7 +661,7 @@
                                                 android:layout_alignParentEnd="true"
                                                 android:layout_margin="10dp"
                                                 android:adjustViewBounds="true"
-                                                android:src="@drawable/update" />
+                                                android:src="@drawable/ic_sneak_peak" />
 
 
                                         </RelativeLayout>
@@ -706,6 +710,7 @@
                             <androidx.cardview.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:onClick="@{()->communityViewModel.whatsAppGroup()}"
                                 app:cardCornerRadius="10dp"
                                 app:cardUseCompatPadding="true">
 
@@ -721,7 +726,7 @@
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginTop="50dp"
                                         android:adjustViewBounds="true"
-                                        android:src="@drawable/update" />
+                                        android:src="@drawable/ic_whatsapp" />
 
                                     <LinearLayout
                                         android:id="@+id/whatsContent"
@@ -756,15 +761,12 @@
                     </LinearLayout>
 
 
-
-
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="10dp"
+                        android:id="@+id/postList"
+                        postadapter="@{communityViewModel.getSocialActivities}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        postadapter="@{communityViewModel.getSocialActivities}"
-                        android:id="@+id/postList"/>
-
+                        android:layout_marginTop="10dp" />
 
 
                 </LinearLayout>
@@ -774,252 +776,39 @@
         </androidx.core.widget.NestedScrollView>
 
 
-        <!--<RelativeLayout
+
+
+
+        <RelativeLayout
+            android:visibility="@{communityViewModel.showVideo?View.VISIBLE:View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="@{communityViewModel.categoryLoading?View.VISIBLE:View.GONE}">
+            android:background="#AB000000">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/loader"
+
+            <com.potyvideo.library.AndExoPlayerView
+                android:layout_centerInParent="true"
+                android:id="@+id/videoPlayer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:duration="1000">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="200dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="50dp"
-                        android:background="@color/light_gray" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginEnd="30dp"
-                        android:background="@color/light_gray" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@color/light_gray" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                android:layout_height="wrap_content" />
 
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
 
 
-                    </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
+            <ImageView
+                android:onClick="@{()->communityViewModel.closeVideo()}"
+                android:layout_margin="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_close_black_24dp"
+                android:layout_alignParentEnd="true"
+                app:tint="@color/white" />
 
 
-                    </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+        </RelativeLayout>
 
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="250dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="@color/light_gray"
-                            android:orientation="horizontal" />
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-        </RelativeLayout>-->
     </RelativeLayout>
 </layout>

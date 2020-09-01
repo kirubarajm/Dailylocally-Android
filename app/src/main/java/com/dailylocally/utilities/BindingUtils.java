@@ -64,7 +64,12 @@ import com.dailylocally.ui.category.l2.products.sort.SortItems;
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 import com.dailylocally.ui.collection.l2.products.CollectionProductListAdapter;
 import com.dailylocally.ui.collection.l2.products.CollectionProductsResponse;
+
 import com.dailylocally.ui.community.CommunityPostListAdapter;
+
+import com.dailylocally.ui.joinCommunity.CommunityAdapter;
+import com.dailylocally.ui.joinCommunity.CommunityResponse;
+
 import com.dailylocally.ui.coupons.CouponsAdapter;
 import com.dailylocally.ui.coupons.CouponsResponse;
 import com.dailylocally.ui.favourites.products.FavProductListAdapter;
@@ -318,6 +323,15 @@ public final class BindingUtils {
         }
     }
 
+
+    @BindingAdapter({"adapter"})
+    public static void addCommunityListItems(RecyclerView recyclerView, List<CommunityResponse.Result> blogs) {
+        CommunityAdapter adapter = (CommunityAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
 
     @BindingAdapter("imageUrl")
     public static void setImageUrl(RoundCornerImageView imageView, String url) {

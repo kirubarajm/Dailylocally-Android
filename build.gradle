@@ -25,6 +25,7 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+        maven { url 'https://jitpack.io' }
         
     }
 }

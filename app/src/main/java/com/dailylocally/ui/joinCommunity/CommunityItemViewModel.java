@@ -1,0 +1,29 @@
+package com.dailylocally.ui.joinCommunity;
+
+
+import androidx.databinding.ObservableField;
+
+public class CommunityItemViewModel {
+
+    public final ObservableField<String> communityName = new ObservableField<>();
+
+    public final TransactionHistoryViewModelListener mListener;
+    private final CommunityResponse.Result result;
+
+    public CommunityItemViewModel(CommunityResponse.Result result, TransactionHistoryViewModelListener mListener) {
+        this.result = result;
+        this.mListener = mListener;
+
+        communityName.set(result.getCommunityname());
+
+    }
+
+    public void onItemClick() {
+        mListener.onItemClick(result);
+    }
+
+    public interface TransactionHistoryViewModelListener {
+        void onItemClick(CommunityResponse.Result cartdetail);
+    }
+
+}

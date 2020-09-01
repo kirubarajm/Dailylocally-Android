@@ -770,6 +770,7 @@
     <string name="no_orders_found">No orders found!</string>
     <string name="pick_your_order_before_11pm_and_get_delivered">Pick your order before 11pm and get delivered</string>
     <string name="no_transaction_found">No transactions found!</string>
+    <string name="register_your_community">Register your community</string>
 
 
 </resources>
