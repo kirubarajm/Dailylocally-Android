@@ -1,10 +1,10 @@
-package com.dailylocally.ui.signup.faqs;
+package com.dailylocally.ui.aboutus;
 
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
-public class FaqsItemViewModel {
+public class AboutUsItemViewModel {
 
     public final ObservableField<String> type = new ObservableField<>();
 
@@ -21,10 +21,10 @@ public class FaqsItemViewModel {
 
     public final FaqItemViewModelListener mListener;
 
-    private final FaqResponse.Result mBlog;
+    private final AboutUsResponse.Result mBlog;
 
 
-    public FaqsItemViewModel(FaqResponse.Result menuProducts, FaqItemViewModelListener listener) {
+    public AboutUsItemViewModel(AboutUsResponse.Result menuProducts, FaqItemViewModelListener listener) {
 
         this.type.set(menuProducts.getType());
         this.question.set(menuProducts.getQuestion());

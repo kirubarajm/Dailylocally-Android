@@ -1,6 +1,6 @@
-package com.dailylocally.ui.signup.faqs;
+package com.dailylocally.ui.aboutus;
 
-public interface FaqFragmentNavigator {
+public interface AboutUsNavigator {
 
     void handleError(Throwable throwable);
 

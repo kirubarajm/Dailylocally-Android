@@ -159,17 +159,42 @@ public class HomepageResponse {
         @SerializedName("servicable_status")
         @Expose
         private Boolean servicableStatus;
- @SerializedName("clickable")
+        @SerializedName("clickable")
         @Expose
         private Boolean clickable;
+        @SerializedName("approval_status")
+        @Expose
+        private Boolean approvalStatus;
 
-  @SerializedName("collection_status")
+@SerializedName("join_status")
+        @Expose
+        private Boolean joinStatus;
+
+
+        @SerializedName("collection_status")
         @Expose
         private Boolean collectionStatus;
 
-  @SerializedName("tile_type")
+        @SerializedName("tile_type")
         @Expose
-        private String  tileType;
+        private String tileType;
+
+        @SerializedName("type")
+        @Expose
+        private Integer type;
+
+
+        public Boolean getApprovalStatus() {
+            return approvalStatus;
+        }
+
+        public Boolean getJoinStatus() {
+            return joinStatus;
+        }
+
+        public Integer getType() {
+            return type;
+        }
 
         public Boolean getClickable() {
             return clickable;
@@ -179,6 +204,9 @@ public class HomepageResponse {
             return catid;
         }
 
+        public void setCatid(Integer catid) {
+            this.catid = catid;
+        }
 
         public String getCid() {
             return cid;
@@ -186,10 +214,6 @@ public class HomepageResponse {
 
         public void setCid(String cid) {
             this.cid = cid;
-        }
-
-        public void setCatid(Integer catid) {
-            this.catid = catid;
         }
 
         public String getName() {

@@ -1,11 +1,11 @@
-package com.dailylocally.ui.signup.faqs;
+package com.dailylocally.ui.aboutus;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class FaqResponse {
+public class AboutUsResponse {
 
     @Expose
     @SerializedName("result")

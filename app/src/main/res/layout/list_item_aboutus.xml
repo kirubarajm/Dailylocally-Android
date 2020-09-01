@@ -6,8 +6,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="faqsItemViewModel"
-            type="com.dailylocally.ui.signup.faqs.FaqsItemViewModel" />
+            name="aboutUsItemViewModel"
+            type="com.dailylocally.ui.aboutus.AboutUsItemViewModel" />
     </data>
 
     <LinearLayout
@@ -20,7 +20,7 @@
             android:id="@+id/tLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->faqsItemViewModel.expandClick()}">
+            android:onClick="@{()->aboutUsItemViewModel.expandClick()}">
 
             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                 android:id="@+id/txt_3"
@@ -28,14 +28,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:text="@{faqsItemViewModel.question}" />
+                android:text="@{aboutUsItemViewModel.question}" />
 
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:rotation="@{faqsItemViewModel.expandClicked?90:0}"
+                android:rotation="@{aboutUsItemViewModel.expandClicked?90:0}"
                 android:src="@drawable/stong_right_arrow" />
         </RelativeLayout>
 
@@ -47,8 +47,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@{faqsItemViewModel.answer}"
-            android:visibility="@{faqsItemViewModel.expandClicked?View.VISIBLE:View.GONE}" />
+            android:text="@{aboutUsItemViewModel.answer}"
+            android:visibility="@{aboutUsItemViewModel.expandClicked?View.VISIBLE:View.GONE}" />
 
 
         <View

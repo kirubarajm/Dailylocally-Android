@@ -1,30 +1,31 @@
-package com.dailylocally.ui.signup.faqs;
+package com.dailylocally.ui.aboutus;
 
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.data.DataManager;
+
 import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class FaqFragmentModule {
+public class AboutUsModule {
 
     @Provides
-    FaqFragmentViewModel provideFaqViewModel(DataManager dataManager)
+    AboutUsViewModel provideFaqViewModel(DataManager dataManager)
     {
-        return new FaqFragmentViewModel(dataManager);
+        return new AboutUsViewModel(dataManager);
     }
 
     @Provides
-    FaqsAdapter provideFaqsAdapter() {
-        return new FaqsAdapter(new ArrayList<>());
+    AboutUsAdapter provideFaqsAdapter() {
+        return new AboutUsAdapter(new ArrayList<>());
     }
 
     @Provides
-    LinearLayoutManager provideLinearLayoutManager(FaqActivity activity) {
+    LinearLayoutManager provideLinearLayoutManager(AboutUsActivity activity) {
         return new LinearLayoutManager(activity);
     }
 }

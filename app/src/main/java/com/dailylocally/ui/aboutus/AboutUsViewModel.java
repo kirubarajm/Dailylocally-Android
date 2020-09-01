@@ -1,4 +1,4 @@
-package com.dailylocally.ui.signup.faqs;
+package com.dailylocally.ui.aboutus;
 
 import android.util.Log;
 
@@ -15,28 +15,27 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
-
 import java.util.List;
 
-public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
+public class AboutUsViewModel extends BaseViewModel<AboutUsNavigator> {
 
-    public ObservableList<FaqResponse.Result> faqsItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<FaqResponse.Result>> faqsItemsLiveData;
+    public ObservableList<AboutUsResponse.Result> faqsItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<AboutUsResponse.Result>> faqsItemsLiveData;
 
-    public FaqFragmentViewModel(DataManager dataManager) {
+    public AboutUsViewModel(DataManager dataManager) {
         super(dataManager);
         faqsItemsLiveData = new MutableLiveData<>();
        // fetchRepos();
     }
 
-    public void addFaqsItemsToList(List<FaqResponse.Result> menuProductsItems) {
+    public void addFaqsItemsToList(List<AboutUsResponse.Result> menuProductsItems) {
         faqsItemViewModels.clear();
         faqsItemViewModels.addAll(menuProductsItems);
     }
 
 
 
-    public MutableLiveData<List<FaqResponse.Result>> getFaqs() {
+    public MutableLiveData<List<AboutUsResponse.Result>> getFaqs() {
         return faqsItemsLiveData;
     }
 
@@ -52,9 +51,9 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
         if(!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_FAQS + 4, FaqResponse.class, new Response.Listener<FaqResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_FAQS + 4, AboutUsResponse.class, new Response.Listener<AboutUsResponse>() {
             @Override
-            public void onResponse(FaqResponse response) {
+            public void onResponse(AboutUsResponse response) {
                 if (response != null && response.getResult() != null) {
                     faqsItemsLiveData.setValue(response.getResult());
                     Log.e("", response.getMessage());

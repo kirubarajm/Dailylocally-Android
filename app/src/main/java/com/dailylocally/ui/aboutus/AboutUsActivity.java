@@ -1,4 +1,4 @@
-package com.dailylocally.ui.signup.faqs;
+package com.dailylocally.ui.aboutus;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,18 +8,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-
-
 import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-
-
 import com.dailylocally.databinding.ActivityFaqsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -27,19 +22,17 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentViewModel> implements FaqFragmentNavigator {
+public class AboutUsActivity extends BaseActivity<ActivityFaqsBinding, AboutUsViewModel> implements AboutUsNavigator {
 
-    public static final String TAG = FaqActivity.class.getSimpleName();
+    public static final String TAG = AboutUsActivity.class.getSimpleName();
     @Inject
-    FaqFragmentViewModel mFaqViewModel;
+    AboutUsViewModel mFaqViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
-    FaqsAdapter mFaqsAdapter;
+    AboutUsAdapter mAboutUsAdapter;
     private ActivityFaqsBinding mActivityFaqsBinding;
 
     Analytics analytics;
@@ -47,7 +40,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
 
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, FaqActivity.class);
+        return new Intent(context, AboutUsActivity.class);
     }
 
     @Override
@@ -61,7 +54,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     }
 
     @Override
-    public FaqFragmentViewModel getViewModel() {
+    public AboutUsViewModel getViewModel() {
         return mFaqViewModel;
     }
 
@@ -92,7 +85,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityFaqsBinding.recyclerFaqs.setLayoutManager(mLayoutManager);
-        mActivityFaqsBinding.recyclerFaqs.setAdapter(mFaqsAdapter);
+        mActivityFaqsBinding.recyclerFaqs.setAdapter(mAboutUsAdapter);
         subscribeToLiveData();
     }
 

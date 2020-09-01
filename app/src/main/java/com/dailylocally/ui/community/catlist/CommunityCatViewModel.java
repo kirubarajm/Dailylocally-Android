@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.community.CommunityUserDetailsResponse;
 import com.dailylocally.ui.home.HomePageRequest;
 import com.dailylocally.ui.home.HomepageResponse;
 import com.dailylocally.ui.home.RatingCheckResponse;
@@ -70,6 +71,17 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
     public final ObservableBoolean enableLater = new ObservableBoolean();
     public final ObservableBoolean update = new ObservableBoolean();
 
+    public final ObservableField<String> profilePic = new ObservableField<>();
+    public final ObservableField<String> welcomeText = new ObservableField<>();
+    public final ObservableField<String> name = new ObservableField<>();
+    public final ObservableField<String> minValue = new ObservableField<>();
+    public final ObservableField<String> minValueText = new ObservableField<>();
+    public final ObservableField<String> freeDelivery = new ObservableField<>();
+    public final ObservableField<String> freeDeliveryText = new ObservableField<>();
+    public final ObservableField<String> cod = new ObservableField<>();
+    public final ObservableField<String> codText = new ObservableField<>();
+
+
     public ObservableList<HomepageResponse.Result> categoryList = new ObservableArrayList<>();
     public String ratingDOID = "0";
     private MutableLiveData<List<HomepageResponse.Result>> categoryListLiveData;
@@ -81,7 +93,31 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
         updateAvailable.set(getDataManager().isUpdateAvailable());
 
 
+        if (getDataManager().getUserDetails() != null) {
 
+            Gson sGson = new GsonBuilder().create();
+            CommunityUserDetailsResponse communityUserDetailsResponse = sGson.fromJson(getDataManager().getUserDetails(), CommunityUserDetailsResponse.class);
+            if (communityUserDetailsResponse != null) {
+                if (communityUserDetailsResponse.getResult() != null) {
+                    if (communityUserDetailsResponse.getResult().size() > 0) {
+                        CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
+
+                        profilePic.set(result.getProfileImage());
+                        name.set(result.getWelcomeNameTitle());
+                        welcomeText.set(result.getWelcomeNameContent());
+                        minValue.set(result.getMinCartValue());
+                        minValueText.set(result.getMinCartText());
+                        freeDelivery.set(result.getFreeDeliveryValue());
+                        freeDeliveryText.set(result.getFreeDeliveryText());
+                        cod.set(result.getCodValue());
+                        codText.set(result.getCodText());
+
+                    }
+                }
+
+            }
+
+        }
     }
 
     public MutableLiveData<List<HomepageResponse.Result>> getCategoryListLiveData() {

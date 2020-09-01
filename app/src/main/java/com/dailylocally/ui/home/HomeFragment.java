@@ -24,6 +24,9 @@ import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
+import com.dailylocally.ui.joinCommunity.CommunityActivity;
+import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.rating.RatingActivity;
@@ -212,8 +215,38 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void categoryItemClicked(HomepageResponse.Result result, TextView view) {
 
+        if (result.getType()==1){
 
-        if (result.getCollectionStatus()) {
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
+            intent.putExtra("catid", String.valueOf(result.getCatid()));
+            startActivity(intent);
+            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+
+        }else if (result.getType()==2){
+
+            Intent intent = CollectionDetailsActivity.newIntent(getContext());
+            intent.putExtra("cid", result.getCid());
+            startActivity(intent);
+            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+        }else {
+
+            if (result.getJoinStatus()&&!result.getApprovalStatus()) {
+                Intent intent = ContactWhatsAppActivity.newIntent(getContext());
+                startActivity(intent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }else {
+
+                Intent intent = CommunityActivity.newIntent(getContext());
+                startActivity(intent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+            }
+
+        }
+
+        /*if (result.getCollectionStatus()) {
             Intent intent = CollectionDetailsActivity.newIntent(getContext());
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
@@ -224,7 +257,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }
+        }*/
 
     }
 

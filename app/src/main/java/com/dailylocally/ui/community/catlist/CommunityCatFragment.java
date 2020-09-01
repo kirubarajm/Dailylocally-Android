@@ -126,7 +126,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void changeHeaderText(String headerContent) {
-        mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
+      //  mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
     }
 
     @Override

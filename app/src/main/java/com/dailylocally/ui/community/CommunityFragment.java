@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCommunityBinding;
+import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
@@ -156,7 +157,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     @Override
     public void aboutUs() {
 
-        Intent intent = FaqActivity.newIntent(getContext());
+        Intent intent = AboutUsActivity.newIntent(getContext());
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

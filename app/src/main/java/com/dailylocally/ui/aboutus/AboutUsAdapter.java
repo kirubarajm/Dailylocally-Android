@@ -1,4 +1,4 @@
-package com.dailylocally.ui.signup.faqs;
+package com.dailylocally.ui.aboutus;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dailylocally.databinding.ListItemAboutusBinding;
 import com.dailylocally.databinding.ListItemFaqsBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
 
 import java.util.List;
 
-public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class AboutUsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    List<FaqResponse.Result> item_list;
+    List<AboutUsResponse.Result> item_list;
     FaqsAdapterListener mFaqsAdapterListener;
 
-    public FaqsAdapter(List<FaqResponse.Result> item_list) {
+    public AboutUsAdapter(List<AboutUsResponse.Result> item_list) {
         this.item_list = item_list;
     }
 
@@ -29,12 +30,12 @@ public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemFaqsBinding blogViewBinding = ListItemFaqsBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemAboutusBinding blogViewBinding = ListItemAboutusBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new FaqsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemFaqsBinding blogViewBinding1 = ListItemFaqsBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemAboutusBinding blogViewBinding1 = ListItemAboutusBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new FaqsViewHolder(blogViewBinding1);
         }
@@ -64,13 +65,13 @@ public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public class FaqsViewHolder extends BaseViewHolder implements FaqsItemViewModel.FaqItemViewModelListener {
+    public class FaqsViewHolder extends BaseViewHolder implements AboutUsItemViewModel.FaqItemViewModelListener {
 
-        private ListItemFaqsBinding mBinding;
+        private ListItemAboutusBinding mBinding;
 
-        private FaqsItemViewModel mFaqsItemViewModel;
+        private AboutUsItemViewModel mAboutUsItemViewModel;
 
-        public FaqsViewHolder(ListItemFaqsBinding binding) {
+        public FaqsViewHolder(ListItemAboutusBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
@@ -82,9 +83,9 @@ public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if(item_list.isEmpty()) return;
-            final FaqResponse.Result blog = item_list.get(position);
-            mFaqsItemViewModel = new FaqsItemViewModel(blog,this);
-            mBinding.setFaqsItemViewModel(mFaqsItemViewModel);
+            final AboutUsResponse.Result blog = item_list.get(position);
+            mAboutUsItemViewModel = new AboutUsItemViewModel(blog,this);
+            mBinding.setAboutUsItemViewModel(mAboutUsItemViewModel);
 
             mBinding.executePendingBindings();
         }
@@ -106,7 +107,7 @@ public class FaqsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<FaqResponse.Result> blogList) {
+    public void addItems(List<AboutUsResponse.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
