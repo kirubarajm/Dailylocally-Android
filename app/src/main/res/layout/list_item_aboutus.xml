@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="faqsItemViewModel"
+            type="com.dailylocally.ui.signup.faqs.FaqsItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/tLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->faqsItemViewModel.expandClick()}">
+
+            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                android:id="@+id/txt_3"
+                style="@style/SubtTitleTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:text="@{faqsItemViewModel.question}" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:rotation="@{faqsItemViewModel.expandClicked?90:0}"
+                android:src="@drawable/stong_right_arrow" />
+        </RelativeLayout>
+
+        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+            style="@style/ContentTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tLayout"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@{faqsItemViewModel.answer}"
+            android:visibility="@{faqsItemViewModel.expandClicked?View.VISIBLE:View.GONE}" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/_10px"
+            android:background="@color/semi_gray" />
+    </LinearLayout>
+
+</layout>
