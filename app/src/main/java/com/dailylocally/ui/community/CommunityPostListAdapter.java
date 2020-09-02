@@ -15,6 +15,7 @@ import com.dailylocally.ui.category.l2.products.ProductsItemViewModel;
 import com.dailylocally.ui.category.l2.products.ProductsResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import im.getsocial.sdk.communities.GetSocialActivity;
 
@@ -83,13 +84,7 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         void refresh();
 
-        void loadMore();
-
-        void subscribeProduct(ProductsResponse.Result products, int position);
-
-        void productItemClick(ProductsResponse.Result products, int position);
-
-        void showToast(String message);
+        void actionData(Map<String, String> actionDatas);
     }
 
 
@@ -119,6 +114,11 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
         @Override
         public void refresh() {
             mProductsAdapterListener.refresh();
+        }
+
+        @Override
+        public void actionData(Map<String, String> actionDatas) {
+            mProductsAdapterListener.actionData(actionDatas);
         }
 
 

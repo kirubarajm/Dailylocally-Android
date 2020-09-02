@@ -103,14 +103,14 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                         CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
 
                         profilePic.set(result.getProfileImage());
-                        name.set(result.getWelcomeNameTitle());
+                        name.set(result.getWelcomeNameTitle() + getDataManager().getCurrentUserName()+",");
                         welcomeText.set(result.getWelcomeNameContent());
                         minValue.set(result.getMinCartValue());
                         minValueText.set(result.getMinCartText());
                         freeDelivery.set(result.getFreeDeliveryValue());
                         freeDeliveryText.set(result.getFreeDeliveryText());
-                        cod.set(result.getCodValue());
-                        codText.set(result.getCodText());
+                        cod.set(result.getCodText());
+                        codText.set(result.getCodValue());
 
                     }
                 }

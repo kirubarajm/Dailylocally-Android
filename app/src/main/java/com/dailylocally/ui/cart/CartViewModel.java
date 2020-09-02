@@ -19,6 +19,7 @@ import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.community.CommunityUserDetailsResponse;
 import com.dailylocally.ui.subscription.StartDateResponse;
 import com.dailylocally.ui.subscription.SubscriptionRequest;
 import com.dailylocally.utilities.AppConstants;
@@ -49,6 +50,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> couponFare = new ObservableField<>();
     public final ObservableField<String> gst = new ObservableField<>();
     public final ObservableField<String> delivery_charge = new ObservableField<>();
+    public final ObservableField<String> delivery_charge_text = new ObservableField<>();
+    public final ObservableField<String> exclusiveTag = new ObservableField<>();
     public final ObservableField<String> makeit_brand_name = new ObservableField<>();
     public final ObservableField<String> buttonText = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
@@ -72,6 +75,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean suggestedProduct = new ObservableBoolean();
     public final ObservableBoolean available = new ObservableBoolean();
+    public final ObservableBoolean communityUser = new ObservableBoolean();
+    public final ObservableBoolean showFreeDelivery = new ObservableBoolean();
     public final ObservableBoolean showPlaceOrderButton = new ObservableBoolean();
     public final ObservableBoolean showSubscription = new ObservableBoolean();
     public final ObservableBoolean refunds = new ObservableBoolean();
@@ -93,6 +98,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public ObservableList<CartResponse.Cartdetail> cartdetails = new ObservableArrayList<>();
     public int funnelStatus = 0;
     public String availableDate;
+
     int favId;
     Long makeitId;
     int totalAmount;
@@ -180,15 +186,39 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void setAddressTitle() {
 
-        address.set(getDataManager().getCurrentAddressTitle());
-        current_address.set(getDataManager().getCurrentAddress());
+        if (communityUser.get()) {
+            if (getDataManager().getUserDetails() != null) {
 
-        if (getDataManager().getAddressId() == null) {
+                Gson sGson = new GsonBuilder().create();
+                CommunityUserDetailsResponse communityUserDetailsResponse = sGson.fromJson(getDataManager().getUserDetails(), CommunityUserDetailsResponse.class);
+                if (communityUserDetailsResponse != null) {
+                    if (communityUserDetailsResponse.getResult() != null) {
+                        if (communityUserDetailsResponse.getResult().size() > 0) {
+                            CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
+
+                            current_address.set(result.getCommunityName() + ", " + result.getCommunityArea());
+
+
+                        }
+                    }
+
+                }
+
+            }
+        } else {
+            address.set(getDataManager().getCurrentAddressTitle());
+            current_address.set(getDataManager().getCurrentAddress());
+        }
+
+
+
+
+       /* if (getDataManager().getAddressId() == null) {
             changeAddress.set("Add Address");
         } else {
 
             changeAddress.set("Change");
-        }
+        }*/
 
     }
 
@@ -511,6 +541,17 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             if (cartPageResponse.getResult() != null) {
 
+
+                                showFreeDelivery.set(cartPageResponse.getResult().get(0).getAmountdetails().getShowDeliverText());
+                                delivery_charge_text.set(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryText());
+                                delivery_charge.set(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge());
+
+                                communityUser.set(cartPageResponse.getResult().get(0).getCommunityUser());
+                                exclusiveTag.set(cartPageResponse.getResult().get(0).getAmountdetails().getExclusiveTag());
+
+
+
+
                                 if (cartPageResponse.getStatus()) {
                                     bookDeliveryText.set("Place order");
                                     showWarningNote.set(false);
@@ -573,7 +614,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                                     gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                    delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                //    delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
                                     if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
@@ -607,7 +648,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                                         gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                        delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                      //  delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
                                         if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
@@ -762,12 +803,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {
 
-            if (cartRequestPojo.getSubscription().size()==0&&cartRequestPojo.getOrderitems().size()==0){
+            if (cartRequestPojo.getSubscription().size() == 0 && cartRequestPojo.getOrderitems().size() == 0) {
 
                 getDataManager().setCartDetails(null);
             }
 
-        }else {
+        } else {
             getDataManager().setCartDetails(null);
         }
 
@@ -780,7 +821,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 getNavigator().cartLoaded();
 
             return;
-        }else {
+        } else {
             fetchRepos();
 
         }

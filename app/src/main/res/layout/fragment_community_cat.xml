@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/gray">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -83,11 +83,45 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
+                    android:background="@color/gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardBackgroundColor="@color/search_gray"
+                            app:cardCornerRadius="1dp"
+                            app:cardElevation="0dp">
+
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical|start"
+                                android:paddingStart="10dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:text="Search for fruits, vegetables and essentials"
+                                android:textColor="@color/medium_black"
+                                android:textSize="@dimen/_15px" />
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -113,7 +147,7 @@
 
                                 <com.dailylocally.utilities.CircularImageView
                                     android:id="@+id/circleImage"
-                                    imageUrl="@{communityCatViewModel.profilePic}"
+                                    profileImage="@{communityCatViewModel.profilePic}"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp" />
 
@@ -177,7 +211,9 @@
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                            style="@style/ContentTextStyle"
+                                            android:textColor="@color/medium_black"
+                                            android:textAlignment="center"
+                                            android:textSize="@dimen/_10px"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@{communityCatViewModel.minValueText}" />
@@ -211,7 +247,9 @@
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                            style="@style/ContentTextStyle"
+                                            android:textColor="@color/medium_black"
+                                            android:textAlignment="center"
+                                            android:textSize="@dimen/_10px"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@{communityCatViewModel.freeDeliveryText}" />
@@ -245,7 +283,9 @@
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                            style="@style/ContentTextStyle"
+                                            android:textColor="@color/medium_black"
+                                            android:textAlignment="center"
+                                            android:textSize="@dimen/_10px"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@{communityCatViewModel.codText}" />
@@ -265,6 +305,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/categoryList"
+                        android:background="@color/gray"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"

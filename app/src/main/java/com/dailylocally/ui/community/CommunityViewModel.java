@@ -88,8 +88,9 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableBoolean singleImage = new ObservableBoolean();
     public final ObservableBoolean attachmentAvailable = new ObservableBoolean();
 
-    public String whatsappgroupLink="";
+    public String whatsappgroupLink;
     public String sneakpeakVideoUrl;
+    public String topic;
 
 
     public ObservableList<GetSocialActivity> getSocialActivities = new ObservableArrayList<>();
@@ -155,6 +156,10 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     }
 
 
+    public void actionBtClick() {
+        getNavigator().actionBtClick();
+    }
+
     public void gotoCommunityCat() {
         getNavigator().gotoCommunityHome();
     }
@@ -208,6 +213,7 @@ public void communityEvent() {
 
                                     whatsappgroupLink=result.getWhatsapp().getGroupUrl();
                                     sneakpeakVideoUrl=result.getSneakPeak().getVideoUrl();
+                                    topic=result.getEvent().getTopic();
 
 
                                 } else {

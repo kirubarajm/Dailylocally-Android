@@ -249,7 +249,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                     try {
                         if (response.getString("status").equals("true")) {
                             if (getNavigator()!=null){
-                                getNavigator().whatAppScreenSuccess(response.getString("message"));
+                                getNavigator().communityJoined(response.getString("message"));
                             }
                         }else {
                             if (getNavigator()!=null){
