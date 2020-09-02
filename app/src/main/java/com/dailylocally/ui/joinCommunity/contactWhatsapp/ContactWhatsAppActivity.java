@@ -1,5 +1,6 @@
 package com.dailylocally.ui.joinCommunity.contactWhatsapp;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
@@ -23,6 +25,7 @@ import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import java.net.URLEncoder;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -67,7 +70,7 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
     public void onWhatsAppClick() {
         Intent i = new Intent(Intent.ACTION_VIEW);
         try {
-            String url = "https://wa.me/message/2DPUU5JCTASKN1";
+            String url = mOnBoardingActivityViewModel.whatsAppLink.get();
             i.setPackage("com.whatsapp");
             i.setData(Uri.parse(url));
             startActivity(i);
@@ -75,6 +78,26 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
             e.printStackTrace();
             Toast.makeText(this, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void callClick() {
+        try {
+            if (mOnBoardingActivityViewModel.phoneno!=null) {
+                String number = mOnBoardingActivityViewModel.phoneno.get();
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
+                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(callIntent);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void changeHeader(String headerContent) {
+        mActivityContactWhatsAppBinding.txtName.setText(Html.fromHtml(headerContent));
     }
 
     @Override
@@ -118,7 +141,7 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-
+        mOnBoardingActivityViewModel.fetchData();
     }
 
     private boolean checkWifiConnect() {
@@ -155,4 +178,12 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
     public void onBackPressed() {
         goBack();
     }
+
+    public void makeCallKitchenIntent(Context context, String number) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(callIntent);
+    }
+
 }

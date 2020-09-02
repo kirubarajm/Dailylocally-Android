@@ -8,4 +8,8 @@ public interface ContactWhatsAppNavigator {
 
     void onWhatsAppClick();
 
+    void callClick();
+
+    void changeHeader(String content);
+
 }
