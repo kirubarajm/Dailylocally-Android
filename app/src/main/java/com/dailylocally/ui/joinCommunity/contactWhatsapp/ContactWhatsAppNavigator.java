@@ -10,4 +10,6 @@ public interface ContactWhatsAppNavigator {
 
     void callClick();
 
+    void changeHeader(String content);
+
 }

@@ -70,9 +70,13 @@ public class ContactWhatsAppViewModel extends BaseViewModel<ContactWhatsAppNavig
                             whatsAppLink.set(communityResponse1.getResult().get(0).getWhatsUpLink());
                             imageUrl.set(communityResponse1.getResult().get(0).getImageUrl());
                             phoneno.set(communityResponse1.getResult().get(0).getPhoneno());
-                            title.set(communityResponse1.getResult().get(0).getTitle());
+                            //title.set(communityResponse1.getResult().get(0).getTitle());
                             subtitle1.set(communityResponse1.getResult().get(0).getSubtitle1());
                             subtitle2.set(communityResponse1.getResult().get(0).getSubtitle2());
+
+                            if (getNavigator()!=null){
+                                getNavigator().changeHeader(communityResponse1.getResult().get(0).getTitle() + " "+getDataManager().getCurrentUserName());
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

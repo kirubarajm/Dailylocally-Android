@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
@@ -92,6 +93,11 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void changeHeader(String headerContent) {
+        mActivityContactWhatsAppBinding.txtName.setText(Html.fromHtml(headerContent));
     }
 
     @Override
