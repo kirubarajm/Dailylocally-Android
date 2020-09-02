@@ -25,24 +25,28 @@
 
             <ImageView
                 android:id="@+id/img_1"
+                android:scaleType="fitCenter"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_dl_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                imageUrl="@{contactWhatsAppViewModel.imageUrl}"
+                android:layout_width="300dp"
+                android:layout_height="300dp"/>
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                android:text="Hi Dhana"
+                android:text="@{contactWhatsAppViewModel.title}"
                 android:layout_below="@+id/img_1"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/txt_name"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                android:text="We have received the registration request \nfor your community"
+                android:text="@{contactWhatsAppViewModel.subtitle1}"
                 android:layout_below="@+id/txt_name"
                 android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/txt_process_message"
@@ -72,9 +76,11 @@
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/white"
                         android:gravity="center"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
                         android:textSize="@dimen/_15px"
                         android:layout_width="wrap_content"
-                        android:text="Our DL exclusive team will get in touch \nwith you within 24Hours"
+                        android:text="@{contactWhatsAppViewModel.subtitle2}"
                         android:layout_height="wrap_content"/>
 
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
@@ -104,6 +110,7 @@
                                 android:layout_margin="5dp"
                                 android:paddingStart="15dp"
                                 android:layout_weight="1"
+                                android:onClick="@{()->contactWhatsAppViewModel.callClick()}"
                                 android:gravity="center"
                                 android:background="#AADB84"
                                 android:paddingTop="2dp"

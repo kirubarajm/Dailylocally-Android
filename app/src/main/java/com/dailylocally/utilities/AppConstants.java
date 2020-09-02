@@ -403,6 +403,7 @@ public class AppConstants {
   public static final String URL_JOIN_THE_COMMUNITY = URL_SERVER_IP_PORT + "/user/joincommunity";
   public static final String URL_COMPLETE_REGISTRATION = URL_SERVER_IP_PORT + "/user/new_community_registration";
   public static final String URL_UPLOAD_DOCUMENT_PICKUP = URL_SERVER_IP_PORT + "/moveit/documentUpload";
+  public static final String URL_WHATSAPP_SCREEN = URL_SERVER_IP_PORT + "/user/Community/wapscreen";
 
 
   public static final int SEARCH_CATEGORY = 1;
