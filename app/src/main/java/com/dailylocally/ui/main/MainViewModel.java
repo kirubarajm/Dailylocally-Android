@@ -8,16 +8,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.dailylocally.BuildConfig;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.cart.CartRequest;
+import com.dailylocally.ui.category.l2.L2CategoryRequest;
+import com.dailylocally.ui.community.CommunityUserDetailsResponse;
 import com.dailylocally.ui.signup.registration.TokenRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.MasterPojo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -44,6 +44,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     public final ObservableBoolean isHome = new ObservableBoolean();
+    public final ObservableBoolean isCommunity = new ObservableBoolean();
+    public final ObservableBoolean isCommunityUser = new ObservableBoolean();
+    public final ObservableBoolean isCommunityCat = new ObservableBoolean();
     public final ObservableBoolean isOrder = new ObservableBoolean();
     public final ObservableBoolean isExplore = new ObservableBoolean();
     public final ObservableBoolean isCart = new ObservableBoolean();
@@ -69,8 +72,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         screenName.set(AppConstants.SCREEN_HOME);
 
 
-
-
         Identity identity = new AnonymousIdentity.Builder()
                 .withNameIdentifier(getDataManager().getCurrentUserName())
                 .withEmailIdentifier(getDataManager().getCurrentUserEmail())
@@ -91,6 +92,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(true);
             isMyAccount.set(false);
             isOrder.set(false);
+            isCommunity.set(false);
+            isCommunityCat.set(false);
         }
     }
 
@@ -146,6 +149,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(false);
             isOrder.set(false);
             isMyAccount.set(true);
+            isCommunity.set(false);
+            isCommunityCat.set(false);
         }
 
 
@@ -161,7 +166,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(false);
             isOrder.set(false);
             isMyAccount.set(false);
-
+            isCommunity.set(false);
+            isCommunityCat.set(false);
         }
     }
 
@@ -173,8 +179,25 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isCart.set(false);
             isMyAccount.set(false);
             isOrder.set(false);
+            isCommunity.set(false);
+            isCommunityCat.set(false);
         }
     }
+
+
+    public void gotoCommunity() {
+        if (!isCommunity.get()) {
+            getNavigator().openCommunity();
+            isCommunity.set(true);
+            isHome.set(false);
+            isExplore.set(false);
+            isCart.set(false);
+            isMyAccount.set(false);
+            isOrder.set(false);
+            isCommunityCat.set(false);
+        }
+    }
+
 
     public void gotoOrders() {
         if (!isOrder.get()) {
@@ -184,6 +207,21 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             isExplore.set(false);
             isCart.set(false);
             isMyAccount.set(false);
+            isCommunity.set(false);
+            isCommunityCat.set(false);
+        }
+    }
+
+    public void gotoCommunityCat() {
+        if (!isCommunityCat.get()) {
+            getNavigator().openCommunityCat();
+            isHome.set(false);
+            isOrder.set(false);
+            isExplore.set(false);
+            isCart.set(false);
+            isMyAccount.set(false);
+            isCommunity.set(false);
+            isCommunityCat.set(true);
         }
     }
 
@@ -289,7 +327,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
-
     public boolean checkInternet() {
         return DailylocallyApp.getInstance().onCheckNetWork();
     }
@@ -358,6 +395,78 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         }
 
         DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+    }
+
+
+    public void getUserDetails() {
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_USER_DETAILS, CommunityUserDetailsResponse.class, new L2CategoryRequest(getDataManager().getCurrentUserId(), getDataManager().getCurrentLat(), getDataManager().getCurrentLng()), new Response.Listener<CommunityUserDetailsResponse>() {
+                @Override
+                public void onResponse(CommunityUserDetailsResponse response) {
+
+                    Gson gson = new Gson();
+                    String userDetails = gson.toJson(response);
+                    getDataManager().setUserDetails(userDetails);
+
+                    if (response != null)
+                        if (response.getStatus()) {
+                            if (response.getResult() != null) {
+
+                                if (response.getResult().size() > 0) {
+
+                                    CommunityUserDetailsResponse.Result result = response.getResult().get(0);
+
+                                    if (result.getJoinStatus() == 1) {
+                                        isCommunityUser.set(true);
+                                        if (getNavigator() != null)
+                                            getNavigator().openCommunity();
+                                    } else {
+                                        isCommunityUser.set(false);
+                                        if (getNavigator() != null)
+                                            getNavigator().openHome();
+                                    }
+
+                                } else {
+                                    if (getNavigator() != null)
+                                        getNavigator().openHome();
+                                }
+
+                            } else {
+                                if (getNavigator() != null)
+                                    getNavigator().openHome();
+                            }
+
+
+                        } else {
+                            if (getNavigator() != null)
+                                getNavigator().openHome();
+                        }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
 
     }
 

@@ -6,10 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dailylocally.databinding.ListItemCategoriesBinding;
 import com.dailylocally.databinding.ListItemL1CategoriesBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
-import com.dailylocally.ui.home.CategoriesItemViewModel;
 
 import java.util.List;
 
@@ -46,6 +44,8 @@ public class L1CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<L1CategoryResponse.Result> blogList) {
+
+
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -53,7 +53,6 @@ public class L1CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void setListener(CategoriesAdapterListener listener) {
         this.mCategoriesAdapterListener = listener;
     }
-
 
 
     public interface CategoriesAdapterListener {

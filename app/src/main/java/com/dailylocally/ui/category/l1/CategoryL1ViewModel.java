@@ -18,6 +18,7 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
@@ -42,6 +43,12 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
     public void goBack(){
 
         getNavigator().goBack();
+
+    }
+
+  public void viewAll(){
+
+        getNavigator().viewAll();
 
     }
 
@@ -83,7 +90,7 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());
 
                         title.set(response.getCategoryTitle());
-                     //   image.set(response.get());
+                        //   image.set(response.get());
 
                         if (response.getGetSubCatImages()!=null&&response.getGetSubCatImages().size()>0){
 
@@ -93,8 +100,14 @@ public class CategoryL1ViewModel extends BaseViewModel<CategoryL1Navigator> {
 
 
                         if (response.getResult() != null && response.getResult().size() > 0) {
-                            categoryListLiveData.setValue(response.getResult());
 
+                            L1CategoryResponse.Result result=new L1CategoryResponse.Result();
+                            result.setName("View All in "+response.getCategoryTitle() );
+                            List<L1CategoryResponse.Result> results=new ArrayList<>();
+                            results.add(result);
+                            results.addAll(response.getResult());
+
+                            categoryListLiveData.setValue(results);
                             categoriesCount.set(String.valueOf(response.getResult().size()) + " Categories");
 
 

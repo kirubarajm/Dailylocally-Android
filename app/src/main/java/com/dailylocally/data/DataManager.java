@@ -98,4 +98,10 @@ public interface DataManager extends PreferencesHelper {
 
     void saveFirstLocation(String address, String locality, String city);
 
+
+
+    void saveUserDetails(String details);
+
+
+
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
         android:id="@+id/root"
@@ -12,7 +11,7 @@
             android:id="@+id/content_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom"/>
+            android:layout_above="@+id/bottom" />
 
         <LinearLayout
             android:id="@+id/bottom"
@@ -34,11 +33,60 @@
                 android:layout_height="40dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:orientation="horizontal">
 
 
                 <LinearLayout
+                    android:visibility="@{viewModel.isCommunityUser?View.VISIBLE:View.GONE}"
+                    android:id="@+id/community"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.gotoCommunity()}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        imageTint="@{viewModel.isCommunity}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_dl" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="@{viewModel.isCommunityUser?View.VISIBLE:View.GONE}"
+                    android:id="@+id/communitycat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.gotoCommunityCat()}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        imageTint="@{viewModel.isCommunityCat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_comm_cat" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:visibility="@{viewModel.isCommunityUser?View.GONE:View.VISIBLE}"
                     android:id="@+id/home"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -50,13 +98,13 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        imageTint="@{viewModel.isHome}"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_dl"
-                        android:tint="@{viewModel.isHome?@color/dl_primary_color:@color/dark_gray}" />
+                        android:src="@drawable/ic_dl" />
 
 
                 </LinearLayout>
@@ -67,7 +115,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/white"                    android:gravity="center"
+                    android:background="@color/white"
+                    android:gravity="center"
                     android:onClick="@{()->viewModel.gotoCart(viewModel.screenName)}"
                     android:orientation="vertical">
 
@@ -83,13 +132,13 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                imageTint="@{viewModel.isCart}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center_horizontal|center_vertical"
                                 android:gravity="center"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/ic_cart"
-                                android:tint="@{viewModel.isCart?@color/dl_primary_color:@color/dark_gray}" />
+                                android:src="@drawable/ic_cart" />
 
                         </LinearLayout>
 
@@ -114,18 +163,19 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/white"                    android:gravity="center"
+                    android:background="@color/white"
+                    android:gravity="center"
                     android:onClick="@{()->viewModel.gotoOrders()}"
                     android:orientation="vertical">
 
                     <ImageView
+                        imageTint="@{viewModel.isOrder}"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_calendar"
-                        android:tint="@{viewModel.isOrder?@color/dl_primary_color:@color/dark_gray}" />
+                        android:src="@drawable/ic_calendar" />
 
 
                 </LinearLayout>
@@ -137,22 +187,21 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/white"                    android:gravity="center"
+                    android:background="@color/white"
+                    android:gravity="center"
                     android:onClick="@{()->viewModel.gotoAccount()}"
                     android:orientation="vertical">
 
                     <ImageView
+                        imageTint="@{viewModel.isMyAccount}"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_my_account"
-                        android:tint="@{viewModel.isMyAccount?@color/dl_primary_color:@color/dark_gray}" />
+                        android:src="@drawable/ic_my_account" />
 
                 </LinearLayout>
-
-
 
 
             </LinearLayout>

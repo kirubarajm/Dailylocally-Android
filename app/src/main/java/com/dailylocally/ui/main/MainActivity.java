@@ -28,6 +28,8 @@ import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarFragment;
 import com.dailylocally.ui.cart.CartFragment;
+import com.dailylocally.ui.community.CommunityFragment;
+import com.dailylocally.ui.community.catlist.CommunityCatFragment;
 import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.search.SearchFragment;
@@ -163,6 +165,72 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isCart.set(true);
         mMainViewModel.isMyAccount.set(false);
         mMainViewModel.updateAvailable.set(false);
+    }
+
+
+    @Override
+    public void openCommunity() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
+
+        try {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            //  CalendarFragment fragment = new CalendarFragment();
+            CommunityFragment fragment = new CommunityFragment();
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+            transaction.commit();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+        mMainViewModel.toolbarTitle.set("Community");
+        mMainViewModel.titleVisible.set(false);
+
+        mMainViewModel.isCommunity.set(true);
+        mMainViewModel.isHome.set(false);
+        mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isOrder.set(false);
+        mMainViewModel.isMyAccount.set(false);
+
+        if (mMainViewModel.update.get()) {
+            if (!mMainViewModel.isLiveOrder.get()) {
+                mMainViewModel.updateAvailable.set(true);
+            }
+        }
+
+    }
+
+
+    @Override
+    public void openCommunityCat() {
+
+        try {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            //  CalendarFragment fragment = new CalendarFragment();
+            CommunityCatFragment fragment = new CommunityCatFragment();
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+            transaction.commit();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+        mMainViewModel.toolbarTitle.set("Community");
+        mMainViewModel.titleVisible.set(false);
+
+        mMainViewModel.isCommunityCat.set(true);
+        mMainViewModel.isCommunity.set(false);
+        mMainViewModel.isHome.set(false);
+        mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isOrder.set(false);
+        mMainViewModel.isMyAccount.set(false);
+
+        if (mMainViewModel.update.get()) {
+            if (!mMainViewModel.isLiveOrder.get()) {
+                mMainViewModel.updateAvailable.set(false);
+            }
+        }
+
     }
 
 
@@ -397,7 +465,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     break;
 
                 case AppConstants.NOTIFY_HOME_FRAG:
-                    openHome();
+                  //  openHome();
+                    mMainViewModel.getUserDetails();
                     break;
 
                 case AppConstants.NOTIFY_SEARCH_FRAG:
@@ -408,7 +477,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     openChat();
                     break;
                 default:
-                    openHome();
+                    //openHome();
+                    mMainViewModel.getUserDetails();
 
             }
             if (intent.getExtras().getString("requestId") != null) {

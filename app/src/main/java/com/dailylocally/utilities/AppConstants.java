@@ -353,6 +353,7 @@ public class AppConstants {
   public static final String URL_COLLECTION_L1_list = URL_SERVER_IP_PORT + "/user/collection/subcategoryL1";/////POST method
   public static final String URL_FAV_CAT_lIST = URL_SERVER_IP_PORT + "/user/fav/category";/////POST method
   public static final String URL_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/productlist";/////POST method
+  public static final String URL_CAT_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/categoryproductlist";/////POST method
   public static final String URL_COLLECTION_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/collection/productlist";/////POST method
   public static final String URL_FAV_PRODUCT_LIST = URL_SERVER_IP_PORT + "/user/fav/productlist";/////POST method
   public static final String URL_CART_DETAILS = URL_SERVER_IP_PORT + "/user/cartdetails";/////POST method
@@ -364,6 +365,7 @@ public class AppConstants {
   public static final String ADD_FAV_URL = URL_SERVER_IP_PORT + "/user/fav"; //POST
   public static final String DELETE_FAV_URL = URL_SERVER_IP_PORT + "/user/fav/";   //delete
   public static final String URL_COLLECTION_FILTER_LIST = URL_SERVER_IP_PORT + "/user/collection/filterlist/";   //delete
+  public static final String URL_CAT_FILTER_LIST = URL_SERVER_IP_PORT + "/user/category/filterlist";   //delete
     public static final String URL_CHAT_ISSUES = URL_SERVER_IP_PORT + "/user/zendesk/issues";
     public static final String URL_CHAT_ISSUES_NOTE = URL_SERVER_IP_PORT + "/user/zendesk/issuesdetails";
     public static final String URL_CHAT_MAP_ORDERID = URL_SERVER_IP_PORT + "/user/zendesk/requestcreate";
@@ -372,6 +374,8 @@ public class AppConstants {
   public static final String URL_RATING_SKIP = URL_SERVER_IP_PORT + "/user/orderskip";
   public static final String URL_FCM_TOKEN = URL_SERVER_IP_PORT + "/user/pushid/add";
   public static final String URL_CHECK_ADDRESS = URL_SERVER_IP_PORT + "/user/checkaddress";
+  public static final String URL_COMMUNITY_USER_DETAILS = URL_SERVER_IP_PORT + "/user/communityuserdetails";
+  public static final String URL_COMMUNITY_HOME_DETAILS = URL_SERVER_IP_PORT + "/user/Community/homepage";
   public static final String URL_FAQS = URL_SERVER_IP_PORT + "/user/faqs/";/////PUT method0
 
   /////Daily locally
@@ -637,6 +641,7 @@ public class AppConstants {
   public static final String NOTIFY_PRODUCT_DETAILS_ACTV = "28";
   public static final String NOTIFY_TRANS_LIST_ACTV = "29";
   public static final String NOTIFY_TRANS_DETAILS_ACTV = "30";
+  public static final String NOTIFY_CATEGORY_L1_PROD_ACTV = "31";
 
 
 

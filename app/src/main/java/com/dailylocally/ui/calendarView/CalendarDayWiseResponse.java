@@ -104,7 +104,7 @@ public class CalendarDayWiseResponse {
             public String pkts;
             @SerializedName("doid")
             @Expose
-            public Integer doid;
+            public String doid;
             @SerializedName("vpid")
             @Expose
             public Integer vpid;
@@ -125,7 +125,7 @@ public class CalendarDayWiseResponse {
             public String brandname;
             @SerializedName("dayorderpid")
             @Expose
-            public Integer dayorderpid;
+            public String dayorderpid;
             @SerializedName("product_name")
             @Expose
             public String productName;
@@ -155,7 +155,7 @@ public class CalendarDayWiseResponse {
                 this.trueOrFalse = trueOrFalse;
             }
 
-            public Integer getDoid() {
+            public String getDoid() {
                 return doid;
             }
 
@@ -183,7 +183,7 @@ public class CalendarDayWiseResponse {
                 return brandname;
             }
 
-            public Integer getDayorderpid() {
+            public String getDayorderpid() {
                 return dayorderpid;
             }
 

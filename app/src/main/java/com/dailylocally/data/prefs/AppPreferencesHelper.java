@@ -118,6 +118,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_USER_REGISTRATION_STATUS = "USER_REGISTRATION_STATUS";
     private static final String PREF_KEY_USER_ADDRESS_STATUS = "PREF_KEY_USER_ADDRESS_STATUS";
     private static final String PREF_KEY_USER_GENDER = "PREF_KEY_USER_GENDER";
+    private static final String PREF_KEY_USER_DETAILS = "USER_DETAILS";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -284,6 +285,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setMaster(String master) {
         mPrefs.edit().putString(PREF_KEY_MASTER, master).apply();
+    }
+
+    @Override
+    public String getUserDetails() {
+        return mPrefs.getString(PREF_KEY_USER_DETAILS, null);
+    }
+
+    @Override
+    public void setUserDetails(String details) {
+        mPrefs.edit().putString(PREF_KEY_USER_DETAILS, details).apply();
     }
 
 

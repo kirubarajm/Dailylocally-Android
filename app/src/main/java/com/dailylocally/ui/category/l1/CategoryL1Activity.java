@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +18,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCategoryl1Binding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.category.viewall.CatProductActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -68,6 +68,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
         mActivityCategoryl1Binding.pageLoader.setVisibility(View.VISIBLE);
         mActivityCategoryl1Binding.pageLoader.startShimmerAnimation();
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +124,15 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
     @Override
     public void cartLoaded() {
         stopCartLoader();
+    }
+
+    @Override
+    public void viewAll() {
+
+        Intent intent = CatProductActivity.newIntent(CategoryL1Activity.this);
+        intent.putExtra("catid", categoryid);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 
@@ -189,12 +199,18 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
     @Override
     public void categoryItemClicked(L1CategoryResponse.Result result) {
 
-        Intent intent = CategoryL2Activity.newIntent(CategoryL1Activity.this);
-        intent.putExtra("catid",categoryid);
-        intent.putExtra("scl1id",String.valueOf(result.getScl1Id()));
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        if (result.getCatid() == null) {
 
+            viewAll();
+
+        } else {
+
+            Intent intent = CategoryL2Activity.newIntent(CategoryL1Activity.this);
+            intent.putExtra("catid", categoryid);
+            intent.putExtra("scl1id", String.valueOf(result.getScl1Id()));
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
 }

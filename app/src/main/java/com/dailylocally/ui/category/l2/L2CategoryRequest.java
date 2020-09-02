@@ -22,6 +22,17 @@ public class L2CategoryRequest {
     @Expose
     private String scl1Id;
 
+
+    public L2CategoryRequest() {
+
+    }
+
+    public L2CategoryRequest(String userid, String lat, String lon) {
+        this.userid = userid;
+        this.lat = lat;
+        this.lon = lon;
+    }
+
     public String getScl1Id() {
         return scl1Id;
     }

@@ -153,7 +153,7 @@ public class L1CategoryResponse {
         }
 
     }
-    public class Result {
+    public static class Result {
 
         @SerializedName("scl1_id")
         @Expose
@@ -170,6 +170,13 @@ public class L1CategoryResponse {
         @SerializedName("servicable_status")
         @Expose
         private Boolean servicableStatus;
+
+        public Result(String name) {
+            this.name = name;
+        }
+ public Result() {
+
+        }
 
         public Integer getScl1Id() {
             return scl1Id;

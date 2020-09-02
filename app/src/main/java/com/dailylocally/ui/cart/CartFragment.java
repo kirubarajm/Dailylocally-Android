@@ -146,6 +146,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void cartLoaded() {
         stopCartLoader();
+        mCartViewModel.showPlaceOrderButton.set(true);
     }
 
     public void stopCartLoader() {
@@ -263,7 +264,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         }
         if (mCartViewModel.getCartPojoDetails() != null) {
             mCartViewModel.xfactorClick.set(false);
-            startCartLoader();
+           // startCartLoader();
             mCartViewModel.getStartDate();
             mCartViewModel.emptyCart.set(false);
         } else {

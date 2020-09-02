@@ -147,6 +147,9 @@ public class ProductCancelResponse {
             @SerializedName("dayorderstatus")
             @Expose
             public Integer dayorderstatus;
+            @SerializedName("scm_status")
+            @Expose
+            public Integer scmstatus;
             @SerializedName("scm_status_name")
             @Expose
             public String scmStatusName;
@@ -159,6 +162,10 @@ public class ProductCancelResponse {
             @SerializedName("dayorderpid")
             @Expose
             public Integer dayorderpid;
+
+            public Integer getScmstatus() {
+                return scmstatus;
+            }
 
             public String getPrice() {
                 return price;

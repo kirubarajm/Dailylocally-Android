@@ -16,6 +16,8 @@
 
 package com.dailylocally.di;
 
+import com.dailylocally.ui.aboutus.AboutUsActivity;
+import com.dailylocally.ui.aboutus.AboutUsModule;
 import com.dailylocally.ui.account.MyAccountProvider;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.account.referrals.ReferralsActivityModule;
@@ -41,15 +43,22 @@ import com.dailylocally.ui.category.l2.products.filter.FilterProvider;
 
 import com.dailylocally.ui.category.l2.products.sort.SortProvider;
 
+import com.dailylocally.ui.category.viewall.CatProductActivity;
+import com.dailylocally.ui.category.viewall.CatProductModule;
+import com.dailylocally.ui.category.viewall.products.CatProductFragProvider;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsModule;
 import com.dailylocally.ui.collection.l2.products.CollectionProductsProvider;
+
+import com.dailylocally.ui.community.CommunityProvider;
+import com.dailylocally.ui.community.catlist.CommunityCatProvider;
 import com.dailylocally.ui.joinCommunity.CommunityActivity;
 import com.dailylocally.ui.joinCommunity.CommunityActivityModule;
 import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
 import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressModule;
 import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
 import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivityModule;
+
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.coupons.CouponsModule;
 
@@ -133,6 +142,9 @@ public abstract class ActivityBuilder {
 @ContributesAndroidInjector(modules = {CategoryL2Module.class, ProductsProvider.class, FilterProvider.class, SortProvider.class/*, OrderCanceledProvider.class*/})
     abstract CategoryL2Activity bindCategoryL2Activity();
 
+@ContributesAndroidInjector(modules = {CatProductModule.class, CatProductFragProvider.class, FilterProvider.class, SortProvider.class/*, OrderCanceledProvider.class*/})
+    abstract CatProductActivity bindCatProduct();
+
 
     @ContributesAndroidInjector(modules = {CollectionDetailsModule.class, CollectionProductsProvider.class, FilterProvider.class,SortProvider.class/*, OrderCanceledProvider.class*/})
     abstract CollectionDetailsActivity bindCollectionDetailsActivity();
@@ -147,6 +159,8 @@ public abstract class ActivityBuilder {
             SearchProvider.class,
             CalendarProvider.class,
             PromotionProvider.class,
+            CommunityProvider.class,
+            CommunityCatProvider.class,
             MyAccountProvider.class
     })
     abstract MainActivity bindMainActivity();
@@ -164,12 +178,12 @@ public abstract class ActivityBuilder {
 
 
 
- @ContributesAndroidInjector(modules = SupportModule.class)
+ @ContributesAndroidInjector(modules = AboutUsModule.class)
+    abstract AboutUsActivity bindAboutUsActivity();
+
+
+@ContributesAndroidInjector(modules = SupportModule.class)
     abstract SupportActivity bindSupportActivity();
-
-
-
-
 
     @ContributesAndroidInjector(modules = OnBoardingActivityModule.class)
     abstract OnBoardingActivity bindOnBoardingActivity();

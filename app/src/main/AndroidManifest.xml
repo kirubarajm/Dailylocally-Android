@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:hardwareAccelerated="true"
         android:name=".utilities.DailylocallyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -123,6 +124,9 @@
         <activity
             android:name=".ui.coupons.CouponsActivity"
             android:screenOrientation="locked" />
+ <activity
+            android:name=".ui.category.viewall.CatProductActivity"
+            android:screenOrientation="locked" />
 
 
         <activity
@@ -179,13 +183,13 @@
             android:name=".ui.promotion.AdActivity"
             android:screenOrientation="locked" />
 
-        <meta-data
+        <!--<meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_8ZBt2J9hAsxH9Q" />
+            android:value="rzp_test_8ZBt2J9hAsxH9Q" />-->
 
-         <!--<meta-data
+         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_kelnGLZvTecvPV" />-->
+            android:value="rzp_live_kelnGLZvTecvPV" />
 
 
         <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">
@@ -277,12 +281,15 @@
 
 
         </activity>
+
         <activity android:name=".ui.joinCommunity.CommunityActivity"
             android:screenOrientation="locked">
+
 
         </activity>
         <activity android:name=".ui.joinCommunity.communityLocation.CommunityAddressActivity"
             android:screenOrientation="locked"/>
+        <activity android:name=".ui.aboutus.AboutUsActivity" />
 
 
     </application>

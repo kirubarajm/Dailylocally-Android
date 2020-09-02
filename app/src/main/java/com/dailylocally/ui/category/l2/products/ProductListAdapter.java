@@ -3,13 +3,16 @@ package com.dailylocally.ui.category.l2.products;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.databinding.ListItemLoaderBinding;
 import com.dailylocally.databinding.ListItemProductsBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
+import com.dailylocally.utilities.DailylocallyApp;
 
 import java.util.List;
 
@@ -170,13 +173,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
-            if (getItemCount() > 0)
+            /*if (getItemCount() > 0)
                 if ((position >= getItemCount() - 1)) {
                     if (!loading) {
                         addLoader();
                         mProductsAdapterListener.loadMore();
                     }
-                }
+                }*/
 
         }
 
@@ -223,5 +226,4 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     }
-
 }

@@ -41,6 +41,7 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
     public final ObservableField<String> imageUrl = new ObservableField<>();
     public final ObservableField<String> mrp = new ObservableField<>();
     public final ObservableField<String> productDate = new ObservableField<>();
+    public final ObservableField<String> orderDate = new ObservableField<>();
     //public final ObservableField<String> dayOrderPIds = new ObservableField<>();
     public final ObservableField<String> doid1 = new ObservableField<>();
     public final ObservableBoolean isCancel = new ObservableBoolean();
@@ -73,6 +74,13 @@ public class ProductCancelViewModel extends BaseViewModel<ProductCancelNavigator
                                     doid1.set(String.valueOf(response.getResult().get(0).getItems().get(0).getDoid()));
                                 //productDate.set(String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));
                                 //isCancelable.set(String.valueOf(response.getResult().get(0).getItems().get(0).getCancelAvailable()));
+                                    if (response.getResult().get(0).getItems().get(0).getScmstatus()!=null&& response.getResult().get(0).getItems().get(0).getScmstatus()==11){
+                                        orderDate.set("Cancelled at");
+                                    }else {
+                                        orderDate.set("Delivery Date");
+                                    }
+
+
                                 if (getNavigator()!=null){
                                     getNavigator().success(response.getResult().get(0).getItems().get(0).getCancelAvailable(),
                                             String.valueOf(response.getResult().get(0).getItems().get(0).getProductDate()));

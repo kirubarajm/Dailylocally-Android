@@ -238,6 +238,10 @@ public class AppDataManager implements DataManager {
         setFirstCity(city);
     }
 
+    @Override
+    public void saveUserDetails(String details) {
+        setUserDetails(details);
+    }
 
 
     @Override
@@ -373,6 +377,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setMaster(String master) {
         mPreferencesHelper.setMaster(master);
+    }
+
+    @Override
+    public String getUserDetails() {
+        return mPreferencesHelper.getUserDetails();
+    }
+
+    @Override
+    public void setUserDetails(String details) {
+mPreferencesHelper.setUserDetails(details);
     }
 
 

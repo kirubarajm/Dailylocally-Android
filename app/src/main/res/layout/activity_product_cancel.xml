@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_description"
                         android:layout_marginTop="30dp"
-                        android:text="@string/delivery_date" />
+                        android:text="@{productCancelViewModel.orderDate}" />
 
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:id="@+id/txt_delivery_date_value"

@@ -33,6 +33,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     public final ObservableBoolean cart = new ObservableBoolean();
     public final ObservableBoolean fullEmpty = new ObservableBoolean();
     public final ObservableBoolean loading = new ObservableBoolean();
+    public final ObservableBoolean loadingMore = new ObservableBoolean();
     public final ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public final ObservableField<String> emptyImageUrl = new ObservableField<>();
     public final ObservableField<String> emptyContent = new ObservableField<>();
@@ -100,14 +101,16 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     }
 
 
-    public void loadMoreProducts() {
+    public void loadMoreProducts(ProductListAdapter productListAdapter) {
 
-
+        if (page > 0)
+        if (!loadingMore.get()) {
             if (!DailylocallyApp.getInstance().onCheckNetWork()) {
                 loading.set(false);
                 return;
             }
-
+            loadingMore.set(true);
+            productListAdapter.addLoader();
             page = page + 1;
             productsRequest.setUserid(getDataManager().getCurrentUserId());
             productsRequest.setLat(getDataManager().getCurrentLat());
@@ -149,6 +152,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                     }
                     if (getNavigator() != null) {
                         loading.set(false);
+                        loadingMore.set(false);
                         getNavigator().dataLoaded();
                     }
                 }
@@ -156,75 +160,75 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     loading.set(false);
+                    loadingMore.set(false);
                     page = page - 1;
                     getNavigator().moreDataLoaded();
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
-
+        }
 
     }
 
     public void fetchProducts() {
         page = 1;
-            if (!DailylocallyApp.getInstance().onCheckNetWork()) {
-                loading.set(false);
-                return;
-            }
-            loading.set(true);
-            productsRequest.setUserid(getDataManager().getCurrentUserId());
-            productsRequest.setLat(getDataManager().getCurrentLat());
-            productsRequest.setLon(getDataManager().getCurrentLng());
-            productsRequest.setScl2Id(scl2id);
-            productsRequest.setScl1Id(scl1id);
-            productsRequest.setPage(page);
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) {
+            loading.set(false);
+            return;
+        }
+        loading.set(true);
+        productsRequest=new ProductsRequest();
+        productsRequest.setUserid(getDataManager().getCurrentUserId());
+        productsRequest.setLat(getDataManager().getCurrentLat());
+        productsRequest.setLon(getDataManager().getCurrentLng());
+        productsRequest.setScl2Id(scl2id);
+        productsRequest.setScl1Id(scl1id);
+     //   productsRequest.setPage(page);
 
-            GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
+        GsonRequest gsontoJsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_PRODUCT_LIST, ProductsResponse.class, productsRequest, new Response.Listener<ProductsResponse>() {
 
-                @Override
-                public void onResponse(ProductsResponse response) {
-                    if (response != null) {
-                        getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
+            @Override
+            public void onResponse(ProductsResponse response) {
+                if (response != null) {
+                    getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
                        /* serviceable.set(response.getServiceablestatus());
                         unserviceableTitle.set(response.getUnserviceableTitle());
                         unserviceableSubTitle.set(response.getUnserviceableSubtitle());*/
-                        emptyImageUrl.set(response.getEmptyUrl());
-                        emptyContent.set(response.getEmptyContent());
-                        emptySubContent.set(response.getEmptySubconent());
-                        headerContent.set(response.getHeaderContent());
-                        headerSubContent.set(response.getHeaderSubconent());
-                        categoryTitle.set(response.getCategoryTitle());
+                    emptyImageUrl.set(response.getEmptyUrl());
+                    emptyContent.set(response.getEmptyContent());
+                    emptySubContent.set(response.getEmptySubconent());
+                    headerContent.set(response.getHeaderContent());
+                    headerSubContent.set(response.getHeaderSubconent());
+                    categoryTitle.set(response.getCategoryTitle());
 
-                        if (response.getResult() != null && response.getResult().size() > 0) {
-                            fullEmpty.set(false);
-                            productsListLiveData.setValue(response.getResult());
-                        } else {
-                            fullEmpty.set(true);
-                            page = page - 1;
-                        }
-                        loading.set(false);
+                    if (response.getResult() != null && response.getResult().size() > 0) {
+                        fullEmpty.set(false);
+                        productsListLiveData.setValue(response.getResult());
                     } else {
                         fullEmpty.set(true);
                         page = page - 1;
                     }
-                    if (getNavigator() != null) {
-                        loading.set(false);
-                        getNavigator().dataLoaded();
-                    }
+                    loading.set(false);
+                } else {
+                    fullEmpty.set(true);
+                    page = page - 1;
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if (getNavigator() != null) {
-                        loading.set(false);
-                        getNavigator().dataLoaded();
-                    }
+                if (getNavigator() != null) {
+                    loading.set(false);
+                    getNavigator().dataLoaded();
                 }
-            }, AppConstants.API_VERSION_ONE);
-            DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
-
-
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (getNavigator() != null) {
+                    loading.set(false);
+                    getNavigator().dataLoaded();
+                }
+            }
+        }, AppConstants.API_VERSION_ONE);
+        DailylocallyApp.getInstance().addToRequestQueue(gsontoJsonRequest);
 
 
     }
@@ -257,7 +261,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 fProductsRequest.setLon(getDataManager().getCurrentLng());
                 fProductsRequest.setScl2Id(String.valueOf(scl2id));
                 fProductsRequest.setScl1Id(String.valueOf(scl1id));
-                productsRequest.setPage(page);
+               // fProductsRequest.setPage(page);
 
             } else {
                 fProductsRequest = new ProductsRequest();
@@ -266,7 +270,7 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
                 fProductsRequest.setLon(getDataManager().getCurrentLng());
                 fProductsRequest.setScl2Id(String.valueOf(scl2id));
                 fProductsRequest.setScl1Id(String.valueOf(scl1id));
-                productsRequest.setPage(page);
+              //  fProductsRequest.setPage(page);
             }
 
         } else {
@@ -276,13 +280,15 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
             fProductsRequest.setLon(getDataManager().getCurrentLng());
             fProductsRequest.setScl2Id(String.valueOf(scl2id));
             fProductsRequest.setScl1Id(String.valueOf(scl1id));
-            productsRequest.setPage(page);
+          //  fProductsRequest.setPage(page);
         }
 
 
         Gson gson = new Gson();
         String request = gson.toJson(fProductsRequest);
         getDataManager().saveFiletrSort(request);
+
+        productsRequest=fProductsRequest;
 
         fetchFilterProducts(fProductsRequest);
 
