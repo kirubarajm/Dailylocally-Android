@@ -185,10 +185,6 @@ public abstract class ActivityBuilder {
 @ContributesAndroidInjector(modules = SupportModule.class)
     abstract SupportActivity bindSupportActivity();
 
-
-
-
-
     @ContributesAndroidInjector(modules = OnBoardingActivityModule.class)
     abstract OnBoardingActivity bindOnBoardingActivity();
     @ContributesAndroidInjector(modules = {UpdateModule.class/*, OrderCanceledProvider.class*/})
