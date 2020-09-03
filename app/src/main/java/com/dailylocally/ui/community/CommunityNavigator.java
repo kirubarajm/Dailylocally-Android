@@ -20,5 +20,7 @@ public interface CommunityNavigator {
     void stopVideo();
 
     void actionBtClick();
+
+    void postLikeClick();
 }
 

@@ -104,7 +104,7 @@ public class CommunityUserDetailsResponse {
         @SerializedName("cod_value")
         @Expose
         public String codValue;
-        @SerializedName("community_name")
+        @SerializedName("communityname")
         @Expose
         public String communityName;
         @SerializedName("area")

@@ -207,6 +207,10 @@
         </receiver>
 
 
+        <meta-data
+            android:name="im.getsocial.sdk.UiConfigurationFile"
+            android:value="getsocial-light/ui-config.json" />
+
 
         <activity
             android:name=".ui.transactionHistory.TransactionHistoryActivity"

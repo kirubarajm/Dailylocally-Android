@@ -30,6 +30,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,11 +40,20 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import im.getsocial.sdk.Communities;
+import im.getsocial.sdk.CompletionCallback;
+import im.getsocial.sdk.FailureCallback;
 import im.getsocial.sdk.GetSocial;
+import im.getsocial.sdk.GetSocialError;
+import im.getsocial.sdk.actions.Action;
+import im.getsocial.sdk.actions.ActionListener;
 import im.getsocial.sdk.common.PagingQuery;
 import im.getsocial.sdk.communities.ActivitiesQuery;
+import im.getsocial.sdk.communities.CurrentUser;
 import im.getsocial.sdk.communities.GetSocialActivity;
+import im.getsocial.sdk.communities.Identity;
+import im.getsocial.sdk.communities.Reactions;
 import im.getsocial.sdk.media.MediaAttachment;
+import im.getsocial.sdk.ui.GetSocialUi;
 import im.getsocial.sdk.ui.MentionClickListener;
 import im.getsocial.sdk.ui.communities.ActivityFeedViewBuilder;
 
@@ -176,12 +186,22 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         //ActivityFeedViewBuilder.create(query).show();
         //  ActivityFeedViewBuilder.create(query).setWindowTitle("test").show();
 
-        ActivityFeedViewBuilder.create(query).setMentionClickListener(new MentionClickListener() {
-            @Override
-            public void onMentionClicked(String s) {
+        boolean wasLoaded = GetSocialUi.loadConfiguration("getsocial-light/ui-config.json");
 
-            }
-        }).setWindowTitle(mCommunityViewModel.topic).show();
+        if (wasLoaded)
+            ActivityFeedViewBuilder.create(query).setMentionClickListener(new MentionClickListener() {
+                @Override
+                public void onMentionClicked(String s) {
+                    //Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                }
+            }).setActionListener(new ActionListener() {
+                @Override
+                public void handleAction(Action action) {
+
+                    if (action.getType().equals("open page"))
+                        actionData(action.getData());
+                }
+            }).setWindowTitle(mCommunityViewModel.topic).show();
 
 
     }
@@ -198,13 +218,93 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     }
 
     @Override
+    public void postLikeClick() {
+
+
+        if (mCommunityViewModel.postLike.get()) {
+            Communities.removeReaction(Reactions.LIKE, firstPost.getId(), new CompletionCallback() {
+                @Override
+                public void onSuccess() {
+                    mCommunityViewModel.postLike.set(false);
+                }
+            }, new FailureCallback() {
+                @Override
+                public void onFailure(GetSocialError getSocialError) {
+
+                }
+            });
+
+        } else {
+            Communities.addReaction(Reactions.LIKE, firstPost.getId(), new CompletionCallback() {
+                @Override
+                public void onSuccess() {
+                    mCommunityViewModel.postLike.set(true);
+                }
+            }, new FailureCallback() {
+                @Override
+                public void onFailure(GetSocialError getSocialError) {
+
+                }
+            });
+        }
+
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCommunityViewModel.setNavigator(this);
         subscribeToLiveData();
 
 
+        createGetSocialIdentity();
+
+
     }
+
+    public void createGetSocialIdentity() {
+
+        String userId = mCommunityViewModel.getDataManager().getCurrentUserId(); // get user ID on your login provider
+        String accessToken = ""; // see the example of such a function below
+
+        Identity identity = Identity.custom(mCommunityViewModel.getDataManager().getCurrentUserName(), userId, accessToken);
+        CurrentUser currentUser = GetSocial.getCurrentUser();
+
+        if (currentUser == null) {
+            // you can't add identity before SDK is initialized
+            return;
+        }
+
+
+        currentUser.addIdentity(identity, new CompletionCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+        }, null, new FailureCallback() {
+            @Override
+            public void onFailure(GetSocialError getSocialError) {
+
+            }
+        });
+
+
+        Communities.addReaction(Reactions.LIKE, "", new CompletionCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+        }, new FailureCallback() {
+            @Override
+            public void onFailure(GetSocialError getSocialError) {
+
+            }
+        });
+
+
+    }
+
 
     @Override
     public void onPause() {
@@ -250,7 +350,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
 
         //   final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(_item.getId()).byUser(UserId.currentUser());
-        final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("test");
+        final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("community_event");
 
 
         //  ActivityFeedViewBuilder.create(query).show();
@@ -269,6 +369,21 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 mCommunityViewModel.actionText.set(firstPost.getButton().getTitle());
                 mCommunityViewModel.showAction.set(firstPost.getButton().getAction() != null);
                 mCommunityViewModel.icon.set(firstPost.getAuthor().getAvatarUrl());
+
+                //   String ssss=firstPost.getMyReactions().
+
+                if (firstPost.getMyReactions() != null) {
+
+                    List<String> list = new ArrayList<>(firstPost.getMyReactions());
+
+                    if (list != null && list.size() > 0) {
+
+                        if (list.get(0).equals("like"))
+                            mCommunityViewModel.postLike.set(true);
+
+                    }
+                }
+
 
                 if (firstPost.getAttachments() != null)
                     if (firstPost.getAttachments().size() > 0) {

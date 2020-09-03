@@ -14,15 +14,12 @@ android {
         versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-      //  useLibrary 'org.apache.http.legacy'
-      // useLibrary "getsocial-light/ui-config.json"
-//        useUiLibrary true
+
         dataBinding {
             enabled = true
         }
         multiDexEnabled true
         getsocial {
-            //    version "7.2.2" // e.g. "7.0.0"
             appId "l8ti6M70Q87v"
 //                useLibrary true
 //                uiConfig "getsocial-light/ui-config.json"

@@ -85,6 +85,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableField<String> image2 = new ObservableField<>();
 
     public final ObservableBoolean showAction = new ObservableBoolean();
+    public final ObservableBoolean postLike = new ObservableBoolean();
     public final ObservableBoolean singleImage = new ObservableBoolean();
     public final ObservableBoolean attachmentAvailable = new ObservableBoolean();
 
@@ -154,6 +155,12 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
         getSocialActivities.addAll(items);
 
     }
+
+
+    public void postLikeClick() {
+        getNavigator().postLikeClick();
+    }
+
 
 
     public void actionBtClick() {

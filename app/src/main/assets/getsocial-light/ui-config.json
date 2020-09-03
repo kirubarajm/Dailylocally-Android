@@ -17,7 +17,7 @@
             "animation-style": "scale"
         },
         "header": {
-            "height": 38,
+            "height": 50,
             "bg-color": "0xFFFFFFFF",
             "padding-top": 2,
             "padding-bottom": 0
@@ -34,8 +34,8 @@
             "bg-image-pressed": "back-button.bg-image-pressed.png"
         },
         "close-button": {
-            "width": 33,
-            "height": 38,
+            "width": 25,
+            "height": 25,
             "margin-right": 0,
             "margin-top": 0,
             "bg-image-normal": "close-button.bg-image-normal.png",
@@ -206,68 +206,68 @@
     },
     "text-styles": {
         "header": {
-            "font": "Lato-Bold.ttf",
-            "font-size": 26,
+            "font": "Quicksand-Medium.ttf",
+            "font-size": 18,
             "font-color": "0xFF2e2e2e"
         },
         "content": {
-            "font": "Lato-Regular.ttf",
-            "font-size": 16,
+            "font": "Quicksand-Regular.ttf",
+            "font-size": 12,
             "font-color": "0xFF4c4c4c"
         },
         "entity": {
-            "font": "Lato-Regular.ttf",
-            "font-size": 18,
+            "font": "Quicksand-Regular.ttf",
+            "font-size": 14,
             "font-color": "0xFF323945"
         },
         "timestamp": {
-            "font": "Lato-Regular.ttf",
-            "font-size": 16,
+            "font": "Quicksand-Regular.ttf",
+            "font-size": 12,
             "font-color": "0xFF949294"
         },
         "segment": {
-            "font": "HelveticaNeue-Bold",
-            "font-size": 15,
+            "font": "Quicksand-Medium.ttf",
+            "font-size": 14,
             "font-color": "0xFFFFFFFF"
         },
         "link": {
-            "font": "Lato-Bold.ttf",
-            "font-size": 18,
+            "font": "Quicksand-Medium.ttf",
+            "font-size": 12,
             "font-color": "0xFF333333"
         },
         "placeholderTitle": {
-            "font": "Lato-Bold",
-            "font-size": 18,
+            "font": "Quicksand-Medium.ttf",
+            "font-size": 14,
             "font-color": "0xFF9EA6B2"
         },
         "placeholderContent": {
-            "font": "Lato-Regular.ttf",
-            "font-size": 16,
+            "font": "Quicksand-Regular.ttf",
+            "font-size": 14,
             "font-color": "0xFF9EA6B2"
         },
         "overscroll": {
-            "font": "Lato-Regular.ttf",
+            "font": "Quicksand-Regular.ttf",
             "font-size": 12,
             "font-color": "0xFF9EA6B2"
         },
         "inputField": {
-            "font": "Lato-Regular.ttf",
-            "font-size": 16,
+            "font": "Quicksand-Regular.ttf",
+            "font-size": 14,
             "font-color": "0xFF666666"
         },
         "call-to-action": {
-            "font": "Lato-Bold.ttf",
-            "font-size": 16,
+            "font": "Quicksand-Medium.ttf",
+            "font-size": 14,
             "font-color": "0xFFFFFFFF"
         },
         "call-to-negative-action": {
-            "font": "Lato-Bold.ttf",
-            "font-size": 16,
+            "font": "Quicksand-Medium.ttf",
+            "font-size": 14,
             "font-color": "0xFF000000"
         },
         "notifications-section-title" : {
-            "font": "Lato-Bold.ttf",
-            "font-size": 15,
+            "font": "Quicksand-Medium.ttf",
+            "font-size": 14,
             "font-color": "0xFFFFFFFF"
         }
     }
