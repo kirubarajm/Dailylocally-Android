@@ -401,26 +401,10 @@
                 android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
                 android:id="@+id/recycler_community"
                 android:orientation="horizontal"
-
                 adapter="@{communityViewModel.communityItemViewModels}"
                 tools:listitem="@layout/list_item_community"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <RelativeLayout
-                android:background="@color/transparent"
-                android:id="@+id/rel_view_pager"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/view_pager"
-                    android:background="@color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -449,7 +433,7 @@
                     android:paddingBottom="2dp"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:text="Register Community"
+                    android:text="Apply for Community registration"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_25px"
                     android:textStyle="bold" />
@@ -536,6 +520,31 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:background="@color/transparent"
+            android:id="@+id/rel_view_pager"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:background="@color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDots"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dots_height"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dots_margin_bottom"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
 
     </RelativeLayout>
 

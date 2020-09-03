@@ -98,9 +98,9 @@
     <color name="dot_light_screen4">#e4b5fc</color>
 
     <array name="array_dot_active">
-        <item>@color/dark_gray</item>
-        <item>@color/dark_gray</item>
-        <item>@color/dark_gray</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
     </array>
 
     <array name="array_dot_inactive">
