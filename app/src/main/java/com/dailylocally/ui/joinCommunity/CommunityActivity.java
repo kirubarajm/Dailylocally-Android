@@ -751,7 +751,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("\u2022"));
-            dots[i].setTextSize(35);
+            dots[i].setTextSize(20);
+            dots[i].setPadding(0,0,20,0);
             dots[i].setTextColor(colorsInactive[currentPage]);
             dotsLayout.addView(dots[i]);
         }
