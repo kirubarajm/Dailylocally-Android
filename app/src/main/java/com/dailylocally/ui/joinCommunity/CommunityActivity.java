@@ -21,12 +21,14 @@ import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -93,6 +96,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         }
     };
     private ActivityCommunityBinding mActivityOnboardingBinding;
+    private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
     private MyViewPagerAdapter myViewPagerAdapter;
@@ -347,6 +351,32 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         progress1.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress1.setIndeterminate(true);
         progress1.setCancelable(false);
+
+        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
+        addBottomDots(0);
+
+
+        mActivityOnboardingBinding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                addBottomDots(position);
+                if (position==2){
+                    mActivityOnboardingBinding.layoutDots.setVisibility(View.GONE);
+                }else {
+                    mActivityOnboardingBinding.layoutDots.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void subscribeToLiveData() {
@@ -496,6 +526,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(layouts[position], container, false);
@@ -509,7 +540,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                         mOnBoardingActivityViewModel.getDataManager().setFirstTimeLaunchCommunity(1);
                         //launchHomeScreen();
                         mActivityOnboardingBinding.relViewPager.setVisibility(View.GONE);
-
+                        mActivityOnboardingBinding.layoutDots.setVisibility(View.GONE);
                     }
                 });
             }
@@ -708,5 +739,24 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         }else {
 
         }
+    }
+
+    private void addBottomDots(int currentPage) {
+        dots = new TextView[layouts.length];
+
+        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
+        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+
+        dotsLayout.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new TextView(this);
+            dots[i].setText(Html.fromHtml("\u2022"));
+            dots[i].setTextSize(35);
+            dots[i].setTextColor(colorsInactive[currentPage]);
+            dotsLayout.addView(dots[i]);
+        }
+
+        if (dots.length > 0)
+            dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 }
