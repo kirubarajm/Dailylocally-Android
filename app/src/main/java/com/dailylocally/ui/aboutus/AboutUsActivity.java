@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.databinding.ActivityFaqsBinding;
+import com.dailylocally.databinding.ActivityAboutusBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -24,16 +24,16 @@ import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
-public class AboutUsActivity extends BaseActivity<ActivityFaqsBinding, AboutUsViewModel> implements AboutUsNavigator {
+public class AboutUsActivity extends BaseActivity<ActivityAboutusBinding, AboutUsViewModel> implements AboutUsNavigator {
 
     public static final String TAG = AboutUsActivity.class.getSimpleName();
     @Inject
-    AboutUsViewModel mFaqViewModel;
+    AboutUsViewModel mAboutUsViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
     AboutUsAdapter mAboutUsAdapter;
-    private ActivityFaqsBinding mActivityFaqsBinding;
+    private ActivityAboutusBinding mActivityAboutusBinding;
 
     Analytics analytics;
     String pageName= AppConstants.SCREEN_FAQS;
@@ -45,17 +45,17 @@ public class AboutUsActivity extends BaseActivity<ActivityFaqsBinding, AboutUsVi
 
     @Override
     public int getBindingVariable() {
-        return BR.faqsViewModel;
+        return BR.aboutUsViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_faqs;
+        return R.layout.activity_aboutus;
     }
 
     @Override
     public AboutUsViewModel getViewModel() {
-        return mFaqViewModel;
+        return mAboutUsViewModel;
     }
 
     @Override
@@ -77,22 +77,22 @@ public class AboutUsActivity extends BaseActivity<ActivityFaqsBinding, AboutUsVi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFaqViewModel.setNavigator(this);
-        mActivityFaqsBinding = getViewDataBinding();
+        mAboutUsViewModel.setNavigator(this);
+        mActivityAboutusBinding = getViewDataBinding();
 
 
               analytics=new Analytics(this, pageName);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mActivityFaqsBinding.recyclerFaqs.setLayoutManager(mLayoutManager);
-        mActivityFaqsBinding.recyclerFaqs.setAdapter(mAboutUsAdapter);
+        mActivityAboutusBinding.recyclerFaqs.setLayoutManager(mLayoutManager);
+        mActivityAboutusBinding.recyclerFaqs.setAdapter(mAboutUsAdapter);
         subscribeToLiveData();
     }
 
 
     private void subscribeToLiveData() {
-        mFaqViewModel.getFaqs().observe(this,
-                FaqFragmentViewModel -> mFaqViewModel.addFaqsItemsToList(FaqFragmentViewModel));
+        mAboutUsViewModel.getFaqs().observe(this,
+                FaqFragmentViewModel -> mAboutUsViewModel.addFaqsItemsToList(FaqFragmentViewModel));
     }
 
 
@@ -109,7 +109,7 @@ public class AboutUsActivity extends BaseActivity<ActivityFaqsBinding, AboutUsVi
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-        mFaqViewModel.fetchRepos();
+        mAboutUsViewModel.fetchRepos();
 
     }
 

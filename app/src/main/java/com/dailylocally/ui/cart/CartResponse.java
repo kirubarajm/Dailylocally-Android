@@ -79,7 +79,7 @@ public class CartResponse {
         private Object productTotalWeight;
         @SerializedName("delivery_charge")
         @Expose
-        private Integer deliveryCharge;
+        private String deliveryCharge;
         @SerializedName("refund_coupon_adjustment")
         @Expose
         private Integer refundCouponAdjustment;
@@ -98,6 +98,16 @@ public class CartResponse {
         @SerializedName("product_cost_limit_status")
         @Expose
         private Boolean productCostLimitStatus;
+        @SerializedName("show_delivery_text")
+        @Expose
+        private Boolean showDeliverText;
+        @SerializedName("delivery_text")
+        @Expose
+        private String deliveryText;
+         @SerializedName("exclusive_tag")
+        @Expose
+        private String exclusiveTag;
+
         @SerializedName("product_cost_limit_message")
         @Expose
         private String productCostLimitMessage;
@@ -113,6 +123,19 @@ public class CartResponse {
         @SerializedName("minimum_cart_value")
         @Expose
         private Integer minimumCartValue;
+
+
+        public Boolean getShowDeliverText() {
+            return showDeliverText;
+        }
+
+        public String getDeliveryText() {
+            return deliveryText;
+        }
+
+        public String getExclusiveTag() {
+            return exclusiveTag;
+        }
 
         public String getGrandtotaltitle() {
             return grandtotaltitle;
@@ -146,11 +169,11 @@ public class CartResponse {
             this.productTotalWeight = productTotalWeight;
         }
 
-        public Integer getDeliveryCharge() {
+        public String getDeliveryCharge() {
             return deliveryCharge;
         }
 
-        public void setDeliveryCharge(Integer deliveryCharge) {
+        public void setDeliveryCharge(String deliveryCharge) {
             this.deliveryCharge = deliveryCharge;
         }
 
@@ -754,6 +777,9 @@ public class CartResponse {
         @SerializedName("isAvaliablezone")
         @Expose
         private Boolean isAvaliablezone;
+        @SerializedName("community_user_status")
+        @Expose
+        private Boolean communityUser;
         @SerializedName("amountdetails")
         @Expose
         private Amountdetails amountdetails;
@@ -772,6 +798,18 @@ public class CartResponse {
         @SerializedName("minimum_cart_value")
         @Expose
         private Integer minimumCartValue;
+
+        public Boolean getAvaliablekitchen() {
+            return isAvaliablekitchen;
+        }
+
+        public Boolean getAvaliablezone() {
+            return isAvaliablezone;
+        }
+
+        public Boolean getCommunityUser() {
+            return communityUser;
+        }
 
         public Integer getId() {
             return id;

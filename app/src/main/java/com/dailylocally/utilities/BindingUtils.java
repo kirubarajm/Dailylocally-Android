@@ -20,8 +20,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,7 +37,9 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +50,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.dailylocally.R;
+import com.dailylocally.ui.aboutus.AboutUsAdapter;
+import com.dailylocally.ui.aboutus.AboutUsResponse;
+import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.calendarView.CalendarDayWiseAdapter;
 import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
 import com.dailylocally.ui.cart.BillListAdapter;
@@ -258,6 +265,18 @@ public final class BindingUtils {
         }
     }
 
+     @BindingAdapter({"adapter"})
+    public static void addAboutItems(RecyclerView recyclerView, List<AboutUsResponse.Result> blogs) {
+        AboutUsAdapter adapter = (AboutUsAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+
+
+
     @BindingAdapter({"adapter"})
     public static void addCouponsItems(RecyclerView recyclerView, List<CouponsResponse.Result> blogs) {
         CouponsAdapter adapter = (CouponsAdapter) recyclerView.getAdapter();
@@ -346,6 +365,42 @@ public final class BindingUtils {
                 .into(imageView);
 
 
+    }
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable =  AppCompatResources.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
+ @BindingAdapter("profileImage")
+    public static void setProfileImagel(ImageView imageView, String url) {
+        Context context = imageView.getContext();
+
+
+        if (url!=null&&!url.isEmpty()) {
+
+            Glide.with(context)
+                    .load(url)
+                    //   .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    // .listener(new LoggingListener<String, Bitmap>())
+                    .error(R.drawable.ic_group_482)
+                    .into(imageView);
+
+        }else {
+            Bitmap bitmap = getBitmapFromVectorDrawable(context,R.drawable.ic_group_482);
+            imageView.setImageBitmap(bitmap);
+
+        }
     }
 
 

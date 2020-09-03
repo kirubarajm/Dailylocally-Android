@@ -29,6 +29,7 @@ public interface CommunityActivityNavigator {
     void uploaded1(String imageUrl);
 
     void whatAppScreenSuccess(String message);
+    void communityJoined(String message);
 
     void whatAppScreenFailure(String message);
 

@@ -51,7 +51,7 @@ public class AboutUsViewModel extends BaseViewModel<AboutUsNavigator> {
         if(!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_FAQS + 4, AboutUsResponse.class, new Response.Listener<AboutUsResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_ABOUTUSS, AboutUsResponse.class,null, new Response.Listener<AboutUsResponse>() {
             @Override
             public void onResponse(AboutUsResponse response) {
                 if (response != null && response.getResult() != null) {

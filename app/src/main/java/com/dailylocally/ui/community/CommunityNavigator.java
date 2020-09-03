@@ -18,5 +18,7 @@ public interface CommunityNavigator {
     void communityEvent();
 
     void stopVideo();
+
+    void actionBtClick();
 }
 

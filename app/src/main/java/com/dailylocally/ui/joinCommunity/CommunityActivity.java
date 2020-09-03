@@ -42,7 +42,9 @@ import com.dailylocally.databinding.ActivityCommunityBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
 import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
+import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -570,6 +572,16 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         Intent intent = ContactWhatsAppActivity.newIntent(CommunityActivity.this);
         startActivity(intent);
+    }
+
+    @Override
+    public void communityJoined(String message) {
+
+        Intent intent = MainActivity.newIntent(CommunityActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_COMMUNITY_ACTV);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
     }
 
     @Override

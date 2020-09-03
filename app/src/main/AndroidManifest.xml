@@ -183,13 +183,13 @@
             android:name=".ui.promotion.AdActivity"
             android:screenOrientation="locked" />
 
-        <!--<meta-data
+        <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_8ZBt2J9hAsxH9Q" />-->
+            android:value="rzp_test_8ZBt2J9hAsxH9Q" />
 
-         <meta-data
+        <!-- <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_kelnGLZvTecvPV" />
+            android:value="rzp_live_kelnGLZvTecvPV" />-->
 
 
         <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">

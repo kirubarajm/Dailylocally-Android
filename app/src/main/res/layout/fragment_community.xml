@@ -73,8 +73,9 @@
 
                             <com.dailylocally.utilities.CircularImageView
                                 android:id="@+id/circleImage"
-                                imageUrl="@{communityViewModel.profilePic}"
+                                profileImage="@{communityViewModel.profilePic}"
                                 android:layout_width="80dp"
+                                android:src="@drawable/ic_group_482"
                                 android:layout_height="80dp" />
 
                             <LinearLayout
@@ -389,6 +390,7 @@
                             </LinearLayout>
 
                             <RelativeLayout
+                                android:onClick="@{()->communityViewModel.actionBtClick()}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_below="@+id/images"

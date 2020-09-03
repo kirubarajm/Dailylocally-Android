@@ -17,9 +17,13 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCommunityBinding;
 import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.base.BaseFragment;
+import com.dailylocally.ui.category.l1.CategoryL1Activity;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.category.viewall.CatProductActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
-import com.dailylocally.ui.signup.faqs.FaqActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 
 import org.joda.time.DateTime;
@@ -30,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -39,9 +44,10 @@ import im.getsocial.sdk.common.PagingQuery;
 import im.getsocial.sdk.communities.ActivitiesQuery;
 import im.getsocial.sdk.communities.GetSocialActivity;
 import im.getsocial.sdk.media.MediaAttachment;
+import im.getsocial.sdk.ui.MentionClickListener;
 import im.getsocial.sdk.ui.communities.ActivityFeedViewBuilder;
 
-public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, CommunityViewModel> implements CommunityNavigator {
+public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, CommunityViewModel> implements CommunityNavigator, CommunityPostListAdapter.ProductsAdapterListener {
     private static final int RC_APP_UPDATE = 55669;
 
 
@@ -51,6 +57,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     CommunityViewModel mCommunityViewModel;
 
     FragmentCommunityBinding mFragmentCommunityBinding;
+    GetSocialActivity firstPost;
 
     public static CommunityFragment newInstance() {
         Bundle args = new Bundle();
@@ -135,14 +142,15 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void whatsAppGroup() {
-
-        Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
-        //String url = "https://chat.whatsapp.com/<group_link>";
         String url = mCommunityViewModel.whatsappgroupLink;
-        intentWhatsapp.setData(Uri.parse(url));
-        intentWhatsapp.setPackage("com.whatsapp");
-        startActivity(intentWhatsapp);
 
+        if (url != null) {
+            Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
+            //String url = "https://chat.whatsapp.com/<group_link>";
+            intentWhatsapp.setData(Uri.parse(url));
+            intentWhatsapp.setPackage("com.whatsapp");
+            startActivity(intentWhatsapp);
+        }
     }
 
     @Override
@@ -150,8 +158,8 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         if (mCommunityViewModel.sneakpeakVideoUrl != null) {
             mCommunityViewModel.showVideo.set(true);
             mFragmentCommunityBinding.videoPlayer.setSource(mCommunityViewModel.sneakpeakVideoUrl);
-         //   mFragmentCommunityBinding.videoPlayer.setSource("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
-       }
+            //   mFragmentCommunityBinding.videoPlayer.setSource("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+        }
     }
 
     @Override
@@ -164,13 +172,29 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void communityEvent() {
-        final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("test");
-        ActivityFeedViewBuilder.create(query).show();
+        final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(mCommunityViewModel.topic);
+        //ActivityFeedViewBuilder.create(query).show();
+        //  ActivityFeedViewBuilder.create(query).setWindowTitle("test").show();
+
+        ActivityFeedViewBuilder.create(query).setMentionClickListener(new MentionClickListener() {
+            @Override
+            public void onMentionClicked(String s) {
+
+            }
+        }).setWindowTitle(mCommunityViewModel.topic).show();
+
+
     }
 
     @Override
     public void stopVideo() {
         mFragmentCommunityBinding.videoPlayer.stopPlayer();
+    }
+
+    @Override
+    public void actionBtClick() {
+
+        actionData(firstPost.getButton().getAction().getData());
     }
 
     @Override
@@ -229,10 +253,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("test");
 
 
-
-
-
-      //  ActivityFeedViewBuilder.create(query).show();
+        //  ActivityFeedViewBuilder.create(query).show();
 
 
         final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(5);
@@ -241,7 +262,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             mCommunityViewModel.getSocialActivities.addAll(getSocialActivities);
             //Get first post
             if (getSocialActivities != null && getSocialActivities.size() > 0) {
-                GetSocialActivity firstPost = getSocialActivities.get(0);
+                firstPost = getSocialActivities.get(0);
                 mCommunityViewModel.postTitle.set(firstPost.getAuthor().getDisplayName());
                 mCommunityViewModel.postDes.set(firstPost.getText());
                 mCommunityViewModel.postDate.set(getDate(firstPost.getCreatedAt()));
@@ -282,5 +303,63 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         cal.setTimeInMillis(time * 1000);
         String date = DateFormat.format("dd-MM-yyyy hh:mm:ss a", cal).toString();
         return formateddate(date);
+    }
+
+    @Override
+    public void refresh() {
+
+    }
+
+    @Override
+    public void actionData(Map<String, String> actionDatas) {
+
+
+        String pageid = actionDatas.get("pageid");
+        switch (pageid) {
+
+            case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
+                Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
+                intent.putExtra("catid", actionDatas.get("catid"));
+                startActivity(intent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+            case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
+                Intent l2intent = CategoryL2Activity.newIntent(getBaseActivity());
+                l2intent.putExtra("catid", actionDatas.get("catid"));
+                l2intent.putExtra("scl1id", actionDatas.get("scl1id"));
+                startActivity(l2intent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+            case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
+                Intent catintent = CatProductActivity.newIntent(getBaseActivity());
+                catintent.putExtra("catid", actionDatas.get("catid"));
+                startActivity(catintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
+
+                ((MainActivity) getActivity()).openCommunityCat();
+
+                break;
+
+
+            case AppConstants.NOTIFY_TRANS_LIST_ACTV:
+                Intent tLintent = TransactionHistoryActivity.newIntent(getContext());
+                startActivity(tLintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
+                Intent tDintent = TransactionDetailsActivity.newIntent(getBaseActivity());
+                tDintent.putExtra("orderid", actionDatas.get("orderid"));
+                startActivity(tDintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+
+        }
+
+
     }
 }

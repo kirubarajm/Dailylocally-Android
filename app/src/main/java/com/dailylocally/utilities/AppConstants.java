@@ -116,7 +116,7 @@ public class AppConstants {
 
 
   public static final String API_VERSION_ONE = "1.0.0";
-  public static final String API_VERSION_TWO = "2.0.0";
+  public static final String API_VERSION_TWO = "2";
   public static final String API_VERSION_TWO_ONE = "2.0.1";
   public static final String API_VERSION_TWO_TWO = "2.0.2";
   public static final String API_VERSION_THEREE = "3.0.0";
@@ -376,6 +376,7 @@ public class AppConstants {
   public static final String URL_CHECK_ADDRESS = URL_SERVER_IP_PORT + "/user/checkaddress";
   public static final String URL_COMMUNITY_USER_DETAILS = URL_SERVER_IP_PORT + "/user/communityuserdetails";
   public static final String URL_COMMUNITY_HOME_DETAILS = URL_SERVER_IP_PORT + "/user/Community/homepage";
+  public static final String URL_COMMUNITY_ABOUTUSS = URL_SERVER_IP_PORT + "/user/community/aboutus";
   public static final String URL_FAQS = URL_SERVER_IP_PORT + "/user/faqs/";/////PUT method0
 
   /////Daily locally
@@ -642,7 +643,8 @@ public class AppConstants {
   public static final String NOTIFY_TRANS_LIST_ACTV = "29";
   public static final String NOTIFY_TRANS_DETAILS_ACTV = "30";
   public static final String NOTIFY_CATEGORY_L1_PROD_ACTV = "31";
-
+  public static final String NOTIFY_COMMUNITY_CATLIST_FRAG = "32";
+  public static final String NOTIFY_COMMUNITY_ACTV = "33";
 
 
 

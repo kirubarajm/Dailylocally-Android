@@ -123,7 +123,6 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
 
     public void fetchCategoryList() {
 
-
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         HomePageRequest homePageRequest = new HomePageRequest();
         homePageRequest.setUserid(getDataManager().getCurrentUserId());
@@ -217,7 +216,7 @@ public class HomeViewModel extends BaseViewModel<HomeNavigator> {
                  */
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                 }
             };
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
