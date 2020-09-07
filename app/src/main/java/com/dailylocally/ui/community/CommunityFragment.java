@@ -65,16 +65,14 @@ import im.getsocial.sdk.ui.communities.ActivityFeedViewBuilder;
 
 public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, CommunityViewModel> implements CommunityNavigator, CommunityPostListAdapter.ProductsAdapterListener {
     private static final int RC_APP_UPDATE = 55669;
-
-
+    public ToolTipView myToolTipView;
     @Inject
     CommunityPostListAdapter communityPostListAdapter;
     @Inject
     CommunityViewModel mCommunityViewModel;
-
     FragmentCommunityBinding mFragmentCommunityBinding;
     GetSocialActivity firstPost;
-    public ToolTipView myToolTipView;
+
     public static CommunityFragment newInstance() {
         Bundle args = new Bundle();
         CommunityFragment fragment = new CommunityFragment();
@@ -207,7 +205,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                     if (action.getType().equals("open page"))
                         actionData(action.getData());
                 }
-            }).setWindowTitle(mCommunityViewModel.topic).show();
+            }).setWindowTitle(mCommunityViewModel.eventTitle).show();
 
 
     }
@@ -227,7 +225,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     public void postLikeClick() {
 
 
-        if (mCommunityViewModel.postLike.get()) {
+        if (mCommunityViewModel.showCreditsInfo.get()) {
             Communities.removeReaction(Reactions.LIKE, firstPost.getId(), new CompletionCallback() {
                 @Override
                 public void onSuccess() {
@@ -260,37 +258,38 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     public void creditInfoClick() {
 
 
-        if (!mCommunityViewModel.showCreditsInfo.get()) {
-            mCommunityViewModel.showCreditsInfo.set(true);
-                ToolTip toolTip = new ToolTip()
-                       /* .withContentView(LayoutInflater.from(DailylocallyApp.getInstance()
-                        ).inflate(R.layout.tool_tip_cart_info, null))*/
-                         .withText(mCommunityViewModel.creditInfoText.get())
-                        .withColor(DailylocallyApp.getInstance().getResources().getColor(R.color.light_gray))
-                        .withShadow()
-                        .withTextColor(Color.BLACK)
-                        .withAnimationType(ToolTip.AnimationType.NONE);
-                myToolTipView = mFragmentCommunityBinding.communityToolTipLayout.showToolTipForView(toolTip, mFragmentCommunityBinding.creditInfo);
-                //   myToolTipView = relativeLayout.showToolTipForView(toolTip,imageView);
+        if (mCommunityViewModel.showCreditsInfo.get()) {
 
 
-                myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
-                    @Override
-                    public void onToolTipViewClicked(ToolTipView toolTipView) {
-
-                        if (myToolTipView != null) {
-                            myToolTipView.remove();
-                            mCommunityViewModel.showCreditsInfo.set(false);
-                        }
-                    }
-                });
-
-        } else {
             if (myToolTipView != null) {
                 myToolTipView.remove();
-                mCommunityViewModel.showCreditsInfo.set(false);
                 myToolTipView = null;
+                return;
             }
+
+            ToolTip toolTip = new ToolTip()
+                    .withContentView(LayoutInflater.from(DailylocallyApp.getInstance()
+                    ).inflate(R.layout.tool_tip_info, null))
+                    //  .withText(mCommunityViewModel.creditInfoText.get())
+                    .withColor(DailylocallyApp.getInstance().getResources().getColor(R.color.lgray))
+                    .withShadow()
+                    .withTextColor(Color.BLACK)
+                    .withAnimationType(ToolTip.AnimationType.NONE);
+            myToolTipView = mFragmentCommunityBinding.communityToolTipLayout.showToolTipForView(toolTip, mFragmentCommunityBinding.creditInfo);
+            //   myToolTipView = relativeLayout.showToolTipForView(toolTip,imageView);
+            TextView title = myToolTipView.findViewById(R.id.info);
+            title.setText(mCommunityViewModel.creditInfoText.get());
+
+            myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+                @Override
+                public void onToolTipViewClicked(ToolTipView toolTipView) {
+
+                    if (myToolTipView != null) {
+                        myToolTipView.remove();
+
+                    }
+                }
+            });
         }
 
     }

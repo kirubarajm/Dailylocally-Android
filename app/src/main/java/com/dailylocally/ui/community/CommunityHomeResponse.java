@@ -37,6 +37,14 @@ public class CommunityHomeResponse {
         @SerializedName("des")
         @Expose
         public String des;
+        @SerializedName("image_url")
+        @Expose
+        public String imageUrl;
+
+        public String getImageUrl() {
+            return imageUrl;
+           // return "https://dailylocally.s3.amazonaws.com/upload/moveit/1599471418432-ABOUT%20US.jpg";
+        }
 
         public String getTitle() {
             return title;
@@ -56,7 +64,7 @@ public class CommunityHomeResponse {
         @SerializedName("des")
         @Expose
         public String des;
-        @SerializedName("image_url ")
+        @SerializedName("image_url")
         @Expose
         public String imageUrl;
 
@@ -81,6 +89,13 @@ public class CommunityHomeResponse {
         @SerializedName("topic")
         @Expose
         public String topic;
+ @SerializedName("title")
+        @Expose
+        public String title;
+
+        public String getTitle() {
+            return title;
+        }
 
         public String getImageUrl() {
             return imageUrl;
@@ -108,7 +123,13 @@ public class CommunityHomeResponse {
         @SerializedName("about")
         @Expose
         public About about ;
+        @SerializedName("image_url")
+        @Expose
+        public String imageUrl;
 
+        public String getImageUrl() {
+            return imageUrl;
+        }
 
         public Event getEvent() {
             return event;
@@ -140,10 +161,16 @@ public class CommunityHomeResponse {
         @SerializedName("des")
         @Expose
         public String des;
-        @SerializedName("video_url ")
+        @SerializedName("video_url")
         @Expose
         public String videoUrl;
+        @SerializedName("image_url")
+        @Expose
+        public String imageUrl;
 
+        public String getImageUrl() {
+            return imageUrl;
+        }
 
         public String getTitle() {
             return title;
@@ -167,10 +194,16 @@ public class CommunityHomeResponse {
         @SerializedName("des")
         @Expose
         public String des;
-        @SerializedName("group_url ")
+        @SerializedName("group_url")
         @Expose
         public String groupUrl;
+        @SerializedName("image_url")
+        @Expose
+        public String imageUrl;
 
+        public String getImageUrl() {
+            return imageUrl;
+        }
 
         public String getTitle() {
             return title;

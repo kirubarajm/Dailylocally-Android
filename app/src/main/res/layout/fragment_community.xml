@@ -184,6 +184,7 @@
                             </RelativeLayout>
 
                             <RelativeLayout
+                                android:onClick="@{()->communityViewModel.creditInfoClick()}"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1">
@@ -213,16 +214,15 @@
 
                                         <ImageView
                                             android:visibility="@{communityViewModel.showCreditsInfo?View.VISIBLE:View.GONE}"
-                                            android:onClick="@{()->communityViewModel.creditInfoClick()}"
                                             android:id="@+id/credit_info"
                                             android:layout_toEndOf="@+id/credits"
                                             android:paddingTop="7dp"
                                             android:scaleType="centerInside"
                                             android:adjustViewBounds="true"
                                             android:layout_gravity="center_vertical"
-                                            android:layout_width="14dp"
-                                            android:layout_height="14dp"
-                                            android:layout_marginStart="7dp"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_marginStart="10dp"
                                             android:src="@drawable/ic_info_outline_black_24dp" />
 
                                     </RelativeLayout>
@@ -587,14 +587,19 @@
 
 
                                     <androidx.cardview.widget.CardView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:onClick="@{()->communityViewModel.aboutUs()}"
                                         app:cardCornerRadius="10dp"
                                         app:cardUseCompatPadding="true">
 
 
-                                        <RelativeLayout
+                                        <ImageView
+                                            imageUrl="@{communityViewModel.aboutImageUrl}"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" />
+
+                                        <!--<RelativeLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content">
 
@@ -634,7 +639,7 @@
                                                 android:src="@drawable/ic_dl" />
 
 
-                                        </RelativeLayout>
+                                        </RelativeLayout>-->
 
                                     </androidx.cardview.widget.CardView>
                                 </LinearLayout>
@@ -646,13 +651,16 @@
 
 
                                     <androidx.cardview.widget.CardView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:onClick="@{()->communityViewModel.sneakPeak()}"
                                         app:cardCornerRadius="10dp"
                                         app:cardUseCompatPadding="true">
-
-                                        <RelativeLayout
+                                        <ImageView
+                                            imageUrl="@{communityViewModel.sneakPeakImageUrl}"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" />
+                                        <!--<RelativeLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content">
 
@@ -692,7 +700,7 @@
                                                 android:src="@drawable/ic_sneak_peak" />
 
 
-                                        </RelativeLayout>
+                                        </RelativeLayout>-->
 
                                     </androidx.cardview.widget.CardView>
 
@@ -736,14 +744,17 @@
 
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:onClick="@{()->communityViewModel.whatsAppGroup()}"
                                 app:cardCornerRadius="10dp"
                                 app:cardUseCompatPadding="true">
+                                <ImageView
+                                    imageUrl="@{communityViewModel.whatsImageUrl}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
 
-
-                                <RelativeLayout
+                                <!--<RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
 
@@ -782,7 +793,7 @@
 
                                     </LinearLayout>
 
-                                </RelativeLayout>
+                                </RelativeLayout-->
 
                             </androidx.cardview.widget.CardView>
                         </RelativeLayout>

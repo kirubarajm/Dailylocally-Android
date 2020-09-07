@@ -71,6 +71,8 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableField<String> eventImageUrl = new ObservableField<>();
     public final ObservableField<String> catImageUrl = new ObservableField<>();
     public final ObservableField<String> whatsImageUrl = new ObservableField<>();
+    public final ObservableField<String> aboutImageUrl = new ObservableField<>();
+    public final ObservableField<String> sneakPeakImageUrl = new ObservableField<>();
     public final ObservableField<String> aboutUsTitle = new ObservableField<>();
     public final ObservableField<String> aboutUsDes = new ObservableField<>();
     public final ObservableField<String> whatsTitle = new ObservableField<>();
@@ -94,6 +96,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public String whatsappgroupLink;
     public String sneakpeakVideoUrl;
     public String topic;
+    public String eventTitle;
 
 
     public ObservableList<GetSocialActivity> getSocialActivities = new ObservableArrayList<>();
@@ -126,6 +129,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                         credits.set(result.getTotalCredits());
                         creditsText.set(result.getCreditsText());
                         creditInfoText.set(result.getCreditsInfo());
+                        if (result.getShowCreditsInfo()!=null)
                         showCreditsInfo.set(result.getShowCreditsInfo());
 
                     }
@@ -219,17 +223,25 @@ public void communityEvent() {
 
                                     eventImageUrl.set(result.getEvent().getImageUrl());
                                     catImageUrl.set(result.getCatList().getImageUrl());
+                                    sneakPeakImageUrl.set(result.getSneakPeak().getImageUrl());
+                                    whatsImageUrl.set(result.getWhatsapp().getImageUrl());
+                                    aboutImageUrl.set(result.getAbout().getImageUrl());
+
                                     //whatsImageUrl.set("https://dailylocally.s3.ap-south-1.amazonaws.com/admin/1596196480459-DLV2%20Category-Spreads.jpg");
                                     aboutUsTitle.set(result.getAbout().getTitle());
                                     aboutUsDes.set(result.getAbout().getDes());
+
                                     sneakTitle.set(result.getSneakPeak().getTitle());
                                     sneakDes.set(result.getSneakPeak().getDes());
+
                                     whatsTitle.set(result.getWhatsapp().getTitle());
                                     whatsDes.set(result.getWhatsapp().getDes());
+
 
                                     whatsappgroupLink=result.getWhatsapp().getGroupUrl();
                                     sneakpeakVideoUrl=result.getSneakPeak().getVideoUrl();
                                     topic=result.getEvent().getTopic();
+                                    eventTitle=result.getEvent().getTitle();
 
 
                                 } else {
