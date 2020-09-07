@@ -22,6 +22,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -377,6 +380,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
             }
         });
+
     }
 
     private void subscribeToLiveData() {
@@ -531,9 +535,12 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-
+            TextView txtContent = view.findViewById(R.id.txt_content);
+            TextView minimumBsktValue = view.findViewById(R.id.txt_minimum_bskt_value);
+            TextView register = view.findViewById(R.id.txt_register_content);
             if (position==2) {
-                ButtonTextView textView = view.findViewById(R.id.btn_get_started);
+                ButtonTextView textView = view.findViewById(R.id.get_started);
+
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -543,6 +550,25 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                         mActivityOnboardingBinding.layoutDots.setVisibility(View.GONE);
                     }
                 });
+            }
+
+            if (position==1) {
+                Spannable wordtoSpan = new SpannableString("Join Your Apartment Community \nAnd Order With No Minimum Value");
+                wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 45, 62, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 5, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                txtContent.setText(wordtoSpan);
+            }
+            if (position==0) {
+                Spannable wordtoSpan = new SpannableString("0 minimum basket value");
+                wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 13, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                minimumBsktValue.setText(wordtoSpan);
+            }
+            if (position==2) {
+                Spannable wordtoSpan = new SpannableString("Register Your Community To Enjoy \nA Personalised Community Experience");
+                wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 9, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                register.setText(wordtoSpan);
             }
 
             return view;

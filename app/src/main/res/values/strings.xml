@@ -771,6 +771,7 @@
     <string name="pick_your_order_before_11pm_and_get_delivered">Pick your order before 11pm and get delivered</string>
     <string name="no_transaction_found">No transactions found!</string>
     <string name="register_your_community">Register your community</string>
+    <string name="minimum_basket_value">&#8226; 0 minimum basket value</string>
 
 
 </resources>
