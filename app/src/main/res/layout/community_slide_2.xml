@@ -16,7 +16,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#50000000">
+    android:background="#961A1A1A">
 
     <RelativeLayout
         android:paddingTop="@dimen/_10px"
@@ -87,10 +87,9 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="150dp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/txt_1"
+            android:id="@+id/txt_content"
             android:textColor="@color/white"
             android:textSize="@dimen/_12px"
-            android:text="Join Your Apartment Community \nAnd Order With No Minimum Value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

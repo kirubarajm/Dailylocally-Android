@@ -82,7 +82,7 @@
                                     android:background="@color/white"
                                     android:focusable="true"
                                     app:iconifiedByDefault="false"
-                                    app:queryHint="Search here" />
+                                    app:queryHint="Search for your community or apartment" />
 
                             </androidx.cardview.widget.CardView>
 
@@ -353,7 +353,7 @@
                                 android:layout_height="wrap_content">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:hint="House Flat No.*"
+                                    android:hint="House/Flat No.*"
                                     android:id="@+id/edt_house"
                                     android:textSize="@dimen/_15px"
                                     android:imeOptions="actionNext"

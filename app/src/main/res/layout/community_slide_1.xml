@@ -16,7 +16,7 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#50000000">
+    android:background="#961A1A1A">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,37 +58,79 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:id="@+id/txt_3"
+            <LinearLayout
+                android:id="@+id/linear_minimum"
+                android:orientation="horizontal"
                 android:layout_marginTop="40dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12px"
-                android:layout_centerHorizontal="true"
-                android:text="&#8226; 0 minimum basket value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_below="@+id/txt_3"
-                android:id="@+id/txt_4"
-                android:layout_marginTop="5dp"
-                android:textSize="@dimen/_12px"
-                android:textColor="@color/white"
-                android:layout_centerHorizontal="true"
-                android:text="&#8226; Free delivery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    android:text="&#8226; "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                android:layout_below="@+id/txt_4"
-                android:id="@+id/txt_5"
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:id="@+id/txt_minimum_bskt_value"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12px"
+                    android:layout_centerHorizontal="true"
+                    android:text="0 minimum basket value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_free"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12px"
-                android:layout_centerHorizontal="true"
-                android:text="&#8226; Cash on delivery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    android:text="&#8226; "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:id="@+id/txt_4"
+                    android:textSize="@dimen/_12px"
+                    android:textColor="@color/white"
+                    android:layout_centerHorizontal="true"
+                    android:text="Free delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    android:text="&#8226; "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_below="@+id/txt_4"
+                    android:id="@+id/txt_5"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12px"
+                    android:layout_centerHorizontal="true"
+                    android:text="Cash on delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </RelativeLayout>
