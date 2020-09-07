@@ -152,6 +152,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.gotoCommunity()}">
+
+                        <ImageView
+                            android:id="@+id/community"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_dl" />
+
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            android:layout_toStartOf="@+id/madf"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_toEndOf="@+id/community"
+                            android:gravity="center_vertical"
+                            android:text="Community profile"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_22px" />
+
+                        <ImageView
+                            android:id="@+id/madf"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="15dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/light_right_arrow"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
                         android:onClick="@{()->myAccountViewModel.changeAddress()}">
 
                         <ImageView

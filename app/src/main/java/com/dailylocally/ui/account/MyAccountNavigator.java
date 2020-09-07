@@ -31,4 +31,6 @@ public interface MyAccountNavigator {
     void editProfile();
 
     void transactions();
+
+    void gotoCommunity();
 }

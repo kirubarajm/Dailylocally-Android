@@ -80,6 +80,14 @@ public class CommunityUserDetailsResponse {
         @SerializedName("credits_text")
         @Expose
         public String creditsText;
+        @SerializedName("credits_info")
+        @Expose
+        public String creditsInfo;
+        @SerializedName("show_credits_info")
+        @Expose
+        public Boolean showCreditsInfo;
+
+
         @SerializedName("welcome_name_title")
         @Expose
         public String welcomeNameTitle;
@@ -111,6 +119,13 @@ public class CommunityUserDetailsResponse {
         @Expose
         public String communityArea;
 
+        public String getCreditsInfo() {
+            return creditsInfo;
+        }
+
+        public Boolean getShowCreditsInfo() {
+            return showCreditsInfo;
+        }
 
         public String getCommunityName() {
             return communityName;

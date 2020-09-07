@@ -56,6 +56,10 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
 
+    public void gotoCommunity() {
+        //getDataManager().setIsFav(true);
+        getNavigator().gotoCommunity();
+    }
     public void favourites() {
         //getDataManager().setIsFav(true);
         getNavigator().favourites();

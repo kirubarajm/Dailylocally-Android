@@ -22,5 +22,7 @@ public interface CommunityNavigator {
     void actionBtClick();
 
     void postLikeClick();
+
+    void creditInfoClick();
 }
 

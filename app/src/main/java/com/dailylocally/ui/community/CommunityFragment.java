@@ -1,11 +1,14 @@
 package com.dailylocally.ui.community;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +28,9 @@ import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.DailylocallyApp;
+import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipView;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -68,7 +74,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     FragmentCommunityBinding mFragmentCommunityBinding;
     GetSocialActivity firstPost;
-
+    public ToolTipView myToolTipView;
     public static CommunityFragment newInstance() {
         Bundle args = new Bundle();
         CommunityFragment fragment = new CommunityFragment();
@@ -246,6 +252,45 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
                 }
             });
+        }
+
+    }
+
+    @Override
+    public void creditInfoClick() {
+
+
+        if (!mCommunityViewModel.showCreditsInfo.get()) {
+            mCommunityViewModel.showCreditsInfo.set(true);
+                ToolTip toolTip = new ToolTip()
+                       /* .withContentView(LayoutInflater.from(DailylocallyApp.getInstance()
+                        ).inflate(R.layout.tool_tip_cart_info, null))*/
+                         .withText(mCommunityViewModel.creditInfoText.get())
+                        .withColor(DailylocallyApp.getInstance().getResources().getColor(R.color.light_gray))
+                        .withShadow()
+                        .withTextColor(Color.BLACK)
+                        .withAnimationType(ToolTip.AnimationType.NONE);
+                myToolTipView = mFragmentCommunityBinding.communityToolTipLayout.showToolTipForView(toolTip, mFragmentCommunityBinding.creditInfo);
+                //   myToolTipView = relativeLayout.showToolTipForView(toolTip,imageView);
+
+
+                myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+                    @Override
+                    public void onToolTipViewClicked(ToolTipView toolTipView) {
+
+                        if (myToolTipView != null) {
+                            myToolTipView.remove();
+                            mCommunityViewModel.showCreditsInfo.set(false);
+                        }
+                    }
+                });
+
+        } else {
+            if (myToolTipView != null) {
+                myToolTipView.remove();
+                mCommunityViewModel.showCreditsInfo.set(false);
+                myToolTipView = null;
+            }
         }
 
     }

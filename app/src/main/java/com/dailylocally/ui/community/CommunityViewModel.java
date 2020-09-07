@@ -66,6 +66,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableField<String> communityArea = new ObservableField<>();
     public final ObservableField<String> credits = new ObservableField<>();
     public final ObservableField<String> creditsText = new ObservableField<>();
+    public final ObservableField<String> creditInfoText = new ObservableField<>();
 
     public final ObservableField<String> eventImageUrl = new ObservableField<>();
     public final ObservableField<String> catImageUrl = new ObservableField<>();
@@ -85,6 +86,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableField<String> image2 = new ObservableField<>();
 
     public final ObservableBoolean showAction = new ObservableBoolean();
+    public final ObservableBoolean showCreditsInfo = new ObservableBoolean();
     public final ObservableBoolean postLike = new ObservableBoolean();
     public final ObservableBoolean singleImage = new ObservableBoolean();
     public final ObservableBoolean attachmentAvailable = new ObservableBoolean();
@@ -123,6 +125,8 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                         communityArea.set(result.getCommunityArea());
                         credits.set(result.getTotalCredits());
                         creditsText.set(result.getCreditsText());
+                        creditInfoText.set(result.getCreditsInfo());
+                        showCreditsInfo.set(result.getShowCreditsInfo());
 
                     }
                 }
@@ -159,6 +163,11 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
     public void postLikeClick() {
         getNavigator().postLikeClick();
+    }
+
+
+    public void creditInfoClick() {
+        getNavigator().creditInfoClick();
     }
 
 

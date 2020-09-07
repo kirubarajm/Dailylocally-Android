@@ -16,6 +16,7 @@ import com.dailylocally.ui.base.BaseBottomSheetFragment;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.favourites.FavActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
@@ -181,6 +182,11 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         Intent intent = TransactionHistoryActivity.newIntent(getContext());
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    public void gotoCommunity() {
+        ((MainActivity)getActivity()).openCommunity();
     }
 
     @Override
