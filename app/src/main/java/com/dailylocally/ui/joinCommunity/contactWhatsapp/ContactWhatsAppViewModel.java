@@ -75,7 +75,7 @@ public class ContactWhatsAppViewModel extends BaseViewModel<ContactWhatsAppNavig
                             subtitle2.set(communityResponse1.getResult().get(0).getSubtitle2());
 
                             if (getNavigator()!=null){
-                                getNavigator().changeHeader(communityResponse1.getResult().get(0).getTitle() + " "+getDataManager().getCurrentUserName());
+                                getNavigator().changeHeader(communityResponse1.getResult().get(0).getTitle());
                             }
                         }
                     } catch (JSONException e) {

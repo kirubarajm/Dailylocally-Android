@@ -11,7 +11,7 @@ public class CommunityRequest {
     @SerializedName("lat")
     @Expose
     public String lat;
-    @SerializedName("long")
+    @SerializedName("lon")
     @Expose
     public String _long;
 
