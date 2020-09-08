@@ -356,7 +356,6 @@
     <string name="mins">Mins</string>
     <string name="for_two">for two</string>
     <string name="comma">,</string>
-    <string name="cash_on_delivery">Cash on delivery</string>
     <string name="pay_online">Pay online</string>
     <string name="proceed_to_pay">Proceed to pay</string>
     <string name="promo_code">Promo Code</string>
@@ -772,6 +771,8 @@
     <string name="no_transaction_found">No transactions found!</string>
     <string name="register_your_community">Register your community</string>
     <string name="minimum_basket_value">&#8226; 0 minimum basket value</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="pay_offline">Pay Offline</string>
 
 
 </resources>

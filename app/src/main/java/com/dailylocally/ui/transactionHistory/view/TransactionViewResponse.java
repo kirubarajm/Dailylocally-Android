@@ -71,7 +71,13 @@ public class TransactionViewResponse {
         @SerializedName("cartdetails")
         @Expose
         public List<Cartdetail> cartdetails = null;
+        @SerializedName("online_order")
+        @Expose
+        public Boolean onlineOrder;
 
+        public Boolean getOnlineOrder() {
+            return onlineOrder;
+        }
         public String getOrderid() {
             return orderid;
         }

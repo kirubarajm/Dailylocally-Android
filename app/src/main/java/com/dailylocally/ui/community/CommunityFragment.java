@@ -27,6 +27,7 @@ import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
+import com.dailylocally.ui.video.VideoActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.nhaarman.supertooltips.ToolTip;
@@ -170,10 +171,18 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     @Override
     public void sneakPeak() {
         if (mCommunityViewModel.sneakpeakVideoUrl != null) {
-            mCommunityViewModel.showVideo.set(true);
-            mFragmentCommunityBinding.videoPlayer.setSource(mCommunityViewModel.sneakpeakVideoUrl);
+
+            Intent tDintent = VideoActivity.newIntent(getBaseActivity());
+            tDintent.putExtra("video", mCommunityViewModel.sneakpeakVideoUrl);
+            startActivity(tDintent);
+            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+          //  mCommunityViewModel.showVideo.set(true);
+         //   mFragmentCommunityBinding.videoPlayer.setSource(mCommunityViewModel.sneakpeakVideoUrl);
             //   mFragmentCommunityBinding.videoPlayer.setSource("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
         }
+
+
     }
 
     @Override

@@ -24,4 +24,5 @@ public interface CartNavigator {
 
     void applyCoupon();
 
+    void orderPlaced();
 }

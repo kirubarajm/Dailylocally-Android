@@ -305,10 +305,10 @@
                             android:text="@string/bill_details" />
 
                         <LinearLayout
-                            android:orientation="vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="20dp"
+                            android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recyclerview_bill"
@@ -322,12 +322,11 @@
                                 tools:listitem="@layout/list_item_cart_bill" />
 
 
-
                             <LinearLayout
-                                android:visibility="@{cartViewModel.communityUser?View.VISIBLE:View.GONE}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="@{cartViewModel.communityUser?View.VISIBLE:View.GONE}">
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -344,13 +343,12 @@
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                            android:textSize="@dimen/_22px"
-                                            android:textColor="@color/colorPrimary"
                                             android:id="@+id/name"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="@{cartViewModel.delivery_charge_text}" />
-
+                                            android:text="@{cartViewModel.delivery_charge_text}"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="@dimen/_22px" />
 
 
                                     </RelativeLayout>
@@ -377,8 +375,8 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:text="@{cartViewModel.delivery_charge}"
-                                                android:textSize="@dimen/_22px"
-                                                android:textColor="@color/colorPrimary"/>
+                                                android:textColor="@color/colorPrimary"
+                                                android:textSize="@dimen/_22px" />
 
                                         </LinearLayout>
 
@@ -386,8 +384,6 @@
                                     </RelativeLayout>
 
                                 </RelativeLayout>
-
-
 
 
                             </LinearLayout>
@@ -556,25 +552,25 @@
 
 
                             <androidx.cardview.widget.CardView
-                                android:layout_marginTop="10dp"
-                                android:visibility="@{cartViewModel.communityUser?View.VISIBLE:View.GONE}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:visibility="@{cartViewModel.communityUser?View.VISIBLE:View.GONE}"
                                 app:cardBackgroundColor="@color/colorPrimary"
                                 app:cardCornerRadius="10dp"
                                 app:cardElevation="0dp">
 
                                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                    android:textAlignment="center"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/_10px"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginEnd="10dp"
                                     android:layout_marginBottom="5dp"
-                                    android:text="@{cartViewModel.exclusiveTag}" />
+                                    android:text="@{cartViewModel.exclusiveTag}"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_10px" />
 
 
                             </androidx.cardview.widget.CardView>
@@ -613,7 +609,105 @@
                         android:text="@{cartViewModel.bookDeliveryText}"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_25px" />
+                        android:textSize="@dimen/_25px"
+                        android:visibility="@{cartViewModel.communityUser?View.GONE:View.VISIBLE}" />
+
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="horizontal"
+                        android:visibility="@{cartViewModel.communityUser?View.VISIBLE:View.GONE}">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+
+                            <RelativeLayout
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/btn_back_black"
+                                android:onClick="@{()->cartViewModel.proceedtopay()}">
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:orientation="vertical">
+
+                                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:text="@string/pay_online"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/medium_black"
+                                        android:textSize="@dimen/_22px" />
+
+                                </LinearLayout>
+                            </RelativeLayout>
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+
+                            <RelativeLayout
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/btn_back_green"
+                                android:onClick="@{()->cartViewModel.cod()}">
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:orientation="vertical">
+
+                                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:text="@string/pay_offline"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/colorPrimary"
+                                        android:textSize="@dimen/_22px" />
+
+                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:text="@string/cash_on_delivery"
+                                        android:textColor="@color/medium_black"
+                                        android:textSize="@dimen/_10px" />
+
+
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

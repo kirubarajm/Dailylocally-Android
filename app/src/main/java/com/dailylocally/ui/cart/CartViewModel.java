@@ -403,6 +403,111 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
     }
 
+
+    public void cod() {
+
+        if (available.get()) {
+
+
+            if (getNavigator() != null)
+                getNavigator().clearToolTips();
+
+
+            if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+            if (!loading.get()) {
+
+                if (getCartPojoDetails() != null) {
+
+                    loading.set(true);
+                    Gson sGson = new GsonBuilder().create();
+                    CartRequest cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+
+                    cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
+                    cartRequestPojo.setLat(getDataManager().getCurrentLat());
+                    cartRequestPojo.setLon(getDataManager().getCurrentLng());
+                    cartRequestPojo.setAid(getDataManager().getAddressId());
+                    cartRequestPojo.setPayment_type(0);
+                    cartRequestPojo.setCid(getDataManager().getCouponId());
+
+                    Gson gson = new Gson();
+                    String carts = gson.toJson(cartRequestPojo);
+
+                    try {
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_PROCEED_TO_PAY, new JSONObject(carts), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                if (response != null) {
+                                    loading.set(false);
+                                    Gson gson = new Gson();
+                                    OrderCreateResponse orderCreateResponse = gson.fromJson(response.toString(), OrderCreateResponse.class);
+
+                                    if (orderCreateResponse.getStatus()) {
+
+                                        getDataManager().setCartDetails(null);
+
+                                        if (getNavigator() != null)
+                                            getNavigator().orderPlaced();
+                                    } else {
+                                        Toast.makeText(DailylocallyApp.getInstance(), orderCreateResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                loading.set(false);
+                            }
+                        }) {
+                            /**
+                             * Passing some request headers
+                             */
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                            }
+                        };
+
+                        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                        DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
+                    } catch (JSONException j) {
+                        loading.set(false);
+                        if (getNavigator() != null)
+                            getNavigator().cartLoaded();
+                        emptyCart.set(true);
+                        j.printStackTrace();
+                    } catch (NullPointerException n) {
+                        loading.set(false);
+                        if (getNavigator() != null)
+                            getNavigator().cartLoaded();
+                        emptyCart.set(true);
+                        n.printStackTrace();
+                    } catch (Exception ee) {
+                        loading.set(false);
+                        if (getNavigator() != null)
+                            getNavigator().cartLoaded();
+                        emptyCart.set(true);
+                        ee.printStackTrace();
+                    }
+
+                } else {
+                    loading.set(false);
+                    emptyCart.set(true);
+                }
+
+            }
+
+        } else {
+            loading.set(false);
+            getNavigator().showToast(statusMessage.get());
+        }
+    }
+
     public String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";
         String outputPattern = "dd-MM-yyyy";

@@ -1,6 +1,7 @@
 package com.dailylocally.ui.transactionHistory;
 
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.dailylocally.ui.cart.CartResponse;
@@ -17,7 +18,7 @@ public class TransactionHistoryItemViewModel {
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> transactionTime = new ObservableField<>();
     public final ObservableField<String> productCount = new ObservableField<>();
-
+    public final ObservableBoolean onlineOrder = new ObservableBoolean();
     public final TransactionHistoryViewModelListener mListener;
     private final TransactionHistoryResponse.Result cartdetail;
 
@@ -26,8 +27,19 @@ public class TransactionHistoryItemViewModel {
         this.mListener = mListener;
 
         transactionId.set(String.valueOf(cartdetail.getOrderid()));
-        paymentId.set(String.valueOf(cartdetail.getTsid()));
+
         price.set(String.valueOf(cartdetail.getPrice()));
+
+        if (cartdetail.getOnlineOrder()){
+            paymentId.set( "Payment ID : "+String.valueOf(cartdetail.getTsid()));
+
+        }else {
+            paymentId.set("Cash on delivery");
+        }
+
+
+
+
         if (cartdetail.getItems().equals("1")) {
             productCount.set("(" + cartdetail.getItems() + " item)");
         }else {
