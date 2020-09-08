@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -284,6 +287,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             mActivityOnboardingBinding.relViewPager.setVisibility(View.VISIBLE);
         }else {
             mActivityOnboardingBinding.relViewPager.setVisibility(View.GONE);
+            mActivityOnboardingBinding.layoutDots.setVisibility(View.GONE);
         }
 
         LinearLayoutManager mLayoutManager
@@ -485,6 +489,11 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         mActivityOnboardingBinding.txtLocation.setText(result.getCommunityAddress());
         mActivityOnboardingBinding.txtNoOfApartments.setText(result.getNoOfApartments());
         mActivityOnboardingBinding.txtStatus.setText(result.getStatus_msg());
+        if (result.getStatus()==0){
+            mActivityOnboardingBinding.txtStatus.setTextColor(getResources().getColor(R.color.black));
+        }else {
+            mActivityOnboardingBinding.txtStatus.setTextColor(getResources().getColor(R.color.dl_green));
+        }
         /*if (result.getStatus()!=null && result.getStatus()==1) {
             mActivityOnboardingBinding.txtStatus.setText(result.getStatus_msg());
         }else {
@@ -494,8 +503,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         mOnBoardingActivityViewModel.cmId.set(String.valueOf(result.getComid()));
 
         LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
-        mMap.addMarker(new
-                MarkerOptions().position(currentLocation).title(result.getCommunityname()));
+        //mMap.addMarker(new
+                //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -732,7 +741,23 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     assert imageBitmap != null;
                     imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
                     mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
-                    mActivityOnboardingBinding.imgJoin.setImageBitmap(imageBitmap);
+                    //mActivityOnboardingBinding.imgJoin.setImageBitmap(imageBitmap);
+
+                    Bitmap bitmap = imageBitmap;
+                    Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+                    BitmapShader shader = new BitmapShader (bitmap,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                    Paint paint = new Paint();
+                    paint.setShader(shader);
+                    paint.setAntiAlias(true);
+                    Canvas c = new Canvas(circleBitmap);
+                    c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+
+                    mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
+
+
+
+
                     //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                     mOnBoardingActivityViewModel.uploadImage(imageBitmap, AppConstants.IMAGE_UPLOAD_JOIN);
                 }
@@ -755,7 +780,20 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 assert imageBitmap1 != null;
                 imageBitmap1.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
                 mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
-                mActivityOnboardingBinding.imgRegistration.setImageBitmap(imageBitmap1);
+                //mActivityOnboardingBinding.imgRegistration.setImageBitmap(imageBitmap1);
+
+
+                Bitmap bitmap = imageBitmap1;
+                Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+                BitmapShader shader = new BitmapShader (bitmap,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                Paint paint = new Paint();
+                paint.setShader(shader);
+                paint.setAntiAlias(true);
+                Canvas c = new Canvas(circleBitmap);
+                c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+
+                mActivityOnboardingBinding.imgRegistration.setImageBitmap(circleBitmap);
                 //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(true);
                 mOnBoardingActivityViewModel.uploadImage(imageBitmap1, AppConstants.IMAGE_UPLOAD_REGISTRATION);
             } else {

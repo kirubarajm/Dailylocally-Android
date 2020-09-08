@@ -97,7 +97,10 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
 
     @Override
     public void changeHeader(String headerContent) {
-        mActivityContactWhatsAppBinding.txtName.setText(Html.fromHtml(headerContent));
+        //mActivityContactWhatsAppBinding.txtName.setText(Html.fromHtml(headerContent));
+
+        mActivityContactWhatsAppBinding.txtName.setText(Html.fromHtml(
+                "<small>" + headerContent + "</small>" +"<b>" + " "+mOnBoardingActivityViewModel.getDataManager().getCurrentUserName() + "</b>" +","));
     }
 
     @Override

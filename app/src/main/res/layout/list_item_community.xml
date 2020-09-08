@@ -33,6 +33,8 @@
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                     android:text="@{communityItemViewModel.communityName}"
                     android:id="@+id/txt_1"
+                    android:gravity="center"
+                    android:textSize="@dimen/_15px"
                     android:textColor="@color/dl_green"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
@@ -40,8 +42,10 @@
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_below="@+id/txt_1"
-                    android:text="36 members"
+                    android:text="@{communityItemViewModel.residencesCount}"
                     android:id="@+id/txt_2"
+                    android:textSize="@dimen/_12px"
+                    android:gravity="center"
                     android:layout_marginTop="5dp"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
@@ -50,15 +54,19 @@
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_below="@+id/txt_2"
                     android:id="@+id/txt_3"
+                    android:textSize="@dimen/_12px"
+                    android:gravity="center"
                     android:layout_marginTop="5dp"
-                    android:text="Egmore, Chennai"
+                    android:text="@{communityItemViewModel.location}"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_below="@+id/txt_3"
-                    android:text="500 metres"
+                    android:text="@{communityItemViewModel.distance}"
+                    android:gravity="center"
+                    android:textSize="@dimen/_12px"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"

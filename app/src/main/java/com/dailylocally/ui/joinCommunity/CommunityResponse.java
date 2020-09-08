@@ -86,7 +86,21 @@ public class CommunityResponse {
         @SerializedName("status_msg")
         @Expose
         public String status_msg;
+        @SerializedName("distance")
+        @Expose
+        public String distance;
+        @SerializedName("distance_text")
+        @Expose
+        public String distance_text;
 
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public String getDistance_text() {
+            return distance_text;
+        }
 
         public String getArea() {
             return area;
