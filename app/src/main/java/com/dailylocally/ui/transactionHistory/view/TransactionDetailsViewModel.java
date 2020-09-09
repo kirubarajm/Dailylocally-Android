@@ -104,7 +104,16 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
                                         getNavigator().success(response.getResult().get(0).getTransactionTime());
                                     }
                                     transactionTime.set(response.getResult().get(0).getTransactionTime());
-                                    paymentId.set(String.valueOf(response.getResult().get(0).getTsid()));
+                               //     paymentId.set(String.valueOf(response.getResult().get(0).getTsid()));
+
+                                    if (response.getResult().get(0).getOnlineOrder()){
+                                        paymentId.set( "Payment ID : "+String.valueOf(response.getResult().get(0).getOnlineOrder()));
+
+                                    }else {
+                                        paymentId.set("Cash on delivery");
+                                    }
+
+
                                     transactionOrderId.set(String.valueOf(response.getResult().get(0).getOrderid()));
                                     price.set(String.valueOf(response.getResult().get(0).getPrice()));
                                     if (response.getResult().get(0).getItemscount()==1) {

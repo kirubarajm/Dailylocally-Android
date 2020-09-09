@@ -7,9 +7,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:hardwareAccelerated="true"
         android:name=".utilities.DailylocallyApp"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,8 +17,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.main.MainActivity"
-            android:screenOrientation="locked" >
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="locked">
 
         </activity>
         <activity
@@ -86,6 +87,10 @@
         <activity
             android:name=".ui.signup.SignUpActivity"
             android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.video.VideoActivity"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
+            android:screenOrientation="sensor" />
 
         <activity
             android:name=".ui.category.l1.CategoryL1Activity"
@@ -108,8 +113,9 @@
         <activity
             android:name=".ui.calendarView.CalendarActivity"
             android:screenOrientation="locked" />
-        <activity android:name=".ui.address.addAddress.AddressNewActivity"
-            android:screenOrientation="locked" >
+        <activity
+            android:name=".ui.address.addAddress.AddressNewActivity"
+            android:screenOrientation="locked">
 
         </activity>
         <activity
@@ -124,7 +130,7 @@
         <activity
             android:name=".ui.coupons.CouponsActivity"
             android:screenOrientation="locked" />
- <activity
+        <activity
             android:name=".ui.category.viewall.CatProductActivity"
             android:screenOrientation="locked" />
 
@@ -160,7 +166,7 @@
             android:screenOrientation="locked" />
         <activity
             android:name=".ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity"
-            android:screenOrientation="locked" >
+            android:screenOrientation="locked">
 
         </activity>
 
@@ -217,6 +223,7 @@
             android:screenOrientation="locked">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -227,6 +234,7 @@
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -238,6 +246,7 @@
 
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -250,6 +259,7 @@
 
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -260,6 +270,7 @@
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -270,6 +281,7 @@
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -280,23 +292,29 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.communityOnboarding.CommunityOnBoardingActivity"
+        <activity
+            android:name=".ui.communityOnboarding.CommunityOnBoardingActivity"
             android:screenOrientation="locked">
 
 
         </activity>
 
-        <activity android:name=".ui.joinCommunity.CommunityActivity"
+        <activity
+            android:name=".ui.joinCommunity.CommunityActivity"
             android:screenOrientation="locked">
 
 
         </activity>
+
         <activity android:name=".ui.joinCommunity.communityLocation.CommunityAddressActivity"
             android:screenOrientation="locked"/>
         <activity android:name=".ui.joinCommunity.viewProfilePic.ViewPhotoActivity"
             android:screenOrientation="locked">
 
         </activity>
+
+
+
         <activity android:name=".ui.aboutus.AboutUsActivity" />
 
 

@@ -117,6 +117,14 @@ public class TransactionHistoryResponse {
         @Expose
         public String items;
 
+ @SerializedName("online_order")
+        @Expose
+        public Boolean onlineOrder;
+
+        public Boolean getOnlineOrder() {
+            return onlineOrder;
+        }
+
         public String getItems() {
             return items;
         }
