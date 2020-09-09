@@ -51,7 +51,7 @@
                 android:background="@color/white"
                 android:focusable="true"
                 app:iconifiedByDefault="false"
-                app:queryHint="Search here" />
+                app:queryHint="Search for your community or apartment" />
 
         </androidx.cardview.widget.CardView>
 
