@@ -43,10 +43,16 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
     private MutableLiveData<List<CommunityResponse.Result>> communityItemsLiveData;
     public final ObservableField<String> cmId = new ObservableField<>();
 
+
     public final ObservableBoolean register = new ObservableBoolean();
     public final ObservableBoolean joinExpandView = new ObservableBoolean();
     public final ObservableBoolean joinTheCommunity = new ObservableBoolean();
     public final ObservableBoolean completeRegistration = new ObservableBoolean();
+
+
+
+    public final ObservableBoolean flagRemovePicJoin = new ObservableBoolean();
+    public final ObservableBoolean flagRemovePicReg = new ObservableBoolean();
     String imageUrl = "";
 
 
@@ -95,6 +101,18 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
     public void joinCommunityUploadImageClick(){
         if (getNavigator()!=null){
             getNavigator().uploadJoinImageClick();
+        }
+    }
+
+    public void closeClick(){
+        if (getNavigator()!=null){
+            getNavigator().close();
+        }
+    }
+
+    public void closeRegClick(){
+        if (getNavigator()!=null){
+            getNavigator().close();
         }
     }
 
