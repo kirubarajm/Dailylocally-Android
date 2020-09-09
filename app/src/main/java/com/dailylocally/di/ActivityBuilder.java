@@ -74,6 +74,8 @@ import com.dailylocally.ui.favourites.products.FavProductsProvider;
 import com.dailylocally.ui.home.HomeProvider;
 import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
 import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppModule;
+import com.dailylocally.ui.joinCommunity.viewProfilePic.ViewPhotoActivity;
+import com.dailylocally.ui.joinCommunity.viewProfilePic.ViewPhotoModule;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.main.MainActivityModule;
 import com.dailylocally.ui.onboarding.OnBoardingActivity;
@@ -270,5 +272,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {ContactWhatsAppModule.class})
     abstract ContactWhatsAppActivity bindContactWhatsAppActivity();
+
+    @ContributesAndroidInjector(modules = {ViewPhotoModule.class})
+    abstract ViewPhotoActivity bindViewPhotoActivity();
 
 }

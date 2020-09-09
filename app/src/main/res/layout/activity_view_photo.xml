@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewPhotoViewModel"
+            type="com.dailylocally.ui.joinCommunity.viewProfilePic.ViewPhotoViewModel" />
+    </data>
+
+    <ScrollView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:scaleType="fitCenter"
+                android:id="@+id/img_preview"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"/>
+
+            <LinearLayout
+                android:layout_below="@+id/img_preview"
+                android:weightSum="2"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        android:text="Edit"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/gradient_bt_back"
+                        android:id="@+id/txt_edit"
+                        android:layout_marginLeft="20dp"
+                        android:onClick="@{()->viewPhotoViewModel.editClick()}"
+                        android:textSize="@dimen/_22px"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/white"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"/>
+
+                <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                    android:layout_weight="1"
+                    android:text="Remove"
+                    android:background="@drawable/gradient_bt_back"
+                    android:gravity="center"
+                    android:onClick="@{()->viewPhotoViewModel.removeClick()}"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="@dimen/_22px"
+                    android:textColor="@color/white"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</layout>

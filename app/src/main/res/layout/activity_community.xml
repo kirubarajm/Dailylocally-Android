@@ -185,17 +185,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.dailylocally.utilities.RoundCornerImageView
-                            android:id="@+id/img_registration"
-                            android:onClick="@{()->communityViewModel.registerCommunityUploadImageClick()}"
+                        <RelativeLayout
                             android:layout_centerHorizontal="true"
-                            android:src="@drawable/ic_group_482"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"/>
+                            android:id="@+id/rel_img_reg"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp">
+
+                            <com.dailylocally.utilities.RoundCornerImageView
+                                android:id="@+id/img_registration"
+                                android:onClick="@{()->communityViewModel.registerCommunityUploadImageClick()}"
+                                android:src="@drawable/ic_group_482"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"/>
+
+                            <ImageView
+                                android:onClick="@{()->communityViewModel.closeRegClick()}"
+                                android:layout_alignParentEnd="true"
+                                android:src="@mipmap/ic_close"
+                                android:visibility="@{communityViewModel.flagRemovePicReg?View.VISIBLE:View.GONE}"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"/>
+
+                        </RelativeLayout>
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="Upload profile photo"
-                            android:layout_below="@+id/img_registration"
+                            android:layout_below="@+id/rel_img_reg"
                             android:layout_marginTop="5dp"
                             android:id="@+id/txt_upload"
                             android:layout_centerHorizontal="true"
@@ -322,17 +337,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.dailylocally.utilities.RoundCornerImageView
-                            android:id="@+id/img_join"
-                            android:onClick="@{()->communityViewModel.joinCommunityUploadImageClick()}"
+                        <RelativeLayout
                             android:layout_centerHorizontal="true"
-                            android:src="@drawable/ic_group_482"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"/>
+                            android:id="@+id/rel_img_join"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp">
+
+                            <com.dailylocally.utilities.RoundCornerImageView
+                                android:id="@+id/img_join"
+                                android:onClick="@{()->communityViewModel.joinCommunityUploadImageClick()}"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/ic_group_482"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"/>
+
+                            <ImageView
+                                android:onClick="@{()->communityViewModel.closeClick()}"
+                                android:layout_alignParentEnd="true"
+                                android:src="@mipmap/ic_close"
+                                android:visibility="@{communityViewModel.flagRemovePicJoin?View.VISIBLE:View.GONE}"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"/>
+
+                        </RelativeLayout>
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                             android:text="Upload profile photo"
-                            android:layout_below="@+id/img_join"
+                            android:layout_below="@+id/rel_img_join"
                             android:layout_marginTop="5dp"
                             android:id="@+id/txt_upload1"
                             android:layout_centerHorizontal="true"

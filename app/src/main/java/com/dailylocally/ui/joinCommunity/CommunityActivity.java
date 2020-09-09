@@ -14,13 +14,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -53,9 +51,6 @@ import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActiv
 import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
-import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
-import com.dailylocally.ui.productDetail.ProductDetailsActivity;
-import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -65,12 +60,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.ByteArrayOutputStream;
@@ -172,14 +165,62 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);
+/*
+        try {
+            if (imageBitmap == null){
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);
+            }else {
+                //Intent intent = ViewPhotoActivity.newIntent(this);
+                //intent.putExtra("imgurl", imageUrl);
+                //startActivity(intent);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+*/
+    }
+
+    @Override
+    public void close() {
+        imageBitmap = null;
+        imageUrl = "";
+        mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
+        mActivityOnboardingBinding.imgJoin.setBackgroundResource(R.drawable.ic_group_482);
+        mOnBoardingActivityViewModel.flagRemovePicJoin.set(false);
+    }
+
+    @Override
+    public void closeReg() {
+        imageBitmap1 = null;
+        imageUrl1 = "";
+        mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
+        mActivityOnboardingBinding.imgRegistration.setBackgroundResource(R.drawable.ic_group_482);
+        mOnBoardingActivityViewModel.flagRemovePicReg.set(false);
     }
 
     @Override
     public void uploadRegisterImageClick() {
-        imageBitmap1 = null;
+        imageBitmap1=null;
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_REGISTRATION);
+/*
+        try {
+            if (imageBitmap1==null) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_REGISTRATION);
+            }else {
+                //Intent intent = ViewPhotoActivity.newIntent(this);
+                //intent.putExtra("imgurl", imageUrl1);
+                //startActivity(intent);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+*/
     }
 
     @Override
@@ -752,14 +793,13 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     paint.setAntiAlias(true);
                     Canvas c = new Canvas(circleBitmap);
                     c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
-
+                    mActivityOnboardingBinding.imgJoin.setBackgroundResource(0);
                     mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
-
-
 
 
                     //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                     mOnBoardingActivityViewModel.uploadImage(imageBitmap, AppConstants.IMAGE_UPLOAD_JOIN);
+                    mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -793,9 +833,11 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 Canvas c = new Canvas(circleBitmap);
                 c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
 
+                mActivityOnboardingBinding.imgRegistration.setBackgroundResource(0);
                 mActivityOnboardingBinding.imgRegistration.setImageBitmap(circleBitmap);
                 //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(true);
                 mOnBoardingActivityViewModel.uploadImage(imageBitmap1, AppConstants.IMAGE_UPLOAD_REGISTRATION);
+                mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
             } else {
                 mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
                 //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(false);

@@ -14,6 +14,10 @@ public interface CommunityActivityNavigator {
 
     void uploadJoinImageClick();
 
+    void close();
+
+    void closeReg();
+
     void uploadRegisterImageClick();
 
     void joinTheCommunityClick();
