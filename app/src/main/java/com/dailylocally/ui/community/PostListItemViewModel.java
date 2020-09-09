@@ -47,12 +47,19 @@ public class PostListItemViewModel {
         this.mListener = mListener;
         this.posts = result;
 
-        postTitle.set(result.getAuthor().getDisplayName());
+     //  postTitle.set(result.getAuthor().getDisplayName());
+        postTitle.set(result.getSource().getTitle());
         postDes.set(result.getText());
         postDate.set(getDate(result.getCreatedAt()));
         actionText.set(result.getButton().getTitle());
-        showAction.set(result.getButton().getAction() != null);
-        icon.set(result.getAuthor().getAvatarUrl());
+
+        if (result.getButton()!=null){
+            if (result.getButton().getAction() != null)
+                showAction.set(true);
+        }
+
+        //showAction.set(result.getButton().getAction() != null);
+        icon.set(result.getSource().getAvatarUrl());
 
 
         if (result.getAttachments() != null)

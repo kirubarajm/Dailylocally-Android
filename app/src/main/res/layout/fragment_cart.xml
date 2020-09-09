@@ -632,7 +632,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="5dp"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="40dp"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@drawable/btn_back_black"
                                 android:onClick="@{()->cartViewModel.proceedtopay()}">
@@ -670,7 +670,7 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="40dp"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@drawable/btn_back_green"
                                 android:onClick="@{()->cartViewModel.cod()}">
@@ -686,18 +686,18 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical|center_horizontal"
-                                        android:text="@string/pay_offline"
+                                        android:text="@string/cash_on_delivery"
                                         android:textAllCaps="true"
                                         android:textColor="@color/colorPrimary"
                                         android:textSize="@dimen/_22px" />
 
-                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                   <!-- <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical|center_horizontal"
                                         android:text="@string/cash_on_delivery"
                                         android:textColor="@color/medium_black"
-                                        android:textSize="@dimen/_10px" />
+                                        android:textSize="@dimen/_10px" />-->
 
 
                                 </LinearLayout>

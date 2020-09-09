@@ -403,7 +403,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }, 2000);
 
         } else {
-            openHome();
+           // openHome();
+            mMainViewModel.getUserDetails();
         }
 
 

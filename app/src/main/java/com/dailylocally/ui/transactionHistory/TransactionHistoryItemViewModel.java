@@ -46,23 +46,41 @@ public class TransactionHistoryItemViewModel {
             productCount.set("(" + cartdetail.getItems() + " items)");
         }
 
-        String strDateTime = cartdetail.getTransactionTime();
+        String strDateTime;
+        if (cartdetail.getOnlineOrder()){
+            strDateTime = cartdetail.getTransactionTime();
+
+        }else {
+            strDateTime = cartdetail.getCreatedAt();
+        }
+
+        transactionTime.set(getFormatedDate(strDateTime));
+
+
+    }
+
+
+    public String getFormatedDate(String cDate){
+
         String outputDateStr = "";
         try {
-            if (strDateTime != null) {
+            if (cDate != null) {
                 DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
                 DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                Date date = currentFormat.parse(strDateTime);
+                Date date = currentFormat.parse(cDate);
                 outputDateStr = dateFormat.format(date);
 
-                transactionTime.set(outputDateStr);
+
             }
         } catch (ParseException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return outputDateStr;
     }
+
+
 
     public void viewClick() {
         mListener.onItemClick(cartdetail);

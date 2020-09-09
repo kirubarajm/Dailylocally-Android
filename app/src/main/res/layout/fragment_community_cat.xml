@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whitegray">
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -83,26 +83,26 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
-                    android:background="@color/whitegray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="invisible">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="50dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginEnd="50dp"
                             android:layout_marginBottom="10dp"
                             app:cardBackgroundColor="@color/search_gray"
                             app:cardCornerRadius="1dp"
@@ -123,236 +123,266 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bottom_curve_stroke_white"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/user"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#C3C3C3">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:layout_alignParentBottom="true"
+                                android:background="@drawable/shadow" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bottom_curve_stroke_white"
+                                android:orientation="vertical">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="20dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:orientation="horizontal">
+
+
+                                        <com.dailylocally.utilities.CircularImageView
+                                            android:id="@+id/circleImage"
+                                            profileImage="@{communityCatViewModel.profilePic}"
+                                            android:layout_width="80dp"
+                                            android:layout_height="80dp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginStart="20dp"
+                                            android:orientation="vertical">
+
+                                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                style="@style/SubtTitleTextStyle"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="@{communityCatViewModel.name}" />
+
+
+                                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                                style="@style/ContentTextStyle"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:text="@{communityCatViewModel.welcomeText}" />
+
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="20dp"
+                                        android:layout_marginTop="40dp"
+                                        android:layout_marginEnd="20dp"
+                                        android:orientation="horizontal"
+                                        android:weightSum="4">
+
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentTop="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:gravity="center_horizontal"
+                                                android:orientation="vertical">
+
+                                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{communityCatViewModel.minValue}"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textSize="@dimen/_22px" />
+
+
+                                                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{communityCatViewModel.minValueText}"
+                                                    android:textAlignment="center"
+                                                    android:textColor="@color/medium_black"
+                                                    android:textSize="@dimen/_10px" />
+
+
+                                            </LinearLayout>
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="2">
+
+
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentTop="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:gravity="center_horizontal"
+                                                android:orientation="vertical">
+
+                                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{communityCatViewModel.freeDelivery}"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textSize="@dimen/_22px" />
+
+
+                                                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{communityCatViewModel.freeDeliveryText}"
+                                                    android:textAlignment="center"
+                                                    android:textColor="@color/medium_black"
+                                                    android:textSize="@dimen/_10px" />
+
+
+                                            </LinearLayout>
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentTop="true"
+                                                android:layout_centerHorizontal="true"
+                                                android:gravity="center_horizontal"
+                                                android:orientation="vertical">
+
+                                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{communityCatViewModel.cod}"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textSize="@dimen/_22px" />
+
+
+                                                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{communityCatViewModel.codText}"
+                                                    android:textAlignment="center"
+                                                    android:textColor="@color/medium_black"
+                                                    android:textSize="@dimen/_10px" />
+
+
+                                            </LinearLayout>
+
+
+                                        </RelativeLayout>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/user"
+                            android:background="@drawable/shadow2" />
 
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
-                            android:layout_marginBottom="20dp"
+                            android:layout_below="@+id/user"
+                            android:layout_marginTop="10dp"
                             android:orientation="vertical">
 
-                            <LinearLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/categoryList"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="10dp"
-                                android:orientation="horizontal">
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginEnd="5dp" />
 
 
-                                <com.dailylocally.utilities.CircularImageView
-                                    android:id="@+id/circleImage"
-                                    profileImage="@{communityCatViewModel.profilePic}"
-                                    android:layout_width="80dp"
-                                    android:layout_height="80dp" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="20dp"
-                                    android:orientation="vertical">
-
-                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                        style="@style/SubtTitleTextStyle"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@{communityCatViewModel.name}" />
-
-
-                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                        style="@style/ContentTextStyle"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:text="@{communityCatViewModel.welcomeText}" />
-
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <com.dailylocally.utilities.fonts.PromotionTextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="40dp"
-                                android:layout_marginEnd="20dp"
-                                android:orientation="horizontal"
-                                android:weightSum="4">
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="20dp"
+                                android:text="Freshly"
+                                android:textAlignment="center"
+                                android:textColor="@color/very_light_black"
+                                android:textSize="@dimen/_65px"
+                                android:textStyle="bold" />
 
+                            <com.dailylocally.utilities.fonts.PromotionTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="locally"
+                                android:textColor="@color/very_light_black"
+                                android:textSize="@dimen/_65px"
+                                android:textStyle="bold" />
 
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1">
+                            <com.dailylocally.utilities.fonts.PromotionTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="daily."
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_65px"
+                                android:textStyle="bold" />
 
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_centerHorizontal="true"
-                                        android:gravity="center_horizontal"
-                                        android:orientation="vertical">
-
-                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@{communityCatViewModel.minValue}"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="@dimen/_22px" />
-
-
-                                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                            android:textColor="@color/medium_black"
-                                            android:textAlignment="center"
-                                            android:textSize="@dimen/_10px"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@{communityCatViewModel.minValueText}" />
-
-
-                                    </LinearLayout>
-
-
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="2">
-
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_centerHorizontal="true"
-                                        android:gravity="center_horizontal"
-                                        android:orientation="vertical">
-
-                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@{communityCatViewModel.freeDelivery}"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="@dimen/_22px" />
-
-
-                                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                            android:textColor="@color/medium_black"
-                                            android:textAlignment="center"
-                                            android:textSize="@dimen/_10px"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@{communityCatViewModel.freeDeliveryText}" />
-
-
-                                    </LinearLayout>
-
-
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1">
-
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_centerHorizontal="true"
-                                        android:gravity="center_horizontal"
-                                        android:orientation="vertical">
-
-                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@{communityCatViewModel.cod}"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="@dimen/_22px" />
-
-
-                                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                                            android:textColor="@color/medium_black"
-                                            android:textAlignment="center"
-                                            android:textSize="@dimen/_10px"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@{communityCatViewModel.codText}" />
-
-
-                                    </LinearLayout>
-
-
-                                </RelativeLayout>
-                            </LinearLayout>
-
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="150dp"
+                                android:text="Right Food for all"
+                                android:textAlignment="center"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_28px" />
                         </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/categoryList"
-                        android:background="@color/gray"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="5dp" />
-
-
-                    <com.dailylocally.utilities.fonts.PromotionTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:text="Freshly"
-                        android:textAlignment="center"
-                        android:textColor="@color/very_light_black"
-                        android:textSize="@dimen/_65px"
-                        android:textStyle="bold" />
-
-                    <com.dailylocally.utilities.fonts.PromotionTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="locally"
-                        android:textColor="@color/very_light_black"
-                        android:textSize="@dimen/_65px"
-                        android:textStyle="bold" />
-
-                    <com.dailylocally.utilities.fonts.PromotionTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="daily."
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/_65px"
-                        android:textStyle="bold" />
-
-                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="150dp"
-                        android:text="Right Food for all"
-                        android:textAlignment="center"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/_28px" />
-
+                    </RelativeLayout>
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
@@ -370,9 +400,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="@color/search_gray"
                 app:cardCornerRadius="1dp"
@@ -402,20 +432,20 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_margin="15dp"
-                app:cardCornerRadius="20dp"
-                app:cardUseCompatPadding="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_margin="15dp"
                 android:onClick="@{()->communityCatViewModel.ratingClick()}"
-                android:visibility="@{communityCatViewModel.showRating?View.VISIBLE:View.GONE}">
+                android:visibility="@{communityCatViewModel.showRating?View.VISIBLE:View.GONE}"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="20dp"
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp">
 
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                         android:layout_width="wrap_content"
@@ -471,7 +501,6 @@
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-
 
 
             <LinearLayout

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ import im.getsocial.sdk.communities.CurrentUser;
 import im.getsocial.sdk.communities.GetSocialActivity;
 import im.getsocial.sdk.communities.Identity;
 import im.getsocial.sdk.communities.Reactions;
+import im.getsocial.sdk.communities.UserUpdate;
 import im.getsocial.sdk.media.MediaAttachment;
 import im.getsocial.sdk.ui.GetSocialUi;
 import im.getsocial.sdk.ui.MentionClickListener;
@@ -221,7 +223,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void stopVideo() {
-        mFragmentCommunityBinding.videoPlayer.stopPlayer();
+      //  mFragmentCommunityBinding.videoPlayer.stopPlayer();
     }
 
     @Override
@@ -328,7 +330,6 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             return;
         }
 
-
         currentUser.addIdentity(identity, new CompletionCallback() {
             @Override
             public void onSuccess() {
@@ -342,13 +343,22 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             }
         });
 
+        UserUpdate batchUpdate = new UserUpdate()
+                .updateAvatarUrl(mCommunityViewModel.profilePic.get())
+                .updateDisplayName(mCommunityViewModel.getDataManager().getCurrentUserName());
+             //   .setPublicProperty(publicProperty1, newPublicValue)
+             //   .removePublicProperty(publicProperty2)
+            //    .setPrivateProperty(privateProperty1, newPrivateValue)
+           //     .removePrivateProperty(privateProperty2)
 
-        Communities.addReaction(Reactions.LIKE, "", new CompletionCallback() {
+
+        currentUser.updateDetails(batchUpdate, new CompletionCallback() {
             @Override
             public void onSuccess() {
 
             }
-        }, new FailureCallback() {
+
+        },  new FailureCallback() {
             @Override
             public void onFailure(GetSocialError getSocialError) {
 
@@ -416,12 +426,12 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             //Get first post
             if (getSocialActivities != null && getSocialActivities.size() > 0) {
                 firstPost = getSocialActivities.get(0);
-                mCommunityViewModel.postTitle.set(firstPost.getAuthor().getDisplayName());
+                mCommunityViewModel.postTitle.set(firstPost.getSource().getTitle());
                 mCommunityViewModel.postDes.set(firstPost.getText());
                 mCommunityViewModel.postDate.set(getDate(firstPost.getCreatedAt()));
                 mCommunityViewModel.actionText.set(firstPost.getButton().getTitle());
                 mCommunityViewModel.showAction.set(firstPost.getButton().getAction() != null);
-                mCommunityViewModel.icon.set(firstPost.getAuthor().getAvatarUrl());
+                mCommunityViewModel.icon.set(firstPost.getSource().getAvatarUrl());
 
                 //   String ssss=firstPost.getMyReactions().
 

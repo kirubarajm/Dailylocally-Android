@@ -1,5 +1,6 @@
 package com.dailylocally.ui.account;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.android.volley.Request;
@@ -8,9 +9,12 @@ import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.community.CommunityUserDetailsResponse;
 import com.dailylocally.ui.signup.registration.GetUserDetailsResponse;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import dagger.Module;
 
@@ -23,13 +27,34 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public final ObservableField<String> userPhoneNo = new ObservableField<>();
     public final ObservableField<String> gender = new ObservableField<>();
     public final ObservableField<String> regionname = new ObservableField<>();
-
+    public final ObservableBoolean showCommunity = new ObservableBoolean();
     private GetUserDetailsResponse getUserDetailsResponse;
 
 
     public MyAccountViewModel(DataManager dataManager) {
         super(dataManager);
         //fetchUserDetails();
+
+
+
+        if (getDataManager().getUserDetails() != null) {
+
+            Gson sGson = new GsonBuilder().create();
+            CommunityUserDetailsResponse communityUserDetailsResponse = sGson.fromJson(getDataManager().getUserDetails(), CommunityUserDetailsResponse.class);
+            if (communityUserDetailsResponse != null) {
+                if (communityUserDetailsResponse.getResult() != null) {
+                    if (communityUserDetailsResponse.getResult().size() > 0) {
+                        CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
+
+                     showCommunity.set(true);
+
+                    }
+                }
+
+            }
+
+        }
+
     }
 
     public void loadUserDetails() {
