@@ -15,7 +15,7 @@
     <RelativeLayout
         android:onClick="@{()->communityItemViewModel.onItemClick()}"
         android:layout_marginRight="5dp"
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
@@ -25,7 +25,10 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:padding="30dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -57,6 +60,8 @@
                     android:textSize="@dimen/_12px"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="@{communityItemViewModel.location}"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
