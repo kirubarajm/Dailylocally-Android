@@ -8,8 +8,17 @@ public class SearchCommunityRequest {
     @SerializedName("search")
     @Expose
     public String search;
+    @SerializedName("lat")
+    @Expose
+    public String lat;
+    @SerializedName("lon")
+    @Expose
+    public String lon;
 
-    public SearchCommunityRequest(String search) {
+
+    public SearchCommunityRequest(String search, String lat, String lon) {
         this.search = search;
+        this.lat = lat;
+        this.lon = lon;
     }
 }

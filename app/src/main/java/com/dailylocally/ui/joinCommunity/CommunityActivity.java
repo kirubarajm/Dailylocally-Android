@@ -32,6 +32,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,6 +112,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
     @Inject
     CommunityAdapter mCommunityAdapter;
+    int count =0;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, CommunityActivity.class);
@@ -325,10 +328,12 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
         int firstTime = mOnBoardingActivityViewModel.getDataManager().getFirstTimeLaunchCommunity();
         if (firstTime==0){
-            mActivityOnboardingBinding.relViewPager.setVisibility(View.VISIBLE);
+            mActivityOnboardingBinding.relViewPager.setVisibility(View.GONE);
+            mActivityOnboardingBinding.relOnboardingAll.setVisibility(View.VISIBLE);
         }else {
             mActivityOnboardingBinding.relViewPager.setVisibility(View.GONE);
             mActivityOnboardingBinding.layoutDots.setVisibility(View.GONE);
+            mActivityOnboardingBinding.relOnboardingAll.setVisibility(View.GONE);
         }
 
         LinearLayoutManager mLayoutManager
@@ -425,6 +430,67 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
             }
         });
+
+
+            Spannable wordtoSpan2 = new SpannableString("Join Your Apartment Community \nAnd Order With No Minimum Value");
+            wordtoSpan2.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 45, 62, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            wordtoSpan2.setSpan(new ForegroundColorSpan(Color.WHITE), 5, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mActivityOnboardingBinding.txtContent.setText(wordtoSpan2);
+
+            Spannable wordtoSpan = new SpannableString("0 minimum basket value");
+            wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 13, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mActivityOnboardingBinding.txtMinimumBsktValue.setText(wordtoSpan);
+
+            Spannable wordtoSpan1 = new SpannableString("Free delivery");
+            wordtoSpan1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            wordtoSpan1.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mActivityOnboardingBinding.txtFreeDelivery.setText(wordtoSpan1);
+
+            Spannable wordtoSpan3 = new SpannableString("Register Your Community To Enjoy \nA Personalised Community Experience");
+            wordtoSpan3.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            wordtoSpan3.setSpan(new ForegroundColorSpan(Color.WHITE), 9, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mActivityOnboardingBinding.txtRegisterContent.setText(wordtoSpan3);
+
+        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+        Animation aniFadeOut = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
+           mActivityOnboardingBinding.relOnboardingAll.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   count++;
+                   if (count==0){
+                       mActivityOnboardingBinding.relOnboarding1.setVisibility(View.VISIBLE);
+                       mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
+                       mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
+                   }else if (count==1){
+                       mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
+                       mActivityOnboardingBinding.relOnboarding2.setVisibility(View.VISIBLE);
+                       mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
+
+
+                       mActivityOnboardingBinding.relOnboarding1.startAnimation(aniFadeOut);
+                       mActivityOnboardingBinding.relOnboarding2.startAnimation(aniFade);
+                   }else if (count==2){
+                       mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
+                       mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
+                       mActivityOnboardingBinding.relOnboarding3.setVisibility(View.VISIBLE);
+
+                       mActivityOnboardingBinding.relOnboarding2.startAnimation(aniFadeOut);
+                       mActivityOnboardingBinding.relOnboarding3.startAnimation(aniFade);
+                   }
+
+               }
+           });
+
+           mActivityOnboardingBinding.getStarted.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   mOnBoardingActivityViewModel.getDataManager().setFirstTimeLaunchCommunity(1);
+                   mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
+                   mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
+                   mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
+               }
+           });
 
     }
 
@@ -603,7 +669,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 });
             }
 
-            if (position==1) {
+            /*if (position==1) {
                 Spannable wordtoSpan = new SpannableString("Join Your Apartment Community \nAnd Order With No Minimum Value");
                 wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 45, 62, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 5, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -625,7 +691,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 9, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 register.setText(wordtoSpan);
-            }
+            }*/
 
             return view;
         }
