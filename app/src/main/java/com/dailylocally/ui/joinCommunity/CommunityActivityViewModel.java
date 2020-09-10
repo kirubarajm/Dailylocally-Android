@@ -153,7 +153,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
-            SearchCommunityRequest communityRequest = new SearchCommunityRequest(search);
+            SearchCommunityRequest communityRequest = new SearchCommunityRequest(search,getDataManager().getCurrentLat(),getDataManager().getCurrentLng());
             Gson gson = new GsonBuilder().create();
             String payloadStr = gson.toJson(communityRequest);
             JsonObjectRequest jsonObjectRequest = null;
