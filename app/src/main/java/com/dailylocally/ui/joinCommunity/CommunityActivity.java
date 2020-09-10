@@ -587,6 +587,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             container.addView(view);
             TextView txtContent = view.findViewById(R.id.txt_content);
             TextView minimumBsktValue = view.findViewById(R.id.txt_minimum_bskt_value);
+            TextView freeDelivery = view.findViewById(R.id.txt_free_delivery);
             TextView register = view.findViewById(R.id.txt_register_content);
             if (position==2) {
                 ButtonTextView textView = view.findViewById(R.id.get_started);
@@ -613,6 +614,11 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 13, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 minimumBsktValue.setText(wordtoSpan);
+
+                Spannable wordtoSpan1 = new SpannableString("Free delivery");
+                wordtoSpan1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                wordtoSpan1.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                freeDelivery.setText(wordtoSpan1);
             }
             if (position==2) {
                 Spannable wordtoSpan = new SpannableString("Register Your Community To Enjoy \nA Personalised Community Experience");

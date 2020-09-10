@@ -372,6 +372,7 @@
 
                         <LinearLayout
                             android:weightSum="2"
+                            android:layout_marginTop="30dp"
                             android:layout_marginBottom="10dp"
                             android:orientation="horizontal"
                             android:layout_below="@+id/txt_upload1"
@@ -432,6 +433,7 @@
                 android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
                 android:id="@+id/recycler_community"
                 android:orientation="horizontal"
+                android:layout_marginBottom="30dp"
                 adapter="@{communityViewModel.communityItemViewModels}"
                 tools:listitem="@layout/list_item_community"
                 android:layout_width="wrap_content"

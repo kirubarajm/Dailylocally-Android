@@ -16,7 +16,7 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#961A1A1A">
+    android:background="#cc1A1A1A">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"/>
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:id="@+id/txt_4"
+                    android:id="@+id/txt_free_delivery"
                     android:textSize="@dimen/_12px"
                     android:textColor="@color/white"
                     android:layout_centerHorizontal="true"
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"/>
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:layout_below="@+id/txt_4"
+                    android:layout_below="@+id/txt_free_delivery"
                     android:id="@+id/txt_5"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12px"
