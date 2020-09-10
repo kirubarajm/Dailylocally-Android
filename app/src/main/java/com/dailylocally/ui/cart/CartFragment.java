@@ -19,6 +19,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCartBinding;
 import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
+import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.main.MainActivity;
@@ -162,7 +163,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = GoogleAddressActivity.newIntent(getContext());
+        Intent intent = ViewAddressActivity.newIntent(getContext());
         intent.putExtra("edit", "1");
         startActivity(intent);
     }
@@ -228,6 +229,39 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
         ((MainActivity) getActivity()).paymentSuccessed(true);
 
+    }
+
+    @Override
+    public void disableInfoClick() {
+        if (myToolTipView != null) {
+            myToolTipView.remove();
+            myToolTipView = null;
+            return;
+        }
+
+        ToolTip toolTip = new ToolTip()
+                .withContentView(LayoutInflater.from(DailylocallyApp.getInstance()
+                ).inflate(R.layout.tool_tip_info, null))
+                //  .withText(mCommunityViewModel.creditInfoText.get())
+                .withColor(DailylocallyApp.getInstance().getResources().getColor(R.color.lgray))
+                .withShadow()
+                .withTextColor(Color.BLACK)
+                .withAnimationType(ToolTip.AnimationType.NONE);
+        myToolTipView = mActivityCartBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mActivityCartBinding.codinfo);
+        //   myToolTipView = relativeLayout.showToolTipForView(toolTip,imageView);
+        TextView title = myToolTipView.findViewById(R.id.info);
+        title.setText(mCartViewModel.codUnavailableInfo);
+
+        myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+            @Override
+            public void onToolTipViewClicked(ToolTipView toolTipView) {
+
+                if (myToolTipView != null) {
+                    myToolTipView.remove();
+
+                }
+            }
+        });
     }
 
 

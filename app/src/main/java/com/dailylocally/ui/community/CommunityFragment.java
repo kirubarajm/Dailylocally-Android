@@ -236,7 +236,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     public void postLikeClick() {
 
 
-        if (mCommunityViewModel.showCreditsInfo.get()) {
+        if (mCommunityViewModel.postLike.get()) {
             Communities.removeReaction(Reactions.LIKE, firstPost.getId(), new CompletionCallback() {
                 @Override
                 public void onSuccess() {

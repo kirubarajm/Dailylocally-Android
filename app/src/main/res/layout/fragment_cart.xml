@@ -473,10 +473,7 @@
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <com.nhaarman.supertooltips.ToolTipRelativeLayout
-            android:id="@+id/activity_main_tooltipframelayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -661,12 +658,68 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
 
 
                             <RelativeLayout
+                                android:onClick="@{()->cartViewModel.disableInfoClick()}"
+                                android:id="@+id/disableCODInfo"
+                                android:visibility="@{cartViewModel.disableCOD?View.VISIBLE:View.GONE}"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/btn_back_gray">
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:orientation="horizontal">
+
+                                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:text="@string/cash_on_delivery"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/medium_gray"
+                                        android:textSize="@dimen/_22px" />
+
+
+
+                                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                                        android:id="@+id/codinfo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="5dp"
+                                        android:text="@string/info_symbol"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="@dimen/_22px"/>
+
+
+
+                                    <!-- <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                         android:layout_width="match_parent"
+                                         android:layout_height="wrap_content"
+                                         android:layout_gravity="center_vertical|center_horizontal"
+                                         android:text="@string/cash_on_delivery"
+                                         android:textColor="@color/medium_black"
+                                         android:textSize="@dimen/_10px" />-->
+
+
+                                </LinearLayout>
+                            </RelativeLayout>
+
+
+
+                            <RelativeLayout
+                                android:visibility="@{cartViewModel.disableCOD?View.GONE:View.VISIBLE}"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_width="match_parent"
@@ -759,6 +812,9 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-
+        <com.nhaarman.supertooltips.ToolTipRelativeLayout
+            android:id="@+id/activity_main_tooltipframelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 </layout>

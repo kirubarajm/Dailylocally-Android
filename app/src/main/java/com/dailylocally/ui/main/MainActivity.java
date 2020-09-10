@@ -87,7 +87,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String screenName = "";
     Snackbar snackbar;
 
-    String orderId,  customerId,  amount;
+    String orderId, customerId, amount;
     JSONObject options;
     boolean downloading;
 
@@ -159,7 +159,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
         mMainViewModel.toolbarTitle.set("Cart");
         mMainViewModel.titleVisible.set(true);
-
+        mMainViewModel.isCommunity.set(false);
+        mMainViewModel.isCommunityCat.set(false);
         mMainViewModel.isHome.set(false);
         mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(true);
@@ -186,7 +187,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.titleVisible.set(false);
 
         mMainViewModel.isCommunity.set(true);
+        mMainViewModel.isCommunityCat.set(false);
         mMainViewModel.isHome.set(false);
+
         mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(false);
         mMainViewModel.isOrder.set(false);
@@ -250,7 +253,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
         mMainViewModel.toolbarTitle.set("Home");
         mMainViewModel.titleVisible.set(false);
-
+        mMainViewModel.isCommunity.set(false);
+        mMainViewModel.isCommunityCat.set(false);
         mMainViewModel.isHome.set(true);
         mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(false);
@@ -273,7 +277,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         mMainViewModel.toolbarTitle.set("My Orders");
         mMainViewModel.titleVisible.set(true);
-
+        mMainViewModel.isCommunity.set(false);
+        mMainViewModel.isCommunityCat.set(false);
         mMainViewModel.isHome.set(false);
         mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(false);
@@ -315,7 +320,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.toolbarTitle.set("Search");
 
         mMainViewModel.titleVisible.set(false);
-
+        mMainViewModel.isCommunity.set(false);
+        mMainViewModel.isCommunityCat.set(false);
         mMainViewModel.isHome.set(false);
         mMainViewModel.isExplore.set(true);
         mMainViewModel.isCart.set(false);
@@ -340,6 +346,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         } catch (Exception ee) {
             ee.printStackTrace();
         }
+        mMainViewModel.isCommunity.set(false);
+        mMainViewModel.isCommunityCat.set(false);
+        mMainViewModel.isHome.set(false);
+        mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isMyAccount.set(true);
         mMainViewModel.toolbarTitle.set("My Account");
         mMainViewModel.titleVisible.set(true);
         mMainViewModel.updateAvailable.set(false);
@@ -403,15 +415,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }, 2000);
 
         } else {
-           // openHome();
-            mMainViewModel.getUserDetails();
+            // openHome();
+            if (mMainViewModel.isCommunityUser.get()) {
+                openCommunity();
+            } else {
+                openHome();
+            }
         }
 
 
     }
 
 
-    public void finishActivity(){
+    public void finishActivity() {
         finish();
     }
 
@@ -451,43 +467,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
 
-            switch (intent.getExtras().getString(AppConstants.PAGE, "")) {
+            mMainViewModel.getUserDetails(intent.getExtras().getString(AppConstants.PAGE, ""));
 
-                case AppConstants.NOTIFY_CART_FRAG:
-                    openCart(intent.getExtras().getString(AppConstants.PAGE, ""));
-                    break;
-
-                case AppConstants.NOTIFY_MYACCOUNT_FRAG:
-                    openAccount();
-                    break;
-
-                case AppConstants.NOTIFY_MY_ORDER_FRAG:
-                    openOrders();
-                    break;
-
-                case AppConstants.NOTIFY_HOME_FRAG:
-                  //  openHome();
-                    mMainViewModel.getUserDetails();
-                    break;
-
-                case AppConstants.NOTIFY_SEARCH_FRAG:
-                    openExplore();
-                    break;
-
-                case AppConstants.NOTIFY_CHAT:
-                    openChat();
-                    break;
-                default:
-                    //openHome();
-                    mMainViewModel.getUserDetails();
-
-            }
             if (intent.getExtras().getString("requestId") != null) {
                 RequestActivity.builder()
                         .withRequestId(intent.getExtras().getString("requestId"))
                         .show(this);
 
             }
+
+        } else {
+            if (mMainViewModel.isCommunityUser.get()) {
+                mMainViewModel.getUserDetails(AppConstants.NOTIFY_COMMUNITY_HOME_FRAG);
+            } else {
+                mMainViewModel.getUserDetails(AppConstants.NOTIFY_HOME_FRAG);
+            }
+
 
         }
 
@@ -587,6 +582,51 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
 
         }*/
+    }
+
+    @Override
+    public void pageNavigation(String pages) {
+        switch (pages) {
+
+            case AppConstants.NOTIFY_CART_FRAG:
+                openCart(pages);
+                break;
+
+            case AppConstants.NOTIFY_MYACCOUNT_FRAG:
+                openAccount();
+                break;
+
+            case AppConstants.NOTIFY_MY_ORDER_FRAG:
+                openOrders();
+                break;
+
+            case AppConstants.NOTIFY_HOME_FRAG:
+                if (mMainViewModel.isCommunityUser.get()) {
+                    openCommunity();
+                } else {
+                    openHome();
+                }
+                break;
+
+            case AppConstants.NOTIFY_SEARCH_FRAG:
+                openExplore();
+                break;
+
+            case AppConstants.NOTIFY_CHAT:
+                openChat();
+                break;
+            case AppConstants.NOTIFY_COMMUNITY_HOME_FRAG:
+                openCommunity();
+                break;
+            default:
+                //openHome();
+                if (mMainViewModel.isCommunityUser.get()) {
+                    openCommunity();
+                } else {
+                    openHome();
+                }
+
+        }
     }
 
 
@@ -697,7 +737,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onResume() {
         super.onResume();
-registerWifiReceiver();
+        registerWifiReceiver();
        /* appUpdateManager.registerListener(this);
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(this);
 */
@@ -735,7 +775,7 @@ registerWifiReceiver();
     @Override
     protected void onPause() {
         super.onPause();
-unregisterWifiReceiver();
+        unregisterWifiReceiver();
         cart = false;
         pageid = "";
 
@@ -806,6 +846,7 @@ unregisterWifiReceiver();
 
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

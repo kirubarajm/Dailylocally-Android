@@ -19,7 +19,7 @@ public class CommunityItemViewModel {
 
         communityName.set(result.getCommunityname());
         location.set(result.getCommunityAddress());
-        residencesCount.set(result.getNoOfApartments() + " Members");
+        residencesCount.set(result.getNoOfApartments() + " Residences");
 
         distance.set(result.getDistance()+" "+result.getDistance_text());
     }

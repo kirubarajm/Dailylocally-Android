@@ -34,4 +34,6 @@ public interface MainNavigator {
     void openCommunity();
 
     void openCommunityCat();
+
+    void pageNavigation(String page);
 }

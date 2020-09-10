@@ -88,6 +88,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean loading = new ObservableBoolean();
     public final ObservableBoolean couponApplied = new ObservableBoolean();
     public final ObservableBoolean showWarningNote = new ObservableBoolean();
+    public final ObservableBoolean disableCOD = new ObservableBoolean();
     public final ObservableField<String> previousPage = new ObservableField<>();
     private final List<CartRequest.Subscription> results = new ArrayList<>();
     public MutableLiveData<List<CartResponse.Item>> ordernowLiveData;
@@ -104,6 +105,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     int totalAmount;
     int minCartValue = 0;
     String isFav;
+    String codUnavailableInfo="";
     private CartRequest cartRequestPojo = new CartRequest();
 
 
@@ -235,6 +237,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     }
 
+
+    public void disableInfoClick() {
+
+        getNavigator().disableInfoClick();
+
+    }
 
     public String getCartPojoDetails() {
 
@@ -654,6 +662,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 communityUser.set(cartPageResponse.getResult().get(0).getCommunityUser());
                                 exclusiveTag.set(cartPageResponse.getResult().get(0).getAmountdetails().getExclusiveTag());
 
+                                codUnavailableInfo=cartPageResponse.getResult().get(0).getCodUnavailableInfo();
+
+                                if (cartPageResponse.getResult().get(0).getCommunityUser()&&!cartPageResponse.getResult().get(0).getCodAvailable()){
+                                    disableCOD.set(true);
+                                }else {
+                                    disableCOD.set(false);
+                                }
+
 
 
 
@@ -903,7 +919,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         }
 
+
+       /* if (results==null||results.size()==0){
+            cartRequestPojo.setSubscription(null);
+        }else {
+
+        }*/
+
         cartRequestPojo.setSubscription(results);
+
         saveCart(cartRequestPojo);
 
         if (cartRequestPojo.getSubscription() != null && cartRequestPojo.getOrderitems() != null) {

@@ -777,6 +777,12 @@ public class CartResponse {
         @SerializedName("isAvaliablezone")
         @Expose
         private Boolean isAvaliablezone;
+        @SerializedName("cod_available")
+        @Expose
+        private Boolean codAvailable;
+        @SerializedName("cod_unavailable_info")
+        @Expose
+        private String codUnavailableInfo;
         @SerializedName("community_user_status")
         @Expose
         private Boolean communityUser;
@@ -798,6 +804,15 @@ public class CartResponse {
         @SerializedName("minimum_cart_value")
         @Expose
         private Integer minimumCartValue;
+
+
+        public Boolean getCodAvailable() {
+            return codAvailable;
+        }
+
+        public String getCodUnavailableInfo() {
+            return codUnavailableInfo;
+        }
 
         public Boolean getAvaliablekitchen() {
             return isAvaliablekitchen;

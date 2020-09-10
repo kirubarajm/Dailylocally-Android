@@ -645,7 +645,7 @@ public class AppConstants {
   public static final String NOTIFY_CATEGORY_L1_PROD_ACTV = "31";
   public static final String NOTIFY_COMMUNITY_CATLIST_FRAG = "32";
   public static final String NOTIFY_COMMUNITY_ACTV = "33";
-
+  public static final String NOTIFY_COMMUNITY_HOME_FRAG = "34";
 
 
 

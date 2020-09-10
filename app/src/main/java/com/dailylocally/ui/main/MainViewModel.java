@@ -399,7 +399,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
-    public void getUserDetails() {
+    public void getUserDetails(String page) {
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
@@ -424,30 +424,33 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                                     if (result.getJoinStatus() == 1) {
                                         isCommunityUser.set(true);
-                                        if (getNavigator() != null)
-                                            getNavigator().openCommunity();
+                                      /*  if (getNavigator() != null)
+                                            getNavigator().openCommunity();*/
                                     } else {
                                         isCommunityUser.set(false);
-                                        if (getNavigator() != null)
-                                            getNavigator().openHome();
+                                       /* if (getNavigator() != null)
+                                            getNavigator().openHome();*/
                                     }
 
                                 } else {
-                                    if (getNavigator() != null)
-                                        getNavigator().openHome();
+                                   /* if (getNavigator() != null)
+                                        getNavigator().openHome();*/
                                 }
 
                             } else {
-                                if (getNavigator() != null)
-                                    getNavigator().openHome();
+                              /*  if (getNavigator() != null)
+                                    getNavigator().openHome();*/
                             }
 
 
                         } else {
-                            if (getNavigator() != null)
-                                getNavigator().openHome();
+                           /* if (getNavigator() != null)
+                                getNavigator().openHome();*/
                         }
 
+
+                    if (getNavigator() != null)
+                        getNavigator().pageNavigation(page);
 
                 }
             }, new Response.ErrorListener() {
