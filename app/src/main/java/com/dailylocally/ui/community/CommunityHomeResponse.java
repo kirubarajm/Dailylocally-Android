@@ -43,7 +43,7 @@ public class CommunityHomeResponse {
 
         public String getImageUrl() {
             return imageUrl;
-           // return "https://dailylocally.s3.amazonaws.com/upload/moveit/1599471418432-ABOUT%20US.jpg";
+            // return "https://dailylocally.s3.amazonaws.com/upload/moveit/1599471418432-ABOUT%20US.jpg";
         }
 
         public String getTitle() {
@@ -89,13 +89,30 @@ public class CommunityHomeResponse {
         @SerializedName("topic")
         @Expose
         public String topic;
- @SerializedName("title")
+        @SerializedName("title")
         @Expose
         public String title;
+
+        @SerializedName("home_community_topic")
+        @Expose
+        public String homeCommunityTopic;
+
+        @SerializedName("home_community_title")
+        @Expose
+        public String homeCommunityTitle;
+
+        public String getHomeCommunityTopic() {
+            return homeCommunityTopic;
+        }
+
+        public String getHomeCommunityTitle() {
+            return homeCommunityTitle;
+        }
 
         public String getTitle() {
             return title;
         }
+
 
         public String getImageUrl() {
             return imageUrl;
@@ -119,10 +136,10 @@ public class CommunityHomeResponse {
         public SneakPeak sneakPeak;
         @SerializedName("cat_list")
         @Expose
-        public CatList catList ;
+        public CatList catList;
         @SerializedName("about")
         @Expose
-        public About about ;
+        public About about;
         @SerializedName("image_url")
         @Expose
         public String imageUrl;

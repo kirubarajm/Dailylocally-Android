@@ -135,7 +135,7 @@ public class PostListItemViewModel {
     }
 
     private String getDate(long time) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        Calendar cal = Calendar.getInstance(Locale.US);
         cal.setTimeInMillis(time * 1000);
         String date = DateFormat.format("dd-MM-yyyy hh:mm:ss a", cal).toString();
         return formateddate(date);

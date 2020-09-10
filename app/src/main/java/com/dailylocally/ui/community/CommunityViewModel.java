@@ -98,10 +98,13 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public String topic;
     public String eventTitle;
 
+    public String homeEventTitle;
+    public String homeEventTopic;
+
 
     public ObservableList<GetSocialActivity> getSocialActivities = new ObservableArrayList<>();
     public String ratingDOID = "0";
-    private MutableLiveData<List<GetSocialActivity>> socialActivitiesListLiveData;
+    public MutableLiveData<List<GetSocialActivity>> socialActivitiesListLiveData;
 
 
     public CommunityViewModel(DataManager dataManager) {
@@ -129,6 +132,9 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                         credits.set(result.getTotalCredits());
                         creditsText.set(result.getCreditsText());
                         creditInfoText.set(result.getCreditsInfo());
+
+
+
                         if (result.getShowCreditsInfo()!=null)
                         showCreditsInfo.set(result.getShowCreditsInfo());
 
@@ -237,12 +243,16 @@ public void communityEvent() {
                                     whatsTitle.set(result.getWhatsapp().getTitle());
                                     whatsDes.set(result.getWhatsapp().getDes());
 
-
                                     whatsappgroupLink=result.getWhatsapp().getGroupUrl();
                                     sneakpeakVideoUrl=result.getSneakPeak().getVideoUrl();
                                     topic=result.getEvent().getTopic();
                                     eventTitle=result.getEvent().getTitle();
 
+                                    homeEventTitle=result.getEvent().getHomeCommunityTitle();
+                                    homeEventTopic=result.getEvent().getHomeCommunityTopic();
+
+                                    if (getNavigator() != null)
+                                        getNavigator().homeDataLoaded();
 
                                 } else {
                                     /*if (getNavigator() != null)

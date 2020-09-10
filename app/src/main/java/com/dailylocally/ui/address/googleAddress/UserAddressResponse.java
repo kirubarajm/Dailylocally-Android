@@ -98,6 +98,14 @@ public class UserAddressResponse {
         @Expose
         public String note;
 
+ @SerializedName("community_user_status")
+        @Expose
+        public Boolean communityUserStatus;
+
+        public Boolean getCommunityUserStatus() {
+            return communityUserStatus;
+        }
+
         public String getNote() {
             return note;
         }

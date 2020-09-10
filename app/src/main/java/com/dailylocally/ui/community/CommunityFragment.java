@@ -306,6 +306,22 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     }
 
     @Override
+    public void homeDataLoaded() {
+
+        GetSocial.addOnInitializeListener(new Runnable() {
+            @Override
+            public void run() {
+                // GetSocial is ready to be used
+
+                showRecentPosts();
+
+            }
+        });
+
+
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCommunityViewModel.setNavigator(this);
@@ -388,15 +404,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         mFragmentCommunityBinding.postList.setAdapter(communityPostListAdapter);
 
 
-        GetSocial.addOnInitializeListener(new Runnable() {
-            @Override
-            public void run() {
-                // GetSocial is ready to be used
 
-                showRecentPosts();
-
-            }
-        });
     }
 
     @Override
@@ -413,24 +421,28 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
 
         //   final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(_item.getId()).byUser(UserId.currentUser());
-        final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("community_event");
+        final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(mCommunityViewModel.homeEventTopic);
 
 
         //  ActivityFeedViewBuilder.create(query).show();
 
 
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(5);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query);
         Communities.getActivities(pagingQuery, result -> {
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
-            mCommunityViewModel.getSocialActivities.addAll(getSocialActivities);
+            //mCommunityViewModel.getSocialActivities.addAll(getSocialActivities);
+            mCommunityViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
             //Get first post
             if (getSocialActivities != null && getSocialActivities.size() > 0) {
                 firstPost = getSocialActivities.get(0);
                 mCommunityViewModel.postTitle.set(firstPost.getSource().getTitle());
                 mCommunityViewModel.postDes.set(firstPost.getText());
                 mCommunityViewModel.postDate.set(getDate(firstPost.getCreatedAt()));
-                mCommunityViewModel.actionText.set(firstPost.getButton().getTitle());
-                mCommunityViewModel.showAction.set(firstPost.getButton().getAction() != null);
+                if (firstPost.getButton()!=null) {
+                    mCommunityViewModel.actionText.set(firstPost.getButton().getTitle());
+                    mCommunityViewModel.showAction.set(firstPost.getButton().getAction() != null);
+
+                }
                 mCommunityViewModel.icon.set(firstPost.getSource().getAvatarUrl());
 
                 //   String ssss=firstPost.getMyReactions().

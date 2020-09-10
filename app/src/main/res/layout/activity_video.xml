@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#BA000000">
+        android:background="#CD000000">
 
 
         <com.potyvideo.library.AndExoPlayerView

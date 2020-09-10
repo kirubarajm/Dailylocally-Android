@@ -127,6 +127,30 @@
                         android:layout_height="wrap_content"
                         android:text="@string/delivery_address" />
 
+                    <androidx.cardview.widget.CardView
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{viewAddressViewModel.communityUser?View.VISIBLE:View.GONE}"
+                        app:cardBackgroundColor="@color/colorPrimary"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp">
+
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Daily locally exclusive"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10px" />
+
+
+                    </androidx.cardview.widget.CardView>
+
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView

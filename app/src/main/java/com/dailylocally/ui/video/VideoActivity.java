@@ -4,11 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
@@ -84,12 +86,17 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
 
     @Override
     public void back() {
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mActivityVideoBinding.videoPlayer.stopPlayer();
 
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        super.onBackPressed();
+    }
 
     @Override
     public int getBindingVariable() {
@@ -117,6 +124,7 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
         if (bundle != null) {
             mActivityVideoBinding.videoPlayer.setSource( bundle.getString("video"));
             mActivityVideoBinding.videoPlayer.setPlayWhenReady(true);
+           // mActivityVideoBinding.videoPlayer.setOrientation(LinearLayout.HORIZONTAL);
 
 
         }

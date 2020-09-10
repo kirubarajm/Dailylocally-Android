@@ -15,6 +15,7 @@
  */
 
 package com.dailylocally.ui.address.viewAddress;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -32,6 +33,8 @@ public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
 
     public final ObservableField<String> aId = new ObservableField<>();
     public final ObservableField<String> note = new ObservableField<>();
+
+    public final ObservableBoolean communityUser=new ObservableBoolean();
 
     public ViewAddressViewModel(DataManager dataManager) {
         super(dataManager);
@@ -59,6 +62,7 @@ public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
 
                                     note.set(response.getResult().get(0).getNote());
 
+                                    communityUser.set(response.getResult().get(0).getCommunityUserStatus());
 
                                     if (getNavigator()!=null){
                                         getNavigator().getAddressSuccess(response.getResult().get(0));
