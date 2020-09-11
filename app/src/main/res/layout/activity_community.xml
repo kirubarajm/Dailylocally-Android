@@ -432,7 +432,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
                 android:id="@+id/recycler_community"
-                android:orientation="horizontal"
                 android:layout_marginBottom="30dp"
                 adapter="@{communityViewModel.communityItemViewModels}"
                 tools:listitem="@layout/list_item_community"
@@ -585,6 +584,14 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/img_sll"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_group_438"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         <RelativeLayout
             android:id="@+id/rel_onboarding_1"
             android:gravity="center"
@@ -597,6 +604,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:visibility="invisible"
                     android:id="@+id/img_1"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/ic_group_438"
@@ -777,6 +785,7 @@
                 android:layout_height="wrap_content"/>
 
             <ImageView
+                android:visibility="invisible"
                 android:id="@+id/img_9"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
@@ -825,6 +834,7 @@
             android:background="#cc1A1A1A">
 
             <ImageView
+                android:visibility="invisible"
                 android:layout_centerInParent="true"
                 android:id="@+id/image_1"
                 android:layout_centerHorizontal="true"

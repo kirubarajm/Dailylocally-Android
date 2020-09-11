@@ -42,6 +42,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.SnapHelper;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -58,6 +60,7 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -65,7 +68,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.ByteArrayOutputStream;
@@ -75,6 +80,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager;
 
 
 public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, CommunityActivityViewModel>
@@ -104,7 +110,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     private PrefManager prefManager;
     boolean flagFirstTime;
     private GuideView mGuideView;
-    private GuideView.Builder builder;
+    //private GuideView.Builder builder;
     private GoogleMap mMap;
     Bitmap imageBitmap,imageBitmap1;
     ProgressDialog progress,progress1;
@@ -113,6 +119,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     @Inject
     CommunityAdapter mCommunityAdapter;
     int count =0;
+    private LatLngBounds bounds;
+    private LatLngBounds.Builder builder;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, CommunityActivity.class);
@@ -336,6 +344,18 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             mActivityOnboardingBinding.relOnboardingAll.setVisibility(View.GONE);
         }
 
+
+
+
+      /*  PickerLayoutManager pickerLayoutManager = new PickerLayoutManager(this, PickerLayoutManager.HORIZONTAL, false);
+        pickerLayoutManager.setChangeAlpha(true);
+        //pickerLayoutManager.setScaleDownBy(0.99f);
+        //pickerLayoutManager.setScaleDownDistance(0.8f);*/
+
+
+        //SnapHelper snapHelper = new LinearSnapHelper();
+        //snapHelper.attachToRecyclerView(mActivityOnboardingBinding.recyclerCommunity);
+
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -489,6 +509,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                    mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
                    mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
                    mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
+                   mActivityOnboardingBinding.relOnboardingAll.setVisibility(View.GONE);
                }
            });
 
@@ -771,9 +792,13 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     @Override
     public void mapLatLngArray(List<CommunityResponse.Result> markersArray) {
         try {
+            builder = new LatLngBounds.Builder();
         for(int i = 0 ; i < markersArray.size() ; i++) {
             createMarker(markersArray.get(i).getLat(), markersArray.get(i).get_long(), markersArray.get(i).getCommunityname(), "", 0);
         }
+            bounds = builder.build();
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
+            mMap.animateCamera(cu);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -795,6 +820,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         mMap.addMarker(markerOptions);
+            builder.include(markerOptions.getPosition());
 
         }catch (Exception e){
             e.printStackTrace();
