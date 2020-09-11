@@ -139,7 +139,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     @Override
     public void goBack() {
         if (mOnBoardingActivityViewModel.register.get()) {
-            onBackPressed();
+            super.onBackPressed();
         }else {
             mOnBoardingActivityViewModel.register.set(true);
             mOnBoardingActivityViewModel.completeRegistration.set(false);
@@ -777,7 +777,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        goBack();
     }
 
     @Override
