@@ -189,4 +189,5 @@ dependencies {
 
     //community list stack
     implementation 'com.github.adityagohad:HorizontalPicker:1.0.1'
+    implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
 }

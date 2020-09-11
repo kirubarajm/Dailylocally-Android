@@ -80,7 +80,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/white"
-                                    android:focusable="true"
+                                    android:focusable="false"
                                     app:iconifiedByDefault="false"
                                     app:queryHint="Search for your community or apartment" />
 
@@ -429,12 +429,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.yarolegovich.discretescrollview.DiscreteScrollView
                 android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
                 android:id="@+id/recycler_community"
                 android:layout_marginBottom="30dp"
                 adapter="@{communityViewModel.communityItemViewModels}"
                 tools:listitem="@layout/list_item_community"
+                app:dsv_orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -580,12 +581,13 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:background="#cc1A1A1A"
             android:id="@+id/rel_onboarding_all"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <ImageView
-                android:layout_centerInParent="true"
+                android:layout_marginTop="160dp"
                 android:id="@+id/img_sll"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_group_438"
@@ -596,8 +598,7 @@
             android:id="@+id/rel_onboarding_1"
             android:gravity="center"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#cc1A1A1A">
+            android:layout_height="fill_parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -723,8 +724,7 @@
             android:visibility="gone"
             android:id="@+id/rel_onboarding_2"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#cc1A1A1A">
+            android:layout_height="fill_parent">
 
             <RelativeLayout
                 android:paddingTop="@dimen/_10px"
@@ -830,8 +830,7 @@
             android:visibility="gone"
             android:id="@+id/rel_onboarding_3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#cc1A1A1A">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:visibility="invisible"

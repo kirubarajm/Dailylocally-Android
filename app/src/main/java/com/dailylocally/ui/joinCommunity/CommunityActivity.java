@@ -38,11 +38,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -72,6 +74,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
+import com.yarolegovich.discretescrollview.transform.Pivot;
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -317,6 +322,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         mOnBoardingActivityViewModel.setNavigator(this);
         mCommunityAdapter.setListener(this);
 
+
+
         mOnBoardingActivityViewModel.register.set(true);
 
         MapFragment mapFragment1 = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
@@ -359,8 +366,37 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mActivityOnboardingBinding.recyclerCommunity.setLayoutManager(mLayoutManager);
+//        mActivityOnboardingBinding.recyclerCommunity.setLayoutManager(mLayoutManager);
         mActivityOnboardingBinding.recyclerCommunity.setAdapter(mCommunityAdapter);
+
+
+        mActivityOnboardingBinding.recyclerCommunity .setItemTransformer(new ScaleTransformer.Builder()
+                .setMaxScale(1.00f)
+                .setMinScale(0.8f)
+                .setPivotX(Pivot.X.CENTER) // CENTER is a default one
+                .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
+                .build());
+
+
+
+        mActivityOnboardingBinding.recyclerCommunity.addOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
+            @Override
+            public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+
+                CommunityResponse.Result result=  mOnBoardingActivityViewModel.communityItemViewModels.get(adapterPosition);
+
+                if (result.getLat()!=null &&result.get_long()!=null&& mMap!=null) {
+
+                    LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
+                    //mMap.addMarker(new
+                    //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+                    mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                    // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+                }
+            }
+        });
 
         subscribeToLiveData();
 
@@ -524,7 +560,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     public void onMapReady(GoogleMap googleMap) {
         try {
             try {
-                googleMap.getUiSettings().setZoomControlsEnabled(true);
+
                 mMap = googleMap;
 
                 // Customise the styling of the base map using a JSON object defined
@@ -635,7 +671,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        mMap.getUiSettings().setZoomControlsEnabled(true);
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
 
@@ -797,8 +832,20 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             createMarker(markersArray.get(i).getLat(), markersArray.get(i).get_long(), markersArray.get(i).getCommunityname(), "", 0);
         }
             bounds = builder.build();
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
+            /*CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 10);
+            mMap.animateCamera(cu);*/
+
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+
             mMap.animateCamera(cu);
+
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -816,7 +863,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         markerOptions.icon(descriptor);
         //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
         //mMap.clear();
-        mMap.getUiSettings().setZoomControlsEnabled(true);
         //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         mMap.addMarker(markerOptions);
