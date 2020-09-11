@@ -1,10 +1,16 @@
-package com.dailylocally.ui.community;
-
+package com.dailylocally.ui.community.details;
 
 import android.text.format.DateFormat;
 
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableList;
+import androidx.lifecycle.MutableLiveData;
+
+import com.dailylocally.data.DataManager;
+import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.community.event.EventListItemViewModel;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -15,7 +21,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import im.getsocial.sdk.Communities;
 import im.getsocial.sdk.CompletionCallback;
@@ -25,8 +30,8 @@ import im.getsocial.sdk.communities.GetSocialActivity;
 import im.getsocial.sdk.communities.Reactions;
 import im.getsocial.sdk.media.MediaAttachment;
 
-public class PostListItemViewModel {
-
+public class EventDetailsViewModel extends BaseViewModel<EventDetailsNavigator> {
+    public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> postDes = new ObservableField<>();
     public final ObservableField<String> postTitle = new ObservableField<>();
     public final ObservableField<String> postDate = new ObservableField<>();
@@ -34,71 +39,37 @@ public class PostListItemViewModel {
     public final ObservableField<String> icon = new ObservableField<>();
     public final ObservableField<String> image1 = new ObservableField<>();
     public final ObservableField<String> image2 = new ObservableField<>();
-
+    public final ObservableField<String> commentsCount = new ObservableField<>();
     public final ObservableBoolean showAction = new ObservableBoolean();
     public final ObservableBoolean postLike = new ObservableBoolean();
+    public final ObservableBoolean commented = new ObservableBoolean();
     public final ObservableBoolean singleImage = new ObservableBoolean();
     public final ObservableBoolean attachmentAvailable = new ObservableBoolean();
+    public ObservableList<GetSocialActivity> getSocialActivities = new ObservableArrayList<>();
+    public String ratingDOID = "0";
+    public MutableLiveData<List<GetSocialActivity>> socialActivitiesListLiveData;
+    public String postId;
+    public  GetSocialActivity posts;
+    public EventDetailsViewModel(DataManager dataManager) {
+        super(dataManager);
+        socialActivitiesListLiveData = new MutableLiveData<>();
+    }
 
-    private final GetSocialActivity posts;
-    private final PostItemViewModelListener mListener;
-
-    public PostListItemViewModel(PostItemViewModelListener mListener, GetSocialActivity result) {
-        this.mListener = mListener;
-        this.posts = result;
-
-     //  postTitle.set(result.getAuthor().getDisplayName());
-        postTitle.set(result.getSource().getTitle());
-        postDes.set(result.getText());
-        postDate.set(getDate(result.getCreatedAt()));
-
-
-        if (result.getButton()!=null){
-            if (result.getButton().getAction() != null)
-                showAction.set(true);
-            actionText.set(result.getButton().getTitle());
-        }
-
-        //showAction.set(result.getButton().getAction() != null);
-        icon.set(result.getAuthor().getAvatarUrl());
+    public MutableLiveData<List<GetSocialActivity>> getsocialActivitiesListLiveData() {
+        return socialActivitiesListLiveData;
+    }
 
 
-        if (result.getAttachments() != null)
-            if (result.getAttachments().size() > 0) {
-                attachmentAvailable.set(true);
-                for (int i = 0; i < result.getAttachments().size(); i++) {
-                    final MediaAttachment attachment = result.getAttachments().get(i);
-                    if (attachment.getImageUrl() != null) {
-                        if (i == 0) {
-                            singleImage.set(true);
-                            image1.set(attachment.getImageUrl());
-                        } else {
-                            singleImage.set(false);
-                            image2.set(attachment.getImageUrl());
-                        }
-
-
-                    }
-                }
-            } else {
-                attachmentAvailable.set(false);
-            }
-
-
-        if (posts.getMyReactions() != null) {
-
-            List<String> list = new ArrayList<>(posts.getMyReactions());
-
-            if (list != null && list.size() > 0) {
-
-                if (list.get(0).equals("like"))
-                  postLike.set(true);
-
-            }
-        }
+    public void addCommunityPostToList(List<GetSocialActivity> items) {
+        getSocialActivities.clear();
+        getSocialActivities.addAll(items);
 
     }
 
+
+    public void back() {
+        getNavigator().back();
+    }
     public static String formateddate(String date) {
         DateTime dateTime = DateTimeFormat.forPattern("dd-MM-yyyy hh:mm:ss a").parseDateTime(date);
         DateTime today = new DateTime();
@@ -122,8 +93,8 @@ public class PostListItemViewModel {
         Date parsed = null;
         String outputDate = "";
 
-        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, java.util.Locale.getDefault());
-        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
+        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, Locale.getDefault());
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, Locale.getDefault());
 
         try {
             parsed = df_input.parse(inputDate);
@@ -135,7 +106,7 @@ public class PostListItemViewModel {
 
     }
 
-    private String getDate(long time) {
+    public String getDate(long time) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time * 1000);
         String date = DateFormat.format("dd-MM-yyyy hh:mm:ss a", cal).toString();
@@ -145,7 +116,7 @@ public class PostListItemViewModel {
     public void postLikeClick() {
 
         if (postLike.get()) {
-            Communities.removeReaction(Reactions.LIKE, posts.getId(), new CompletionCallback() {
+            Communities.removeReaction(Reactions.LIKE, postId, new CompletionCallback() {
                 @Override
                 public void onSuccess() {
                     postLike.set(false);
@@ -158,7 +129,7 @@ public class PostListItemViewModel {
             });
 
         } else {
-            Communities.addReaction(Reactions.LIKE, posts.getId(), new CompletionCallback() {
+            Communities.addReaction(Reactions.LIKE, postId, new CompletionCallback() {
                 @Override
                 public void onSuccess() {
                     postLike.set(true);
@@ -174,15 +145,7 @@ public class PostListItemViewModel {
 
     }
 
-    public void actionClick() {
-        if (posts.getButton().getAction().getType().equals("open page"))
-            mListener.actionData(posts.getButton().getAction().getData());
-    }
-
-    public interface PostItemViewModelListener {
-        void refresh();
-
-        void actionData(Map<String, String> actionDatas);
+    public void commentClick() {
 
     }
 }

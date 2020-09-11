@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="eventViewModel"
+            type="com.dailylocally.ui.community.details.EventDetailsViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardElevation="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:onClick="@{()->eventViewModel.back()}"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                </RelativeLayout>
+
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:text="@{eventViewModel.title}" />
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_marginBottom="15dp">
+
+                                <RelativeLayout
+                                    android:id="@+id/topConts"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginTop="10dp">
+
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginEnd="10dp"
+                                        android:onClick="@{()->eventViewModel.postLikeClick()}"
+                                        android:src="@{eventViewModel.postLike?@drawable/ic_like:@drawable/ic_unlike}" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <com.dailylocally.utilities.CircularImageView
+                                            imageUrl="@{eventViewModel.icon}"
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginStart="10dp" />
+
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="50dp"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="10dp"
+                                                android:orientation="vertical">
+
+
+                                                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                                    style="@style/HeaderTitleTextStyle"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{eventViewModel.postTitle}" />
+
+
+                                                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                                    style="@style/ContentTextStyle"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="5dp"
+                                                    android:text="@{eventViewModel.postDate}" />
+
+
+                                            </LinearLayout>
+
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </RelativeLayout>
+
+
+                                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                    android:id="@+id/fullDes"
+                                    style="@style/ContentTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/topConts"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:text="@{eventViewModel.postDes}" />
+
+
+                                <LinearLayout
+                                    android:id="@+id/images"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/fullDes"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:visibility="@{eventViewModel.singleImage?View.GONE:View.VISIBLE}"
+                                        android:weightSum="2">
+
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="5dp"
+                                            android:layout_weight="1"
+                                            app:cardCornerRadius="10dp"
+                                            app:cardElevation="0dp">
+
+                                            <ImageView
+                                                imageUrl="@{eventViewModel.image1}"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:adjustViewBounds="true" />
+
+                                        </androidx.cardview.widget.CardView>
+
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_weight="1"
+                                            app:cardCornerRadius="10dp"
+                                            app:cardElevation="0dp">
+
+                                            <ImageView
+                                                imageUrl="@{eventViewModel.image2}"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:adjustViewBounds="true" />
+
+                                        </androidx.cardview.widget.CardView>
+
+
+                                    </LinearLayout>
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="@{eventViewModel.singleImage?View.VISIBLE:View.GONE}"
+                                        app:cardCornerRadius="10dp"
+                                        app:cardElevation="0dp">
+
+                                        <ImageView
+                                            imageUrl="@{eventViewModel.image1}"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" />
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/images"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:onClick="@{()->eventViewModel.commentClick()}"
+                                    android:orientation="horizontal">
+
+
+                                    <!--<ImageView
+                                        android:layout_marginEnd="5dp"
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:onClick="@{()->eventViewModel.postLikeClick()}"
+                                        android:src="@{eventViewModel.postLike?@drawable/ic_comments_primary:@drawable/ic_comments_gray}" />
+                    -->
+
+                                    <ImageView
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:layout_marginTop="3dp"
+                                        android:layout_marginEnd="5dp"
+                                        android:src="@{eventViewModel.commented?@drawable/ic_comments_primary:@drawable/ic_comments_gray}" />
+
+
+                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                        style="@style/ContentTextStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{eventViewModel.commentsCount}" />
+
+
+                                </LinearLayout>
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/content"
+                 android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:paddingBottom="50dp"
+                        app:commentsadapter="@{eventViewModel.getSocialActivities}"
+                        tools:listitem="@layout/list_item_event_comments" />
+
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toStartOf="@+id/post"
+                android:hint="Type here"
+                android:fontFamily="@font/quicksand_regular"
+                android:textColor="@color/medium_black"
+                android:textSize="@dimen/_22px" />
+
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:id="@+id/post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="post"
+                android:textColor="@color/medium_black"
+                android:textSize="@dimen/_22px" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

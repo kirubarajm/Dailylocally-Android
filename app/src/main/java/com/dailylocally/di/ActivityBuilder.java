@@ -52,6 +52,10 @@ import com.dailylocally.ui.collection.l2.products.CollectionProductsProvider;
 
 import com.dailylocally.ui.community.CommunityProvider;
 import com.dailylocally.ui.community.catlist.CommunityCatProvider;
+import com.dailylocally.ui.community.details.EventDetailsActivity;
+import com.dailylocally.ui.community.details.EventDetailsModule;
+import com.dailylocally.ui.community.event.EventActivity;
+import com.dailylocally.ui.community.event.EventModule;
 import com.dailylocally.ui.joinCommunity.CommunityActivity;
 import com.dailylocally.ui.joinCommunity.CommunityActivityModule;
 import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
@@ -180,6 +184,13 @@ public abstract class ActivityBuilder {
 @ContributesAndroidInjector(modules = DatePickerModule.class)
     abstract DatePickerActivity bindDatePickerActivity();
 
+
+
+ @ContributesAndroidInjector(modules = EventDetailsModule.class)
+    abstract EventDetailsActivity bindEventDetailsActivity();
+
+ @ContributesAndroidInjector(modules = EventModule.class)
+    abstract EventActivity bindEventActivity();
 
 
  @ContributesAndroidInjector(modules = VideoModule.class)

@@ -623,6 +623,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             getNavigator().clearToolTips();
 
 
+
+
+
+
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
         if (getCartPojoDetails() != null) {

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="postListItemViewModel"
+            type="com.dailylocally.ui.community.event.EventListItemViewModel" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/topConts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:onClick="@{()->postListItemViewModel.postLikeClick()}"
+                    android:src="@{postListItemViewModel.postLike?@drawable/ic_like:@drawable/ic_unlike}" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.dailylocally.utilities.CircularImageView
+                        imageUrl="@{postListItemViewModel.icon}"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="50dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical">
+
+
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                style="@style/HeaderTitleTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{postListItemViewModel.postTitle}" />
+
+
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                style="@style/ContentTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="@{postListItemViewModel.postDate}" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                android:id="@+id/fullDes"
+                style="@style/ContentTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/topConts"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@{postListItemViewModel.postDes}" />
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:id="@+id/images"
+                android:layout_below="@+id/fullDes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="@{postListItemViewModel.singleImage?View.GONE:View.VISIBLE}"
+                    android:weightSum="2">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="5dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:adjustViewBounds="true"
+                            imageUrl="@{postListItemViewModel.image1}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:adjustViewBounds="true"
+                            imageUrl="@{postListItemViewModel.image2}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{postListItemViewModel.singleImage?View.VISIBLE:View.GONE}"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        imageUrl="@{postListItemViewModel.image1}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:onClick="@{()->postListItemViewModel.commentClick()}"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/images"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+                <!--<ImageView
+                    android:layout_marginEnd="5dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:onClick="@{()->postListItemViewModel.postLikeClick()}"
+                    android:src="@{postListItemViewModel.postLike?@drawable/ic_comments_primary:@drawable/ic_comments_gray}" />
+-->
+
+                <ImageView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@{postListItemViewModel.commented?@drawable/ic_comments_primary:@drawable/ic_comments_gray}" />
+
+
+
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ContentTextStyle"
+                    android:text="@{postListItemViewModel.commentsCount}"/>
+
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,4 +1,4 @@
-package com.dailylocally.ui.community;
+package com.dailylocally.ui.community.event;
 
 
 import android.text.format.DateFormat;
@@ -25,7 +25,7 @@ import im.getsocial.sdk.communities.GetSocialActivity;
 import im.getsocial.sdk.communities.Reactions;
 import im.getsocial.sdk.media.MediaAttachment;
 
-public class PostListItemViewModel {
+public class EventListItemViewModel {
 
     public final ObservableField<String> postDes = new ObservableField<>();
     public final ObservableField<String> postTitle = new ObservableField<>();
@@ -34,26 +34,38 @@ public class PostListItemViewModel {
     public final ObservableField<String> icon = new ObservableField<>();
     public final ObservableField<String> image1 = new ObservableField<>();
     public final ObservableField<String> image2 = new ObservableField<>();
+    public final ObservableField<String> commentsCount = new ObservableField<>();
 
     public final ObservableBoolean showAction = new ObservableBoolean();
     public final ObservableBoolean postLike = new ObservableBoolean();
+    public final ObservableBoolean commented = new ObservableBoolean();
     public final ObservableBoolean singleImage = new ObservableBoolean();
     public final ObservableBoolean attachmentAvailable = new ObservableBoolean();
 
     private final GetSocialActivity posts;
     private final PostItemViewModelListener mListener;
 
-    public PostListItemViewModel(PostItemViewModelListener mListener, GetSocialActivity result) {
+    public EventListItemViewModel(PostItemViewModelListener mListener, GetSocialActivity result) {
         this.mListener = mListener;
         this.posts = result;
 
-     //  postTitle.set(result.getAuthor().getDisplayName());
+        //  postTitle.set(result.getAuthor().getDisplayName());
         postTitle.set(result.getSource().getTitle());
         postDes.set(result.getText());
         postDate.set(getDate(result.getCreatedAt()));
 
 
-        if (result.getButton()!=null){
+        commentsCount.set(String.valueOf(posts.getCommentsCount()));
+
+
+       /* if (posts.getSource().getType().equals(CommunitiesAction.COMMENT)){
+            commented.set(true);
+        }else {
+            commented.set(false);
+        }*/
+
+
+        if (result.getButton() != null) {
             if (result.getButton().getAction() != null)
                 showAction.set(true);
             actionText.set(result.getButton().getTitle());
@@ -91,8 +103,8 @@ public class PostListItemViewModel {
 
             if (list != null && list.size() > 0) {
 
-                if (list.get(0).equals("like"))
-                  postLike.set(true);
+                if (list.get(0).equals(Reactions.LIKE))
+                    postLike.set(true);
 
             }
         }
@@ -122,8 +134,8 @@ public class PostListItemViewModel {
         Date parsed = null;
         String outputDate = "";
 
-        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, java.util.Locale.getDefault());
-        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
+        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, Locale.getDefault());
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, Locale.getDefault());
 
         try {
             parsed = df_input.parse(inputDate);
@@ -174,6 +186,11 @@ public class PostListItemViewModel {
 
     }
 
+    public void commentClick() {
+        mListener.commentClick(posts);
+    }
+
+
     public void actionClick() {
         if (posts.getButton().getAction().getType().equals("open page"))
             mListener.actionData(posts.getButton().getAction().getData());
@@ -181,6 +198,10 @@ public class PostListItemViewModel {
 
     public interface PostItemViewModelListener {
         void refresh();
+
+        void actionClick();
+
+        void commentClick(GetSocialActivity posts);
 
         void actionData(Map<String, String> actionDatas);
 

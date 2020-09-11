@@ -496,6 +496,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
 
+
+
+
         /*Intent intent = getIntent();
         if (intent.getExtras() != null) {
             cart = intent.getExtras().getBoolean("cart");

@@ -74,6 +74,8 @@ import com.dailylocally.ui.collection.l2.products.CollectionProductsResponse;
 
 import com.dailylocally.ui.community.CommunityPostListAdapter;
 
+import com.dailylocally.ui.community.details.CommentsListAdapter;
+import com.dailylocally.ui.community.event.EventListAdapter;
 import com.dailylocally.ui.joinCommunity.CommunityAdapter;
 import com.dailylocally.ui.joinCommunity.CommunityResponse;
 
@@ -321,6 +323,27 @@ public final class BindingUtils {
             adapter.addItems(blogs);
         }
     }
+
+    @BindingAdapter({"eventadapter"})
+    public static void addEventPostItems(RecyclerView recyclerView, List<GetSocialActivity> blogs) {
+        EventListAdapter adapter = (EventListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+ @BindingAdapter({"commentsadapter"})
+    public static void addComments(RecyclerView recyclerView, List<GetSocialActivity> blogs) {
+        CommentsListAdapter adapter = (CommentsListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
+
+
+
 
 
     @BindingAdapter({"adapter"})

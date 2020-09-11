@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +24,7 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.viewall.CatProductActivity;
+import com.dailylocally.ui.community.event.EventActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
@@ -53,8 +53,6 @@ import im.getsocial.sdk.CompletionCallback;
 import im.getsocial.sdk.FailureCallback;
 import im.getsocial.sdk.GetSocial;
 import im.getsocial.sdk.GetSocialError;
-import im.getsocial.sdk.actions.Action;
-import im.getsocial.sdk.actions.ActionListener;
 import im.getsocial.sdk.common.PagingQuery;
 import im.getsocial.sdk.communities.ActivitiesQuery;
 import im.getsocial.sdk.communities.CurrentUser;
@@ -63,9 +61,6 @@ import im.getsocial.sdk.communities.Identity;
 import im.getsocial.sdk.communities.Reactions;
 import im.getsocial.sdk.communities.UserUpdate;
 import im.getsocial.sdk.media.MediaAttachment;
-import im.getsocial.sdk.ui.GetSocialUi;
-import im.getsocial.sdk.ui.MentionClickListener;
-import im.getsocial.sdk.ui.communities.ActivityFeedViewBuilder;
 
 public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, CommunityViewModel> implements CommunityNavigator, CommunityPostListAdapter.ProductsAdapterListener {
     private static final int RC_APP_UPDATE = 55669;
@@ -180,8 +175,8 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             startActivity(tDintent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-          //  mCommunityViewModel.showVideo.set(true);
-         //   mFragmentCommunityBinding.videoPlayer.setSource(mCommunityViewModel.sneakpeakVideoUrl);
+            //  mCommunityViewModel.showVideo.set(true);
+            //   mFragmentCommunityBinding.videoPlayer.setSource(mCommunityViewModel.sneakpeakVideoUrl);
             //   mFragmentCommunityBinding.videoPlayer.setSource("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
         }
 
@@ -198,7 +193,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void communityEvent() {
-        final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(mCommunityViewModel.topic);
+        /*final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(mCommunityViewModel.topic);
         //ActivityFeedViewBuilder.create(query).show();
         //  ActivityFeedViewBuilder.create(query).setWindowTitle("test").show();
 
@@ -217,14 +212,16 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                     if (action.getType().equals("open page"))
                         actionData(action.getData());
                 }
-            }).setWindowTitle(mCommunityViewModel.eventTitle).show();
+            }).setWindowTitle(mCommunityViewModel.eventTitle).show();*/
 
-
+        Intent intent = EventActivity.newIntent(getContext(), mCommunityViewModel.topic, mCommunityViewModel.eventTitle);
+        startActivity(intent);
+        getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void stopVideo() {
-      //  mFragmentCommunityBinding.videoPlayer.stopPlayer();
+        //  mFragmentCommunityBinding.videoPlayer.stopPlayer();
     }
 
     @Override
@@ -326,6 +323,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCommunityViewModel.setNavigator(this);
+        communityPostListAdapter.setListener(this);
         subscribeToLiveData();
 
 
@@ -363,10 +361,10 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         UserUpdate batchUpdate = new UserUpdate()
                 .updateAvatarUrl(mCommunityViewModel.profilePic.get())
                 .updateDisplayName(mCommunityViewModel.getDataManager().getCurrentUserName());
-             //   .setPublicProperty(publicProperty1, newPublicValue)
-             //   .removePublicProperty(publicProperty2)
-            //    .setPrivateProperty(privateProperty1, newPrivateValue)
-           //     .removePrivateProperty(privateProperty2)
+        //   .setPublicProperty(publicProperty1, newPublicValue)
+        //   .removePublicProperty(publicProperty2)
+        //    .setPrivateProperty(privateProperty1, newPrivateValue)
+        //     .removePrivateProperty(privateProperty2)
 
 
         currentUser.updateDetails(batchUpdate, new CompletionCallback() {
@@ -375,7 +373,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
             }
 
-        },  new FailureCallback() {
+        }, new FailureCallback() {
             @Override
             public void onFailure(GetSocialError getSocialError) {
 
@@ -432,7 +430,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
         //   final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(_item.getId()).byUser(UserId.currentUser());
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(mCommunityViewModel.homeEventTopic);
-       // final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("community_event");
+        // final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("community_event");
 
 
         //  ActivityFeedViewBuilder.create(query).show();
@@ -449,7 +447,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 mCommunityViewModel.postTitle.set(firstPost.getSource().getTitle());
                 mCommunityViewModel.postDes.set(firstPost.getText());
                 mCommunityViewModel.postDate.set(getDate(firstPost.getCreatedAt()));
-                if (firstPost.getButton()!=null) {
+                if (firstPost.getButton() != null) {
                     mCommunityViewModel.actionText.set(firstPost.getButton().getTitle());
                     mCommunityViewModel.showAction.set(firstPost.getButton().getAction() != null);
 

@@ -164,7 +164,7 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
     @Override
     public void goBack() {
-        ((MainActivity) getActivity()).openHome();
+        ((MainActivity) getActivity()).homeNavigation();
     }
 
     @Override

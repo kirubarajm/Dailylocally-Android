@@ -189,6 +189,12 @@
         <activity
             android:name=".ui.promotion.AdActivity"
             android:screenOrientation="locked" />
+   <activity
+            android:name=".ui.community.event.EventActivity"
+            android:screenOrientation="locked" />
+<activity
+            android:name=".ui.community.details.EventDetailsActivity"
+            android:screenOrientation="locked" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
