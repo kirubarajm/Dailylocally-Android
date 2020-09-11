@@ -236,10 +236,20 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
+    public void homeNavigation() {
+        if (mMainViewModel.isCommunityUser.get()) {
+            openCommunityCat();
+        } else {
+            openHome();
+        }
+    }
+
 
     @Override
     public void openHome() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
+
+
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -395,7 +405,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }*/
 
 
-        if (mMainViewModel.isHome.get()) {
+        if (mMainViewModel.isHome.get()||mMainViewModel.isCommunity.get()) {
 
             if (doubleBackToExitPressedOnce) {
                 new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_EXIT_APP);

@@ -187,4 +187,6 @@ dependencies {
     //Video player
     implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.15'
 
+    //community list stack
+    implementation 'com.github.adityagohad:HorizontalPicker:1.0.1'
 }

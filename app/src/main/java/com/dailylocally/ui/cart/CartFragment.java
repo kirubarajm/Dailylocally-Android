@@ -183,7 +183,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void redirectHome() {
-        ((MainActivity) getActivity()).openHome();
+        ((MainActivity) getActivity()).homeNavigation();
 
     }
 

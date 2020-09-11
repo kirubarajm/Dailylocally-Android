@@ -51,15 +51,16 @@ public class PostListItemViewModel {
         postTitle.set(result.getSource().getTitle());
         postDes.set(result.getText());
         postDate.set(getDate(result.getCreatedAt()));
-        actionText.set(result.getButton().getTitle());
+
 
         if (result.getButton()!=null){
             if (result.getButton().getAction() != null)
                 showAction.set(true);
+            actionText.set(result.getButton().getTitle());
         }
 
         //showAction.set(result.getButton().getAction() != null);
-        icon.set(result.getSource().getAvatarUrl());
+        icon.set(result.getAuthor().getAvatarUrl());
 
 
         if (result.getAttachments() != null)

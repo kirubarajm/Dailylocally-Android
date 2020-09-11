@@ -605,6 +605,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
         cartRequestPojo.setOrderitems(results);
 
+
+        if (cartRequestPojo.getSubscription() != null){
+            if (cartRequestPojo.getSubscription().size()==0)
+                cartRequestPojo.setSubscription(null);
+        }
+
+
         cartRequestPojo.setCid(getDataManager().getCouponId());
 
         Gson gson = new Gson();

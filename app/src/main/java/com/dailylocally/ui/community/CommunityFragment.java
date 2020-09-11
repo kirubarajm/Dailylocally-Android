@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
@@ -404,6 +405,15 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         mFragmentCommunityBinding.postList.setAdapter(communityPostListAdapter);
 
 
+        mFragmentCommunityBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                if (myToolTipView != null) {
+                    myToolTipView.remove();
+                }
+            }
+        });
 
     }
 
@@ -422,6 +432,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
         //   final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(_item.getId()).byUser(UserId.currentUser());
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(mCommunityViewModel.homeEventTopic);
+       // final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("community_event");
 
 
         //  ActivityFeedViewBuilder.create(query).show();
@@ -443,7 +454,8 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                     mCommunityViewModel.showAction.set(firstPost.getButton().getAction() != null);
 
                 }
-                mCommunityViewModel.icon.set(firstPost.getSource().getAvatarUrl());
+
+                mCommunityViewModel.icon.set(firstPost.getAuthor().getAvatarUrl());
 
                 //   String ssss=firstPost.getMyReactions().
 

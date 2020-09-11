@@ -24,6 +24,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -492,32 +493,45 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
         if (mAddAddressViewModel.isApartment.get()){
             if (mActivityAddressNewBinding.edtApartmentName.getText().toString().trim().isEmpty()){
-                mActivityAddressNewBinding.edtApartmentName.setError("");
+              //  mActivityAddressNewBinding.edtApartmentName.setError("");
+                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
                 return false;
             }else if (mActivityAddressNewBinding.edtTowerBlock.getText().toString().trim().isEmpty()){
-                mActivityAddressNewBinding.edtTowerBlock.setError("");
+             //   mActivityAddressNewBinding.edtTowerBlock.setError("");
+                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
                 return false;
             }else if (mActivityAddressNewBinding.edtFlatHouseNo.getText().toString().trim().isEmpty()){
-                mActivityAddressNewBinding.edtFlatHouseNo.setError("");
+              //  mActivityAddressNewBinding.edtFlatHouseNo.setError("");
+                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         }
 
         if (!mAddAddressViewModel.isApartment.get()){
             if (mActivityAddressNewBinding.edtHousePlotNo.getText().toString().trim().isEmpty()){
-                mActivityAddressNewBinding.edtHousePlotNo.setError("");
+               // mActivityAddressNewBinding.edtHousePlotNo.setError("");
+                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
                 return false;
             }else if (mActivityAddressNewBinding.edtFloor.getText().toString().trim().isEmpty()){
-                mActivityAddressNewBinding.edtFloor.setError("");
+              //  mActivityAddressNewBinding.edtFloor.setError("");
+                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         }
 
         if (mActivityAddressNewBinding.edtAddress.getText().toString().trim().isEmpty()){
-            mActivityAddressNewBinding.edtAddress.setError("");
+           // mActivityAddressNewBinding.edtAddress.setError("");
+            Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
             return false;
         }else if (mActivityAddressNewBinding.edtLandmark.getText().toString().trim().isEmpty()){
-            mActivityAddressNewBinding.edtLandmark.setError("");
+          //  mActivityAddressNewBinding.edtLandmark.setError("");
+            Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
             return false;
         }
         return true;
