@@ -53,7 +53,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
 
     public final ObservableBoolean flagRemovePicJoin = new ObservableBoolean();
     public final ObservableBoolean flagRemovePicReg = new ObservableBoolean();
-    String imageUrl = "";
+    public final ObservableField<String> imageUrl = new ObservableField<>();
 
 
     public CommunityActivityViewModel(DataManager dataManager) {
@@ -254,7 +254,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         String userId = getDataManager().getCurrentUserId();
 
         try {
-            JoinCommunityRequest communityRequest = new JoinCommunityRequest(userId,cmId.get(),profileImage,houseFlatNo,floorNo);
+            JoinCommunityRequest communityRequest = new JoinCommunityRequest(userId,cmId.get(),imageUrl.get(),houseFlatNo,floorNo);
 
             Gson gson = new GsonBuilder().create();
             String payloadStr = gson.toJson(communityRequest);
@@ -307,7 +307,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
         try {
-            CompleteRegistrationRequest communityRequest = new CompleteRegistrationRequest(communityName,lat,lon,apartmentName,profileImage,userId,noOfApartments,flatNo,
+            CompleteRegistrationRequest communityRequest = new CompleteRegistrationRequest(communityName,lat,lon,apartmentName,imageUrl.get(),userId,noOfApartments,flatNo,
                     floorNo,communityAddress,area);
             Gson gson = new GsonBuilder().create();
             String payloadStr = gson.toJson(communityRequest);
@@ -384,15 +384,15 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                     if (response.getSuccess()) {
                         if (REQUEST_CODE == AppConstants.IMAGE_UPLOAD_JOIN) {
                             if (getNavigator() != null) {
-                                imageUrl ="";
-                                imageUrl = response.getData().getLocation();
-                                getNavigator().uploaded(imageUrl);
+                                //imageUrl ="";
+                                imageUrl.set(response.getData().getLocation());
+                                getNavigator().uploaded(imageUrl.get());
                             }
                         } else if (REQUEST_CODE == AppConstants.IMAGE_UPLOAD_REGISTRATION) {
                             if (getNavigator() != null) {
-                                imageUrl ="";
-                                imageUrl = response.getData().getLocation();
-                                getNavigator().uploaded1(imageUrl);
+                                //imageUrl ="";
+                                imageUrl.set(response.getData().getLocation());
+                                getNavigator().uploaded1(imageUrl.get());
                             }
                         }
                     }
