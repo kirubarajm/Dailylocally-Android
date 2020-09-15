@@ -457,6 +457,7 @@ public class AppConstants {
   public static final int COMMUNITY_REQUEST_CODE = 702;
   public static final int IMAGE_UPLOAD_JOIN = 703;
   public static final int IMAGE_UPLOAD_REGISTRATION = 704;
+  public static final int CROP_IMAGE = 705;
   public static final String CANCEL_ORDER_MEAASAGE_1 = "I entered the wrong delivery address";
   public static final String CANCEL_ORDER_MEAASAGE_2 = "I added the wrong items";
   public static final String CANCEL_ORDER_MEAASAGE_3 = "Placed order by mistake";

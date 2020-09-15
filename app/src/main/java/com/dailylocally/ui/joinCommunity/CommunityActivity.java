@@ -1,6 +1,7 @@
 package com.dailylocally.ui.joinCommunity;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -74,6 +75,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.Pivot;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
@@ -177,10 +180,10 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
     @Override
     public void uploadJoinImageClick() {
-        imageBitmap = null;
+        /*imageBitmap = null;
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);
+        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);*/
 /*
         try {
             if (imageBitmap == null){
@@ -196,6 +199,13 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             e.printStackTrace();
         }
 */
+
+
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent,2);
+
     }
 
     @Override
@@ -322,7 +332,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         mOnBoardingActivityViewModel.setNavigator(this);
         mCommunityAdapter.setListener(this);
 
-
+        requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
 
         mOnBoardingActivityViewModel.register.set(true);
 
@@ -987,6 +997,22 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(false);
             }
         }else {
+
+        }
+
+        if (requestCode == 2){
+            Uri ii = data.getData();
+
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.OFF)
+                    .setAspectRatio(1,1)
+                    .setCropShape(CropImageView.CropShape.RECTANGLE)
+                    .start(this);
+        }
+
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
         }
     }
