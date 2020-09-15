@@ -109,7 +109,8 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
 
         mActivityEventBinding.commentText.setText("");
         hideKeyboard();
-        mCommentsListAdapter.addOneItems(getSocialActivity);
+    //    mCommentsListAdapter.addOneItems(getSocialActivity);
+        getComments(mEventDetailsViewModel.postId);
 
     }
 
@@ -175,7 +176,7 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(EventDetailsActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-      //  linearLayoutManager.setReverseLayout(true);
+        //linearLayoutManager.setReverseLayout(true);
 
         mActivityEventBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(EventDetailsActivity.this));
         mActivityEventBinding.recyclerPost.setAdapter(mCommentsListAdapter);
@@ -193,6 +194,7 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
         Communities.getActivities(pagingQuery, result -> {
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
             mEventDetailsViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
+          //  mActivityEventBinding.recyclerPost.scrollToPosition(getSocialActivities.size()-1);
         }, exception -> {
             // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
         });

@@ -229,6 +229,7 @@ public class EventListItemViewModel {
 
     public void viewAllComment() {
         showComment.set(false);
+        moreComments.set(false);
         mListener.viewAllComment(posts);
     }
 

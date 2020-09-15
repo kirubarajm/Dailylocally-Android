@@ -104,6 +104,9 @@ public class CommentsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             //    mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
+
+            mListItemCategoriesBinding.comment.setText(blog.getText());
+            mListItemCategoriesBinding.comment.initViews();
         }
 
 

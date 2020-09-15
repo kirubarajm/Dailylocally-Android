@@ -131,7 +131,7 @@
                             android:id="@+id/user"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="#DADADA">
+                            android:background="#F6F6F6">
 
                             <View
                                 android:layout_width="match_parent"

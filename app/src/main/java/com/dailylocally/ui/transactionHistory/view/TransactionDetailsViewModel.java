@@ -101,7 +101,15 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
                             if (response!=null){
                                 if (response.getStatus()){
                                     if (getNavigator()!=null){
-                                        getNavigator().success(response.getResult().get(0).getCreatedAt());
+                                        String strDateTime;
+                                        if (response.getResult().get(0).getOnlineOrder()){
+                                            strDateTime = response.getResult().get(0).getTransactionTime();
+
+                                        }else {
+                                            strDateTime = response.getResult().get(0).getCreatedAt();
+                                        }
+
+                                        getNavigator().success(strDateTime);
                                     }
 
                                //     transactionTime.set(response.getResult().get(0).getCreatedAt());
@@ -113,6 +121,7 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
                                     }else {
                                         paymentId.set("Cash on delivery");
                                     }
+
 
 
                                     transactionOrderId.set(String.valueOf(response.getResult().get(0).getOrderid()));
