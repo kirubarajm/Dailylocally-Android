@@ -1,25 +1,37 @@
 package com.dailylocally.ui.community;
 
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dailylocally.api.remote.GsonRequest;
+import com.dailylocally.api.remote.VolleyMultiPartRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.category.l2.L2CategoryRequest;
+import com.dailylocally.ui.joinCommunity.DocumentUploadResponse;
+import com.dailylocally.ui.signup.registration.NameGenderResponse;
+import com.dailylocally.ui.signup.registration.RegistrationRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import im.getsocial.sdk.communities.GetSocialActivity;
 
@@ -112,7 +124,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
         socialActivitiesListLiveData = new MutableLiveData<>();
         updateAvailable.set(getDataManager().isUpdateAvailable());
 
-
+        profilePic.set(getDataManager().getUserProfilePic());
         if (getDataManager().getUserDetails() != null) {
 
             Gson sGson = new GsonBuilder().create();
@@ -122,7 +134,6 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                     if (communityUserDetailsResponse.getResult().size() > 0) {
                         CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
 
-                        profilePic.set(result.getProfileImage());
                         name.set(result.getName());
                         nameText.set(result.getWelcomeText());
                         members.set(result.getMembersCount());
@@ -134,9 +145,8 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                         creditInfoText.set(result.getCreditsInfo());
 
 
-
-                        if (result.getShowCreditsInfo()!=null)
-                        showCreditsInfo.set(result.getShowCreditsInfo());
+                        if (result.getShowCreditsInfo() != null)
+                            showCreditsInfo.set(result.getShowCreditsInfo());
 
                     }
                 }
@@ -181,7 +191,6 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     }
 
 
-
     public void actionBtClick() {
         getNavigator().actionBtClick();
     }
@@ -202,10 +211,16 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
         getNavigator().whatsAppGroup();
     }
 
-public void communityEvent() {
+    public void communityEvent() {
         getNavigator().communityEvent();
     }
 
+
+    public void changeProfile() {
+
+        getNavigator().changeProfile();
+
+    }
 
     public void getHomeDetails() {
 
@@ -243,13 +258,13 @@ public void communityEvent() {
                                     whatsTitle.set(result.getWhatsapp().getTitle());
                                     whatsDes.set(result.getWhatsapp().getDes());
 
-                                    whatsappgroupLink=result.getWhatsapp().getGroupUrl();
-                                    sneakpeakVideoUrl=result.getSneakPeak().getVideoUrl();
-                                    topic=result.getEvent().getTopic();
-                                    eventTitle=result.getEvent().getTitle();
+                                    whatsappgroupLink = result.getWhatsapp().getGroupUrl();
+                                    sneakpeakVideoUrl = result.getSneakPeak().getVideoUrl();
+                                    topic = result.getEvent().getTopic();
+                                    eventTitle = result.getEvent().getTitle();
 
-                                    homeEventTitle=result.getEvent().getHomeCommunityTitle();
-                                    homeEventTopic=result.getEvent().getHomeCommunityTopic();
+                                    homeEventTitle = result.getEvent().getHomeCommunityTitle();
+                                    homeEventTopic = result.getEvent().getHomeCommunityTopic();
 
                                     if (getNavigator() != null)
                                         getNavigator().homeDataLoaded();
@@ -292,11 +307,118 @@ public void communityEvent() {
 
     }
 
-    public void closeVideo(){
+    public void closeVideo() {
 
         getNavigator().stopVideo();
 
         showVideo.set(false);
     }
 
+
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    public void uploadImage(Bitmap bitmap) {
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+        final String image = getStringImage(bitmap);
+        VolleyMultiPartRequest volleyMultipartRequest = new VolleyMultiPartRequest(Request.Method.POST, AppConstants.URL_UPLOAD_DOCUMENT_PICKUP,
+                DocumentUploadResponse.class, new Response.Listener<DocumentUploadResponse>() {
+            @Override
+            public void onResponse(DocumentUploadResponse response) {
+                if (response != null) {
+                    if (response.getSuccess()) {
+
+                        saveProfilePic(response.getData().getLocation());
+
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tags", "tag");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                return headers;
+            }
+
+            @Override
+            protected Map<String, VolleyMultiPartRequest.DataPart> getByteData() {
+                Map<String, VolleyMultiPartRequest.DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("lic", new VolleyMultiPartRequest.DataPart("lic", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+        };
+
+        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                5000000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        DailylocallyApp.getInstance().addToRequestQueue(volleyMultipartRequest);
+    }
+        public void saveProfilePic(String profileImageUrl) {
+
+
+        String userIdMain = getDataManager().getCurrentUserId();
+        RegistrationRequest registrationRequest;
+
+
+            registrationRequest = new RegistrationRequest(userIdMain, profileImageUrl);
+
+
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+        try {
+
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.REGISTRATION, NameGenderResponse.class, registrationRequest, new Response.Listener<NameGenderResponse>() {
+                @Override
+                public void onResponse(NameGenderResponse response) {
+                    try {
+                        if (response != null) {
+                            if (response.getStatus()) {
+                                profilePic.set(profileImageUrl);
+                                getDataManager().updateProfilePic(profileImageUrl);
+                            }
+                        } }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            },  new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
 }

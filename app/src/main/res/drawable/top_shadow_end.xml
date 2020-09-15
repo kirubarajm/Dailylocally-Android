@@ -6,11 +6,10 @@
         android:right="0dp"
         android:top="0dp">
         <shape android:shape="rectangle">
-            <solid android:color="#EAEAEA"/>
             <gradient
-                android:angle="270"
+                android:angle="90"
                 android:endColor="#FFFFFF"
-                android:startColor="#EAEAEA" />
+                android:startColor="#9E9D9D" />
         </shape>
     </item>
 </layer-list>

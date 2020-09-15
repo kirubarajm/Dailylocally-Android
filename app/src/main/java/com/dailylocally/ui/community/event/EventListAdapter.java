@@ -4,12 +4,17 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.databinding.ListItemCommunityPostBinding;
 import com.dailylocally.databinding.ListItemEventPostBinding;
 import com.dailylocally.ui.base.BaseViewHolder;
+import com.dailylocally.ui.community.details.CommentsListAdapter;
+import com.dailylocally.ui.community.details.EventDetailsActivity;
+import com.dailylocally.utilities.DailylocallyApp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +27,7 @@ public class EventListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     int TYPE_LODER = 2;
     private List<GetSocialActivity> item_list;
     private ProductsAdapterListener mProductsAdapterListener;
-
+    CommentsListAdapter commentsListAdapter;
 
     public EventListAdapter(List<GetSocialActivity> item_list) {
         this.item_list = item_list;
@@ -74,9 +79,12 @@ public class EventListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface ProductsAdapterListener {
 
+        void hideKBoard();
         void refresh();
         void commentClick(GetSocialActivity posts);
         void actionData(Map<String, String> actionDatas);
+
+        void viewAllComment(GetSocialActivity posts);
     }
 
 
@@ -100,6 +108,12 @@ public class EventListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         //    mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
+
+            /*mCategoriesItemViewModel.getsocialActivitiesListLiveData().observe(EventListAdapter.this,
+                    postItemViewModel -> mCategoriesItemViewModel.addCommunityPostToList(postItemViewModel));*/
+
+
+
         }
 
 
@@ -114,8 +128,40 @@ public class EventListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
+        public void viewAllComment(GetSocialActivity posts) {
+            mProductsAdapterListener.viewAllComment(posts);
+        }
+
+        @Override
         public void commentClick(GetSocialActivity posts) {
             mProductsAdapterListener.commentClick(posts);
+        }
+
+        @Override
+        public void addOneComment(GetSocialActivity comments) {
+           /* mListItemCategoriesBinding.commentText.setText("");
+            commentsListAdapter.addOneItems(comments);
+            mProductsAdapterListener.hideKBoard();*/
+
+
+
+        }
+
+        @Override
+        public void addComments(List<GetSocialActivity> comments) {
+
+          //  List<GetSocialActivity> commentList=new ArrayList<>();
+            commentsListAdapter=new CommentsListAdapter(comments);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DailylocallyApp.getInstance());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            //  linearLayoutManager.setReverseLayout(true);
+            mListItemCategoriesBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(DailylocallyApp.getInstance()));
+            mListItemCategoriesBinding.recyclerPost.setAdapter(commentsListAdapter);
+
+            mListItemCategoriesBinding.commentText.setText("");
+            mProductsAdapterListener.hideKBoard();
+         
+           // commentsListAdapter.addItems(comments);
         }
 
         @Override

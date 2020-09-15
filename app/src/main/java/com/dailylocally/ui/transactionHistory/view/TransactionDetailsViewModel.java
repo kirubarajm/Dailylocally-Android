@@ -101,9 +101,10 @@ public class TransactionDetailsViewModel extends BaseViewModel<TransactionDetail
                             if (response!=null){
                                 if (response.getStatus()){
                                     if (getNavigator()!=null){
-                                        getNavigator().success(response.getResult().get(0).getTransactionTime());
+                                        getNavigator().success(response.getResult().get(0).getCreatedAt());
                                     }
-                                    transactionTime.set(response.getResult().get(0).getTransactionTime());
+
+                               //     transactionTime.set(response.getResult().get(0).getCreatedAt());
                                //     paymentId.set(String.valueOf(response.getResult().get(0).getTsid()));
 
                                     if (response.getResult().get(0).getOnlineOrder()){

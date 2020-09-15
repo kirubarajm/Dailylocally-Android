@@ -3,8 +3,11 @@ package com.dailylocally.ui.community.event;
 
 import android.text.format.DateFormat;
 
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableList;
+import androidx.lifecycle.MutableLiveData;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -17,11 +20,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import im.getsocial.sdk.Callback;
 import im.getsocial.sdk.Communities;
 import im.getsocial.sdk.CompletionCallback;
 import im.getsocial.sdk.FailureCallback;
 import im.getsocial.sdk.GetSocialError;
+import im.getsocial.sdk.common.PagingQuery;
+import im.getsocial.sdk.communities.ActivitiesQuery;
+import im.getsocial.sdk.communities.ActivityContent;
 import im.getsocial.sdk.communities.GetSocialActivity;
+import im.getsocial.sdk.communities.PostActivityTarget;
 import im.getsocial.sdk.communities.Reactions;
 import im.getsocial.sdk.media.MediaAttachment;
 
@@ -35,17 +43,23 @@ public class EventListItemViewModel {
     public final ObservableField<String> image1 = new ObservableField<>();
     public final ObservableField<String> image2 = new ObservableField<>();
     public final ObservableField<String> commentsCount = new ObservableField<>();
+    public final ObservableField<String> allCommentsCount = new ObservableField<>();
 
     public final ObservableBoolean showAction = new ObservableBoolean();
     public final ObservableBoolean postLike = new ObservableBoolean();
     public final ObservableBoolean commented = new ObservableBoolean();
+    public final ObservableBoolean showComment = new ObservableBoolean();
     public final ObservableBoolean singleImage = new ObservableBoolean();
     public final ObservableBoolean attachmentAvailable = new ObservableBoolean();
-
+    public final ObservableBoolean moreComments = new ObservableBoolean();
     private final GetSocialActivity posts;
     private final PostItemViewModelListener mListener;
+    public ObservableList<GetSocialActivity> getSocialActivities = new ObservableArrayList<>();
+    public String ratingDOID = "0";
+    public MutableLiveData<List<GetSocialActivity>> socialActivitiesListLiveData;
 
     public EventListItemViewModel(PostItemViewModelListener mListener, GetSocialActivity result) {
+        socialActivitiesListLiveData = new MutableLiveData<>();
         this.mListener = mListener;
         this.posts = result;
 
@@ -55,7 +69,9 @@ public class EventListItemViewModel {
         postDate.set(getDate(result.getCreatedAt()));
 
 
+
         commentsCount.set(String.valueOf(posts.getCommentsCount()));
+        allCommentsCount.set("View all " +String.valueOf(posts.getCommentsCount())+" comments");
 
 
        /* if (posts.getSource().getType().equals(CommunitiesAction.COMMENT)){
@@ -147,6 +163,16 @@ public class EventListItemViewModel {
 
     }
 
+    public MutableLiveData<List<GetSocialActivity>> getsocialActivitiesListLiveData() {
+        return socialActivitiesListLiveData;
+    }
+
+    public void addCommunityPostToList(List<GetSocialActivity> items) {
+        getSocialActivities.clear();
+        getSocialActivities.addAll(items);
+
+    }
+
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time * 1000);
@@ -187,7 +213,68 @@ public class EventListItemViewModel {
     }
 
     public void commentClick() {
-        mListener.commentClick(posts);
+
+        if (showComment.get()) {
+            showComment.set(false);
+            moreComments.set(false);
+        } else {
+            moreComments.set(posts.getCommentsCount()>3);
+            showComment.set(true);
+            getComments(posts.getId());
+        }
+
+
+    }
+
+
+    public void viewAllComment() {
+        showComment.set(false);
+        mListener.viewAllComment(posts);
+    }
+
+
+    public void postComment(String text) {
+
+
+        if (text.isEmpty()) return;
+
+        ActivityContent content = new ActivityContent().withText(text);
+        PostActivityTarget target1 = PostActivityTarget.comment(posts.getId());
+
+        Communities.postActivity(content, target1, new Callback<GetSocialActivity>() {
+            @Override
+            public void onSuccess(GetSocialActivity getSocialActivity) {
+                commented.set(true);
+                int comCount = 0;
+                if (commentsCount.get() != null)
+                    comCount = Integer.parseInt(commentsCount.get()) + 1;
+
+                commentsCount.set(String.valueOf(comCount));
+                // mListener.addOneComment(getSocialActivity);
+                getComments(posts.getId());
+
+            }
+        }, new FailureCallback() {
+            @Override
+            public void onFailure(GetSocialError getSocialError) {
+
+            }
+        });
+
+    }
+
+    private void getComments(String id) {
+        final ActivitiesQuery query = ActivitiesQuery.commentsToActivity(id);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(3);
+        Communities.getActivities(pagingQuery, result -> {
+            final List<GetSocialActivity> getSocialActivities = result.getEntries();
+            // socialActivitiesListLiveData.setValue(getSocialActivities);
+
+            mListener.addComments(getSocialActivities);
+
+        }, exception -> {
+            // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+        });
     }
 
 
@@ -200,8 +287,13 @@ public class EventListItemViewModel {
         void refresh();
 
         void actionClick();
+        void viewAllComment(GetSocialActivity posts);
 
         void commentClick(GetSocialActivity posts);
+
+        void addOneComment(GetSocialActivity posts);
+
+        void addComments(List<GetSocialActivity> comments);
 
         void actionData(Map<String, String> actionDatas);
 

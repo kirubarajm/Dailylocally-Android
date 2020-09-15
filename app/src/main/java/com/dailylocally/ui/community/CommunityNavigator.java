@@ -24,7 +24,7 @@ public interface CommunityNavigator {
     void postLikeClick();
 
     void creditInfoClick();
-
+    void changeProfile();
     void homeDataLoaded();
 }
 

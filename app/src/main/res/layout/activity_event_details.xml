@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <androidx.cardview.widget.CardView
+        <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -53,35 +53,36 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
-                    android:text="@{eventViewModel.title}" />
+                    android:text="Comments" />
 
             </RelativeLayout>
 
 
-        </androidx.cardview.widget.CardView>
+        </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:overScrollMode="never"
+            android:paddingBottom="10dp"
+            android:layout_above="@+id/comment_lay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/header">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/header"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <androidx.cardview.widget.CardView
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:id="@+id/content"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="10dp">
+                        android:layout_height="wrap_content">
 
 
                         <LinearLayout
@@ -143,7 +144,8 @@
 
 
                                                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                                                    style="@style/HeaderTitleTextStyle"
+                                                    android:textColor="@color/medium_black"
+                                                    android:textSize="@dimen/_22px"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:text="@{eventViewModel.postTitle}" />
@@ -292,9 +294,18 @@
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+
+                   <View
+                       android:layout_margin="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="0.5dp"
+                       android:background="@color/light_black"/>
+
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:overScrollMode="never"
                         android:id="@+id/recycler_post"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -302,24 +313,31 @@
                  android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:paddingBottom="50dp"
+                        android:paddingBottom="10dp"
                         app:commentsadapter="@{eventViewModel.getSocialActivities}"
                         tools:listitem="@layout/list_item_event_comments" />
 
 
-                </RelativeLayout>
 
-
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
+            android:id="@+id/comment_lay"
+            android:background="@drawable/top_shadow_end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white">
+            android:layout_alignParentBottom="true">
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/comment_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -330,6 +348,9 @@
                 android:textSize="@dimen/_22px" />
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:onClick="@{()->eventViewModel.postComment(commentText.getText().toString())}"
                 android:id="@+id/post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -339,9 +360,12 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="post"
+                android:textAllCaps="true"
                 android:textColor="@color/medium_black"
                 android:textSize="@dimen/_22px" />
 
+
+        </RelativeLayout>
 
         </RelativeLayout>
     </RelativeLayout>

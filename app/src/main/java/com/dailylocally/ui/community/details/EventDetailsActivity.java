@@ -105,6 +105,15 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
     }
 
     @Override
+    public void postComment(GetSocialActivity getSocialActivity) {
+
+        mActivityEventBinding.commentText.setText("");
+        hideKeyboard();
+        mCommentsListAdapter.addOneItems(getSocialActivity);
+
+    }
+
+    @Override
     public void onBackPressed() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onBackPressed();
@@ -166,6 +175,8 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(EventDetailsActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+      //  linearLayoutManager.setReverseLayout(true);
+
         mActivityEventBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(EventDetailsActivity.this));
         mActivityEventBinding.recyclerPost.setAdapter(mCommentsListAdapter);
     }

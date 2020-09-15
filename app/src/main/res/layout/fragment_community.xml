@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:text="Community" />
+                android:text="Daily Locally Exclusive" />
 
         </LinearLayout>
 
@@ -57,7 +57,7 @@
                         android:id="@+id/user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#C3C3C3">
+                        android:background="#DADADA">
 
                         <View
                             android:layout_width="match_parent"
@@ -89,6 +89,7 @@
 
 
                                     <com.dailylocally.utilities.CircularImageView
+                                        android:onClick="@{()->communityViewModel.changeProfile()}"
                                         android:id="@+id/circleImage"
                                         profileImage="@{communityViewModel.profilePic}"
                                         android:layout_width="80dp"
@@ -324,6 +325,7 @@
 
 
                                         <LinearLayout
+                                            android:layout_gravity="center_vertical"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginStart="10dp"
@@ -333,12 +335,12 @@
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
-                                                android:layout_margin="10dp"
                                                 android:orientation="vertical">
 
 
                                                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                                                    style="@style/HeaderTitleTextStyle"
+                                                    android:textColor="@color/medium_black"
+                                                    android:textSize="@dimen/_22px"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:text="@{communityViewModel.postTitle}" />
@@ -466,15 +468,16 @@
                                         android:layout_marginEnd="15dp">
 
 
-                                        <TextView
+                                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="@dimen/_15px"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerInParent="true"
                                             android:text="@{communityViewModel.actionText}"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="14sp" />
-
+                                            android:textAlignment="center" />
 
                                     </RelativeLayout>
 
@@ -502,7 +505,6 @@
                                 android:layout_weight="1">
 
                                 <androidx.cardview.widget.CardView
-                                    app:cardElevation="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:onClick="@{()->communityViewModel.communityEvent()}"
@@ -548,7 +550,6 @@
                                 android:layout_weight="1">
 
                                 <androidx.cardview.widget.CardView
-                                    app:cardElevation="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:onClick="@{()->communityViewModel.gotoCommunityCat()}"
@@ -618,7 +619,7 @@
 
 
                                         <androidx.cardview.widget.CardView
-                                            app:cardElevation="10dp"
+
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:onClick="@{()->communityViewModel.aboutUs()}"
@@ -683,7 +684,6 @@
 
 
                                         <androidx.cardview.widget.CardView
-                                            app:cardElevation="10dp"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:onClick="@{()->communityViewModel.sneakPeak()}"
@@ -778,7 +778,6 @@
 
 
                                 <androidx.cardview.widget.CardView
-                                    app:cardElevation="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:onClick="@{()->communityViewModel.whatsAppGroup()}"
@@ -884,5 +883,264 @@
             android:id="@+id/communityToolTipLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="@{communityViewModel.categoryLoading?View.VISIBLE:View.GONE}">
+
+            <!--<com.victor.loading.rotate.RotateLoading
+                android:id="@+id/loader"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                app:loading_color="@color/dl_primary_color"
+                app:loading_width="5dp" />-->
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/loader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:duration="1000">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="50dp"
+                        android:background="@color/light_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@color/light_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@color/light_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/light_gray"
+                            android:orientation="horizontal" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </RelativeLayout>
+
+
+
     </RelativeLayout>
 </layout>

@@ -1,11 +1,19 @@
 package com.dailylocally.ui.community;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -24,8 +32,10 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.viewall.CatProductActivity;
+import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.community.event.EventActivity;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
@@ -38,6 +48,8 @@ import com.nhaarman.supertooltips.ToolTipView;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,6 +83,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     CommunityViewModel mCommunityViewModel;
     FragmentCommunityBinding mFragmentCommunityBinding;
     GetSocialActivity firstPost;
+    Bitmap imageBitmap;
 
     public static CommunityFragment newInstance() {
         Bundle args = new Bundle();
@@ -157,7 +170,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     public void whatsAppGroup() {
         String url = mCommunityViewModel.whatsappgroupLink;
 
-        if (url != null) {
+        if (url != null&&url.isEmpty()) {
             Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
             //String url = "https://chat.whatsapp.com/<group_link>";
             intentWhatsapp.setData(Uri.parse(url));
@@ -304,6 +317,13 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     }
 
     @Override
+    public void changeProfile() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);
+    }
+
+    @Override
     public void homeDataLoaded() {
 
         GetSocial.addOnInitializeListener(new Runnable() {
@@ -396,6 +416,9 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         mFragmentCommunityBinding = getViewDataBinding();
         // mFragmentHomeBinding.loader.start();
         //  mFragmentCommunityBinding.loader.startShimmerAnimation();
+        mCommunityViewModel.categoryLoading.set(true);
+        mFragmentCommunityBinding.loader.startShimmerAnimation();
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -438,6 +461,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
         final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query);
         Communities.getActivities(pagingQuery, result -> {
+
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
             //mCommunityViewModel.getSocialActivities.addAll(getSocialActivities);
             mCommunityViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
@@ -492,8 +516,9 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
             }
 
-
+            mCommunityViewModel.categoryLoading.set(false);
         }, exception -> {
+            mCommunityViewModel.categoryLoading.set(false);
             // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
         });
     }
@@ -556,10 +581,64 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 startActivity(tDintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
+            case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
+                Intent pintent = ProductDetailsActivity.newIntent(getBaseActivity());
+                pintent.putExtra("vpid", actionDatas.get("vpid"));
+                startActivity(pintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+case AppConstants.NOTIFY_COLLECTION_ACTV:
+                Intent cintent = CollectionDetailsActivity.newIntent(getBaseActivity());
+                cintent.putExtra("cid", actionDatas.get("cid"));
+                startActivity(cintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
 
 
         }
 
 
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.IMAGE_UPLOAD_JOIN) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    Bundle extras = data.getExtras();
+                    assert extras != null;
+                    Uri selectedImage = data.getData();
+                    try {
+                        imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    assert imageBitmap != null;
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+
+                    Bitmap bitmap = imageBitmap;
+                    Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+                    BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                    Paint paint = new Paint();
+                    paint.setShader(shader);
+                    paint.setAntiAlias(true);
+                    Canvas c = new Canvas(circleBitmap);
+                    c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+
+                    mCommunityViewModel.uploadImage(imageBitmap);
+
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Log.e("area", "area");
+            }
+        }
+
+    }
+
+
 }

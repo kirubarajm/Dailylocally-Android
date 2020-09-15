@@ -131,7 +131,7 @@
                             android:id="@+id/user"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="#C3C3C3">
+                            android:background="#DADADA">
 
                             <View
                                 android:layout_width="match_parent"
@@ -162,6 +162,7 @@
 
 
                                         <com.dailylocally.utilities.CircularImageView
+                                            android:onClick="@{()->communityCatViewModel.changeProfile()}"
                                             android:id="@+id/circleImage"
                                             profileImage="@{communityCatViewModel.profilePic}"
                                             android:layout_width="80dp"

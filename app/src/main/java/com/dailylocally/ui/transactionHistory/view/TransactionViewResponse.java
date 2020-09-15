@@ -74,6 +74,14 @@ public class TransactionViewResponse {
         @SerializedName("online_order")
         @Expose
         public Boolean onlineOrder;
+        @SerializedName("created_at")
+        @Expose
+        public String createdAt;
+
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
 
         public Boolean getOnlineOrder() {
             return onlineOrder;

@@ -37,6 +37,12 @@ public class RegistrationRequest {
     @Expose
     public String otherHometown;
 
+ @SerializedName("profile_image")
+    @Expose
+    public String profileImage;
+
+
+
     public String getEmail() {
         return email;
     }
@@ -75,6 +81,12 @@ public class RegistrationRequest {
         this.email = email;
         this.gender = gender;
         this.referredby = referredby;
+    }
+
+
+    public RegistrationRequest(String userid, String profileImage) {
+        this.userid = userid;
+        this.profileImage = profileImage;
     }
 
     public Integer getHometownId() {

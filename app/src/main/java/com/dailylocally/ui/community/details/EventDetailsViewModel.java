@@ -10,25 +10,25 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
-import com.dailylocally.ui.community.event.EventListItemViewModel;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import im.getsocial.sdk.Callback;
 import im.getsocial.sdk.Communities;
 import im.getsocial.sdk.CompletionCallback;
 import im.getsocial.sdk.FailureCallback;
 import im.getsocial.sdk.GetSocialError;
+import im.getsocial.sdk.communities.ActivityContent;
 import im.getsocial.sdk.communities.GetSocialActivity;
+import im.getsocial.sdk.communities.PostActivityTarget;
 import im.getsocial.sdk.communities.Reactions;
-import im.getsocial.sdk.media.MediaAttachment;
 
 public class EventDetailsViewModel extends BaseViewModel<EventDetailsNavigator> {
     public final ObservableField<String> title = new ObservableField<>();
@@ -49,27 +49,13 @@ public class EventDetailsViewModel extends BaseViewModel<EventDetailsNavigator> 
     public String ratingDOID = "0";
     public MutableLiveData<List<GetSocialActivity>> socialActivitiesListLiveData;
     public String postId;
-    public  GetSocialActivity posts;
+    public GetSocialActivity posts;
+
     public EventDetailsViewModel(DataManager dataManager) {
         super(dataManager);
         socialActivitiesListLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<List<GetSocialActivity>> getsocialActivitiesListLiveData() {
-        return socialActivitiesListLiveData;
-    }
-
-
-    public void addCommunityPostToList(List<GetSocialActivity> items) {
-        getSocialActivities.clear();
-        getSocialActivities.addAll(items);
-
-    }
-
-
-    public void back() {
-        getNavigator().back();
-    }
     public static String formateddate(String date) {
         DateTime dateTime = DateTimeFormat.forPattern("dd-MM-yyyy hh:mm:ss a").parseDateTime(date);
         DateTime today = new DateTime();
@@ -104,6 +90,20 @@ public class EventDetailsViewModel extends BaseViewModel<EventDetailsNavigator> 
         }
         return outputDate;
 
+    }
+
+    public MutableLiveData<List<GetSocialActivity>> getsocialActivitiesListLiveData() {
+        return socialActivitiesListLiveData;
+    }
+
+    public void addCommunityPostToList(List<GetSocialActivity> items) {
+        getSocialActivities.clear();
+        getSocialActivities.addAll(items);
+
+    }
+
+    public void back() {
+        getNavigator().back();
     }
 
     public String getDate(long time) {
@@ -148,4 +148,34 @@ public class EventDetailsViewModel extends BaseViewModel<EventDetailsNavigator> 
     public void commentClick() {
 
     }
+
+    public void postComment(String text) {
+
+        if (text.isEmpty()) return;
+
+        ActivityContent content = new ActivityContent().withText(text);
+        PostActivityTarget target1 = PostActivityTarget.comment(postId);
+
+        Communities.postActivity(content, target1, new Callback<GetSocialActivity>() {
+            @Override
+            public void onSuccess(GetSocialActivity getSocialActivity) {
+                commented.set(true);
+                int comCount = 0;
+                if (commentsCount.get() != null)
+                    comCount = Integer.parseInt(commentsCount.get()) + 1;
+
+                commentsCount.set(String.valueOf(comCount));
+                if (getNavigator() != null)
+                    getNavigator().postComment(getSocialActivity);
+            }
+        }, new FailureCallback() {
+            @Override
+            public void onFailure(GetSocialError getSocialError) {
+
+            }
+        });
+
+    }
+
+
 }

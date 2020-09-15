@@ -24,6 +24,9 @@ public interface PreferencesHelper {
 
     void setCurrentUserEmail(String email);
 
+  String getUserProfilePic();
+    void setUserProfilePic(String image);
+
     String getCurrentUserId();
 
     void setCurrentUserId(String userId);

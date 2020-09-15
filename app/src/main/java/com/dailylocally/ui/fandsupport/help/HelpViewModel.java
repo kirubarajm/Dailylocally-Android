@@ -102,9 +102,6 @@ public Integer stype;
                  issuesRequest=new IssuesRequest(type,issueid,getDataManager().getCurrentUserId(),orderid);
             }
 
-
-
-
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHAT_ISSUES_NOTE, IssuesListResponse.class, issuesRequest, new Response.Listener<IssuesListResponse>() {
                 @Override

@@ -371,10 +371,10 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
 
         mActivityOnboardingBinding.recyclerCommunity .setItemTransformer(new ScaleTransformer.Builder()
-                .setMaxScale(1.00f)
-                .setMinScale(0.8f)
+                .setMaxScale(1.25f)
+                .setMinScale(0.90f)
                 .setPivotX(Pivot.X.CENTER) // CENTER is a default one
-                .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
+                .setPivotY(Pivot.Y.CENTER) // CENTER is a default one
                 .build());
 
 
@@ -393,7 +393,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
                     mMap.animateCamera(CameraUpdateFactory.zoomIn());
                     // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
                 }
             }
         });

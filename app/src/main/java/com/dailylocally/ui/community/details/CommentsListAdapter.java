@@ -49,14 +49,19 @@ public class CommentsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
-
-
     public void clearItems() {
         item_list.clear();
     }
 
+    public void addOneItems(GetSocialActivity blogList) {
 
-
+        if (item_list.size() > 0) {
+            item_list.add(0, blogList);
+        } else {
+            item_list.add(blogList);
+        }
+        notifyDataSetChanged();
+    }
 
 
     public void addItems(List<GetSocialActivity> blogList) {
@@ -72,7 +77,9 @@ public class CommentsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public interface ProductsAdapterListener {
 
         void refresh();
+
         void commentClick(GetSocialActivity posts);
+
         void actionData(Map<String, String> actionDatas);
     }
 
@@ -95,7 +102,7 @@ public class CommentsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemCategoriesBinding.setPostListItemViewModel(mCategoriesItemViewModel);
             mListItemCategoriesBinding.executePendingBindings();
 
-        //    mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            //    mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         }
 

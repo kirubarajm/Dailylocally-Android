@@ -141,6 +141,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void updateProfilePic(String image) {
+        setUserProfilePic(image);
+    }
+
+    @Override
     public void saveRazorpayCustomerId(String razorpayCustomerId) {
         setRazorpayCustomerId(razorpayCustomerId);
     }
@@ -252,6 +257,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setCurrentUserEmail(String email) {
         mPreferencesHelper.setCurrentUserEmail(email);
+    }
+
+    @Override
+    public String getUserProfilePic() {
+        return mPreferencesHelper.getUserProfilePic();
+    }
+
+    @Override
+    public void setUserProfilePic(String image) {
+mPreferencesHelper.setUserProfilePic(image);
     }
 
     @Override

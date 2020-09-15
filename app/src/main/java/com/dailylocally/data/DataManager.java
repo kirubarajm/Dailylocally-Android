@@ -55,6 +55,7 @@ public interface DataManager extends PreferencesHelper {
 
     void savePromotionSeen(boolean seen);
     void updateAvailable(boolean available);
+    void updateProfilePic(String image);
 
 
     void saveRazorpayCustomerId(String razorpayCustomerId);

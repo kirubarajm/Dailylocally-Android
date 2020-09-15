@@ -427,9 +427,10 @@
         <RelativeLayout
             android:layout_above="@+id/rel_buttons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <com.yarolegovich.discretescrollview.DiscreteScrollView
+                android:layout_alignParentBottom="true"
                 android:visibility="@{communityViewModel.register?View.VISIBLE:View.GONE}"
                 android:id="@+id/recycler_community"
                 android:layout_marginBottom="30dp"

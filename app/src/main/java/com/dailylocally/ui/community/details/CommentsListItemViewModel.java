@@ -45,6 +45,8 @@ public class CommentsListItemViewModel {
         postDate.set(getDate(result.getCreatedAt()));
 
 
+
+
     }
 
     public static String formateddate(String date) {

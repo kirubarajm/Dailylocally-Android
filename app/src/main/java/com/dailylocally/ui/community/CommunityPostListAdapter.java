@@ -108,6 +108,8 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         //    mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
+
+
         }
 
 

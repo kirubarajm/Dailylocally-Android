@@ -59,12 +59,12 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_margin="10dp"
             android:id="@+id/recycler_post"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/header"
             android:layout_marginTop="10dp"
+            android:nestedScrollingEnabled="false"
             app:eventadapter="@{eventViewModel.getSocialActivities}"
             tools:listitem="@layout/list_item_faqs" />
 

@@ -15,4 +15,6 @@ public interface CommunityCatNavigator {
     void showPromotions(String url, boolean fullScreen, int type, int promotionid);
     void searchClick();
     void ratingClick();
+
+    void changeProfile();
 }

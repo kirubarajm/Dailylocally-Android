@@ -197,25 +197,17 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
     }
 
     @Override
+    public void hideKBoard() {
+        hideKeyboard();
+    }
+
+    @Override
     public void refresh() {
 
     }
 
     @Override
     public void commentClick(GetSocialActivity posts) {
-
-        final ActivitiesQuery query = ActivitiesQuery.commentsToActivity(posts.getId());
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query);
-        Communities.getActivities(pagingQuery, result -> {
-            final List<GetSocialActivity> getSocialActivities = result.getEntries();
-            final List<GetSocialActivity> getSocialActivities2 = result.getEntries();
-
-        }, exception -> {
-            // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
-        });
-
-
-
 
         Bundle bundle = new Bundle();
         bundle.putString("post_title", posts.getSource().getTitle());
@@ -274,6 +266,62 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
     @Override
     public void actionData(Map<String, String> actionDatas) {
+
+    }
+
+    @Override
+    public void viewAllComment(GetSocialActivity posts) {
+        Bundle bundle = new Bundle();
+        bundle.putString("post_title", posts.getSource().getTitle());
+        bundle.putString("id", posts.getId());
+        bundle.putString("content", posts.getText());
+        bundle.putString("time", String.valueOf(posts.getCreatedAt()));
+        bundle.putString("comment_count", String.valueOf(posts.getCommentsCount()));
+        if (posts.getButton() != null) {
+            if (posts.getButton().getAction() != null)
+                bundle.putBoolean("show_button", true);
+            bundle.putString("button_text", posts.getButton().getTitle());
+        }
+        bundle.putString("icon", posts.getAuthor().getAvatarUrl());
+
+        if (posts.getAttachments() != null)
+            if (posts.getAttachments().size() > 0) {
+                bundle.putBoolean("show_attachment", true);
+                for (int i = 0; i < posts.getAttachments().size(); i++) {
+                    final MediaAttachment attachment = posts.getAttachments().get(i);
+                    if (attachment.getImageUrl() != null) {
+                        if (i == 0) {
+                            bundle.putBoolean("single_image", true);
+                            bundle.putString("image1",attachment.getImageUrl());
+                        } else {
+                            bundle.putBoolean("single_image", false);
+                            bundle.putString("image2",attachment.getImageUrl());
+                        }
+                    }
+                }
+            } else {
+                bundle.putBoolean("show_attachment", false);
+            }
+
+
+        if (posts.getMyReactions() != null) {
+
+            List<String> list = new ArrayList<>(posts.getMyReactions());
+
+            if (list != null && list.size() > 0) {
+
+                if (list.get(0).equals(Reactions.LIKE)) {
+                    bundle.putBoolean("like", true);
+                }else {
+                    bundle.putBoolean("like", false);
+                }
+
+            }
+        }
+        Intent intent = EventDetailsActivity.newIntent(EventActivity.this);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 }

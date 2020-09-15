@@ -31,6 +31,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_EMAIL = "PREF_KEY_CURRENT_USER_EMAIL";
 
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
+    private static final String PREF_KEY_CURRENT_USER_PROFILE_PIC = "PROFILE_PIC";
     private static final String PREF_KEY_CURRENT_PROMOTION_USER_ID = "PREF_KEY_CURRENT_PROMOTION_USER_ID";
 
     private static final String PREF_KEY_RAZORPAY_CUSTOMER_ID = "RAZORPAY_CUSTOMER_ID";
@@ -140,6 +141,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCurrentUserEmail(String email) {
         mPrefs.edit().putString(PREF_KEY_CURRENT_USER_EMAIL, email).apply();
+    }
+
+    @Override
+    public String getUserProfilePic() {
+        return mPrefs.getString(PREF_KEY_CURRENT_USER_PROFILE_PIC_URL, null);
+    }
+
+    @Override
+    public void setUserProfilePic(String image) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_USER_PROFILE_PIC_URL, image).apply();
     }
 
     @Override

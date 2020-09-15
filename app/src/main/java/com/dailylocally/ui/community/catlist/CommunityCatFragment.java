@@ -3,10 +3,17 @@ package com.dailylocally.ui.community.catlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,6 +46,9 @@ import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.OnSuccessListener;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBinding, CommunityCatViewModel> implements CommunityCatNavigator, CategoriesAdapter.CategoriesAdapterListener, InstallStateUpdatedListener, OnSuccessListener<AppUpdateInfo> {
@@ -52,6 +62,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     AppUpdateManager appUpdateManager;
     AppUpdateInfo appUpdateInfo;
     GridLayoutManager gridLayoutManager;
+    Bitmap imageBitmap;
     public static CommunityCatFragment newInstance() {
         Bundle args = new Bundle();
         CommunityCatFragment fragment = new CommunityCatFragment();
@@ -388,7 +399,12 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         });
 
     }
-
+    @Override
+    public void changeProfile() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -397,6 +413,44 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
                 mCommunityCatViewModel.showRating.set(false);
             }
 
+        }else  if (requestCode == AppConstants.IMAGE_UPLOAD_JOIN) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    Bundle extras = data.getExtras();
+                    assert extras != null;
+                    Uri selectedImage = data.getData();
+                    try {
+                        imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    assert imageBitmap != null;
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+
+                    Bitmap bitmap = imageBitmap;
+                    Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+                    BitmapShader shader = new BitmapShader (bitmap,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                    Paint paint = new Paint();
+                    paint.setShader(shader);
+                    paint.setAntiAlias(true);
+                    Canvas c = new Canvas(circleBitmap);
+                    c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+
+                    mCommunityCatViewModel.uploadImage(imageBitmap);
+
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Log.e("area","area");
+            }
         }
     }
+
+
+
+
+
+
 }

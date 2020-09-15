@@ -13,6 +13,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -58,6 +59,7 @@
 
 
                     <LinearLayout
+                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -67,12 +69,12 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
                             android:orientation="vertical">
 
 
                             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                                style="@style/HeaderTitleTextStyle"
+                                android:textColor="@color/medium_black"
+                                android:textSize="@dimen/_22px"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{postListItemViewModel.postTitle}" />
@@ -200,14 +202,20 @@
                     android:layout_marginEnd="15dp">
 
 
-                    <TextView
+                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_15px"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@{postListItemViewModel.actionText}"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp" />
+                        android:textAlignment="center" />
+
+
+
+
 
 
                 </RelativeLayout>
