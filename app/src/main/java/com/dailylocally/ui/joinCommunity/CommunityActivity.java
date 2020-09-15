@@ -204,7 +204,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         /*Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,2);*/
+        startActivityForResult(galleryIntent,AppConstants.IMAGE_UPLOAD_JOIN);*/
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.OFF)
                 .setAspectRatio(1,1)
@@ -218,7 +218,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         imageUrl = "";
         mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
         mActivityOnboardingBinding.imgJoin.setBackgroundResource(R.drawable.ic_group_482);
-        mOnBoardingActivityViewModel.flagRemovePicJoin.set(false);
+        mOnBoardingActivityViewModel.imageUrl.set("");
+        mOnBoardingActivityViewModel.flagRemovePicReg.set(false);
     }
 
     @Override
@@ -227,15 +228,16 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         imageUrl1 = "";
         mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
         mActivityOnboardingBinding.imgRegistration.setBackgroundResource(R.drawable.ic_group_482);
+        mOnBoardingActivityViewModel.imageUrl.set("");
         mOnBoardingActivityViewModel.flagRemovePicReg.set(false);
     }
 
     @Override
     public void uploadRegisterImageClick() {
-        imageBitmap1=null;
+         /*imageBitmap1=null;
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_REGISTRATION);
+        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_REGISTRATION);*/
 /*
         try {
             if (imageBitmap1==null) {
@@ -251,6 +253,13 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             e.printStackTrace();
         }
 */
+
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.OFF)
+                .setAspectRatio(1,1)
+                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .start(this);
+
     }
 
     @Override
@@ -808,12 +817,14 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     public void uploaded(String imageUrl) {
         progress.dismiss();
         this.imageUrl = imageUrl;
+        mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
     }
 
     @Override
     public void uploaded1(String imageUrl1) {
         progress1.dismiss();
         this.imageUrl1 = imageUrl1;
+        mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
     }
 
     @Override
@@ -977,7 +988,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 assert imageBitmap1 != null;
                 imageBitmap1.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
-                mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
+                //mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
                 //mActivityOnboardingBinding.imgRegistration.setImageBitmap(imageBitmap1);
 
 
@@ -991,34 +1002,23 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 Canvas c = new Canvas(circleBitmap);
                 c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
 
-                mActivityOnboardingBinding.imgRegistration.setBackgroundResource(0);
-                mActivityOnboardingBinding.imgRegistration.setImageBitmap(circleBitmap);
+                //mActivityOnboardingBinding.imgRegistration.setBackgroundResource(0);
+                //mActivityOnboardingBinding.imgRegistration.setImageBitmap(circleBitmap);
                 //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(true);
                 mOnBoardingActivityViewModel.uploadImage(imageBitmap1, AppConstants.IMAGE_UPLOAD_REGISTRATION);
                 mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
             } else {
-                mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
+                //mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
                 //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(false);
             }
-        }else {
+        }
+        else {
 
         }
-
-        if (requestCode == 2){
-            Uri ii = data.getData();
-
-            CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.OFF)
-                    .setAspectRatio(1,1)
-                    .setCropShape(CropImageView.CropShape.RECTANGLE)
-                    .start(this);
-        }
-
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
                 //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
-
             if (data != null) {
                 Bundle extras = data.getExtras();
                 assert extras != null;
@@ -1031,7 +1031,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 assert imageBitmap != null;
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
-                mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
+                //mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
                 //mActivityOnboardingBinding.imgJoin.setImageBitmap(imageBitmap);
 
                 Bitmap bitmap = imageBitmap;
@@ -1043,13 +1043,14 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 paint.setAntiAlias(true);
                 Canvas c = new Canvas(circleBitmap);
                 c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
-                mActivityOnboardingBinding.imgJoin.setBackgroundResource(0);
-                mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
+                //mActivityOnboardingBinding.imgJoin.setBackgroundResource(0);
+                //mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
 
 
                 //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                 mOnBoardingActivityViewModel.uploadImage(imageBitmap, AppConstants.IMAGE_UPLOAD_JOIN);
-                mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
+                //mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
+                //mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
             }
 
 
@@ -1061,6 +1062,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
 
         }
+
     }
 
     private void addBottomDots(int currentPage) {
