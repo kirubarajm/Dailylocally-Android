@@ -201,11 +201,15 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 */
 
 
-        Intent galleryIntent = new Intent();
+        /*Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,2);
-
+        startActivityForResult(galleryIntent,2);*/
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.OFF)
+                .setAspectRatio(1,1)
+                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .start(this);
     }
 
     @Override
@@ -1013,6 +1017,48 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
+
+            if (data != null) {
+                Bundle extras = data.getExtras();
+                assert extras != null;
+                Uri selectedImage = result.getUri();
+                try {
+                    imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                assert imageBitmap != null;
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
+                //mActivityOnboardingBinding.imgJoin.setImageBitmap(imageBitmap);
+
+                Bitmap bitmap = imageBitmap;
+                Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+                BitmapShader shader = new BitmapShader (bitmap,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                Paint paint = new Paint();
+                paint.setShader(shader);
+                paint.setAntiAlias(true);
+                Canvas c = new Canvas(circleBitmap);
+                c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+                mActivityOnboardingBinding.imgJoin.setBackgroundResource(0);
+                mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
+
+
+                //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
+                mOnBoardingActivityViewModel.uploadImage(imageBitmap, AppConstants.IMAGE_UPLOAD_JOIN);
+                mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
+            }
+
+
+
+
+
+              //  mOnBoardingActivityViewModel.uploadImage(result.getBitmap(), AppConstants.IMAGE_UPLOAD_JOIN);
+               // mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
+
 
         }
     }
