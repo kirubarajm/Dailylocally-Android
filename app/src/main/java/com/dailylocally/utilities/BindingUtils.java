@@ -22,6 +22,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.view.KeyEvent;
@@ -354,6 +355,24 @@ public final class BindingUtils {
             adapter.addItems(blogs);
         }
     }
+
+    @BindingAdapter("category_video")
+    public static void loadCategoryVideo(VideoView videoView, Boolean videos) {
+        Context context = videoView.getContext();
+
+        Uri video = Uri.parse("android.resource://" +DailylocallyApp.getInstance(). getPackageName() + "/" + R.raw.community_video);
+        videoView.setVideoURI(video);
+        videoView.start();
+
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+
+    }
+
 
     @BindingAdapter("imageTint")
     public static void setImageTint(ImageView imageView, boolean status) {
