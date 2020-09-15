@@ -190,4 +190,7 @@ dependencies {
     //community list stack
     implementation 'com.github.adityagohad:HorizontalPicker:1.0.1'
     implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
+
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
 }
