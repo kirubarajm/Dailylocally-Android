@@ -84,6 +84,7 @@ import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -128,6 +129,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     int count =0;
     private LatLngBounds bounds;
     private LatLngBounds.Builder builder;
+
+    List<CommunityResponse.Result> markersArrays;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, CommunityActivity.class);
@@ -455,10 +458,31 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     // Zoom out to zoom level 10, animating with a duration of 2 seconds.
                     //    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
 
+                    try {
+                        mMap.clear();
+                        builder = new LatLngBounds.Builder();
+                        for(int i = 0 ; i < markersArrays.size() ; i++) {
+
+                            if (result.getLat().equals(markersArrays.get(i).getLat()) && result.get_long().equals(markersArrays.get(i).get_long())){
+                                createMarkers(result.getLat(), result.get_long(), result.getCommunityname(), "", 0);
+                            }else {
+                                createMarker(markersArrays.get(i).getLat(), markersArrays.get(i).get_long(), markersArrays.get(i).getCommunityname(), "", 0);
+                            }
+                        }
+                        bounds = builder.build();
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+                        //CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                        //mMap.animateCamera(cu);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                     CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                             currentLocation, 18);
                     mMap.animateCamera(location);
-
                 }
             }
         });
@@ -894,9 +918,15 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     @Override
     public void mapLatLngArray(List<CommunityResponse.Result> markersArray) {
         try {
+            markersArrays = new ArrayList<>();
+            this.markersArrays = markersArray;
             builder = new LatLngBounds.Builder();
             for(int i = 0 ; i < markersArray.size() ; i++) {
-                createMarker(markersArray.get(i).getLat(), markersArray.get(i).get_long(), markersArray.get(i).getCommunityname(), "", 0);
+                if (i==0){
+                    createMarkers(markersArray.get(i).getLat(), markersArray.get(i).get_long(), markersArray.get(i).getCommunityname(), "", 0);
+                }else {
+                    createMarker(markersArray.get(i).getLat(), markersArray.get(i).get_long(), markersArray.get(i).getCommunityname(), "", 0);
+                }
             }
             bounds = builder.build();
             /*CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 10);
@@ -926,6 +956,28 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             markerOptions.title(title);
 
             Bitmap bitmap = getBitmapFromVectorDrawable(CommunityActivity.this,R.drawable.ic_map_marker);
+            BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
+            markerOptions.icon(descriptor);
+            //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+            //mMap.clear();
+            //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+            mMap.addMarker(markerOptions);
+            builder.include(markerOptions.getPosition());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void createMarkers(String latitude, String longitude, String title, String snippet, int iconResID) {
+        try {
+            LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+            markerOptions.title(title);
+
+            Bitmap bitmap = getBitmapFromVectorDrawable(CommunityActivity.this,R.drawable.ic_group_310);
             BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
             markerOptions.icon(descriptor);
             //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
