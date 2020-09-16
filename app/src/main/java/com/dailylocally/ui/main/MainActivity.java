@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -250,7 +251,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
 
 
-
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
@@ -405,7 +405,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }*/
 
 
-        if (mMainViewModel.isHome.get()||mMainViewModel.isCommunity.get()) {
+        if (mMainViewModel.isHome.get() || mMainViewModel.isCommunity.get()) {
 
             if (doubleBackToExitPressedOnce) {
                 new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_EXIT_APP);
@@ -869,8 +869,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
 
 
 
 
+
+    }
 }

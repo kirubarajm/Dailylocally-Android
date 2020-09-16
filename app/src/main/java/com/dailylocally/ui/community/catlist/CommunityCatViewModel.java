@@ -79,7 +79,7 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
     public final ObservableBoolean updateAvailable = new ObservableBoolean();
     public final ObservableBoolean enableLater = new ObservableBoolean();
     public final ObservableBoolean update = new ObservableBoolean();
-
+    public final ObservableBoolean imageLoader = new ObservableBoolean();
     public final ObservableField<String> profilePic = new ObservableField<>();
     public final ObservableField<String> welcomeText = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
@@ -527,7 +527,7 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
 
     public void uploadImage(Bitmap bitmap) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
+        imageLoader.set(true);
         final String image = getStringImage(bitmap);
         VolleyMultiPartRequest volleyMultipartRequest = new VolleyMultiPartRequest(Request.Method.POST, AppConstants.URL_UPLOAD_DOCUMENT_PICKUP,
                 DocumentUploadResponse.class, new Response.Listener<DocumentUploadResponse>() {
@@ -540,11 +540,12 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
 
                     }
                 }
+                imageLoader.set(false);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                imageLoader.set(false);
             }
         }) {
 
@@ -605,11 +606,12 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                         } }catch (Exception e) {
                         e.printStackTrace();
                     }
+                    imageLoader.set(false);
                 }
             },  new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    imageLoader.set(false);
                 }
             }, AppConstants.API_VERSION_ONE);
             DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);

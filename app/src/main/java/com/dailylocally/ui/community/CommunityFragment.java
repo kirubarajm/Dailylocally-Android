@@ -1,7 +1,9 @@
 package com.dailylocally.ui.community;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -21,6 +23,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -75,6 +79,8 @@ import im.getsocial.sdk.communities.Identity;
 import im.getsocial.sdk.communities.Reactions;
 import im.getsocial.sdk.communities.UserUpdate;
 import im.getsocial.sdk.media.MediaAttachment;
+
+import static com.dailylocally.utilities.AppConstants.STORAGE_PERMISSION_REQUEST_CODE;
 
 public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, CommunityViewModel> implements CommunityNavigator, CommunityPostListAdapter.ProductsAdapterListener {
     private static final int RC_APP_UPDATE = 55669;
@@ -321,19 +327,50 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     }
 
+    private boolean checkIfAlreadyhavePermission() {
+        int result = ContextCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public void changeProfile() {
         /*Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);*/
 
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.OFF)
-                .setAspectRatio(1, 1)
-                .setCropShape(CropImageView.CropShape.RECTANGLE)
-                .start(getBaseActivity());
+
+        if (checkIfAlreadyhavePermission()) {
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.OFF)
+                    .setAspectRatio(1, 1)
+                    .setCropShape(CropImageView.CropShape.RECTANGLE)
+                    .start(getBaseActivity());
+        } else {
+            ActivityCompat.requestPermissions(getBaseActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_REQUEST_CODE);
+        }
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case AppConstants.STORAGE_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.OFF)
+                            .setAspectRatio(1, 1)
+                            .setCropShape(CropImageView.CropShape.RECTANGLE)
+                            .start(getBaseActivity());
+
+                }
+        }
+    }
+
 
     @Override
     public void homeDataLoaded() {

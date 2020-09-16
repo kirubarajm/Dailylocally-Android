@@ -87,14 +87,29 @@
                                     android:layout_marginEnd="10dp"
                                     android:orientation="horizontal">
 
-
-                                    <com.dailylocally.utilities.CircularImageView
-                                        android:onClick="@{()->communityViewModel.changeProfile()}"
-                                        android:id="@+id/circleImage"
-                                        profileImage="@{communityViewModel.profilePic}"
+                                    <RelativeLayout
                                         android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/ic_group_482" />
+                                        android:layout_height="80dp">
+
+                                        <com.dailylocally.utilities.CircularImageView
+                                            android:id="@+id/circleImage"
+                                            profileImage="@{communityViewModel.profilePic}"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:onClick="@{()->communityViewModel.changeProfile()}"
+                                            android:src="@drawable/ic_group_482" />
+
+
+                                        <ProgressBar
+                                            android:layout_centerInParent="true"
+                                            android:visibility="@{communityViewModel.imageLoader?View.VISIBLE:View.GONE}"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"/>
+
+
+
+                                    </RelativeLayout>
+
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -232,13 +247,13 @@
                                                     android:textSize="@dimen/_22px" />
 
                                                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                                  android:id="@+id/credit_info"
+                                                    android:id="@+id/credit_info"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:layout_centerHorizontal="true"
                                                     android:layout_centerVertical="true"
-                                                    android:text="@string/info_symbol"
                                                     android:layout_marginStart="5dp"
+                                                    android:text="@string/info_symbol"
                                                     android:textColor="@color/medium_black"
                                                     android:textSize="@dimen/_22px"
                                                     android:visibility="@{communityViewModel.showCreditsInfo?View.VISIBLE:View.GONE}" />
@@ -309,7 +324,7 @@
                                         android:layout_centerVertical="true"
                                         android:layout_marginEnd="10dp"
                                         android:onClick="@{()->communityViewModel.postLikeClick()}"
-                                        android:src="@{communityViewModel.postLike?@drawable/ic_like:@drawable/ic_unlike}"/>
+                                        android:src="@{communityViewModel.postLike?@drawable/ic_like:@drawable/ic_unlike}" />
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -325,9 +340,9 @@
 
 
                                         <LinearLayout
-                                            android:layout_gravity="center_vertical"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
                                             android:layout_marginStart="10dp"
                                             android:layout_marginEnd="50dp"
                                             android:orientation="vertical">
@@ -339,11 +354,11 @@
 
 
                                                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                                                    android:textColor="@color/medium_black"
-                                                    android:textSize="@dimen/_22px"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:text="@{communityViewModel.postTitle}" />
+                                                    android:text="@{communityViewModel.postTitle}"
+                                                    android:textColor="@color/medium_black"
+                                                    android:textSize="@dimen/_22px" />
 
 
                                                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
@@ -377,13 +392,13 @@
 
 
                                 <LinearLayout
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginStart="10dp"
                                     android:id="@+id/images"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/fullDes"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="10dp"
                                     android:orientation="vertical">
 
                                     <LinearLayout
@@ -469,15 +484,15 @@
 
 
                                         <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                                            android:layout_marginStart="10dp"
-                                            android:layout_marginEnd="10dp"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textSize="@dimen/_15px"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerInParent="true"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
                                             android:text="@{communityViewModel.actionText}"
-                                            android:textAlignment="center" />
+                                            android:textAlignment="center"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="@dimen/_15px" />
 
                                     </RelativeLayout>
 
@@ -1139,7 +1154,6 @@
             </com.facebook.shimmer.ShimmerFrameLayout>
 
         </RelativeLayout>
-
 
 
     </RelativeLayout>

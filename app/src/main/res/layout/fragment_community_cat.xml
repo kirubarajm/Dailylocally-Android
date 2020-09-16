@@ -160,13 +160,28 @@
                                         android:layout_marginEnd="10dp"
                                         android:orientation="horizontal">
 
-
-                                        <com.dailylocally.utilities.CircularImageView
-                                            android:onClick="@{()->communityCatViewModel.changeProfile()}"
-                                            android:id="@+id/circleImage"
-                                            profileImage="@{communityCatViewModel.profilePic}"
+                                        <RelativeLayout
                                             android:layout_width="80dp"
-                                            android:layout_height="80dp" />
+                                            android:layout_height="80dp">
+
+                                            <com.dailylocally.utilities.CircularImageView
+                                                android:id="@+id/circleImage"
+                                                profileImage="@{communityCatViewModel.profilePic}"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:onClick="@{()->communityCatViewModel.changeProfile()}"
+                                                android:src="@drawable/ic_group_482" />
+
+
+                                            <ProgressBar
+                                                android:layout_centerInParent="true"
+                                                android:visibility="@{communityCatViewModel.imageLoader?View.VISIBLE:View.GONE}"
+                                                android:layout_width="30dp"
+                                                android:layout_height="30dp"/>
+
+
+
+                                        </RelativeLayout>
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
