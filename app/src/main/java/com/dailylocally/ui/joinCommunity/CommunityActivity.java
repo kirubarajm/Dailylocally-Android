@@ -43,7 +43,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
@@ -85,6 +88,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.dailylocally.utilities.AppConstants.STORAGE_PERMISSION_REQUEST_CODE;
 
 
 public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, CommunityActivityViewModel>
@@ -118,7 +122,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     Bitmap imageBitmap,imageBitmap1;
     ProgressDialog progress,progress1;
     String imageUrl = "",imageUrl1="",strCommunityLat="",strCommunityLng="",area="";
-Boolean showSingle =true;
+    Boolean showSingle =true;
     @Inject
     CommunityAdapter mCommunityAdapter;
     int count =0;
@@ -195,42 +199,19 @@ Boolean showSingle =true;
         }
 */
 
-        requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         /*Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent,AppConstants.IMAGE_UPLOAD_JOIN);*/
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    CropImage.activity()
-                            .setGuidelines(CropImageView.Guidelines.OFF)
-                            .setAspectRatio(1,1)
-                            .setCropShape(CropImageView.CropShape.RECTANGLE)
-                            .start(this);
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(CommunityActivity.this, "Permission denied to read your External storage", Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
+        if (checkIfAlreadyhavePermission()) {
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.OFF)
+                    .setAspectRatio(1, 1)
+                    .setCropShape(CropImageView.CropShape.RECTANGLE)
+                    .start(this);
+        } else {
+            requestPermissionsSafely( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -276,7 +257,43 @@ Boolean showSingle =true;
         }
 */
 
-        requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        if (checkIfAlreadyhavePermission()) {
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.OFF)
+                    .setAspectRatio(1, 1)
+                    .setCropShape(CropImageView.CropShape.RECTANGLE)
+                    .start(this);
+        } else {
+            requestPermissionsSafely( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_REQUEST_CODE);
+        }
+
+    }
+    private boolean checkIfAlreadyhavePermission() {
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case AppConstants.STORAGE_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.OFF)
+                            .setAspectRatio(1, 1)
+                            .setCropShape(CropImageView.CropShape.RECTANGLE)
+                            .start(this);
+
+                }
+        }
 
     }
 
@@ -363,7 +380,7 @@ Boolean showSingle =true;
         mOnBoardingActivityViewModel.setNavigator(this);
         mCommunityAdapter.setListener(this);
 
-        //requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        // requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
 
         mOnBoardingActivityViewModel.register.set(true);
 
@@ -426,17 +443,17 @@ Boolean showSingle =true;
 
                 CommunityResponse.Result result=  mOnBoardingActivityViewModel.communityItemViewModels.get(adapterPosition);
 
-          
+
 
                 if (result.getLat()!=null &&result.get_long()!=null&& mMap!=null) {
 
                     LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
                     //mMap.addMarker(new
                     //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
-                  //  mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-                   // mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                    //  mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+                    // mMap.animateCamera(CameraUpdateFactory.zoomIn());
                     // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                //    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
+                    //    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
 
                     CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                             currentLocation, 18);
@@ -536,66 +553,66 @@ Boolean showSingle =true;
         });
 
 
-            Spannable wordtoSpan2 = new SpannableString("Join Your Apartment Community \nAnd Order With No Minimum Value");
-            wordtoSpan2.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 45, 62, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            wordtoSpan2.setSpan(new ForegroundColorSpan(Color.WHITE), 5, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mActivityOnboardingBinding.txtContent.setText(wordtoSpan2);
+        Spannable wordtoSpan2 = new SpannableString("Join Your Apartment Community \nAnd Order With No Minimum Value");
+        wordtoSpan2.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 45, 62, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan2.setSpan(new ForegroundColorSpan(Color.WHITE), 5, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mActivityOnboardingBinding.txtContent.setText(wordtoSpan2);
 
-            Spannable wordtoSpan = new SpannableString("0 minimum basket value");
-            wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 13, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mActivityOnboardingBinding.txtMinimumBsktValue.setText(wordtoSpan);
+        Spannable wordtoSpan = new SpannableString("0 minimum basket value");
+        wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan.setSpan(new ForegroundColorSpan(Color.WHITE), 13, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mActivityOnboardingBinding.txtMinimumBsktValue.setText(wordtoSpan);
 
-            Spannable wordtoSpan1 = new SpannableString("Free delivery");
-            wordtoSpan1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            wordtoSpan1.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mActivityOnboardingBinding.txtFreeDelivery.setText(wordtoSpan1);
+        Spannable wordtoSpan1 = new SpannableString("Free delivery");
+        wordtoSpan1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan1.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mActivityOnboardingBinding.txtFreeDelivery.setText(wordtoSpan1);
 
-            Spannable wordtoSpan3 = new SpannableString("Register Your Community To Enjoy \nA Personalised Community Experience");
-            wordtoSpan3.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            wordtoSpan3.setSpan(new ForegroundColorSpan(Color.WHITE), 9, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mActivityOnboardingBinding.txtRegisterContent.setText(wordtoSpan3);
+        Spannable wordtoSpan3 = new SpannableString("Register Your Community To Enjoy \nA Personalised Community Experience");
+        wordtoSpan3.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan3.setSpan(new ForegroundColorSpan(Color.WHITE), 9, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mActivityOnboardingBinding.txtRegisterContent.setText(wordtoSpan3);
 
         Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
         Animation aniFadeOut = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
-           mActivityOnboardingBinding.relOnboardingAll.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   count++;
-                   if (count==0){
-                       mActivityOnboardingBinding.relOnboarding1.setVisibility(View.VISIBLE);
-                       mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
-                       mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
-                   }else if (count==1){
-                       mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
-                       mActivityOnboardingBinding.relOnboarding2.setVisibility(View.VISIBLE);
-                       mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
+        mActivityOnboardingBinding.relOnboardingAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count++;
+                if (count==0){
+                    mActivityOnboardingBinding.relOnboarding1.setVisibility(View.VISIBLE);
+                    mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
+                    mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
+                }else if (count==1){
+                    mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
+                    mActivityOnboardingBinding.relOnboarding2.setVisibility(View.VISIBLE);
+                    mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
 
 
-                       mActivityOnboardingBinding.relOnboarding1.startAnimation(aniFadeOut);
-                       mActivityOnboardingBinding.relOnboarding2.startAnimation(aniFade);
-                   }else if (count==2){
-                       mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
-                       mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
-                       mActivityOnboardingBinding.relOnboarding3.setVisibility(View.VISIBLE);
+                    mActivityOnboardingBinding.relOnboarding1.startAnimation(aniFadeOut);
+                    mActivityOnboardingBinding.relOnboarding2.startAnimation(aniFade);
+                }else if (count==2){
+                    mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
+                    mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
+                    mActivityOnboardingBinding.relOnboarding3.setVisibility(View.VISIBLE);
 
-                       mActivityOnboardingBinding.relOnboarding2.startAnimation(aniFadeOut);
-                       mActivityOnboardingBinding.relOnboarding3.startAnimation(aniFade);
-                   }
+                    mActivityOnboardingBinding.relOnboarding2.startAnimation(aniFadeOut);
+                    mActivityOnboardingBinding.relOnboarding3.startAnimation(aniFade);
+                }
 
-               }
-           });
+            }
+        });
 
-           mActivityOnboardingBinding.getStarted.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   mOnBoardingActivityViewModel.getDataManager().setFirstTimeLaunchCommunity(1);
-                   mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
-                   mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
-                   mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
-                   mActivityOnboardingBinding.relOnboardingAll.setVisibility(View.GONE);
-               }
-           });
+        mActivityOnboardingBinding.getStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnBoardingActivityViewModel.getDataManager().setFirstTimeLaunchCommunity(1);
+                mActivityOnboardingBinding.relOnboarding1.setVisibility(View.GONE);
+                mActivityOnboardingBinding.relOnboarding2.setVisibility(View.GONE);
+                mActivityOnboardingBinding.relOnboarding3.setVisibility(View.GONE);
+                mActivityOnboardingBinding.relOnboardingAll.setVisibility(View.GONE);
+            }
+        });
 
     }
 
@@ -624,15 +641,15 @@ Boolean showSingle =true;
                 //Log.e(TAG, "Can't find style. Error: ", e);
             }
 
-        if (mOnBoardingActivityViewModel.getDataManager().getCurrentLat()!=null && mOnBoardingActivityViewModel.getDataManager().getCurrentLng()!=null) {
-            String lat = mOnBoardingActivityViewModel.getDataManager().getCurrentLat();
-            String lon = mOnBoardingActivityViewModel.getDataManager().getCurrentLng();
-            // Add a marker in Sydney and move the camera
-            LatLng currentLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
-            //mMap.addMarker(new
-                    //MarkerOptions().position(currentLocation).title("Current location"));
-            //mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-        }
+            if (mOnBoardingActivityViewModel.getDataManager().getCurrentLat()!=null && mOnBoardingActivityViewModel.getDataManager().getCurrentLng()!=null) {
+                String lat = mOnBoardingActivityViewModel.getDataManager().getCurrentLat();
+                String lon = mOnBoardingActivityViewModel.getDataManager().getCurrentLng();
+                // Add a marker in Sydney and move the camera
+                LatLng currentLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                //mMap.addMarker(new
+                //MarkerOptions().position(currentLocation).title("Current location"));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -692,35 +709,35 @@ Boolean showSingle =true;
     @Override
     public void onItemClick(CommunityResponse.Result result) {
         try {
-        mOnBoardingActivityViewModel.register.set(false);
-        mOnBoardingActivityViewModel.completeRegistration.set(false);
-        mOnBoardingActivityViewModel.joinExpandView.set(true);
-        mOnBoardingActivityViewModel.joinTheCommunity.set(false);
+            mOnBoardingActivityViewModel.register.set(false);
+            mOnBoardingActivityViewModel.completeRegistration.set(false);
+            mOnBoardingActivityViewModel.joinExpandView.set(true);
+            mOnBoardingActivityViewModel.joinTheCommunity.set(false);
 
-        mActivityOnboardingBinding.txtCommunityName.setText(result.getCommunityname());
-        mActivityOnboardingBinding.txtLocation.setText(result.getCommunityAddress());
-        mActivityOnboardingBinding.txtNoOfApartments.setText(result.getNoOfApartments());
-        mActivityOnboardingBinding.txtStatus.setText(result.getStatus_msg());
-        if (result.getStatus()==0){
-            mActivityOnboardingBinding.txtStatus.setTextColor(getResources().getColor(R.color.black));
-        }else {
-            mActivityOnboardingBinding.txtStatus.setTextColor(getResources().getColor(R.color.dl_green));
-        }
+            mActivityOnboardingBinding.txtCommunityName.setText(result.getCommunityname());
+            mActivityOnboardingBinding.txtLocation.setText(result.getCommunityAddress());
+            mActivityOnboardingBinding.txtNoOfApartments.setText(result.getNoOfApartments());
+            mActivityOnboardingBinding.txtStatus.setText(result.getStatus_msg());
+            if (result.getStatus()==0){
+                mActivityOnboardingBinding.txtStatus.setTextColor(getResources().getColor(R.color.black));
+            }else {
+                mActivityOnboardingBinding.txtStatus.setTextColor(getResources().getColor(R.color.dl_green));
+            }
         /*if (result.getStatus()!=null && result.getStatus()==1) {
             mActivityOnboardingBinding.txtStatus.setText(result.getStatus_msg());
         }else {
             mActivityOnboardingBinding.txtStatus.setText("Un-Live");
         }*/
 
-        mOnBoardingActivityViewModel.cmId.set(String.valueOf(result.getComid()));
+            mOnBoardingActivityViewModel.cmId.set(String.valueOf(result.getComid()));
 
-        LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
-        //mMap.addMarker(new
-                //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+            LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
+            //mMap.addMarker(new
+            //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+            mMap.animateCamera(CameraUpdateFactory.zoomIn());
+            // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -878,9 +895,9 @@ Boolean showSingle =true;
     public void mapLatLngArray(List<CommunityResponse.Result> markersArray) {
         try {
             builder = new LatLngBounds.Builder();
-        for(int i = 0 ; i < markersArray.size() ; i++) {
-            createMarker(markersArray.get(i).getLat(), markersArray.get(i).get_long(), markersArray.get(i).getCommunityname(), "", 0);
-        }
+            for(int i = 0 ; i < markersArray.size() ; i++) {
+                createMarker(markersArray.get(i).getLat(), markersArray.get(i).get_long(), markersArray.get(i).getCommunityname(), "", 0);
+            }
             bounds = builder.build();
             /*CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 10);
             mMap.animateCamera(cu);*/
@@ -903,19 +920,19 @@ Boolean showSingle =true;
 
     public void createMarker(String latitude, String longitude, String title, String snippet, int iconResID) {
         try {
-        LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title(title);
+            LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+            markerOptions.title(title);
 
-        Bitmap bitmap = getBitmapFromVectorDrawable(CommunityActivity.this,R.drawable.ic_map_marker);
-        BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
-        markerOptions.icon(descriptor);
-        //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-        //mMap.clear();
-        //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-        mMap.addMarker(markerOptions);
+            Bitmap bitmap = getBitmapFromVectorDrawable(CommunityActivity.this,R.drawable.ic_map_marker);
+            BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
+            markerOptions.icon(descriptor);
+            //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+            //mMap.clear();
+            //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+            mMap.addMarker(markerOptions);
             builder.include(markerOptions.getPosition());
 
         }catch (Exception e){
@@ -1043,7 +1060,7 @@ Boolean showSingle =true;
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
+            //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
             if (data != null) {
                 Bundle extras = data.getExtras();
                 assert extras != null;
@@ -1082,8 +1099,8 @@ Boolean showSingle =true;
 
 
 
-              //  mOnBoardingActivityViewModel.uploadImage(result.getBitmap(), AppConstants.IMAGE_UPLOAD_JOIN);
-               // mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
+            //  mOnBoardingActivityViewModel.uploadImage(result.getBitmap(), AppConstants.IMAGE_UPLOAD_JOIN);
+            // mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
 
 
         }
