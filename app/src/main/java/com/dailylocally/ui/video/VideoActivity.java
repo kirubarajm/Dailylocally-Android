@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,8 +22,12 @@ import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.halilibo.bvpkotlin.captions.CaptionsView;
+
+import java.net.URI;
 
 import javax.inject.Inject;
+
 
 public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewModel> implements VideoNavigator {
 
@@ -31,6 +36,7 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     ActivityVideoBinding mActivityVideoBinding;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ORDER_PLACED;
+    int lastPosition=0;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -87,7 +93,7 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     @Override
     public void back() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mActivityVideoBinding.videoPlayer.stopPlayer();
+        mActivityVideoBinding.videoPlayer.stop();
 
         finish();
     }
@@ -122,8 +128,14 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            mActivityVideoBinding.videoPlayer.setSource( bundle.getString("video"));
-            mActivityVideoBinding.videoPlayer.setPlayWhenReady(true);
+            /*mActivityVideoBinding.videoPlayer.setSource( bundle.getString("video"));
+            mActivityVideoBinding.videoPlayer.setPlayWhenReady(true);*/
+
+
+           // mActivityVideoBinding.videoPlayer.setCaptions(bundle.getString("video"), CaptionsView.SubMime.SUBRIP); ;
+            mActivityVideoBinding.videoPlayer.start();
+
+
            // mActivityVideoBinding.videoPlayer.setOrientation(LinearLayout.HORIZONTAL);
 
 
@@ -140,20 +152,32 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     @Override
     protected void onPause() {
         super.onPause();
+        if (mActivityVideoBinding.videoPlayer!=null){
+            lastPosition= mActivityVideoBinding.videoPlayer.getCurrentPosition();
+            mActivityVideoBinding.videoPlayer.pause();
+        }
+
         unregisterWifiReceiver();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-registerWifiReceiver();
+
+
+        if (mActivityVideoBinding.videoPlayer!=null){
+            mActivityVideoBinding.videoPlayer.start();
+            mActivityVideoBinding.videoPlayer.seekTo(lastPosition);
+        }
+
+        registerWifiReceiver();
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mActivityVideoBinding.videoPlayer.stopPlayer();
+        mActivityVideoBinding.videoPlayer.stop();
     }
 
     @Override

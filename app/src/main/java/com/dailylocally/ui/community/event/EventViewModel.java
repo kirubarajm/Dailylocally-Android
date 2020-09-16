@@ -29,7 +29,7 @@ public class EventViewModel extends BaseViewModel<EventNavigator> {
 
 
     public void addCommunityPostToList(List<GetSocialActivity> items) {
-        getSocialActivities.clear();
+       // getSocialActivities.clear();
         getSocialActivities.addAll(items);
 
     }

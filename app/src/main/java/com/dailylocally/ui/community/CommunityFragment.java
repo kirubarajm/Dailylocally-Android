@@ -508,7 +508,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         //  ActivityFeedViewBuilder.create(query).show();
 
 
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(50);
         Communities.getActivities(pagingQuery, result -> {
 
             final List<GetSocialActivity> getSocialActivities = result.getEntries();

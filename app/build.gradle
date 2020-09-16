@@ -190,4 +190,5 @@ dependencies {
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
+    implementation 'com.github.halilozercan:BetterVideoPlayer:kotlin-SNAPSHOT'
 }

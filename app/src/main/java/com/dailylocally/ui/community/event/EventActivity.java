@@ -9,9 +9,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -22,7 +25,6 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,7 @@ import javax.inject.Inject;
 
 import im.getsocial.sdk.Communities;
 import im.getsocial.sdk.common.PagingQuery;
+import im.getsocial.sdk.common.PagingResult;
 import im.getsocial.sdk.communities.ActivitiesQuery;
 import im.getsocial.sdk.communities.GetSocialActivity;
 import im.getsocial.sdk.communities.Reactions;
@@ -42,6 +45,11 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
     EventViewModel mEventViewModel;
     @Inject
     EventListAdapter mEventListAdapter;
+    Boolean loading = false;
+
+    PagingResult<GetSocialActivity> pagingResult;
+    PagingQuery<ActivitiesQuery> pagingQuery;
+
 
     ActivityEventBinding mActivityEventBinding;
     Analytics analytics;
@@ -142,7 +150,8 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            getTopicPost(intent.getExtras().getString("topic"));
+             getTopicPost(intent.getExtras().getString("topic"));
+          //  getTopicPost("test");
             mEventViewModel.title.set(intent.getExtras().getString("title"));
 
         }
@@ -151,6 +160,49 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityEventBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(EventActivity.this));
         mActivityEventBinding.recyclerPost.setAdapter(mEventListAdapter);
+
+
+
+
+        mActivityEventBinding.recyclerPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                View visi = recyclerView.getChildAt(recyclerView.getChildCount() - 1);
+                int lVV = recyclerView.getChildAdapterPosition(visi);
+                int itemCount = mEventListAdapter.getItemCount();
+                if (itemCount > 15) {
+                    if (dy > 0) {
+                        if (lVV >= itemCount - 2) {
+                            if (!loading) {
+                                //  productListAdapter.addLoader();
+                                if (pagingResult != null && pagingQuery != null)
+                                    if (!pagingResult.isLastPage()) {
+                                        loading = true;
+                                        Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                            pagingResult = result;
+                                            final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                            mEventViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                            loading = false;
+                                        }, exception -> {
+                                            loading = false;
+                                            // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                                        });
+
+
+                                    }
+                            }
+                        }
+
+                    } else {
+                        // Scrolling down
+                        // Toast.makeText(getContext(),"Loading more", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
     }
 
     private void subscribeToLiveData() {
@@ -161,12 +213,14 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
     private void getTopicPost(String topic) {
 
-
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(topic);
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(100);
+        this.pagingQuery = pagingQuery;
         Communities.getActivities(pagingQuery, result -> {
+            pagingResult = result;
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
             mEventViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
+
         }, exception -> {
             // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
         });
@@ -218,7 +272,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
         if (posts.getButton() != null) {
             if (posts.getButton().getAction() != null)
                 bundle.putBoolean("show_button", true);
-                bundle.putString("button_text", posts.getButton().getTitle());
+            bundle.putString("button_text", posts.getButton().getTitle());
         }
         bundle.putString("icon", posts.getAuthor().getAvatarUrl());
 
@@ -230,10 +284,10 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
                     if (attachment.getImageUrl() != null) {
                         if (i == 0) {
                             bundle.putBoolean("single_image", true);
-                            bundle.putString("image1",attachment.getImageUrl());
+                            bundle.putString("image1", attachment.getImageUrl());
                         } else {
                             bundle.putBoolean("single_image", false);
-                            bundle.putString("image2",attachment.getImageUrl());
+                            bundle.putString("image2", attachment.getImageUrl());
                         }
                     }
                 }
@@ -250,7 +304,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
                 if (list.get(0).equals(Reactions.LIKE)) {
                     bundle.putBoolean("like", true);
-                }else {
+                } else {
                     bundle.putBoolean("like", false);
                 }
 
@@ -292,10 +346,10 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
                     if (attachment.getImageUrl() != null) {
                         if (i == 0) {
                             bundle.putBoolean("single_image", true);
-                            bundle.putString("image1",attachment.getImageUrl());
+                            bundle.putString("image1", attachment.getImageUrl());
                         } else {
                             bundle.putBoolean("single_image", false);
-                            bundle.putString("image2",attachment.getImageUrl());
+                            bundle.putString("image2", attachment.getImageUrl());
                         }
                     }
                 }
@@ -312,7 +366,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
                 if (list.get(0).equals(Reactions.LIKE)) {
                     bundle.putBoolean("like", true);
-                }else {
+                } else {
                     bundle.putBoolean("like", false);
                 }
 

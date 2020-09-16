@@ -15,6 +15,7 @@ import org.joda.time.format.DateTimeFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -270,7 +271,7 @@ public class EventListItemViewModel {
         Communities.getActivities(pagingQuery, result -> {
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
             // socialActivitiesListLiveData.setValue(getSocialActivities);
-
+            Collections.reverse(getSocialActivities);
             mListener.addComments(getSocialActivities);
 
         }, exception -> {

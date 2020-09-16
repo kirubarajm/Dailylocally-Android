@@ -118,8 +118,8 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                         minValueText.set(result.getMinCartText());
                         freeDelivery.set(result.getFreeDeliveryValue());
                         freeDeliveryText.set(result.getFreeDeliveryText());
-                        cod.set(result.getCodText());
-                        codText.set(result.getCodValue());
+                        cod.set(result.getCodValue());
+                        codText.set(result.getCodText ());
 
                     }
                 }

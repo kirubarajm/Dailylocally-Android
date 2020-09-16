@@ -14,10 +14,12 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        app:cardBackgroundColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
+                app:cardElevation="@{postListItemViewModel.showComment?@dimen/three:@dimen/zero}">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -253,7 +255,7 @@
                     android:paddingBottom="3dp"
                     android:text="@{postListItemViewModel.allCommentsCount}"
                     android:textColor="@color/medium_black"
-                    android:textSize="@dimen/_10px" />
+                    android:textSize="@dimen/_12px" />
 
             </androidx.cardview.widget.CardView>
 
@@ -272,11 +274,6 @@
                 android:nestedScrollingEnabled="false"
                 tools:itemCount="3"
                 tools:listitem="@layout/list_item_event_comments" />
-
-
-
-
-
 
             <RelativeLayout
                 android:layout_marginBottom="15dp"

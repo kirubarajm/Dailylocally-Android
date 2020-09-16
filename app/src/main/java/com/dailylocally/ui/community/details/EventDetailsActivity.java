@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -109,7 +111,7 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
 
         mActivityEventBinding.commentText.setText("");
         hideKeyboard();
-    //    mCommentsListAdapter.addOneItems(getSocialActivity);
+        //    mCommentsListAdapter.addOneItems(getSocialActivity);
         getComments(mEventDetailsViewModel.postId);
 
     }
@@ -147,7 +149,7 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
         if (intent.getExtras() != null) {
             //  getTopicPost(intent.getExtras().getString("topic"));
             //    mEventDetailsViewModel.title.set(intent.getExtras().getString("title"));
-            mEventDetailsViewModel. postId = intent.getExtras().getString("id");
+            mEventDetailsViewModel.postId = intent.getExtras().getString("id");
             getComments(mEventDetailsViewModel.postId);
             mEventDetailsViewModel.postTitle.set(intent.getExtras().getString("post_title"));
             mEventDetailsViewModel.postDes.set(intent.getExtras().getString("content"));
@@ -177,6 +179,7 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(EventDetailsActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
 
         mActivityEventBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(EventDetailsActivity.this));
         mActivityEventBinding.recyclerPost.setAdapter(mCommentsListAdapter);
@@ -190,11 +193,18 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
 
     private void getComments(String id) {
         final ActivitiesQuery query = ActivitiesQuery.commentsToActivity(id);
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(100);
         Communities.getActivities(pagingQuery, result -> {
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
+            Collections.reverse(getSocialActivities);
             mEventDetailsViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
-          //  mActivityEventBinding.recyclerPost.scrollToPosition(getSocialActivities.size()-1);
+            //  mActivityEventBinding.recyclerPost.scrollToPosition(getSocialActivities.size()-1);
+
+
+           mActivityEventBinding.recyclerPost.smoothScrollToPosition(mActivityEventBinding.recyclerPost.getBottom());
+           mActivityEventBinding.fullContent.fullScroll(View.FOCUS_DOWN);
+
+
         }, exception -> {
             // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
         });
