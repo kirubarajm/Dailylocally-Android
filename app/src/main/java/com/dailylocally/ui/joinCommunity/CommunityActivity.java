@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -200,16 +201,43 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         }
 */
 
+        requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         /*Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent,AppConstants.IMAGE_UPLOAD_JOIN);*/
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.OFF)
-                .setAspectRatio(1,1)
-                .setCropShape(CropImageView.CropShape.RECTANGLE)
-                .start(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.OFF)
+                            .setAspectRatio(1,1)
+                            .setCropShape(CropImageView.CropShape.RECTANGLE)
+                            .start(this);
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(CommunityActivity.this, "Permission denied to read your External storage", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override
@@ -254,11 +282,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         }
 */
 
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.OFF)
-                .setAspectRatio(1,1)
-                .setCropShape(CropImageView.CropShape.RECTANGLE)
-                .start(this);
+        requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
     }
 
@@ -345,7 +369,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         mOnBoardingActivityViewModel.setNavigator(this);
         mCommunityAdapter.setListener(this);
 
-        requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        //requestPermissionsSafely(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
 
         mOnBoardingActivityViewModel.register.set(true);
 
