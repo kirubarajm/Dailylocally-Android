@@ -44,9 +44,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -73,7 +71,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -87,8 +84,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import smartdevelop.ir.eram.showcaseviewlib.GuideView;
-import travel.ithaka.android.horizontalpickerlib.PickerLayoutManager;
 
 
 public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, CommunityActivityViewModel>
@@ -117,13 +112,12 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     private MyViewPagerAdapter myViewPagerAdapter;
     private PrefManager prefManager;
     boolean flagFirstTime;
-    private GuideView mGuideView;
     //private GuideView.Builder builder;
     private GoogleMap mMap;
     Bitmap imageBitmap,imageBitmap1;
     ProgressDialog progress,progress1;
     String imageUrl = "",imageUrl1="",strCommunityLat="",strCommunityLng="",area="";
-
+Boolean showSingle =true;
     @Inject
     CommunityAdapter mCommunityAdapter;
     int count =0;
@@ -408,15 +402,22 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
                 CommunityResponse.Result result=  mOnBoardingActivityViewModel.communityItemViewModels.get(adapterPosition);
 
+          
+
                 if (result.getLat()!=null &&result.get_long()!=null&& mMap!=null) {
 
                     LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
                     //mMap.addMarker(new
                     //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-                    mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                  //  mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+                   // mMap.animateCamera(CameraUpdateFactory.zoomIn());
                     // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
+                //    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
+
+                    CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
+                            currentLocation, 18);
+                    mMap.animateCamera(location);
+
                 }
             }
         });

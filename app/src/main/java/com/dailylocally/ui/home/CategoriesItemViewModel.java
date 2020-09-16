@@ -20,8 +20,12 @@ public class CategoriesItemViewModel {
         this.mListener = mListener;
         this.result = result;
         image.set(result.getImage());
-        if (result.getShowVideo() != null)
+        if (result.getShowVideo() != null) {
             isVideo.set(result.getShowVideo());
+
+if (result.getShowVideo())
+    mListener.updateVideoView();
+        }
 
 
         if (result.getCid() != null) {
@@ -30,6 +34,7 @@ public class CategoriesItemViewModel {
         } else {
             name.set(result.getName());
         }
+
 
 
         // name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
@@ -45,6 +50,7 @@ public class CategoriesItemViewModel {
 
     public interface CategoriesItemViewModelListener {
         void onItemClick(HomepageResponse.Result result);
+        void updateVideoView();
     }
 
 }

@@ -12,10 +12,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCommunityCatBinding;
-import com.dailylocally.databinding.FragmentHomeBinding;
 import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
@@ -45,6 +44,8 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.OnSuccessListener;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     AppUpdateInfo appUpdateInfo;
     GridLayoutManager gridLayoutManager;
     Bitmap imageBitmap;
+
     public static CommunityCatFragment newInstance() {
         Bundle args = new Bundle();
         CommunityCatFragment fragment = new CommunityCatFragment();
@@ -91,7 +93,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void dataLoaded() {
-         gridLayoutManager = new GridLayoutManager(getBaseActivity(), 2);
+        gridLayoutManager = new GridLayoutManager(getBaseActivity(), 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -104,7 +106,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         categoriesAdapter = new CategoriesAdapter(mCommunityCatViewModel.categoryList);
         mFragmentHomeBinding.categoryList.setAdapter(categoriesAdapter);
         categoriesAdapter.setListener(this);
-       // mFragmentHomeBinding.loader.stop();
+        // mFragmentHomeBinding.loader.stop();
         mFragmentHomeBinding.loader.stopShimmerAnimation();
 
     }
@@ -112,7 +114,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     @Override
     public void dataLoading() {
 
-      //  mFragmentHomeBinding.loader.start();
+        //  mFragmentHomeBinding.loader.start();
         mFragmentHomeBinding.loader.startShimmerAnimation();
 
     }
@@ -137,7 +139,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void changeHeaderText(String headerContent) {
-      //  mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
+        //  mFragmentHomeBinding.welcomeText.setText(Html.fromHtml(headerContent));
     }
 
     @Override
@@ -189,7 +191,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
-      // mFragmentHomeBinding.loader.start();
+        // mFragmentHomeBinding.loader.start();
         mFragmentHomeBinding.loader.startShimmerAnimation();
 
         mCommunityCatViewModel.fetchCategoryList();
@@ -200,9 +202,6 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
         if (mCommunityCatViewModel.updateAvailable.get())
             updatePopup(getString(R.string.update_available), getString(R.string.update), false, true, false);
-
-
-
 
 
     }
@@ -222,7 +221,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void categoryItemClicked(HomepageResponse.Result result, TextView view) {
+    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView) {
 
 
         if (result.getCollectionStatus()) {
@@ -237,6 +236,11 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
+
+    }
+
+    @Override
+    public void updateVideoView(VideoView videoView) {
 
     }
 
@@ -399,12 +403,20 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         });
 
     }
+
     @Override
     public void changeProfile() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+       /* Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);
+        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);*/
+
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.OFF)
+                .setAspectRatio(1, 1)
+                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .start(getBaseActivity());
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -413,44 +425,48 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
                 mCommunityCatViewModel.showRating.set(false);
             }
 
-        }else  if (requestCode == AppConstants.IMAGE_UPLOAD_JOIN) {
+        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     assert extras != null;
-                    Uri selectedImage = data.getData();
+                    Uri selectedImage = result.getUri();
                     try {
-                        imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage);
+                        imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     assert imageBitmap != null;
                     imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                    //mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
+                    //mActivityOnboardingBinding.imgJoin.setImageBitmap(imageBitmap);
 
                     Bitmap bitmap = imageBitmap;
                     Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
-                    BitmapShader shader = new BitmapShader (bitmap,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                    BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
                     Paint paint = new Paint();
                     paint.setShader(shader);
                     paint.setAntiAlias(true);
                     Canvas c = new Canvas(circleBitmap);
-                    c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+                    c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+                    //mActivityOnboardingBinding.imgJoin.setBackgroundResource(0);
+                    //mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
 
+
+                    //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                     mCommunityCatViewModel.uploadImage(imageBitmap);
-
+                    //mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
+                    //mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
                 }
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                Log.e("area","area");
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Log.e("area", "area");
             }
         }
     }
-
-
-
-
 
 
 }

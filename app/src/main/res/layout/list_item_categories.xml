@@ -68,6 +68,7 @@
 
 
             <VideoView
+                android:id="@+id/videoView"
                 category_video="@{categoriesItemViewModel.isVideo}"
                 android:visibility="@{categoriesItemViewModel.isVideo?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"

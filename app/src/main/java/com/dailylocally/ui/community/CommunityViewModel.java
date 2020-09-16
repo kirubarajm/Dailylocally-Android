@@ -125,6 +125,8 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
         updateAvailable.set(getDataManager().isUpdateAvailable());
 
         profilePic.set(getDataManager().getUserProfilePic());
+        name.set(getDataManager().getCurrentUserName());
+
         if (getDataManager().getUserDetails() != null) {
 
             Gson sGson = new GsonBuilder().create();
@@ -134,7 +136,6 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                     if (communityUserDetailsResponse.getResult().size() > 0) {
                         CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
 
-                        name.set(result.getName());
                         nameText.set(result.getWelcomeText());
                         members.set(result.getMembersCount());
                         membersText.set(result.getMembers());

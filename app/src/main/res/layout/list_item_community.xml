@@ -46,10 +46,13 @@
                     android:gravity="center"
                     android:text="@{communityItemViewModel.communityName}"
                     android:textColor="@color/dl_green"
-                    android:textSize="@dimen/_15px" />
+                    android:textSize="@dimen/_22px" />
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:id="@+id/txt_2"
+                    android:textColor="@color/medium_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_1"
@@ -57,11 +60,14 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@{communityItemViewModel.residencesCount}"
-                    android:textSize="@dimen/_12px" />
+                    android:textSize="@dimen/_10px" />
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:id="@+id/txt_3"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/medium_black"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_2"
                     android:layout_centerHorizontal="true"
@@ -70,17 +76,20 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@{communityItemViewModel.location}"
-                    android:textSize="@dimen/_12px" />
+                    android:textSize="@dimen/_10px" />
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_3"
+                    android:textColor="@color/medium_black"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@{communityItemViewModel.distance}"
-                    android:textSize="@dimen/_12px" />
+                    android:textSize="@dimen/_10px" />
 
             </RelativeLayout>
 

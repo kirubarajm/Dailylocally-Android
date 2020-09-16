@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +55,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     AppUpdateManager appUpdateManager;
     AppUpdateInfo appUpdateInfo;
     GridLayoutManager gridLayoutManager;
+    VideoView videoView;
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
@@ -172,6 +174,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void onPause() {
+        if (videoView!=null)
+            videoView.pause();
         super.onPause();
     }
 
@@ -203,6 +207,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         mHomeViewModel.updateAddressTitle();
         appUpdateManager.registerListener(this);
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(this);
+
+        if (videoView!=null)
+            videoView.start();
+
         super.onResume();
     }
 
@@ -213,7 +221,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void categoryItemClicked(HomepageResponse.Result result, TextView view) {
+    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView) {
+
+
+        /*if (videoView!=null){
+
+            this.videoView=videoView;
+            if (videoView.isPlaying())
+                videoView.pause();
+        }*/
+
 
         if (result.getType()==1){
 
@@ -259,6 +276,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }*/
 
+    }
+
+    @Override
+    public void updateVideoView(VideoView videoView) {
+        this.videoView=videoView;
     }
 
     @Override

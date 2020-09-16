@@ -73,7 +73,7 @@ public class TransactionViewResponse {
         public List<Cartdetail> cartdetails = null;
         @SerializedName("online_order")
         @Expose
-        public Boolean onlineOrder;
+        public Integer onlineOrder;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
@@ -84,7 +84,12 @@ public class TransactionViewResponse {
         }
 
         public Boolean getOnlineOrder() {
-            return onlineOrder;
+
+            if (onlineOrder != null && onlineOrder == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
         public String getOrderid() {
             return orderid;
