@@ -421,7 +421,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                 if (response.getResult().size() > 0) {
 
                                     CommunityUserDetailsResponse.Result result = response.getResult().get(0);
-
+                                    getDataManager().updateProfilePic(result.getProfileImage());
                                     if (result.getJoinStatus() == 1) {
                                         isCommunityUser.set(true);
                                       /*  if (getNavigator() != null)

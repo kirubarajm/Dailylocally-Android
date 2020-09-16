@@ -166,7 +166,7 @@ public class HomepageResponse {
         @Expose
         private Boolean approvalStatus;
 
-@SerializedName("join_status")
+        @SerializedName("join_status")
         @Expose
         private Boolean joinStatus;
 
@@ -183,6 +183,14 @@ public class HomepageResponse {
         @Expose
         private Integer type;
 
+        @SerializedName("show_video")
+        @Expose
+        private Boolean showVideo;
+
+
+        public Boolean getShowVideo() {
+            return showVideo;
+        }
 
         public Boolean getApprovalStatus() {
             return approvalStatus;

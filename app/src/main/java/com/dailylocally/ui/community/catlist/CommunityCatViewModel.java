@@ -102,6 +102,8 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
         updateAvailable.set(getDataManager().isUpdateAvailable());
 
         profilePic.set(getDataManager().getUserProfilePic());
+        name.set(getDataManager().getCurrentUserName());
+
 
         if (getDataManager().getUserDetails() != null) {
 
@@ -111,8 +113,6 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                 if (communityUserDetailsResponse.getResult() != null) {
                     if (communityUserDetailsResponse.getResult().size() > 0) {
                         CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
-
-                        name.set(result.getWelcomeNameTitle() +", "+ getDataManager().getCurrentUserName());
                         welcomeText.set(result.getWelcomeNameContent());
                         minValue.set(result.getMinCartValue());
                         minValueText.set(result.getMinCartText());

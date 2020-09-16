@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,7 +67,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     public interface CategoriesAdapterListener {
-        void categoryItemClicked(HomepageResponse.Result result, TextView view);
+        void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView);
+        void updateVideoView(VideoView videoView);
     }
 
 
@@ -94,7 +96,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(HomepageResponse.Result result) {
-            mCategoriesAdapterListener.categoryItemClicked(result,mListItemCategoriesBinding.name);
+            mCategoriesAdapterListener.categoryItemClicked(result,mListItemCategoriesBinding.name,mListItemCategoriesBinding.videoView);
+
+        }
+
+        @Override
+        public void updateVideoView() {
+
+            mCategoriesAdapterListener.updateVideoView(mListItemCategoriesBinding.videoView);
+
 
         }
 

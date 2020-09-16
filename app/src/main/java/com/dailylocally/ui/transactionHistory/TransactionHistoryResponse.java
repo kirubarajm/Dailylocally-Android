@@ -117,12 +117,17 @@ public class TransactionHistoryResponse {
         @Expose
         public String items;
 
- @SerializedName("online_order")
+        @SerializedName("online_order")
         @Expose
-        public Boolean onlineOrder;
+        public Integer onlineOrder;
 
         public Boolean getOnlineOrder() {
-            return onlineOrder;
+
+            if (onlineOrder != null && onlineOrder == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public String getItems() {

@@ -31,7 +31,7 @@ public class CommentsListItemViewModel {
     public final ObservableField<String> comment = new ObservableField<>();
     public final ObservableField<String> postDate = new ObservableField<>();
 
-
+    public final ObservableBoolean isMore = new ObservableBoolean();
     private final GetSocialActivity posts;
     private final PostItemViewModelListener mListener;
 
@@ -44,7 +44,7 @@ public class CommentsListItemViewModel {
         comment.set(result.getText());
         postDate.set(getDate(result.getCreatedAt()));
 
-
+        isMore.set(false);
 
 
     }
@@ -85,6 +85,20 @@ public class CommentsListItemViewModel {
 
     }
 
+    public void commentClick() {
+
+        if (isMore.get()){
+            isMore.set(false);
+            mListener.commentClick(false);
+        }else {
+            isMore.set(true);
+            mListener.commentClick(true);
+        }
+
+
+    }
+
+
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time * 1000);
@@ -100,7 +114,7 @@ public class CommentsListItemViewModel {
 
         void actionClick();
 
-        void commentClick(GetSocialActivity posts);
+        void commentClick(Boolean isMore);
 
         void actionData(Map<String, String> actionDatas);
 

@@ -77,7 +77,7 @@ public class CartResponse {
         @SerializedName("product_total_weight")
         @Expose
         private Object productTotalWeight;
-        @SerializedName("delivery_charge")
+        @SerializedName("community_delivery_charge")
         @Expose
         private String deliveryCharge;
         @SerializedName("refund_coupon_adjustment")

@@ -44,6 +44,8 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipView;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -169,13 +171,16 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     @Override
     public void whatsAppGroup() {
         String url = mCommunityViewModel.whatsappgroupLink;
-
-        if (url != null&&url.isEmpty()) {
-            Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
-            //String url = "https://chat.whatsapp.com/<group_link>";
-            intentWhatsapp.setData(Uri.parse(url));
-            intentWhatsapp.setPackage("com.whatsapp");
-            startActivity(intentWhatsapp);
+        try {
+            if (url != null && !url.isEmpty()) {
+                Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
+                //String url = "https://chat.whatsapp.com/<group_link>";
+                intentWhatsapp.setData(Uri.parse(url));
+                intentWhatsapp.setPackage("com.whatsapp");
+                startActivity(intentWhatsapp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -318,9 +323,16 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void changeProfile() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        /*Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);
+        startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);*/
+
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.OFF)
+                .setAspectRatio(1, 1)
+                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .start(getBaseActivity());
+
     }
 
     @Override
@@ -587,7 +599,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 startActivity(pintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
-case AppConstants.NOTIFY_COLLECTION_ACTV:
+            case AppConstants.NOTIFY_COLLECTION_ACTV:
                 Intent cintent = CollectionDetailsActivity.newIntent(getBaseActivity());
                 cintent.putExtra("cid", actionDatas.get("cid"));
                 startActivity(cintent);
@@ -604,12 +616,16 @@ case AppConstants.NOTIFY_COLLECTION_ACTV:
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppConstants.IMAGE_UPLOAD_JOIN) {
+
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     assert extras != null;
-                    Uri selectedImage = data.getData();
+                    Uri selectedImage = result.getUri();
                     try {
                         imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                     } catch (IOException e) {
@@ -618,6 +634,8 @@ case AppConstants.NOTIFY_COLLECTION_ACTV:
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     assert imageBitmap != null;
                     imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                    //mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
+                    //mActivityOnboardingBinding.imgJoin.setImageBitmap(imageBitmap);
 
                     Bitmap bitmap = imageBitmap;
                     Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -628,12 +646,16 @@ case AppConstants.NOTIFY_COLLECTION_ACTV:
                     paint.setAntiAlias(true);
                     Canvas c = new Canvas(circleBitmap);
                     c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+                    //mActivityOnboardingBinding.imgJoin.setBackgroundResource(0);
+                    //mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
 
+
+                    //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                     mCommunityViewModel.uploadImage(imageBitmap);
-
+                    //mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
+                    //mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
                 }
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
+            } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.e("area", "area");
             }
         }

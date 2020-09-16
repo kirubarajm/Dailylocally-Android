@@ -105,8 +105,11 @@ public class CommentsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             //    mListItemCategoriesBinding.mrp.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
 
-            mListItemCategoriesBinding.comment.setText(blog.getText());
-            mListItemCategoriesBinding.comment.initViews();
+           // mListItemCategoriesBinding.comment.setText(blog.getText());
+
+
+
+         //   mListItemCategoriesBinding.comment.initViews();
         }
 
 
@@ -121,8 +124,15 @@ public class CommentsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void commentClick(GetSocialActivity posts) {
-            mProductsAdapterListener.commentClick(posts);
+        public void commentClick(Boolean isMore) {
+      //      mProductsAdapterListener.commentClick(posts);
+            if (isMore){
+                mListItemCategoriesBinding.comment.setMaxLines(2);
+            }else {
+                mListItemCategoriesBinding.comment.setMaxLines(Integer.MAX_VALUE);
+            }
+
+
         }
 
         @Override
