@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dailylocally">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -112,10 +113,6 @@
             android:name=".ui.calendarView.CalendarActivity"
             android:screenOrientation="locked" />
 
-         <activity
-            android:name=".ui.video.VideoActivity"
-            android:screenOrientation="locked" />
-
 
         <activity
             android:name=".ui.address.addAddress.AddressNewActivity"
@@ -192,10 +189,20 @@
         <activity
             android:name=".ui.promotion.AdActivity"
             android:screenOrientation="locked" />
-   <activity
+        <activity
+            android:name=".ui.video.VideoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:exported="false"
+            android:resizeableActivity="true"
+            android:screenOrientation="sensor"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.AppCompat.FullScreen"
+            tools:targetApi="n" />
+
+        <activity
             android:name=".ui.community.event.EventActivity"
             android:screenOrientation="locked" />
-<activity
+        <activity
             android:name=".ui.community.details.EventDetailsActivity"
             android:screenOrientation="locked" />
 
@@ -203,7 +210,7 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_8ZBt2J9hAsxH9Q" />-->
 
-         <meta-data
+        <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_kelnGLZvTecvPV" />
 
@@ -316,20 +323,22 @@
 
         </activity>
 
-        <activity android:name=".ui.joinCommunity.communityLocation.CommunityAddressActivity"
-            android:screenOrientation="locked"/>
-        <activity android:name=".ui.joinCommunity.viewProfilePic.ViewPhotoActivity"
+        <activity
+            android:name=".ui.joinCommunity.communityLocation.CommunityAddressActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".ui.joinCommunity.viewProfilePic.ViewPhotoActivity"
             android:screenOrientation="locked">
 
         </activity>
 
 
-
         <activity android:name=".ui.aboutus.AboutUsActivity" />
 
 
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
 
     </application>
 

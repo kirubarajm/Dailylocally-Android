@@ -195,6 +195,8 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         if (mCommunityViewModel.sneakpeakVideoUrl != null) {
 
             Intent tDintent = VideoActivity.newIntent(getBaseActivity());
+           // Intent tDintent=new Intent(getContext(),VideoActivity.class);
+
             tDintent.putExtra("video", mCommunityViewModel.sneakpeakVideoUrl);
             startActivity(tDintent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

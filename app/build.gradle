@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android'
 apply plugin: 'im.getsocial'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
@@ -189,13 +189,12 @@ dependencies {
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     //Exoplayer
-   /* implementation 'com.google.android.exoplayer:exoplayer-core:2.8.1'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.1'
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.8.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.1'
     implementation 'com.google.android.exoplayer:extension-mediasession:2.8.1'
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"*/
 }
 repositories {
     mavenCentral()
