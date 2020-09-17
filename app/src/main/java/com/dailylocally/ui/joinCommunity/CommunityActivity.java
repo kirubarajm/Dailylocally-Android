@@ -129,8 +129,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     int count =0;
     private LatLngBounds bounds;
     private LatLngBounds.Builder builder;
-
     List<CommunityResponse.Result> markersArrays;
+
+    int scrollCount=0;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, CommunityActivity.class);
@@ -444,45 +445,49 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             @Override
             public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
 
-                CommunityResponse.Result result=  mOnBoardingActivityViewModel.communityItemViewModels.get(adapterPosition);
+                scrollCount++;
+                if (scrollCount!=1) {
+                    CommunityResponse.Result result = mOnBoardingActivityViewModel.communityItemViewModels.get(adapterPosition);
 
+                    if (result.getLat() != null && result.get_long() != null && mMap != null) {
 
+                        LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
+                        //mMap.addMarker(new
+                        //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
+                        //  mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+                        // mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                        // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+                        //    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
 
-                if (result.getLat()!=null &&result.get_long()!=null&& mMap!=null) {
+                        try {
+                            mMap.clear();
 
-                    LatLng currentLocation = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.get_long()));
-                    //mMap.addMarker(new
-                    //MarkerOptions().position(currentLocation).title(result.getCommunityname()));
-                    //  mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-                    // mMap.animateCamera(CameraUpdateFactory.zoomIn());
-                    // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                    //    mMap.animateCamera(CameraUpdateFactory.zoomTo(18), 3000, null);
+                            //   builder = new LatLngBounds.Builder();
+                            for (int i = 0; i < markersArrays.size(); i++) {
 
-                    try {
-                        mMap.clear();
-                        builder = new LatLngBounds.Builder();
-                        for(int i = 0 ; i < markersArrays.size() ; i++) {
-
-                            if (result.getLat().equals(markersArrays.get(i).getLat()) && result.get_long().equals(markersArrays.get(i).get_long())){
-                                createMarkers(result.getLat(), result.get_long(), result.getCommunityname(), "", 0);
-                            }else {
-                                createMarker(markersArrays.get(i).getLat(), markersArrays.get(i).get_long(), markersArrays.get(i).getCommunityname(), "", 0);
+                                if (result.getLat().equals(markersArrays.get(i).getLat()) && result.get_long().equals(markersArrays.get(i).get_long())) {
+                                    createMarkers(result.getLat(), result.get_long(), result.getCommunityname(), "", 0);
+                                } else {
+                                    createMarker(markersArrays.get(i).getLat(), markersArrays.get(i).get_long(), markersArrays.get(i).getCommunityname(), "", 0);
+                                }
                             }
+                            //    bounds = builder.build();
+                            int width = getResources().getDisplayMetrics().widthPixels;
+                            int height = getResources().getDisplayMetrics().heightPixels;
+                            int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+                            //CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                            //mMap.animateCamera(cu);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        bounds = builder.build();
-                        int width = getResources().getDisplayMetrics().widthPixels;
-                        int height = getResources().getDisplayMetrics().heightPixels;
-                        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
-                        //CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-                        //mMap.animateCamera(cu);
 
-                    }catch (Exception e){
-                        e.printStackTrace();
+                        CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
+                                currentLocation, 18);
+                        mMap.animateCamera(location);
+
+
                     }
-
-                    CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
-                            currentLocation, 18);
-                    mMap.animateCamera(location);
                 }
             }
         });
@@ -961,7 +966,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
             //mMap.clear();
             //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
             mMap.addMarker(markerOptions);
             builder.include(markerOptions.getPosition());
 
@@ -983,7 +988,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
             //mMap.clear();
             //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+        //    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
             mMap.addMarker(markerOptions);
             builder.include(markerOptions.getPosition());
 

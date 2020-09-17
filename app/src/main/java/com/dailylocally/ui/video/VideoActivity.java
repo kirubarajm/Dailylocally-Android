@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.MediaController;
 
 import androidx.annotation.Nullable;
 
@@ -22,9 +23,6 @@ import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.halilibo.bvpkotlin.captions.CaptionsView;
-
-import java.net.URI;
 
 import javax.inject.Inject;
 
@@ -36,7 +34,7 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     ActivityVideoBinding mActivityVideoBinding;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ORDER_PLACED;
-    int lastPosition=0;
+    int lastPosition = 0;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -49,6 +47,11 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
 
         }
     };
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, VideoActivity.class);
+    }
+
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -82,9 +85,6 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, VideoActivity.class);
-    }
 
     @Override
     public void handleError(Throwable throwable) {
@@ -93,7 +93,7 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     @Override
     public void back() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mActivityVideoBinding.videoPlayer.stop();
+        mActivityVideoBinding.videoPlayer.stopPlayback();
 
         finish();
     }
@@ -131,31 +131,47 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
             /*mActivityVideoBinding.videoPlayer.setSource( bundle.getString("video"));
             mActivityVideoBinding.videoPlayer.setPlayWhenReady(true);*/
 
+            mActivityVideoBinding.progressBar.setVisibility(View.VISIBLE);
+            MediaController mediaController = new MediaController(this);
+            mediaController.setAnchorView(mActivityVideoBinding.videoPlayer);
+            mActivityVideoBinding.videoPlayer.setMediaController(mediaController);
 
-           // mActivityVideoBinding.videoPlayer.setCaptions(bundle.getString("video"), CaptionsView.SubMime.SUBRIP); ;
+            mActivityVideoBinding.videoPlayer.setVideoURI(Uri.parse(bundle.getString("video")));
+
             mActivityVideoBinding.videoPlayer.start();
 
 
-           // mActivityVideoBinding.videoPlayer.setOrientation(LinearLayout.HORIZONTAL);
+            mActivityVideoBinding.videoPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mActivityVideoBinding.progressBar.setVisibility(View.GONE);
+                }
+            });
+            mActivityVideoBinding.videoPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    finish();
+                }
+
+            });
+
+
+            // mActivityVideoBinding.videoPlayer.setOrientation(LinearLayout.HORIZONTAL);
 
 
         }
-
-
-
 
 
     }
 
 
-
     @Override
     protected void onPause() {
         super.onPause();
-        if (mActivityVideoBinding.videoPlayer!=null){
-            lastPosition= mActivityVideoBinding.videoPlayer.getCurrentPosition();
-            mActivityVideoBinding.videoPlayer.pause();
-        }
+
+        lastPosition = mActivityVideoBinding.videoPlayer.getCurrentPosition();
+        mActivityVideoBinding.videoPlayer.pause();
+
 
         unregisterWifiReceiver();
     }
@@ -164,11 +180,9 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     protected void onResume() {
         super.onResume();
 
-
-        if (mActivityVideoBinding.videoPlayer!=null){
-            mActivityVideoBinding.videoPlayer.start();
-            mActivityVideoBinding.videoPlayer.seekTo(lastPosition);
-        }
+        mActivityVideoBinding.progressBar.setVisibility(View.VISIBLE);
+        mActivityVideoBinding.videoPlayer.seekTo(lastPosition);
+        mActivityVideoBinding.videoPlayer.start();
 
         registerWifiReceiver();
 
@@ -177,7 +191,7 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mActivityVideoBinding.videoPlayer.stop();
+        mActivityVideoBinding.videoPlayer.stopPlayback();
     }
 
     @Override

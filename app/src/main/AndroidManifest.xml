@@ -89,11 +89,6 @@
         <activity
             android:name=".ui.signup.SignUpActivity"
             android:screenOrientation="locked" />
-        <activity
-            android:name=".ui.video.VideoActivity"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
-            android:configChanges="orientation|screenSize|layoutDirection"
-            android:screenOrientation="sensor" />
 
         <activity
             android:name=".ui.category.l1.CategoryL1Activity"
@@ -116,6 +111,12 @@
         <activity
             android:name=".ui.calendarView.CalendarActivity"
             android:screenOrientation="locked" />
+
+         <activity
+            android:name=".ui.video.VideoActivity"
+            android:screenOrientation="locked" />
+
+
         <activity
             android:name=".ui.address.addAddress.AddressNewActivity"
             android:screenOrientation="locked">
@@ -206,12 +207,12 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_kelnGLZvTecvPV" />
 
-
         <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <receiver
             android:name="com.dailylocally.ui.notification.FirebaseDataReceiver"
             android:exported="true"

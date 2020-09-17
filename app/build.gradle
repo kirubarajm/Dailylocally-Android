@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'im.getsocial'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
@@ -10,8 +11,8 @@ android {
         applicationId "com.dailylocally"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 18
-        versionName "2.1"
+        versionCode 19
+        versionName "2.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -182,13 +183,20 @@ dependencies {
     implementation 'im.getsocial:getsocial-core:7.2.2'
     implementation'im.getsocial:getsocial-ui:7.2.2'// Note: add this dependency only if you plan to use GetSocial UI
 
-    //Video player
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.15'
 
     //community list stack
     implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
-
-    implementation 'com.github.halilozercan:BetterVideoPlayer:kotlin-SNAPSHOT'
+    //Exoplayer
+   /* implementation 'com.google.android.exoplayer:exoplayer-core:2.8.1'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.8.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.1'
+    implementation 'com.google.android.exoplayer:extension-mediasession:2.8.1'
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"*/
+}
+repositories {
+    mavenCentral()
 }
