@@ -27,9 +27,13 @@ import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.category.viewall.CatProductActivity;
+import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
+import com.dailylocally.ui.community.event.EventActivity;
 import com.dailylocally.ui.favourites.FavActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.ui.signup.opt.OtpActivity;
@@ -40,10 +44,13 @@ import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.GenerateGetSocialNotification;
+import com.dailylocally.utilities.GenerateNotification;
 import com.dailylocally.utilities.PushUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -53,11 +60,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
+import im.getsocial.sdk.Notifications;
+import im.getsocial.sdk.notifications.OnNotificationReceivedListener;
 
 public class FCMMeassagingService extends FirebaseMessagingService {
 
@@ -68,6 +80,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     private static final String ZD_REQUEST_ID_KEY = "ticket_id";
     private static final String ZD_MESSAGE_KEY = "message";
     private int numMessages = 0;
+    private Boolean socialNofication = true;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -75,54 +88,69 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         RemoteMessage.Notification notification = remoteMessage.getNotification();
 
 
-        Map<String, String> data = remoteMessage.getData();
-        //   Log.d("FROM", remoteMessage.getFrom());
+        Notifications.setOnNotificationReceivedListener(new OnNotificationReceivedListener() {
+            @Override
+            public void onNotificationReceived(im.getsocial.sdk.notifications.Notification snotification) {
+               // socialNofication = true;
+                //sendSocialNotification(notification);
 
-        final String requestId = remoteMessage.getData().get(ZD_REQUEST_ID_KEY);
-        final String message = remoteMessage.getData().get(ZD_MESSAGE_KEY);
-        final String pageId = remoteMessage.getData().get("pageid");
+           new GenerateGetSocialNotification(getApplicationContext(),snotification).execute();
 
-
-        Log.e("Remote message data", data.toString());
-
-        String chatData = remoteMessage.getData().get("data");
-
-        String author = null;
-        String chatMessage = null;
-        if (chatData != null) {
-            try {
-                JSONObject jsonObject = new JSONObject(chatData);
-                author = jsonObject.getString("author");
-                chatMessage = jsonObject.getString("message");
-
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-        }
-        if (author != null) {
-            if (chatMessage != null && !chatMessage.isEmpty())
-                showZendeskChatNotification(getString(R.string.app_name), chatMessage);
-        } else {
-            if (data != null) {
-                if (pageId != null) {
-                    if (pageId.equals("13")) {
-                        if (StringUtils.hasLengthMany(requestId)) {
-                            handleZendeskSdkPush(requestId, data);
+        });
+
+        if (notification!=null) {
+            Map<String, String> data = remoteMessage.getData();
+            //   Log.d("FROM", remoteMessage.getFrom());
+
+            final String requestId = remoteMessage.getData().get(ZD_REQUEST_ID_KEY);
+            final String message = remoteMessage.getData().get(ZD_MESSAGE_KEY);
+            final String pageId = remoteMessage.getData().get("pageid");
+
+
+            Log.e("Remote message data", data.toString());
+
+            String chatData = remoteMessage.getData().get("data");
+
+            String author = null;
+            String chatMessage = null;
+            if (chatData != null) {
+                try {
+                    JSONObject jsonObject = new JSONObject(chatData);
+                    author = jsonObject.getString("author");
+                    chatMessage = jsonObject.getString("message");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (author != null) {
+                if (chatMessage != null && !chatMessage.isEmpty())
+                    showZendeskChatNotification(getString(R.string.app_name), chatMessage);
+            } else {
+                if (data != null) {
+                    if (pageId != null) {
+                        if (pageId.equals("13")) {
+                            if (StringUtils.hasLengthMany(requestId)) {
+                                handleZendeskSdkPush(requestId, data);
+                            }
+                        } else {
+                            sendNotification(data);
+
+                          //  new GenerateNotification(getApplicationContext(),data).execute();
+
                         }
                     } else {
                         sendNotification(data);
                     }
                 } else {
-                    sendNotification(data);
+
+                    if (notification != null)
+                        sendNotification(notification);
+
                 }
-            } else {
-
-                if (notification != null)
-                    sendNotification(notification);
-
             }
         }
-
     }
 
     @Override
@@ -131,6 +159,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         saveToken(s);
         PushUtils.registerWithZendesk();
     }
+
     public String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd hh:mm:ss";
         String outputPattern = "yyyy-MM-dd";
@@ -148,6 +177,146 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         }
         return str;
     }
+
+
+    private void sendSocialNotification(im.getsocial.sdk.notifications.Notification notification) {
+
+        socialNofication = false;
+        Bundle bundle = new Bundle();
+        Intent intent = null;
+        Map<String, String> actionDatas = null;
+
+        String pageId = "0";
+        if (notification.getAction() != null) {
+            actionDatas = notification.getAction().getData();
+            if (notification.getAction().getData().get("pageid") != null) {
+                pageId = notification.getAction().getData().get("pageid");
+            }
+
+        }
+
+        if (pageId == null) pageId = "0";
+        switch (pageId) {
+            case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
+                intent = CategoryL1Activity.newIntent(this);
+                bundle.putString("catid", actionDatas.get("catid"));
+                break;
+            case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
+                intent = CategoryL2Activity.newIntent(this);
+                bundle.putString("catid", actionDatas.get("catid"));
+                bundle.putString("scl1id", actionDatas.get("scl1id"));
+                break;
+            case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
+                intent = CatProductActivity.newIntent(this);
+                bundle.putString("catid", actionDatas.get("catid"));
+                break;
+            case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
+                intent = MainActivity.newIntent(this, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                break;
+            case AppConstants.NOTIFY_TRANS_LIST_ACTV:
+                intent = TransactionHistoryActivity.newIntent(this);
+                break;
+            case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
+                intent = TransactionDetailsActivity.newIntent(this);
+                bundle.putString("orderid", actionDatas.get("orderid"));
+
+                break;
+            case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
+                intent = ProductDetailsActivity.newIntent(this);
+                bundle.putString("vpid", actionDatas.get("vpid"));
+
+                break;
+            case AppConstants.NOTIFY_COLLECTION_ACTV:
+                intent = CollectionDetailsActivity.newIntent(this);
+                bundle.putString("cid", actionDatas.get("cid"));
+
+                break;
+            case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
+                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"));
+
+                break;
+
+            default:
+                intent = SplashActivity.newIntent(this);
+
+
+        }
+
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_id))
+                .setContentTitle(notification.getTitle())
+                .setContentText(notification.getText())
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(notification.getText()))
+                .setSmallIcon(R.drawable.ic_dl_logo)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
+                .setContentIntent(pendingIntent)
+                .setContentInfo("")
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_dl_logo))
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                // .setFullScreenIntent(pendingIntent,true)
+                .setNumber(++numMessages);
+
+        //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+
+        try {
+
+            if (notification.getAttachment() != null && notification.getAttachment().getImageUrl() != null) {
+                URL url = new URL(notification.getAttachment().getImageUrl());
+              //  Bitmap bigPicture = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                Bitmap bigPicture = BitmapFactory.decodeStream(input);
+
+
+                notificationBuilder.setStyle(
+                        new NotificationCompat.BigPictureStyle().bigPicture(bigPicture));
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception ee){
+            ee.printStackTrace();
+        }
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    getString(R.string.notification_channel_id), CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription(CHANNEL_DESC);
+            channel.setShowBadge(true);
+            channel.canShowBadge();
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        assert notificationManager != null;
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
+
+
+
+
+
+
     private void sendNotification(Map<String, String> data) {
         /*Pageid_eat_order_post:1,
                 Pageid_eat_order_accept:2,
@@ -162,13 +331,13 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 Pageid_order_placed:11
                 Pageid_promotion:12
                 Pageid_zendesk:13*/
-
+        socialNofication = false;
         Bundle bundle = new Bundle();
         Intent intent = null;
         String pageId = data.get("pageid");
-        String date="2020-08-07 12:32:22";
-        if (data.get("date")!=null) {
-             date = parseDateToddMMyyyy(data.get("date"));
+        String date = "2020-08-07 12:32:22";
+        if (data.get("date") != null) {
+            date = parseDateToddMMyyyy(data.get("date"));
         }
 
         String title = data.get("title");
@@ -253,7 +422,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
                 intent = new Intent(this, TransactionHistoryActivity.class);
                 intent.putExtra("pageid", pageId);
-                intent.putExtra("date", date);
                 break;
 
 
@@ -325,7 +493,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(RemoteMessage.Notification notification) {
-
+        socialNofication = false;
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this, MainActivity.class);
 
@@ -434,7 +602,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         }
 
         showNotification(requestId, data);*/
-
+        socialNofication = false;
 
         String pageId = data.get("pageid");
         String title = data.get("title");
@@ -488,28 +656,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
     }
 
-    private void showNotification(String requestId, Map<String, String> data) {
-
-        String title = data.get("title");
-        String message = data.get("message");
-
-        final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        final String channelId = getApplicationContext().getResources().getString(R.string.app_name);
-        createNotificationChannel(notificationManager, channelId);
-
-        final Intent requestIntent = getDeepLinkIntent(requestId);
-        final PendingIntent contentIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, requestIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        final Notification notification = new NotificationCompat.Builder(getApplicationContext(), channelId)
-                .setSmallIcon(R.drawable.ic_dl_logo)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setContentIntent(contentIntent)
-                .build();
-
-        notificationManager.notify(NOTIFICATION_ID, notification);
-    }
 
     private void showZendeskChatNotification(String title, String message) {
 
@@ -533,7 +679,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .build();
 
         notificationManager.notify(NOTIFICATION_ID, notification);*/
-
+        socialNofication = false;
         Bundle bundle = new Bundle();
         bundle.putBoolean("chat", true);
         Intent intent = new Intent(this, MainActivity.class);
@@ -582,6 +728,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     }
 
     private void createNotificationChannel(NotificationManager notificationManager, String channelId) {
+        socialNofication = false;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             // Create the notification channel. As per the documentation, "Attempting to create an
             // existing notification channel with its original values performs no operation, so it's safe
@@ -605,7 +752,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     }
 
     private Intent getDeepLinkIntent(String requestId) {
-
+        socialNofication = false;
         // Utilize SDK's deep linking functionality to get an Intent which opens a specified request.
         // We'd like to achieve a certain behaviour, if the user navigates back from the request activity.
         // Expected: [Request] --> [Request list] -> [MainActivity | HelpFragment]

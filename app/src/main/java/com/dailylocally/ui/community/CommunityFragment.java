@@ -41,6 +41,7 @@ import com.dailylocally.ui.community.event.EventActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
+import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.ui.video.VideoActivity;
@@ -66,17 +67,21 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import im.getsocial.sdk.Callback;
 import im.getsocial.sdk.Communities;
 import im.getsocial.sdk.CompletionCallback;
 import im.getsocial.sdk.FailureCallback;
 import im.getsocial.sdk.GetSocial;
 import im.getsocial.sdk.GetSocialError;
+import im.getsocial.sdk.Notifications;
 import im.getsocial.sdk.common.PagingQuery;
 import im.getsocial.sdk.communities.ActivitiesQuery;
 import im.getsocial.sdk.communities.CurrentUser;
+import im.getsocial.sdk.communities.FollowQuery;
 import im.getsocial.sdk.communities.GetSocialActivity;
 import im.getsocial.sdk.communities.Identity;
 import im.getsocial.sdk.communities.Reactions;
+import im.getsocial.sdk.communities.UserId;
 import im.getsocial.sdk.communities.UserUpdate;
 import im.getsocial.sdk.media.MediaAttachment;
 
@@ -195,7 +200,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         if (mCommunityViewModel.sneakpeakVideoUrl != null) {
 
             Intent tDintent = VideoActivity.newIntent(getBaseActivity());
-           // Intent tDintent=new Intent(getContext(),VideoActivity.class);
+            // Intent tDintent=new Intent(getContext(),VideoActivity.class);
 
             tDintent.putExtra("video", mCommunityViewModel.sneakpeakVideoUrl);
             startActivity(tDintent);
@@ -377,6 +382,70 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     @Override
     public void homeDataLoaded() {
 
+        Communities.isFollowing(UserId.currentUser(), FollowQuery.topics(mCommunityViewModel.homeEventTopic, mCommunityViewModel.topic), new im.getsocial.sdk.Callback<Map<String, Boolean>>() {
+            @Override
+            public void onSuccess(Map<String, Boolean> stringBooleanMap) {
+                try {
+                    if (stringBooleanMap != null) {
+
+                        if (!stringBooleanMap.get(mCommunityViewModel.homeEventTopic)) {
+
+                            Communities.follow(FollowQuery.topics(mCommunityViewModel.homeEventTopic), new im.getsocial.sdk.Callback<Integer>() {
+                                @Override
+                                public void onSuccess(Integer integer) {
+
+                                }
+                            }, new FailureCallback() {
+                                @Override
+                                public void onFailure(GetSocialError getSocialError) {
+
+                                }
+                            });
+
+                        }
+
+                        if (!stringBooleanMap.get(mCommunityViewModel.topic)) {
+
+                            Communities.follow(FollowQuery.topics(mCommunityViewModel.topic), new im.getsocial.sdk.Callback<Integer>() {
+                                @Override
+                                public void onSuccess(Integer integer) {
+
+                                }
+                            }, new FailureCallback() {
+                                @Override
+                                public void onFailure(GetSocialError getSocialError) {
+
+                                }
+                            });
+
+                        }
+
+                    }
+                } catch (Exception eee) {
+                    eee.printStackTrace();
+                }
+
+            }
+        }, new FailureCallback() {
+            @Override
+            public void onFailure(GetSocialError getSocialError) {
+
+            }
+        });
+
+
+        Communities.follow(FollowQuery.topics(mCommunityViewModel.homeEventTopic, mCommunityViewModel.topic), new im.getsocial.sdk.Callback<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+
+            }
+        }, new FailureCallback() {
+            @Override
+            public void onFailure(GetSocialError getSocialError) {
+
+            }
+        });
+
         GetSocial.addOnInitializeListener(new Runnable() {
             @Override
             public void run() {
@@ -450,6 +519,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
             }
         });
+        Notifications.registerDevice();
 
 
     }
@@ -500,6 +570,11 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     }
 
     private void showRecentPosts() {
+
+
+
+
+
 
 
         //   final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(_item.getId()).byUser(UserId.currentUser());
@@ -637,6 +712,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 pintent.putExtra("vpid", actionDatas.get("vpid"));
                 startActivity(pintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
                 Intent cintent = CollectionDetailsActivity.newIntent(getBaseActivity());
@@ -645,6 +721,10 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
+            default:
+                Intent sintent = SplashActivity.newIntent(getBaseActivity());
+                startActivity(sintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         }
 

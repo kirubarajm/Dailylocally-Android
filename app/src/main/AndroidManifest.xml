@@ -34,6 +34,7 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -192,12 +193,8 @@
         <activity
             android:name=".ui.video.VideoActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:exported="false"
-            android:resizeableActivity="true"
             android:screenOrientation="sensor"
-            android:supportsPictureInPicture="true"
-            android:theme="@style/Theme.AppCompat.FullScreen"
-            tools:targetApi="n" />
+            android:theme="@style/Theme.AppCompat.FullScreen" />
 
         <activity
             android:name=".ui.community.event.EventActivity"
@@ -217,6 +214,7 @@
         <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="getsocial.intent.action.NOTIFICATION_RECEIVE"/>
             </intent-filter>
         </service>
 

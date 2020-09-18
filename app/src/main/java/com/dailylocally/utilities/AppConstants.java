@@ -648,6 +648,8 @@ public class AppConstants {
   public static final String NOTIFY_COMMUNITY_CATLIST_FRAG = "32";
   public static final String NOTIFY_COMMUNITY_ACTV = "33";
   public static final String NOTIFY_COMMUNITY_HOME_FRAG = "34";
+  public static final String NOTIFY_COMMUNITY_EVENT_POST = "35";
+  public static final String NOTIFY_COMMUNITY_POST_DETAILS = "36";
 
 
 

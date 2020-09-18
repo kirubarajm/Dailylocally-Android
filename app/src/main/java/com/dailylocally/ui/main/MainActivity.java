@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.dailylocally.BR;
+import com.dailylocally.BuildConfig;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityMainBinding;
 import com.dailylocally.ui.account.MyAccountFragment;
@@ -38,6 +41,9 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -54,6 +60,8 @@ import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -492,12 +500,45 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             } else {
                 mMainViewModel.getUserDetails(AppConstants.NOTIFY_HOME_FRAG);
             }
-
-
         }
 
+        if (BuildConfig.ENABLE_DEBUG) {
+            AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+                @Override
+                protected String doInBackground(Void... params) {
+                    AdvertisingIdClient.Info idInfo = null;
+                    try {
+                        idInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
+                        idInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
+                    } catch (GooglePlayServicesNotAvailableException e) {
+                        e.printStackTrace();
+                    } catch (GooglePlayServicesRepairableException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String advertId = null;
+                    try {
+                        advertId = idInfo.getId();
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
 
+                    return advertId;
+                }
 
+                @Override
+                protected void onPostExecute(String advertId) {
+                    Toast.makeText(getApplicationContext(), "test code copied", Toast.LENGTH_SHORT).show();
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("id", advertId);
+                    clipboard.setPrimaryClip(clip);
+                }
+
+            };
+            task.execute();
+
+        }
 
         /*Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -877,9 +918,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-
-
-
 
 
     }
