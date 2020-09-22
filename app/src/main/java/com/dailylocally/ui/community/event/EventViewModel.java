@@ -1,6 +1,7 @@
 package com.dailylocally.ui.community.event;
 
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.MutableLiveData;
@@ -14,7 +15,7 @@ import im.getsocial.sdk.communities.GetSocialActivity;
 
 public class EventViewModel extends BaseViewModel<EventNavigator> {
     public final ObservableField<String> title = new ObservableField<>();
-
+    public final ObservableBoolean loading = new ObservableBoolean();
     public ObservableList<GetSocialActivity> getSocialActivities = new ObservableArrayList<>();
     public String ratingDOID = "0";
     public MutableLiveData<List<GetSocialActivity>> socialActivitiesListLiveData;

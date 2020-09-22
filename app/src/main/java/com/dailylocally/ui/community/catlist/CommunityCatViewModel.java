@@ -203,6 +203,9 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
 
                             getDataManager().saveServiceableStatus(false, response.getUnserviceableTitle(), response.getUnserviceableSubtitle());
                             serviceable.set(response.getServiceablestatus());
+                            //serviceable.set(false);
+
+
                             unserviceableTitle.set(response.getUnserviceableTitle());
                             unserviceableSubTitle.set(response.getUnserviceableSubtitle());
                             emptyImageUrl.set(response.getEmptyUrl());
@@ -390,7 +393,6 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_RATING_CHECK, RatingCheckResponse.class, new PromotionRequest(getDataManager().getCurrentUserId()), new Response.Listener<RatingCheckResponse>() {
                 @Override
                 public void onResponse(RatingCheckResponse response) {
-
                     try {
 
                     if (response != null) {

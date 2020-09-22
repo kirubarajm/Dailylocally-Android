@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -51,7 +52,7 @@ public class GenerateGetSocialNotification extends AsyncTask<String, Void, Bitma
 
     public GenerateGetSocialNotification(Context context, im.getsocial.sdk.notifications.Notification notification) {
         super();
-        this.mContext = context;
+        this.mContext = DailylocallyApp.getInstance();
         this.snotification = notification;
     }
 
@@ -146,7 +147,9 @@ public class GenerateGetSocialNotification extends AsyncTask<String, Void, Bitma
         }
 
         intent.putExtras(bundle);
-
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
+        stackBuilder.addNextIntentWithParentStack(intent);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext, mContext.getString(R.string.notification_channel_id))

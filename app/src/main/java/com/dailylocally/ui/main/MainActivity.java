@@ -35,9 +35,12 @@ import com.dailylocally.ui.cart.CartFragment;
 import com.dailylocally.ui.community.CommunityFragment;
 import com.dailylocally.ui.community.catlist.CommunityCatFragment;
 import com.dailylocally.ui.home.HomeFragment;
+
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.search.SearchFragment;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.DependenciesContainer;
+import com.dailylocally.utilities.PageNavigator;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -68,10 +71,15 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import im.getsocial.sdk.actions.ActionListener;
+import im.getsocial.sdk.communities.OnCurrentUserChangedListener;
+import im.getsocial.sdk.notifications.OnNotificationClickedListener;
+import im.getsocial.sdk.notifications.OnNotificationReceivedListener;
 import zendesk.support.request.RequestActivity;
 
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, PaymentResultListener {
+
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
 
@@ -101,7 +109,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     boolean downloading;
 
     boolean forceLocation = false;
-
+    DependenciesContainer _dependenciesContainer;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -128,6 +136,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         return intent;
     }
 
+    @Override
+    protected void onNewIntent (Intent intent) {
+        super .onNewIntent(intent) ;
+        Bundle extras = intent.getExtras() ;
+        if (extras != null ) {
+            new PageNavigator(this,getIntent());
+        }
+    }
 
     @Override
     public int getBindingVariable() {
@@ -474,6 +490,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
         PushUtils.registerWithZendesk();
 
+
         // openHome();
         saveFcmToken();
 
@@ -502,7 +519,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         }
 
-        if (BuildConfig.ENABLE_DEBUG) {
+        /*if (BuildConfig.ENABLE_DEBUG) {
             AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
                 @Override
                 protected String doInBackground(Void... params) {
@@ -538,7 +555,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             };
             task.execute();
 
-        }
+        }*/
 
         /*Intent intent = getIntent();
         if (intent.getExtras() != null) {

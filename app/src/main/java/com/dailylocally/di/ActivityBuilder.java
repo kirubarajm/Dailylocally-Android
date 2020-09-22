@@ -125,6 +125,8 @@ import com.dailylocally.ui.video.VideoActivity;
 import com.dailylocally.ui.video.VideoModule;
 import com.dailylocally.utilities.datepicker.DatePickerActivity;
 import com.dailylocally.utilities.datepicker.DatePickerModule;
+import com.dailylocally.utilities.gsnotification.GetSocialNotificationActivity;
+import com.dailylocally.utilities.gsnotification.GetSocialNotificationModule;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.dailylocally.utilities.nointernet.InternetErrorModule;
 
@@ -183,6 +185,10 @@ public abstract class ActivityBuilder {
 
 @ContributesAndroidInjector(modules = DatePickerModule.class)
     abstract DatePickerActivity bindDatePickerActivity();
+
+
+@ContributesAndroidInjector(modules = GetSocialNotificationModule.class)
+    abstract GetSocialNotificationActivity bindGetSocialNotificationActivity();
 
 
 

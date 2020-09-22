@@ -34,6 +34,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -385,6 +386,27 @@ public final class BindingUtils {
     }
 
 
+ @BindingAdapter("lin_margin_bottom")
+    public static void setLinMarBottom(LinearLayout linearLayout, boolean status) {
+        Context context = linearLayout.getContext();
+        if (status) {
+            linearLayout.setPadding(0,0,0,0);
+        } else {
+            linearLayout.setPadding(0,0,0,180);
+        }
+    }
+
+@BindingAdapter("text_margin_bottom")
+    public static void setTextMarBottom(TextView textView, boolean status) {
+        Context context = textView.getContext();
+        if (status) {
+            textView.setPadding(0,0,0,180);
+        } else {
+            textView.setPadding(0,0,0,0);
+        }
+    }
+
+
     @BindingAdapter({"adapter"})
     public static void addCommunityListItems(RecyclerView recyclerView, List<CommunityResponse.Result> blogs) {
         CommunityAdapter adapter = (CommunityAdapter) recyclerView.getAdapter();
@@ -457,7 +479,7 @@ public final class BindingUtils {
                 .load(url)
                 //  .asBitmap()
                 .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+              //  .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -554,7 +576,7 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+              //  .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
 
 

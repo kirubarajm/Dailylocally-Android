@@ -14,9 +14,9 @@
 
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/header"
@@ -29,27 +29,30 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="horizontal">
-            <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:onClick="@{()->eventViewModel.back()}"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_arrow_back_black_24dp" />
-            </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:onClick="@{()->eventViewModel.back()}"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                </RelativeLayout>
+
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                    android:layout_centerInParent="true"
+                    style="@style/HeaderTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
-                    style="@style/HeaderTitleTextStyle"
                     android:text="@{eventViewModel.title}" />
 
             </RelativeLayout>
@@ -58,16 +61,46 @@
         </androidx.cardview.widget.CardView>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_post"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/header"
-            android:layout_marginTop="10dp"
-            android:nestedScrollingEnabled="false"
-            app:eventadapter="@{eventViewModel.getSocialActivities}"
-            tools:listitem="@layout/list_item_faqs" />
+            android:layout_marginTop="40dp"
+            android:background="@color/white"
+            android:overScrollMode="never">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:overScrollMode="never"
+                    android:paddingBottom="60dp"
+                    android:id="@+id/recycler_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:eventadapter="@{eventViewModel.getSocialActivities}"
+                    tools:itemCount="100"
+                    tools:listitem="@layout/list_item_faqs" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:visibility="@{eventViewModel.loading?View.VISIBLE:View.GONE}">
+
+
+            <ProgressBar
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

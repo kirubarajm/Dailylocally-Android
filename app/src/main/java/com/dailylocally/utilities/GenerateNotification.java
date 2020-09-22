@@ -204,6 +204,7 @@ public class GenerateNotification extends AsyncTask<String, Void, Bitmap> {
         bundle.putString("title", title);
         bundle.putString("message", message);
         intent.putExtras(bundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

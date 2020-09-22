@@ -3,5 +3,6 @@
     "autoRegisterForPush": true,
     "disableFacebookReferralCheck": false,
     "uiConfig": null,
-    "foregroundNotifications": false
+    "foregroundNotifications": false,
+    "pushNotifications": false
 }

@@ -13,6 +13,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -151,7 +152,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
              getTopicPost(intent.getExtras().getString("topic"));
-          //  getTopicPost("test");
+          // getTopicPost("home_page");
             mEventViewModel.title.set(intent.getExtras().getString("title"));
 
         }
@@ -164,7 +165,49 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
 
 
-        mActivityEventBinding.recyclerPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mActivityEventBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+              
+                if ((scrollY >= (mActivityEventBinding.content.getChildAt(mActivityEventBinding.content.getChildCount() - 1).getMeasuredHeight() - mActivityEventBinding.content.getMeasuredHeight())) &&
+                        scrollY > oldScrollY) {
+
+                    int previousCount=mEventViewModel.getSocialActivities.size();
+
+                    if (mEventViewModel.getSocialActivities.size() > 20) {
+                        if (!mEventViewModel.loading.get()) {
+                            //  productListAdapter.addLoader();
+                            if (pagingResult != null && pagingQuery != null)
+                                if (!pagingResult.isLastPage()) {
+                                    mEventViewModel.loading.set(true);
+                                    Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                        pagingResult = result;
+                                        final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                        mEventViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                        mEventViewModel.loading.set(false);
+
+                                        mActivityEventBinding.recyclerPost.scrollToPosition(previousCount+1);
+
+
+                                    }, exception -> {
+                                        mEventViewModel.loading.set(false);
+                                        // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                                    });
+
+
+                                }
+                        }
+                    }
+
+                }
+
+
+            }
+        });
+
+
+       /* mActivityEventBinding.recyclerPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -200,7 +243,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
                     }
                 }
             }
-        });
+        });*/
 
 
     }
@@ -214,7 +257,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
     private void getTopicPost(String topic) {
 
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(topic);
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(100);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(25);
         this.pagingQuery = pagingQuery;
         Communities.getActivities(pagingQuery, result -> {
             pagingResult = result;

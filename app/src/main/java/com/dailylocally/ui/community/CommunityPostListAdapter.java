@@ -69,11 +69,15 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         item_list.addAll(blogList);
 
-        if (item_list.size()>0){
-            item_list.remove(0);
-        }
+        if (item_list.size()<20){
+            notifyDataSetChanged();
+        }else if (item_list.size()>20){
+            notifyItemChanged((item_list.size()-blogList.size())+1);
 
-        notifyDataSetChanged();
+        }else {
+            notifyDataSetChanged();
+        }
+    //    notifyDataSetChanged();
     }
 
     public void setListener(ProductsAdapterListener listener) {

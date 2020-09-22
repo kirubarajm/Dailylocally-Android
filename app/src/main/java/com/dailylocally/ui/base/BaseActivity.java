@@ -23,13 +23,28 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.dailylocally.R;
+import com.dailylocally.ui.category.l1.CategoryL1Activity;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.category.viewall.CatProductActivity;
+import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
+import com.dailylocally.ui.community.event.EventActivity;
+import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
+import com.dailylocally.ui.splash.SplashActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CancelListener;
 import com.dailylocally.utilities.CommonUtils;
 import com.dailylocally.utilities.NetworkUtils;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
+import java.util.Map;
+
 import dagger.android.AndroidInjection;
+import im.getsocial.sdk.Notifications;
+import im.getsocial.sdk.notifications.NotificationContext;
+import im.getsocial.sdk.notifications.OnNotificationClickedListener;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity implements
         BaseFragment.Callback, CancelListener {
@@ -68,6 +83,80 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         performDataBinding();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        /*Notifications.setOnNotificationClickedListener(new OnNotificationClickedListener() {
+            @Override
+            public void onNotificationClicked(im.getsocial.sdk.notifications.Notification notification, NotificationContext
+                    notificationContext) {
+                // GetSocial.handle(notification.getAction());
+
+
+                Bundle bundle = new Bundle();
+                Intent intent = null;
+                Map<String, String> actionDatas = null;
+
+                String pageId = "0";
+                if (notification.getAction() != null) {
+                    actionDatas = notification.getAction().getData();
+                    if (notification.getAction().getData().get("pageid") != null) {
+                        pageId = notification.getAction().getData().get("pageid");
+                    }
+
+                }
+
+                if (pageId == null) pageId = "0";
+                switch (pageId) {
+                    case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
+                        intent = CategoryL1Activity.newIntent(getApplicationContext());
+                        bundle.putString("catid", actionDatas.get("catid"));
+                        break;
+                    case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
+                        intent = CategoryL2Activity.newIntent(getApplicationContext());
+                        bundle.putString("catid", actionDatas.get("catid"));
+                        bundle.putString("scl1id", actionDatas.get("scl1id"));
+                        break;
+                    case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
+                        intent = CatProductActivity.newIntent(getApplicationContext());
+                        bundle.putString("catid", actionDatas.get("catid"));
+                        break;
+                    case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
+                        intent = MainActivity.newIntent(getApplicationContext(), AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                        break;
+                    case AppConstants.NOTIFY_TRANS_LIST_ACTV:
+                        intent = TransactionHistoryActivity.newIntent(getApplicationContext());
+                        break;
+                    case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
+                        intent = TransactionDetailsActivity.newIntent(getApplicationContext());
+                        bundle.putString("orderid", actionDatas.get("orderid"));
+
+                        break;
+                    case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
+                        intent = ProductDetailsActivity.newIntent(getApplicationContext());
+                        bundle.putString("vpid", actionDatas.get("vpid"));
+
+                        break;
+                    case AppConstants.NOTIFY_COLLECTION_ACTV:
+                        intent = CollectionDetailsActivity.newIntent(getApplicationContext());
+                        bundle.putString("cid", actionDatas.get("cid"));
+
+                        break;
+                    case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
+                        intent = EventActivity.newIntent(getApplicationContext(), actionDatas.get("topic"), actionDatas.get("title"));
+
+                        break;
+
+                    default:
+                        intent = SplashActivity.newIntent(getApplicationContext());
+
+
+                }
+
+                intent.putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent,bundle);
+            }
+        });*/
+
     }
 
     public T getViewDataBinding() {

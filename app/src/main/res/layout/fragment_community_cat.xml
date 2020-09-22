@@ -306,9 +306,9 @@
 
                         </RelativeLayout>
                         <LinearLayout
+                            lin_margin_bottom="@{communityCatViewModel.serviceable}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/user"
                             android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
@@ -354,9 +354,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginBottom="150dp"
                                 android:text="Right Food for all"
                                 android:textAlignment="center"
+                                text_margin_bottom="@{communityCatViewModel.showRating}"
                                 android:textColor="@color/light_black"
                                 android:textSize="@dimen/_28px" />
                         </LinearLayout>
@@ -414,11 +414,11 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
                 android:onClick="@{()->communityCatViewModel.ratingClick()}"
                 android:visibility="@{communityCatViewModel.showRating?View.VISIBLE:View.GONE}"
                 app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="10dp"
                 app:cardUseCompatPadding="true">
 
                 <RelativeLayout
@@ -497,7 +497,7 @@
                     android:layout_height="wrap_content">
 
                     <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                        style="@style/SubtTitleTextStyle"
+                        style="@style/UnserviceableTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -521,7 +521,7 @@
 
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    style="@style/SubtTitleTextStyle"
+                    style="@style/UnserviceableTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

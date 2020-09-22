@@ -67,7 +67,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import im.getsocial.sdk.Callback;
 import im.getsocial.sdk.Communities;
 import im.getsocial.sdk.CompletionCallback;
 import im.getsocial.sdk.FailureCallback;
@@ -75,6 +74,7 @@ import im.getsocial.sdk.GetSocial;
 import im.getsocial.sdk.GetSocialError;
 import im.getsocial.sdk.Notifications;
 import im.getsocial.sdk.common.PagingQuery;
+import im.getsocial.sdk.common.PagingResult;
 import im.getsocial.sdk.communities.ActivitiesQuery;
 import im.getsocial.sdk.communities.CurrentUser;
 import im.getsocial.sdk.communities.FollowQuery;
@@ -97,6 +97,9 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     FragmentCommunityBinding mFragmentCommunityBinding;
     GetSocialActivity firstPost;
     Bitmap imageBitmap;
+
+    PagingResult<GetSocialActivity> pagingResult;
+    PagingQuery<ActivitiesQuery> pagingQuery;
 
     public static CommunityFragment newInstance() {
         Bundle args = new Bundle();
@@ -545,6 +548,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentCommunityBinding.postList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFragmentCommunityBinding.postList.setAdapter(communityPostListAdapter);
+        mFragmentCommunityBinding.postList.setNestedScrollingEnabled(false);
 
 
         mFragmentCommunityBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -554,6 +558,39 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 if (myToolTipView != null) {
                     myToolTipView.remove();
                 }
+                if ((scrollY >= (mFragmentCommunityBinding.content.getChildAt(mFragmentCommunityBinding.content.getChildCount() - 1).getMeasuredHeight() - mFragmentCommunityBinding.content.getMeasuredHeight())) &&
+                        scrollY > oldScrollY) {
+
+                    int previousCount=mCommunityViewModel.getSocialActivities.size();
+
+                    if (mCommunityViewModel.getSocialActivities.size() > 20) {
+                        if (!mCommunityViewModel.loading.get()) {
+                            //  productListAdapter.addLoader();
+                            if (pagingResult != null && pagingQuery != null)
+                                if (!pagingResult.isLastPage()) {
+                                    mCommunityViewModel.loading.set(true);
+                                    Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                        pagingResult = result;
+                                        final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                        mCommunityViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                        mCommunityViewModel.loading.set(false);
+
+                                        mFragmentCommunityBinding.postList.scrollToPosition(previousCount+1);
+
+
+                                    }, exception -> {
+                                        mCommunityViewModel.loading.set(false);
+                                        // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                                    });
+
+
+                                }
+                        }
+                    }
+
+                }
+
+
             }
         });
 
@@ -572,11 +609,6 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     private void showRecentPosts() {
 
 
-
-
-
-
-
         //   final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(_item.getId()).byUser(UserId.currentUser());
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(mCommunityViewModel.homeEventTopic);
         // final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic("community_event");
@@ -585,15 +617,17 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         //  ActivityFeedViewBuilder.create(query).show();
 
 
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(100);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(25);
         Communities.getActivities(pagingQuery, result -> {
-
+            this.pagingQuery = pagingQuery;
+            this.pagingResult = result;
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
             //mCommunityViewModel.getSocialActivities.addAll(getSocialActivities);
-            mCommunityViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
+
+
             //Get first post
-            if (getSocialActivities != null && getSocialActivities.size() > 0) {
-                firstPost = getSocialActivities.get(0);
+            if (result.getEntries() != null && result.getEntries().size() > 0) {
+                firstPost = result.getEntries().get(0);
                 mCommunityViewModel.postTitle.set(firstPost.getSource().getTitle());
                 mCommunityViewModel.postDes.set(firstPost.getText());
                 mCommunityViewModel.postDate.set(getDate(firstPost.getCreatedAt()));
@@ -641,6 +675,12 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
 
             }
+
+            if (getSocialActivities.size() > 0) {
+                getSocialActivities.remove(0);
+            }
+
+            mCommunityViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
 
             mCommunityViewModel.categoryLoading.set(false);
         }, exception -> {

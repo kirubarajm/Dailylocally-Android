@@ -705,7 +705,7 @@
     <string name="push_notification_fallback_title">Someone replied to your ticket</string>
 
     <!--deeplink-->
-    <string name="deeplink_host">eatalltime.co.in</string>
+    <string name="deeplink_host">dailylocally.co.in</string>
     <string name="deeplink_scheme_https">https</string>
     <string name="deeplink_scheme">http</string>
     <string name="deeplink_path_home">/applink/home</string>
@@ -719,7 +719,7 @@
     <string name="deeplink_path_cart">/applink/cart</string>
 
     <string name="deferred_deeplink_host">app</string>
-    <string name="deferred_deeplink_scheme">eatfromhome</string>
+    <string name="deferred_deeplink_scheme">dailylocally</string>
     <string name="deferred_deeplink_path_home">/home</string>
     <string name="deferred_deeplink_path_kitchen">/kitchen</string>
     <string name="deferred_deeplink_path_order">/order</string>

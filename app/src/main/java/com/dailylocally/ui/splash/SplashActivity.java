@@ -10,15 +10,22 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.dailylocally.BR;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
-import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySplashBinding;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.onboarding.OnBoardingActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.ui.signup.SignUpActivity;
@@ -26,10 +33,38 @@ import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.DependenciesContainer;
+import com.dailylocally.utilities.GenerateGetSocialNotification;
+import com.dailylocally.utilities.NotificationsManager;
+import com.dailylocally.utilities.PageNavigator;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
+import java.io.Console;
+
 import javax.inject.Inject;
+
+import im.getsocial.sdk.Communities;
+import im.getsocial.sdk.GetSocial;
+import im.getsocial.sdk.Invites;
+import im.getsocial.sdk.Notifications;
+import im.getsocial.sdk.actions.Action;
+import im.getsocial.sdk.actions.ActionDataKeys;
+import im.getsocial.sdk.actions.ActionListener;
+import im.getsocial.sdk.actions.ActionTypes;
+import im.getsocial.sdk.communities.CurrentUser;
+import im.getsocial.sdk.communities.OnCurrentUserChangedListener;
+import im.getsocial.sdk.communities.UserId;
+import im.getsocial.sdk.communities.UserIdList;
+import im.getsocial.sdk.invites.InviteChannelIds;
+import im.getsocial.sdk.notifications.Notification;
+import im.getsocial.sdk.notifications.NotificationButton;
+import im.getsocial.sdk.notifications.NotificationContext;
+import im.getsocial.sdk.notifications.NotificationStatus;
+import im.getsocial.sdk.notifications.OnNotificationClickedListener;
+import im.getsocial.sdk.notifications.OnNotificationReceivedListener;
+
+import static im.getsocial.sdk.internal.o.jjbQypPegg._log;
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel>
         implements SplashNavigator {
@@ -71,7 +106,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void checkForUserLogin(boolean status) {
         if (status) {
-            Intent intent = MainActivity.newIntent(SplashActivity.this, AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_SPLASH_ACTV);
+            Intent intent = MainActivity.newIntent(SplashActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_SPLASH_ACTV);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -139,6 +174,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         mSplashViewModel.setNavigator(this);
 
         prefManager = new PrefManager(this);
+
 
         //mSplashViewModel.getDataManager().setUserAddress(true);
 
@@ -209,7 +245,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         });*/
 
 
-
         analytics = new Analytics(this, pageName);
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -257,25 +292,23 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-        Intent intent = getIntent();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!prefManager.isFirstTimeLaunch()) {
-                    Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                } else {
 
-                    mSplashViewModel.checkUpdate();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!prefManager.isFirstTimeLaunch()) {
+                        Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    } else {
 
+                        mSplashViewModel.checkUpdate();
+
+                    }
                 }
-            }
-        }, 1000);
-
-
+            }, 1000);
 
     }
 
@@ -317,4 +350,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     public void canceled() {
 
     }
+
+
 }

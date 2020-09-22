@@ -58,6 +58,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableField<String> unserviceableSubTitle = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean categoryLoading = new ObservableBoolean();
+    public final ObservableBoolean loading = new ObservableBoolean();
     public final ObservableBoolean showRating = new ObservableBoolean();
 
     public final ObservableBoolean showVideo = new ObservableBoolean();
@@ -177,7 +178,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
 
     public void addCommunityPostToList(List<GetSocialActivity> items) {
-        getSocialActivities.clear();
+    //    getSocialActivities.clear();
         getSocialActivities.addAll(items);
 
     }

@@ -1,0 +1,10 @@
+{
+
+  "pushNotifications": {
+    "customListener": true,
+    "android": {
+      "icon": "ic_dl_logo",
+      "largeIcon": "ic_dl_logo"
+    }
+  }
+}
