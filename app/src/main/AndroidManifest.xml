@@ -25,7 +25,7 @@
             android:screenOrientation="locked">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
-                <!--<action android:name="getsocial.intent.action.NOTIFICATION_RECEIVE" />-->
+                <action android:name="getsocial.intent.action.NOTIFICATION_RECEIVE" />
             </intent-filter>
         </activity>
         <activity
@@ -219,13 +219,13 @@
             android:name=".ui.community.details.EventDetailsActivity"
             android:screenOrientation="locked" />
 
-        <!--<meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_8ZBt2J9hAsxH9Q" />-->
-
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_kelnGLZvTecvPV" />
+            android:value="rzp_test_8ZBt2J9hAsxH9Q" />
+
+        <!--<meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_kelnGLZvTecvPV" />-->
 
         <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">
             <intent-filter>
@@ -248,6 +248,10 @@
         <meta-data
             android:name="im.getsocial.sdk.UiConfigurationFile"
             android:value="getsocial-light/ui-config.json" />
+
+        <meta-data
+            android:name="im.getsocial.sdk.NotificationIcon"
+            android:resource="@drawable/ic_notification_custom" />
 
 
         <activity

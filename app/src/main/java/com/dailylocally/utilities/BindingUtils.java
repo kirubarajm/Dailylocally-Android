@@ -424,7 +424,7 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 //   .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+            //    .diskCacheStrategy(DiskCacheStrategy.ALL)
                 // .listener(new LoggingListener<String, Bitmap>())
                 .into(imageView);
 
@@ -510,7 +510,7 @@ public final class BindingUtils {
                 .load(url)
                 //  .asBitmap()
                 .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                //.diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {

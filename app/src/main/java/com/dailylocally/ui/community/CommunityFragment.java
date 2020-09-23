@@ -25,8 +25,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -543,6 +545,13 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         mCommunityViewModel.categoryLoading.set(true);
         mFragmentCommunityBinding.loader.startShimmerAnimation();
 
+        /*RecyclerView.LayoutManager layoutManager = new  LinearLayoutManager(getActivity()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        mFragmentCommunityBinding.postList.setLayoutManager(layoutManager);*/
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -551,6 +560,54 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         mFragmentCommunityBinding.postList.setNestedScrollingEnabled(false);
 
 
+        mFragmentCommunityBinding.content.setSmoothScrollingEnabled(true);
+        ViewCompat.setNestedScrollingEnabled(  mFragmentCommunityBinding.postList, false);
+    /*
+        mFragmentCommunityBinding.content.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+
+                if (myToolTipView != null) {
+                    myToolTipView.remove();
+                }
+                if ((i >= (mFragmentCommunityBinding.content.getChildAt(mFragmentCommunityBinding.content.getChildCount() - 1).getMeasuredHeight() - mFragmentCommunityBinding.content.getMeasuredHeight())) &&
+                        i > i3) {
+
+                    int previousCount=mCommunityViewModel.getSocialActivities.size();
+
+                    if (mCommunityViewModel.getSocialActivities.size() > 20) {
+                        if (!mCommunityViewModel.loading.get()) {
+                            //  productListAdapter.addLoader();
+                            if (pagingResult != null && pagingQuery != null)
+                                if (!pagingResult.isLastPage()) {
+                                    mCommunityViewModel.loading.set(true);
+                                    Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                        pagingResult = result;
+                                        final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                        mCommunityViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                        mCommunityViewModel.loading.set(false);
+
+                                        mFragmentCommunityBinding.postList.scrollToPosition(previousCount+1);
+
+
+                                    }, exception -> {
+                                        mCommunityViewModel.loading.set(false);
+                                        // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                                    });
+
+
+                                }
+                        }
+                    }
+
+                }
+
+            }
+
+
+        });
+
+*/
         mFragmentCommunityBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -563,7 +620,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
                     int previousCount=mCommunityViewModel.getSocialActivities.size();
 
-                    if (mCommunityViewModel.getSocialActivities.size() > 20) {
+                    if (mCommunityViewModel.getSocialActivities.size() > 5) {
                         if (!mCommunityViewModel.loading.get()) {
                             //  productListAdapter.addLoader();
                             if (pagingResult != null && pagingQuery != null)
@@ -617,7 +674,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         //  ActivityFeedViewBuilder.create(query).show();
 
 
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(25);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(10);
         Communities.getActivities(pagingQuery, result -> {
             this.pagingQuery = pagingQuery;
             this.pagingResult = result;

@@ -17,17 +17,21 @@ import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 
 import java.util.Map;
 
+import im.getsocial.sdk.notifications.Notification;
+
 public class PageNavigator {
     Context mContext;
     Intent intent;
-    public PageNavigator(Context mContext, Intent intent) {
+    public PageNavigator(Context mContext, Notification notification ) {
         this.mContext = mContext;
-        this.intent = intent;
         mContext.startActivity(intent);
      //   openPage();
     }
     
     public void openPage(){
+
+
+
         Bundle bundle = new Bundle();
         Intent intent = null;
         String pageId = "0";

@@ -13,6 +13,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -148,6 +149,8 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
         mActivityEventBinding = getViewDataBinding();
         mEventListAdapter.setListener(this);
         subscribeToLiveData();
+        mActivityEventBinding.loader.startShimmerAnimation();
+
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -164,6 +167,8 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
 
 
+        mActivityEventBinding.content.setSmoothScrollingEnabled(true);
+        ViewCompat.setNestedScrollingEnabled(  mActivityEventBinding.recyclerPost, false);
 
         mActivityEventBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -175,7 +180,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
                     int previousCount=mEventViewModel.getSocialActivities.size();
 
-                    if (mEventViewModel.getSocialActivities.size() > 20) {
+                    if (mEventViewModel.getSocialActivities.size() > 5) {
                         if (!mEventViewModel.loading.get()) {
                             //  productListAdapter.addLoader();
                             if (pagingResult != null && pagingQuery != null)
@@ -257,15 +262,20 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
     private void getTopicPost(String topic) {
 
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(topic);
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(25);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(10);
         this.pagingQuery = pagingQuery;
         Communities.getActivities(pagingQuery, result -> {
             pagingResult = result;
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
             mEventViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
 
+            mActivityEventBinding.loader.stopShimmerAnimation();
+            mActivityEventBinding.loader.setVisibility(View.GONE);
+
         }, exception -> {
             // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+            mActivityEventBinding.loader.stopShimmerAnimation();
+            mActivityEventBinding.loader.setVisibility(View.GONE);
         });
     }
 

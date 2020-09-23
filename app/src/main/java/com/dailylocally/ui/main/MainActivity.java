@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -13,9 +11,9 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,28 +23,32 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.dailylocally.BR;
-import com.dailylocally.BuildConfig;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityMainBinding;
 import com.dailylocally.ui.account.MyAccountFragment;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarFragment;
 import com.dailylocally.ui.cart.CartFragment;
+import com.dailylocally.ui.category.l1.CategoryL1Activity;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
+import com.dailylocally.ui.category.viewall.CatProductActivity;
+import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.community.CommunityFragment;
 import com.dailylocally.ui.community.catlist.CommunityCatFragment;
+import com.dailylocally.ui.community.event.EventActivity;
 import com.dailylocally.ui.home.HomeFragment;
-
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.search.SearchFragment;
+import com.dailylocally.ui.splash.SplashActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
+import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DependenciesContainer;
 import com.dailylocally.utilities.PageNavigator;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -64,17 +66,17 @@ import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
-import im.getsocial.sdk.actions.ActionListener;
-import im.getsocial.sdk.communities.OnCurrentUserChangedListener;
+import im.getsocial.sdk.Notifications;
+import im.getsocial.sdk.notifications.Notification;
+import im.getsocial.sdk.notifications.NotificationContext;
 import im.getsocial.sdk.notifications.OnNotificationClickedListener;
-import im.getsocial.sdk.notifications.OnNotificationReceivedListener;
 import zendesk.support.request.RequestActivity;
 
 
@@ -136,14 +138,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         return intent;
     }
 
-    @Override
-    protected void onNewIntent (Intent intent) {
-        super .onNewIntent(intent) ;
-        Bundle extras = intent.getExtras() ;
-        if (extras != null ) {
-            new PageNavigator(this,getIntent());
-        }
-    }
 
     @Override
     public int getBindingVariable() {
@@ -489,8 +483,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
         PushUtils.registerWithZendesk();
-
-
+        Log.e("OnCreate", "Created");
+        Notifications.setOnNotificationClickedListener(new OnNotificationClickedListener() {
+            @Override
+            public void onNotificationClicked(Notification notification, NotificationContext notificationContext) {
+                notificationToPage(notification);
+            }
+        });
         // openHome();
         saveFcmToken();
 
@@ -777,7 +776,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        Log.e("onDestroy", "Destroyed");
         mMainViewModel.getDataManager().appStartedAgain(false);
         /*try {
             unregisterReceiver(dataReceiver);
@@ -790,13 +789,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onStart() {
         super.onStart();
-
+        Log.e("onStart", "Started");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
+        Log.e("onStop", "Stopped");
     }
 
     public void gotoMyOrders() {
@@ -809,6 +808,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+        Log.e("onResume", "Resumed");
        /* appUpdateManager.registerListener(this);
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(this);
 */
@@ -938,4 +938,69 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
+
+    private void notificationToPage(im.getsocial.sdk.notifications.Notification notification) {
+        Bundle bundle = new Bundle();
+        Intent intent = null;
+        Map<String, String> actionDatas = null;
+        String pageId = "0";
+        if (notification.getAction() != null) {
+            actionDatas = notification.getAction().getData();
+            if (notification.getAction().getData().get("pageid") != null) {
+                pageId = notification.getAction().getData().get("pageid");
+            }
+        }
+        if (pageId == null) pageId = "0";
+        switch (pageId) {
+            case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
+                intent = CategoryL1Activity.newIntent(this);
+                bundle.putString("catid", actionDatas.get("catid"));
+                break;
+            case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
+                intent = CategoryL2Activity.newIntent(this);
+                bundle.putString("catid", actionDatas.get("catid"));
+                bundle.putString("scl1id", actionDatas.get("scl1id"));
+                break;
+            case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
+                intent = CatProductActivity.newIntent(this);
+                bundle.putString("catid", actionDatas.get("catid"));
+                break;
+            case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
+                //   intent = MainActivity.newIntent(this, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                openCommunityCat();
+                return;
+            case AppConstants.NOTIFY_TRANS_LIST_ACTV:
+                intent = TransactionHistoryActivity.newIntent(this);
+                break;
+            case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
+                intent = TransactionDetailsActivity.newIntent(this);
+                bundle.putString("orderid", actionDatas.get("orderid"));
+
+                break;
+            case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
+                intent = ProductDetailsActivity.newIntent(this);
+                bundle.putString("vpid", actionDatas.get("vpid"));
+
+                break;
+            case AppConstants.NOTIFY_COLLECTION_ACTV:
+                intent = CollectionDetailsActivity.newIntent(this);
+                bundle.putString("cid", actionDatas.get("cid"));
+
+                break;
+            case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
+                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"));
+
+                break;
+            /*default:
+                intent = SplashActivity.newIntent(this);*/
+        }
+        if (intent!=null) {
+            intent.putExtras(bundle);
+         //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+        }
+    }
+
 }

@@ -1,8 +1,16 @@
 {
     "autoInit": true,
-    "autoRegisterForPush": true,
+    "autoRegisterForPush": false,
     "disableFacebookReferralCheck": false,
     "uiConfig": null,
-    "foregroundNotifications": false,
-    "pushNotifications": false
+    "appId": "l8ti6M70Q87v",
+    "pushNotifications": {
+        "autoRegister": true,
+        "customListener": true,
+        "foreground": true,
+        "android": {
+            "icon": "ic_notification_custom",
+            "largeIcon": "ic_large_notification_icon"
+        }
+    }
 }
