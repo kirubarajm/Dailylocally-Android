@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +24,9 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityEventBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.community.details.EventDetailsActivity;
+import com.dailylocally.ui.main.MainViewModel;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.EndlessRecyclerViewScrollListener;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
@@ -52,7 +55,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
     PagingResult<GetSocialActivity> pagingResult;
     PagingQuery<ActivitiesQuery> pagingQuery;
 
-
+    LinearLayoutManager linearLayoutManager;
     ActivityEventBinding mActivityEventBinding;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ORDER_PLACED;
@@ -68,7 +71,46 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
         }
     };
+    // region Listeners
+    private RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
 
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            int visibleItemCount = linearLayoutManager.getChildCount();
+            int totalItemCount = linearLayoutManager.getItemCount();
+            int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+            int previousCount=mEventViewModel.getSocialActivities.size();
+            if (! mEventViewModel.loading.get() ) {
+                if (pagingResult != null && pagingQuery != null)
+                    if (!pagingResult.isLastPage()) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount) {
+                            mEventViewModel.loading.set(true);
+                            Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                pagingResult = result;
+                                final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                mEventViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                mEventViewModel.loading.set(false);
+
+                                mActivityEventBinding.recyclerPost.scrollToPosition(previousCount+1);
+
+
+                            }, exception -> {
+                                mEventViewModel.loading.set(false);
+                                // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                            });
+                        }
+                    }
+
+
+
+            }
+        }
+    };
     public static Intent newIntent(Context context, String topic, String title) {
 
         Intent intent = new Intent(context, EventActivity.class);
@@ -155,20 +197,156 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
              getTopicPost(intent.getExtras().getString("topic"));
-          // getTopicPost("home_page");
+           //getTopicPost("home_page");
             mEventViewModel.title.set(intent.getExtras().getString("title"));
 
         }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(EventActivity.this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mActivityEventBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(EventActivity.this));
+        // linearLayoutManager = new LinearLayoutManager(EventActivity.this);
+       // linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+      //  mActivityEventBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(EventActivity.this));
         mActivityEventBinding.recyclerPost.setAdapter(mEventListAdapter);
-
-
-
         mActivityEventBinding.content.setSmoothScrollingEnabled(true);
-        ViewCompat.setNestedScrollingEnabled(  mActivityEventBinding.recyclerPost, false);
+
+       // mActivityEventBinding.recyclerPost.setHasFixedSize(true);
+        mActivityEventBinding.recyclerPost.setItemViewCacheSize(50);
+       mActivityEventBinding.recyclerPost.setDrawingCacheEnabled(true);
+        mActivityEventBinding.recyclerPost.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+
+
+      //  mActivityEventBinding.recyclerPost.addOnScrollListener(recyclerViewOnScrollListener);
+
+        mActivityEventBinding.recyclerPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int previousCount=mEventViewModel.getSocialActivities.size();
+                if (!mEventViewModel.loading.get()) {
+                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == mEventViewModel.getSocialActivities.size() - 1) {
+                        //bottom of list!
+                       /* loadMore();
+                        isLoading = true;*/
+
+                        if (pagingResult != null && pagingQuery != null)
+                            if (!pagingResult.isLastPage()) {
+
+                                mEventViewModel.loading.set(true);
+                                Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                    pagingResult = result;
+                                    final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                    mEventViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                    mEventViewModel.loading.set(false);
+
+                                    mActivityEventBinding.recyclerPost.scrollToPosition(previousCount+1);
+
+
+                                }, exception -> {
+                                    mEventViewModel.loading.set(false);
+                                    // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                                });
+
+                            }
+
+                    }
+                }
+            }
+        });
+
+
+
+
+        /*mActivityEventBinding.recyclerPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int tt=linearLayoutManager.findLastCompletelyVisibleItemPosition();
+
+                int previousCount=mEventViewModel.getSocialActivities.size();
+                if (! mEventViewModel.loading.get() ) {
+                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == previousCount) {
+                        //bottom of list!
+
+                            if (pagingResult != null && pagingQuery != null)
+                                if (!pagingResult.isLastPage()) {
+
+                                        mEventViewModel.loading.set(true);
+                                        Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                            pagingResult = result;
+                                            final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                            mEventViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                            mEventViewModel.loading.set(false);
+
+                                            mActivityEventBinding.recyclerPost.scrollToPosition(previousCount+1);
+
+
+                                        }, exception -> {
+                                            mEventViewModel.loading.set(false);
+                                            // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                                        });
+
+                                }
+
+
+
+
+                    }
+                }
+            }
+        });*/
+
+
+        /*mActivityEventBinding.recyclerPost.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+
+                if(dy > 0) //check for scroll down
+                {
+                  int  visibleItemCount = linearLayoutManager.getChildCount();
+                    int    totalItemCount = linearLayoutManager.getItemCount();
+                    int   pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
+
+                    if (!loading)
+                    {
+
+                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount && (visibleItemCount + pastVisiblesItems) >= 10)
+                        {
+                            loading = false;
+                            Toast.makeText(EventActivity.this, "more", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+            }
+        });*/
+
+
+       /* mActivityEventBinding.recyclerPost.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Toast.makeText(EventActivity.this, "more", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+
+
+       /* ViewCompat.setNestedScrollingEnabled(  mActivityEventBinding.recyclerPost, false);
 
         mActivityEventBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -209,7 +387,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
 
             }
-        });
+        });*/
 
 
        /* mActivityEventBinding.recyclerPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -262,7 +440,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
     private void getTopicPost(String topic) {
 
         final ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(topic);
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(10);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(20);
         this.pagingQuery = pagingQuery;
         Communities.getActivities(pagingQuery, result -> {
             pagingResult = result;

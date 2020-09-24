@@ -345,6 +345,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
                         saveProfilePic(response.getData().getLocation());
 
+
                     }
                 }
             //    imageLoader.set(false);
@@ -411,6 +412,8 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                             if (response.getStatus()) {
                                 profilePic.set(profileImageUrl);
                                 getDataManager().updateProfilePic(profileImageUrl);
+                                if (getNavigator()!=null)
+                                    getNavigator().refreshProfile();
                             }
                         }
                     } catch (Exception e) {

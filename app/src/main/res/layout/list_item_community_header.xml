@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="communityViewModel"
+            type="com.dailylocally.ui.community.CommunityHeaderListItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="3dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="20dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="10dp"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp">
+
+                                    <com.dailylocally.utilities.CircularImageView
+                                        android:id="@+id/circleImage"
+                                        profileImage="@{communityViewModel.profilePic}"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:onClick="@{()->communityViewModel.changeProfile()}"
+                                        android:src="@drawable/ic_group_482" />
+
+
+                                    <ProgressBar
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_centerInParent="true"
+                                        android:visibility="@{communityViewModel.imageLoader?View.VISIBLE:View.GONE}" />
+
+
+                                </RelativeLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:orientation="vertical">
+
+                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                        style="@style/SubtTitleTextStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{communityViewModel.name}" />
+
+
+                                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                        style="@style/ContentTextStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="@{communityViewModel.nameText}" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginEnd="20dp"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="vertical">
+
+                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{communityViewModel.members}"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="@dimen/_22px" />
+
+
+                                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                            style="@style/ContentTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{communityViewModel.membersText}" />
+
+
+                                    </LinearLayout>
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2">
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="vertical">
+
+                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{communityViewModel.communityName}"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="@dimen/_22px" />
+
+
+                                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                            style="@style/ContentTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{communityViewModel.communityArea}" />
+
+
+                                    </LinearLayout>
+
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:onClick="@{()->communityViewModel.creditInfoClick()}">
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                android:id="@+id/credits"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_centerVertical="true"
+                                                android:text="@{communityViewModel.credits}"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textSize="@dimen/_22px" />
+
+                                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                android:id="@+id/credit_info"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerHorizontal="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_marginStart="5dp"
+                                                android:text="@string/info_symbol"
+                                                android:textColor="@color/medium_black"
+                                                android:textSize="@dimen/_22px"
+                                                android:visibility="@{communityViewModel.showCreditsInfo?View.VISIBLE:View.GONE}" />
+
+
+                                        </LinearLayout>
+
+                                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                            style="@style/ContentTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{communityViewModel.creditsText}" />
+
+
+                                    </LinearLayout>
+
+
+                                </RelativeLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/white"
+                android:focusable="true" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</layout>

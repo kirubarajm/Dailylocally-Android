@@ -25,6 +25,7 @@ public interface CommunityNavigator {
 
     void creditInfoClick();
     void changeProfile();
+    void refreshProfile();
     void homeDataLoaded();
 }
 

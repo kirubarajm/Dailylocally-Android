@@ -60,8 +60,7 @@
 
         </androidx.cardview.widget.CardView>
 
-
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_below="@+id/header"
             android:id="@+id/content"
             android:layout_width="match_parent"
@@ -70,22 +69,33 @@
             android:overScrollMode="never">
 
             <LinearLayout
+                android:layout_below="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    android:layout_marginTop="10dp"
-                    android:overScrollMode="never"
-                    android:paddingBottom="60dp"
-                    app:eventadapter="@{eventViewModel.getSocialActivities}"
-                    tools:itemCount="100"
-                    tools:listitem="@layout/list_item_faqs" />
+       <!-- <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_below="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_post"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:eventadapter="@{eventViewModel.getSocialActivities}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/list_item_faqs" />
+
+
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"

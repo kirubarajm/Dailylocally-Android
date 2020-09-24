@@ -18,6 +18,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -256,6 +257,42 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     }
 
     @Override
+    public void creditInfoClick(TextView infoImageView) {
+         if (mCommunityViewModel.showCreditsInfo.get()) {
+
+            if (myToolTipView != null) {
+                myToolTipView.remove();
+                myToolTipView = null;
+                return;
+            }
+
+            ToolTip toolTip = new ToolTip()
+                    .withContentView(LayoutInflater.from(DailylocallyApp.getInstance()
+                    ).inflate(R.layout.tool_tip_info, null))
+                    //  .withText(mCommunityViewModel.creditInfoText.get())
+                    .withColor(DailylocallyApp.getInstance().getResources().getColor(R.color.lgray))
+                    .withShadow()
+                    .withTextColor(Color.BLACK)
+                    .withAnimationType(ToolTip.AnimationType.NONE);
+            myToolTipView = mFragmentCommunityBinding.communityToolTipLayout.showToolTipForView(toolTip, infoImageView);
+            //   myToolTipView = relativeLayout.showToolTipForView(toolTip,imageView);
+            TextView title = myToolTipView.findViewById(R.id.info);
+            title.setText(mCommunityViewModel.creditInfoText.get());
+
+            myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+                @Override
+                public void onToolTipViewClicked(ToolTipView toolTipView) {
+
+                    if (myToolTipView != null) {
+                        myToolTipView.remove();
+
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
     public void stopVideo() {
         //  mFragmentCommunityBinding.videoPlayer.stopPlayer();
     }
@@ -303,7 +340,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     public void creditInfoClick() {
 
 
-        if (mCommunityViewModel.showCreditsInfo.get()) {
+        /*if (mCommunityViewModel.showCreditsInfo.get()) {
 
 
             if (myToolTipView != null) {
@@ -335,7 +372,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                     }
                 }
             });
-        }
+        }*/
 
     }
 
@@ -365,6 +402,11 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             ActivityCompat.requestPermissions(getBaseActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_REQUEST_CODE);
         }
 
+    }
+
+    @Override
+    public void refreshProfile() {
+        communityPostListAdapter.notifyItemChanged(0);
     }
 
     @Override
@@ -489,7 +531,6 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             // you can't add identity before SDK is initialized
             return;
         }
-
         currentUser.addIdentity(identity, new CompletionCallback() {
             @Override
             public void onSuccess() {
@@ -553,15 +594,63 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         };
         mFragmentCommunityBinding.postList.setLayoutManager(layoutManager);*/
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+      /*  LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mFragmentCommunityBinding.postList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mFragmentCommunityBinding.postList.setLayoutManager(new LinearLayoutManager(getContext()));*/
         mFragmentCommunityBinding.postList.setAdapter(communityPostListAdapter);
-        mFragmentCommunityBinding.postList.setNestedScrollingEnabled(false);
+      //  mFragmentCommunityBinding.content.setSmoothScrollingEnabled(true);
+       // mFragmentCommunityBinding.postList.setNestedScrollingEnabled(false);
+        // mActivityEventBinding.recyclerPost.setHasFixedSize(true);
+        mFragmentCommunityBinding.postList.setItemViewCacheSize(50);
+        mFragmentCommunityBinding.postList.setDrawingCacheEnabled(true);
+        mFragmentCommunityBinding.postList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
 
-        mFragmentCommunityBinding.content.setSmoothScrollingEnabled(true);
-        ViewCompat.setNestedScrollingEnabled(  mFragmentCommunityBinding.postList, false);
+
+        //  mActivityEventBinding.recyclerPost.addOnScrollListener(recyclerViewOnScrollListener);
+
+        mFragmentCommunityBinding.postList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int previousCount=mCommunityViewModel.getSocialActivities.size();
+                if (!mCommunityViewModel.loading.get()) {
+                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == mCommunityViewModel.getSocialActivities.size() - 1) {
+                        //bottom of list!
+                       /* loadMore();
+                        isLoading = true;*/
+
+                        if (pagingResult != null && pagingQuery != null)
+                            if (!pagingResult.isLastPage()) {
+                                mCommunityViewModel.loading.set(true);
+                                Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
+                                    pagingResult = result;
+                                    final List<GetSocialActivity> getSocialActivities = result.getEntries();
+                                    mCommunityViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
+                                    mCommunityViewModel.loading.set(false);
+
+                                    mFragmentCommunityBinding.postList.scrollToPosition(previousCount+1);
+
+
+                                }, exception -> {
+                                    mCommunityViewModel.loading.set(false);
+                                    // _log.logErrorAndToast("Failed to load activities, error: " + exception.getMessage());
+                                });
+
+
+                            }
+                    }
+                }
+            }
+        });
+     /*   ViewCompat.setNestedScrollingEnabled(  mFragmentCommunityBinding.postList, false);*/
     /*
         mFragmentCommunityBinding.content.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -608,7 +697,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         });
 
 */
-        mFragmentCommunityBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        /*mFragmentCommunityBinding.content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
@@ -649,7 +738,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
 
             }
-        });
+        });*/
 
     }
 
@@ -674,16 +763,15 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         //  ActivityFeedViewBuilder.create(query).show();
 
 
-        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(10);
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(25);
         Communities.getActivities(pagingQuery, result -> {
             this.pagingQuery = pagingQuery;
             this.pagingResult = result;
             final List<GetSocialActivity> getSocialActivities = result.getEntries();
             //mCommunityViewModel.getSocialActivities.addAll(getSocialActivities);
 
-
             //Get first post
-            if (result.getEntries() != null && result.getEntries().size() > 0) {
+           /* if (result.getEntries() != null && result.getEntries().size() > 0) {
                 firstPost = result.getEntries().get(0);
                 mCommunityViewModel.postTitle.set(firstPost.getSource().getTitle());
                 mCommunityViewModel.postDes.set(firstPost.getText());
@@ -731,11 +819,14 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                     }
 
 
-            }
+            }*/
 
-            if (getSocialActivities.size() > 0) {
+           /* if (getSocialActivities.size() > 0) {
                 getSocialActivities.remove(0);
-            }
+            }*/
+
+            getSocialActivities.add(0,result.getEntries().get(0));
+            getSocialActivities.add(2,result.getEntries().get(0));
 
             mCommunityViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
 
@@ -873,6 +964,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.e("area", "area");
+                communityPostListAdapter.notifyItemChanged(0);
             }
         }
 

@@ -40,12 +40,10 @@ import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.search.SearchFragment;
-import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DependenciesContainer;
-import com.dailylocally.utilities.PageNavigator;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -73,9 +71,14 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import im.getsocial.sdk.CompletionCallback;
+import im.getsocial.sdk.FailureCallback;
+import im.getsocial.sdk.GetSocialError;
 import im.getsocial.sdk.Notifications;
 import im.getsocial.sdk.notifications.Notification;
+import im.getsocial.sdk.notifications.NotificationContent;
 import im.getsocial.sdk.notifications.NotificationContext;
+import im.getsocial.sdk.notifications.NotificationCustomization;
 import im.getsocial.sdk.notifications.OnNotificationClickedListener;
 import zendesk.support.request.RequestActivity;
 
@@ -656,6 +659,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void pageNavigation(String pages) {
+
+        if (mMainViewModel.isCommunityUser.get()) {
+            Notifications.registerDevice();
+
+        } else {
+            Notifications.setPushNotificationsEnabled(false, new CompletionCallback() {
+                @Override
+                public void onSuccess() {
+
+                }
+            }, new FailureCallback() {
+                @Override
+                public void onFailure(GetSocialError getSocialError) {
+
+                }
+            });
+        }
+
         switch (pages) {
 
             case AppConstants.NOTIFY_CART_FRAG:
@@ -994,9 +1015,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             /*default:
                 intent = SplashActivity.newIntent(this);*/
         }
-        if (intent!=null) {
+        if (intent != null) {
             intent.putExtras(bundle);
-         //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();

@@ -576,7 +576,7 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .fitCenter()
-              //  .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
 
 

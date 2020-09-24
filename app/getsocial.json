@@ -5,7 +5,7 @@
     "uiConfig": null,
     "appId": "l8ti6M70Q87v",
     "pushNotifications": {
-        "autoRegister": true,
+        "autoRegister": false,
         "customListener": true,
         "foreground": true,
         "android": {
