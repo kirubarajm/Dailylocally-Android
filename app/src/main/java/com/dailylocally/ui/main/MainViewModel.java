@@ -442,7 +442,55 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                     getNavigator().openHome();*/
                             }
 
+                                                    /*getDataManager().updateCurrentAddress("", completeAddress, lat, lon,
+                                city, String.valueOf(response.getAid()));
+                        getDataManager().setCurrentLat(lat);
+                        getDataManager().setCurrentLng(lon);
+                        getDataManager().setCurrentAddress(completeAddress);
+                        getDataManager().setCurrentAddressArea(city);
+                        getDataManager().setCurrentAddressTitle(city);
+                        getDataManager().setAddressId(response.getAid());
 
+                        if (addressType.equals("1")){
+                            String cAddress="No."+flatHouseNo+", "+blockName+", "+apartmentName+", "+completeAddress;
+
+                            getDataManager().setCurrentAddress(cAddress);
+
+                        }else {
+                            String cAddress="No."+plotHouseNo+", Floor-"+floor+", "+completeAddress;
+                            getDataManager().setCurrentAddress(cAddress);
+                        }*/
+
+
+                            String completeAddress = response.getuserdetails().get(0).getCompleteAddress();
+                            String lat = String.valueOf(response.getuserdetails().get(0).getLat());
+                            String lon = String.valueOf(response.getuserdetails().get(0).getLon());
+                            String aid = String.valueOf(response.getuserdetails().get(0).getAid());
+                            String city = String.valueOf(response.getuserdetails().get(0).getCity());
+                            String addressType = String.valueOf(response.getuserdetails().get(0).getAddressType());
+                            String flatHouseNo = String.valueOf(response.getuserdetails().get(0).getFlatHouseNo());
+                            String blockName = String.valueOf(response.getuserdetails().get(0).getBlockName());
+                            String apartmentName = String.valueOf(response.getuserdetails().get(0).getApartmentName());
+                            String plotHouseNo = String.valueOf(response.getuserdetails().get(0).getPlotHouseNo());
+                            String floor = String.valueOf(response.getuserdetails().get(0).getFloor());
+
+
+                            getDataManager().updateCurrentAddress("", response.getuserdetails().get(0).getCompleteAddress(), lat, lon, city, aid);
+                            getDataManager().setCurrentLat(lat);
+                            getDataManager().setCurrentLng(lon);
+                            getDataManager().setCurrentAddress(completeAddress);
+                            getDataManager().setCurrentAddressArea(city);
+                            getDataManager().setCurrentAddressTitle(city);
+                            getDataManager().setAddressId(aid);
+
+                            if (addressType.equals("1")){
+                                String cAddress="No."+flatHouseNo+", "+blockName+", "+apartmentName+", "+completeAddress;
+                                getDataManager().setCurrentAddress(cAddress);
+
+                            }else {
+                                String cAddress="No."+plotHouseNo+", Floor-"+floor+", "+completeAddress;
+                                getDataManager().setCurrentAddress(cAddress);
+                            }
                         } else {
                            /* if (getNavigator() != null)
                                 getNavigator().openHome();*/

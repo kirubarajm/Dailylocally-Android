@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -41,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
@@ -55,7 +57,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCommunityBinding;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
+import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
 import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
 import com.dailylocally.ui.main.MainActivity;
@@ -306,7 +311,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         String houseFlatNo = mActivityOnboardingBinding.edtHouse.getText().toString();
         String floorNo = mActivityOnboardingBinding.edtFloorNo.getText().toString();
         if (validJoin()) {
-            mOnBoardingActivityViewModel.joinTheCommunityAPI(imageUrl, houseFlatNo, floorNo);
+            mOnBoardingActivityViewModel.joinTheCommunityAPI(imageUrl, houseFlatNo, floorNo,false);
         }
     }
 
@@ -358,7 +363,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             String floorNo = mActivityOnboardingBinding.edtFloorNoRe.getText().toString();
             String commAddress = mActivityOnboardingBinding.edtCommunityAddress.getText().toString();
             mOnBoardingActivityViewModel.completeRegistrationAPI(commName, strCommunityLat, strCommunityLng, "", imageUrl1, noOfApartments,
-                    houseFlatNo, floorNo, commAddress,area);
+                    houseFlatNo, floorNo, commAddress,area,false);
         }
     }
 
@@ -1183,4 +1188,72 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         if (dots.length > 0)
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
+
+    @Override
+    public void showAlert(String title, String message,String locationAddress,String area,String lat,
+                          String lng,String pinCode) {
+        AlertDialog.Builder builder  = new AlertDialog.Builder(this);
+        //Uncomment the below code to Set the message and title from the strings.xml file
+        builder.setMessage(message) .setTitle(title);
+
+        //Setting message manually and performing action on button click
+        builder.setCancelable(true)
+                .setPositiveButton("Get in touch", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
+                        Intent intent = FeedbackSupportActivity.newIntent(CommunityActivity.this);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                })
+                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                        Intent intent = MainActivity.newIntent(CommunityActivity.this,AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.show();
+
+    }
+    @Override
+    public void showAlert(String title, String message) {
+        AlertDialog.Builder builder  = new AlertDialog.Builder(this);
+        //Uncomment the below code to Set the message and title from the strings.xml file
+        builder.setMessage(message) .setTitle(title);
+
+        //Setting message manually and performing action on button click
+        builder.setCancelable(true)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        String houseFlatNo = mActivityOnboardingBinding.edtHouse.getText().toString();
+                        String floorNo = mActivityOnboardingBinding.edtFloorNo.getText().toString();
+                        if (validJoin()) {
+                            mOnBoardingActivityViewModel.joinTheCommunityAPI(imageUrl, houseFlatNo, floorNo,true);
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                        Intent intent = MainActivity.newIntent(CommunityActivity.this,AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.show();
+
+    }
+
 }

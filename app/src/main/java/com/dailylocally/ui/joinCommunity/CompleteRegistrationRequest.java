@@ -38,10 +38,13 @@ public class CompleteRegistrationRequest {
     @SerializedName("area")
     @Expose
     public String area;
+    @SerializedName("changeAddress")
+    @Expose
+    public boolean changeAddress;
 
 
     public CompleteRegistrationRequest(String communityname, String lat, String _long, String apartmentname, String image, String requestedUserid,
-                                       String noOfApartments, String flatNo, String floorNo, String communityAddress,String area) {
+                                       String noOfApartments, String flatNo, String floorNo, String communityAddress,String area,boolean changeAddress) {
         this.communityname = communityname;
         this.lat = lat;
         this._long = _long;
@@ -53,5 +56,6 @@ public class CompleteRegistrationRequest {
         this.floorNo = floorNo;
         this.communityAddress = communityAddress;
         this.area = area;
+        this.changeAddress = changeAddress;
     }
 }

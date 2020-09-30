@@ -20,6 +20,7 @@ import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.api.remote.VolleyMultiPartRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.cart.OrderCreateResponse;
 import com.dailylocally.ui.update.UpdateRequest;
 import com.dailylocally.ui.update.UpdateResponse;
 import com.dailylocally.utilities.AppConstants;
@@ -34,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 
 public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityNavigator> {
@@ -248,13 +250,13 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         }
     }
 
-    public void joinTheCommunityAPI(String profileImage,String houseFlatNo,String floorNo) {
+    public void joinTheCommunityAPI(String profileImage,String houseFlatNo,String floorNo,boolean changeAddress) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
 
         try {
-            JoinCommunityRequest communityRequest = new JoinCommunityRequest(userId,cmId.get(),imageUrl.get(),houseFlatNo,floorNo);
+            JoinCommunityRequest communityRequest = new JoinCommunityRequest(userId,cmId.get(),imageUrl.get(),houseFlatNo,floorNo,getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),changeAddress);
 
             Gson gson = new GsonBuilder().create();
             String payloadStr = gson.toJson(communityRequest);
@@ -269,11 +271,51 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                             if (getNavigator()!=null){
                                 getNavigator().communityJoined(response.getString("message"));
                             }
+                            Gson gson = new Gson();
+                            JoinCommunityResponse joinCommunityResponse = gson.fromJson(response.toString(), JoinCommunityResponse.class);
+
+                            String completeAddress = joinCommunityResponse.getResult().get(0).getCompleteAddress();
+                            String lat = String.valueOf(joinCommunityResponse.getResult().get(0).getLat());
+                            String lon = String.valueOf(joinCommunityResponse.getResult().get(0).getLon());
+                            String aid = String.valueOf(joinCommunityResponse.getResult().get(0).getAid());
+                            String city = String.valueOf(joinCommunityResponse.getResult().get(0).getCity());
+                            String addressType = String.valueOf(joinCommunityResponse.getResult().get(0).getAddressType());
+                            String flatHouseNo = String.valueOf(joinCommunityResponse.getResult().get(0).getFlatHouseNo());
+                            String blockName = String.valueOf(joinCommunityResponse.getResult().get(0).getBlockName());
+                            String apartmentName = String.valueOf(joinCommunityResponse.getResult().get(0).getApartmentName());
+                            String plotHouseNo = String.valueOf(joinCommunityResponse.getResult().get(0).getPlotHouseNo());
+                            String floor = String.valueOf(joinCommunityResponse.getResult().get(0).getFloor());
+
+
+                            getDataManager().updateCurrentAddress("", completeAddress, lat, lon, city, aid);
+                        getDataManager().setCurrentLat(lat);
+                        getDataManager().setCurrentLng(lon);
+                        getDataManager().setCurrentAddress(completeAddress);
+                        getDataManager().setCurrentAddressArea(city);
+                        getDataManager().setCurrentAddressTitle(city);
+                        getDataManager().setAddressId(aid);
+
+                        if (addressType.equals("1")){
+                            String cAddress="No."+flatHouseNo+", "+blockName+", "+apartmentName+", "+completeAddress;
+                            getDataManager().setCurrentAddress(cAddress);
+
                         }else {
-                            if (getNavigator()!=null){
-                                getNavigator().whatAppScreenFailure(response.getString("message"));
+                            String cAddress="No."+plotHouseNo+", Floor-"+floor+", "+completeAddress;
+                            getDataManager().setCurrentAddress(cAddress);
+                        }
+                        }else {
+                            if (response.getString("show_alert").equals("true")) {
+                                if (response.getString("order_available").equals("true")) {
+                                    if (getNavigator() != null)
+                                        getNavigator().showAlert(response.getString("alert_title"), response.getString("alert_message"), "", "", "", "", "");
+                                }else {
+                                    if (getNavigator() != null)
+                                        getNavigator().showAlert(response.getString("alert_title"), response.getString("alert_message"));
+                                }
                             }
                         }
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -290,7 +332,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                 }
             };
             DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
@@ -302,13 +344,13 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
     }
 
     public void completeRegistrationAPI(String communityName,String lat,String lon,String apartmentName,String profileImage,String noOfApartments,String flatNo,
-                                        String floorNo,String communityAddress,String area) {
+                                        String floorNo,String communityAddress,String area,boolean changeAddress) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
         try {
             CompleteRegistrationRequest communityRequest = new CompleteRegistrationRequest(communityName,lat,lon,apartmentName,imageUrl.get(),userId,noOfApartments,flatNo,
-                    floorNo,communityAddress,area);
+                    floorNo,communityAddress,area,changeAddress);
             Gson gson = new GsonBuilder().create();
             String payloadStr = gson.toJson(communityRequest);
             JsonObjectRequest jsonObjectRequest = null;
@@ -317,15 +359,25 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                 @Override
                 public void onResponse(JSONObject response) {
                     setIsLoading(false);
-                    try {
-                        if (response.getString("status").equals("true")) {
-                            if (getNavigator()!=null){
-                                getNavigator().whatAppScreenSuccess(response.getString("message"));
+                        try {
+                            if (response.getString("status").equals("true")) {
+                                if (getNavigator()!=null){
+                                    getNavigator().whatAppScreenSuccess(response.getString("message"));
+                                }
+                            }else {
+                                if (response.getString("show_alert").equals("true")) {
+                                    if (response.getString("order_available").equals("true")) {
+                                        if (getNavigator() != null)
+                                            getNavigator().showAlert(response.getString("alert_title"), response.getString("alert_message"), "", "", "", "", "");
+                                    }else {
+                                        if (getNavigator() != null)
+                                            getNavigator().showAlert(response.getString("alert_title"), response.getString("alert_message"));
+                                    }
+                                }
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -339,7 +391,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                 }
             };
             DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);

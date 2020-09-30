@@ -39,4 +39,10 @@ public interface CommunityActivityNavigator {
 
     void mapLatLngArray(List<CommunityResponse.Result> results);
 
+    void showAlert(String title,String message,String locationAddress,String area,String lat,
+                   String lng,String pinCode);
+
+    void showAlert(String title,String message);
+
+
 }

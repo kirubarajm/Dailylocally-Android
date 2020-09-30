@@ -32,8 +32,8 @@ android {
             minifyEnabled false
 
 
-             // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
-            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
+              buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+            //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
 
            //  buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
              //buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:8000"'
