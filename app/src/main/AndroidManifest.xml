@@ -34,11 +34,7 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="locked">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -106,10 +102,19 @@
             android:screenOrientation="locked" />
         <activity
             android:name=".ui.address.googleAddress.GoogleAddressActivity"
-            android:screenOrientation="locked"></activity>
+            android:screenOrientation="locked">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".ui.subscription.SubscriptionActivity"
-            android:screenOrientation="locked"></activity>
+            android:screenOrientation="locked"/>
         <activity
             android:name=".ui.orderplaced.OrderPlacedActivity"
             android:screenOrientation="locked">
@@ -219,13 +224,13 @@
             android:name=".ui.community.details.EventDetailsActivity"
             android:screenOrientation="locked" />
 
-        <!--<meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_8ZBt2J9hAsxH9Q" />-->
-
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_kelnGLZvTecvPV" />
+            android:value="rzp_test_8ZBt2J9hAsxH9Q" />
+
+        <!--<meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_kelnGLZvTecvPV" />-->
 
         <service android:name="com.dailylocally.ui.notification.FCMMeassagingService">
             <intent-filter>

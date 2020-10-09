@@ -22,7 +22,7 @@ android {
         multiDexEnabled true
         getsocial {
             appId "l8ti6M70Q87v"
-//                useLibrary true
+//                useLibrary truen
 //                uiConfig "getsocial-light/ui-config.json"
         }
 
@@ -76,14 +76,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-core:17.5.0'
-    implementation 'com.google.firebase:firebase-messaging:20.2.4'
+    implementation 'com.google.firebase:firebase-core:17.5.1'
+    implementation 'com.google.firebase:firebase-messaging:20.3.0'
 
     // Volley request
     implementation 'com.android.volley:volley:1.1.1'
@@ -133,10 +133,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
 
     //Location
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 
     //update ui
-    implementation 'com.google.android.play:core:1.8.0'
+    implementation 'com.google.android.play:core:1.8.2'
 
     //ToolTips address
     implementation 'com.nhaarman.supertooltips:library:3.0.0'
@@ -151,14 +151,14 @@ dependencies {
     implementation 'com.google.maps:google-maps-services:0.1.20'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation 'com.google.android.gms:play-services-base:17.4.0'
     implementation 'com.google.android.gms:play-services-identity:17.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
 
-    implementation 'com.google.android.libraries.places:places:2.3.0'
+    implementation 'com.google.android.libraries.places:places:2.4.0'
 
     implementation project(':caldroid')
 
@@ -171,10 +171,10 @@ dependencies {
 
 
     // Add the Firebase Crashlytics SDK.
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
 
     // Recommended: Add the Google Analytics SDK.
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.firebase:firebase-analytics:17.6.0'
 
 
     implementation 'com.github.smarteist:autoimageslider:1.3.9-appcompat'
