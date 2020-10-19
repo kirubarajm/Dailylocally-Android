@@ -72,7 +72,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     AppUpdateInfo appUpdateInfo;
     GridLayoutManager gridLayoutManager;
     Bitmap imageBitmap;
-
+    VideoView videoView;
     public static CommunityCatFragment newInstance() {
         Bundle args = new Bundle();
         CommunityCatFragment fragment = new CommunityCatFragment();
@@ -191,6 +191,8 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void onPause() {
+        if (videoView!=null)
+            videoView.pause();
         super.onPause();
     }
 
@@ -216,6 +218,8 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void onResume() {
+        if (videoView!=null)
+            videoView.start();
         mCommunityCatViewModel.updateAddressTitle();
         appUpdateManager.registerListener(this);
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(this);
@@ -244,6 +248,11 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }*/
+
+
+        this.videoView=videoView;
+        if (videoView.isPlaying())
+            videoView.pause();
 
 
 
