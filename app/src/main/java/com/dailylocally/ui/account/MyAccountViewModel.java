@@ -46,7 +46,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                     if (communityUserDetailsResponse.getResult().size() > 0) {
                         CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
 
-                     showCommunity.set(true);
+                     showCommunity.set(result.getCommunityStatus());
 
                     }
                 }

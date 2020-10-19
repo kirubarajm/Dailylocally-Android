@@ -63,6 +63,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
     public final ObservableBoolean showVideo = new ObservableBoolean();
 
+    public final ObservableField<String> pageTitle = new ObservableField<>();
     public final ObservableField<String> updateTitle = new ObservableField<>();
     public final ObservableField<String> updateAction = new ObservableField<>();
     public final ObservableField<String> screenName = new ObservableField<>();
@@ -70,6 +71,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     public final ObservableBoolean enableLater = new ObservableBoolean();
     public final ObservableBoolean update = new ObservableBoolean();
     public final ObservableBoolean imageLoader = new ObservableBoolean();
+    public final ObservableBoolean communityUser = new ObservableBoolean();
 
     public final ObservableField<String> profilePic = new ObservableField<>();
     public final ObservableField<String> nameText = new ObservableField<>();
@@ -148,6 +150,13 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                         creditInfoText.set(result.getCreditsInfo());
 
 
+                        if (result.getCommunityStatus()){
+                            pageTitle.set("Daily Locally Exclusive");
+                        }else {
+                            pageTitle.set("Daily Locally");
+                        }
+
+
                         if (result.getShowCreditsInfo() != null)
                             showCreditsInfo.set(result.getShowCreditsInfo());
 
@@ -178,11 +187,16 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
 
     public void addCommunityPostToList(List<GetSocialActivity> items) {
-    //    getSocialActivities.clear();
+        //    getSocialActivities.clear();
         getSocialActivities.addAll(items);
 
     }
 
+    public void searchClick() {
+        if (getNavigator() != null) {
+            getNavigator().searchClick();
+        }
+    }
 
     public void postLikeClick() {
         getNavigator().postLikeClick();
@@ -226,10 +240,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
     }
 
     public void getHomeDetails() {
-
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_HOME_DETAILS, CommunityHomeResponse.class, new L2CategoryRequest(getDataManager().getCurrentUserId(), getDataManager().getCurrentLat(), getDataManager().getCurrentLng()), new Response.Listener<CommunityHomeResponse>() {
@@ -244,6 +255,9 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
                                     CommunityHomeResponse.Result result = response.getResult().get(0);
 
+                                    Gson gson = new Gson();
+                                    String homeData = gson.toJson(response);
+                                    getDataManager().saveCommunityHomepage(homeData);
 
                                     eventImageUrl.set(result.getEvent().getImageUrl());
                                     catImageUrl.set(result.getCatList().getImageUrl());
@@ -268,6 +282,9 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
                                     homeEventTitle = result.getEvent().getHomeCommunityTitle();
                                     homeEventTopic = result.getEvent().getHomeCommunityTopic();
+
+                                    communityUser.set(result.getWhatsapp().getCommunityStatus());
+
 
                                     if (getNavigator() != null)
                                         getNavigator().homeDataLoaded();
@@ -348,7 +365,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
 
                     }
                 }
-            //    imageLoader.set(false);
+                //    imageLoader.set(false);
 
             }
         }, new Response.ErrorListener() {
@@ -412,7 +429,7 @@ public class CommunityViewModel extends BaseViewModel<CommunityNavigator> {
                             if (response.getStatus()) {
                                 profilePic.set(profileImageUrl);
                                 getDataManager().updateProfilePic(profileImageUrl);
-                                if (getNavigator()!=null)
+                                if (getNavigator() != null)
                                     getNavigator().refreshProfile();
                             }
                         }

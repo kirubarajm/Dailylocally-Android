@@ -89,20 +89,18 @@ public interface DataManager extends PreferencesHelper {
 
     void saveServiceableStatus(boolean status, String title, String subtitle);
 
-
-
     boolean homeAddressadded(boolean status);
 
     boolean officeAddressadded(boolean status);
+    void saveCommunityOnboardSeen(boolean status);
 
     void appStartedAgain(boolean status);
 
     void saveFirstLocation(String address, String locality, String city);
 
-
-
     void saveUserDetails(String details);
 
+    void saveCommunityHomepage(String data);
 
 
 }

@@ -36,4 +36,5 @@ public interface AddressNewNavigator {
     void goBack();
 
 
+    void addApartmentClick();
 }

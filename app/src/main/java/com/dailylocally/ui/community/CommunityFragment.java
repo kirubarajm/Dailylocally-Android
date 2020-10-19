@@ -35,12 +35,14 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCommunityBinding;
 import com.dailylocally.ui.aboutus.AboutUsActivity;
+import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.viewall.CatProductActivity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.community.event.EventActivity;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
@@ -187,17 +189,39 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void whatsAppGroup() {
-        String url = mCommunityViewModel.whatsappgroupLink;
-        try {
-            if (url != null && !url.isEmpty()) {
-                Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
-                //String url = "https://chat.whatsapp.com/<group_link>";
-                intentWhatsapp.setData(Uri.parse(url));
-                intentWhatsapp.setPackage("com.whatsapp");
-                startActivity(intentWhatsapp);
+
+        if (mCommunityViewModel.communityUser.get()) {
+
+            String url = mCommunityViewModel.whatsappgroupLink;
+            try {
+                if (url != null && !url.isEmpty()) {
+                    Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
+                    //String url = "https://chat.whatsapp.com/<group_link>";
+                    intentWhatsapp.setData(Uri.parse(url));
+                    intentWhatsapp.setPackage("com.whatsapp");
+                    startActivity(intentWhatsapp);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        }else {
+
+            if (mCommunityViewModel.getDataManager().isCommunityOnboardSeen()){
+                Intent inIntent = CommunitySearchActivity.newIntent(getContext());
+                inIntent.putExtra("newuser", false);
+                startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+            }else {
+                Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
+                inIntent.putExtra("newuser", false);
+                startActivity(inIntent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+
+
+
         }
     }
 
@@ -428,7 +452,15 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void homeDataLoaded() {
+        GetSocial.addOnInitializeListener(new Runnable() {
+            @Override
+            public void run() {
+                // GetSocial is ready to be used
 
+                showRecentPosts();
+
+            }
+        });
         Communities.isFollowing(UserId.currentUser(), FollowQuery.topics(mCommunityViewModel.homeEventTopic, mCommunityViewModel.topic), new im.getsocial.sdk.Callback<Map<String, Boolean>>() {
             @Override
             public void onSuccess(Map<String, Boolean> stringBooleanMap) {
@@ -493,15 +525,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             }
         });
 
-        GetSocial.addOnInitializeListener(new Runnable() {
-            @Override
-            public void run() {
-                // GetSocial is ready to be used
 
-                showRecentPosts();
-
-            }
-        });
 
 
     }
@@ -570,6 +594,14 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     }
 
+    @Override
+    public void searchClick() {
+        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        SearchFragment fragment = new SearchFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();*/
+        ((MainActivity) getActivity()).openExplore(true);
+    }
 
     @Override
     public void onPause() {

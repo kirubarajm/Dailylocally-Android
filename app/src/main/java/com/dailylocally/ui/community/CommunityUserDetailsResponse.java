@@ -31,6 +31,7 @@ public class CommunityUserDetailsResponse {
     public List<Result> getResult() {
         return result;
     }
+
     public List<Userdetail> getuserdetails() {
         return userdetails;
     }
@@ -93,6 +94,10 @@ public class CommunityUserDetailsResponse {
         @Expose
         public Boolean showCreditsInfo;
 
+        @SerializedName("community_status")
+        @Expose
+        public Boolean communityStatus;
+
 
         @SerializedName("welcome_name_title")
         @Expose
@@ -124,6 +129,43 @@ public class CommunityUserDetailsResponse {
         @SerializedName("area")
         @Expose
         public String communityArea;
+
+        @SerializedName("cat_page_subcontent")
+        @Expose
+        public String catPageSubcontent;
+
+        @SerializedName("cat_page_content")
+        @Expose
+        public String catPageContent;
+
+        @SerializedName("home_page_content")
+        @Expose
+        public String homePageContent;
+
+        @SerializedName("home_page_subcontent")
+        @Expose
+        public String homePageSubcontent;
+
+
+        public String getCatPageSubcontent() {
+            return catPageSubcontent;
+        }
+
+        public String getCatPageContent() {
+            return catPageContent;
+        }
+
+        public String getHomePageContent() {
+            return homePageContent;
+        }
+
+        public String getHomePageSubcontent() {
+            return homePageSubcontent;
+        }
+
+        public Boolean getCommunityStatus() {
+            return communityStatus;
+        }
 
         public String getCreditsInfo() {
             return creditsInfo;
@@ -237,6 +279,7 @@ public class CommunityUserDetailsResponse {
             return codValue;
         }
     }
+
     public class Userdetail {
 
         @SerializedName("userid")
@@ -478,4 +521,5 @@ public class CommunityUserDetailsResponse {
         public String getCompleteAddress() {
             return completeAddress;
         }
-    }}
+    }
+}

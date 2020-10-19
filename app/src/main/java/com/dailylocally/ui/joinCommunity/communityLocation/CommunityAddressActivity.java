@@ -85,6 +85,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
 
     String address = null;
+    String pinCode = null;
     String aid = null,edit=null;
     String strCommunityLat="",strCommunityLng="";
 
@@ -257,12 +258,23 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
     @Override
     public void nextClick() {
         if (!mActivityCommunityBinding.txtSubLocality.getText().toString().trim().equals("")) {
-            Intent returnIntent = new Intent();
+           /* Intent returnIntent = new Intent();
             returnIntent.putExtra("area", mActivityCommunityBinding.txtSubLocality.getText().toString());
             returnIntent.putExtra("lat", strCommunityLat);
             returnIntent.putExtra("lng", strCommunityLng);
             setResult(Activity.RESULT_OK, returnIntent);
-            finish();
+            finish();*/
+
+            Intent intent = AddressNewActivity.newIntent(CommunityAddressActivity.this);
+            intent.putExtra("locationAddress", mActivityCommunityBinding.txtSubLocality.getText().toString());
+            intent.putExtra("lat",strCommunityLat);
+            intent.putExtra("lon",strCommunityLng);
+            intent.putExtra("pinCode",pinCode);
+            intent.putExtra("area",mActivityCommunityBinding.txtSubLocality.getText().toString());
+            intent.putExtra("aid",mAddAddressViewModel.aId.get());
+            intent.putExtra("edit",edit);
+            startActivity(intent);
+
         }else {
             Toast.makeText(this, "Please fill area", Toast.LENGTH_SHORT).show();
         }
@@ -672,6 +684,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
                 strCommunityLat = String.valueOf(fetchedAddress.getLatitude());
                 strCommunityLng = String.valueOf(fetchedAddress.getLongitude());
+                pinCode = fetchedAddress.getPostalCode();
 
                 StringBuilder strAddress = new StringBuilder();
                 for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {

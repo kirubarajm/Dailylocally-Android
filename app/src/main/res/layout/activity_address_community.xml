@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.address.googleAddress.GoogleAddressActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="addAddressViewModel"
+            type="com.dailylocally.ui.address.type.CommunitySearchViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/address"
+            android:layout_below="@+id/header">
+
+            <fragment
+                android:id="@+id/mapFragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="tag_map_fragment" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/centerMarker"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/back"
+                    android:src="@drawable/ic_map_marker" />
+
+            </FrameLayout>
+        </FrameLayout>
+
+
+
+
+
+        <!--<ScrollView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/move_pin_to_set_delivery_location"
+                            style="@style/ContentTextStyle"
+                            android:visibility="visible" />
+
+
+
+
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/curve_stroke_lightgray"
+                            android:onClick="@{()->addAddressViewModel.searchAddress()}"
+                            android:paddingStart="5dp"
+                            android:paddingTop="3dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="3dp"
+                            android:text="@string/change"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="10sp"
+                            android:visibility="gone"
+                            tools:ignore="SmallSp" />
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <LinearLayout
+                            android:layout_toStartOf="@+id/search"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="37dp"
+                            android:layout_alignParentStart="true"
+                            android:orientation="vertical">
+
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:onClick="@{()->addAddressViewModel.searchAddress()}"
+                                android:text="@{addAddressViewModel.locationAddress}"
+                                style="@style/SubtTitleTextStyle"
+                                android:visibility="visible" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="3dp"
+                                android:background="@color/black"
+                                android:visibility="visible" />
+                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/search"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentEnd="true"
+                            android:contentDescription="@string/back"
+                            android:onClick="@{()->addAddressViewModel.searchAddress()}"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_search_black_24dp"
+                            android:text="@string/change"
+                            android:textColor="@color/dark_gray"
+                            android:tint="@color/dl_primary_color"
+                            android:visibility="visible" />
+                    </RelativeLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/text_input_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/location_area"
+                            android:inputType="text"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/house"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/house_flat_no"
+                            android:inputType="text"
+                            android:text="@{addAddressViewModel.house}"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="2">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/area"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/area"
+                                android:inputType="text"
+                                android:text="@{addAddressViewModel.area}"
+                                android:textSize="12sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/landmark"
+                                enter="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/landmark"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:textSize="12sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                        <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/confirm_delivery_location"
+                            style="@style/MediumBlackButtonTextStyle"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:onClick="@{()->addAddressViewModel.confirmLocation(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString())}"/>
+
+
+
+
+                    <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fields_are_mandatory"
+                        android:textColor="@color/dl_primary_color"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fields_are_mandatory"
+                    android:textColor="@color/dl_primary_color"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/white"
+            android:contentDescription="@string/back"
+            android:onClick="@{()->addAddressViewModel.locateMe()}"
+            android:padding="3dp"
+            android:src="@drawable/ic_gps" />
+
+        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/add_new_address"
+            android:textSize="@dimen/_25px"
+            android:textColor="@color/black"/>-->
+
+
+    </RelativeLayout>
+
+
+</layout>

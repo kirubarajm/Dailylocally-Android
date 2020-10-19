@@ -31,6 +31,7 @@ import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.rating.RatingActivity;
+import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -153,7 +154,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         SearchFragment fragment = new SearchFragment();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();*/
-        ((MainActivity) getActivity()).openExplore();
+        ((MainActivity) getActivity()).openExplore(true);
     }
 
     @Override
@@ -248,8 +249,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         }else {
-
-            if (result.getJoinStatus()&&!result.getApprovalStatus()) {
+            Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
+            inIntent.putExtra("newuser", false);
+            startActivity(inIntent);
+           getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            /*if (result.getJoinStatus()&&!result.getApprovalStatus()) {
                 Intent intent = ContactWhatsAppActivity.newIntent(getContext());
                 startActivity(intent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -259,7 +263,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 startActivity(intent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-            }
+            }*/
 
         }
 

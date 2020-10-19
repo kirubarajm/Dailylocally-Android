@@ -44,6 +44,10 @@ public interface PreferencesHelper {
 
     void setCartDetails(String jsonCart);
 
+ String getCommunityHomepage();
+
+    void setCommunityHomepage(String data);
+
 
     String getOrderInstruction();
 
@@ -139,6 +143,13 @@ public interface PreferencesHelper {
     boolean isUpdateAvailable();
 
     void setUpdateAvailable(boolean available);
+
+
+  boolean isCommunityOnboardSeen();
+
+    void setCommunityOnboardSeen(boolean status);
+
+
 
     int getCouponId();
 

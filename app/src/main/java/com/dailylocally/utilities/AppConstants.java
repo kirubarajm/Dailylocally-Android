@@ -114,6 +114,7 @@ public class AppConstants {
   public static final int INTERNET_ERROR_REQUEST_CODE = 4404;
   public static final int CALL_PHONE_PERMISSION_REQUEST_CODE = 501;
   public static final int STORAGE_PERMISSION_REQUEST_CODE = 5015;
+  public static final int SELECT_COMMUNITY_REQUEST_CODE = 5016;
 
 
   public static final String API_VERSION_ONE = "1.0.0";

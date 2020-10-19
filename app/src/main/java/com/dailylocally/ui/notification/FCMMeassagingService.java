@@ -145,7 +145,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
 
 
-        if (notification != null) {
+       // if (notification != null) {
             Map<String, String> data = remoteMessage.getData();
             //   Log.d("FROM", remoteMessage.getFrom());
 
@@ -196,7 +196,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
                 }
             }
-        }
+       // }
     }
 
     @Override
@@ -384,6 +384,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         String title = data.get("title");
         String message = data.get("message");
 
+
+        if (title==null||title.isEmpty())return;
+
         if (pageId == null) pageId = "0";
 
         switch (pageId) {
@@ -538,6 +541,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         socialNofication = false;
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this, MainActivity.class);
+
+        if (notification.getTitle()==null)return;
+
 
 
         intent.putExtras(bundle);

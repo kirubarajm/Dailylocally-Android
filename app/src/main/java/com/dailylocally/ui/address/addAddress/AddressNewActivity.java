@@ -1,6 +1,7 @@
 package com.dailylocally.ui.address.addAddress;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,9 +24,12 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +42,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddressNewBinding;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
+import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
@@ -218,6 +223,16 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     }
 
     @Override
+    public void addApartmentClick() {
+
+        Intent inIntent = CommunitySearchActivity.newIntent(AddressNewActivity.this);
+        inIntent.putExtra("newuser", true);
+        startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityAddressNewBinding = getViewDataBinding();
@@ -225,6 +240,18 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         //analytics = new Analytics(this, pageName);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
+        mAddAddressViewModel.clickableApartment.set(true);
+
+
+
+        View googleLogo = mActivityAddressNewBinding.frame.findViewWithTag("GoogleWatermark");
+        RelativeLayout.LayoutParams glLayoutParams = (RelativeLayout.LayoutParams)googleLogo.getLayoutParams();
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        glLayoutParams.setMargins(10,0,0,100);
+        googleLogo.setLayoutParams(glLayoutParams);
+
+
 
         bundle = getIntent().getExtras();
         if (bundle!=null){
@@ -535,5 +562,23 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==AppConstants.SELECT_COMMUNITY_REQUEST_CODE){
+
+            if (resultCode== Activity.RESULT_OK){
+                if (data!=null){
+                    mActivityAddressNewBinding.edtApartmentName.setText(data.getStringExtra("text"));
+                }
+              mAddAddressViewModel.clickableApartment.set(false);
+            }
+
+        }
+
+
     }
 }

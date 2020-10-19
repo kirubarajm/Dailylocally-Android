@@ -15,7 +15,12 @@ android {
         versionName "2.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
         dataBinding {
             enabled = true
         }
@@ -55,8 +60,8 @@ android {
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
             // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:9000"'
-            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
-           // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+            //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
+            buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
             minifyEnabled false
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "true")

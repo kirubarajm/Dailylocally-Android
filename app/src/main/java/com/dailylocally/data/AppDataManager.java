@@ -230,6 +230,11 @@ public class AppDataManager implements DataManager {
         return false;
     }
 
+    @Override
+    public void saveCommunityOnboardSeen(boolean status) {
+        setCommunityOnboardSeen(status);
+    }
+
 
     @Override
     public void appStartedAgain(boolean status) {
@@ -246,6 +251,11 @@ public class AppDataManager implements DataManager {
     @Override
     public void saveUserDetails(String details) {
         setUserDetails(details);
+    }
+
+    @Override
+    public void saveCommunityHomepage(String data) {
+        setCommunityHomepage(data);
     }
 
 
@@ -485,6 +495,16 @@ mPreferencesHelper.setUserDetails(details);
     @Override
     public void setUpdateAvailable(boolean available) {
 mPreferencesHelper.setUpdateAvailable(available);
+    }
+
+    @Override
+    public boolean isCommunityOnboardSeen() {
+        return mPreferencesHelper.isCommunityOnboardSeen();
+    }
+
+    @Override
+    public void setCommunityOnboardSeen(boolean status) {
+mPreferencesHelper.setCommunityOnboardSeen(status);
     }
 
 
@@ -747,6 +767,16 @@ mPreferencesHelper.setUserRegistrationStatus(status);
     @Override
     public void setCartDetails(String jsonCart) {
         mPreferencesHelper.setCartDetails(jsonCart);
+    }
+
+    @Override
+    public String getCommunityHomepage() {
+        return mPreferencesHelper.getCommunityHomepage();
+    }
+
+    @Override
+    public void setCommunityHomepage(String data) {
+mPreferencesHelper.setCommunityHomepage(data);
     }
 
     @Override

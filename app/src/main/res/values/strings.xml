@@ -731,7 +731,7 @@
     <string name="deferred_deeplink_path_cart">/cart</string>
     <string name="confirm_delivery_location">Confirm Delivery Location</string>
     <string name="confirm">Confirm</string>
-    <string name="residency_type">Residency type</string>
+    <string name="residency_type">Choose your residence type</string>
     <string name="apartment_society">Apartment / Society</string>
     <string name="tower_block">Tower / Block*</string>
     <string name="floor">Floor*</string>

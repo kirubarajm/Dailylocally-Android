@@ -11,9 +11,16 @@ public class UpdateResponse {
     @SerializedName("status")
     @Expose
     private Boolean status;
+    @SerializedName("address_created")
+    @Expose
+    private String addressCreated;
     @SerializedName("result")
     @Expose
     private Result result;
+
+    public String getAddressCreated() {
+        return addressCreated;
+    }
 
     public Boolean getSuccess() {
         return success;

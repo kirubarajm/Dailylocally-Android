@@ -32,6 +32,8 @@ import com.dailylocally.utilities.DailylocallyApp;
 public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
 
     public final ObservableBoolean isApartment = new ObservableBoolean();
+    public final ObservableBoolean clickableApartment = new ObservableBoolean();
+    public final ObservableBoolean residenceClicked = new ObservableBoolean();
     public final ObservableField<String> aId = new ObservableField<>();
 
 
@@ -39,25 +41,38 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
         super(dataManager);
     }
 
-    public void apartment(){
-        if (getNavigator()!=null){
+    public void apartment() {
+        isApartment.set(true);
+        residenceClicked.set(true);
+        if (getNavigator() != null) {
             getNavigator().apartmentClick();
         }
     }
-    public void goBack(){
-        if (getNavigator()!=null){
+
+    public void goBack() {
+        if (getNavigator() != null) {
             getNavigator().goBack();
         }
     }
 
-    public void individual(){
-        if (getNavigator()!=null){
+    public void individual() {
+        isApartment.set(false);
+        residenceClicked.set(true);
+        if (getNavigator() != null) {
             getNavigator().individualClick();
         }
     }
 
-    public void confirmClick(){
-        if (getNavigator()!=null){
+
+    public void addApartmentClick() {
+        if (getNavigator() != null) {
+            getNavigator().addApartmentClick();
+        }
+    }
+
+
+    public void confirmClick() {
+        if (getNavigator() != null) {
             getNavigator().confirmClick();
         }
     }
@@ -71,25 +86,25 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
                 @Override
                 public void onResponse(UserAddressResponse response) {
                     try {
-                        if (response!=null) {
+                        if (response != null) {
                             if (response.getStatus()) {
-                                if (response.getResult()!=null && response.getResult().size()>0){
-                                    if (getNavigator()!=null){
+                                if (response.getResult() != null && response.getResult().size() > 0) {
+                                    if (getNavigator() != null) {
                                         getNavigator().getAddressSuccess(response.getResult().get(0));
                                     }
                                 }
                                 aId.set(String.valueOf(response.getResult().get(0).getAid()));
-                            }else {
-                                if (getNavigator()!=null){
+                            } else {
+                                if (getNavigator() != null) {
                                     getNavigator().getAddressFailure();
                                 }
                             }
-                        }else {
-                            if (getNavigator()!=null){
+                        } else {
+                            if (getNavigator() != null) {
                                 getNavigator().getAddressFailure();
                             }
                         }
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -98,7 +113,7 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     try {
                         setIsLoading(false);
-                        if (getNavigator()!=null){
+                        if (getNavigator() != null) {
                             getNavigator().getAddressFailure();
                         }
                     } catch (NullPointerException e) {

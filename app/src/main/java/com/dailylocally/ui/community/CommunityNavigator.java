@@ -27,5 +27,7 @@ public interface CommunityNavigator {
     void changeProfile();
     void refreshProfile();
     void homeDataLoaded();
+
+    void searchClick();
 }
 

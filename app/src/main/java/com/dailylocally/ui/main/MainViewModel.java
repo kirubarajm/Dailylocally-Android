@@ -160,7 +160,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
         if (!isExplore.get()) {
 
-            getNavigator().openExplore();
+            getNavigator().openExplore(true);
             isHome.set(false);
             isExplore.set(true);
             isCart.set(false);

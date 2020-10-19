@@ -19,19 +19,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
-
-import im.getsocial.sdk.Communities;
-import im.getsocial.sdk.CompletionCallback;
-import im.getsocial.sdk.FailureCallback;
-import im.getsocial.sdk.GetSocialError;
-import im.getsocial.sdk.communities.Reactions;
 
 public class CommunityHeaderListItemViewModel {
 
     public final ObservableField<String> addressTitle = new ObservableField<>();
 
     public final ObservableBoolean cart = new ObservableBoolean();
+    public final ObservableBoolean isCommunityUser = new ObservableBoolean();
     public final ObservableBoolean fullEmpty = new ObservableBoolean();
     public final ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public final ObservableField<String> emptyImageUrl = new ObservableField<>();
@@ -66,6 +60,8 @@ public class CommunityHeaderListItemViewModel {
     public final ObservableField<String> profilePic = new ObservableField<>();
     public final ObservableField<String> nameText = new ObservableField<>();
     public final ObservableField<String> name = new ObservableField<>();
+    public final ObservableField<String> home_page_content = new ObservableField<>();
+    public final ObservableField<String> home_page_subcontent = new ObservableField<>();
     public final ObservableField<String> members = new ObservableField<>();
     public final ObservableField<String> membersText = new ObservableField<>();
     public final ObservableField<String> communityName = new ObservableField<>();
@@ -116,6 +112,11 @@ public class CommunityHeaderListItemViewModel {
                         creditsText.set(result.getCreditsText());
                         creditInfoText.set(result.getCreditsInfo());
 
+                        home_page_content.set(result.getHomePageContent());
+                        home_page_subcontent.set(result.getHomePageSubcontent());
+
+                        if (result.getCommunityStatus() != null)
+                            isCommunityUser.set(result.getCommunityStatus());
 
                         if (result.getShowCreditsInfo() != null)
                             showCreditsInfo.set(result.getShowCreditsInfo());
@@ -173,11 +174,10 @@ public class CommunityHeaderListItemViewModel {
     }
 
 
-
-
     public void creditInfoClick() {
-      mListener.creditInfoClick();
+        mListener.creditInfoClick();
     }
+
     public void changeProfile() {
         mListener.changeProfile();
         imageLoader.set(true);
@@ -186,7 +186,9 @@ public class CommunityHeaderListItemViewModel {
 
     public interface PostItemViewModelListener {
         void refresh();
+
         void changeProfile();
+
         void creditInfoClick();
 
     }

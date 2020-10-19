@@ -120,6 +120,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_USER_ADDRESS_STATUS = "PREF_KEY_USER_ADDRESS_STATUS";
     private static final String PREF_KEY_USER_GENDER = "PREF_KEY_USER_GENDER";
     private static final String PREF_KEY_USER_DETAILS = "USER_DETAILS";
+    private static final String PREF_KEY_COMMUNITY_HOME = "COMMUNITY_HOME";
+    private static final String PREF_KEY_COMMUNITY_ONBOARD = "COMMUNITY_ONBOARD";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -389,6 +391,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putBoolean(PREF_KEY_UPDATE_CHECK, available).apply();
     }
 
+    @Override
+    public boolean isCommunityOnboardSeen() {
+        return mPrefs.getBoolean(PREF_KEY_COMMUNITY_ONBOARD, false);
+    }
+
+    @Override
+    public void setCommunityOnboardSeen(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_COMMUNITY_ONBOARD, status).apply();
+    }
+
 
     @Override
     public int getCouponId() {
@@ -651,6 +663,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCartDetails(String jsonCart) {
         mPrefs.edit().putString(PREF_KEY_CART, jsonCart).apply();
+    }
+
+    @Override
+    public String getCommunityHomepage() {
+        return mPrefs.getString(PREF_KEY_COMMUNITY_HOME, null);
+    }
+
+    @Override
+    public void setCommunityHomepage(String data) {
+        mPrefs.edit().putString(PREF_KEY_COMMUNITY_HOME, data).apply();
     }
 
     @Override

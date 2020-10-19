@@ -42,7 +42,7 @@ public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivit
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode(),getDataManager().getCurrentUserId()), new Response.Listener<UpdateResponse>() {
             @Override
             public void onResponse(UpdateResponse response) {
                 //  getNavigator().update(false, false);

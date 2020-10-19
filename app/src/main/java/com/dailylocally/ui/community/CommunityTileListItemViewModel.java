@@ -6,14 +6,11 @@ import android.text.format.DateFormat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.prefs.AppPreferencesHelper;
-import com.dailylocally.ui.category.l2.L2CategoryRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -154,72 +151,58 @@ public class CommunityTileListItemViewModel {
 
     public void getHomeDetails() {
 
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
 
         try {
+            Gson sGson = new GsonBuilder().create();
+            CommunityHomeResponse response = sGson.fromJson(appDataManager.getCommunityHomepage(), CommunityHomeResponse.class);
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_HOME_DETAILS, CommunityHomeResponse.class, new L2CategoryRequest(appDataManager.getCurrentUserId(), appDataManager.getCurrentLat(), appDataManager.getCurrentLng()), new Response.Listener<CommunityHomeResponse>() {
-                @Override
-                public void onResponse(CommunityHomeResponse response) {
+            if (response != null)
+                if (response.getStatus()) {
+                    if (response.getResult() != null) {
 
-                    if (response != null)
-                        if (response.getStatus()) {
-                            if (response.getResult() != null) {
+                        if (response.getResult().size() > 0) {
 
-                                if (response.getResult().size() > 0) {
-
-                                    CommunityHomeResponse.Result result = response.getResult().get(0);
+                            CommunityHomeResponse.Result result = response.getResult().get(0);
 
 
-                                    eventImageUrl.set(result.getEvent().getImageUrl());
-                                    catImageUrl.set(result.getCatList().getImageUrl());
-                                    sneakPeakImageUrl.set(result.getSneakPeak().getImageUrl());
-                                    whatsImageUrl.set(result.getWhatsapp().getImageUrl());
-                                    aboutImageUrl.set(result.getAbout().getImageUrl());
+                            eventImageUrl.set(result.getEvent().getImageUrl());
+                            catImageUrl.set(result.getCatList().getImageUrl());
+                            sneakPeakImageUrl.set(result.getSneakPeak().getImageUrl());
+                            whatsImageUrl.set(result.getWhatsapp().getImageUrl());
+                            aboutImageUrl.set(result.getAbout().getImageUrl());
 
-                                    //whatsImageUrl.set("https://dailylocally.s3.ap-south-1.amazonaws.com/admin/1596196480459-DLV2%20Category-Spreads.jpg");
-                                    aboutUsTitle.set(result.getAbout().getTitle());
-                                    aboutUsDes.set(result.getAbout().getDes());
+                            //whatsImageUrl.set("https://dailylocally.s3.ap-south-1.amazonaws.com/admin/1596196480459-DLV2%20Category-Spreads.jpg");
+                            aboutUsTitle.set(result.getAbout().getTitle());
+                            aboutUsDes.set(result.getAbout().getDes());
 
-                                    sneakTitle.set(result.getSneakPeak().getTitle());
-                                    sneakDes.set(result.getSneakPeak().getDes());
+                            sneakTitle.set(result.getSneakPeak().getTitle());
+                            sneakDes.set(result.getSneakPeak().getDes());
 
-                                    whatsTitle.set(result.getWhatsapp().getTitle());
-                                    whatsDes.set(result.getWhatsapp().getDes());
+                            whatsTitle.set(result.getWhatsapp().getTitle());
+                            whatsDes.set(result.getWhatsapp().getDes());
 
-                                    whatsappgroupLink = result.getWhatsapp().getGroupUrl();
-                                    sneakpeakVideoUrl = result.getSneakPeak().getVideoUrl();
-                                    topic = result.getEvent().getTopic();
-                                    eventTitle = result.getEvent().getTitle();
+                            whatsappgroupLink = result.getWhatsapp().getGroupUrl();
+                            sneakpeakVideoUrl = result.getSneakPeak().getVideoUrl();
+                            topic = result.getEvent().getTopic();
+                            eventTitle = result.getEvent().getTitle();
 
-                                    homeEventTitle = result.getEvent().getHomeCommunityTitle();
-                                    homeEventTopic = result.getEvent().getHomeCommunityTopic();
+                            homeEventTitle = result.getEvent().getHomeCommunityTitle();
+                            homeEventTopic = result.getEvent().getHomeCommunityTopic();
 
-
-                                } else {
-
-                                }
-
-                            } else {
-
-                            }
 
                         } else {
 
                         }
 
+                    } else {
+
+                    }
+
+                } else {
 
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            }, AppConstants.API_VERSION_ONE);
 
 
-            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
         } catch (Exception ee) {
@@ -262,8 +245,6 @@ public class CommunityTileListItemViewModel {
 
         mListener.gotoCommunityHome();
     }
-
-
 
 
     public interface PostItemViewModelListener {

@@ -217,6 +217,17 @@ public class CommunityHomeResponse {
         @SerializedName("image_url")
         @Expose
         public String imageUrl;
+  @SerializedName("community_status")
+        @Expose
+        public Boolean communityStatus;
+
+        public Boolean getCommunityStatus() {
+            return communityStatus;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
         public String getImageUrl() {
             return imageUrl;

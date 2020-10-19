@@ -13,108 +13,61 @@
             type="com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivityViewModel" />
     </data>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#cc1A1A1A">
-
     <RelativeLayout
-        android:paddingTop="@dimen/_10px"
-        android:id="@+id/rel_back"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/transparent"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
 
         <ImageView
-            android:id="@+id/img_back"
-            android:layout_width="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_height="20dp"
-            android:background="@color/transparent"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_back_black_24dp" />
+            android:id="@+id/img1"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitEnd"
+            android:src="@drawable/onboard_p2a" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_marginLeft="50dp"
-            app:cardCornerRadius="10dp"
-            android:layout_marginRight="50dp"
+
+        <ImageView
+            android:id="@+id/img2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/onboard_p2b" />
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_community"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:focusable="true"
-                app:iconifiedByDefault="false"
-                app:queryHint="Search for your community or apartment" />
 
-        </androidx.cardview.widget.CardView>
+        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img2"
+            android:layout_centerHorizontal="true"
+            android:text="DL Exclusive provides exclusive COD \nfacility for registered users."
+            android:textAlignment="center"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_22px"
+            android:textStyle="bold" />
+
+        <com.dailylocally.utilities.fonts.quicksand.BoldTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="-10dp"
+            android:text="Enjoy Cash on \nDelivery on all \norders."
+            android:textColor="@color/medium_black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/view_top"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="30dp"
-        android:background="@color/white"
-        android:layout_width="20dp"
-        android:layout_height="0.5dp"/>
-
-    <View
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="170dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="30dp"
-        android:background="@color/white"
-        android:layout_width="0.5dp"
-        android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/img_1"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_group_438"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="150dp"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/txt_content"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    <View
-        android:id="@+id/view_1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="170dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:background="@color/white"
-        android:layout_width="50dp"
-        android:layout_height="0.5dp"/>
-
-    <TextView
-        android:id="@+id/txt_dot_2"
-        android:textColor="@color/white"
-        android:text="&#8226;"
-        android:textSize="@dimen/_25px"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="159dp"
-        android:layout_toLeftOf="@+id/view_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-</RelativeLayout>
 
 </layout>

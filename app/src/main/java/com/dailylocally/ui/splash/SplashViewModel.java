@@ -42,19 +42,31 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
 
 
-    public void checkIsUserLoggedInOrNot() {
+    public void checkIsUserLoggedInOrNot(String addressCreated) {
         try {
             if (getDataManager().getCurrentUserId() != null) {
 
                 if (getDataManager().isUserRegistered()) {
-                    if (getDataManager().isUserAddress()) {
-                        if (getNavigator() != null)
-                            getNavigator().checkForUserLogin(AppConstants.FLAG_TRUE);
+
+                    if (addressCreated!=null&& addressCreated.equals("0")){
+                        if (getNavigator()!=null){
+                            getNavigator().userAddressActivity();
+                        }
                     }else {
+                        if (getDataManager().isUserAddress()) {
+                            if (getNavigator() != null)
+                                getNavigator().checkForUserLogin(AppConstants.FLAG_TRUE);
+                        }else {
                             if (getNavigator()!=null){
                                 getNavigator().userAddressActivity();
                             }
+                        }
                     }
+
+
+
+
+
                 } else {
                     if (getNavigator() != null)
                         getNavigator().userAlreadyRegistered(false);
@@ -76,7 +88,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
 
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode(),getDataManager().getCurrentUserId()), new Response.Listener<UpdateResponse>() {
             @Override
             public void onResponse(UpdateResponse response) {
               //  getNavigator().update(false, false);
@@ -97,12 +109,12 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
                         getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
                         getDataManager().setUpdateAvailable(response.getResult().getVersionstatus());
                         if (getNavigator() != null)
-                            getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getDluserforceupdatestatus());
+                            getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getDluserforceupdatestatus(),response.getAddressCreated());
 
                     } else {
                         getDataManager().setUpdateAvailable(false);
                         if (getNavigator() != null)
-                            getNavigator().update(false, false);
+                            getNavigator().update(false, false,"1");
                     }
                 setIsLoading(false);
 

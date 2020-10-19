@@ -90,16 +90,15 @@
                     android:orientation="vertical">
 
                         <RelativeLayout
+                            android:visibility="@{communityCatViewModel.isCommunityUser?View.VISIBLE:View.GONE}"
                             android:id="@+id/user"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
 
                             <LinearLayout
                                 android:layout_alignParentTop="true"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
-
                                 <androidx.cardview.widget.CardView
                                     android:layout_marginBottom="10dp"
                                     android:layout_width="match_parent"
@@ -124,6 +123,7 @@
                                         android:orientation="horizontal">
 
                                         <RelativeLayout
+                                            android:visibility="gone"
                                             android:layout_width="80dp"
                                             android:layout_height="80dp">
 
@@ -151,29 +151,53 @@
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
                                             android:layout_marginStart="20dp"
+                                            android:layout_marginEnd="20dp"
                                             android:orientation="vertical">
 
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:orientation="horizontal">
+
+
+                                                <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                    style="@style/SubtTitleTextStyle"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="Hi " />
+
+
+                                                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                                    style="@style/SubtTitleTextStyle"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="@{communityCatViewModel.name}" />
+
+                                            </LinearLayout>
+
                                             <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                android:layout_marginTop="5dp"
                                                 style="@style/SubtTitleTextStyle"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:text="@{communityCatViewModel.name}" />
+                                                android:text="@{communityCatViewModel.cat_page_content}" />
 
 
                                             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                                                 style="@style/ContentTextStyle"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:layout_marginTop="5dp"
-                                                android:text="@{communityCatViewModel.welcomeText}" />
+                                                android:layout_marginTop="10dp"
+                                                android:text="@{communityCatViewModel.cat_page_subcontent}" />
 
 
                                         </LinearLayout>
 
                                     </LinearLayout>
 
-
                                     <LinearLayout
+                                        android:visibility="@{communityCatViewModel.isCommunityUser?View.VISIBLE:View.GONE}"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"
@@ -292,6 +316,7 @@
                                         </RelativeLayout>
                                     </LinearLayout>
 
+
                                 </LinearLayout>
 
                                 </androidx.cardview.widget.CardView>
@@ -305,6 +330,61 @@
                                 android:background="@color/white" />
 
                         </RelativeLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="30dp"
+                        android:visibility="@{communityCatViewModel.isCommunityUser?View.GONE:View.VISIBLE}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                style="@style/SubtTitleTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hi " />
+
+
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                style="@style/SubtTitleTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{communityCatViewModel.name}" />
+
+                        </LinearLayout>
+
+                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                            android:layout_marginTop="5dp"
+                            style="@style/SubtTitleTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{communityCatViewModel.cat_page_content}" />
+
+
+                        <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                            style="@style/ContentTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@{communityCatViewModel.cat_page_subcontent}" />
+
+
+                    </LinearLayout>
+
+
+
                         <LinearLayout
                             lin_margin_bottom="@{communityCatViewModel.serviceable}"
                             android:layout_width="match_parent"
@@ -380,12 +460,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="@color/search_gray"
-                app:cardCornerRadius="1dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="0dp">
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView

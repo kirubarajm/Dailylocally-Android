@@ -1,11 +1,11 @@
 {
     "autoInit": true,
-    "autoRegisterForPush": false,
+    "autoRegisterForPush": true,
     "disableFacebookReferralCheck": false,
     "uiConfig": null,
     "appId": "l8ti6M70Q87v",
     "pushNotifications": {
-        "autoRegister": false,
+        "autoRegister": true,
         "customListener": true,
         "foreground": true,
         "android": {

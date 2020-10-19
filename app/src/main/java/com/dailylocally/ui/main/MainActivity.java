@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,6 +13,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -47,6 +50,9 @@ import com.dailylocally.utilities.DependenciesContainer;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -64,6 +70,7 @@ import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -73,6 +80,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import im.getsocial.sdk.CompletionCallback;
 import im.getsocial.sdk.FailureCallback;
+import im.getsocial.sdk.GetSocial;
 import im.getsocial.sdk.GetSocialError;
 import im.getsocial.sdk.Notifications;
 import im.getsocial.sdk.notifications.Notification;
@@ -114,6 +122,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     boolean downloading;
 
     boolean forceLocation = false;
+    boolean searchfromHome = false;
     DependenciesContainer _dependenciesContainer;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -270,9 +279,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openHome() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
+openCommunity();
 
-
-        try {
+      /*  try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
             HomeFragment fragment = new HomeFragment();
@@ -296,7 +305,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             if (!mMainViewModel.isLiveOrder.get()) {
                 mMainViewModel.updateAvailable.set(true);
             }
-        }
+        }*/
 
     }
 
@@ -334,31 +343,43 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void openExplore() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
-        // stopLoader();
-        try {
+    public void openExplore(Boolean isHome) {
+
+
+
+        searchfromHome=isHome;
+
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
+            // stopLoader();
+            try {
+                mMainViewModel.isExplore.set(true);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                SearchFragment fragment = new SearchFragment();
+                transaction.replace(R.id.content_main, fragment);
+                //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+                transaction.commit();
+
+
+
+
+
+            } catch (Exception ee) {
+                ee.printStackTrace();
+            }
+
+            mMainViewModel.toolbarTitle.set("Search");
+
+            mMainViewModel.titleVisible.set(false);
+            mMainViewModel.isCommunity.set(false);
+            mMainViewModel.isCommunityCat.set(false);
+            mMainViewModel.isHome.set(false);
             mMainViewModel.isExplore.set(true);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            SearchFragment fragment = new SearchFragment();
-            transaction.replace(R.id.content_main, fragment);
-            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
-            transaction.commit();
-        } catch (Exception ee) {
-            ee.printStackTrace();
-        }
+            mMainViewModel.isCart.set(false);
+            mMainViewModel.isMyAccount.set(false);
 
-        mMainViewModel.toolbarTitle.set("Search");
+            mMainViewModel.updateAvailable.set(false);
 
-        mMainViewModel.titleVisible.set(false);
-        mMainViewModel.isCommunity.set(false);
-        mMainViewModel.isCommunityCat.set(false);
-        mMainViewModel.isHome.set(false);
-        mMainViewModel.isExplore.set(true);
-        mMainViewModel.isCart.set(false);
-        mMainViewModel.isMyAccount.set(false);
 
-        mMainViewModel.updateAvailable.set(false);
 
 
     }
@@ -425,6 +446,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }, 2000);
         }*/
 
+        if (mMainViewModel.isExplore.get()){
+            if (searchfromHome){
+                handleBackpress();
+
+            }else {
+                openCommunityCat();
+            }
+        }else {
+            handleBackpress();
+        }
+
+    }
+
+
+
+    public void handleBackpress(){
 
         if (mMainViewModel.isHome.get() || mMainViewModel.isCommunity.get()) {
 
@@ -487,6 +524,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
         PushUtils.registerWithZendesk();
         Log.e("OnCreate", "Created");
+
+        GetSocial.addOnInitializeListener(new Runnable() {
+            @Override
+            public void run() {
+                // GetSocial is ready to be used
+            }
+        });
+        Notifications.registerDevice();
         Notifications.setOnNotificationClickedListener(new OnNotificationClickedListener() {
             @Override
             public void onNotificationClicked(Notification notification, NotificationContext notificationContext) {
@@ -700,7 +745,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 break;
 
             case AppConstants.NOTIFY_SEARCH_FRAG:
-                openExplore();
+                openExplore(true);
                 break;
 
             case AppConstants.NOTIFY_CHAT:

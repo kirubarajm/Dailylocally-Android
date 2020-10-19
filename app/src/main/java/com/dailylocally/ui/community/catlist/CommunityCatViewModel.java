@@ -42,6 +42,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,6 +73,7 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean categoryLoading = new ObservableBoolean();
     public final ObservableBoolean showRating = new ObservableBoolean();
+    public final ObservableBoolean isCommunityUser = new ObservableBoolean();
 
     public final ObservableField<String> updateTitle = new ObservableField<>();
     public final ObservableField<String> updateAction = new ObservableField<>();
@@ -89,6 +91,10 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
     public final ObservableField<String> freeDeliveryText = new ObservableField<>();
     public final ObservableField<String> cod = new ObservableField<>();
     public final ObservableField<String> codText = new ObservableField<>();
+
+
+    public final ObservableField<String> cat_page_content = new ObservableField<>();
+    public final ObservableField<String> cat_page_subcontent = new ObservableField<>();
 
 
     public ObservableList<HomepageResponse.Result> categoryList = new ObservableArrayList<>();
@@ -119,7 +125,13 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                         freeDelivery.set(result.getFreeDeliveryValue());
                         freeDeliveryText.set(result.getFreeDeliveryText());
                         cod.set(result.getCodValue());
-                        codText.set(result.getCodText ());
+                        codText.set(result.getCodText());
+                        if (result.getCommunityStatus() != null)
+                        isCommunityUser.set(result.getCommunityStatus());
+
+                        cat_page_content.set(result.getCatPageContent());
+                        cat_page_subcontent.set(result.getCatPageSubcontent());
+
 
                     }
                 }
@@ -395,34 +407,34 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                 public void onResponse(RatingCheckResponse response) {
                     try {
 
-                    if (response != null) {
+                        if (response != null) {
 
-                        if (response.getStatus()){
+                            if (response.getStatus()) {
 
-                        if (response.getRatingStatus()) {
+                                if (response.getRatingStatus()) {
 
-                            if (response.getResult() != null && response.getResult().size() > 0)
+                                    if (response.getResult() != null && response.getResult().size() > 0)
 
-                                if (response.getResult().get(0).getRatingSkip() != null) {
-                                    if (Integer.parseInt(response.getResult().get(0).getRatingSkip()) <= response.getResult().get(0).getRatingSkipAvailable()) {
-                                        ratingDOID = response.getResult().get(0).getId();
-                                        showRating.set(true);
-                                        ratingTitle.set(response.getTitle());
-                                        ratingDate.set(parseDateToddMMyyyy(response.getResult().get(0).getDate()));
-                                       // skipRating();
-                                    }
-                                } else {
-                                    ratingDOID = response.getResult().get(0).getId();
-                                    showRating.set(true);
-                                    ratingTitle.set(response.getTitle());
-                                    ratingDate.set(parseDateToddMMyyyy(response.getResult().get(0).getDate()));
-                                   // skipRating();
+                                        if (response.getResult().get(0).getRatingSkip() != null) {
+                                            if (Integer.parseInt(response.getResult().get(0).getRatingSkip()) <= response.getResult().get(0).getRatingSkipAvailable()) {
+                                                ratingDOID = response.getResult().get(0).getId();
+                                                showRating.set(true);
+                                                ratingTitle.set(response.getTitle());
+                                                ratingDate.set(parseDateToddMMyyyy(response.getResult().get(0).getDate()));
+                                                // skipRating();
+                                            }
+                                        } else {
+                                            ratingDOID = response.getResult().get(0).getId();
+                                            showRating.set(true);
+                                            ratingTitle.set(response.getTitle());
+                                            ratingDate.set(parseDateToddMMyyyy(response.getResult().get(0).getDate()));
+                                            // skipRating();
 
+                                        }
                                 }
+                            }
                         }
-                    }
-                    }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -498,12 +510,13 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
 
     }
 
-    public void ratingClick(){
+    public void ratingClick() {
         closeRating();
-        if (getNavigator()!=null){
+        if (getNavigator() != null) {
             getNavigator().ratingClick();
         }
     }
+
 
 
     public void changeProfile() {
@@ -582,6 +595,7 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
 
         DailylocallyApp.getInstance().addToRequestQueue(volleyMultipartRequest);
     }
+
     public void saveProfilePic(String profileImageUrl) {
 
 
@@ -605,12 +619,13 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                                 profilePic.set(profileImageUrl);
                                 getDataManager().updateProfilePic(profileImageUrl);
                             }
-                        } }catch (Exception e) {
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     imageLoader.set(false);
                 }
-            },  new Response.ErrorListener() {
+            }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     imageLoader.set(false);

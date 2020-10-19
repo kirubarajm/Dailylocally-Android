@@ -4,4 +4,9 @@ public interface CommunityOnBoardingActivityNavigator {
 
     void handleError(Throwable throwable);
 
+    void goBack();
+
+    void skip();
+
+    void action();
 }

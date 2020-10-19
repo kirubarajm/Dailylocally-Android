@@ -18,13 +18,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCommunityOnboardingBinding;
+import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
+import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
@@ -40,6 +45,10 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
     CommunityOnBoardingActivityViewModel mOnBoardingActivityViewModel;
     Analytics analytics;
     String pageName = "Onboarding";
+
+    Boolean newUser = false;
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -69,6 +78,39 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
     }
 
     @Override
+    public void goBack() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void skip() {
+
+        action();
+
+    }
+
+    @Override
+    public void action() {
+
+        mOnBoardingActivityViewModel.getDataManager().saveCommunityOnboardSeen(true);
+
+
+        if (newUser) {
+            Intent inIntent = CommunityAddressActivity.newIntent(CommunityOnBoardingActivity.this);
+            startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+        } else {
+            Intent inIntent = CommunitySearchActivity.newIntent(CommunityOnBoardingActivity.this);
+            inIntent.putExtra("newuser", false);
+            startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+        }
+
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.communityOnBoardingViewModel;
     }
@@ -92,6 +134,17 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
         prefManager = new PrefManager(this);
 
         analytics = new Analytics(this, pageName);
+
+        if (getIntent().getExtras() != null)
+            newUser = getIntent().getExtras().getBoolean("newuser", false);
+
+
+        if (newUser) {
+            mOnBoardingActivityViewModel.btnText.set("Next");
+        } else {
+            mOnBoardingActivityViewModel.btnText.set("Select community");
+        }
+
 /*
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
@@ -101,27 +154,71 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+
+
         layouts = new int[]{
                 R.layout.community_slide_1,
-                R.layout.welcome_slide2,
-                R.layout.welcome_slide3,
-                R.layout.welcome_slide4};
+                R.layout.community_slide_2,
+                R.layout.community_slide_3};
+
 
         changeStatusBarColor();
 
         myViewPagerAdapter = new MyViewPagerAdapter();
         mActivityOnboardingBinding.viewPager.setAdapter(myViewPagerAdapter);
+
+
+        mActivityOnboardingBinding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                switch (position) {
+                    case 0:
+                        mOnBoardingActivityViewModel.lastScreen.set(false);
+                        mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator_selected);
+                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator);
+                        break;
+                    case 1:
+                        mOnBoardingActivityViewModel.lastScreen.set(false);
+                        mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator_selected);
+                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator);
+                        // mActivityOnboardingBinding.indi2.setColorFilter(R.color.medium_black);
+                        break;
+                    case 2:
+
+                        mOnBoardingActivityViewModel.lastScreen.set(true);
+                       /* mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator_selected);*/
+                        //  mActivityOnboardingBinding.indi3.setColorFilter(R.color.medium_black);
+                        break;
+
+                }
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
     }
 
     private int getItem(int i) {
         return mActivityOnboardingBinding.viewPager.getCurrentItem() + i;
     }
 
-    private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(true);
 
-        mOnBoardingActivityViewModel.checkUpdate();
-    }
 
     /**
      * Making notification bar transparent
@@ -202,17 +299,7 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
             container.addView(view);
 
 
-            if (position==3) {
-                ButtonTextView textView = view.findViewById(R.id.btn_get_started);
-                textView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        launchHomeScreen();
-
-                    }
-                });
-            }
 
             return view;
         }

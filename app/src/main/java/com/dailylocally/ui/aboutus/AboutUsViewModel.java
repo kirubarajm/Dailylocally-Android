@@ -33,8 +33,6 @@ public class AboutUsViewModel extends BaseViewModel<AboutUsNavigator> {
         faqsItemViewModels.addAll(menuProductsItems);
     }
 
-
-
     public MutableLiveData<List<AboutUsResponse.Result>> getFaqs() {
         return faqsItemsLiveData;
     }
@@ -43,13 +41,8 @@ public class AboutUsViewModel extends BaseViewModel<AboutUsNavigator> {
         getNavigator().backClick();
     }
 
-
-
-
-
     public void fetchRepos() {
         if(!DailylocallyApp.getInstance().onCheckNetWork()) return;
-
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_ABOUTUSS, AboutUsResponse.class,null, new Response.Listener<AboutUsResponse>() {
             @Override
@@ -58,7 +51,6 @@ public class AboutUsViewModel extends BaseViewModel<AboutUsNavigator> {
                     faqsItemsLiveData.setValue(response.getResult());
                     Log.e("", response.getMessage());
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override

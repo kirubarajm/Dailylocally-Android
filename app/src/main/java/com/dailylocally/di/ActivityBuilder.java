@@ -27,6 +27,8 @@ import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.address.addAddress.AddressNewModule;
 import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
 import com.dailylocally.ui.address.saveAddress.SaveAddressModule;
+import com.dailylocally.ui.address.type.CommunitySearchActivity;
+import com.dailylocally.ui.address.type.CommunitySearchModule;
 import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.address.viewAddress.ViewAddressModule;
 import com.dailylocally.ui.calendarView.CalendarActivity;
@@ -139,6 +141,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {SubscriptionModule.class/*, OrderCanceledProvider.class*/})
     abstract SubscriptionActivity bindSubscriptionActivity();
+
+
+@ContributesAndroidInjector(modules = {CommunitySearchModule.class/*, OrderCanceledProvider.class*/})
+    abstract CommunitySearchActivity bindCommunitySearchActivity();
 
 
 @ContributesAndroidInjector(modules = {OrderPlacedModule.class/*, OrderCanceledProvider.class*/})

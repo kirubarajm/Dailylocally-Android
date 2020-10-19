@@ -3,6 +3,7 @@ package com.dailylocally.ui.search;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -12,19 +13,14 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentSearchBinding;
 import com.dailylocally.ui.base.BaseFragment;
-import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
-import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
-import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
 public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchViewModel> implements
-        SearchNavigator, SearchSuggestionAdapter.LiveProductsAdapterListener,SearchProductListAdapter.ProductsAdapterListener,
-        SearchSubCategoryAdapter.LiveProductsAdapterListener{
+        SearchNavigator, SearchSuggestionAdapter.LiveProductsAdapterListener, SearchProductListAdapter.ProductsAdapterListener,
+        SearchSubCategoryAdapter.LiveProductsAdapterListener {
 
     @Inject
     SearchViewModel mSearchViewModel;
@@ -73,12 +69,14 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     public void quickSearchSuccess() {
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+        mFragmentSearchBinding.searchNotFound.setVisibility(View.GONE);
     }
 
     @Override
     public void searchNotFound() {
-            mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
-            mFragmentSearchBinding.searchNotFound.setVisibility(View.VISIBLE);
+        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+        mFragmentSearchBinding.searchNotFound.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -137,36 +135,37 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
             @Override
             public boolean onQueryTextSubmit(String s) {
                 try {
-                if (s.length()>1){
-                    mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
-                    mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
-                    mFragmentSearchBinding.before.setVisibility(View.GONE);
-                    mSearchViewModel.quickSearch(s);
-                }else {
-                    mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
-                    mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
-                    mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
-                }
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return true;
-            }
-            @Override
-            public boolean onQueryTextChange(String s) {
-                try {
-                    if (s.length()>1){
+                    if (s.length() > 1) {
                         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
                         mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
                         mFragmentSearchBinding.before.setVisibility(View.GONE);
                         mSearchViewModel.quickSearch(s);
-                    }else {
+                    } else {
+                        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+                        mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                try {
+                    if (s.length() > 1) {
+                        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+                        mFragmentSearchBinding.before.setVisibility(View.GONE);
+                        mSearchViewModel.quickSearch(s);
+                    } else {
                         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
                         mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
                         mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
                         mFragmentSearchBinding.searchNotFound.setVisibility(View.GONE);
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return true;
@@ -195,10 +194,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     public void onSuggestionItemClickData(QuickSearchResponse.Result.ProductsList result) {
         try {
             Intent intent = ProductDetailsActivity.newIntent(getContext());
-            intent.putExtra("vpid",String.valueOf(result.getVpid()));
+            intent.putExtra("vpid", String.valueOf(result.getVpid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -211,7 +210,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onProductItemClick(SearchProductResponse.Result products) {
         Intent intent = CategoryL2Activity.newIntent(getContext());
-        intent.putExtra("scl1id",String.valueOf(products.getScl1Id()));
+        intent.putExtra("scl1id", String.valueOf(products.getScl1Id()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -219,7 +218,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onSuggestionItemClickData(QuickSearchResponse.Result.SubcategoryList result) {
         Intent intent = CategoryL2Activity.newIntent(getContext());
-        intent.putExtra("scl1id",String.valueOf(result.getScl1Id()));
+        intent.putExtra("scl1id", String.valueOf(result.getScl1Id()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

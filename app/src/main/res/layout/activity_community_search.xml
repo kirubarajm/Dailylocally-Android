@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="communitySearchViewModel"
+            type="com.dailylocally.ui.address.type.CommunitySearchViewModel" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            app:cardElevation="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:onClick="@{()->communitySearchViewModel.goBack()}"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                </RelativeLayout>
+
+                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                    style="@style/HeaderTitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:text="Search Apartment" />
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_community"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:focusable="false"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search for your community or apartment" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/search_community"
+            android:paddingBottom="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_community"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/header"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    app:adapter="@{communitySearchViewModel.communityItemViewModels}"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/list_item_community" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="70dp"
+                    android:orientation="vertical"
+                    android:visibility="@{communitySearchViewModel.newUser?View.VISIBLE:View.GONE}">
+
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        android:id="@+id/txt_1"
+                        style="@style/SubtTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Couldn't find your apartment?"
+                        android:textAlignment="center" />
+
+
+                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:onClick="@{()->communitySearchViewModel.addManualy()}"
+                        android:text="Add Manually"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_22px" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical"
+                    android:visibility="@{communitySearchViewModel.newUser?View.GONE:View.VISIBLE}">
+
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        style="@style/SubtTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Couldn't find your apartment?" />
+
+
+                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        style="@style/SubtTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Kindly bare with us, we are collaborating with your apartment to form a new DLE Community!" />
+
+
+                    <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/btn_back_black"
+                        android:onClick="@{()->communitySearchViewModel.goBack()}"
+                        android:paddingStart="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="10dp"
+                        android:text="Go to home"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/medium_black" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </RelativeLayout>
+
+</layout>

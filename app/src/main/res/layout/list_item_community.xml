@@ -12,88 +12,132 @@
 
     </data>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:onClick="@{()->communityItemViewModel.onItemClick()}"
+        android:orientation="vertical">
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="220dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="10dp"
-            android:onClick="@{()->communityItemViewModel.onItemClick()}"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:cardUseCompatPadding="true">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="10dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:id="@+id/txt_1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingLeft="5dp"
-                android:paddingTop="10dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp">
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/exc"
+                android:layout_toEndOf="@+id/exc"
+                android:text="@{communityItemViewModel.communityName}"
+                android:textColor="@color/medium_black"
+                android:textSize="@dimen/_22px" />
 
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                    android:id="@+id/txt_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:text="@{communityItemViewModel.communityName}"
-                    android:textColor="@color/dl_green"
-                    android:textSize="@dimen/_22px" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/exc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:id="@+id/txt_2"
-                    android:textColor="@color/medium_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_1"
-                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="DL EXCLUSIVE"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10px" />
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_1"
+                android:orientation="horizontal">
+
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:id="@+id/txt_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
                     android:gravity="center"
                     android:text="@{communityItemViewModel.residencesCount}"
+                    android:textColor="@color/medium_black"
                     android:textSize="@dimen/_10px" />
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:text="|"
+                    android:textColor="@color/medium_black"
+                    android:textSize="@dimen/_15px" />
+
+                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:id="@+id/txt_3"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/medium_black"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_2"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@{communityItemViewModel.location}"
-                    android:textSize="@dimen/_10px" />
-
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_3"
                     android:textColor="@color/medium_black"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="@{communityItemViewModel.distance}"
-                    android:textSize="@dimen/_10px" />
+                    android:textSize="@dimen/_15px" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:text="@{communityItemViewModel.distance}"
+                android:textColor="@color/medium_black"
+                android:textSize="@dimen/_15px"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/medium_gray" />
+
+
+    </LinearLayout>
 </layout>

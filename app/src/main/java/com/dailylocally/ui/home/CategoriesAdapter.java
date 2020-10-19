@@ -56,6 +56,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<HomepageResponse.Result> blogList) {
+
+
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }

@@ -8,10 +8,22 @@ public class UpdateRequest {
     @SerializedName("eatversioncode")
     @Expose
     private Integer eatversioncode;
+  @SerializedName("userid")
+    @Expose
+    private String userid;
 
 
-    public UpdateRequest(Integer eatversioncode) {
+    public UpdateRequest(Integer eatversioncode,String userid) {
         this.eatversioncode = eatversioncode;
+        this.userid = userid;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public Integer getEatversioncode() {

@@ -25,6 +25,8 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySplashBinding;
 import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
+import com.dailylocally.ui.joinCommunity.CommunityActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.onboarding.OnBoardingActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
@@ -121,7 +123,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     }
 
     @Override
-    public void update(boolean updateStatus, boolean forceUpdateStatus) {
+    public void update(boolean updateStatus, boolean forceUpdateStatus,String addressCreated) {
         //  mSplashActivityViewModel.checkIsUserLoggedInOrNot();
         if (forceUpdateStatus) {
             Intent intent = UpdateActivity.newIntent(SplashActivity.this);
@@ -130,7 +132,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
-            mSplashViewModel.checkIsUserLoggedInOrNot();
+            mSplashViewModel.checkIsUserLoggedInOrNot(addressCreated);
         }
     }
 
@@ -146,10 +148,18 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void userAddressActivity() {
-        Intent intent = GoogleAddressActivity.newIntent(SplashActivity.this);
+
+        Intent inIntent = CommunityOnBoardingActivity.newIntent(SplashActivity.this);
+        inIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        inIntent.putExtra("newuser", true);
+        startActivity(inIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+
+       /* Intent intent = GoogleAddressActivity.newIntent(SplashActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
     }
 
     @Override

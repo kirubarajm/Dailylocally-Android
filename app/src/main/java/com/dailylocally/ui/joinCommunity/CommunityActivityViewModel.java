@@ -45,11 +45,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
     private MutableLiveData<List<CommunityResponse.Result>> communityItemsLiveData;
     public final ObservableField<String> cmId = new ObservableField<>();
 
-
-    public final ObservableBoolean register = new ObservableBoolean();
-    public final ObservableBoolean joinExpandView = new ObservableBoolean();
     public final ObservableBoolean joinTheCommunity = new ObservableBoolean();
-    public final ObservableBoolean completeRegistration = new ObservableBoolean();
 
 
 
@@ -63,24 +59,6 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         communityItemsLiveData = new MutableLiveData<>();
     }
 
-    public void checkUpdate() {
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(DailylocallyApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
-            @Override
-            public void onResponse(UpdateResponse response) {
-
-
-                //    Toast.makeText(MvvmApp.getInstance(),String.valueOf(MvvmApp.getInstance().getVersionCode()) , Toast.LENGTH_SHORT).show();
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }, AppConstants.API_VERSION_ONE);
-        DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
-    }
 
     public void goBack(){
         if (getNavigator()!=null){
@@ -88,17 +66,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         }
     }
 
-    public void onRegistrationClick(){
-        if (getNavigator()!=null){
-            getNavigator().registrationClick();
-        }
-    }
 
-    public void joinClick(){
-        if (getNavigator()!=null){
-            getNavigator().joinClick();
-        }
-    }
 
     public void joinCommunityUploadImageClick(){
         if (getNavigator()!=null){
@@ -112,17 +80,12 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         }
     }
 
-    public void closeRegClick(){
+ public void knowMore(){
         if (getNavigator()!=null){
-            getNavigator().close();
+            getNavigator().knowMore();
         }
     }
 
-    public void registerCommunityUploadImageClick(){
-        if (getNavigator()!=null){
-            getNavigator().uploadRegisterImageClick();
-        }
-    }
 
     public void joinTheCommunityClick(){
         if (getNavigator()!=null){
@@ -130,11 +93,7 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         }
     }
 
-    public void completeRegistrationClick(){
-        if (getNavigator()!=null){
-            getNavigator().completeRegistrationClick();
-        }
-    }
+
 
     public MutableLiveData<List<CommunityResponse.Result>> getCommunityListItemsLiveData() {
         return communityItemsLiveData;
@@ -151,104 +110,6 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
         }
     }
 
-    public void quickSearch(String search) {
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-        setIsLoading(true);
-        try {
-            SearchCommunityRequest communityRequest = new SearchCommunityRequest(search,getDataManager().getCurrentLat(),getDataManager().getCurrentLng());
-            Gson gson = new GsonBuilder().create();
-            String payloadStr = gson.toJson(communityRequest);
-            JsonObjectRequest jsonObjectRequest = null;
-            setIsLoading(true);
-            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_SEARCH, new JSONObject(payloadStr), new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    setIsLoading(false);
-                    try {
-                        if (response.getString("status").equals("true")) {
-                            Gson sGson = new GsonBuilder().create();
-                            CommunityResponse communityResponse1 = sGson.fromJson(response.toString(), CommunityResponse.class);
-                            communityItemsLiveData.setValue(communityResponse1.getResult());
-
-                            ///for marker
-                            getNavigator().mapLatLngArray(communityResponse1.getResult());
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    setIsLoading(false);
-                    if (getNavigator() != null) {
-                        //getNavigator().updateFailure("Failed to update");
-                    }
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                }
-            };
-            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void getCommunityList() {
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-        setIsLoading(true);
-        String userId = getDataManager().getCurrentUserId();
-        String lat = getDataManager().getCurrentLat();
-        String lng = getDataManager().getCurrentLng();
-        try {
-        CommunityRequest communityRequest = new CommunityRequest(userId,lat,lng);
-        Gson gson = new GsonBuilder().create();
-        String payloadStr = gson.toJson(communityRequest);
-                JsonObjectRequest jsonObjectRequest = null;
-        setIsLoading(true);
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_COMMUNITY_LIST, new JSONObject(payloadStr), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                setIsLoading(false);
-                try {
-                    if (response.getString("status").equals("true")) {
-                        Gson sGson = new GsonBuilder().create();
-                        CommunityResponse communityResponse1 = sGson.fromJson(response.toString(), CommunityResponse.class);
-                        communityItemsLiveData.setValue(communityResponse1.getResult());
-
-                        ///for marker
-                        getNavigator().mapLatLngArray(communityResponse1.getResult());
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                if (getNavigator() != null) {
-                    //getNavigator().updateFailure("Failed to update");
-                }
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-            }
-        };
-        DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     public void joinTheCommunityAPI(String profileImage,String houseFlatNo,String floorNo,boolean changeAddress) {
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -324,9 +185,6 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    if (getNavigator() != null) {
-                        getNavigator().whatAppScreenFailure("Error");
-                    }
                 }
             }) {
                 @Override
@@ -343,64 +201,6 @@ public class CommunityActivityViewModel extends BaseViewModel<CommunityActivityN
 
     }
 
-    public void completeRegistrationAPI(String communityName,String lat,String lon,String apartmentName,String profileImage,String noOfApartments,String flatNo,
-                                        String floorNo,String communityAddress,String area,boolean changeAddress) {
-        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
-        setIsLoading(true);
-        String userId = getDataManager().getCurrentUserId();
-        try {
-            CompleteRegistrationRequest communityRequest = new CompleteRegistrationRequest(communityName,lat,lon,apartmentName,imageUrl.get(),userId,noOfApartments,flatNo,
-                    floorNo,communityAddress,area,changeAddress);
-            Gson gson = new GsonBuilder().create();
-            String payloadStr = gson.toJson(communityRequest);
-            JsonObjectRequest jsonObjectRequest = null;
-            setIsLoading(true);
-            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_COMPLETE_REGISTRATION, new JSONObject(payloadStr), new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    setIsLoading(false);
-                        try {
-                            if (response.getString("status").equals("true")) {
-                                if (getNavigator()!=null){
-                                    getNavigator().whatAppScreenSuccess(response.getString("message"));
-                                }
-                            }else {
-                                if (response.getString("show_alert").equals("true")) {
-                                    if (response.getString("order_available").equals("true")) {
-                                        if (getNavigator() != null)
-                                            getNavigator().showAlert(response.getString("alert_title"), response.getString("alert_message"), "", "", "", "", "");
-                                    }else {
-                                        if (getNavigator() != null)
-                                            getNavigator().showAlert(response.getString("alert_title"), response.getString("alert_message"));
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    setIsLoading(false);
-                    if (getNavigator() != null) {
-                        //getNavigator().updateFailure("Failed to update");
-                    }
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
-                }
-            };
-            DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
     public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

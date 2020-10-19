@@ -37,7 +37,6 @@
 
 
                 <LinearLayout
-                    android:visibility="@{viewModel.isCommunityUser?View.VISIBLE:View.GONE}"
                     android:id="@+id/community"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -61,7 +60,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="@{viewModel.isCommunityUser?View.VISIBLE:View.GONE}"
                     android:id="@+id/communitycat"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -85,29 +83,7 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:visibility="@{viewModel.isCommunityUser?View.GONE:View.VISIBLE}"
-                    android:id="@+id/home"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:onClick="@{()->viewModel.gotoHome()}"
-                    android:orientation="vertical">
 
-                    <ImageView
-                        imageTint="@{viewModel.isHome}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:gravity="center"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_dl" />
-
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/cart"

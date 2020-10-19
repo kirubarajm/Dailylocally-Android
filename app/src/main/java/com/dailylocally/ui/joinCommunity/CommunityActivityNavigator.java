@@ -8,7 +8,6 @@ public interface CommunityActivityNavigator {
 
     void goBack();
 
-    void registrationClick();
 
     void joinClick();
 
@@ -16,13 +15,9 @@ public interface CommunityActivityNavigator {
 
     void close();
 
-    void closeReg();
-
-    void uploadRegisterImageClick();
 
     void joinTheCommunityClick();
 
-    void completeRegistrationClick();
 
     void uploading();
 
@@ -32,12 +27,7 @@ public interface CommunityActivityNavigator {
 
     void uploaded1(String imageUrl);
 
-    void whatAppScreenSuccess(String message);
     void communityJoined(String message);
-
-    void whatAppScreenFailure(String message);
-
-    void mapLatLngArray(List<CommunityResponse.Result> results);
 
     void showAlert(String title,String message,String locationAddress,String area,String lat,
                    String lng,String pinCode);
@@ -45,4 +35,5 @@ public interface CommunityActivityNavigator {
     void showAlert(String title,String message);
 
 
+    void knowMore();
 }
