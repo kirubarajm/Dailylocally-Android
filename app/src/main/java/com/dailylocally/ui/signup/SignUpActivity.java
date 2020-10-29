@@ -46,11 +46,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     @Inject
     SignUpActivityViewModel mLoginViewModelMain;
 
-
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_LOGIN;
-
-
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -60,11 +55,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
                 Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -90,9 +80,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
                     String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
                     mLoginViewModelMain.users(strPhoneNumber);
 
-                    new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.CLICK_VERIFY);
-                    new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.CLICK_ACCEPT_CHECK_BOX);
-
                     continueClicked = true;
                 } else {
 
@@ -105,8 +92,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void faqs() {
-        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_FAQS_AND_SUPPORT);
-
         Intent intent = FeedbackSupportActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -114,7 +99,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void privacy() {
-        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_PRIVACY_POLICY);
         Intent intent = PrivacyActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -123,8 +107,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void termsandconditions() {
-        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_TERMS_CONDITION);
-
         Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this);
         startActivityForResult(intent, AppConstants.TERMS_AND_CONDITION_REQUEST_CODE);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -194,9 +176,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         FirebaseAnalytics.getInstance(this);
         requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
-
-
-        analytics=new Analytics(this,pageName);
         mActivitySignupBinding.edtPhoneNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -224,8 +203,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.CLICK_BACK_BUTTON);
-
         super.onBackPressed();
     }
 

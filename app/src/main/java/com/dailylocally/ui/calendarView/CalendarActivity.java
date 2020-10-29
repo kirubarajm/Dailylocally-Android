@@ -104,7 +104,6 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
-
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -143,16 +142,12 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void success(List<CalendarMonthResponse.Result> resultsList) {
         this.results = resultsList;
-
-
         for (int i = 0; i < resultsList.size(); i++) {
             setCalTextColor(resultsList.get(i).getDate());
         }
-
     }
 
     public void setCalTextColor(String date) {
-        //   java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd");
         java.text.DateFormat dateFormat22 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
             Date dd = dateFormat22.parse(date);
@@ -176,7 +171,6 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void failure(String message) {
         stopLoader();
-        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -279,18 +273,11 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
             @Override
             public void onChangeMonth(int month, int year) {
-                //String text = "month: " + month + " year: " + year;
-                //Toast.makeText(getContext(), text,
-                //Toast.LENGTH_SHORT).show();
-
                 mCalendarViewModel.getMonthWiseOrderDate(String.valueOf(month), String.valueOf(year));
             }
 
             @Override
             public void onLongClickDate(Date date, View view) {
-                //Toast.makeText(getContext(),
-                //"Long click " + formatter.format(date),
-                //Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -397,28 +384,6 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         selectedDatetemp = selectedDate;
 
         Date currentDate = Calendar.getInstance().getTime();////current date
-        // Date currentDate = null;
-        // Date selectedDate = null;
-
-        /*
-        try {
-            if (selectedDates != null) {
-                java.text.DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                java.text.DateFormat dateFormatFinal = new SimpleDateFormat("yyyy-MM-dd");
-                String outputDateStr = dateFormat.format(selectedDates);
-                String strcurrentDate = dateFormat.format(currentDates);
-
-                currentDate = dateFormatFinal.parse(strcurrentDate);
-                selectedDate = dateFormatFinal.parse(outputDateStr);
-                Log.e("sdf",outputDateStr);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
-
         if (selectedDate.equals(currentDate)) {
             Log.e("Cal", "" + selectedDate);
             Log.e("Cal", "" + currentDate);

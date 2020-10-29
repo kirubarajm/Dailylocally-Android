@@ -42,8 +42,6 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
 
     @Inject
     CommunityOnBoardingActivityViewModel mOnBoardingActivityViewModel;
-    Analytics analytics;
-    String pageName = "Onboarding";
 
     Boolean newUser = false;
 
@@ -134,8 +132,6 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
         mOnBoardingActivityViewModel.setNavigator(this);
 
         prefManager = new PrefManager(this);
-
-        analytics = new Analytics(this, pageName);
 
         if (getIntent().getExtras() != null)
             newUser = getIntent().getExtras().getBoolean("newuser", false);

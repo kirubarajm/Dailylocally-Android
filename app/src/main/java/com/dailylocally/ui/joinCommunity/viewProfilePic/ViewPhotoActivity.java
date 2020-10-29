@@ -27,8 +27,6 @@ public class ViewPhotoActivity extends BaseActivity<ActivityViewPhotoBinding, Vi
 
     @Inject
     ViewPhotoViewModel mOnBoardingActivityViewModel;
-    Analytics analytics;
-    String pageName = "contact WhatsApp";
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

@@ -190,8 +190,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void notServicable() {
 
-       /* if (!dialog.isShowing())
-            showDialog();*/
     }
 
 
@@ -371,64 +369,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         intent.putExtra("date", (product.getStarting_date()));
         startActivityForResult(intent, AppConstants.DATE_REQUESTCODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-       /* String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-        SimpleDateFormat sDay = new SimpleDateFormat("dd", Locale.getDefault());
-        SimpleDateFormat sMonth = new SimpleDateFormat("MM", Locale.getDefault());
-        SimpleDateFormat sYear = new SimpleDateFormat("yyyy", Locale.getDefault());
-
-
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-
-      *//*  Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-
-        String tomorrowDate =dateFormat.format(tomorrow);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date dat = calendar.getTime();
-
-        String dayAftertomorrowDate =dateFormat.format(dat);*//*
-
-        int year = 0;
-        int month = 0;
-        int day = 0;
-
-
-        Calendar calendarT = Calendar.getInstance();
-        calendarT.add(Calendar.DAY_OF_YEAR, 1);
-        Date selectableDate = calendarT.getTime();
-
-        if (Integer.parseInt(currentTime) < 14) {
-            year = calendarT.get(Calendar.YEAR);
-            month = calendarT.get(Calendar.MONTH);
-            day = calendarT.get(Calendar.DAY_OF_MONTH);
-        } else {
-
-            calendarT.add(Calendar.DAY_OF_YEAR, 1);
-            selectableDate = calendarT.getTime();
-
-            year = calendarT.get(Calendar.YEAR);
-            month = calendarT.get(Calendar.MONTH);
-            day = calendarT.get(Calendar.DAY_OF_MONTH);
-        }
-        final String[] date = new String[1];
-        DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                date[0] = dayOfMonth + "-" + month + "-" + year;
-              mCartViewModel.productDateChange(date[0],product);
-
-            }
-        }, year, month, day);
-        dialog.getDatePicker().setMinDate(selectableDate.getTime());
-        dialog.show();*/
 
         return "";
     }

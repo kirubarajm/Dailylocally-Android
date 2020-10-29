@@ -36,8 +36,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Inject
     SplashViewModel mSplashViewModel;
-    Analytics analytics;
-    String pageName = "Splash screen";
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -48,11 +46,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -76,8 +69,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
-           /* SharedPreferences settings = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
-            settings.edit().clear().apply();*/
             Intent intent = SignUpActivity.newIntent(SplashActivity.this);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -87,7 +78,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void update(boolean updateStatus, boolean forceUpdateStatus, String addressCreated) {
-        //  mSplashActivityViewModel.checkIsUserLoggedInOrNot();
         if (forceUpdateStatus) {
             Intent intent = UpdateActivity.newIntent(SplashActivity.this);
             intent.putExtra("forceUpdate", forceUpdateStatus);
@@ -119,11 +109,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-
-       /* Intent intent = GoogleAddressActivity.newIntent(SplashActivity.this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
     }
 
     @Override
@@ -149,77 +134,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
         prefManager = new PrefManager(this);
 
-
-        //mSplashViewModel.getDataManager().setUserAddress(true);
-
-        /*final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(SplashActivity.this).build();
-        referrerClient.startConnection(new InstallReferrerStateListener() {
-
-            @Override
-            public void onInstallReferrerSetupFinished(int responseCode) {
-                switch (responseCode) {
-                    case InstallReferrerClient.InstallReferrerResponse.OK:
-
-                        try {
-                            ReferrerDetails response = referrerClient.getInstallReferrer();
-                            String installReferrer = response.getInstallReferrer();
-
-                          *//*  long referrerClickTime = response.getReferrerClickTimestampSeconds();
-                            long appInstallTime = response.getInstallBeginTimestampSeconds();
-                            boolean instantExperienceLaunched = response.getGooglePlayInstantParam();
-                            Log.e("Referrer",installReferrer);
-                            Log.e("Referrer", String.valueOf(response.getGooglePlayInstantParam()));*//*
-
-                            HashMap<String, String> values = new HashMap<>();
-
-                                try {
-                                    if (installReferrer != null) {
-                                        String referrers[] = installReferrer.split("&");
-
-                                        for (String referrerValue : referrers) {
-                                            String keyValue[] = referrerValue.split("=");
-                                            values.put(URLDecoder.decode(keyValue[0], "UTF-8"), URLDecoder.decode(keyValue[1], "UTF-8"));
-                                        }
-
-                                        Log.e("TAG", "UTM medium:" + values.get("utm_medium"));
-                                        Log.e("TAG", "UTM term:" + values.get("utm_term"));
-
-
-                                        Toast.makeText(SplashActivity.this, values.get("utm_term"), Toast.LENGTH_SHORT).show();
-
-
-                                    }
-                                } catch (Exception e) {
-
-                                }
-                            // handle referrer string
-
-                        } catch (RemoteException  e) {
-                            e.printStackTrace();
-                        }
-                        break;
-
-                    case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
-                        // API not available on the current Play Store app
-                        Log.e("Referrer","Not supported");
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
-                        // Connection could not be established
-                        Log.e("Referrer","unavailable");
-                        break;
-                }
-            }
-
-            @Override
-            public void onInstallReferrerServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-                Log.e("Referrer","disconnected");
-            }
-        });*/
-
-
-        analytics = new Analytics(this, pageName);
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
@@ -228,26 +142,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
-
-
-      /*  mSplashActivityViewModel.getDataManager().saveApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjkwOTQ5MzkzNDciLCJpYXQiOjE1NjYyMTEyNDZ9.jOg5m2fkw6U6dGyhKpNWn594N34deElh5kqKemXe_x8");
-
-
-        mSplashActivityViewModel. getDataManager().updateEmailStatus(true);
-
-
-
-            mSplashActivityViewModel.getDataManager().saveRegionId(0);
-
-
-
-        mSplashActivityViewModel.getDataManager().updateUserInformation(127, null, null, null, null);
-
-        Intent intent = MainActivity.newIntent(SplashActivity.this);
-        startActivity(intent);
-        finish();*/
-
 
     }
 

@@ -28,11 +28,6 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
     AdViewModel mAdViewModel;
     ActivityPrivacyBinding mActivityPrivacyBinding;
 
-
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_PRIVACY_POLICY;
-
-
     public static Intent newIntent(Context context) {
         return new Intent(context, AdActivity.class);
     }
@@ -82,16 +77,10 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
         mAdViewModel.setNavigator(this);
 
         mActivityPrivacyBinding.webview.getSettings().setJavaScriptEnabled(true);
-
-
-
-
-        analytics=new Analytics(this,pageName);
     }
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_PRIVACY_POLICY, AppConstants.CLICK_BACK_BUTTON);
        super.onBackPressed();
     }
 
@@ -149,11 +138,6 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
                 Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };

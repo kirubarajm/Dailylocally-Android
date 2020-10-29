@@ -29,11 +29,6 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     PrivacyViewModel mPrivacyViewModel;
     ActivityPrivacyBinding mActivityPrivacyBinding;
 
-
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_PRIVACY_POLICY;
-
-
     public static Intent newIntent(Context context) {
         return new Intent(context, PrivacyActivity.class);
     }
@@ -84,15 +79,11 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
 
         mActivityPrivacyBinding.webview.getSettings().setJavaScriptEnabled(true);
 
-
-
-
-        analytics=new Analytics(this,pageName);
     }
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_PRIVACY_POLICY, AppConstants.CLICK_BACK_BUTTON);
+
        super.onBackPressed();
     }
 
@@ -149,13 +140,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
             } else {
                 Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
+                startActivity(inIntent); }
         }
     };
     private  void unregisterWifiReceiver() {

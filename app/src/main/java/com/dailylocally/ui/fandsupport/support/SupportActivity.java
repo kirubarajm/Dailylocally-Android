@@ -29,8 +29,6 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
     @Inject
     public SupportViewModel mAddAddressViewModel;
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -129,11 +127,6 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
         super.onCreate(savedInstanceState);
         mActivitySupportBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
-
-        analytics = new Analytics(this, pageName);
-
-
-
     }
 
     @Override

@@ -33,11 +33,6 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     FaqsAndSupportViewModel mFaqsAndSupportViewModel;
     ActivityFaqsSupportBinding mActivityFaqsSupportBinding;
 
-
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_FAQS_AND_SUPPORT;
-
-
     public static Intent newIntent(Context context) {
 
         return new Intent(context, FaqsAndSupportActivity.class);
@@ -50,8 +45,6 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
     @Override
     public void feedBackClick() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_FAQ);
-
         Intent intent = FaqActivity.newIntent(this);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -59,30 +52,6 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
     @Override
     public void supportClick() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_SUPPORT);
-
-        /*Intent intent = SupportActivity.newIntent(this);
-        startActivity(intent);*/
-
-       /* ZopimChat.init(getString(R.string.zopim_account_id));
-        final VisitorInfo.Builder build = new VisitorInfo.Builder();
-        ZopimChat.setVisitorInfo(build.build());
-
-// build pre chat form config
-        PreChatForm preChatForm = new PreChatForm.Builder()
-                .name(PreChatForm.Field.REQUIRED)
-                .email(PreChatForm.Field.NOT_REQUIRED)
-                .phoneNumber(PreChatForm.Field.REQUIRED)
-                .department(PreChatForm.Field.REQUIRED)
-                .message(PreChatForm.Field.NOT_REQUIRED)
-                .build();
-// build session config
-        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
-                .preChatForm(preChatForm)
-                .department("EAT")
-                .tags("New user" );
-// start chat activity with config
-        ZopimChatActivity.startActivity(this, config);*/
 
     }
 
@@ -93,17 +62,12 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_BACK_BUTTON);
 
         super.onBackPressed();
     }
 
     @Override
     public void callCusstomerCare() {
-
-
-            new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_CALL_SUPPORT);
-
 
        // String number = AppConstants.SUPPORT_NUMBER;
         String number = mFaqsAndSupportViewModel.support.get();
@@ -138,9 +102,6 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
         super.onCreate(savedInstanceState);
         mFaqsAndSupportViewModel.setNavigator(this);
         mActivityFaqsSupportBinding = getViewDataBinding();
-
-
-        analytics=new Analytics(this, pageName);
 
     }
 
@@ -196,11 +157,6 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
                 Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };

@@ -31,11 +31,6 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     private ActivityUpdateBinding mActivityUpdateBinding;
     private PrefManager prefManager;
 
-
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_FORCE_UPDATE;
-
-
     public static Intent newIntent(Context context) {
         return new Intent(context, UpdateActivity.class);
     }
@@ -71,9 +66,6 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     @Override
     public void update() {
 
-        new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_UPDATE);
-
-
         final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
@@ -87,9 +79,7 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
-
     }
 
     @Override
@@ -120,9 +110,6 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
 
         }
 
-
-
-        analytics=new Analytics(this,pageName);
     }
 
     @Override

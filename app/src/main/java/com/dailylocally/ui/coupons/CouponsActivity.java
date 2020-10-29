@@ -30,8 +30,6 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
     CouponsViewModel mCouponsViewModel;
     @Inject
     CouponsAdapter mCouponsAdapter;
-    Analytics analytics;
-    String pageName = "Coupons";
     String pageId;
     private ActivityCouponsBinding mActivityCouponsBinding;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -142,8 +140,6 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
         mActivityCouponsBinding = getViewDataBinding();
         mCouponsViewModel.setNavigator(this);
         mCouponsAdapter.setListener(this);
-        analytics = new Analytics(this, pageName);
-
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

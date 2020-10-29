@@ -50,8 +50,6 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
     @Inject
     public ViewAddressViewModel mAddAddressViewModel;
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
     SupportMapFragment mapFragment;
     GoogleMap map;
     Double lat, lon;
@@ -161,12 +159,8 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
                         glLayoutParams.setMargins(10, 0, 0, 100);
                         googleLogo.setLayoutParams(glLayoutParams);
 
-
-                        //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                         map = googleMap;
                         map.clear();
-                        // map.getUiSettings().setZoomControlsEnabled(true);
-                        //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                         map.addMarker(markerOptions);
 
@@ -196,9 +190,6 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
         super.onCreate(savedInstanceState);
         mActivityViewAddressBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
-
-        analytics = new Analytics(this, pageName);
-
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragmentViewAddress);
     }

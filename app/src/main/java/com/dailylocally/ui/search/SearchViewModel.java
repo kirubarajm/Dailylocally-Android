@@ -127,30 +127,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                                         getNavigator().searchNotFound();
                                     }
                                 }
-
-
-
-                                /*if (response.getResult() != null && response.getResult().getProductsList().size() > 0 &&
-                                        response.getResult().getSubcategoryList().size() > 0) {
-                                    searchItemsLiveData.setValue(response.getResult().getProductsList());
-                                    searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
-                                    if (getNavigator() != null) {
-                                        getNavigator().quickSearchSuccess();
-                                    }
-                                } else {
-                                    searchItemsLiveData.setValue(response.getResult().getProductsList());
-                                    searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
-                                    if (getNavigator() != null) {
-                                        getNavigator().searchNotFound();
-                                    }
-                                }*/
-                            } /*else {
-                                searchItemsLiveData.setValue(response.getResult().getProductsList());
-                                searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
-                                if (getNavigator() != null) {
-                                    getNavigator().searchNotFound();
-                                }
-                            }*/
+                            }
                             setIsLoading(false);
                         }
                     }, new Response.ErrorListener() {

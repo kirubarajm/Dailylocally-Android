@@ -86,7 +86,6 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                 if (getNavigator() != null)
                                     getNavigator().showToast(response.getMessage(),response.getStatus());
 
-                                /*if (response.getAid() != null) {*/
                                     getDataManager().updateCurrentAddress("", completeAddress, lat, lon,
                                             city, String.valueOf(response.getAid()));
                                     getDataManager().setCurrentLat(lat);
@@ -105,12 +104,6 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                                     String cAddress="No."+plotHouseNo+", Floor-"+floor+", "+completeAddress;
                                     getDataManager().setCurrentAddress(cAddress);
                                 }
-
-
-
-
-
-                                /*}*/
                             }else {
                                 if (getNavigator()!=null){
                                     getNavigator().saveAddressFailed(response.getMessage());

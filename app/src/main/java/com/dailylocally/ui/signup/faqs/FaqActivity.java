@@ -42,10 +42,6 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     FaqsAdapter mFaqsAdapter;
     private ActivityFaqsBinding mActivityFaqsBinding;
 
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_FAQS;
-
-
     public static Intent newIntent(Context context) {
         return new Intent(context, FaqActivity.class);
     }
@@ -77,7 +73,6 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -88,7 +83,6 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
         mActivityFaqsBinding = getViewDataBinding();
 
 
-              analytics=new Analytics(this, pageName);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityFaqsBinding.recyclerFaqs.setLayoutManager(mLayoutManager);
@@ -165,11 +159,6 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
                 Intent inIntent= InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };

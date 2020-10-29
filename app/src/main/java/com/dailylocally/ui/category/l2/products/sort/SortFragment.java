@@ -33,8 +33,6 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
     @Inject
     LinearLayoutManager mLayoutManager;
     FilterListener filterListener;
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_KITCHEN_FILTER;
 
     String scl2id;
 
@@ -77,10 +75,6 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSortViewModel.setNavigator(this);
-        //   adapter.setListener(this);
-        analytics = new Analytics(getActivity(), pageName);
-
-
     }
 
     @Override
@@ -123,8 +117,6 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
 
     @Override
     public void clearFilters() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_CLEAR);
-        //startFilter.applyFilter();
         filterListener.FilterRefresh(mSortViewModel.scl2id);
         dismiss();
 
@@ -132,7 +124,6 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
 
     @Override
     public void applyFilter() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
         filterListener.FilterRefresh(mSortViewModel.scl2id);
         dismiss();
     }

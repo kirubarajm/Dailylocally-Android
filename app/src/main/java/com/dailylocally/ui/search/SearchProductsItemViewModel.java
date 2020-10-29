@@ -38,19 +38,6 @@ public class SearchProductsItemViewModel {
         this.mListener = mListener;
         this.products = result;
         name.set(result.getProductname());
-        //weight.set(result.getWeight());
-        //price.set("INR " + result.getMrp());
-        //image.set(result.getImage());
-        //serviceable.set(result.getServicableStatus());
-
-       //if ( products.getSubscription()==1){
-           //subscribeAvailable.set(true);
-       //}else {
-           //subscribeAvailable.set(false);
-       //}
-
-        /*  serviceable.set(true);
-        subscribeAvailable.set(true);*/
 
         subscribeText.set("Subscribe");
 
@@ -100,8 +87,6 @@ public class SearchProductsItemViewModel {
     }
 
     public void onItemClick() {
-        // if (coupon.isClickable())
-        //     mListener.onItemClick(result);
         mListener.onProductItemClick(products);
     }
 
@@ -114,38 +99,14 @@ public class SearchProductsItemViewModel {
 
         getCart();
 
-       /* String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-
-        String tomorrowDate =dateFormat.format(tomorrow);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date dat = calendar.getTime();
-
-        String dayAftertomorrowDate =dateFormat.format(dat);*/
-
-
         if (cartRequestPojo.getOrderitems() != null) {
             int totalSize = cartRequestPojo.getOrderitems().size();
             if (totalSize != 0) {
                 for (int i = 0; i < totalSize; i++) {
                     if (products.getPid().equals(results.get(i).getPid())) {
 
-                        /*if (Integer.parseInt(currentTime)<14){
-                            cartRequestPojoResult.setDayorderdate(tomorrowDate);
-                        }else {
-                            cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
-                        }*/
-
                         cartRequestPojoResult.setPid(String.valueOf(products.getPid()));
                         cartRequestPojoResult.setQuantity(quantity);
-                        //cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                         results.set(i, cartRequestPojoResult);
                     }
                 }
@@ -160,24 +121,6 @@ public class SearchProductsItemViewModel {
     }
 
     public void subClicked() {
-
-
-        /*String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-
-        String tomorrowDate =dateFormat.format(tomorrow);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date dat = calendar.getTime();
-
-        String dayAftertomorrowDate =dateFormat.format(dat);*/
-
 
         quantity--;
 
@@ -194,16 +137,8 @@ public class SearchProductsItemViewModel {
                             break;
                         } else {
 
-                            /*if (Integer.parseInt(currentTime)<14){
-                                cartRequestPojoResult.setDayorderdate(tomorrowDate);
-                            }else {
-                                cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
-                            }*/
-
-
                             cartRequestPojoResult.setPid(String.valueOf(products.getPid()));
                             cartRequestPojoResult.setQuantity(quantity);
-                            //cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
                             results.set(i, cartRequestPojoResult);
 
                         }
@@ -238,22 +173,6 @@ public class SearchProductsItemViewModel {
     }
 
     public void enableAdd() {
-       /* String currentTime = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-
-        String tomorrowDate =dateFormat.format(tomorrow);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date dat = calendar.getTime();
-
-        String dayAftertomorrowDate =dateFormat.format(dat);*/
-
 
         isAddClicked.set(true);
         quantity = 1;
@@ -261,17 +180,8 @@ public class SearchProductsItemViewModel {
 
         getCart();
 
-
-       /* if (Integer.parseInt(currentTime)<14){
-            cartRequestPojoResult.setDayorderdate(tomorrowDate);
-        }else {
-            cartRequestPojoResult.setDayorderdate(dayAftertomorrowDate);
-        }*/
-
-
         cartRequestPojoResult.setPid(String.valueOf(products.getPid()));
         cartRequestPojoResult.setQuantity(quantity);
-        //cartRequestPojoResult.setPrice(String.valueOf(products.getMrp()));
         results.add(cartRequestPojoResult);
 
         cartRequestPojo.setOrderitems(results);

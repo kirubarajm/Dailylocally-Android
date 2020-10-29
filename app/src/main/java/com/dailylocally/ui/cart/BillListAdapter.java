@@ -94,46 +94,6 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 mListItemLiveProductsBinding.name.setTextColor(DailylocallyApp.getInstance().getResources().getColor(R.color.dark_gray));
             }
 
-/*
-            ToolTip toolTip = new ToolTip()
-                    .withContentView(LayoutInflater.from(MvvmApp.getInstance()).inflate(R.layout.tool_tip_address, null))
-                    // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
-                    .withColor(MvvmApp.getInstance().getResources().getColor(R.color.tracking_back))
-                    .withShadow()
-                    .withTextColor(Color.BLACK)
-                    .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW);
-            ToolTipView myToolTipView = mListItemLiveProductsBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mListItemLiveProductsBinding.info);
-
-            TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
-
-      //      String aTitle = mHomeTabViewModel.getDataManager().getCurrentAddressArea() == null ? "your location" : mHomeTabViewModel.getDataManager().getCurrentAddressArea();
-
-
-            String sTitle = "Now showing kitchens around \nClick to change location!";
-
-            title.setText(sTitle);*/
-
-          /*  myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
-                @Override
-                public void onToolTipViewClicked(ToolTipView toolTipView) {
-
-                    // selectAddress();
-                }
-            });
-
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (myToolTipView != null) {
-
-                        myToolTipView.remove();
-                        myToolTipView = null;
-                        mHomeTabViewModel.getDataManager().appStartedAgain(false);
-                    }
-                }
-            }, 10000);*/
-
         }
 
         @Override

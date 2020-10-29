@@ -32,9 +32,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     @Inject
     LinearLayoutManager mLayoutManager;
     FilterListener filterListener;
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_KITCHEN_FILTER;
-
     String scl2id;
     String page;
 
@@ -77,8 +74,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFilterViewModel.setNavigator(this);
-        //   adapter.setListener(this);
-        analytics = new Analytics(getActivity(), pageName);
 
 
     }
@@ -129,8 +124,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     @Override
     public void clearFilters() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_CLEAR);
-        //startFilter.applyFilter();
         filterListener.FilterRefresh( mFilterViewModel.scl2id);
         dismiss();
 
@@ -138,7 +131,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     @Override
     public void applyFilter() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
         if (page.equals(AppConstants.NOTIFY_CATEGORY_L2_ACTV)) {
             filterListener.FilterRefresh(mFilterViewModel.scl2id);
         }else {

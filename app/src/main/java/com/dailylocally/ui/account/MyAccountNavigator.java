@@ -1,8 +1,6 @@
 package com.dailylocally.ui.account;
 
 
-import com.dailylocally.ui.signup.registration.GetUserDetailsResponse;
-
 public interface MyAccountNavigator {
 
     void handleError(Throwable throwable);

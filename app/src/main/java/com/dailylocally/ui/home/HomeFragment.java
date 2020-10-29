@@ -105,25 +105,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void dataLoading() {
-
-      //  mFragmentHomeBinding.loader.start();
         mFragmentHomeBinding.loader.startShimmerAnimation();
 
     }
 
     @Override
     public void gotoOrders() {
-
         ((MainActivity) getActivity()).openOrders();
-
-
     }
 
     @Override
     public void changeAddress() {
-        /*Intent intent = GoogleAddressActivity.newIntent(getContext());
-        intent.putExtra("edit", "1");
-        startActivity(intent);*/
         Intent intent = ViewAddressActivity.newIntent(getContext());
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -150,10 +142,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void searchClick() {
-        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SearchFragment fragment = new SearchFragment();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();*/
         ((MainActivity) getActivity()).openExplore(true);
     }
 
@@ -196,11 +184,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         if (mHomeViewModel.updateAvailable.get())
             updatePopup(getString(R.string.update_available), getString(R.string.update), false, true, false);
-
-
-
-
-
     }
 
     @Override
@@ -224,15 +207,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView) {
 
-
-        /*if (videoView!=null){
-
-            this.videoView=videoView;
-            if (videoView.isPlaying())
-                videoView.pause();
-        }*/
-
-
         if (result.getType()==1){
 
             Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
@@ -253,32 +227,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             inIntent.putExtra("newuser", false);
             startActivity(inIntent);
            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            /*if (result.getJoinStatus()&&!result.getApprovalStatus()) {
-                Intent intent = ContactWhatsAppActivity.newIntent(getContext());
-                startActivity(intent);
-                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }else {
-
-                Intent intent = CommunityActivity.newIntent(getContext());
-                startActivity(intent);
-                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-            }*/
 
         }
-
-        /*if (result.getCollectionStatus()) {
-            Intent intent = CollectionDetailsActivity.newIntent(getContext());
-            intent.putExtra("cid", result.getCid());
-            startActivity(intent);
-            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-        } else {
-            Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
-            intent.putExtra("catid", String.valueOf(result.getCatid()));
-            startActivity(intent);
-            getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }*/
 
     }
 
@@ -375,16 +325,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         mHomeViewModel.updateAction.set(action);
         mHomeViewModel.enableLater.set(forceUpdate);
         mHomeViewModel.update.set(isUpdate);
-
-
-
-
-
-       /* if (error) {
-            mFragmentHomeBinding.action.setTextColor(getResources().getColor(R.color.red));
-        } else {
-            mFragmentHomeBinding.action.setTextColor(getResources().getColor(R.color.dl_green));
-        }*/
 
         mFragmentHomeBinding.action.setOnClickListener(new View.OnClickListener() {
             @Override

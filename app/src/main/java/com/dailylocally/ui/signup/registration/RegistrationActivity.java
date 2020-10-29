@@ -53,11 +53,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
                 Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -87,7 +82,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
         if (validForProceed()) {
             mLoginViewModelMain.insertNameGenderServiceCall(name, mActivityRegistrationBinding.email.getText().toString(), referral);
-            new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_PROCEED);
         }
     }
 
@@ -95,12 +89,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     public void genderSuccess(String strMessage, Boolean flagEdit) {
         if (!flagEdit) {
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
-            //mLoginViewModelMain.fetchUserDetails();
-            /*Intent intent = GoogleAddressActivity.newIntent(RegistrationActivity.this);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
-
 
             Intent inIntent = AddressNewActivity.newIntent(RegistrationActivity.this);
             inIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -166,7 +154,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 

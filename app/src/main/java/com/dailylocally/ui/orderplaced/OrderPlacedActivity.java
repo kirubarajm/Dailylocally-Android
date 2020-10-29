@@ -30,8 +30,6 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
     @Inject
     OrderPlacedViewModel mOrderPlacedViewModel;
     OrderPlacedBinding mOrderPlacedBinding;
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ORDER_PLACED;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -87,18 +85,11 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
 
     @Override
     public void gotoOrders() {
-       /* Intent intent = MainActivity.newIntent(OrderPlacedActivity.this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("page", SCREEN_MY_ORDERS);
-        intent.putExtra("screenName", AppConstants.SCREEN_ORDER_PLACED);
-        startActivity(intent);
-        finish();*/
 
         Intent intent = MainActivity.newIntent(OrderPlacedActivity.this,AppConstants.NOTIFY_MY_ORDER_FRAG,AppConstants.NOTIFY_ORDER_PLACED_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
 
     }
 
@@ -132,9 +123,6 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         super.onCreate(savedInstanceState);
         mOrderPlacedViewModel.setNavigator(this);
         mOrderPlacedBinding = getViewDataBinding();
-
-        analytics = new Analytics(this, pageName);
-
 
     }
 
