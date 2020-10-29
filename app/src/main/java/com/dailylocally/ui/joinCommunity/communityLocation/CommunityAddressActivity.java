@@ -274,6 +274,8 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
             intent.putExtra("aid",mAddAddressViewModel.aId.get());
             intent.putExtra("edit",edit);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
 
         }else {
             Toast.makeText(this, "Please fill area", Toast.LENGTH_SHORT).show();
@@ -320,6 +322,8 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
         intent.putExtra("aid",mAddAddressViewModel.aId.get());
         intent.putExtra("edit",edit);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
     }
 
     @Override
@@ -353,7 +357,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
-                map.getUiSettings().setZoomControlsEnabled(true);
+                //map.getUiSettings().setZoomControlsEnabled(true);
                 if (edit==null) {
                     turnOnGps();
                     initCameraIdle();

@@ -20,6 +20,7 @@ import androidx.databinding.ObservableField;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.dailylocally.R;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
@@ -60,7 +61,7 @@ public class ViewAddressViewModel extends BaseViewModel<ViewAddressNavigator> {
                             if (response.getStatus()) {
                                 if (response.getResult()!=null && response.getResult().size()>0){
 
-                                    note.set(response.getResult().get(0).getNote());
+                                    note.set( DailylocallyApp.getInstance().getString(R.string.info_symbol) +" "+response.getResult().get(0).getNote());
 
                                     communityUser.set(response.getResult().get(0).getCommunityUserStatus());
 

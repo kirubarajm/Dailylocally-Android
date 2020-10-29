@@ -10,36 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_centerInParent="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-
-            <RelativeLayout
+            <LinearLayout
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
+                android:layout_above="@+id/button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/img_logo"
                     android:layout_width="110dp"
                     android:layout_height="110dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="50dp"
                     android:src="@drawable/ic_dl_logo" />
 
 
-                <RelativeLayout
-                    android:layout_marginTop="50dp"
-                    android:id="@+id/full_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/img_logo">
-
                     <LinearLayout
+                        android:layout_marginTop="50dp"
                         android:id="@+id/nm"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -58,6 +49,8 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/enter_phone_num"
                                 android:imeOptions="actionDone"
+                                android:fontFamily="@font/quicksand_regular"
+                                android:textSize="@dimen/_22px"
                                 android:inputType="phone"
                                 android:digits="0123456789"
                                 android:lines="1"
@@ -106,6 +99,7 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     style="@style/SubtTitleTextStyle"
+                                    android:textAllCaps="true"
                                     android:text="@string/terms_and_condition"/>
 
                                 <View
@@ -117,35 +111,30 @@
 
                         </LinearLayout>
 
-                        <RelativeLayout
-                            android:layout_marginBottom="60dp"
-                            android:id="@+id/button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="30dp"
-                            android:gravity="center">
-
-                            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                                android:id="@+id/btn_sign_in"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                style="@style/MediumGreenButtonTextStyle"
-                                android:onClick="@{()->signup.usersLoginMain()}"
-                                android:text="@string/_continue"/>
-
-                        </RelativeLayout>
                     </LinearLayout>
 
+            </LinearLayout>
 
 
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="150dp"
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
 
-                </RelativeLayout>
-            </RelativeLayout>
-        </ScrollView>
+            <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
+                android:id="@+id/btn_sign_in"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                style="@style/MediumGreenButtonTextStyle"
+                android:onClick="@{()->signup.usersLoginMain()}"
+                android:text="@string/_continue"/>
 
-
-
+        </RelativeLayout>
 
         <RelativeLayout
             android:background="@color/white"
@@ -172,6 +161,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     style="@style/ContentTextStyle"
+                    android:textAllCaps="true"
                     android:text="@string/faqsupport" />
 
                 <View
@@ -200,6 +190,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     style="@style/ContentTextStyle"
+                    android:textAllCaps="true"
                     android:text="@string/privacy_and_policy" />
 
                 <View

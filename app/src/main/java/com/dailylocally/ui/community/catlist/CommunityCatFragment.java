@@ -277,6 +277,8 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
             if (mCommunityCatViewModel.getDataManager().isCommunityOnboardSeen()){
                 Intent inIntent = CommunitySearchActivity.newIntent(getContext());
                 inIntent.putExtra("newuser", false);
+                inIntent.putExtra("lat", mCommunityCatViewModel.getDataManager().getCurrentLat());
+                inIntent.putExtra("lng", mCommunityCatViewModel.getDataManager().getCurrentLng());
                 startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

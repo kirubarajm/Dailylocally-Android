@@ -22,13 +22,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:weightSum="6">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <com.dailylocally.utilities.fonts.quicksand.TitleTextView
@@ -41,7 +39,7 @@
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:text="@{postListItemViewModel.postDate}"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/_10px" />
@@ -51,10 +49,10 @@
 
 
             <LinearLayout
+                android:layout_marginTop="7dp"
                 android:onClick="@{()->postListItemViewModel.commentClick()}"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
                 android:orientation="vertical">
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
@@ -63,10 +61,9 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:id="@+id/comment"
-                    style="@style/SubtTitleTextStyle"
+                    style="@style/ContentTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"/>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 

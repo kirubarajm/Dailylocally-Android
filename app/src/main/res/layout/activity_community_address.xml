@@ -18,48 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardElevation="0dp"
-            app:cardMaxElevation="0dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:onClick="@{()->communityAddressViewModel.goBack()}"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:contentDescription="@string/back"
-                        android:src="@drawable/ic_arrow_back_black_24dp" />
-                </RelativeLayout>
-
-                <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:text="@string/register_your_community"
-                    style="@style/HeaderTitleTextStyle"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -91,6 +49,16 @@
 
         </FrameLayout>
 
+        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+            style="@style/HeaderTitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:text="@string/add_new_address" />
+
         <ScrollView
             android:id="@+id/address"
             android:layout_width="match_parent"
@@ -102,220 +70,252 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/linear_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/white"
-                android:orientation="vertical">
-
                 <LinearLayout
+                    android:id="@+id/linear_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/move_pin_to_set_delivery_location"
-                            style="@style/ContentTextStyle"
-                            android:visibility="gone" />
+                            android:layout_marginTop="10dp">
 
-                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                            android:layout_width="wrap_content"
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                style="@style/ContentTextStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/move_pin_to_set_delivery_location"
+                                android:visibility="gone" />
+
+                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/curve_stroke_lightgray"
+                                android:onClick="@{()->communityAddressViewModel.searchAddress()}"
+                                android:paddingStart="5dp"
+                                android:paddingTop="3dp"
+                                android:paddingEnd="5dp"
+                                android:paddingBottom="3dp"
+                                android:text="@string/change"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="10sp"
+                                android:visibility="gone"
+                                tools:ignore="SmallSp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/curve_stroke_lightgray"
-                            android:onClick="@{()->communityAddressViewModel.searchAddress()}"
-                            android:paddingStart="5dp"
-                            android:paddingTop="3dp"
-                            android:paddingEnd="5dp"
-                            android:paddingBottom="3dp"
-                            android:text="@string/change"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="10sp"
-                            android:visibility="gone"
-                            tools:ignore="SmallSp" />
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical">
 
-                    </RelativeLayout>
+                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                android:id="@+id/txt_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="Confirm Community Location"
+                                android:textSize="@dimen/_15px"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
-                    <RelativeLayout
-                        android:gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp">
+                            <ImageView
+                                android:id="@+id/img_marker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/txt_title"
+                                android:layout_marginTop="15dp" />
 
-                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                            android:text="Confirm Community Location"
-                            android:textSize="@dimen/_15px"
-                            android:textStyle="bold"
-                            android:id="@+id/txt_title"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            <RelativeLayout
+                                android:id="@+id/linear_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/txt_title"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toEndOf="@+id/img_marker"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_below="@+id/txt_title"
-                            android:layout_marginTop="15dp"
-                            android:id="@+id/img_marker"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toStartOf="@+id/search"
+                                    app:errorEnabled="true"
+                                    app:errorTextAppearance="@style/error">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/txt_sub_locality"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:enabled="false"
+                                        android:text="@{communityAddressViewModel.area}"
+                                        android:textSize="@dimen/_12px"
+                                        android:visibility="visible" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <ImageView
+                                    android:id="@+id/search"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:contentDescription="@string/back"
+                                    android:onClick="@{()->communityAddressViewModel.searchAddress()}"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_search_black_24dp"
+                                    android:text="@string/change"
+                                    android:textColor="@color/dark_gray"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                                android:id="@+id/txt_message"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/linear_2"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_toEndOf="@+id/img_marker"
+                                android:text="Please enter your area manually or move map to your exact location"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="@dimen/_12px"
+                                android:visibility="gone" />
+
+
+                            <!--
+                                                    <LinearLayout
+                                                        android:layout_toEndOf="@+id/txt_edit"
+                                                        android:gravity="center_vertical"
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        android:minHeight="37dp">
+
+                            &lt;!&ndash;
+                                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                            android:layout_width="match_parent"
+                                                            android:layout_height="wrap_content"
+                                                            android:onClick="@{()->communityAddressViewModel.searchAddress()}"
+                                                            android:text="@{communityAddressViewModel.locationAddress}"
+                                                            style="@style/SubtTitleTextStyle"
+                                                            android:visibility="gone" />
+                            &ndash;&gt;
+
+                                                        <com.google.android.material.textfield.TextInputEditText
+                                                            android:layout_width="match_parent"
+                                                            android:layout_height="wrap_content"
+                                                            android:enabled="false"
+                                                            android:id="@+id/txt_sub_locality"
+                                                            android:text="@{communityAddressViewModel.area}"
+                                                            style="@style/SubtTitleTextStyle"
+                                                            android:visibility="visible" />
+
+                                                    </LinearLayout>
+                            -->
+
+                        </RelativeLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/location"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/location_area"
+                                android:inputType="text"
+                                android:textSize="12sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/house"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/house_flat_no"
+                                android:inputType="text"
+                                android:text="@{communityAddressViewModel.house}"
+                                android:textSize="12sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
 
                         <LinearLayout
-                            android:layout_below="@+id/txt_title"
-                            android:id="@+id/linear_2"
-                            android:layout_marginLeft="5dp"
-                            android:orientation="horizontal"
-                            android:layout_toEndOf="@+id/img_marker"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            android:weightSum="2">
 
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:errorEnabled="true"
-                                app:errorTextAppearance="@style/error">
+                                android:layout_weight="1">
 
                                 <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/area"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:enabled="false"
-                                    android:textSize="@dimen/_12px"
-                                    android:id="@+id/txt_sub_locality"
+                                    android:hint="@string/area"
+                                    android:inputType="text"
                                     android:text="@{communityAddressViewModel.area}"
-                                    android:visibility="visible" />
+                                    android:textSize="12sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/landmark"
+                                    enter="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/landmark"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="text"
+                                    android:textSize="12sp" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
 
                         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                            android:layout_below="@+id/linear_2"
-                            android:id="@+id/txt_message"
-                            android:visibility="gone"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toEndOf="@+id/img_marker"
-                            android:text="Please enter address manually or try again"
-                            android:textSize="@dimen/_12px"
-                            android:textColor="@color/dark_gray"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-
-                        <!--
-                                                <LinearLayout
-                                                    android:layout_toEndOf="@+id/txt_edit"
-                                                    android:gravity="center_vertical"
-                                                    android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    android:minHeight="37dp">
-
-                        &lt;!&ndash;
-                                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
-                                                        android:layout_width="match_parent"
-                                                        android:layout_height="wrap_content"
-                                                        android:onClick="@{()->communityAddressViewModel.searchAddress()}"
-                                                        android:text="@{communityAddressViewModel.locationAddress}"
-                                                        style="@style/SubtTitleTextStyle"
-                                                        android:visibility="gone" />
-                        &ndash;&gt;
-
-                                                    <com.google.android.material.textfield.TextInputEditText
-                                                        android:layout_width="match_parent"
-                                                        android:layout_height="wrap_content"
-                                                        android:enabled="false"
-                                                        android:id="@+id/txt_sub_locality"
-                                                        android:text="@{communityAddressViewModel.area}"
-                                                        style="@style/SubtTitleTextStyle"
-                                                        android:visibility="visible" />
-
-                                                </LinearLayout>
-                        -->
-
-                    </RelativeLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/location"
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/location_area"
-                            android:inputType="text"
-                            android:textSize="12sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/house"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/house_flat_no"
-                            android:inputType="text"
-                            android:text="@{communityAddressViewModel.house}"
-                            android:textSize="12sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:visibility="gone"
-                        android:weightSum="2">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/area"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/area"
-                                android:inputType="text"
-                                android:text="@{communityAddressViewModel.area}"
-                                android:textSize="12sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/landmark"
-                                enter="true"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/landmark"
-                                android:imeOptions="actionDone"
-                                android:inputType="text"
-                                android:textSize="12sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
+                            android:layout_marginStart="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/fields_are_mandatory"
+                            android:textColor="@color/dl_primary_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <com.dailylocally.utilities.fonts.quicksand.ContentTextView
@@ -325,31 +325,19 @@
                         android:paddingBottom="5dp"
                         android:text="@string/fields_are_mandatory"
                         android:textColor="@color/dl_primary_color"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:visibility="gone" />
+
                 </LinearLayout>
 
-                <com.dailylocally.utilities.fonts.quicksand.ContentTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fields_are_mandatory"
-                    android:textColor="@color/dl_primary_color"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
                 <RelativeLayout
-                    android:layout_below="@+id/linear_1"
                     android:id="@+id/btn_join_the_comm"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/linear_1"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/gradient_bt_back"
                     android:onClick="@{()->communityAddressViewModel.nextClick()}">
 
@@ -363,8 +351,8 @@
                         android:paddingEnd="15dp"
                         android:paddingBottom="2dp"
                         android:singleLine="true"
-                        android:textAllCaps="true"
                         android:text="CONFIRM"
+                        android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_25px"
                         android:textStyle="bold" />
@@ -379,10 +367,10 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_alignParentTop="true"
+            android:layout_above="@+id/address"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="70dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
             android:background="@color/white"
             android:contentDescription="@string/back"
             android:onClick="@{()->communityAddressViewModel.locateMe()}"

@@ -177,6 +177,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:id="@+id/rel_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -185,35 +187,45 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <LinearLayout
+                    <RelativeLayout
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/btn_back_black"
                         android:gravity="center_horizontal"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="1">
 
                         <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                            style="@style/MediumBlackButtonTextStyle"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:textColor="@color/medium_black"
+                            android:textSize="@dimen/_22px"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:onClick="@{()->saveAddressViewModel.editClick()}"
-                            android:text="Edit Location" />
+                            android:text="Edit Again" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/btn_back_green"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="1">
 
                         <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
-                            style="@style/MediumGreenButtonTextStyle"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:textColor="@color/medium_black"
+                            android:textSize="@dimen/_22px"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:onClick="@{()->saveAddressViewModel.saveAddressClick()}"
                             android:text="Confirm Location" />
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>

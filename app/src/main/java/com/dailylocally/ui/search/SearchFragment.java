@@ -131,6 +131,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
             }
         });
 
+        mFragmentSearchBinding.search.requestFocus();
         mFragmentSearchBinding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

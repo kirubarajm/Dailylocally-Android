@@ -506,7 +506,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }, AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_TWO);
 
 
             DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
@@ -517,7 +517,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             ee.printStackTrace();
 
         }
-
 
     }
 

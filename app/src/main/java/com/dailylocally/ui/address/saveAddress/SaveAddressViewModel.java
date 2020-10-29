@@ -68,14 +68,14 @@ public class SaveAddressViewModel extends BaseViewModel<SaveAddressNavigator> {
                             String aId){
         String userId = getDataManager().getCurrentUserId();
         int method = 0;
-        if (flagAddressEdit.get()) {
+        if (getDataManager().getAddressId()!=null) {
             method = Request.Method.PUT;
         } else {
             method = Request.Method.POST;
         }
         GsonRequest gsonRequest = new GsonRequest(method, AppConstants.ADD_ADDRESS_URL, GoogleAddressResponse.class,
                 new SaveAddressRequest(userId,addressType,googleAddress,completeAddress,flatHouseNo,plotHouseNo,city,pincode,
-                lat,lon,landmark,floor,blockName,apartmentName,aId),
+                lat,lon,landmark,floor,blockName,apartmentName,getDataManager().getAddressId()),
                 new Response.Listener<GoogleAddressResponse>() {
                     @Override
                     public void onResponse(GoogleAddressResponse response) {

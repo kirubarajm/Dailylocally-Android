@@ -38,7 +38,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="50dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="120dp"
             android:adjustViewBounds="true"
             android:scaleType="fitEnd"
             android:src="@drawable/onboard_p1c" />
@@ -58,7 +58,7 @@
         <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/img3"
+        android:layout_below="@+id/img2"
             android:layout_marginBottom="3dp"
             android:text="Want to buy just 1 piece of banana ? \nOrder at DL Exclusive with Zero Minimum \nCart value and Delivery Premium"
             android:textAlignment="center"
@@ -67,13 +67,12 @@
             android:textSize="@dimen/_22px"
             android:textStyle="bold" />
 
-        <com.dailylocally.utilities.fonts.quicksand.BoldTextView
+        <com.dailylocally.utilities.fonts.league.FooterTextView
+           android:layout_above="@+id/img2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
             android:text="Explore \nBinary Buying \nwith DL Exclusive"
             android:textColor="@color/medium_black"

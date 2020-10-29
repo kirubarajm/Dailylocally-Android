@@ -37,4 +37,36 @@ public interface AddressNewNavigator {
 
 
     void addApartmentClick();
+
+    void searchCommunity();
+
+    void googleAddressConfirm();
+
+    void joinCommunityClick();
+
+    void communityClick();
+
+    void addManually();
+
+    void searchAddress();
+
+    void knowMore();
+    void showAlert(String title,String message,String locationAddress,String area,String lat,
+                   String lng,String pinCode);
+
+    void showAlert(String title,String message);
+
+    void communityJoined(String message);
+
+    void showToast(String message, Boolean status);
+
+    void saveAddressFailed(String message);
+
+    void saveAddressClick();
+
+    void editAddressClick();
+
+    void dataloaded();
+
+    void goHome();
 }

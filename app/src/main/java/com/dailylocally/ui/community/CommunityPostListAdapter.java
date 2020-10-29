@@ -122,6 +122,7 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         void communityEvent();
          void changeProfile();
+         void searchClick();
 
         void creditInfoClick(TextView infoImageView);
 
@@ -197,11 +198,18 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         @Override
         public void creditInfoClick() {
-            mProductsAdapterListener.creditInfoClick(mListItemCategoriesBinding.creditInfo);
+        //    mProductsAdapterListener.creditInfoClick(mListItemCategoriesBinding.creditInfo);
         }
         @Override
         public void changeProfile() {
             mProductsAdapterListener. changeProfile();
+        }
+
+        @Override
+        public void searchClick() {
+
+            mProductsAdapterListener. searchClick();
+
         }
 
 
@@ -256,7 +264,10 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
             mProductsAdapterListener.communityEvent();
         }
 
-
+        @Override
+        public void actionData(Map<String, String> actionDatas) {
+            mProductsAdapterListener.actionData(actionDatas);
+        }
 
 
     }

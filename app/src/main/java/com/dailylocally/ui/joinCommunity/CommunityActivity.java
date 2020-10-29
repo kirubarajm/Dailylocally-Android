@@ -25,11 +25,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -40,25 +36,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.viewpager.widget.PagerAdapter;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCommunityBinding;
-import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
 import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
-import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
-import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
-import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -75,7 +65,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -186,16 +175,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     }
 
 
-
-
-
     private boolean checkIfAlreadyhavePermission() {
         int result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -237,7 +219,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     }
 
 
-
     @Override
     public int getBindingVariable() {
         return BR.communityViewModel;
@@ -266,8 +247,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
         changeStatusBarColor();
 
 
-
-
         progress = new ProgressDialog(CommunityActivity.this);
         progress.setMessage("Uploading please wait...");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -286,10 +265,16 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
             mOnBoardingActivityViewModel.cmId.set(getIntent().getExtras().getString("comid"));
 
+
+            mOnBoardingActivityViewModel.lat.set(getIntent().getExtras().getString("cuslat", ""));
+            mOnBoardingActivityViewModel.lng.set(getIntent().getExtras().getString("cuslng", ""));
+
+
             if (mMap != null) {
                 createMarkers(getIntent().getExtras().getString("lat"), getIntent().getExtras().getString("lng"), getIntent().getExtras().getString("name", ""), getIntent().getExtras().getString("residency", ""), 0);
 
                 markerAdded = true;
+
             }
 
 
@@ -299,6 +284,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
 
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try {
@@ -391,7 +377,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     }
 
 
-
     /**
      * Making notification bar transparent
      */
@@ -445,7 +430,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     }
 
 
-
     public void createMarkers(String latitude, String longitude, String title, String snippet, int iconResID) {
         try {
             LatLng latLng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
@@ -461,7 +445,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
             //    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
             mMap.clear();
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             Marker marker = mMap.addMarker(markerOptions);
             //   builder.include(markerOptions.getPosition());
             marker.showInfoWindow();
@@ -638,9 +622,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     public void onClick(DialogInterface dialog, int id) {
                         //  Action for 'NO' Button
                         dialog.cancel();
-                        Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        // Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                        //  startActivity(intent);
+                        //  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
         //Creating dialog box
@@ -672,9 +656,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     public void onClick(DialogInterface dialog, int id) {
                         //  Action for 'NO' Button
                         dialog.cancel();
-                        Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        //  Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                        // startActivity(intent);
+                        //  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
         //Creating dialog box

@@ -13,18 +13,18 @@
     </data>
 
     <androidx.cardview.widget.CardView
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 
         <RelativeLayout
-            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
 
             <RelativeLayout
                 android:id="@+id/topConts"
@@ -59,9 +59,9 @@
 
 
                     <LinearLayout
-                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="50dp"
                         android:orientation="vertical">
@@ -73,11 +73,11 @@
 
 
                             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                                android:textColor="@color/medium_black"
-                                android:textSize="@dimen/_22px"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{postListItemViewModel.postTitle}" />
+                                android:text="@{postListItemViewModel.postTitle}"
+                                android:textColor="@color/medium_black"
+                                android:textSize="@dimen/_22px" />
 
 
                             <com.dailylocally.utilities.fonts.quicksand.ContentTextView
@@ -111,13 +111,13 @@
 
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
                 android:id="@+id/images"
-                android:layout_below="@+id/fullDes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/fullDes"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -131,16 +131,16 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp">
 
                         <ImageView
-                            android:adjustViewBounds="true"
                             imageUrl="@{postListItemViewModel.image1}"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -148,16 +148,16 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_weight="1"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp">
 
                         <ImageView
-                            android:adjustViewBounds="true"
                             imageUrl="@{postListItemViewModel.image2}"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -181,7 +181,6 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:onClick="@{()->postListItemViewModel.actionClick()}"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_below="@+id/images"
@@ -191,6 +190,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/curve_stroke_rounded"
+                android:onClick="@{()->postListItemViewModel.actionClick()}"
                 android:visibility="@{postListItemViewModel.showAction?View.VISIBLE:View.GONE}">
 
                 <RelativeLayout
@@ -203,19 +203,15 @@
 
 
                     <com.dailylocally.utilities.fonts.quicksand.TitleTextView
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/_15px"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@{postListItemViewModel.actionText}"
-                        android:textAlignment="center" />
-
-
-
-
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_15px" />
 
 
                 </RelativeLayout>

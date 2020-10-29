@@ -194,7 +194,6 @@
                             android:src="@drawable/ic_search_black_24dp"
                             android:text="@string/change"
                             android:textColor="@color/dark_gray"
-                            android:tint="@color/dl_primary_color"
                             android:visibility="visible" />
                     </RelativeLayout>
 

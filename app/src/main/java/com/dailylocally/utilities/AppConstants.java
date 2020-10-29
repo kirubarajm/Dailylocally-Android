@@ -85,6 +85,11 @@ public class AppConstants {
     }*/
 
 
+    //Community
+  public static final String COMMUNITY_TILE = "dle_user";
+  public static final String NON_COMMUNITY_TILE = "non_dle_use";
+
+
   //Promotion
   public static final String PROMOTION_URL = "PROMOTION_URL";
   public static final String PROMOTION_ID = "PROMOTION_ID";
@@ -651,6 +656,9 @@ public class AppConstants {
   public static final String NOTIFY_COMMUNITY_HOME_FRAG = "34";
   public static final String NOTIFY_COMMUNITY_EVENT_POST = "35";
   public static final String NOTIFY_COMMUNITY_POST_DETAILS = "36";
+  public static final String NOTIFY_VIDEO_ACTV = "37";
+  public static final String NOTIFY_WHATSAPP = "38";
+  public static final String NOTIFY_ABOUT_US_ACTV = "39";
 
 
 

@@ -37,6 +37,7 @@
                 android:padding="10dp">
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/rel_img_join1"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
@@ -62,6 +63,7 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:visibility="gone"
                     android:id="@+id/txt_upload11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,11 +76,11 @@
 
 
                 <LinearLayout
+                    android:layout_alignParentTop="true"
                     android:id="@+id/floordetails1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_upload11"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -194,6 +196,7 @@
             </RelativeLayout>
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rel_join_the_community"
             android:layout_width="match_parent"
@@ -209,6 +212,7 @@
                 android:padding="10dp">
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/rel_img_join"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
@@ -234,6 +238,7 @@
                 </RelativeLayout>
 
                 <com.dailylocally.utilities.fonts.quicksand.ContentTextView
+                    android:visibility="gone"
                     android:id="@+id/txt_upload1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -247,7 +252,6 @@
                     android:id="@+id/details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_upload1"
                     android:layout_marginTop="20dp"
                     android:text="Apartment details"
                     android:textColor="@color/medium_black"
@@ -374,6 +378,7 @@
             </RelativeLayout>
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rel_back"
             android:layout_width="wrap_content"

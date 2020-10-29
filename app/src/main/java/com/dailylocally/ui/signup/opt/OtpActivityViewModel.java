@@ -68,7 +68,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }*/
 
 
-
     public void loginClick() {
         getNavigator().login();
     }
@@ -90,6 +89,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                             if (response.getStatus() != null)
                                 if (response.getStatus()) {
 
+
+                                    String addressCreated = response.getAddressCreated();
                                     genderstatus = response.getGenderstatus();
 
                                     getDataManager().setUserRegistrationStatus(genderstatus);
@@ -113,7 +114,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     userId.set(String.valueOf(response.getUserid()));
                                     CurrentuserId = response.getUserid();
 
-
                                     if (response.getResult() != null && response.getResult().size() > 0) {
 
 
@@ -127,24 +127,20 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                             getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
 
 
-
-                                            if (response.getResult().get(0).getAddressType()==1){
-                                                String completeAddress="No."+response.getResult().get(0).getFlatHouseNo()+", "+response.getResult().get(0).getBlockName()+", "+response.getResult().get(0).getApartmentName()+","+response.getResult().get(0).getCompleteAddress();
+                                            if (response.getResult().get(0).getAddressType() == 1) {
+                                                String completeAddress = "No." + response.getResult().get(0).getFlatHouseNo() + ", " + response.getResult().get(0).getBlockName() + ", " + response.getResult().get(0).getApartmentName() + "," + response.getResult().get(0).getCompleteAddress();
 
                                                 getDataManager().setCurrentAddress(completeAddress);
 
-                                            }else {
-                                                String completeAddress="No."+response.getResult().get(0).getPlotHouseNo()+", Floor-"+response.getResult().get(0).getFloor()+", "+response.getResult().get(0).getCompleteAddress();
+                                            } else {
+                                                String completeAddress = "No." + response.getResult().get(0).getPlotHouseNo() + ", Floor-" + response.getResult().get(0).getFloor() + ", " + response.getResult().get(0).getCompleteAddress();
                                                 getDataManager().setCurrentAddress(completeAddress);
                                             }
 
 
-
-
-
                                         }
 
-                                        if(response.getRegistrationstatus()) {
+                                        if (response.getRegistrationstatus()) {
 
                                             String cuserid = response.getResult().get(0).getUserid();
                                             String UserName = response.getResult().get(0).getName();
@@ -157,42 +153,57 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                         }
 
                                     }
-                                    //        getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
+
 
                                     if (genderstatus) {
-                                        if (response.getResult() != null && response.getResult().size() > 0) {
-                                            if (response.getResult().get(0).getAid() !=null) {
 
-                                                if (response.getResult().get(0).getAid() .equals("0")){
+
+                                        if (addressCreated != null && addressCreated.equals("0")) {
+
+                                            if (getNavigator() != null)
+                                                getNavigator().addNewAddress();
+
+                                        } else {
+                                            if (response.getResult() != null && response.getResult().size() > 0) {
+                                                if (response.getResult().get(0).getAid() != null) {
+                                                    if (response.getResult().get(0).getAid().equals("0")) {
+                                                        getDataManager().setUserAddress(false);
+                                                        if (getNavigator() != null) {
+                                                            getNavigator().addAddressActivity(response.getResult().get(0).getAid());
+                                                        }
+                                                    } else {
+                                                        getDataManager().setUserAddress(true);
+                                                        if (getNavigator() != null) {
+                                                            getNavigator().openHomeActivity(true);
+                                                        }
+                                                    }
+
+                                                } else {
                                                     getDataManager().setUserAddress(false);
                                                     if (getNavigator() != null) {
                                                         getNavigator().addAddressActivity(response.getResult().get(0).getAid());
                                                     }
-                                                }else {
-                                                    getDataManager().setUserAddress(true);
-                                                    if (getNavigator() != null) {
-                                                        getNavigator().openHomeActivity(true);
-                                                    }
                                                 }
-
-
                                             } else {
                                                 getDataManager().setUserAddress(false);
-                                                if (getNavigator() != null) {
-                                                    getNavigator().addAddressActivity(response.getResult().get(0).getAid());
-                                                }
                                             }
-                                        } else {
-                                            getDataManager().setUserAddress(false);
+
+
                                         }
+
                                     } else {
-                                        getNavigator().nameGenderScreen();
+                                        if (getNavigator() != null)
+                                            getNavigator().nameGenderScreen();
                                     }
-                                } else {
-                                    getNavigator().loginFailure();
-                                    getDataManager().setUserRegistrationStatus(genderstatus);
                                 }
+
+
+                        } else {
+                            if (getNavigator() != null)
+                                getNavigator().loginFailure();
+                            getDataManager().setUserRegistrationStatus(genderstatus);
                         }
+
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     } catch (Exception ee) {

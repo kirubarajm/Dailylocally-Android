@@ -16,14 +16,17 @@
 
 package com.dailylocally.ui.address.addAddress;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.dailylocally.data.DataManager;
+import com.dailylocally.ui.joinCommunity.CommunityActivity;
+import com.dailylocally.ui.joinCommunity.CommunityAdapter;
+
+import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by amitshekhar on 14/09/17.
- */
 @Module
 public class AddressNewModule {
 
@@ -32,5 +35,13 @@ public class AddressNewModule {
     AddressNewViewModel provideAddAddressViewModel(DataManager dataManager) {
         return new AddressNewViewModel(dataManager);
     }
+    @Provides
+    CommunityAdapter provideCommunityAdapter() {
+        return new CommunityAdapter(new ArrayList<>());
+    }
 
+    @Provides
+    LinearLayoutManager provideLinearLayoutManager(CommunityActivity activity) {
+        return new LinearLayoutManager(activity);
+    }
 }

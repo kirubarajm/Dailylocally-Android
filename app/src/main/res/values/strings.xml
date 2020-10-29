@@ -149,7 +149,7 @@
     <string name="add_to_live">Add to live product list</string>
     <string name="contact_soon">Our sales executive \n will contact you soon</string>
     <string name="appointment_made">Appointment Made!</string>
-    <string name="_continue">Continue</string>
+    <string name="_continue">VERIFY</string>
 
 
     <string name="congrats">Congrats</string>
@@ -340,7 +340,7 @@
     <string name="office">Work</string>
     <string name="other">Other</string>
     <string name="manage_address">Manage Address</string>
-    <string name="add_new_address">Add new address</string>
+    <string name="add_new_address">Add Address</string>
     <string name="edit">Edit</string>
     <string name="select_address">Set delivery address</string>
     <string name="order_history">My Order</string>
@@ -385,7 +385,7 @@
 
     <string name="verify">Verify</string>
     <string name="otp_continue">Continue</string>
-    <string name="enter_phone_num">Enter your mobile number</string>
+    <string name="enter_phone_num">Enter phone number</string>
     <string name="login_message">We will send you a one time OTP. Carrier charges might apply</string>
     <string name="enter_pass">Enter Password</string>
     <string name="enter_name">Full Name</string>

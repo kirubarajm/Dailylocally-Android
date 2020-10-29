@@ -39,7 +39,10 @@ import java.util.Map;
 public class CommunitySearchViewModel extends BaseViewModel<CommunitySearchNavigator> {
 
     public final ObservableBoolean newUser = new ObservableBoolean();
+    public final ObservableBoolean loading = new ObservableBoolean();
     public final ObservableField<String> version = new ObservableField<>();
+    public final ObservableField<String> lat = new ObservableField<>();
+    public final ObservableField<String> lng = new ObservableField<>();
     public ObservableList<CommunityResponse.Result> communityItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<CommunityResponse.Result>> communityItemsLiveData;
     public CommunitySearchViewModel(DataManager dataManager) {
@@ -68,7 +71,7 @@ public class CommunitySearchViewModel extends BaseViewModel<CommunitySearchNavig
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
-            SearchCommunityRequest communityRequest = new SearchCommunityRequest(search,getDataManager().getCurrentLat(),getDataManager().getCurrentLng());
+            SearchCommunityRequest communityRequest = new SearchCommunityRequest(search,lat.get(),lng.get());
             Gson gson = new GsonBuilder().create();
             String payloadStr = gson.toJson(communityRequest);
             JsonObjectRequest jsonObjectRequest = null;
@@ -77,6 +80,7 @@ public class CommunitySearchViewModel extends BaseViewModel<CommunitySearchNavig
                 @Override
                 public void onResponse(JSONObject response) {
                     setIsLoading(false);
+                    loading.set(false);
                     try {
                         if (response.getString("status").equals("true")) {
                             Gson sGson = new GsonBuilder().create();
@@ -95,6 +99,7 @@ public class CommunitySearchViewModel extends BaseViewModel<CommunitySearchNavig
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    loading.set(false);
                     if (getNavigator() != null) {
                         //getNavigator().updateFailure("Failed to update");
                     }
@@ -117,10 +122,9 @@ public class CommunitySearchViewModel extends BaseViewModel<CommunitySearchNavig
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         String userId = getDataManager().getCurrentUserId();
-        String lat = getDataManager().getCurrentLat();
-        String lng = getDataManager().getCurrentLng();
+
         try {
-            CommunityRequest communityRequest = new CommunityRequest(userId,lat,lng);
+            CommunityRequest communityRequest = new CommunityRequest(userId,lat.get(),lng.get());
             Gson gson = new GsonBuilder().create();
             String payloadStr = gson.toJson(communityRequest);
             JsonObjectRequest jsonObjectRequest = null;
@@ -129,6 +133,7 @@ public class CommunitySearchViewModel extends BaseViewModel<CommunitySearchNavig
                 @Override
                 public void onResponse(JSONObject response) {
                     setIsLoading(false);
+
                     try {
                         if (response.getString("status").equals("true")) {
                             Gson sGson = new GsonBuilder().create();
@@ -139,13 +144,18 @@ public class CommunitySearchViewModel extends BaseViewModel<CommunitySearchNavig
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    if (getNavigator() != null) {
+                        getNavigator().dataloaded();
+                    }
+                    loading.set(false);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    loading.set(false);
                     if (getNavigator() != null) {
-                        //getNavigator().updateFailure("Failed to update");
+                      getNavigator().dataloaded();
                     }
                 }
             }) {

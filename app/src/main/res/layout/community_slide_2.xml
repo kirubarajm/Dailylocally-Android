@@ -53,13 +53,12 @@
             android:textSize="@dimen/_22px"
             android:textStyle="bold" />
 
-        <com.dailylocally.utilities.fonts.quicksand.BoldTextView
+        <com.dailylocally.utilities.fonts.league.FooterTextView
+            android:layout_above="@+id/img2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="-10dp"
             android:text="Enjoy Cash on \nDelivery on all \norders."

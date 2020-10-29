@@ -6,4 +6,6 @@ public interface CommunitySearchNavigator {
     void goBack();
 
     void addManualy();
+
+    void dataloaded();
 }

@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -150,6 +151,61 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         myViewPagerAdapter = new MyViewPagerAdapter();
         mActivityOnboardingBinding.viewPager.setAdapter(myViewPagerAdapter);
 
+
+
+
+        mActivityOnboardingBinding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                switch (position) {
+                    case 0:
+                        mOnBoardingActivityViewModel.lastScreen.set(false);
+                        mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator_selected);
+                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi4.setImageResource(R.drawable.ic_round_indicator);
+                        break;
+                    case 1:
+                        mOnBoardingActivityViewModel.lastScreen.set(false);
+                        mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator_selected);
+                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi4.setImageResource(R.drawable.ic_round_indicator);
+                        // mActivityOnboardingBinding.indi2.setColorFilter(R.color.medium_black);
+                        break;
+                        case 2:
+                        mOnBoardingActivityViewModel.lastScreen.set(false);
+                        mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator_selected);
+                        mActivityOnboardingBinding.indi4.setImageResource(R.drawable.ic_round_indicator);
+                        // mActivityOnboardingBinding.indi2.setColorFilter(R.color.medium_black);
+                        break;
+                    case 3:
+
+                        mOnBoardingActivityViewModel.lastScreen.set(true);
+                       /* mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator);
+                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator_selected);*/
+                        //  mActivityOnboardingBinding.indi3.setColorFilter(R.color.medium_black);
+                        break;
+
+                }
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
 

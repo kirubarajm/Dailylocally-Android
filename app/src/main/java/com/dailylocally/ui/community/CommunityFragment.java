@@ -18,7 +18,6 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,13 +25,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
+import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.FragmentCommunityBinding;
 import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.address.type.CommunitySearchActivity;
@@ -52,6 +50,8 @@ import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.ui.video.VideoActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipView;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -63,7 +63,6 @@ import org.joda.time.format.DateTimeFormat;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -88,7 +87,6 @@ import im.getsocial.sdk.communities.Identity;
 import im.getsocial.sdk.communities.Reactions;
 import im.getsocial.sdk.communities.UserId;
 import im.getsocial.sdk.communities.UserUpdate;
-import im.getsocial.sdk.media.MediaAttachment;
 
 import static com.dailylocally.utilities.AppConstants.STORAGE_PERMISSION_REQUEST_CODE;
 
@@ -205,21 +203,22 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 e.printStackTrace();
             }
 
-        }else {
+        } else {
 
-            if (mCommunityViewModel.getDataManager().isCommunityOnboardSeen()){
+            if (mCommunityViewModel.getDataManager().isCommunityOnboardSeen()) {
                 Intent inIntent = CommunitySearchActivity.newIntent(getContext());
                 inIntent.putExtra("newuser", false);
+                inIntent.putExtra("lat", mCommunityViewModel.getDataManager().getCurrentLat());
+                inIntent.putExtra("lng", mCommunityViewModel.getDataManager().getCurrentLng());
                 startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-            }else {
+            } else {
                 Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
                 inIntent.putExtra("newuser", false);
                 startActivity(inIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
-
 
 
         }
@@ -282,7 +281,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void creditInfoClick(TextView infoImageView) {
-         if (mCommunityViewModel.showCreditsInfo.get()) {
+        if (mCommunityViewModel.showCreditsInfo.get()) {
 
             if (myToolTipView != null) {
                 myToolTipView.remove();
@@ -526,8 +525,6 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         });
 
 
-
-
     }
 
     @Override
@@ -630,13 +627,12 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentCommunityBinding.postList.setLayoutManager(new LinearLayoutManager(getContext()));*/
         mFragmentCommunityBinding.postList.setAdapter(communityPostListAdapter);
-      //  mFragmentCommunityBinding.content.setSmoothScrollingEnabled(true);
-       // mFragmentCommunityBinding.postList.setNestedScrollingEnabled(false);
+        //  mFragmentCommunityBinding.content.setSmoothScrollingEnabled(true);
+        // mFragmentCommunityBinding.postList.setNestedScrollingEnabled(false);
         // mActivityEventBinding.recyclerPost.setHasFixedSize(true);
         mFragmentCommunityBinding.postList.setItemViewCacheSize(50);
         mFragmentCommunityBinding.postList.setDrawingCacheEnabled(true);
         mFragmentCommunityBinding.postList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-
 
 
         //  mActivityEventBinding.recyclerPost.addOnScrollListener(recyclerViewOnScrollListener);
@@ -652,7 +648,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 super.onScrolled(recyclerView, dx, dy);
 
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int previousCount=mCommunityViewModel.getSocialActivities.size();
+                int previousCount = mCommunityViewModel.getSocialActivities.size();
                 if (!mCommunityViewModel.loading.get()) {
                     if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == mCommunityViewModel.getSocialActivities.size() - 1) {
                         //bottom of list!
@@ -668,7 +664,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                                     mCommunityViewModel.socialActivitiesListLiveData.postValue(getSocialActivities);
                                     mCommunityViewModel.loading.set(false);
 
-                                    mFragmentCommunityBinding.postList.scrollToPosition(previousCount+1);
+                                    mFragmentCommunityBinding.postList.scrollToPosition(previousCount + 1);
 
 
                                 }, exception -> {
@@ -682,7 +678,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 }
             }
         });
-     /*   ViewCompat.setNestedScrollingEnabled(  mFragmentCommunityBinding.postList, false);*/
+        /*   ViewCompat.setNestedScrollingEnabled(  mFragmentCommunityBinding.postList, false);*/
     /*
         mFragmentCommunityBinding.content.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -857,8 +853,8 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 getSocialActivities.remove(0);
             }*/
 
-            getSocialActivities.add(0,result.getEntries().get(0));
-            getSocialActivities.add(2,result.getEntries().get(0));
+            getSocialActivities.add(0, result.getEntries().get(0));
+            getSocialActivities.add(2, result.getEntries().get(0));
 
             mCommunityViewModel.socialActivitiesListLiveData.setValue(getSocialActivities);
 
@@ -940,6 +936,68 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 startActivity(cintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
+
+
+            case AppConstants.NOTIFY_ABOUT_US_ACTV:
+                Intent auintent = AboutUsActivity.newIntent(getBaseActivity());
+                startActivity(auintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            case AppConstants.NOTIFY_VIDEO_ACTV:
+                Intent vintent = VideoActivity.newIntent(getBaseActivity());
+                vintent.putExtra("video", actionDatas.get("video"));
+                startActivity(vintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+
+            case AppConstants.NOTIFY_WHATSAPP:
+
+                if (mCommunityViewModel.getDataManager().getUserDetails() != null) {
+                    Gson sGson = new GsonBuilder().create();
+                    CommunityUserDetailsResponse communityUserDetailsResponse = sGson.fromJson(mCommunityViewModel.getDataManager().getUserDetails(), CommunityUserDetailsResponse.class);
+                    if (communityUserDetailsResponse != null) {
+                        if (communityUserDetailsResponse.getResult() != null) {
+                            if (communityUserDetailsResponse.getResult().size() > 0) {
+                                CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
+
+                                if (result.getCommunityStatus() != null) {
+                                    String url = result.getGroupUrl();
+                                    if (url != null)
+                                        if (!url.isEmpty())
+                                            try {
+                                                Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);
+                                                //String url = "https://chat.whatsapp.com/<group_link>";
+                                                intentWhatsapp.setData(Uri.parse(url));
+                                                intentWhatsapp.setPackage("com.whatsapp");
+                                                startActivity(intentWhatsapp);
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+                                }
+
+
+                            }
+                        }
+
+                    }
+
+                }
+
+
+                break;
+
+            case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
+
+                Intent eintent = EventActivity.newIntent(getContext(), actionDatas.get("topic"), actionDatas.get("title"));
+                startActivity(eintent);
+                getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                break;
+
 
             default:
                 Intent sintent = SplashActivity.newIntent(getBaseActivity());

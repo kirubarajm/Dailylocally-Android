@@ -99,6 +99,10 @@ public class CommunityUserDetailsResponse {
         public Boolean communityStatus;
 
 
+        @SerializedName("group_url")
+        @Expose
+        public String groupUrl;
+
         @SerializedName("welcome_name_title")
         @Expose
         public String welcomeNameTitle;
@@ -146,6 +150,9 @@ public class CommunityUserDetailsResponse {
         @Expose
         public String homePageSubcontent;
 
+        public String getGroupUrl() {
+            return groupUrl;
+        }
 
         public String getCatPageSubcontent() {
             return catPageSubcontent;

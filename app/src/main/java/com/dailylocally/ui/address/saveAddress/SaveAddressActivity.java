@@ -201,7 +201,7 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
               //  markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 map = googleMap;
                 map.clear();
-                map.getUiSettings().setZoomControlsEnabled(true);
+               // map.getUiSettings().setZoomControlsEnabled(true);
                 //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 map.addMarker(markerOptions);

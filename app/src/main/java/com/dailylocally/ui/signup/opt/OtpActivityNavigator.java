@@ -24,6 +24,5 @@ public interface OtpActivityNavigator {
     void resend();
 
 
-
-
+    void addNewAddress();
 }

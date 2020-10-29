@@ -18,7 +18,15 @@ import org.joda.time.format.DateTimeFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import im.getsocial.sdk.Communities;
+import im.getsocial.sdk.common.PagingQuery;
+import im.getsocial.sdk.communities.ActivitiesQuery;
+import im.getsocial.sdk.communities.GetSocialActivity;
+import im.getsocial.sdk.media.MediaAttachment;
 
 public class CommunityTileListItemViewModel {
 
@@ -47,6 +55,8 @@ public class CommunityTileListItemViewModel {
     public final ObservableBoolean showRating = new ObservableBoolean();
 
     public final ObservableBoolean showVideo = new ObservableBoolean();
+    public final ObservableBoolean showtileRow1 = new ObservableBoolean();
+    public final ObservableBoolean showtileRow2 = new ObservableBoolean();
 
     public final ObservableField<String> updateTitle = new ObservableField<>();
     public final ObservableField<String> updateAction = new ObservableField<>();
@@ -66,6 +76,13 @@ public class CommunityTileListItemViewModel {
     public final ObservableField<String> credits = new ObservableField<>();
     public final ObservableField<String> creditsText = new ObservableField<>();
     public final ObservableField<String> creditInfoText = new ObservableField<>();
+
+    public final ObservableField<String> tile1ImageUrl = new ObservableField<>();
+    public final ObservableField<String> tile2ImageUrl = new ObservableField<>();
+    public final ObservableField<String> tile3ImageUrl = new ObservableField<>();
+    public final ObservableField<String> tile4ImageUrl = new ObservableField<>();
+    public final ObservableField<String> tile5ImageUrl = new ObservableField<>();
+
 
     public final ObservableField<String> eventImageUrl = new ObservableField<>();
     public final ObservableField<String> catImageUrl = new ObservableField<>();
@@ -87,6 +104,7 @@ public class CommunityTileListItemViewModel {
     public final ObservableField<String> image2 = new ObservableField<>();
 
     public final ObservableBoolean showAction = new ObservableBoolean();
+    public final ObservableBoolean isCommunityUser = new ObservableBoolean();
     public final ObservableBoolean showCreditsInfo = new ObservableBoolean();
     public final ObservableBoolean postLike = new ObservableBoolean();
     public final ObservableBoolean singleImage = new ObservableBoolean();
@@ -100,12 +118,37 @@ public class CommunityTileListItemViewModel {
     public String homeEventTitle;
     public String homeEventTopic;
     AppPreferencesHelper appDataManager;
+    List<GetSocialActivity> getSocialActivities;
 
+    int tile1Pos;
+    int tile2Pos;
+    int tile3Pos;
+    int tile4Pos;
+    int tile5Pos;
 
     public CommunityTileListItemViewModel(PostItemViewModelListener mListener) {
         this.mListener = mListener;
 
         appDataManager = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
+        if (appDataManager.getUserDetails() != null) {
+
+            Gson sGson = new GsonBuilder().create();
+            CommunityUserDetailsResponse communityUserDetailsResponse = sGson.fromJson(appDataManager.getUserDetails(), CommunityUserDetailsResponse.class);
+            if (communityUserDetailsResponse != null) {
+                if (communityUserDetailsResponse.getResult() != null) {
+                    if (communityUserDetailsResponse.getResult().size() > 0) {
+                        CommunityUserDetailsResponse.Result result = communityUserDetailsResponse.getResult().get(0);
+
+                        if (result.getCommunityStatus() != null)
+                            isCommunityUser.set(result.getCommunityStatus());
+
+
+                    }
+                }
+
+            }
+
+        }
 
 
         getHomeDetails();
@@ -151,8 +194,38 @@ public class CommunityTileListItemViewModel {
 
     public void getHomeDetails() {
 
+        ActivitiesQuery query = ActivitiesQuery.activitiesInTopic(AppConstants.NON_COMMUNITY_TILE);
 
-        try {
+
+        if (isCommunityUser.get()) {
+            query = ActivitiesQuery.activitiesInTopic(AppConstants.COMMUNITY_TILE);
+
+        } else {
+            query = ActivitiesQuery.activitiesInTopic(AppConstants.NON_COMMUNITY_TILE);
+        }
+
+        final PagingQuery<ActivitiesQuery> pagingQuery = new PagingQuery<>(query).withLimit(5);
+        Communities.getActivities(pagingQuery, result -> {
+
+            if (result != null) {
+                showtileRow1.set(true);
+                showtileRow2.set(true);
+                getSocialActivities = result.getEntries();
+                for (int i = 0; i < getSocialActivities.size(); i++) {
+
+                    if (getSocialActivities.get(i).getProperties() != null)
+                        tileType(getSocialActivities.get(i).getProperties().get("tile"), i);
+
+                }
+            }
+
+
+            //  }
+        }, exception -> {
+
+        });
+
+        /*try {
             Gson sGson = new GsonBuilder().create();
             CommunityHomeResponse response = sGson.fromJson(appDataManager.getCommunityHomepage(), CommunityHomeResponse.class);
 
@@ -209,16 +282,121 @@ public class CommunityTileListItemViewModel {
 
             ee.printStackTrace();
 
+        }*/
+
+
+    }
+
+    public void tileType(String type, int position) {
+
+        switch (type) {
+
+
+            case "1":
+tile1Pos=position;
+                if (getSocialActivities.get(position).getAttachments() != null)
+                    if (getSocialActivities.get(position).getAttachments().size() > 0) {
+                        final MediaAttachment attachment = getSocialActivities.get(position).getAttachments().get(0);
+                        if (attachment.getImageUrl() != null) {
+                            tile1ImageUrl.set(attachment.getImageUrl());
+                        }
+                    }
+
+                break;
+
+
+            case "2":
+                tile2Pos=position;
+                if (getSocialActivities.get(position).getAttachments() != null)
+                    if (getSocialActivities.get(position).getAttachments().size() > 0) {
+                        final MediaAttachment attachment = getSocialActivities.get(position).getAttachments().get(0);
+                        if (attachment.getImageUrl() != null) {
+                            tile2ImageUrl.set(attachment.getImageUrl());
+                        }
+                    }
+
+                break;
+
+
+            case "3":
+                tile3Pos=position;
+                if (getSocialActivities.get(position).getAttachments() != null)
+                    if (getSocialActivities.get(position).getAttachments().size() > 0) {
+                        final MediaAttachment attachment = getSocialActivities.get(position).getAttachments().get(0);
+                        if (attachment.getImageUrl() != null) {
+                            tile3ImageUrl.set(attachment.getImageUrl());
+                        }
+                    }
+
+                break;
+
+
+            case "4":
+                tile4Pos=position;
+
+                if (getSocialActivities.get(position).getAttachments() != null)
+                    if (getSocialActivities.get(position).getAttachments().size() > 0) {
+                        final MediaAttachment attachment = getSocialActivities.get(position).getAttachments().get(0);
+                        if (attachment.getImageUrl() != null) {
+                            tile4ImageUrl.set(attachment.getImageUrl());
+                        }
+                    }
+                break;
+
+
+            case "5":
+                tile5Pos=position;
+                if (getSocialActivities.get(position).getAttachments() != null)
+                    if (getSocialActivities.get(position).getAttachments().size() > 0) {
+                        final MediaAttachment attachment = getSocialActivities.get(position).getAttachments().get(0);
+                        if (attachment.getImageUrl() != null) {
+                            tile5ImageUrl.set(attachment.getImageUrl());
+                        }
+                    }
+
+                break;
+
+
         }
 
 
     }
+
 
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time * 1000);
         String date = DateFormat.format("dd-MM-yyyy hh:mm:ss a", cal).toString();
         return formateddate(date);
+    }
+
+
+    public void tile1() {
+
+        if (getSocialActivities.get(tile1Pos).getButton() != null)
+            mListener.actionData(getSocialActivities.get(tile1Pos).getButton().getAction().getData());
+    }
+
+    public void tile2() {
+        if (getSocialActivities.get(tile2Pos).getButton() != null)
+            mListener.actionData(getSocialActivities.get(tile2Pos).getButton().getAction().getData());
+    }
+
+
+    public void tile3() {
+        if (getSocialActivities.get(tile3Pos).getButton() != null)
+            mListener.actionData(getSocialActivities.get(tile3Pos).getButton().getAction().getData());
+    }
+
+    public void tile4() {
+        if (getSocialActivities.get(tile4Pos).getButton() != null)
+            mListener.actionData(getSocialActivities.get(tile4Pos).getButton().getAction().getData());
+    }
+
+
+    public void tile5() {
+        if (getSocialActivities.get(tile5Pos).getButton() != null)
+            mListener.actionData(getSocialActivities.get(tile5Pos).getButton().getAction().getData());
     }
 
 
@@ -259,6 +437,7 @@ public class CommunityTileListItemViewModel {
 
         void communityEvent();
 
+        void actionData(Map<String, String> actionDatas);
 
     }
 }

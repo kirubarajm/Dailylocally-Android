@@ -41,10 +41,22 @@ public class OtpResponse {
     @SerializedName("razer_customerid")
     @Expose
     private String razerCustomerid;
+
+    @SerializedName("address_created")
+    @Expose
+    private String addressCreated;
+
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
 
+    public String getAddressCreated() {
+        return addressCreated;
+    }
+
+    public void setAddressCreated(String addressCreated) {
+        this.addressCreated = addressCreated;
+    }
 
     public Boolean getRegistrationstatus() {
         return registrationstatus;

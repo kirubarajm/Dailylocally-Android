@@ -183,11 +183,18 @@ public class CommunityHeaderListItemViewModel {
         imageLoader.set(true);
     }
 
+    public void searchClick() {
+        mListener.searchClick();
+
+    }
+
 
     public interface PostItemViewModelListener {
         void refresh();
 
         void changeProfile();
+
+        void searchClick();
 
         void creditInfoClick();
 

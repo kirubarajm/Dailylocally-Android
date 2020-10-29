@@ -53,6 +53,7 @@
 
                 <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
                     android:id="@+id/name"
+                    android:visibility="@{categoriesItemViewModel.showText?View.VISIBLE:View.GONE}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

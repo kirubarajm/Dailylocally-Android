@@ -23,22 +23,19 @@ import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.dailylocally.BR;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
-import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityOtpBinding;
+import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.utilities.AppConstants;
-
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.OtpEditText;
 import com.dailylocally.utilities.SMSReceiver;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-
-
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -168,7 +165,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             unregisterReceiver(smsReceiver);
 
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
-            Intent intent = MainActivity.newIntent(OtpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_OTP_ACTV);
+            Intent intent = MainActivity.newIntent(OtpActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_OTP_ACTV);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -179,8 +176,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void addAddressActivity(String aid) {
-        Intent intent = GoogleAddressActivity.newIntent(OtpActivity.this);
-        intent.putExtra("aid",aid);
+        Intent intent = AddressNewActivity.newIntent(OtpActivity.this);
+        intent.putExtra("aid", aid);
+        intent.putExtra("newuser", true);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -246,7 +244,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 });
 
         Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
-        Intent intent = MainActivity.newIntent(OtpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_OTP_ACTV);
+        Intent intent = MainActivity.newIntent(OtpActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_OTP_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -266,6 +264,15 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Override
     public void resend() {
 
+    }
+
+    @Override
+    public void addNewAddress() {
+        Intent intent = AddressNewActivity.newIntent(OtpActivity.this);
+        intent.putExtra("newuser", true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

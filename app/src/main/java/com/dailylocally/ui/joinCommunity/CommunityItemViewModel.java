@@ -18,7 +18,7 @@ public class CommunityItemViewModel {
         this.mListener = mListener;
 
         communityName.set(result.getCommunityname());
-        location.set(result.getCommunityAddress());
+        location.set(result.getArea());
         residencesCount.set(result.getNoOfApartments() + " Residences");
 
         distance.set(result.getDistance()+" "+result.getDistance_text());

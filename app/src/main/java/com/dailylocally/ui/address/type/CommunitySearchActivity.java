@@ -85,6 +85,11 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
     }
 
     @Override
+    public void dataloaded() {
+        mActivityCommunitySearchBinding.pageLoader.stopShimmerAnimation();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.communitySearchViewModel;
     }
@@ -105,7 +110,7 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
         mActivityCommunitySearchBinding = getViewDataBinding();
         mCommunitySearchViewModel.setNavigator(this);
         mCommunityAdapter.setListener(this);
-
+        mActivityCommunitySearchBinding.pageLoader.startShimmerAnimation();
 
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -115,9 +120,13 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
 
 
 
-        if (getIntent().getExtras() != null)
-            mCommunitySearchViewModel.newUser.set( getIntent().getExtras().getBoolean("newuser", false));
+        if (getIntent().getExtras() != null) {
+            mCommunitySearchViewModel.newUser.set(getIntent().getExtras().getBoolean("newuser", false));
+            mCommunitySearchViewModel.lat.set(getIntent().getExtras().getString("lat", ""));
+            mCommunitySearchViewModel.lng.set(getIntent().getExtras().getString("lng", ""));
 
+
+        }
 
         subscribeToLiveData();
         mCommunitySearchViewModel.getCommunityList();
@@ -216,6 +225,9 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
         inIntent.putExtra("residency",String.valueOf(cartdetail.getNoOfApartments()+" Residences"));
         inIntent.putExtra("lat",cartdetail.getLat());
         inIntent.putExtra("lng",cartdetail.get_long());
+         inIntent.putExtra("cuslat",  mCommunitySearchViewModel.lat.get());
+        inIntent.putExtra("cuslng",  mCommunitySearchViewModel.lng.get());
+
         startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

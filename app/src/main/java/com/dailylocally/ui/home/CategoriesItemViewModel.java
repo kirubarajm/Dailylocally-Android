@@ -11,6 +11,7 @@ public class CategoriesItemViewModel {
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> videourl = new ObservableField<>();
     public final ObservableBoolean isVideo = new ObservableBoolean();
+    public final ObservableBoolean showText = new ObservableBoolean();
 
     public final CategoriesItemViewModelListener mListener;
     private final HomepageResponse.Result result;
@@ -20,13 +21,21 @@ public class CategoriesItemViewModel {
         this.mListener = mListener;
         this.result = result;
         image.set(result.getImage());
-        if (result.getShowVideo() != null) {
-            isVideo.set(result.getShowVideo());
 
-if (result.getShowVideo())
-    mListener.updateVideoView();
+
+        if (result.getType() ==3) {
+            showText.set(false);
+
+            if (result.getShowVideo() != null) {
+                isVideo.set(result.getShowVideo());
+
+                if (result.getShowVideo())
+                    mListener.updateVideoView();
+            }
+
+        } else {
+            showText.set(true);
         }
-
 
         if (result.getCid() != null) {
             name.set("");
@@ -34,7 +43,6 @@ if (result.getShowVideo())
         } else {
             name.set(result.getName());
         }
-
 
 
         // name.set("Abcdefghijklmnopqrstuvwxyz a b c d e f g h i j k l m n o p q r s t u v w x y z ");
@@ -50,6 +58,7 @@ if (result.getShowVideo())
 
     public interface CategoriesItemViewModelListener {
         void onItemClick(HomepageResponse.Result result);
+
         void updateVideoView();
     }
 

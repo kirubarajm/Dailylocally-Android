@@ -14,6 +14,8 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
@@ -23,7 +25,6 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityViewAddressBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -53,7 +54,7 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
     SupportMapFragment mapFragment;
     GoogleMap map;
-    Double lat,lon;
+    Double lat, lon;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -68,6 +69,21 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
 
     public static Intent newIntent(Context context) {
         return new Intent(context, ViewAddressActivity.class);
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = AppCompatResources.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     @Override
@@ -93,31 +109,33 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
 
     @Override
     public void updateClick() {
-        Intent intent = GoogleAddressActivity.newIntent(this);
+        Intent intent = AddressNewActivity.newIntent(this);
         intent.putExtra("edit", "1");
+        intent.putExtra("newuser", false);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void getAddressSuccess(UserAddressResponse.Result result) {
         try {
-            if (result!=null){
+            if (result != null) {
                 lat = result.getLat();
                 lon = result.getLon();
 
                 mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
                 mActivityViewAddressBinding.txtLandmark.setText(result.getLandmark());
-                if (result.getAddressType()==1){
+                if (result.getAddressType() == 1) {
                     mActivityViewAddressBinding.txtAddressType.setText("Apartment Or Gated Society");
 
 
-                    String completeAddress="No."+result.getFlatHouseNo()+", "+result.getBlockName()+", "+result.getApartmentName()+","+result.getCompleteAddress();
+                    String completeAddress = "No." + result.getFlatHouseNo() + ", " + result.getBlockName() + ", " + result.getApartmentName() + "," + result.getCompleteAddress();
                     mActivityViewAddressBinding.txtFullAddress.setText(completeAddress);
 
 
-                }else {
+                } else {
                     mActivityViewAddressBinding.txtAddressType.setText("Independent House");
-                    String completeAddress="No."+result.getPlotHouseNo()+", Floor-"+result.getFloor()+", "+result.getCompleteAddress();
+                    String completeAddress = "No." + result.getPlotHouseNo() + ", Floor-" + result.getFloor() + ", " + result.getCompleteAddress();
                     mActivityViewAddressBinding.txtFullAddress.setText(completeAddress);
                 }
             }
@@ -131,46 +149,38 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
 
-                        Bitmap bitmap = getBitmapFromVectorDrawable(ViewAddressActivity.this,R.drawable.ic_map_marker);
+                        Bitmap bitmap = getBitmapFromVectorDrawable(ViewAddressActivity.this, R.drawable.ic_map_marker);
                         BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
                         markerOptions.icon(descriptor);
 
 
+                        View googleLogo = mActivityViewAddressBinding.frame.findViewWithTag("GoogleWatermark");
+                        RelativeLayout.LayoutParams glLayoutParams = (RelativeLayout.LayoutParams) googleLogo.getLayoutParams();
+                        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
+                        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+                        glLayoutParams.setMargins(10, 0, 0, 100);
+                        googleLogo.setLayoutParams(glLayoutParams);
 
 
-
-                   //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                        //     markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                         map = googleMap;
                         map.clear();
-                        map.getUiSettings().setZoomControlsEnabled(true);
+                        // map.getUiSettings().setZoomControlsEnabled(true);
                         //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                         map.addMarker(markerOptions);
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             });
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
-        Drawable drawable =  AppCompatResources.getDrawable(context, drawableId);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            drawable = (DrawableCompat.wrap(drawable)).mutate();
-        }
 
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
-    }
     @Override
     public void getAddressFailure() {
 

@@ -188,8 +188,28 @@ public class HomepageResponse {
         private Boolean showVideo;
 
 
+        public void setClickable(Boolean clickable) {
+            this.clickable = clickable;
+        }
+
+        public void setApprovalStatus(Boolean approvalStatus) {
+            this.approvalStatus = approvalStatus;
+        }
+
+        public void setJoinStatus(Boolean joinStatus) {
+            this.joinStatus = joinStatus;
+        }
+
+        public void setType(Integer type) {
+            this.type = type;
+        }
+
         public Boolean getShowVideo() {
             return showVideo;
+        }
+
+        public void setShowVideo(Boolean showVideo) {
+            this.showVideo = showVideo;
         }
 
         public Boolean getApprovalStatus() {

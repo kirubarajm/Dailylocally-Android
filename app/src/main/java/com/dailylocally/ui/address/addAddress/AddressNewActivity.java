@@ -1,22 +1,25 @@
 package com.dailylocally.ui.address.addAddress;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,26 +27,35 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.transition.TransitionManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddressNewBinding;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
-import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
-import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
+import com.dailylocally.ui.joinCommunity.CommunityAdapter;
+import com.dailylocally.ui.joinCommunity.CommunityResponse;
+import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.SingleShotLocationProvider;
@@ -51,6 +63,8 @@ import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -58,9 +72,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -71,11 +93,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, AddressNewViewModel> implements
-        AddressNewNavigator, HasSupportFragmentInjector {
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-
+        AddressNewNavigator, HasSupportFragmentInjector, LocationListener, CommunityAdapter.TransactionHistoryInfoListener {
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int ADDRESS_SEARCH_CODE = 15545;
@@ -83,23 +101,33 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Inject
     public AddressNewViewModel mAddAddressViewModel;
     protected LocationManager locationManager;
+    @Inject
+    CommunityAdapter mCommunityAdapter;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     SupportMapFragment mapFragment;
     GoogleMap map;
     LatLng center;
     Location mLocation;
     Dialog locationDialog;
-    //ProgressDialog dialog;
-
     FusedLocationProviderClient fusedLocationClient;
-
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
-
     String address = null;
     String aid = null;
     Bundle bundle = null;
-    String lat="",lon="", googleAddress = "",pinCode = "",area="",aId="",edit="";
+    ProgressDialog dialog;
+    String lat = "", lon = "", googleAddress = "", pinCode = "", area = "", aId = "", edit = "";
+    String strCommunityLat = "", strCommunityLng = "";
 
+    String apartment;
+    String towerBlock;
+    String houseFlatNo;
+    String housePlatNo;
+    String floor;
+    String landmark;
+    String apartmentOrIndividual = "";
+    Marker marker;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -108,13 +136,105 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                 Intent inIntent = InternetErrorFragment.newIntent(AddressNewActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
-               overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }
     };
+    //ProgressDialog dialog;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, AddressNewActivity.class);
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = AppCompatResources.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
+    public static ViewPropertyAnimator slideInFromBottom(Context ctx, View view, int index) {
+        final int screenHeight = ctx.getResources().getDisplayMetrics().heightPixels;
+        int[] coords = new int[2];
+        view.getLocationOnScreen(coords);
+        view.setTranslationY(screenHeight - coords[1]);
+        return view.animate().translationY(0).setDuration(600).setInterpolator(new OvershootInterpolator(1f));
+    }
+
+    public static ViewPropertyAnimator slideInToBottom(Context ctx, View view, int index) {
+        final int screenHeight = ctx.getResources().getDisplayMetrics().heightPixels;
+        int[] coords = new int[2];
+        view.getLocationOnScreen(coords);
+        view.setTranslationY(screenHeight - coords[1]);
+        return view.animate().translationY(0).setDuration(600).setInterpolator(new OvershootInterpolator(1f));
+
+
+    }
+
+
+    public void slideOutAddressView() {
+
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.ad.getHeight());
+        translateAnimation.setDuration(600);
+        mActivityAddressNewBinding.ad.startAnimation(translateAnimation);
+        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                //mAddAddressViewModel.openGoogleAddress();
+                // slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.ad, mActivityAddressNewBinding.tab.getHeight());
+
+
+                TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.gAddress);
+                mAddAddressViewModel.openGoogleAddress();
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+    }
+
+    public void slidetoBottomView() {
+
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.cSearch.getHeight());
+        translateAnimation.setDuration(600);
+        mActivityAddressNewBinding.cSearch.startAnimation(translateAnimation);
+        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.ad, mActivityAddressNewBinding.tab.getHeight());
+                mAddAddressViewModel.openAddress();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
     }
 
     @Override
@@ -140,66 +260,198 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     @Override
     public void apartmentClick() {
-        mAddAddressViewModel.isApartment.set(true);
-        mActivityAddressNewBinding.edtApartmentName.requestFocus();
+
+
+       /* Transition transition = new Slide(Gravity.TOP);
+        transition.setDuration(5000);
+        transition.addTarget(mActivityAddressNewBinding.container);
+
+        TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.container, transition);
+        mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);*/
+
+
+
+
+       /* mActivityAddressNewBinding.container.animate()
+                .translationY( mActivityAddressNewBinding.container.getHeight())
+                .alpha(1.0f)
+                .setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                       // mActivityAddressNewBinding.container.setVisibility(View.GONE);
+
+                        mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);
+                        mAddAddressViewModel.isApartment.set(true);
+                        mAddAddressViewModel.residenceClicked.set(true);
+                        mAddAddressViewModel.isApartment.set(true);
+                        mActivityAddressNewBinding.edtApartmentName.requestFocus();
+                    }
+                });*/
+
+        if (!mAddAddressViewModel.residenceClicked.get()) {
+            /*Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+            mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);
+            mActivityAddressNewBinding.container.startAnimation(slideUp);*/
+
+
+           /* mActivityAddressNewBinding.container.animate()
+                    .alpha(1f)
+                    .setDuration(10000)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);
+                        }
+                    });*/
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+            //  final int activityHeight = findViewById(android.R.id.content).getHeight();
+            //  mActivityAddressNewBinding.fields.animate().translationY(activityHeight -  mActivityAddressNewBinding.fields.getY()).setDuration(5000);
+
+
+            slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+
+
+            mActivityAddressNewBinding.cardApartment.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            mActivityAddressNewBinding.cardIndividual.setCardBackgroundColor(getResources().getColor(R.color.white));
+
+            mActivityAddressNewBinding.txApartment.setTextColor(getResources().getColor(R.color.white));
+            mActivityAddressNewBinding.txIndividual.setTextColor(getResources().getColor(R.color.medium_black));
+
+           /* TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.linearAddressType);
+            mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);*/
+            mAddAddressViewModel.isApartment.set(true);
+            mAddAddressViewModel.residenceClicked.set(true);
+            mAddAddressViewModel.isApartment.set(true);
+            mActivityAddressNewBinding.edtApartmentName.requestFocus();
+            mAddAddressViewModel.dummy.set(false);
+
+
+        } else {
+
+            mActivityAddressNewBinding.cardApartment.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            mActivityAddressNewBinding.cardIndividual.setCardBackgroundColor(getResources().getColor(R.color.white));
+
+            mActivityAddressNewBinding.txApartment.setTextColor(getResources().getColor(R.color.white));
+            mActivityAddressNewBinding.txIndividual.setTextColor(getResources().getColor(R.color.medium_black));
+
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.linearAddressType);
+            mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);
+            mAddAddressViewModel.isApartment.set(true);
+            mAddAddressViewModel.residenceClicked.set(true);
+            mAddAddressViewModel.isApartment.set(true);
+            mActivityAddressNewBinding.edtApartmentName.requestFocus();
+            mAddAddressViewModel.dummy.set(false);
+        }
     }
 
     @Override
     public void individualClick() {
-        mAddAddressViewModel.isApartment.set(false);
-        mActivityAddressNewBinding.edtHousePlotNo.requestFocus();
+
+
+        if (!mAddAddressViewModel.residenceClicked.get()) {
+            slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+
+
+            mActivityAddressNewBinding.txApartment.setTextColor(getResources().getColor(R.color.medium_black));
+            mActivityAddressNewBinding.txIndividual.setTextColor(getResources().getColor(R.color.white));
+
+            mActivityAddressNewBinding.cardApartment.setCardBackgroundColor(getResources().getColor(R.color.white));
+            mActivityAddressNewBinding.cardIndividual.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+            //  TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.linearAddressType);
+            mAddAddressViewModel.residenceClicked.set(true);
+            mAddAddressViewModel.isApartment.set(false);
+            mAddAddressViewModel.dummy.set(true);
+
+        } else {
+            mActivityAddressNewBinding.txApartment.setTextColor(getResources().getColor(R.color.medium_black));
+            mActivityAddressNewBinding.txIndividual.setTextColor(getResources().getColor(R.color.white));
+
+            mActivityAddressNewBinding.cardApartment.setCardBackgroundColor(getResources().getColor(R.color.white));
+            mActivityAddressNewBinding.cardIndividual.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.linearAddressType);
+            mAddAddressViewModel.residenceClicked.set(true);
+            mAddAddressViewModel.isApartment.set(false);
+            mAddAddressViewModel.dummy.set(true);
+            // mActivityAddressNewBinding.edtHousePlotNo.requestFocus();
+        }
     }
 
     @Override
     public void confirmClick() {
-        if (validation()){
+        if (validation()) {
 
-        String apartment = mActivityAddressNewBinding.edtApartmentName.getText().toString();
-        String towerBlock = mActivityAddressNewBinding.edtTowerBlock.getText().toString();
-        String houseFlatNo = mActivityAddressNewBinding.edtFlatHouseNo.getText().toString();
+            apartment = mActivityAddressNewBinding.edtApartmentName.getText().toString();
+            towerBlock = mActivityAddressNewBinding.edtTowerBlock.getText().toString();
+            houseFlatNo = mActivityAddressNewBinding.edtFlatHouseNo.getText().toString();
 
-        String housePlatNo = mActivityAddressNewBinding.edtHousePlotNo.getText().toString();
-        String floor = mActivityAddressNewBinding.edtFloor.getText().toString();
+            housePlatNo = mActivityAddressNewBinding.edtHousePlotNo.getText().toString();
+            floor = mActivityAddressNewBinding.edtFloor.getText().toString();
 
-        String address = mActivityAddressNewBinding.edtAddress.getText().toString();
-        String landmark = mActivityAddressNewBinding.edtLandmark.getText().toString();
-        String apartmentOrIndividual="";
-        if (mAddAddressViewModel.isApartment.get()){
-            apartmentOrIndividual = "1";
-        }else {
-            apartmentOrIndividual = "2";
-        }
+            address = mActivityAddressNewBinding.edtAddress.getText().toString();
+            landmark = mActivityAddressNewBinding.edtLandmark.getText().toString();
 
-        Intent intent = SaveAddressActivity.newIntent(AddressNewActivity.this);
-        intent.putExtra("apartmentOrIndividual",apartmentOrIndividual);
-        intent.putExtra("apartment",apartment);
-        intent.putExtra("towerBlock",towerBlock);
-        intent.putExtra("houseFlatNo",houseFlatNo);
-        intent.putExtra("housePlatNo",housePlatNo);
-        intent.putExtra("floor",floor);
-        intent.putExtra("address",address);
-        intent.putExtra("landmark",landmark);
-        intent.putExtra("googleAddress",googleAddress);
-        intent.putExtra("pinCode",pinCode);
-        intent.putExtra("area",area);
-        intent.putExtra("lat",lat);
-        intent.putExtra("lon",lon);
-        intent.putExtra("edit",edit);
-        intent.putExtra("aid",mAddAddressViewModel.aId.get());
-        startActivity(intent);
+            if (mAddAddressViewModel.isApartment.get()) {
+                apartmentOrIndividual = "1";
+            } else {
+                apartmentOrIndividual = "2";
+            }
+
+
+            mAddAddressViewModel.landmark.set(landmark);
+            if (apartmentOrIndividual.equals("1")) {
+                mAddAddressViewModel.addressType.set("Apartment or Gated Society");
+
+                String completeAddress = "No." + houseFlatNo + ", " + towerBlock + ", " + apartment + "," + address;
+                mAddAddressViewModel.address.set(completeAddress);
+
+            } else {
+                mAddAddressViewModel.addressType.set("Individual House");
+
+                String completeAddress = "No." + housePlatNo + ", Floor-" + floor + ", " + address;
+                mAddAddressViewModel.address.set(completeAddress);
+
+            }
+
+
+            mAddAddressViewModel.openSaveAddress();
+
+
+         /*   Intent intent = SaveAddressActivity.newIntent(AddressNewActivity.this);
+            intent.putExtra("apartmentOrIndividual", apartmentOrIndividual);
+            intent.putExtra("apartment", apartment);
+            intent.putExtra("towerBlock", towerBlock);
+            intent.putExtra("houseFlatNo", houseFlatNo);
+            intent.putExtra("housePlatNo", housePlatNo);
+            intent.putExtra("floor", floor);
+            intent.putExtra("address", address);
+            intent.putExtra("landmark", landmark);
+            intent.putExtra("googleAddress", googleAddress);
+            intent.putExtra("pinCode", pinCode);
+            intent.putExtra("area", area);
+            intent.putExtra("lat", lat);
+            intent.putExtra("lon", lon);
+            intent.putExtra("edit", edit);
+            intent.putExtra("aid", mAddAddressViewModel.aId.get());
+            startActivity(intent);*/
         }
     }
 
     @Override
     public void getAddressSuccess(UserAddressResponse.Result result) {
         try {
-            if (result!=null){
-                if (result.getAddressType()==1){
+            if (result != null) {
+                if (result.getAddressType() == 1) {
                     mAddAddressViewModel.isApartment.set(true);
                     mActivityAddressNewBinding.edtApartmentName.setText(result.getApartmentName());
                     mActivityAddressNewBinding.edtTowerBlock.setText(result.getBlockName());
                     mActivityAddressNewBinding.edtFlatHouseNo.setText(result.getFlatHouseNo());
-                }else {
+                } else {
                     mAddAddressViewModel.isApartment.set(false);
                     mActivityAddressNewBinding.edtHousePlotNo.setText(result.getPlotHouseNo());
                     mActivityAddressNewBinding.edtFloor.setText(result.getFloor());
@@ -207,7 +459,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                 mActivityAddressNewBinding.edtAddress.setText(result.getCompleteAddress());
                 mActivityAddressNewBinding.edtLandmark.setText(result.getLandmark());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -217,108 +469,323 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     }
 
+
     @Override
     public void goBack() {
-        onBackPressed();
+
+
+        if (mAddAddressViewModel.isGoogleAddress.get()) {
+
+        finish();
+
+        } else if (mAddAddressViewModel.isAddress.get()) {
+            map.clear();
+          /*  slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+
+            mAddAddressViewModel.openGoogleAddress();*/
+            slideOutAddressView();
+
+        } else if (mAddAddressViewModel.isCommunitySearch.get()) {
+
+            slidetoBottomView();
+
+
+            //   slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+
+
+        } else if (mAddAddressViewModel.isSaveAddress.get()) {
+
+
+            TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.ad.getHeight());
+            translateAnimation.setDuration(600);
+            mActivityAddressNewBinding.ad.startAnimation(translateAnimation);
+            translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    //mAddAddressViewModel.openGoogleAddress();
+                    // slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.ad, mActivityAddressNewBinding.tab.getHeight());
+                    TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.gAddress);
+                    mAddAddressViewModel.openAddress();
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+
+        } else if (mAddAddressViewModel.isJoinCommunity.get()) {
+            slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+            map.clear();
+            createMarkers(mAddAddressViewModel.googleLat.get(), mAddAddressViewModel.googleLon.get(), "", "", 0);
+
+            mAddAddressViewModel.openAddress();
+
+        } else {
+           finish();
+        }
+
+
     }
 
     @Override
     public void addApartmentClick() {
 
-        Intent inIntent = CommunitySearchActivity.newIntent(AddressNewActivity.this);
+        /*Intent inIntent = CommunitySearchActivity.newIntent(AddressNewActivity.this);
         inIntent.putExtra("newuser", true);
+        inIntent.putExtra("lat", lat);
+        inIntent.putExtra("lng", lon);
         startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+
+
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.cSearch, mActivityAddressNewBinding.fullPage.getHeight());
+        mAddAddressViewModel.openCommunitySearch();
+
+        mActivityAddressNewBinding.searchCommunity.requestFocus();
+
+
+    }
+
+    @Override
+    public void searchCommunity() {
+        /*Intent inIntent = CommunitySearchActivity.newIntent(AddressNewActivity.this);
+        inIntent.putExtra("newuser", true);
+        inIntent.putExtra("lat", lat);
+        inIntent.putExtra("lng", lon);
+        startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+
+        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.cSearch, mActivityAddressNewBinding.fullPage.getHeight());
+
+        mAddAddressViewModel.openCommunitySearch();
+
+
+    }
+
+    private void subscribeToLiveData() {
+        mAddAddressViewModel.getCommunityListItemsLiveData().observe(this,
+                catregoryItemViewModel -> mAddAddressViewModel.addCommunityListItemsToList(catregoryItemViewModel));
+    }
+
+    @Override
+    public void googleAddressConfirm() {
+
+        hideKeyboard();
+
+        if (mActivityAddressNewBinding.txtSubLocality.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter your area", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAddAddressViewModel.googleArea.set(mActivityAddressNewBinding.txtSubLocality.getText().toString());
+
+        createMarkers(mAddAddressViewModel.googleLat.get(), mAddAddressViewModel.googleLon.get(), "", "", 0);
+
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+
+        mAddAddressViewModel.openAddress();
+
+        mAddAddressViewModel.getCommunityList();
+        mActivityAddressNewBinding.searchCommunity.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                try {
+                    mAddAddressViewModel.quickSearch(s);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                try {
+
+                    mAddAddressViewModel.quickSearch(s);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        });
+
+
+    }
+
+    @Override
+    public void joinCommunityClick() {
+        String houseFlatNo = mActivityAddressNewBinding.edtHouse.getText().toString();
+        String floorNo = mActivityAddressNewBinding.edtFloorNo.getText().toString();
+        if (validJoin()) {
+            mAddAddressViewModel.joinTheCommunityAPI(houseFlatNo, floorNo, false);
+        }
+
+    }
+
+    @Override
+    public void communityClick() {
+
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.cSearch.getHeight());
+        translateAnimation.setDuration(600);
+        mActivityAddressNewBinding.cSearch.startAnimation(translateAnimation);
+        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+                mAddAddressViewModel.openJoinCommunity();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void knowMore() {
+
+        Intent inIntent = CommunityOnBoardingActivity.newIntent(AddressNewActivity.this);
+        inIntent.putExtra("newuser", false);
+        startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mActivityAddressNewBinding = getViewDataBinding();
-        mAddAddressViewModel.setNavigator(this);
-        //analytics = new Analytics(this, pageName);
+    public void showAlert(String title, String message, String locationAddress, String area, String lat,
+                          String lng, String pinCode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //Uncomment the below code to Set the message and title from the strings.xml file
+        builder.setMessage(message).setTitle(title);
 
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
-        mAddAddressViewModel.clickableApartment.set(true);
-
-
-
-        View googleLogo = mActivityAddressNewBinding.frame.findViewWithTag("GoogleWatermark");
-        RelativeLayout.LayoutParams glLayoutParams = (RelativeLayout.LayoutParams)googleLogo.getLayoutParams();
-        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
-        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        glLayoutParams.setMargins(10,0,0,100);
-        googleLogo.setLayoutParams(glLayoutParams);
-
-
-
-        bundle = getIntent().getExtras();
-        if (bundle!=null){
-            lat = bundle.getString("lat");
-            lon = bundle.getString("lon");
-            googleAddress = bundle.getString("locationAddress");
-            pinCode = bundle.getString("pinCode");
-            area = bundle.getString("area");
-            edit = bundle.getString("edit");
-            aId = bundle.getString("aid");
-
-            mAddAddressViewModel.fetchUserDetails();
-        }
-
-        /*dialog = new ProgressDialog(this);
-        dialog.setCancelable(true);
-        dialog.setMessage("Getting your location..");
-        dialog.setTitle("Please Wait!");*/
-
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                try {
-                    LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng);
-                  //  markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-
-                    Bitmap bitmap = getBitmapFromVectorDrawable(AddressNewActivity.this,R.drawable.ic_map_marker);
-                    BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
-                    markerOptions.icon(descriptor);
-
-
-
-                    map = googleMap;
-                    map.clear();
-                    map.getUiSettings().setZoomControlsEnabled(true);
-                    //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                    if (bundle!=null) {
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                        map.addMarker(markerOptions);
-                        initCameraIdle();
+        //Setting message manually and performing action on button click
+        builder.setCancelable(true)
+                .setPositiveButton("Get in touch", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
+                        Intent intent = FeedbackSupportActivity.newIntent(AddressNewActivity.this);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        // dialog.show();
+                })
+                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                        // Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                        //  startActivity(intent);
+                        //  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.show();
 
-        mAddAddressViewModel.isApartment.set(true);
-        mActivityAddressNewBinding.edtApartmentName.setFocusable(true);
     }
-    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
-        Drawable drawable =  AppCompatResources.getDrawable(context, drawableId);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            drawable = (DrawableCompat.wrap(drawable)).mutate();
+
+    public boolean validJoin() {
+        if (mActivityAddressNewBinding.edtHouse.getText().toString().trim().equals("")) {
+            Toast.makeText(this, "Please enter House/Flat no", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (mActivityAddressNewBinding.edtFloorNo.getText().toString().trim().equals("")) {
+            Toast.makeText(this, "Floor no", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
+        return true;
     }
+
+    @Override
+    public void showAlert(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //Uncomment the below code to Set the message and title from the strings.xml file
+        builder.setMessage(message).setTitle(title);
+
+        //Setting message manually and performing action on button click
+        builder.setCancelable(true)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        String houseFlatNo = mActivityAddressNewBinding.edtHouse.getText().toString();
+                        String floorNo = mActivityAddressNewBinding.edtFloorNo.getText().toString();
+                        if (validJoin()) {
+                            mAddAddressViewModel.joinTheCommunityAPI(houseFlatNo, floorNo, true);
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                        //  Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                        // startActivity(intent);
+                        //  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.show();
+
+    }
+
+    @Override
+    public void communityJoined(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+        Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+    }
+
+    @Override
+    public void showToast(String message, Boolean status) {
+        if (status) {
+            Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void saveAddressFailed(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addManually() {
+        mActivityAddressNewBinding.edtApartmentName.setText(mActivityAddressNewBinding.searchCommunity.getQuery().toString());
+        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+        mAddAddressViewModel.openAddress();
+        mAddAddressViewModel.clickableApartment.set(false);
+    }
+
     public void turnOnGps() {
 
         new GpsUtils(this, AppConstants.GPS_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
@@ -329,9 +796,9 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     if (ActivityCompat.checkSelfPermission(AddressNewActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddressNewActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(AddressNewActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
                     } else {
-                        /*if (!dialog.isShowing())
-                            dialog.show();*/
-                        //getUserLocation();
+                        if (!dialog.isShowing())
+                            dialog.show();
+                        getUserLocation();
                     }
                 } else {
                     showLocationDialog();
@@ -348,9 +815,9 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     @Override
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
-                        /*if (dialog != null)
+                        if (dialog != null)
                             if (dialog.isShowing())
-                                dialog.dismiss();*/
+                                dialog.dismiss();
                         if (location != null)
                             if (map != null) {
 
@@ -363,6 +830,310 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     }
                 });
     }
+
+    @SuppressLint("MissingPermission")
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case AppConstants.GPS_REQUEST: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    turnOnGps();
+
+                } else {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                }
+                return;
+            }
+        }
+    }
+
+    private void initCameraIdle() {
+        map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                center = map.getCameraPosition().target;
+                if (mAddAddressViewModel.isGoogleAddress.get())
+                    if (center.latitude != 0.0) {
+                        getAddressFromLocation(center.latitude, center.longitude);
+                        mAddAddressViewModel.googleLat.set(String.valueOf(center.latitude));
+                        mAddAddressViewModel.googleLon.set(String.valueOf(center.longitude));
+
+                    }
+                //getAddressFromLocation(12.99447060,80.25593567);
+            }
+        });
+    }
+
+    private void getAddressFromLocation(double latitude, double longitude) {
+        new AsyncTaskAddress().execute(latitude, longitude);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADDRESS_SEARCH_CODE) {
+            if (resultCode == RESULT_OK) {
+                //   Place place = PlaceAutocomplete.getPlace(this, data);
+
+                Place place = Autocomplete.getPlaceFromIntent(data);
+
+                if (place.getLatLng() != null) {
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 14);
+                    if (map != null)
+                        map.animateCamera(cameraUpdate);
+                }
+
+
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                printToast("Error in retrieving place info");
+
+            }
+        } else if (requestCode == AppConstants.GPS_REQUEST) {
+
+            if (resultCode == Activity.RESULT_OK) {
+
+
+                if (!dialog.isShowing())
+                    dialog.show();
+
+                turnOnGps();
+
+
+            } else {
+
+                showLocationDialog();
+
+            }
+
+
+        } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
+
+
+        }
+    }
+
+    private void printToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mLocation = location;
+        if (map != null) {
+            if (location != null) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                initCameraIdle();
+                if (locationManager != null)
+                    locationManager.removeUpdates(this);
+            }
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+    }
+
+
+    @Override
+    public void searchAddress() {
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getString(R.string.map_key));
+        }
+
+        // Set the fields to specify which types of place data to return.
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+
+        // Start the autocomplete intent.
+        Intent intent = new Autocomplete.IntentBuilder(
+                AutocompleteActivityMode.OVERLAY, fields)
+                .setCountry("IN")
+                .build(this);
+        startActivityForResult(intent, ADDRESS_SEARCH_CODE);
+    }
+
+
+    @Override
+    public void saveAddressClick() {
+
+
+        mAddAddressViewModel.saveAddress(apartmentOrIndividual, mAddAddressViewModel.googleAddress.get(), address, houseFlatNo, housePlatNo, area, pinCode,
+                mAddAddressViewModel.googleLat.get(),   mAddAddressViewModel.googleLat.get(), landmark, floor, towerBlock, apartment, aId);
+
+
+    }
+
+
+    @Override
+    public void editAddressClick() {
+        goBack();
+    }
+
+    @Override
+    public void dataloaded() {
+
+    }
+
+    @Override
+    public void goHome() {
+        Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_SPLASH_ACTV);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivityAddressNewBinding = getViewDataBinding();
+        mAddAddressViewModel.setNavigator(this);
+        mCommunityAdapter.setListener(this);
+        //analytics = new Analytics(this, pageName);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
+        mAddAddressViewModel.clickableApartment.set(true);
+
+        mBottomSheetBehavior = BottomSheetBehavior.from(mActivityAddressNewBinding.bottomSheet);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        mBottomSheetBehavior.setHideable(false);
+
+
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        //  mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mActivityAddressNewBinding.recyclerCommunity.setLayoutManager(mLayoutManager);
+        mActivityAddressNewBinding.recyclerCommunity.setAdapter(mCommunityAdapter);
+
+        mAddAddressViewModel.openGoogleAddress();
+
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(true);
+        dialog.setMessage("Getting your location..");
+        dialog.setTitle("Please Wait!");
+
+       /* View googleLogo = mActivityAddressNewBinding.frame.findViewWithTag("GoogleWatermark");
+        RelativeLayout.LayoutParams glLayoutParams = (RelativeLayout.LayoutParams) googleLogo.getLayoutParams();
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        glLayoutParams.setMargins(0, 20, 10, 0);
+        googleLogo.setLayoutParams(glLayoutParams);*/
+
+
+        View googleLogo = mActivityAddressNewBinding.frame.findViewWithTag("GoogleWatermark");
+        RelativeLayout.LayoutParams glLayoutParams = (RelativeLayout.LayoutParams) googleLogo.getLayoutParams();
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, 0);
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
+        googleLogo.setLayoutParams(glLayoutParams);
+
+
+        subscribeToLiveData();
+
+
+        bundle = getIntent().getExtras();
+        if (bundle != null) {
+
+            mAddAddressViewModel.newUser.set(bundle.getBoolean("newuser", false));
+
+
+            /*lat = bundle.getString("lat");
+            lon = bundle.getString("lon");
+            googleAddress = bundle.getString("locationAddress");
+            pinCode = bundle.getString("pinCode");
+            area = bundle.getString("area");
+            edit = bundle.getString("edit");
+            aId = bundle.getString("aid");*/
+
+            //  mAddAddressViewModel.fetchUserDetails();
+        }
+
+
+
+
+
+
+
+
+
+       /* TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.container);
+        mAddAddressViewModel.residenceClicked.set(false);
+        mAddAddressViewModel.isApartment.set(false);*/
+
+
+        /*dialog = new ProgressDialog(this);
+        dialog.setCancelable(true);
+        dialog.setMessage("Getting your location..");
+        dialog.setTitle("Please Wait!");*/
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+
+
+                map = googleMap;
+                boolean success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                                AddressNewActivity.this, R.raw.style_silver));
+
+
+                if (mAddAddressViewModel.isGoogleAddress.get()) {
+                    turnOnGps();
+                    initCameraIdle();
+                }
+                /*try {
+                    LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    //  markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+                    Bitmap bitmap = getBitmapFromVectorDrawable(AddressNewActivity.this, R.drawable.ic_map_marker);
+                    BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
+                    markerOptions.icon(descriptor);
+
+
+
+                    map.clear();
+                    // map.getUiSettings().setZoomControlsEnabled(true);
+                    //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    if (bundle != null) {
+                        map.addMarker(markerOptions);
+                        Projection projection = googleMap.getProjection();
+                        LatLng markerPosition = markerOptions.getPosition();
+                        Point markerPoint = projection.toScreenLocation(markerPosition);
+                        Point targetPoint = new Point(markerPoint.x, markerPoint.y - mActivityAddressNewBinding.frame.getHeight());
+                        LatLng targetPosition = projection.fromScreenLocation(targetPoint);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLng(targetPosition), 1000, null);
+
+
+                        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+
+                        // initCameraIdle();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+            }
+        });
+        // dialog.show();
+
+        mAddAddressViewModel.isApartment.set(true);
+        mActivityAddressNewBinding.edtApartmentName.setFocusable(true);
+    }
+
 
     public void showLocationDialog() {
         locationDialog = new Dialog(this);
@@ -393,56 +1164,6 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     }
 
-    private void initCameraIdle() {
-        map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
-            @Override
-            public void onCameraIdle() {
-                center = map.getCameraPosition().target;
-
-                //if (center.latitude != 0.0)
-                    //getAddressFromLocation(center.latitude, center.longitude);
-                //getAddressFromLocation(12.99447060,80.25593567);
-            }
-        });
-    }
-
-    private void getAddressFromLocation(double latitude, double longitude) {
-        new AsyncTaskAddress().execute(latitude, longitude);
-    }
-
-    private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
-
-
-        @Override
-        protected Address doInBackground(Double... doubles) {
-            Geocoder geocoder = new Geocoder(AddressNewActivity.this, Locale.ENGLISH);
-
-            List<Address> addresses = null;
-            try {
-                addresses = geocoder.getFromLocation(doubles[0], doubles[1], 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (addresses != null)
-                if (addresses.size() > 0) {
-                    Address fetchedAddress = addresses.get(0);
-
-                    return fetchedAddress;
-                }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(Address fetchedAddress) {
-            super.onPostExecute(fetchedAddress);
-
-        }
-    }
 
     @Override
     protected void onResume() {
@@ -464,7 +1185,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        goBack();
     }
 
     private void registerWifiReceiver() {
@@ -516,47 +1237,47 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         return fragmentDispatchingAndroidInjector;
     }
 
-    public boolean validation(){
+    public boolean validation() {
 
-        if (mAddAddressViewModel.isApartment.get()){
-            if (mActivityAddressNewBinding.edtApartmentName.getText().toString().trim().isEmpty()){
-              //  mActivityAddressNewBinding.edtApartmentName.setError("");
+        if (mAddAddressViewModel.isApartment.get()) {
+            if (mActivityAddressNewBinding.edtApartmentName.getText().toString().trim().isEmpty()) {
+                //  mActivityAddressNewBinding.edtApartmentName.setError("");
                 Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
                 return false;
-            }else if (mActivityAddressNewBinding.edtTowerBlock.getText().toString().trim().isEmpty()){
-             //   mActivityAddressNewBinding.edtTowerBlock.setError("");
-                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
-
-                return false;
-            }else if (mActivityAddressNewBinding.edtFlatHouseNo.getText().toString().trim().isEmpty()){
-              //  mActivityAddressNewBinding.edtFlatHouseNo.setError("");
+            } else if (mActivityAddressNewBinding.edtTowerBlock.getText().toString().trim().isEmpty()) {
+                //   mActivityAddressNewBinding.edtTowerBlock.setError("");
                 Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
 
                 return false;
-            }
-        }
-
-        if (!mAddAddressViewModel.isApartment.get()){
-            if (mActivityAddressNewBinding.edtHousePlotNo.getText().toString().trim().isEmpty()){
-               // mActivityAddressNewBinding.edtHousePlotNo.setError("");
-                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
-
-                return false;
-            }else if (mActivityAddressNewBinding.edtFloor.getText().toString().trim().isEmpty()){
-              //  mActivityAddressNewBinding.edtFloor.setError("");
+            } else if (mActivityAddressNewBinding.edtFlatHouseNo.getText().toString().trim().isEmpty()) {
+                //  mActivityAddressNewBinding.edtFlatHouseNo.setError("");
                 Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
 
                 return false;
             }
         }
 
-        if (mActivityAddressNewBinding.edtAddress.getText().toString().trim().isEmpty()){
-           // mActivityAddressNewBinding.edtAddress.setError("");
+        if (!mAddAddressViewModel.isApartment.get()) {
+            if (mActivityAddressNewBinding.edtHousePlotNo.getText().toString().trim().isEmpty()) {
+                // mActivityAddressNewBinding.edtHousePlotNo.setError("");
+                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
+                return false;
+            } else if (mActivityAddressNewBinding.edtFloor.getText().toString().trim().isEmpty()) {
+                //  mActivityAddressNewBinding.edtFloor.setError("");
+                Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        }
+
+        if (mActivityAddressNewBinding.edtAddress.getText().toString().trim().isEmpty()) {
+            // mActivityAddressNewBinding.edtAddress.setError("");
             Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
 
             return false;
-        }else if (mActivityAddressNewBinding.edtLandmark.getText().toString().trim().isEmpty()){
-          //  mActivityAddressNewBinding.edtLandmark.setError("");
+        } else if (mActivityAddressNewBinding.edtLandmark.getText().toString().trim().isEmpty()) {
+            //  mActivityAddressNewBinding.edtLandmark.setError("");
             Toast.makeText(this, "Please enter the mandatory fields", Toast.LENGTH_SHORT).show();
 
             return false;
@@ -565,20 +1286,160 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onItemClick(CommunityResponse.Result community) {
 
-        if (requestCode==AppConstants.SELECT_COMMUNITY_REQUEST_CODE){
+        mAddAddressViewModel.cmId.set(String.valueOf(community.getComid()));
+        mAddAddressViewModel.comLat.set(community.getLat());
+        mAddAddressViewModel.comLon.set(community.get_long());
 
-            if (resultCode== Activity.RESULT_OK){
-                if (data!=null){
-                    mActivityAddressNewBinding.edtApartmentName.setText(data.getStringExtra("text"));
-                }
-              mAddAddressViewModel.clickableApartment.set(false);
+
+        createMarkers(community.getLat(), community.get_long(), community.getCommunityname(), community.getNoOfApartments() + " Residency", 0);
+
+        mAddAddressViewModel.communityClick();
+
+    }
+
+    public void createMarkers(String latitude, String longitude, String title, String snippet, int iconResID) {
+        try {
+            LatLng latLng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+            markerOptions.title(title);
+            markerOptions.snippet(snippet);
+
+
+            Bitmap bitmap = getBitmapFromVectorDrawable(AddressNewActivity.this, R.drawable.ic_group_310);
+            BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
+            markerOptions.icon(descriptor);
+            //    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+            map.clear();
+            map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+            marker = map.addMarker(markerOptions);
+            //   builder.include(markerOptions.getPosition());
+            if (!title.isEmpty())
+                marker.showInfoWindow();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
+
+
+        @Override
+        protected Address doInBackground(Double... doubles) {
+            Geocoder geocoder = new Geocoder(AddressNewActivity.this, Locale.ENGLISH);
+
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(doubles[0], doubles[1], 1);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+            if (addresses != null)
+                if (addresses.size() > 0) {
+                    Address fetchedAddress = addresses.get(0);
+
+                    return fetchedAddress;
+
+                }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
 
         }
 
+        @Override
+        protected void onPostExecute(Address fetchedAddress) {
+            super.onPostExecute(fetchedAddress);
 
+            try {
+
+                if (fetchedAddress != null) {
+
+
+               /* String address = fetchedAddress.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = fetchedAddress.getLocality();
+                String state = fetchedAddress.getAdminArea();
+                String country = fetchedAddress.getCountryName();
+                String postalCode = fetchedAddress.getPostalCode();
+                String knownName = fetchedAddress.getFeatureName();
+                Toast.makeText(AddAddressActivity.this, address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+knownName, Toast.LENGTH_LONG).show();*/
+
+
+                    address = fetchedAddress.getAddressLine(0);
+                    //    address = fetchedAddress.getSubLocality()+","+fetchedAddress.getLocality()+","+fetchedAddress.getAdminArea()+","+fetchedAddress.getCountryName()+","+fetchedAddress.getPostalCode();
+
+
+                    mAddAddressViewModel.locationAddress.set(address);
+
+                    ColorStateList colorStateList;
+                    if (fetchedAddress.getSubLocality() != null) {
+                        mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
+                        //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
+                        //mActivityCommunityBinding.txtEdit.setEnabled(false);
+                        mActivityAddressNewBinding.txtSubLocality.setEnabled(false);
+                        mActivityAddressNewBinding.txtSubLocality.setHint("");
+                        colorStateList = ColorStateList.valueOf(Color.parseColor("#000000"));
+                        ViewCompat.setBackgroundTintList(mActivityAddressNewBinding.txtSubLocality, colorStateList);
+                        mActivityAddressNewBinding.txtMessage.setVisibility(View.GONE);
+                        mActivityAddressNewBinding.imgMarker.setBackgroundResource(R.drawable.ic_group_2);
+
+                    } else {
+                        mAddAddressViewModel.area.set("");
+                        //mActivityCommunityBinding.txtEdit.setEnabled(true);
+                        mActivityAddressNewBinding.txtSubLocality.setEnabled(true);
+                        mActivityAddressNewBinding.txtSubLocality.requestFocus();
+                        //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
+                        mActivityAddressNewBinding.txtSubLocality.setHint(null);
+                        mActivityAddressNewBinding.txtSubLocality.setHint("Unable to identify location");
+                        mActivityAddressNewBinding.txtSubLocality.setHintTextColor(Color.parseColor("#FF0001"));
+                        mActivityAddressNewBinding.txtMessage.setVisibility(View.VISIBLE);
+                        printToast("Unable to find your area please mark your location on map..");
+
+                        colorStateList = ColorStateList.valueOf(Color.parseColor("#FF0001"));
+                        ViewCompat.setBackgroundTintList(mActivityAddressNewBinding.txtSubLocality, colorStateList);
+
+                        mActivityAddressNewBinding.imgMarker.setBackgroundResource(R.drawable.ic_group_3);
+                    }
+
+
+                    //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
+
+
+                    mAddAddressViewModel.saveAddress(address, fetchedAddress.getSubLocality(), String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
+
+                    strCommunityLat = String.valueOf(fetchedAddress.getLatitude());
+                    strCommunityLng = String.valueOf(fetchedAddress.getLongitude());
+
+
+                    mAddAddressViewModel.googleLat.set(String.valueOf(fetchedAddress.getLatitude()));
+                    mAddAddressViewModel.googleLon.set(String.valueOf(fetchedAddress.getLongitude()));
+
+
+                    pinCode = fetchedAddress.getPostalCode();
+
+                    StringBuilder strAddress = new StringBuilder();
+                    for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                        strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
+
+                    }
+
+                } else {
+                /*if (address == null)
+                    printToast("Unable to find your address please mark your location on map..");*/
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

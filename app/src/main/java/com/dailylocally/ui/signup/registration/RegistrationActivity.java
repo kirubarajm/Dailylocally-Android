@@ -10,20 +10,15 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.dailylocally.BR;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.R;
-
 import com.dailylocally.databinding.ActivityRegistrationBinding;
+import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
-
-
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.utilities.AppConstants;
-
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -35,10 +30,6 @@ import javax.inject.Inject;
 public class RegistrationActivity extends BaseActivity<ActivityRegistrationBinding, RegistrationViewModel>
         implements RegistrationNavigator {
 
-    @Inject
-    RegistrationViewModel mLoginViewModelMain;
-    int gender;
-
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
             "[a-zA-Z0-9+._%-+]{1,256}" +
                     "@" +
@@ -48,8 +39,11 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
                     "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
                     ")+"
     );
+    @Inject
+    RegistrationViewModel mLoginViewModelMain;
+    int gender;
     Analytics analytics;
-    String pageName= AppConstants.SCREEN_USER_REGISTRATION;
+    String pageName = AppConstants.SCREEN_USER_REGISTRATION;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -87,26 +81,35 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         String email = "";
 
         if (emailText.length() > 0 && emailText.contains(" ")) {
-            email= emailText.replaceAll(" ", "");
+            email = emailText.replaceAll(" ", "");
             mActivityRegistrationBinding.email.setText(email);
         }
 
         if (validForProceed()) {
-            mLoginViewModelMain.insertNameGenderServiceCall(name,mActivityRegistrationBinding.email.getText().toString(),referral);
+            mLoginViewModelMain.insertNameGenderServiceCall(name, mActivityRegistrationBinding.email.getText().toString(), referral);
             new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_PROCEED);
         }
     }
 
     @Override
-    public void genderSuccess(String strMessage,Boolean flagEdit) {
-        if (!flagEdit){
+    public void genderSuccess(String strMessage, Boolean flagEdit) {
+        if (!flagEdit) {
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
             //mLoginViewModelMain.fetchUserDetails();
-            Intent intent = GoogleAddressActivity.newIntent(RegistrationActivity.this);
+            /*Intent intent = GoogleAddressActivity.newIntent(RegistrationActivity.this);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+
+
+            Intent inIntent = AddressNewActivity.newIntent(RegistrationActivity.this);
+            inIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            inIntent.putExtra("newuser", true);
+            startActivity(inIntent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }else{
+
+
+        } else {
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -144,7 +147,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         mLoginViewModelMain.setNavigator(this);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle!=null){
+        if (bundle != null) {
             String edit = bundle.getString("edit");
             assert edit != null;
             if (edit.equals("1")) {
@@ -158,12 +161,12 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
                 mLoginViewModelMain.flagReferral.set(true);
             }
         }
-        analytics=new Analytics(this, pageName);
+        analytics = new Analytics(this, pageName);
     }
 
     @Override
     public void onBackPressed() {
-       new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 

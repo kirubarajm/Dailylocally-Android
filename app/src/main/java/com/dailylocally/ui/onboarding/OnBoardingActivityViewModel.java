@@ -1,6 +1,8 @@
 package com.dailylocally.ui.onboarding;
 
 
+import androidx.databinding.ObservableBoolean;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -14,7 +16,7 @@ import com.dailylocally.utilities.DailylocallyApp;
 
 
 public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivityNavigator> {
-
+    public final ObservableBoolean lastScreen = new ObservableBoolean();
     public OnBoardingActivityViewModel(DataManager dataManager) {
         super(dataManager);
     }

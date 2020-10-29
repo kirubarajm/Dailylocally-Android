@@ -25,14 +25,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCommunityOnboardingBinding;
+import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
-import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -96,13 +95,16 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
 
 
         if (newUser) {
-            Intent inIntent = CommunityAddressActivity.newIntent(CommunityOnBoardingActivity.this);
-            startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
+            Intent inIntent = AddressNewActivity.newIntent(CommunityOnBoardingActivity.this);
+            inIntent.putExtra("newuser", false);
+            startActivity(inIntent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         } else {
             Intent inIntent = CommunitySearchActivity.newIntent(CommunityOnBoardingActivity.this);
             inIntent.putExtra("newuser", false);
+            inIntent.putExtra("lat", mOnBoardingActivityViewModel.getDataManager().getCurrentLat());
+            inIntent.putExtra("lng", mOnBoardingActivityViewModel.getDataManager().getCurrentLng());
             startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
@@ -219,7 +221,6 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
     }
 
 
-
     /**
      * Making notification bar transparent
      */
@@ -297,8 +298,6 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-
-
 
 
             return view;
