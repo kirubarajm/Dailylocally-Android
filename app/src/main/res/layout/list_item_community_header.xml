@@ -64,7 +64,7 @@
                                         android:orientation="horizontal">
 
 
-                                        <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                             style="@style/SubtTitleTextStyle"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
 
                                     </LinearLayout>
 
-                                    <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                    <com.dailylocally.utilities.fonts.quicksand.TitleTextView
                                         style="@style/SubtTitleTextStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"

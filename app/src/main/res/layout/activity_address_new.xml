@@ -963,6 +963,7 @@
                                     android:gravity="center_horizontal"
                                     android:onClick="@{()->addressNewViewModel.editClick()}"
                                     android:text="Edit Again"
+                                    android:textAllCaps="true"
                                     android:textColor="@color/medium_black"
                                     android:textSize="@dimen/_22px" />
 
@@ -977,6 +978,7 @@
 
                                 <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                                     android:layout_width="wrap_content"
+                                    android:textAllCaps="true"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_gravity="center_vertical|center_horizontal"
