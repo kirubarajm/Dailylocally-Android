@@ -77,8 +77,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
     @Inject
     CommunityActivityViewModel mOnBoardingActivityViewModel;
-    Analytics analytics;
-    String pageName = "community";
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -540,14 +538,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 Canvas c = new Canvas(circleBitmap);
                 c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
 
-                //mActivityOnboardingBinding.imgRegistration.setBackgroundResource(0);
-                //mActivityOnboardingBinding.imgRegistration.setImageBitmap(circleBitmap);
-                //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(true);
                 mOnBoardingActivityViewModel.uploadImage(imageBitmap1, AppConstants.IMAGE_UPLOAD_REGISTRATION);
                 mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
             } else {
-                //mActivityOnboardingBinding.imgRegistration.setImageBitmap(null);
-                //mOnBoardingActivityViewModel.flagCameraOrUpload1.set(false);
             }
         } else {
 
@@ -555,7 +548,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
             if (data != null) {
                 Bundle extras = data.getExtras();
                 assert extras != null;
@@ -568,8 +560,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 assert imageBitmap != null;
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
-                //mActivityOnboardingBinding.imgJoin.setImageBitmap(null);
-                //mActivityOnboardingBinding.imgJoin.setImageBitmap(imageBitmap);
+
 
                 Bitmap bitmap = imageBitmap;
                 Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -580,20 +571,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                 paint.setAntiAlias(true);
                 Canvas c = new Canvas(circleBitmap);
                 c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
-                //mActivityOnboardingBinding.imgJoin.setBackgroundResource(0);
-                //mActivityOnboardingBinding.imgJoin.setImageBitmap(circleBitmap);
 
-
-                //mActivityOnboardingBinding.flagCameraOrUpload.set(true);
                 mOnBoardingActivityViewModel.uploadImage(imageBitmap, AppConstants.IMAGE_UPLOAD_JOIN);
-                //mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
-                //mOnBoardingActivityViewModel.flagRemovePicReg.set(true);
             }
-
-
-            //  mOnBoardingActivityViewModel.uploadImage(result.getBitmap(), AppConstants.IMAGE_UPLOAD_JOIN);
-            // mOnBoardingActivityViewModel.flagRemovePicJoin.set(true);
-
 
         }
 
@@ -622,9 +602,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     public void onClick(DialogInterface dialog, int id) {
                         //  Action for 'NO' Button
                         dialog.cancel();
-                        // Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
-                        //  startActivity(intent);
-                        //  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
         //Creating dialog box
@@ -656,9 +633,6 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     public void onClick(DialogInterface dialog, int id) {
                         //  Action for 'NO' Button
                         dialog.cancel();
-                        //  Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
-                        // startActivity(intent);
-                        //  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
         //Creating dialog box

@@ -1,11 +1,10 @@
 package com.dailylocally.ui.joinCommunity.contactWhatsapp;
 
-import android.Manifest;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -17,15 +16,10 @@ import android.widget.Toast;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityContactWhatsAppBinding;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-
-import java.net.URLEncoder;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -34,8 +28,6 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
 
     @Inject
     ContactWhatsAppViewModel mOnBoardingActivityViewModel;
-    Analytics analytics;
-    String pageName = "contact WhatsApp";
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -97,8 +89,6 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
 
     @Override
     public void changeHeader(String headerContent) {
-        //mActivityContactWhatsAppBinding.txtName.setText(Html.fromHtml(headerContent));
-
         mActivityContactWhatsAppBinding.txtName.setText(Html.fromHtml(
                 "<small>" + headerContent + "</small>" +"<b>" + " "+mOnBoardingActivityViewModel.getDataManager().getCurrentUserName() + "</b>" +","));
     }

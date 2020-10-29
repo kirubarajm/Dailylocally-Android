@@ -33,7 +33,6 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
     TransactionHistoryViewModel mTransactionHistoryViewModel;
     @Inject
     TransactionHistoryAdapter mTransactionHistoryAdapter;
-    Analytics analytics;
 
     private ActivityTransactionHistoryBinding mActivityTransactionHistoryBinding;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {

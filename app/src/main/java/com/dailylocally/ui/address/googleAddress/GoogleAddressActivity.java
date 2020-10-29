@@ -78,12 +78,8 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     ProgressDialog dialog;
     FusedLocationProviderClient fusedLocationClient;
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
-
     String address = null;
     String aid = null,edit=null;
-
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -124,7 +120,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
     @Override
     public void addressSaved() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_SAVE);
         Intent intent = MainActivity.newIntent(GoogleAddressActivity.this,"","");
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -148,7 +143,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
     @Override
     public void myLocationn() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_ADDRESS_CURRENT_LOCATION);
         turnOnGps();
     }
 
@@ -301,9 +295,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 mAddAddressViewModel.flagAddressEdit.set(true);
             }
         }
-
-        analytics = new Analytics(this, pageName);
-
         dialog = new ProgressDialog(this);
         dialog.setCancelable(true);
         dialog.setMessage("Getting your location..");
@@ -396,7 +387,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
                 if (center.latitude != 0.0)
                     getAddressFromLocation(center.latitude, center.longitude);
-                //getAddressFromLocation(12.99447060,80.25593567);
             }
         });
     }
@@ -410,8 +400,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADDRESS_SEARCH_CODE) {
             if (resultCode == RESULT_OK) {
-                //   Place place = PlaceAutocomplete.getPlace(this, data);
-
                 Place place = Autocomplete.getPlaceFromIntent(data);
 
                 if (place.getLatLng() != null) {
@@ -502,7 +490,6 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         if (dialog.isShowing()) dialog.dismiss();
         super.onBackPressed();
 
@@ -591,35 +578,15 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
             if (fetchedAddress != null) {
 
-
-               /* String address = fetchedAddress.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = fetchedAddress.getLocality();
-                String state = fetchedAddress.getAdminArea();
-                String country = fetchedAddress.getCountryName();
-                String postalCode = fetchedAddress.getPostalCode();
-                String knownName = fetchedAddress.getFeatureName();
-                Toast.makeText(AddAddressActivity.this, address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+knownName, Toast.LENGTH_LONG).show();*/
-
-
                 address = fetchedAddress.getAddressLine(0);
-            //    address = fetchedAddress.getSubLocality()+","+fetchedAddress.getLocality()+","+fetchedAddress.getAdminArea()+","+fetchedAddress.getCountryName()+","+fetchedAddress.getPostalCode();
-
-
                 mAddAddressViewModel.locationAddress.set(address);
-
-
                 if (fetchedAddress.getSubLocality()!=null){
                     mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
                 }else {
                     mAddAddressViewModel.area.set(fetchedAddress.getLocality());
                 }
 
-
-                //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
-
-
                 mAddAddressViewModel.saveAddress(address,fetchedAddress.getSubLocality(),String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
-
 
                 StringBuilder strAddress = new StringBuilder();
                 for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {

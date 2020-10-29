@@ -77,24 +77,11 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
     @Override
     public void openFilter() {
-
-
-      /*  Gson gson = new Gson();
-        String request = gson.toJson(mCollectionProductsViewModel.collectionProductsRequest);
-        mCollectionProductsViewModel.getDataManager().saveFiletrSort(request);*/
-
         ((CollectionDetailsActivity) getActivity()).openFilter(mCollectionProductsViewModel.scl1id);
-
-       /* FilterFragment filterFragment = new FilterFragment();
-        filterFragment.show(getFragmentManager(), filterFragment.getTag());*/
-
     }
 
     @Override
     public void openSort() {
-        /*Gson gson = new Gson();
-        String request = gson.toJson(mCollectionProductsViewModel.collectionProductsRequest);
-        mCollectionProductsViewModel.getDataManager().saveFiletrSort(request);*/
         ((CollectionDetailsActivity) getActivity()).openSort(mCollectionProductsViewModel.scl1id);
     }
 
@@ -128,11 +115,6 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
         mCollectionProductsViewModel.title.set(String.valueOf(mCollectionProductsViewModel.scl1id));
         startLoader();
         mCollectionProductsViewModel.fetchProducts();
-
-
-       /* mFragmentProductsBinding.productList.setLayoutManager(linearLayoutManager);
-        mFragmentProductsBinding.productList.setAdapter(productListAdapter);*/
-
 
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentProductsBinding.productList.setLayoutManager(new LinearLayoutManager(getContext()));

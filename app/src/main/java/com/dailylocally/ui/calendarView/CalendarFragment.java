@@ -104,34 +104,15 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
     public void success(List<CalendarMonthResponse.Result> resultsList) {
         this.results = resultsList;
 
-
         for (int i = 0; i < resultsList.size(); i++) {
             setCalTextColor(resultsList.get(i).getDate());
         }
 
-
-        /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String strDate = "";
-
-        for (int i = 0; i < results.size(); i++) {
-            strDate = results.get(i).getDate();
-            try {
-                Date dateOrder = dateFormat.parse(strDate);
-                ColorDrawable blues = new ColorDrawable(getResources().getColor(R.color.light_blue));
-                caldroidFragment.setBackgroundDrawableForDate(blues, dateOrder);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        caldroidFragment.refreshView();*/
     }
 
     @Override
     public void failure(String message) {
         stopLoader();
-        //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -243,18 +224,11 @@ public class CalendarFragment extends BaseFragment<FragmentCalendarBinding, Cale
 
             @Override
             public void onChangeMonth(int month, int year) {
-                //String text = "month: " + month + " year: " + year;
-                //Toast.makeText(getContext(), text,
-                //Toast.LENGTH_SHORT).show();
-
                 mCalendarViewModel.getMonthWiseOrderDate(String.valueOf(month), String.valueOf(year));
             }
 
             @Override
             public void onLongClickDate(Date date, View view) {
-                //Toast.makeText(getContext(),
-                //"Long click " + formatter.format(date),
-                //Toast.LENGTH_SHORT).show();
             }
 
             @Override

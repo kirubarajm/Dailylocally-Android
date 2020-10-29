@@ -81,9 +81,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
     ProgressDialog dialog;
     FusedLocationProviderClient fusedLocationClient;
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
-
     String address = null;
     String pinCode = null;
     String aid = null,edit=null;
@@ -129,7 +126,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
     @Override
     public void addressSaved() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_SAVE);
         Intent intent = MainActivity.newIntent(CommunityAddressActivity.this,"","");
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -153,7 +149,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
     @Override
     public void myLocationn() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_ADDRESS_CURRENT_LOCATION);
         turnOnGps();
     }
 
@@ -258,12 +253,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
     @Override
     public void nextClick() {
         if (!mActivityCommunityBinding.txtSubLocality.getText().toString().trim().equals("")) {
-           /* Intent returnIntent = new Intent();
-            returnIntent.putExtra("area", mActivityCommunityBinding.txtSubLocality.getText().toString());
-            returnIntent.putExtra("lat", strCommunityLat);
-            returnIntent.putExtra("lng", strCommunityLng);
-            setResult(Activity.RESULT_OK, returnIntent);
-            finish();*/
 
             Intent intent = AddressNewActivity.newIntent(CommunityAddressActivity.this);
             intent.putExtra("locationAddress", mActivityCommunityBinding.txtSubLocality.getText().toString());
@@ -342,8 +331,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
                 mAddAddressViewModel.flagAddressEdit.set(true);
             }
         }
-
-        analytics = new Analytics(this, pageName);
 
         dialog = new ProgressDialog(this);
         dialog.setCancelable(true);
@@ -543,7 +530,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
     @Override
     public void onBackPressed() {
-        //new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         if (dialog.isShowing()) dialog.dismiss();
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -635,27 +621,13 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
             if (fetchedAddress != null) {
 
-
-               /* String address = fetchedAddress.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = fetchedAddress.getLocality();
-                String state = fetchedAddress.getAdminArea();
-                String country = fetchedAddress.getCountryName();
-                String postalCode = fetchedAddress.getPostalCode();
-                String knownName = fetchedAddress.getFeatureName();
-                Toast.makeText(AddAddressActivity.this, address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+knownName, Toast.LENGTH_LONG).show();*/
-
-
                 address = fetchedAddress.getAddressLine(0);
-            //    address = fetchedAddress.getSubLocality()+","+fetchedAddress.getLocality()+","+fetchedAddress.getAdminArea()+","+fetchedAddress.getCountryName()+","+fetchedAddress.getPostalCode();
-
 
                 mAddAddressViewModel.locationAddress.set(address);
 
                 ColorStateList colorStateList;
                 if (fetchedAddress.getSubLocality()!=null){
                     mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
-                    //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
-                    //mActivityCommunityBinding.txtEdit.setEnabled(false);
                     mActivityCommunityBinding.txtSubLocality.setEnabled(false);
                     mActivityCommunityBinding.txtSubLocality.setHint("");
                     colorStateList = ColorStateList.valueOf(Color.parseColor("#000000"));
@@ -665,9 +637,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
                 }else {
                     mAddAddressViewModel.area.set("");
-                    //mActivityCommunityBinding.txtEdit.setEnabled(true);
                     mActivityCommunityBinding.txtSubLocality.setEnabled(true);
-                    //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
                     mActivityCommunityBinding.txtSubLocality.setHint("Unable to identify location");
                     mActivityCommunityBinding.txtSubLocality.setHintTextColor(Color.parseColor("#FF0001"));
                     mActivityCommunityBinding.txtMessage.setVisibility(View.VISIBLE);
@@ -678,10 +648,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
                     mActivityCommunityBinding.imgMarker.setBackgroundResource(R.drawable.ic_group_3);
                 }
-
-
-                //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
-
 
 
                 mAddAddressViewModel.saveAddress(address,fetchedAddress.getSubLocality(),String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
@@ -697,8 +663,6 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
                 }
 
             } else {
-                /*if (address == null)
-                    printToast("Unable to find your address please mark your location on map..");*/
             }
             }catch (Exception e){
                 e.printStackTrace();

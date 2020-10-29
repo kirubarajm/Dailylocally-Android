@@ -56,11 +56,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     String strOtp = "0";
     String UserId = "";
 
-
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_OTP;
-
-
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -70,11 +65,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 Intent inIntent = InternetErrorFragment.newIntent(DailylocallyApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -123,18 +113,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void continueClick() {
-        //hideKeyboard();
-        //strPhoneNumber=mActivityOtpBinding.edtPassword.getText().toString();
-       /* String st1 = mActivityOtpBinding.edt1.getText().toString();
-        String st2 = mActivityOtpBinding.edt2.getText().toString();
-        String st3 = mActivityOtpBinding.edt3.getText().toString();
-        String st4 = mActivityOtpBinding.edt4.getText().toString();
-        String st5 = mActivityOtpBinding.edt5.getText().toString();
-
-        String otp = st1 + st2 + st3 + st4 + st5;
-        if (validForOtp())
-            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp));*/
-
 
         if (mActivityOtpBinding.otpText.getText() != null && mActivityOtpBinding.otpText.getText().length() == 5) {
             if (strOtp != null)
@@ -316,21 +294,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         }.start();
     }
 
-    /*private void otpFocusOnTextChange() {
-        editTexts = new EditText[]{mActivityOtpBinding.edt1, mActivityOtpBinding.edt2, mActivityOtpBinding.edt3, mActivityOtpBinding.edt4, mActivityOtpBinding.edt5};
-        mActivityOtpBinding.edt1.addTextChangedListener(new PinTextWatcher(0));
-        mActivityOtpBinding.edt2.addTextChangedListener(new PinTextWatcher(1));
-        mActivityOtpBinding.edt3.addTextChangedListener(new PinTextWatcher(2));
-        mActivityOtpBinding.edt4.addTextChangedListener(new PinTextWatcher(3));
-        mActivityOtpBinding.edt5.addTextChangedListener(new PinTextWatcher(4));
-
-        mActivityOtpBinding.edt1.setOnKeyListener(new PinOnKeyListener(0));
-        mActivityOtpBinding.edt2.setOnKeyListener(new PinOnKeyListener(1));
-        mActivityOtpBinding.edt3.setOnKeyListener(new PinOnKeyListener(2));
-        mActivityOtpBinding.edt4.setOnKeyListener(new PinOnKeyListener(3));
-        mActivityOtpBinding.edt5.setOnKeyListener(new PinOnKeyListener(4));
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -341,7 +304,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         startTimer();
 
 
-        analytics = new Analytics(this, pageName);
+
 
         /*AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(this);
 
@@ -366,24 +329,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
 
 
-           /*
-            UserId = bundle.getString("UserId");
-            if (booleanOtp.equalsIgnoreCase("true")) {
-                mLoginViewModelMain.otp.set(true);
-
-
-                mLoginViewModelMain.title.set("Login");
-
-            } else {
-                mLoginViewModelMain.otp.set(false);
-                mLoginViewModelMain.title.set("OTP");
-            }*/
             mActivityOtpBinding.txtMessageSent.setText("(OTP) Sent to " + strPhoneNumber);
 
         }
-
-
-        //  otpFocusOnTextChange();
 
         mActivityOtpBinding.otpText.setOnPinEnteredListener(new OtpEditText.OnPinEnteredListener() {
             @Override
@@ -391,74 +339,25 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
                 strOtp = str.toString();
 
-                new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_CONTINUE);
-
-
                 mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(str.toString()));
-                //  mLoginViewModelMain.continueClick();
-
-
-               /* if (smsReceiver != null)
-                    unregisterReceiver(smsReceiver);*/
-
 
             }
         });
-
-
-           /* mActivityOtpBinding.otpText.setOnPinEnteredListener(new OtpEditText() {
-                @Override
-                public void onPinEntered(CharSequence str) {
-                    if (str.toString().equals("1234")) {
-                        Toast.makeText(AnimatedEditTextWidgetsActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(AnimatedEditTextWidgetsActivity.this, "FAIL", Toast.LENGTH_SHORT).show();
-                        pinEntry.setText(null);
-                    }
-                }
-            });*/
-        //}
-
 
         mActivityOtpBinding.resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startSMSListener();
                 startTimer();
-                new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_RESEND);
                 Toast.makeText(OtpActivity.this, "OTP has been sent again.", Toast.LENGTH_SHORT).show();
                 mLoginViewModelMain.resendOtp();
             }
         });
 
-
-       /* mActivityOtpBinding.resend.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int id = v.getId();
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setBackgroundColor(getResources().getColor(R.color.light_eat_color));
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        v.setBackgroundColor(getResources().getColor(R.color.white));
-                        //set color back to default
-                        startSMSListener();
-                        startTimer();
-                        new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_RESEND);
-                        Toast.makeText(OtpActivity.this, "OTP has been sent again.", Toast.LENGTH_SHORT).show();
-                        mLoginViewModelMain.resendOtp();
-                        break;
-                }
-                return false;
-            }
-        });*/
     }
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 

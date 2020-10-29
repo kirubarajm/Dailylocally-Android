@@ -104,8 +104,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
 
         } else {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_HOME);
-
             typeHome.set(true);
             typeOffice.set(false);
             typeOther.set(false);
@@ -122,7 +120,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
 
         } else {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_WORK);
             typeHome.set(false);
             typeOffice.set(true);
             typeOther.set(false);
@@ -152,7 +149,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
             typeOther.set(false);
 
         } else {
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_OTHER);
             typeHome.set(false);
             typeOffice.set(false);
             typeOther.set(true);
@@ -204,7 +200,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
     public void saveAddress(String locationAddress, String house, String area, String landmark/*, String title*/) {
 
         if (getNavigator().validationForAddress()) {
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_SAVE);
 
 
             if (locationAddress.equals("")) {
@@ -232,9 +227,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
 
                 if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
 
-                //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
-
                 if (request == null) request = new GoogleAddressRequestPojo();
 
 
@@ -246,29 +238,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
                 request.setAddressTitle("Home");
                 request.setAddressType(1);
                 request.setAid(aId.get());
-            /*if (typeHome.get()) {
-                request.setAddressTitle("Home");
-                request.setAddressType(1);
-
-            } else if (typeOffice.get()) {
-                request.setAddressTitle("Work");
-                request.setAddressType(2);
-
-            } else if (typeOther.get()) {
-
-                if (title.isEmpty()) {
-                    Toast.makeText(DailylocallyApp.getInstance(), "Please enter the address title", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-                request.setAddressTitle(title);
-                request.setAddressType(3);
-            } else {
-                Toast.makeText(DailylocallyApp.getInstance(), "Please pin your address type", Toast.LENGTH_SHORT).show();
-                return;
-            }*/
-
                 if (request == null) request = new GoogleAddressRequestPojo();
                 request.setUserid(getDataManager().getCurrentUserId());
 
@@ -303,18 +272,6 @@ public class GoogleAddressViewModel extends BaseViewModel<GoogleAddressNavigator
                                                     defaultAddress(String.valueOf(response.getAid()));
                                                     if (getNavigator() != null)
                                                         getNavigator().addressSaved();
-
-
-                           /* Gson sGson = new GsonBuilder().create();
-                            filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-
-                          *//*  filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                            filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                            filterRequestPojo.setLat(getDataManager().getCurrentLng());*//*
-
-                            Gson gson = new Gson();
-                            String json = gson.toJson(filterRequestPojo);
-                            getDataManager().setFilterSort(json);*/
                                                 }
                                             }
                                         } catch (Exception e) {

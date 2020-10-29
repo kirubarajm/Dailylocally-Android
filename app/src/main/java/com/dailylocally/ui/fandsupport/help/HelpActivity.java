@@ -55,11 +55,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
     @Inject
     LinearLayoutManager layoutManager;
 
-
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ORDER_HELP;
-
-
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -70,11 +65,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -104,8 +94,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_BACK_BUTTON);
-
         super.onBackPressed();
     }
 
@@ -117,11 +105,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     @Override
     public void createChat(String department, String tag, String note) {
-
-       /* ChatApi chatApi = ZopimChatApi.resume(this);
-        chatApi.endChat();
-        chatApi.endChat();
-        openChat(department, tag, note);*/
 
         if (mHelpViewModel.getDataManager().getChatOrderid() != null) {
 
@@ -145,31 +128,10 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
     public void mapChat(String department, String tag, String note, int issueid, int tid) {
 
         mHelpViewModel.mapTicketidToOrderid(issueid, tid, tag, department, note);
-
-        /*if (mHistoryHelpViewModel.getDataManager().getChatOrderid() != null) {
-            if (mHistoryHelpViewModel.getDataManager().getChatOrderid().equals(String.valueOf(mHistoryHelpViewModel.orderid))) {
-                openChat(department, tag, note);
-            } else {
-                mHistoryHelpViewModel.mapTicketidToOrderid(issueid,tid,tag,department,note);
-            }
-        } else {
-            openChat(department, tag, note);
-        }*/
     }
 
 
     public void openChat(String department, String tag, String note) {
-
-       /* ChatApi chatApi = ZopimChatApi.resume(this);
-        chatApi = new ZopimChatApi.SessionConfig()
-                .department("A department")
-                .tags("Old order", tag)
-                .build(HistoryHelpActivity.this);
-
-        chatApi.disconnect();
-
-        ZopimChat zopimChat= new ZopimChat();*/
-
 
         ZopimChat.init(getString(R.string.zopim_account_id));
 
@@ -224,18 +186,12 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
         issuesAdapter.setListener(this);
 
-        analytics = new Analytics(this, pageName);
-
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             mHelpViewModel.orderid = getIntent().getExtras().getString("orderid");
             mHelpViewModel.stype = getIntent().getExtras().getInt("type");
             mHelpViewModel.getIssuesList(mHelpViewModel.stype);
         }
-
-     /*   mActivityOrderHelpBinding.cancelReason1.setOnTouchListener(this);
-        mActivityOrderHelpBinding.cancelReason2.setOnTouchListener(this);
-        mActivityOrderHelpBinding.cancelReason3.setOnTouchListener(this);*/
 
         subscribeToLiveData();
 
@@ -311,9 +267,6 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
            mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
-
-     //   mHelpViewModel.mapTicketidToOrderid(issues.getId(), issues.getTid(), issues.getTagName(), issues.getDepartmentName(), issues.getNote());
-
 
     }
 }

@@ -86,14 +86,6 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
 
         caldroidFragment = new CaldroidFragment();
 
-
-       /* DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-        // DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-        DateTime min = formatter.parseDateTime(date);
-        DateTimeFormatter formatter2 = DateTimeFormat.forPattern("YYYY-MM-DD");
-        DateTime minDate = formatter2.parseDateTime(min.toString());*/
-
-
         if (savedInstanceState != null) {
             caldroidFragment.restoreStatesFromKey(savedInstanceState,
                     "CALDROID_SAVED_STATE");
@@ -114,8 +106,6 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
 
         caldroidFragment.setMinDateFromString(date, "yyyy-MM-dd");
 
-
-
         // Setup listener
         listener = new CaldroidListener() {
             @Override
@@ -131,23 +121,16 @@ public class DatePickerActivity extends BaseActivity<ActivityDatePickerBinding, 
                 setResult(Activity.RESULT_OK, intent);
                 finish();
 
-
             }
 
             @Override
             public void onChangeMonth(int month, int year) {
-                //String text = "month: " + month + " year: " + year;
-                //Toast.makeText(getContext(), text,
-                //Toast.LENGTH_SHORT).show();
-
 
             }
 
             @Override
             public void onLongClickDate(Date date, View view) {
-                //Toast.makeText(getContext(),
-                //"Long click " + formatter.format(date),
-                //Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

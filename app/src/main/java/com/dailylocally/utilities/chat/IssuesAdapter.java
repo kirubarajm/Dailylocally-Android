@@ -44,12 +44,6 @@ public class IssuesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public int getItemCount() {
 
         return item_list.size();
-
-       /* if (item_list != null && item_list.size() > 0) {
-            return item_list.size();
-        } else {
-            return 1;
-        }*/
     }
 
 

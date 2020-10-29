@@ -35,9 +35,6 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
     public ActivityFeedbackSupportBinding mActivityFeedbackSupportBinding;
     @Inject
     public FeedbackSupportViewModel mAddAddressViewModel;
-
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -165,11 +162,6 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
         super.onCreate(savedInstanceState);
         mActivityFeedbackSupportBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
-
-        analytics = new Analytics(this, pageName);
-
-
-
     }
 
     @Override

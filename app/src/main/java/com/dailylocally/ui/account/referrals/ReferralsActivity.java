@@ -27,8 +27,6 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     ActivityReferralsBinding mActivityReferralsBinding;
     String stringReferral = "";
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_REFERRAL;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -51,7 +49,6 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
 
     @Override
     public void sendReferralsClick() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_SEND_REFERRAL);
         try {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
@@ -83,7 +80,6 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -107,7 +103,6 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         super.onCreate(savedInstanceState);
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
         mActivityReferralsBinding = getViewDataBinding();
-        analytics = new Analytics(this, pageName);
     }
 
     @Override

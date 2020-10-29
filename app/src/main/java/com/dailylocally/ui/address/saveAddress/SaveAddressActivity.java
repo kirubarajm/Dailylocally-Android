@@ -59,8 +59,6 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     @Inject
     public SaveAddressViewModel mAddAddressViewModel;
 
-    Analytics analytics;
-    String pageName = "";
     String apartmentOrIndividual="",apartment="",towerBlock="",houseFlatNo="",housePlatNo="",floor="",address=""
             ,landmark="",googleAddress="",pinCode="",area="",lon="",lat="",aId="",edit="";
 
@@ -142,8 +140,6 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
         mActivitySaveAddressBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
 
-        analytics = new Analytics(this, pageName);
-
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
             apartmentOrIndividual = bundle.getString("apartmentOrIndividual");
@@ -198,11 +194,8 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
                 Bitmap bitmap = getBitmapFromVectorDrawable(SaveAddressActivity.this,R.drawable.ic_map_marker);
                 BitmapDescriptor descriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
                 markerOptions.icon(descriptor);
-              //  markerOptions.title(latLng.latitude + " : " + latLng.longitude);
                 map = googleMap;
                 map.clear();
-               // map.getUiSettings().setZoomControlsEnabled(true);
-                //map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 map.addMarker(markerOptions);
             }

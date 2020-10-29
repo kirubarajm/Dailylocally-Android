@@ -33,12 +33,7 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
     SubscriptionViewModel mSubscriptionViewModel;
     ActivitySubscriptionBinding mActivitySubscriptionBinding;
 
-
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_FAQS_AND_SUPPORT;
-
     String pid;
-
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -50,11 +45,6 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -90,45 +80,6 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
         intent.putExtra("date", startdate);
         startActivityForResult(intent, AppConstants.DATE_REQUESTCODE);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-        /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        SimpleDateFormat sDay = new SimpleDateFormat("dd", Locale.getDefault());
-        SimpleDateFormat sMonth = new SimpleDateFormat("MM", Locale.getDefault());
-        SimpleDateFormat sYear = new SimpleDateFormat("yyyy", Locale.getDefault());
-
-        int year = 0;
-        int month = 0;
-        int day = 0;
-
-        Date sDate = null;
-        try {
-            sDate = dateFormat.parse(startdate);
-
-            if (sDate != null) {
-                // parse input
-                year = Integer.parseInt(sYear.format(sDate));
-                month = Integer.parseInt(sMonth.format(sDate));
-                day = Integer.parseInt(sDay.format(sDate));
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        DatePickerDialog dialog = new DatePickerDialog(SubscriptionActivity.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                mSubscriptionViewModel.startDate.set(dayOfMonth + "-" + month + "-" + year);
-
-
-            }
-        }, year, month - 1, day);
-
-        dialog.getDatePicker().setMinDate(sDate.getTime());
-        dialog.show();*/
-
 
     }
 
@@ -185,8 +136,6 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT, AppConstants.CLICK_BACK_BUTTON);
-
         super.onBackPressed();
     }
 
@@ -216,9 +165,6 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
             pid = intent.getExtras().getString("pid");
             mSubscriptionViewModel.fetchProductDetails(pid);
         }
-
-
-        analytics = new Analytics(this, pageName);
     }
 
     @Override

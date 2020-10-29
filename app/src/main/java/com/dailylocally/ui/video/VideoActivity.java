@@ -32,8 +32,6 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
     @Inject
     VideoViewModel mVideoViewModel;
     ActivityVideoBinding mActivityVideoBinding;
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ORDER_PLACED;
     int lastPosition = 0;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -128,8 +126,6 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            /*mActivityVideoBinding.videoPlayer.setSource( bundle.getString("video"));
-            mActivityVideoBinding.videoPlayer.setPlayWhenReady(true);*/
 
             mActivityVideoBinding.progressBar.setVisibility(View.VISIBLE);
             MediaController mediaController = new MediaController(this);
@@ -154,10 +150,6 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
                 }
 
             });
-
-
-            // mActivityVideoBinding.videoPlayer.setOrientation(LinearLayout.HORIZONTAL);
-
 
         }
 

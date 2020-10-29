@@ -23,8 +23,6 @@ public class UpdateViewModel extends BaseViewModel<UpdateNavigator> {
 
     public void checkIsUserLoggedInOrNot(){
 
-        new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_NOT_NOW);
-
         if (getDataManager().getCurrentUserId()!=null)
         {
             String userId = getDataManager().getCurrentUserId();

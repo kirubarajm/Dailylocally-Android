@@ -35,10 +35,6 @@ public class AboutUsActivity extends BaseActivity<ActivityAboutusBinding, AboutU
     AboutUsAdapter mAboutUsAdapter;
     private ActivityAboutusBinding mActivityAboutusBinding;
 
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_FAQS;
-
-
     public static Intent newIntent(Context context) {
         return new Intent(context, AboutUsActivity.class);
     }
@@ -70,7 +66,6 @@ public class AboutUsActivity extends BaseActivity<ActivityAboutusBinding, AboutU
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_FAQS, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -79,9 +74,6 @@ public class AboutUsActivity extends BaseActivity<ActivityAboutusBinding, AboutU
         super.onCreate(savedInstanceState);
         mAboutUsViewModel.setNavigator(this);
         mActivityAboutusBinding = getViewDataBinding();
-
-
-              analytics=new Analytics(this, pageName);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityAboutusBinding.recyclerFaqs.setLayoutManager(mLayoutManager);

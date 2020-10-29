@@ -79,15 +79,6 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
         mActivityFavDetailsBinding = getViewDataBinding();
         subscribeLiveData();
         startLoader();
-       /* mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
-
-      //  mActivityCategoryl2Binding.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        mActivityCategoryl2Binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        mActivityCategoryl2Binding.imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        mActivityCategoryl2Binding.imageSlider.setIndicatorSelectedColor(Color.WHITE);
-        mActivityCategoryl2Binding.imageSlider.setIndicatorUnselectedColor(Color.GRAY);
-        mActivityCategoryl2Binding.imageSlider.setScrollTimeInSec(4); //set scroll delay in seconds :
-        mActivityCategoryl2Binding.imageSlider.startAutoCycle();*/
 
     }
 
@@ -175,46 +166,6 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 //        mActivityCategoryl2Binding.frameLayout.setOffscreenPageLimit(1);
         mActivityFavDetailsBinding.frameLayout.setCurrentItem(0);
         mActivityFavDetailsBinding.frameLayout.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mActivityFavDetailsBinding.categorytabs));
-
-
-
-        /*mActivityCategoryl2Binding.frameLayout.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
-
-
-
-/*
- PlansPagerAdapter adapter = new PlansPagerAdapter
-                (getSupportFragmentManager(),   mActivityCategoryl2Binding.categorytabs.getTabCount(),response);
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(1);
-        viewPager.setCurrentItem(0);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(  mActivityCategoryl2Binding.categorytabs));
-
-
-*/
-
-
-       /* if (mActivityFavDetailsBinding.categorytabs.getTabCount() == 3) {
-            mActivityFavDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
-        } else {
-            mActivityFavDetailsBinding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        }*/
-
 
         mActivityFavDetailsBinding.categorytabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

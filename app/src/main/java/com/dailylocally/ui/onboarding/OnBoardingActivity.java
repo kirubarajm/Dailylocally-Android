@@ -47,8 +47,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
     @Inject
     OnBoardingActivityViewModel mOnBoardingActivityViewModel;
-    Analytics analytics;
-    String pageName = "Onboarding";
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -129,13 +127,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
         prefManager = new PrefManager(this);
 
-        analytics = new Analytics(this, pageName);
-/*
-        prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch()) {
-            launchHomeScreen();
-            finish();
-        }*/
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
@@ -173,7 +164,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
                         mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator_selected);
                         mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator);
                         mActivityOnboardingBinding.indi4.setImageResource(R.drawable.ic_round_indicator);
-                        // mActivityOnboardingBinding.indi2.setColorFilter(R.color.medium_black);
                         break;
                         case 2:
                         mOnBoardingActivityViewModel.lastScreen.set(false);
@@ -181,15 +171,10 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
                         mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator);
                         mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator_selected);
                         mActivityOnboardingBinding.indi4.setImageResource(R.drawable.ic_round_indicator);
-                        // mActivityOnboardingBinding.indi2.setColorFilter(R.color.medium_black);
                         break;
                     case 3:
 
                         mOnBoardingActivityViewModel.lastScreen.set(true);
-                       /* mActivityOnboardingBinding.indi1.setImageResource(R.drawable.ic_round_indicator);
-                        mActivityOnboardingBinding.indi2.setImageResource(R.drawable.ic_round_indicator);
-                        mActivityOnboardingBinding.indi3.setImageResource(R.drawable.ic_round_indicator_selected);*/
-                        //  mActivityOnboardingBinding.indi3.setColorFilter(R.color.medium_black);
                         break;
 
                 }
@@ -207,11 +192,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             }
         });
 
-
-
     }
-
-
 
     private int getItem(int i) {
         return mActivityOnboardingBinding.viewPager.getCurrentItem() + i;
@@ -221,7 +202,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         prefManager.setFirstTimeLaunch(true);
 
         mOnBoardingActivityViewModel.checkUpdate();
-
 
     }
 

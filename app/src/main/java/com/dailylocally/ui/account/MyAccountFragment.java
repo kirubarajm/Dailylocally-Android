@@ -33,9 +33,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     FragmentMyAccountBinding mFragmentMyAccountBinding;
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_MY_ACCOUNT;
-
 
     public static MyAccountFragment newInstance() {
         Bundle args = new Bundle();
@@ -64,7 +61,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         super.onCreate(savedInstanceState);
         mFragmentMyAccountBinding = getViewDataBinding();
         mMyAccountViewModel.setNavigator(this);
-        analytics = new Analytics(getActivity(), pageName);
     }
 
     @Override
@@ -76,7 +72,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     @Override
     public void onResume() {
         super.onResume();
-        //mMyAccountViewModel.fetchUserDetails();
         mMyAccountViewModel.loadUserDetails();
 
     }
@@ -88,13 +83,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void changeAddress() {
-
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_MANAGE_ADDRESS);
-
-        /*Intent intent = GoogleAddressActivity.newIntent(getContext());
-        intent.putExtra("edit","1");
-        startActivity(intent);*/
-
         Intent intent = ViewAddressActivity.newIntent(getContext());
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -102,7 +90,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void orderHistory() {
-        //new Analytics().sendClickData(pageName, AppConstants.CLICK_ORDER_HISTORY);
         Intent intent = CalendarActivity.newIntent(getContext());
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -118,16 +105,13 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void favourites() {
-
         Intent intent = FavActivity.newIntent(getContext());
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
     }
 
     @Override
     public void referrals() {
-        //new Analytics().sendClickData(pageName, AppConstants.CLICK_REFERRALS);
         Intent intent = ReferralsActivity.newIntent(getContext());
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -144,9 +128,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void logout() {
-
-        //new Analytics().sendClickData(pageName, AppConstants.CLICK_LOGOUT);
-
         SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
         settings.edit().clear().apply();
 

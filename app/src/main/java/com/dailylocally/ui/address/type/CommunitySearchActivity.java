@@ -38,8 +38,6 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
     CommunitySearchViewModel mCommunitySearchViewModel;
     @Inject
     CommunityAdapter mCommunityAdapter;
-    Analytics analytics;
-    String pageName = "Splash screen";
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -50,11 +48,6 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -114,7 +107,6 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
 
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-      //  mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCommunitySearchBinding.recyclerCommunity.setLayoutManager(mLayoutManager);
         mActivityCommunitySearchBinding.recyclerCommunity.setAdapter(mCommunityAdapter);
 

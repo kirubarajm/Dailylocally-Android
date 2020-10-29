@@ -35,8 +35,6 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
         contact.set(false);
         support.set("0");
         supportNumber.set(false);
-       // getSupportContact();
-        //support.set(getDataManager().getSupportNumber());
     }
 
 
@@ -47,64 +45,7 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
     public void supportClick() {
            getNavigator().supportClick();
 
-        /*if (contact.get()) {
-            contact.set(false);
-        } else {
-            contact.set(true);
-        }*/
-
     }
-
-
-
-    /*public void getSupportContact() {
-
-        JsonObjectRequest jsonObjectRequest = null;
-            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CUSTOMER_SUPPORT, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-
-
-                        if (response != null) {
-
-                            Gson gson = new Gson();
-                            SupportResponse supportResponse = gson.fromJson(response.toString(), SupportResponse.class);
-
-                            if (supportResponse.getStatus()){
-                                getDataManager().saveSupportNumber(String.valueOf(supportResponse.getCustomerSupport()));
-                                support.set(String.valueOf(supportResponse.getCustomerSupport()));
-                            }
-
-                        }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-
-                    //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
-                }
-            }) {
-                *//**
-                 * Passing some request headers
-                 *//*
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                }
-            };
-
-
-        DailylocallyApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-
-    }*/
-
-
-
-
-
 
     public void goBack() {
         getNavigator().goBack();

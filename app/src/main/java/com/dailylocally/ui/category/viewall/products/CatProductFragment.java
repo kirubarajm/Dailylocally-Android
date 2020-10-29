@@ -81,9 +81,6 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
 
         ((CatProductActivity) getActivity()).openFilter(mCatProductFragViewModel.catid, mCatProductFragViewModel.scl1id);
 
-       /* FilterFragment filterFragment = new FilterFragment();
-        filterFragment.show(getFragmentManager(), filterFragment.getTag());*/
-
     }
 
     @Override
@@ -137,34 +134,6 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
         mFragmentProductsBinding.productList.setNestedScrollingEnabled(true);
 
 
-        /*mFragmentProductsBinding.productList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                View visi = recyclerView.getChildAt(recyclerView.getChildCount() - 1);
-
-                int lVV = recyclerView.getChildAdapterPosition(visi);
-                int itemCount = productListAdapter.getItemCount();
-
-                if (itemCount > 2) {
-                    if (dy > 0) {
-                        if (lVV >= itemCount - 2) {
-                            if (!mCatProductFragViewModel.loadingMore&&!mCatProductFragViewModel.loading.get()) {
-                              //  productListAdapter.addLoader();
-                                loadMore();
-                            }
-                        }
-
-                    } else {
-                        // Scrolling down
-                        // Toast.makeText(getContext(),"Loading more", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });*/
-
-
     }
 
     @Override
@@ -185,8 +154,6 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
 
     @Override
     public void loadMore() {
-
-       // mCatProductFragViewModel.loadMoreProducts(productListAdapter);
 
     }
 

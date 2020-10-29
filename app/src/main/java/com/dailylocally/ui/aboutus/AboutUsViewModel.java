@@ -25,7 +25,6 @@ public class AboutUsViewModel extends BaseViewModel<AboutUsNavigator> {
     public AboutUsViewModel(DataManager dataManager) {
         super(dataManager);
         faqsItemsLiveData = new MutableLiveData<>();
-       // fetchRepos();
     }
 
     public void addFaqsItemsToList(List<AboutUsResponse.Result> menuProductsItems) {

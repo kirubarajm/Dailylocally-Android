@@ -86,15 +86,6 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
             mCatProductViewModel.fetchSubCategoryList(categoryid);
         }
 
-      /*mActivityCategoryl2Binding.imageSlider.setSliderAdapter(adapter);
-      //mActivityCategoryl2Binding.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        mActivityCategoryl2Binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        mActivityCategoryl2Binding.imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        mActivityCategoryl2Binding.imageSlider.setIndicatorSelectedColor(Color.WHITE);
-        mActivityCategoryl2Binding.imageSlider.setIndicatorUnselectedColor(Color.GRAY);
-        mActivityCategoryl2Binding.imageSlider.setScrollTimeInSec(4); //set scroll delay in seconds :
-        mActivityCategoryl2Binding.imageSlider.startAutoCycle();*/
-
     }
 
 
@@ -198,47 +189,6 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
         mActivityCategoryl2Binding.frameLayout.setCurrentItem(0);
         mActivityCategoryl2Binding.frameLayout.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mActivityCategoryl2Binding.categorytabs));
 
-
-
-        /*mActivityCategoryl2Binding.frameLayout.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-             //   mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
-               *//* for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                    fragment.onActivityResult(AppConstants.SUBSCRIPTION_CODE, Activity.RESULT_OK, null);
-                }*//*
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-               // mActivityCategoryl2Binding.frameLayout.setCurrentItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
-
-
-
-/*
- PlansPagerAdapter adapter = new PlansPagerAdapter
-                (getSupportFragmentManager(),   mActivityCategoryl2Binding.categorytabs.getTabCount(),response);
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(1);
-        viewPager.setCurrentItem(0);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(  mActivityCategoryl2Binding.categorytabs));
-
-
-*/
-
-
-       /* if (mActivityCategoryl2Binding.categorytabs.getTabCount() == 3) {
-            mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_FIXED);
-        } else {
-            mActivityCategoryl2Binding.categorytabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        }*/
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(AppConstants.REFRESH_CODE, Activity.RESULT_OK, null);

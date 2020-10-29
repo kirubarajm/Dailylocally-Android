@@ -32,8 +32,6 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     @Inject
     public ProductDetailsViewModel mAddAddressViewModel;
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
     String vpid = "0";
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -125,7 +123,6 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
-        //  mAddAddressViewModel.mrp.set(""+result.getMrp());
         mAddAddressViewModel.offerCost.set(result.getDiscountCost() + " OFF on " + result.getProductname());
     }
 
@@ -147,8 +144,6 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         super.onCreate(savedInstanceState);
         mActivityProductDetailsBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
-
-        analytics = new Analytics(this, pageName);
 
         vpid = getIntent().getExtras().getString("vpid");
         mAddAddressViewModel.vpid = vpid;

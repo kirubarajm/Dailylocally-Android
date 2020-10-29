@@ -275,11 +275,6 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
             }
         }
 
-        /*if (mActivityRatingBinding.edtComments.getText().toString().isEmpty()){
-            Toast.makeText(getApplicationContext(), "Please give comment", Toast.LENGTH_SHORT).show();
-            return false;
-        }*/
-
         return true;
     }
 

@@ -32,10 +32,6 @@ public class PromotionFragment extends BaseBottomSheetFragment<FragmentPromotion
 
     FragmentPromotionBinding mFragmentPromotionBinding;
 
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_KITCHEN_FILTER;
-
-
     public static PromotionFragment newInstance() {
         Bundle args = new Bundle();
         PromotionFragment fragment = new PromotionFragment();

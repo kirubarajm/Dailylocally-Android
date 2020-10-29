@@ -62,7 +62,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void suggestionProductSuccess() {
         mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
-        //mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -124,9 +123,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.search.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                /*mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
-                mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
-                mFragmentSearchBinding.before.setVisibility(View.VISIBLE);*/
                 return false;
             }
         });

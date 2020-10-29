@@ -25,11 +25,6 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
     TermsAndConditionViewModel mTermsAndConditionModel;
     ActivityTermsAndConditionBinding mActivityTermsAndConditionBinding;
 
-
-    Analytics analytics;
-    String pageName= AppConstants.SCREEN_TERMS_CONDITION;
-
-
     ProgressDialog pd;
 
     public static Intent newIntent(Context context) {
@@ -71,7 +66,6 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
     @Override
     public void accept() {
-        new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_ACCEPT_AND_CONTINUE);
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
@@ -83,9 +77,6 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
         mActivityTermsAndConditionBinding = getViewDataBinding();
         mTermsAndConditionModel.setNavigator(this);
 
-
-
-        analytics=new Analytics(this,pageName);
 
         if (getIntent().getExtras()!=null&&getIntent().getExtras().getString(AppConstants.PAGE,"").equals(AppConstants.NOTIFY_SUPPORT_ACTV)){
             mActivityTermsAndConditionBinding.acceptTandC.setVisibility(View.GONE);
@@ -107,8 +98,6 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
     @Override
     public void onBackPressed() {
-
-        new Analytics().sendClickData(AppConstants.SCREEN_TERMS_CONDITION, AppConstants.CLICK_BACK_BUTTON);
 
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_CANCELED, returnIntent);

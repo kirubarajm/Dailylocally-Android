@@ -158,7 +158,6 @@ stopLoader();
 
     @Override
     public void refresh() {
-      //  mFavProductsViewModel.fetchProducts();
         ((FavActivity) getActivity()).refreshCart();
     }
 
@@ -193,10 +192,6 @@ stopLoader();
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 
     }
-
-
-
-
 
 
     @Override
