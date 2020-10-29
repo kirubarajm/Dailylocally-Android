@@ -215,7 +215,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
             } else {
                 Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
-                inIntent.putExtra("newuser", false);
+                inIntent.putExtra("next", false);
                 startActivity(inIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

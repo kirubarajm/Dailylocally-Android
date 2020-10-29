@@ -284,7 +284,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
             }else {
                 Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
-                inIntent.putExtra("newuser", false);
+                inIntent.putExtra("next", false);
                 startActivity(inIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

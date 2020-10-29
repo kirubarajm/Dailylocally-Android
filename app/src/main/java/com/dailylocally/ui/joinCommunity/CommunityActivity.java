@@ -646,7 +646,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     public void knowMore() {
 
         Intent inIntent = CommunityOnBoardingActivity.newIntent(CommunityActivity.this);
-        inIntent.putExtra("newuser", false);
+        inIntent.putExtra("next", false);
         startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

@@ -31,7 +31,6 @@ import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -43,7 +42,7 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
     @Inject
     CommunityOnBoardingActivityViewModel mOnBoardingActivityViewModel;
 
-    Boolean newUser = false;
+    Boolean next = false;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -92,11 +91,12 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
         mOnBoardingActivityViewModel.getDataManager().saveCommunityOnboardSeen(true);
 
 
-        if (newUser) {
-            Intent inIntent = AddressNewActivity.newIntent(CommunityOnBoardingActivity.this);
+        if (next) {
+           /* Intent inIntent = AddressNewActivity.newIntent(CommunityOnBoardingActivity.this);
             inIntent.putExtra("newuser", false);
             startActivity(inIntent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+           finish();
 
         } else {
             Intent inIntent = CommunitySearchActivity.newIntent(CommunityOnBoardingActivity.this);
@@ -134,10 +134,10 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
         prefManager = new PrefManager(this);
 
         if (getIntent().getExtras() != null)
-            newUser = getIntent().getExtras().getBoolean("newuser", false);
+            next = getIntent().getExtras().getBoolean("next", false);
 
 
-        if (newUser) {
+        if (next) {
             mOnBoardingActivityViewModel.btnText.set("Next");
         } else {
             mOnBoardingActivityViewModel.btnText.set("Select community");

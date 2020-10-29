@@ -28,6 +28,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
@@ -43,6 +44,9 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.transition.Fade;
+import androidx.transition.Scene;
+import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.dailylocally.BR;
@@ -55,7 +59,6 @@ import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.joinCommunity.CommunityAdapter;
 import com.dailylocally.ui.joinCommunity.CommunityResponse;
 import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
 import com.dailylocally.utilities.SingleShotLocationProvider;
@@ -214,9 +217,9 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     public void slidetoBottomView() {
 
-        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.cSearch.getHeight());
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.searchComm.getHeight());
         translateAnimation.setDuration(600);
-        mActivityAddressNewBinding.cSearch.startAnimation(translateAnimation);
+        mActivityAddressNewBinding.searchComm.startAnimation(translateAnimation);
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -338,7 +341,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mActivityAddressNewBinding.txApartment.setTextColor(getResources().getColor(R.color.white));
             mActivityAddressNewBinding.txIndividual.setTextColor(getResources().getColor(R.color.medium_black));
 
-            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.linearAddressType);
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allViews);
             mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);
             mAddAddressViewModel.isApartment.set(true);
             mAddAddressViewModel.residenceClicked.set(true);
@@ -374,7 +377,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mActivityAddressNewBinding.cardApartment.setCardBackgroundColor(getResources().getColor(R.color.white));
             mActivityAddressNewBinding.cardIndividual.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.linearAddressType);
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allViews);
             mAddAddressViewModel.residenceClicked.set(true);
             mAddAddressViewModel.isApartment.set(false);
             mAddAddressViewModel.dummy.set(true);
@@ -476,14 +479,41 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
         if (mAddAddressViewModel.isGoogleAddress.get()) {
 
-        finish();
+            finish();
 
         } else if (mAddAddressViewModel.isAddress.get()) {
             map.clear();
           /*  slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
 
             mAddAddressViewModel.openGoogleAddress();*/
-            slideOutAddressView();
+         //   slideOutAddressView();
+
+
+
+            TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.searchComm.getHeight());
+            translateAnimation.setDuration(600);
+            mActivityAddressNewBinding.fields.startAnimation(translateAnimation);
+            translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.gAddress, mActivityAddressNewBinding.tab.getHeight());
+                    mAddAddressViewModel.openGoogleAddress();
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+
+
+
 
         } else if (mAddAddressViewModel.isCommunitySearch.get()) {
 
@@ -530,7 +560,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mAddAddressViewModel.openAddress();
 
         } else {
-           finish();
+            finish();
         }
 
 
@@ -547,9 +577,39 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
 
 
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+      //  Scene  aScene = Scene.getSceneForLayout(mActivityAddressNewBinding.searchComm );
+        //anotherScene =Scene.getSceneForLayout(sceneRoot, R.layout.another_scene, this);
 
-        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.cSearch, mActivityAddressNewBinding.fullPage.getHeight());
+
+
+// Obtain the scene root element
+        /*ViewGroup sceneRoot = (ViewGroup) mActivityAddressNewBinding.searchComm;
+
+// Obtain the view hierarchy to add as a child of
+// the scene root when this scene is entered
+        ViewGroup  viewHierarchy = (ViewGroup) mActivityAddressNewBinding.searchComm;
+
+// Create a scene
+        Scene mScene = new Scene(sceneRoot, viewHierarchy);
+        Transition fadeTransition = new Fade(Fade.IN);
+        fadeTransition.setDuration(600);
+        TransitionManager.go(mScene, fadeTransition);*/
+
+
+     //   mActivityAddressNewBinding.fullPage.endViewTransition(mActivityAddressNewBinding.searchComm);
+      //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+       /* ViewGroup rootView = (ViewGroup) mActivityAddressNewBinding.fullPage;
+        Fade  mFade = new Fade(Fade.IN);
+        mFade.setDuration(600);
+
+// Start recording changes to the view hierarchy
+        TransitionManager.beginDelayedTransition(rootView, mFade);*/
+
+      //  TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allViews);
+
+       slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.searchComm, mActivityAddressNewBinding.bottomSheet.getHeight());
         mAddAddressViewModel.openCommunitySearch();
 
         mActivityAddressNewBinding.searchCommunity.requestFocus();
@@ -566,7 +626,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
 
-        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.cSearch, mActivityAddressNewBinding.fullPage.getHeight());
+        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.searchComm, mActivityAddressNewBinding.fullPage.getHeight());
 
         mAddAddressViewModel.openCommunitySearch();
 
@@ -637,9 +697,9 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public void communityClick() {
 
-        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.cSearch.getHeight());
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.searchComm.getHeight());
         translateAnimation.setDuration(600);
-        mActivityAddressNewBinding.cSearch.startAnimation(translateAnimation);
+        mActivityAddressNewBinding.searchComm.startAnimation(translateAnimation);
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -665,7 +725,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     public void knowMore() {
 
         Intent inIntent = CommunityOnBoardingActivity.newIntent(AddressNewActivity.this);
-        inIntent.putExtra("newuser", false);
+        inIntent.putExtra("next", true);
         startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -970,7 +1030,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
 
         mAddAddressViewModel.saveAddress(apartmentOrIndividual, mAddAddressViewModel.googleAddress.get(), address, houseFlatNo, housePlatNo, area, pinCode,
-                mAddAddressViewModel.googleLat.get(),   mAddAddressViewModel.googleLat.get(), landmark, floor, towerBlock, apartment, aId);
+                mAddAddressViewModel.googleLat.get(), mAddAddressViewModel.googleLon.get(), landmark, floor, towerBlock, apartment, aId);
 
 
     }

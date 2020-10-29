@@ -70,10 +70,162 @@
 
 
                 <LinearLayout
+                    android:id="@+id/allViews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+
+                    <!--search-->
+                    <LinearLayout
+                        android:visibility="@{addressNewViewModel.isCommunitySearch?View.VISIBLE:View.GONE}"
+                        android:id="@+id/search_comm"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="@{addressNewViewModel.isCommunitySearch?View.VISIBLE:View.GONE}">
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/white">
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:visibility="invisible"
+                                    android:id="@+id/header"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:layout_alignParentTop="true"
+                                    app:cardElevation="1dp">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal">
+
+                                        <RelativeLayout
+                                            android:layout_width="60dp"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/white"
+                                            android:onClick="@{()->addressNewViewModel.goBack()}"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+                                            <ImageView
+                                                android:layout_width="20dp"
+                                                android:layout_height="20dp"
+                                                android:layout_alignParentStart="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:layout_margin="10dp"
+                                                android:src="@drawable/ic_arrow_back_black_24dp" />
+                                        </RelativeLayout>
+
+                                        <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                            style="@style/HeaderTitleTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:layout_gravity="center_vertical"
+                                            android:text="Search Apartment" />
+
+                                    </RelativeLayout>
+
+
+                                </androidx.cardview.widget.CardView>
+
+
+                                <androidx.appcompat.widget.SearchView
+                                    android:id="@+id/search_community"
+                                    style="@style/AppAutoTextCompleteStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/header"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="@color/white"
+                                    android:focusable="false"
+                                    app:iconifiedByDefault="false"
+                                    app:queryHint="Search for your community or apartment" />
+
+                                <androidx.core.widget.NestedScrollView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@+id/search_community">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical">
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/recycler_community"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_below="@+id/header"
+                                            android:layout_margin="10dp"
+                                            android:layout_marginTop="10dp"
+                                            app:adapter="@{addressNewViewModel.communityItemViewModels}"
+                                            tools:itemCount="2"
+                                            tools:listitem="@layout/list_item_community" />
+
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_horizontal"
+                                            android:layout_marginTop="70dp"
+                                            android:orientation="vertical"
+                                            android:visibility="visible">
+
+
+                                            <com.dailylocally.utilities.fonts.quicksand.SubTitleTextView
+                                                android:id="@+id/txt_1"
+                                                style="@style/SubtTitleTextStyle"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_horizontal"
+                                                android:text="Couldn't find your apartment?"
+                                                android:textAlignment="center" />
+
+
+                                            <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_horizontal"
+                                                android:layout_marginTop="20dp"
+                                                android:layout_marginBottom="50dp"
+                                                android:onClick="@{()->addressNewViewModel.addManually()}"
+                                                android:text="Add Manually"
+                                                android:textAlignment="center"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textSize="@dimen/_22px" />
+
+
+                                        </LinearLayout>
+
+
+
+
+                                    </LinearLayout>
+
+                                </androidx.core.widget.NestedScrollView>
+
+
+                            </RelativeLayout>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                     <!--Address-->
 
@@ -195,6 +347,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_margin="10dp"
                                 android:orientation="vertical">
+
 
 
                                 <LinearLayout
@@ -1020,6 +1173,7 @@
             </RelativeLayout>
 
             <com.dailylocally.utilities.fonts.quicksand.TitleTextView
+                android:visibility="@{addressNewViewModel.isCommunitySearch?View.GONE:View.VISIBLE}"
                 style="@style/HeaderTitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -1030,7 +1184,7 @@
 
         </RelativeLayout>
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <!--<androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/cSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -1038,7 +1192,6 @@
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -1184,7 +1337,7 @@
                 </RelativeLayout>
 
             </LinearLayout>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
 
     </RelativeLayout>

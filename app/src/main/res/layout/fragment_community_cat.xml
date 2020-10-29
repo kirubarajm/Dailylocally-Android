@@ -208,7 +208,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="center_vertical"
                                                     android:onClick="@{()->communityCatViewModel.searchClick()}"
-                                                    android:text="Search for fruits, vegetables and essentials"
+                                                    android:text="Search for Fruits, Vegetables and Essentials"
                                                     android:textColor="@color/medium_black"
                                                     android:textSize="@dimen/_15px" />
 
