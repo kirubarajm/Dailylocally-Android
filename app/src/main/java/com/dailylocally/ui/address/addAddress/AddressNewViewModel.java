@@ -59,6 +59,7 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
     public final ObservableBoolean isGoogleAddress = new ObservableBoolean();
     public final ObservableBoolean isAddress = new ObservableBoolean();
     public final ObservableBoolean isSaveAddress = new ObservableBoolean();
+    public final ObservableBoolean isClickableLocality = new ObservableBoolean();
     public final ObservableBoolean isJoinCommunity = new ObservableBoolean();
     public final ObservableBoolean isCommunitySearch = new ObservableBoolean();
     public final ObservableBoolean clickableApartment = new ObservableBoolean();
@@ -107,7 +108,11 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
             getNavigator().apartmentClick();
         }
     }
+    public void locateMe() {
+        if (getNavigator() != null)
+            getNavigator().myLocationn();
 
+    }
     public void goBack() {
         if (getNavigator() != null) {
             getNavigator().goBack();

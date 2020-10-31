@@ -297,10 +297,13 @@
 
             <com.dailylocally.utilities.fonts.quicksand.ButtonTextView
                 android:id="@+id/btn_sign_in"
-                style="@style/MediumGreenButtonTextStyle"
+                android:textSize="@dimen/_22px"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/btn_back_green"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
+                android:textAllCaps="true"
                 android:gravity="center"
                 android:onClick="@{()->otpViewModel.continueClick()}"
                 android:text="@string/otp_continue"

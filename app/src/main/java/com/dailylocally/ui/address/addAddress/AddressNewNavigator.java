@@ -69,4 +69,6 @@ public interface AddressNewNavigator {
     void dataloaded();
 
     void goHome();
+
+    void myLocationn();
 }

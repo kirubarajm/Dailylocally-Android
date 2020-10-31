@@ -27,8 +27,8 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
@@ -44,9 +44,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.transition.Fade;
-import androidx.transition.Scene;
-import androidx.transition.Transition;
+import androidx.transition.Slide;
 import androidx.transition.TransitionManager;
 
 import com.dailylocally.BR;
@@ -82,7 +80,6 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -144,7 +141,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         }
     };
     //ProgressDialog dialog;
-    private BottomSheetBehavior mBottomSheetBehavior;
+    // private BottomSheetBehavior mBottomSheetBehavior;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, AddressNewActivity.class);
@@ -165,14 +162,6 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         return bitmap;
     }
 
-    public static ViewPropertyAnimator slideInFromBottom(Context ctx, View view, int index) {
-        final int screenHeight = ctx.getResources().getDisplayMetrics().heightPixels;
-        int[] coords = new int[2];
-        view.getLocationOnScreen(coords);
-        view.setTranslationY(screenHeight - coords[1]);
-        return view.animate().translationY(0).setDuration(600).setInterpolator(new OvershootInterpolator(1f));
-    }
-
     public static ViewPropertyAnimator slideInToBottom(Context ctx, View view, int index) {
         final int screenHeight = ctx.getResources().getDisplayMetrics().heightPixels;
         int[] coords = new int[2];
@@ -183,10 +172,21 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     }
 
+    public void slideInFromBottom(Context ctx, View view, int index) {
+        /*final int screenHeight = ctx.getResources().getDisplayMetrics().heightPixels;
+        int[] coords = new int[2];
+        view.getLocationOnScreen(coords);
+        view.setTranslationY(screenHeight - coords[1]);
+        return view.animate().translationY(0).setDuration(600).setInterpolator(new OvershootInterpolator(1f));*/
+
+        TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
+
+
+    }
 
     public void slideOutAddressView() {
 
-        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.ad.getHeight());
+       /* TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.ad.getHeight());
         translateAnimation.setDuration(600);
         mActivityAddressNewBinding.ad.startAnimation(translateAnimation);
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -211,24 +211,33 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             public void onAnimationRepeat(Animation animation) {
 
             }
-        });
+        });*/
 
     }
 
     public void slidetoBottomView() {
 
+        //      TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
+        //     mAddAddressViewModel.openAddress();
+
+
         TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.searchComm.getHeight());
-        translateAnimation.setDuration(600);
+        translateAnimation.setDuration(1000);
         mActivityAddressNewBinding.searchComm.startAnimation(translateAnimation);
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.ad, mActivityAddressNewBinding.tab.getHeight());
-                mAddAddressViewModel.openAddress();
+                //  slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.aa, mActivityAddressNewBinding.tab.getHeight());
+
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                //   mAddAddressViewModel.openAddress();
+                mAddAddressViewModel.isGoogleAddress.set(false);
+                mAddAddressViewModel.isJoinCommunity.set(false);
+                mAddAddressViewModel.isSaveAddress.set(false);
+                mAddAddressViewModel.isCommunitySearch.set(false);
 
             }
 
@@ -308,7 +317,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                             mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);
                         }
                     });*/
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            //mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
 
             //  final int activityHeight = findViewById(android.R.id.content).getHeight();
@@ -341,7 +350,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mActivityAddressNewBinding.txApartment.setTextColor(getResources().getColor(R.color.white));
             mActivityAddressNewBinding.txIndividual.setTextColor(getResources().getColor(R.color.medium_black));
 
-            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allViews);
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
             mActivityAddressNewBinding.container.setVisibility(View.VISIBLE);
             mAddAddressViewModel.isApartment.set(true);
             mAddAddressViewModel.residenceClicked.set(true);
@@ -377,7 +386,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mActivityAddressNewBinding.cardApartment.setCardBackgroundColor(getResources().getColor(R.color.white));
             mActivityAddressNewBinding.cardIndividual.setCardBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allViews);
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
             mAddAddressViewModel.residenceClicked.set(true);
             mAddAddressViewModel.isApartment.set(false);
             mAddAddressViewModel.dummy.set(true);
@@ -422,7 +431,34 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             }
 
 
-            mAddAddressViewModel.openSaveAddress();
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
+            mAddAddressViewModel.isSaveAddress.set(true);
+
+
+            TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.aa.getHeight());
+            translateAnimation.setDuration(1000);
+            mActivityAddressNewBinding.aa.startAnimation(translateAnimation);
+            translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    //  slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.aa, mActivityAddressNewBinding.tab.getHeight());
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    //   mAddAddressViewModel.openAddress();
+                    mAddAddressViewModel.isGoogleAddress.set(false);
+                    mAddAddressViewModel.isJoinCommunity.set(false);
+                    mAddAddressViewModel.isCommunitySearch.set(false);
+                    mAddAddressViewModel.isAddress.set(false);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
 
 
          /*   Intent intent = SaveAddressActivity.newIntent(AddressNewActivity.this);
@@ -476,6 +512,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public void goBack() {
 
+        TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
 
         if (mAddAddressViewModel.isGoogleAddress.get()) {
 
@@ -486,11 +523,11 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
           /*  slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
 
             mAddAddressViewModel.openGoogleAddress();*/
-         //   slideOutAddressView();
+            //   slideOutAddressView();
 
+            mAddAddressViewModel.openGoogleAddress();
 
-
-            TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.searchComm.getHeight());
+            /*TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.searchComm.getHeight());
             translateAnimation.setDuration(600);
             mActivityAddressNewBinding.fields.startAnimation(translateAnimation);
             translateAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -509,15 +546,26 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                 public void onAnimationRepeat(Animation animation) {
 
                 }
-            });
-
-
-
+            });*/
 
 
         } else if (mAddAddressViewModel.isCommunitySearch.get()) {
 
+
+            Slide slide = new Slide();
+            slide.setDuration(600);
+
+            // TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
+
+            mAddAddressViewModel.isAddress.set(true);
+
             slidetoBottomView();
+            /*new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    slidetoBottomView();
+                }
+            },600);*/
 
 
             //   slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
@@ -525,8 +573,11 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
         } else if (mAddAddressViewModel.isSaveAddress.get()) {
 
+            TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.gAddress);
+            mAddAddressViewModel.openAddress();
 
-            TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.ad.getHeight());
+
+           /* TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.ad.getHeight());
             translateAnimation.setDuration(600);
             mActivityAddressNewBinding.ad.startAnimation(translateAnimation);
             translateAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -549,7 +600,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                 public void onAnimationRepeat(Animation animation) {
 
                 }
-            });
+            });*/
 
 
         } else if (mAddAddressViewModel.isJoinCommunity.get()) {
@@ -577,9 +628,8 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
 
 
-      //  Scene  aScene = Scene.getSceneForLayout(mActivityAddressNewBinding.searchComm );
+        //  Scene  aScene = Scene.getSceneForLayout(mActivityAddressNewBinding.searchComm );
         //anotherScene =Scene.getSceneForLayout(sceneRoot, R.layout.another_scene, this);
-
 
 
 // Obtain the scene root element
@@ -596,25 +646,50 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         TransitionManager.go(mScene, fadeTransition);*/
 
 
-     //   mActivityAddressNewBinding.fullPage.endViewTransition(mActivityAddressNewBinding.searchComm);
-      //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        //   mActivityAddressNewBinding.fullPage.endViewTransition(mActivityAddressNewBinding.searchComm);
+        //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
 
        /* ViewGroup rootView = (ViewGroup) mActivityAddressNewBinding.fullPage;
         Fade  mFade = new Fade(Fade.IN);
         mFade.setDuration(600);
 
+
 // Start recording changes to the view hierarchy
         TransitionManager.beginDelayedTransition(rootView, mFade);*/
 
-      //  TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allViews);
+        //  TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
 
-       slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.searchComm, mActivityAddressNewBinding.bottomSheet.getHeight());
-        mAddAddressViewModel.openCommunitySearch();
+
+        Slide slide = new Slide();
+        slide.setDuration(600);
+        /*slide.onAppear((ViewGroup) mActivityAddressNewBinding.fullPage,
+                new TransitionValues(mActivityAddressNewBinding.searchComm), View.VISIBLE,
+                new TransitionValues(mActivityAddressNewBinding.address), View.GONE);*/
+        TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage, slide);
+
+        mAddAddressViewModel.isCommunitySearch.set(true);
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
+                mAddAddressViewModel.openCommunitySearch();
+            }
+        }, 600);
+
+
+        //slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.searchComm, mActivityAddressNewBinding.bottomSheet.getHeight());
 
         mActivityAddressNewBinding.searchCommunity.requestFocus();
 
 
+    }
+
+    @Override
+    public void myLocationn() {
+        turnOnGps();
     }
 
     @Override
@@ -626,9 +701,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
 
-        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.searchComm, mActivityAddressNewBinding.fullPage.getHeight());
-
-        mAddAddressViewModel.openCommunitySearch();
+        addApartmentClick();
 
 
     }
@@ -643,16 +716,28 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
         hideKeyboard();
 
-        if (mActivityAddressNewBinding.txtSubLocality.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter your area", Toast.LENGTH_SHORT).show();
-            return;
+
+        if (mAddAddressViewModel.isClickableLocality.get()) {
+
+            if (mActivityAddressNewBinding.txtSubLocality.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter your area", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAddAddressViewModel.googleArea.set(mActivityAddressNewBinding.txtSubLocality.getText().toString());
+        } else {
+            if (mActivityAddressNewBinding.txtSubLocality2.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter your area", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAddAddressViewModel.googleArea.set(mActivityAddressNewBinding.txtSubLocality2.getText().toString());
         }
 
-        mAddAddressViewModel.googleArea.set(mActivityAddressNewBinding.txtSubLocality.getText().toString());
 
         createMarkers(mAddAddressViewModel.googleLat.get(), mAddAddressViewModel.googleLon.get(), "", "", 0);
 
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        //mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
 
         mAddAddressViewModel.openAddress();
@@ -688,6 +773,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     public void joinCommunityClick() {
         String houseFlatNo = mActivityAddressNewBinding.edtHouse.getText().toString();
         String floorNo = mActivityAddressNewBinding.edtFloorNo.getText().toString();
+
         if (validJoin()) {
             mAddAddressViewModel.joinTheCommunityAPI(houseFlatNo, floorNo, false);
         }
@@ -696,6 +782,15 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     @Override
     public void communityClick() {
+
+
+        Slide slide = new Slide();
+        slide.setDuration(600);
+        /*slide.onAppear((ViewGroup) mActivityAddressNewBinding.fullPage,
+                new TransitionValues(mActivityAddressNewBinding.searchComm), View.VISIBLE,
+                new TransitionValues(mActivityAddressNewBinding.address), View.GONE);*/
+        TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.fullPage);
+        mAddAddressViewModel.isJoinCommunity.set(true);
 
         TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, mActivityAddressNewBinding.searchComm.getHeight());
         translateAnimation.setDuration(600);
@@ -708,8 +803,12 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
-                mAddAddressViewModel.openJoinCommunity();
+                //  slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+                //  mAddAddressViewModel.openJoinCommunity();
+                mAddAddressViewModel.isGoogleAddress.set(false);
+                mAddAddressViewModel.isSaveAddress.set(false);
+                mAddAddressViewModel.isCommunitySearch.set(false);
+                mAddAddressViewModel.isAddress.set(false);
             }
 
             @Override
@@ -841,8 +940,12 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public void addManually() {
         mActivityAddressNewBinding.edtApartmentName.setText(mActivityAddressNewBinding.searchCommunity.getQuery().toString());
-        slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
-        mAddAddressViewModel.openAddress();
+        //  slideInFromBottom(AddressNewActivity.this, mActivityAddressNewBinding.fields, mActivityAddressNewBinding.tab.getHeight());
+        //  mAddAddressViewModel.openAddress();
+
+        mAddAddressViewModel.isAddress.set(true);
+        slidetoBottomView();
+
         mAddAddressViewModel.clickableApartment.set(false);
     }
 
@@ -884,7 +987,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                                 //LatLng latLng = new LatLng(12.99447060,80.25593567);
 
                                 LatLng latLng = new LatLng(location.latitude, location.longitude);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                                 initCameraIdle();
                             }
                     }
@@ -910,24 +1013,31 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     }
 
     private void initCameraIdle() {
+     
         map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
                 center = map.getCameraPosition().target;
                 if (mAddAddressViewModel.isGoogleAddress.get())
                     if (center.latitude != 0.0) {
-                        getAddressFromLocation(center.latitude, center.longitude);
-                        mAddAddressViewModel.googleLat.set(String.valueOf(center.latitude));
-                        mAddAddressViewModel.googleLon.set(String.valueOf(center.longitude));
+
+                            getAddressFromLocation(center.latitude, center.longitude);
+                            mAddAddressViewModel.googleLat.set(String.valueOf(center.latitude));
+                            mAddAddressViewModel.googleLon.set(String.valueOf(center.longitude));
 
                     }
                 //getAddressFromLocation(12.99447060,80.25593567);
             }
         });
+
     }
 
     private void getAddressFromLocation(double latitude, double longitude) {
-        new AsyncTaskAddress().execute(latitude, longitude);
+
+        if (mAddAddressViewModel.isGoogleAddress.get()) {
+            new AsyncTaskAddress().execute(latitude, longitude);
+        }
+
     }
 
     @Override
@@ -936,15 +1046,14 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         if (requestCode == ADDRESS_SEARCH_CODE) {
             if (resultCode == RESULT_OK) {
                 //   Place place = PlaceAutocomplete.getPlace(this, data);
-
                 Place place = Autocomplete.getPlaceFromIntent(data);
-
                 if (place.getLatLng() != null) {
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 14);
+                    getAddressFromLocation(place.getLatLng().latitude, place.getLatLng().longitude);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 16);
                     if (map != null)
                         map.animateCamera(cameraUpdate);
-                }
 
+                }
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 printToast("Error in retrieving place info");
@@ -986,7 +1095,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                 if (dialog.isShowing())
                     dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                 initCameraIdle();
                 if (locationManager != null)
                     locationManager.removeUpdates(this);
@@ -1061,13 +1170,13 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         mAddAddressViewModel.setNavigator(this);
         mCommunityAdapter.setListener(this);
         //analytics = new Analytics(this, pageName);
-
+        mAddAddressViewModel.isClickableLocality.set(true);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         mAddAddressViewModel.clickableApartment.set(true);
 
-        mBottomSheetBehavior = BottomSheetBehavior.from(mActivityAddressNewBinding.bottomSheet);
+       /* mBottomSheetBehavior = BottomSheetBehavior.from(mActivityAddressNewBinding.bottomSheet);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        mBottomSheetBehavior.setHideable(false);
+        mBottomSheetBehavior.setHideable(false);*/
 
 
         LinearLayoutManager mLayoutManager
@@ -1087,7 +1196,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         RelativeLayout.LayoutParams glLayoutParams = (RelativeLayout.LayoutParams) googleLogo.getLayoutParams();
         glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
         glLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-        glLayoutParams.setMargins(0, 20, 10, 0);
+        glLayoutParams.setMargins(0, 16, 10, 0);
         googleLogo.setLayoutParams(glLayoutParams);*/
 
 
@@ -1352,10 +1461,17 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         mAddAddressViewModel.comLat.set(community.getLat());
         mAddAddressViewModel.comLon.set(community.get_long());
 
-
-        createMarkers(community.getLat(), community.get_long(), community.getCommunityname(), community.getNoOfApartments() + " Residency", 0);
-
         mAddAddressViewModel.communityClick();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                createMarkers(community.getLat(), community.get_long(), community.getCommunityname(), community.getNoOfApartments() + " Residency", 0);
+
+            }
+        }, 600);
+
 
     }
 
@@ -1374,7 +1490,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             //    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
             map.clear();
             map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             marker = map.addMarker(markerOptions);
             //   builder.include(markerOptions.getPosition());
             if (!title.isEmpty())
@@ -1442,30 +1558,35 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
                     ColorStateList colorStateList;
                     if (fetchedAddress.getSubLocality() != null) {
+
+                        mAddAddressViewModel.isClickableLocality.set(true);
+
                         mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
                         //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
                         //mActivityCommunityBinding.txtEdit.setEnabled(false);
-                        mActivityAddressNewBinding.txtSubLocality.setEnabled(false);
+                        // mActivityAddressNewBinding.txtSubLocality.setEnabled(false);
                         mActivityAddressNewBinding.txtSubLocality.setHint("");
                         colorStateList = ColorStateList.valueOf(Color.parseColor("#000000"));
                         ViewCompat.setBackgroundTintList(mActivityAddressNewBinding.txtSubLocality, colorStateList);
                         mActivityAddressNewBinding.txtMessage.setVisibility(View.GONE);
                         mActivityAddressNewBinding.imgMarker.setBackgroundResource(R.drawable.ic_group_2);
 
+
                     } else {
+                        mAddAddressViewModel.isClickableLocality.set(false);
                         mAddAddressViewModel.area.set("");
                         //mActivityCommunityBinding.txtEdit.setEnabled(true);
-                        mActivityAddressNewBinding.txtSubLocality.setEnabled(true);
+                        mActivityAddressNewBinding.txtSubLocality2.setEnabled(true);
                         mActivityAddressNewBinding.txtSubLocality.requestFocus();
                         //mActivityCommunityBinding.txtSubLocality.setError("Unable to identify location");
-                        mActivityAddressNewBinding.txtSubLocality.setHint(null);
-                        mActivityAddressNewBinding.txtSubLocality.setHint("Unable to identify location");
-                        mActivityAddressNewBinding.txtSubLocality.setHintTextColor(Color.parseColor("#FF0001"));
+                        mActivityAddressNewBinding.txtSubLocality2.setHint(null);
+                        mActivityAddressNewBinding.txtSubLocality2.setHint("Unable to identify location");
+                        mActivityAddressNewBinding.txtSubLocality2.setHintTextColor(Color.parseColor("#FF0001"));
                         mActivityAddressNewBinding.txtMessage.setVisibility(View.VISIBLE);
                         printToast("Unable to find your area please mark your location on map..");
 
                         colorStateList = ColorStateList.valueOf(Color.parseColor("#FF0001"));
-                        ViewCompat.setBackgroundTintList(mActivityAddressNewBinding.txtSubLocality, colorStateList);
+                        ViewCompat.setBackgroundTintList(mActivityAddressNewBinding.txtSubLocality2, colorStateList);
 
                         mActivityAddressNewBinding.imgMarker.setBackgroundResource(R.drawable.ic_group_3);
                     }

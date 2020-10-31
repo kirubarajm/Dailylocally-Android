@@ -130,7 +130,10 @@
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:gravity="center"
-                style="@style/MediumGreenButtonTextStyle"
+                android:textAllCaps="true"
+                android:textSize="@dimen/_22px"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/btn_back_green"
                 android:onClick="@{()->signup.usersLoginMain()}"
                 android:text="@string/_continue"/>
 

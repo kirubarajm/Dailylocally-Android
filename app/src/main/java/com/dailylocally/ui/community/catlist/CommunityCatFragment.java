@@ -250,7 +250,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         }*/
 
 
-        this.videoView=videoView;
+     //   this.videoView=videoView;
         if (videoView.isPlaying())
             videoView.pause();
 
@@ -329,7 +329,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void updateVideoView(VideoView videoView) {
-
+        this.videoView=videoView;
     }
 
     @Override
