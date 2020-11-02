@@ -31,7 +31,8 @@ public interface GoogleAddressNavigator {
     void showToast(String msg);
     void showAlert(String title,String message,String locationAddress,String area,String lat,
                    String lng,String pinCode);
-
+    void confirmLocationClick(String locationAddress,String area,String lat,
+                              String lng,String pinCode);
     void goBack();
 
     void searchAddress();
@@ -42,7 +43,6 @@ public interface GoogleAddressNavigator {
 
     void googleAddressClick();
 
-    void confirmLocationClick(String locationAddress,String area,String lat,
-                              String lng,String pinCode);
+
 
 }

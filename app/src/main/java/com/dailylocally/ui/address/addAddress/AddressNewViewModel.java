@@ -29,6 +29,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
+import com.dailylocally.ui.address.googleAddress.CheckAddressRequest;
+import com.dailylocally.ui.address.googleAddress.CheckAddressResponse;
 import com.dailylocally.ui.address.googleAddress.GoogleAddressResponse;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.address.saveAddress.SaveAddressRequest;
@@ -58,10 +60,12 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
     public final ObservableBoolean dummy = new ObservableBoolean();
     public final ObservableBoolean isGoogleAddress = new ObservableBoolean();
     public final ObservableBoolean isAddress = new ObservableBoolean();
+    public final ObservableBoolean isAddressEdit = new ObservableBoolean();
     public final ObservableBoolean isSaveAddress = new ObservableBoolean();
     public final ObservableBoolean isClickableLocality = new ObservableBoolean();
     public final ObservableBoolean isJoinCommunity = new ObservableBoolean();
     public final ObservableBoolean isCommunitySearch = new ObservableBoolean();
+    public final ObservableBoolean isCommunitySearchClicked = new ObservableBoolean();
     public final ObservableBoolean clickableApartment = new ObservableBoolean();
     public final ObservableBoolean residenceClicked = new ObservableBoolean();
     public final ObservableField<String> aId = new ObservableField<>();
@@ -165,6 +169,7 @@ public void goHome() {
         isSaveAddress.set(false);
         isCommunitySearch.set(false);
         isAddress.set(true);
+        isAddressEdit.set(true);
     }
 
     public void openGoogleAddress() {
@@ -172,7 +177,7 @@ public void goHome() {
         isJoinCommunity.set(false);
         isSaveAddress.set(false);
         isCommunitySearch.set(false);
-        isAddress.set(false);
+        isAddress.set(true);
     }
 
     public void knowMore() {
@@ -617,6 +622,54 @@ public void goHome() {
     }
 
 
+    public void checkAddress(String locationAddress, String area, String lat,
+                             String lng, String pinCode) {
 
+        if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHECK_ADDRESS, CheckAddressResponse.class, new CheckAddressRequest(getDataManager().getCurrentUserId(), lat, lng), new Response.Listener<CheckAddressResponse>() {
+                @Override
+                public void onResponse(CheckAddressResponse response) {
+                    if (!response.getStatus()) {
+                        if (response.getServicableStatus()) {
+
+                            if (getNavigator() != null)
+                                getNavigator().confirmLocationClick(googleAddress.get(), googleArea.get(), googleLat.get(),
+                                        googleLon.get(), googlePinCode.get());
+
+                        } else {
+
+                            if (getNavigator() != null)
+                                getNavigator().showAlert(response.getTitle(), response.getMessage(), locationAddress, area, lat, lng, pinCode);
+
+                        }
+                    } else {
+                        if (getNavigator() != null)
+                            getNavigator().confirmLocationClick(googleAddress.get(), googleArea.get(), googleLat.get(),
+                                    googleLon.get(), googlePinCode.get());
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            DailylocallyApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
 
 }

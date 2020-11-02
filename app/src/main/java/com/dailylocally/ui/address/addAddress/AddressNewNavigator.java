@@ -51,8 +51,6 @@ public interface AddressNewNavigator {
     void searchAddress();
 
     void knowMore();
-    void showAlert(String title,String message,String locationAddress,String area,String lat,
-                   String lng,String pinCode);
 
     void showAlert(String title,String message);
 
@@ -71,4 +69,10 @@ public interface AddressNewNavigator {
     void goHome();
 
     void myLocationn();
+
+
+    void showAlert(String title,String message,String locationAddress,String area,String lat,
+                   String lng,String pinCode);
+    void confirmLocationClick(String locationAddress,String area,String lat,
+                              String lng,String pinCode);
 }

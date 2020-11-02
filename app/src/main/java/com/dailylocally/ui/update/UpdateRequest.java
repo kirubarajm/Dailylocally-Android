@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class UpdateRequest {
 
-    @SerializedName("eatversioncode")
+    @SerializedName("dlversioncode")
     @Expose
     private Integer eatversioncode;
   @SerializedName("userid")
