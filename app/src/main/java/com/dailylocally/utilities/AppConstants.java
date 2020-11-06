@@ -667,4 +667,72 @@ public class AppConstants {
   public static final Integer CHAT_PAGE_TYPE_PROGRESS_ORDER = 1;
   public static final Integer CHAT_PAGE_TYPE_COMPLETED_ORDER = 4;
   public static final int RATING_REQUEST_CODE = 70;
+
+  /////Analytics New
+  public static final String SCREEN_NAME_SPLASH = "splash";
+  public static final String SCREEN_NAME_SIGN_UP = "sign_up";
+  public static final String SCREEN_NAME_REGISTRATION = "registration";
+  public static final String SCREEN_NAME_ADDRESS = "address";
+  public static final String SCREEN_NAME_MAIN = "main";
+  public static final String SCREEN_NAME_HOME = "home";
+  public static final String SCREEN_NAME_REFERRAL = "referral";
+  public static final String SCREEN_NAME_MY_ACCOUNT = "my_account";
+  public static final String SCREEN_NAME_CALENDAR = "calendar";
+  public static final String SCREEN_NAME_CART = "cart";
+  public static final String SCREEN_NAME_CATEGORY_L1 = "cat_l1";
+  public static final String SCREEN_NAME_CATEGORY_L2 = "cat_l2";
+  public static final String SCREEN_NAME_PRODUCTS = "products";
+  public static final String SCREEN_NAME_FAVORITES = "favorites";
+  public static final String SCREEN_NAME_ORDER_PLACED = "order_placed";
+  public static final String SCREEN_NAME_SEARCH = "search";
+  public static final String SCREEN_NAME_FAQ = "faq";
+  public static final String SCREEN_NAME_OTP = "otp";
+  public static final String SCREEN_NAME_PRIVACY = "privacy";
+  public static final String SCREEN_NAME_TERMS_AND_CONDITION = "terms_condition";
+  public static final String SCREEN_NAME_SUBSCRIPTION = "subscription";
+  public static final String SCREEN_NAME_UPDATE = "update";
+  public static final String SCREEN_NAME_COLLECTION = "collection";
+  public static final String SCREEN_NAME_SUPPORT = "support";
+  public static final String SCREEN_NAME_MY_ORDER = "my_order";
+  public static final String SCREEN_NAME_CHAT = "chat";
+  public static final String SCREEN_NAME_ON_BOARDING = "on_boarding";
+  public static final String SCREEN_NAME_PRODUCT_DETAIL = "product_detail";
+  public static final String SCREEN_NAME_TRANS_LIST = "transaction_list";
+  public static final String SCREEN_NAME_TRANS_DETAILS = "transaction_details";
+  public static final String SCREEN_NAME_CATEGORY_L1_PROD = "cat_l1_product";
+  public static final String SCREEN_NAME_COMMUNITY_CAT_LIST = "cat_list";
+  public static final String SCREEN_NAME_COMMUNITY = "community";
+  public static final String SCREEN_NAME_COMMUNITY_HOME = "community_home";
+  public static final String SCREEN_NAME_COMMUNITY_EVENT_POST = "community_event_post";
+  public static final String SCREEN_NAME_COMMUNITY_POST_DETAILS = "community_post_detail";
+  public static final String SCREEN_NAME_VIDEO = "video";
+  public static final String SCREEN_NAME_WHATSAPP = "whatsapp";
+  public static final String SCREEN_NAME_ABOUT_US = "about_us";
+
+
+  ///Event name
+  public static final String EVENT_APP_OPENS = "app_opens";
+  public static final String EVENT_PAGE_OPENS = "page_opens";
+  public static final String EVENT_HOME_PAGE_SOCIAL_FEED = "home_social_feed";
+  public static final String EVENT_HOME_PAGE_FEED_TRACTION = "home_feed_traction";
+  public static final String EVENT_COMMUNITY_PAGE_FEED_TRACTION = "community_feed_traction";
+  public static final String EVENT_TRACTION_DLE_BANNER_TILE = "traction_dle_banner_tile";
+  public static final String EVENT_TRACTION_NON_DLE_BANNER_TILE = "traction_non_dle_banner_tile";
+  public static final String EVENT_CATEGORY_PAGE = "category_page";
+  public static final String EVENT_CATEGORY_TILE = "category_tile";
+  public static final String EVENT_L1_SUB_CATEGORY = "l1_sub_cat";
+  public static final String EVENT_COLLECTION_TILE = "collection_tile";
+  public static final String EVENT_ITEM_DETAIL_PAGE = "item_detail_page";
+  public static final String EVENT_ADD_BUTTON = "add_button";
+  public static final String EVENT_USER_SUBSCRIBE = "user_subscribe";
+  public static final String EVENT_ABANDON_CART = "abandon_cart";
+  public static final String EVENT_PLACE_ORDER = "place_order";
+  public static final String EVENT_PAYMENT_COMPLETED = "payment_completed";
+  public static final String EVENT_SEARCH = "search";
+  public static final String EVENT_ACCOUNT_CREATED = "account_created";
+  public static final String EVENT_DLE_REGISTRATION_TILE_ON_CATEGORY_PAGE = "dle_reg_tile_on_category_page";
+  public static final String EVENT_GET_SOCIAL_PUSH_NOTIFICATION = "get_social_push_notification";
+  public static final String EVENT_NORMAL_PUSH_NOTIFICATION = "normal_push_notification";
+
+
 }
