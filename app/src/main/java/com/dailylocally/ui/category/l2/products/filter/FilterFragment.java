@@ -124,7 +124,11 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     @Override
     public void clearFilters() {
-        filterListener.FilterRefresh( mFilterViewModel.scl2id);
+        if (page.equals(AppConstants.NOTIFY_CATEGORY_L2_ACTV)) {
+            filterListener.FilterRefresh(mFilterViewModel.scl2id);
+        }else {
+            filterListener.FilterRefresh(mFilterViewModel.scl1id);
+        }
         dismiss();
 
     }

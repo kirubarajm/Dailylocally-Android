@@ -2,15 +2,8 @@ package com.dailylocally.utilities.analytics;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 
-import com.dailylocally.utilities.DailylocallyApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.dailylocally.BuildConfig;
-import com.dailylocally.data.prefs.AppPreferencesHelper;
-
-import com.dailylocally.utilities.AppConstants;
 
 
 public class Analytics {
@@ -32,7 +25,6 @@ public class Analytics {
             addProperties();
         }*/
     }
-
 
     public Analytics(Context context, String screen_name) {
 
@@ -58,7 +50,7 @@ public class Analytics {
     }
 
     public Analytics(int productid, String productname, int price, int quantity, String kitchenName) {
-    //    if (BuildConfig.ENABLE_DEBUG) return;
+        //    if (BuildConfig.ENABLE_DEBUG) return;
      /*   if (mFirebaseAnalytics == null)
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
 
@@ -104,6 +96,13 @@ public class Analytics {
         sendClickData(screen_name, click);*/
     }
 
+    public void AnalyticsAppOpens(Context context,String userid,String phno,String name) {
+
+
+
+
+    }
+
     public void addProperties() {
     /*    mFirebaseAnalytics = FirebaseAnalytics.getInstance(DailylocallyApp.getInstance());
         mFirebaseAnalytics.setUserId(String.valueOf(userid));
@@ -126,8 +125,6 @@ public class Analytics {
         params.putString(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(click, params);*/
     }
-
-
 
 
     public void addtoCart(int productid, String productName, int quantiy, int price) {
@@ -180,7 +177,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_USER_ID, user_id);
         bundle.putString(AppConstants.ANALYTICYS_MOBILE_NUMBER, number);*/
-   //     mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_USER_LOGIN, bundle);
+        //     mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_USER_LOGIN, bundle);
     }
 
 
@@ -305,8 +302,7 @@ public class Analytics {
     }
 
 
-
- public void orderRating(double prodRating,double delRating, String prodFeedback, String delFeedback) {
+    public void orderRating(double prodRating, double delRating, String prodFeedback, String delFeedback) {
       /*  if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
@@ -401,7 +397,7 @@ public class Analytics {
      * METRICS
      */
     /////APP OPENS
-    public void appOpensMetrics(String previousPage, String addressType,int serviceablestatus) {
+    public void appOpensMetrics(String previousPage, String addressType, int serviceablestatus) {
      /*   if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -416,7 +412,7 @@ public class Analytics {
     }
 
     /////APP OPENS
-    public void appHomeMetrics(String previousPage,String addressType,int  categoryCount,int  collectionCount,int serviceablestatus) {
+    public void appHomeMetrics(String previousPage, String addressType, int categoryCount, int collectionCount, int serviceablestatus) {
       /*  if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -594,7 +590,7 @@ public class Analytics {
     }
 
     /////PROCEED TO PAY
-    public void proceedToPayPageMetrics(String productIdList, String productQtyList, String totalAmt, int promoCodeId,String previousPage,int mincart) {
+    public void proceedToPayPageMetrics(String productIdList, String productQtyList, String totalAmt, int promoCodeId, String previousPage, int mincart) {
      /*   if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
