@@ -61,6 +61,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     @Override
     public void openRegActivity() {
         Intent intent = RegistrationActivity.newIntent(PrivacyActivity.this);
+        intent.putExtra("edit","0");
         startActivity(intent);
         finish();
     }

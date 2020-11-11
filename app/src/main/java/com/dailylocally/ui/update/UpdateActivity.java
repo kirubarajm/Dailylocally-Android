@@ -58,6 +58,7 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     @Override
     public void checkForUserGenderStatus(boolean trueOrFalse) {
         Intent intent = RegistrationActivity.newIntent(UpdateActivity.this);
+        intent.putExtra("edit","0");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

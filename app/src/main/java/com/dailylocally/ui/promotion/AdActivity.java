@@ -60,6 +60,7 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
     @Override
     public void openRegActivity() {
         Intent intent = RegistrationActivity.newIntent(AdActivity.this);
+        intent.putExtra("edit","0");
         startActivity(intent);
         finish();
     }
