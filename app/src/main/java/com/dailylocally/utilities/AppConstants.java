@@ -734,5 +734,106 @@ public class AppConstants {
   public static final String EVENT_GET_SOCIAL_PUSH_NOTIFICATION = "get_social_push_notification";
   public static final String EVENT_NORMAL_PUSH_NOTIFICATION = "normal_push_notification";
 
+  /////Common params
+  public static final String EVENT_COMMON_PARAM_USER_ID = "user_id";
+  public static final String EVENT_COMMON_PARAM_USER_NAME = "user_name";
+  public static final String EVENT_COMMON_PARAM_USER_PHONE_NUMBER = "user_phone_no";
+
+  ////Home page opened
+  public static final String EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_NO_OF_SWIPES_PAGE = "hpo_no_of_swipes";
+  public static final String EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_TIME_ON_PAGE = "hpo_time_on_page";
+  public static final String EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_POST_POSITION_OF_LAST_POST_SEEN = "hpo_post_position_of_last_seen";
+
+  ////Category page
+  public static final String EVENT_CATEGORY_PAGE_PARAM_NO_OF_SWIPES = "cpo_no_of_swipes";
+  public static final String EVENT_CATEGORY_PAGE_PARAM_TIME_ON_PAGE = "cpo_time_on_page";
+  public static final String EVENT_CATEGORY_PAGE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN = "cpo_tile_type_of_last_tile_seen";
+  public static final String EVENT_CATEGORY_PAGE_PARAM_TILE_POSITION_OF_LAST_TILE_SEEN = "cpo_tile_position_of_last_tile_seen";
+
+  ////Category tile
+  public static final String EVENT_CATEGORY_TILE_PARAM_NO_OF_SWIPES = "category_tile_name";
+  public static final String EVENT_CATEGORY_TILE_PARAM_TIME_ON_PAGE = "category_tile_type";
+  public static final String EVENT_CATEGORY_TILE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN = "category_tile_position";
+
+  ////L1 Sub-Category
+  public static final String EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_NAME = "l1_sc_name";
+  public static final String EVENT_L1_SUB_CATEGORY_PARAM_CATEGORY_NAME = "cat_name";
+  public static final String EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_POSITION = "l1_sc_position";
+
+  ////Collection Tile
+  public static final String EVENT_COLLECTION_PARAM_COL_TILE_NAME = "col_tile_name";
+  public static final String EVENT_COLLECTION_PARAM_COL_TILE_TYPE = "col_tile_type";
+  public static final String EVENT_COLLECTION_PARAM_COL_TILE_POSITION = "col_tile_position";
+  public static final String EVENT_COLLECTION_PARAM_COL_ID = "collection_id";
+
+  ////Item detail page
+  public static final String EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_CATEGORY = "item_category";
+  public static final String EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L1_SC = "item_l1_sc";
+  public static final String EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L2_SC = "item_l2_sc";
+  public static final String EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_COST = "item_cost";
+  public static final String EVENT_ITEM_DETAIL_PAGE_PARAM_SOURCE_PAGE_NAME = "source_page";
+
+  ////Add button
+  public static final String EVENT_ADD_BUTTON_PARAM_ITEM_NAME = "item_name";
+  public static final String EVENT_ADD_BUTTON_PARAM_ACTION_TYPE = "action_type";
+  public static final String EVENT_ADD_BUTTON_PARAM_ITEM_CATEGORY = "item_category";
+  public static final String EVENT_ADD_BUTTON_PARAM_ITEM_L1 = "item_l1";
+  public static final String EVENT_ADD_BUTTON_PARAM_ITEM_L2 = "item_l2";
+  public static final String EVENT_ADD_BUTTON_PARAM_ITEM_COST = "item_cost";
+  public static final String EVENT_ADD_BUTTON_PARAM_ITEM_QUANTITY_AFTER_EVENT = "item_qty_after_event";
+  public static final String EVENT_ADD_BUTTON_PARAM_ITEM_TAG = "item_tag";
+  public static final String EVENT_ADD_BUTTON_PARAM_CART_VALUE = "cart_value";
+  public static final String EVENT_ADD_BUTTON_PARAM_PAGE_TYPE = "page_type";
+
+  ////User subscribes
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_ITEM_NAME = "item_name";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_ITEM_CATEGORY = "item_category";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_ITEM_L1 = "item_l1";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_ITEM_L2 = "item_l2";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_ITEM_COST = "item_cost";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_ITEM_TAG = "item_tag";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_CART_VALUE_AFTER_SUBS = "cart_value_after_subscription";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_UNITS_PER_DAY_IN_SUBS = "units_per_day_in_subscription";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_DAYS_IN_WEEK = "days_in_week";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_NO_OF_DAYS = "no_of_days";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_START_DATE = "start_date";
+  public static final String EVENT_USER_SUBSCRIBE_PARAM_PAGE_TYPE = "page_type";
+
+  ////Place order
+  public static final String EVENT_PLACE_ORDER_PARAM_DELIVERY_METHOD = "delivery_method";
+  public static final String EVENT_PLACE_ORDER_PARAM_PAYMENT_MODE = "payment_mode";
+  public static final String EVENT_PLACE_ORDER_PARAM_NO_OF_PRODUCT_IN_CART = "no_of_products";
+  public static final String EVENT_PLACE_ORDER_PARAM_PRODUCT_VALUE = "product_value";
+  public static final String EVENT_PLACE_ORDER_PARAM_CART_ITEMS = "cart_items";
+  public static final String EVENT_PLACE_ORDER_PARAM_GST = "gst";
+  public static final String EVENT_PLACE_ORDER_PARAM_DELIVERY_CHARGE = "delivery_charge";
+  public static final String EVENT_PLACE_ORDER_PARAM_COUPON_NAME = "coupon_name";
+
+  ////Payment completed
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_METHOD = "delivery_method";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_CART_SIZE = "cart_size";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_CART_VALUE = "cart_value";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_CART_ITEMS = "cart_items";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_CARD_TYPE = "card_type";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHANGES = "total_changes";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_MIS_FEE = "mis_fee";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_FEE = "delivery_fee";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_COUPON = "coupon_name";
+
+  ////Search
+  public static final String EVENT_SEARCH_PARAM_SEARCH_TERMS = "search_terms";
+  public static final String EVENT_SEARCH_PARAM_RESULTS_RETURNED = "results_returned";
+  public static final String EVENT_SEARCH_PARAM_RESULTS_CLICKED_TYPE = "results_clicked_type";
+  public static final String EVENT_SEARCH_PARAM_RESULTS_CLICKED = "results_clicked";
+
+  ////Account created
+  public static final String EVENT_ACCOUNT_CREATED_PARAM_PHONE_NUMBER = "phone_no";
+  public static final String EVENT_ACCOUNT_CREATED_PARAM_NAME = "name";
+  public static final String EVENT_ACCOUNT_CREATED_PARAM_EMAIL = "email";
+  public static final String EVENT_ACCOUNT_CREATED_PARAM_REGISTRATION_DATE = "registration_date";
+  public static final String EVENT_ACCOUNT_CREATED_PARAM_GENDER = "gender";
+  public static final String EVENT_ACCOUNT_CREATED_PARAM_APARTMENT_NAME = "apartment_name";
+  public static final String EVENT_ACCOUNT_CREATED_PARAM_USER_REGISTRATION_TYPE = "user_registration_type";
+
 
 }
