@@ -2,7 +2,11 @@ package com.dailylocally.utilities.analytics;
 
 
 import android.content.Context;
+import android.os.Bundle;
 
+import com.dailylocally.BuildConfig;
+import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.DailylocallyApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 
@@ -606,6 +610,413 @@ public class Analytics {
         bundle.putInt(AppConstants.PROCEED_TO_PAY_MINCARTVALUE, mincart);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_PROCEED_TO_PAY, bundle);*/
+    }
+
+
+
+
+
+    ////App opens
+    public void eventAppOpens(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_APP_OPENS, bundle);
+    }
+
+    ////App opens
+    public void eventPageOpens(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_PAGE_OPENS, bundle);
+    }
+
+    ////Home page - social feed
+    public void eventHomePageOpens(Context context) {
+         FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_NO_OF_SWIPES_PAGE, "");
+        bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_TIME_ON_PAGE, "");
+        bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_POST_POSITION_OF_LAST_POST_SEEN, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED, bundle);
+    }
+
+    ////Feed traction on our community page
+    public void eventFeedTractionOnHomePage(Context context) {
+         FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_HOME_PAGE_FEED_TRACTION, bundle);
+    }
+
+    ////Feed traction on our community page
+    public void eventFeedTractionOnOurCommunityPage(Context context) {
+         FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_COMMUNITY_PAGE_FEED_TRACTION, bundle);
+    }
+
+    ////Traction DLE banner tile
+    public void eventTractionDLEBannerTile(Context context) {
+         FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_TRACTION_DLE_BANNER_TILE, bundle);
+    }
+
+    ////Traction Non-DLE banner tile
+    public void eventTractionNonDLEBannerTile(Context context) {
+         FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_TRACTION_NON_DLE_BANNER_TILE, bundle);
+    }
+
+    ////Category page(page opened)
+    public void eventCategoryPage(Context context) {
+         FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_NO_OF_SWIPES, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TIME_ON_PAGE, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TILE_POSITION_OF_LAST_TILE_SEEN, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_CATEGORY_PAGE, bundle);
+    }
+
+    ////Category tile
+    public void eventCategoryTile(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_NO_OF_SWIPES, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_TIME_ON_PAGE, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_CATEGORY_TILE, bundle);
+    }
+
+    ////L1 Sub-category page
+    public void eventL1SubCategoryPage(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_NAME, "");
+        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_CATEGORY_NAME, "");
+        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_POSITION, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_L1_SUB_CATEGORY, bundle);
+    }
+
+    ////Collection tile
+    public void eventCollectionTile(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_NAME, "");
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_TYPE, "");
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_POSITION, "");
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_ID, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_COLLECTION_TILE, bundle);
+    }
+
+    ////Item detail page
+    public void eventItemDetailPage(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_CATEGORY, "");
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L1_SC, "");
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L2_SC, "");
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_COST, "");
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_SOURCE_PAGE_NAME, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_ITEM_DETAIL_PAGE, bundle);
+    }
+
+    ////Add button
+    public void eventAddButton(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_NAME, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ACTION_TYPE, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_CATEGORY, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_L1, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_L2, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_COST, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_QUANTITY_AFTER_EVENT, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_TAG, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_CART_VALUE, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_PAGE_TYPE, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_ADD_BUTTON, bundle);
+    }
+
+    ////User subscribe
+    public void eventUserSubscribe(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_NAME, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_CATEGORY, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_L1, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_L2, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_COST, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_TAG, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_CART_VALUE_AFTER_SUBS, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_UNITS_PER_DAY_IN_SUBS, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_DAYS_IN_WEEK, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_NO_OF_DAYS, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_START_DATE, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_PAGE_TYPE, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_USER_SUBSCRIBE, bundle);
+    }
+
+    ////Abandon cart
+    public void eventAbandonCart(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_ABANDON_CART, bundle);
+    }
+
+    ////Place order
+    public void eventPlaceOrder(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_METHOD, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PAYMENT_MODE, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_NO_OF_PRODUCT_IN_CART, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PRODUCT_VALUE, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_CART_ITEMS, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_GST, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_CHARGE, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_COUPON_NAME, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_PLACE_ORDER, bundle);
+    }
+
+     ////Payment completed
+    public void eventPaymentCompleted(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_METHOD, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_SIZE, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_VALUE, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_ITEMS, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CARD_TYPE, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHANGES, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_MIS_FEE, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_FEE, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_COUPON, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_PAYMENT_COMPLETED, bundle);
+    }
+
+    ////Search
+    public void eventSearch(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_SEARCH_TERMS, "");
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_RETURNED, "");
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_CLICKED_TYPE, "");
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_CLICKED, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_SEARCH, bundle);
+    }
+
+    ////Account created
+    public void eventAccountCreated(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_NAME, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_EMAIL, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_REGISTRATION_DATE, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_GENDER, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_APARTMENT_NAME, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_USER_REGISTRATION_TYPE, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_ACCOUNT_CREATED, bundle);
+    }
+
+    ////DLE registration page on category page
+    public void eventDLEregistrationPageOnCategoryPage(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_DLE_REGISTRATION_TILE_ON_CATEGORY_PAGE, bundle);
+    }
+
+    ////GetSocial push notification
+    public void eventGetSocialPushNotification(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_GET_SOCIAL_PUSH_NOTIFICATION, bundle);
+    }
+
+    ////Normal push notification
+    public void eventNormalPushNotification(Context context) {
+        FirebaseAnalytics mFirebaseAnalytics = null;
+        if (BuildConfig.ENABLE_DEBUG) return;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+
+        mFirebaseAnalytics.logEvent(AppConstants.EVENT_NORMAL_PUSH_NOTIFICATION, bundle);
     }
 
 }
