@@ -18,11 +18,14 @@ import com.dailylocally.databinding.ActivityTransactionHistoryBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -80,8 +83,11 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, TransactionHistoryActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, TransactionHistoryActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -139,6 +145,10 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
         mActivityTransactionHistoryBinding.recyclerTransactionHistory.setAdapter(mTransactionHistoryAdapter);
 
         subscribeToLiveData();
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
     }
 
     private void subscribeToLiveData() {
@@ -180,7 +190,7 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
     }
     @Override
     public void viewClick(TransactionHistoryResponse.Result cartdetail) {
-        Intent intent = TransactionDetailsActivity.newIntent(this);
+        Intent intent = TransactionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY,AppConstants.SCREEN_NAME_TRANS_DETAILS);
         intent.putExtra("orderid",cartdetail.getOrderid());
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

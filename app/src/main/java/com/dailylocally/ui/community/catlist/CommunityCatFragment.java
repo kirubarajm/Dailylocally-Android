@@ -243,7 +243,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView) {
+    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView,int pos) {
 
        /* if (result.getCollectionStatus()) {
             Intent intent = CollectionDetailsActivity.newIntent(getContext());
@@ -259,13 +259,21 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         }*/
 
 
+
      //   this.videoView=videoView;
         if (videoView.isPlaying())
             videoView.pause();
 
-
+        String type = "";
+        if (result.getTileType().equals("1")){
+            type = "vertical";
+        }else if (result.getTileType().equals("2")){
+            type = "horizontal";
+        }
 
         if (result.getType()==1){
+
+            new Analytics().eventCategoryTile(getContext(),result.getName(),type,String.valueOf(pos));
 
             Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_CATEGORY_L1);
             intent.putExtra("catid", String.valueOf(result.getCatid()));
@@ -273,7 +281,10 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
 
+
         }else if (result.getType()==2){
+
+            new Analytics().eventCollectionTile(getContext(),result.getName(),type,String.valueOf(pos),result.getCid());
 
             Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST,AppConstants.SCREEN_NAME_COLLECTION);
             intent.putExtra("cid", result.getCid());
@@ -282,6 +293,8 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
         }else {
 
+
+            new Analytics().eventDLEregistrationPageOnCategoryPage(getContext());
 
             if (mCommunityCatViewModel.getDataManager().isCommunityOnboardSeen()){
                 Intent inIntent = CommunitySearchActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.URL_COMMUNITY_SEARCH);

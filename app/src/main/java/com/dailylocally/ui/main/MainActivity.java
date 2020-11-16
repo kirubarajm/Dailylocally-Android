@@ -1064,10 +1064,10 @@ openCommunity();
                 openCommunityCat();
                 return;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(this);
+                intent = TransactionHistoryActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
-                intent = TransactionDetailsActivity.newIntent(this);
+                intent = TransactionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_TRANS_DETAILS);
                 bundle.putString("orderid", actionDatas.get("orderid"));
 
                 break;

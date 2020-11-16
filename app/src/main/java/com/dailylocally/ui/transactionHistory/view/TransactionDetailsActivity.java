@@ -19,12 +19,14 @@ import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
+import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -87,8 +89,11 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, TransactionDetailsActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, TransactionDetailsActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -186,6 +191,10 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
 
 
         subscribeToLiveData();
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_TRANS_DETAILS);
     }
 
     private void subscribeToLiveData() {

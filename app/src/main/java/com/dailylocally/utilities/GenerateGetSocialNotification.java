@@ -118,10 +118,10 @@ public class GenerateGetSocialNotification extends AsyncTask<String, Void, Bitma
                 intent = MainActivity.newIntent(mContext, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(mContext);
+                intent = TransactionHistoryActivity.newIntent(mContext,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
-                intent = TransactionDetailsActivity.newIntent(mContext);
+                intent = TransactionDetailsActivity.newIntent(mContext,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANS_DETAILS);
                 bundle.putString("orderid", actionDatas.get("orderid"));
 
                 break;

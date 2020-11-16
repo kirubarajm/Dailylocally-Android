@@ -206,13 +206,18 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
     }
 
     @Override
-    public void categoryItemClicked(L1CategoryResponse.Result result) {
+    public void categoryItemClicked(L1CategoryResponse.Result result,int pos) {
 
+        String name = "";
         if (result.getCatid() == null) {
 
+            name = "viewall";
+            new  Analytics().eventL1SubCategoryPage(this,name,mCategoryL1ViewModel.title.get(),String.valueOf(pos));
             viewAll();
 
         } else {
+            name = result.getName();
+            new  Analytics().eventL1SubCategoryPage(this,name,mCategoryL1ViewModel.title.get(),String.valueOf(pos));
 
             Intent intent = CategoryL2Activity.newIntent(CategoryL1Activity.this,AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
             intent.putExtra("catid", categoryid);

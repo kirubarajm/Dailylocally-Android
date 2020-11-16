@@ -69,7 +69,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     public interface CategoriesAdapterListener {
-        void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView);
+        void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView,int pos);
         void updateVideoView(VideoView videoView);
     }
 
@@ -98,7 +98,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(HomepageResponse.Result result) {
-            mCategoriesAdapterListener.categoryItemClicked(result,mListItemCategoriesBinding.name,mListItemCategoriesBinding.videoView);
+            mCategoriesAdapterListener.categoryItemClicked(result,mListItemCategoriesBinding.name,mListItemCategoriesBinding.videoView,getAdapterPosition());
 
         }
 
