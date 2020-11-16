@@ -762,6 +762,15 @@ public class AppConstants {
   public static final String EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_TIME_ON_PAGE = "hpo_time_on_page";
   public static final String EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_POST_POSITION_OF_LAST_POST_SEEN = "hpo_post_position_of_last_seen";
 
+  ////POST
+  public static final String EVENT_ACTION = "action";
+  public static final String EVENT_POSITION = "position";
+  public static final String EVENT_VIEW = "view";
+  public static final String EVENT_CLICK = "click";
+  public static final String EVENT_LIKE = "like";
+  public static final String EVENT_disLIKE = "dislike";
+  public static final String EVENT_COMMENT = "comment";
+
   ////Category page
   public static final String EVENT_CATEGORY_PAGE_PARAM_NO_OF_SWIPES = "cpo_no_of_swipes";
   public static final String EVENT_CATEGORY_PAGE_PARAM_TIME_ON_PAGE = "cpo_time_on_page";

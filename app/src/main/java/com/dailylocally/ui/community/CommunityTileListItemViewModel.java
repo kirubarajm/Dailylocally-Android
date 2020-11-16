@@ -374,29 +374,29 @@ tile1Pos=position;
     public void tile1() {
 
         if (getSocialActivities.get(tile1Pos).getButton() != null)
-            mListener.actionData(getSocialActivities.get(tile1Pos).getButton().getAction().getData());
+            mListener.actionData(getSocialActivities.get(tile1Pos).getButton().getAction().getData(),1);
     }
 
     public void tile2() {
         if (getSocialActivities.get(tile2Pos).getButton() != null)
-            mListener.actionData(getSocialActivities.get(tile2Pos).getButton().getAction().getData());
+            mListener.actionData(getSocialActivities.get(tile2Pos).getButton().getAction().getData(),2);
     }
 
 
     public void tile3() {
         if (getSocialActivities.get(tile3Pos).getButton() != null)
-            mListener.actionData(getSocialActivities.get(tile3Pos).getButton().getAction().getData());
+            mListener.actionData(getSocialActivities.get(tile3Pos).getButton().getAction().getData(),3);
     }
 
     public void tile4() {
         if (getSocialActivities.get(tile4Pos).getButton() != null)
-            mListener.actionData(getSocialActivities.get(tile4Pos).getButton().getAction().getData());
+            mListener.actionData(getSocialActivities.get(tile4Pos).getButton().getAction().getData(),4);
     }
 
 
     public void tile5() {
         if (getSocialActivities.get(tile5Pos).getButton() != null)
-            mListener.actionData(getSocialActivities.get(tile5Pos).getButton().getAction().getData());
+            mListener.actionData(getSocialActivities.get(tile5Pos).getButton().getAction().getData(),5);
     }
 
 
@@ -437,7 +437,7 @@ tile1Pos=position;
 
         void communityEvent();
 
-        void actionData(Map<String, String> actionDatas);
+        void actionData(Map<String, String> actionDatas,int position);
 
     }
 }

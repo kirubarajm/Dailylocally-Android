@@ -70,7 +70,7 @@ public class AddressNewViewModel extends BaseViewModel<AddressNewNavigator> {
     public final ObservableBoolean residenceClicked = new ObservableBoolean();
     public final ObservableField<String> aId = new ObservableField<>();
 
-
+    int method = 0;
     public final ObservableField<String> locationAddress = new ObservableField<>();
     public final ObservableField<String> area = new ObservableField<>();
     public final ObservableField<String> house = new ObservableField<>();
@@ -431,7 +431,7 @@ public void goHome() {
                             String lon, String landmark, String floor, String blockName, String apartmentName,
                             String aId){
         String userId = getDataManager().getCurrentUserId();
-        int method = 0;
+
 
         String as=getDataManager().getAddressId();
 
@@ -458,8 +458,12 @@ public void goHome() {
                                 SAVEcLICKED.set(true);
                                 getDataManager().setUserAddress(true);
                                 if (getNavigator() != null)
-                                    getNavigator().showToast(response.getMessage(),response.getStatus());
-
+                                  //  getNavigator().showToast(response.getMessage(),response.getStatus());
+                                if (getDataManager().getGender()==2) {
+                                    getNavigator().addresSaved(response.getMessage(), response.getStatus(), getDataManager().getCurrentUserEmail(),"FEMALE", method);
+                                }else {
+                                    getNavigator().addresSaved(response.getMessage(), response.getStatus(), getDataManager().getCurrentUserEmail(),"MALE", method);
+                                }
                                 /*if (response.getAid() != null) {*/
                                 getDataManager().updateCurrentAddress("", completeAddress, lat, lon,
                                         city, String.valueOf(response.getAid()));

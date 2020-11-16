@@ -149,6 +149,7 @@ public class PostListItemViewModel {
                 @Override
                 public void onSuccess() {
                     postLike.set(false);
+                    mListener.dislike();
                 }
             }, new FailureCallback() {
                 @Override
@@ -162,6 +163,7 @@ public class PostListItemViewModel {
                 @Override
                 public void onSuccess() {
                     postLike.set(true);
+                    mListener.like();
                 }
             }, new FailureCallback() {
                 @Override
@@ -181,6 +183,8 @@ public class PostListItemViewModel {
 
     public interface PostItemViewModelListener {
         void refresh();
+        void like();
+        void dislike();
 
         void actionData(Map<String, String> actionDatas);
 

@@ -670,7 +670,7 @@ public class Analytics {
     }
 
     ////Feed traction on our community page
-    public void eventFeedTractionOnHomePage(Context context) {
+    public void eventFeedTractionOnHomePage(Context context/*,String page*/,String action) {
          FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -680,12 +680,14 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
+       // bundle.putString(AppConstants.PAGE, page);
+        bundle.putString(AppConstants.EVENT_ACTION, action);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_HOME_PAGE_FEED_TRACTION, bundle);
     }
 
     ////Feed traction on our community page
-    public void eventFeedTractionOnOurCommunityPage(Context context) {
+    public void eventFeedTractionOnOurCommunityPage(Context context/*,String page*/,String action) {
          FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -695,12 +697,13 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-
+      //  bundle.putString(AppConstants.PAGE, page);
+        bundle.putString(AppConstants.EVENT_ACTION, action);
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_COMMUNITY_PAGE_FEED_TRACTION, bundle);
     }
 
     ////Traction DLE banner tile
-    public void eventTractionDLEBannerTile(Context context) {
+    public void eventTractionDLEBannerTile(Context context,int position) {
          FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -710,12 +713,12 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-
+        bundle.putInt(AppConstants.EVENT_POSITION, position);
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_TRACTION_DLE_BANNER_TILE, bundle);
     }
 
     ////Traction Non-DLE banner tile
-    public void eventTractionNonDLEBannerTile(Context context) {
+    public void eventTractionNonDLEBannerTile(Context context,int position) {
          FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -725,6 +728,7 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
+        bundle.putInt(AppConstants.EVENT_POSITION, position);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_TRACTION_NON_DLE_BANNER_TILE, bundle);
     }
@@ -958,7 +962,7 @@ public class Analytics {
     }
 
     ////Account created
-    public void eventAccountCreated(Context context) {
+    public void eventAccountCreated(Context context,String email,String gender,String apartmentName,String type) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -968,13 +972,10 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_PHONE_NUMBER, "");
-        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_NAME, "");
-        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_EMAIL, "");
-        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_REGISTRATION_DATE, "");
-        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_GENDER, "");
-        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_APARTMENT_NAME, "");
-        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_USER_REGISTRATION_TYPE, "");
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_EMAIL, email);
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_GENDER,gender);
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_APARTMENT_NAME, apartmentName);
+        bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_USER_REGISTRATION_TYPE, type);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_ACCOUNT_CREATED, bundle);
     }

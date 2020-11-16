@@ -110,7 +110,7 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         void refresh();
 
-        void actionData(Map<String, String> actionDatas);
+        void actionData(Map<String, String> actionDatas,int position, int type);
 
         void gotoCommunityHome();
 
@@ -127,6 +127,9 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
         void creditInfoClick(TextView infoImageView);
 
 
+        void like();
+
+        void dislike();
     }
 
 
@@ -160,8 +163,18 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
         }
 
         @Override
+        public void like() {
+            mProductsAdapterListener.like();
+        }
+
+        @Override
+        public void dislike() {
+            mProductsAdapterListener.dislike();
+        }
+
+        @Override
         public void actionData(Map<String, String> actionDatas) {
-            mProductsAdapterListener.actionData(actionDatas);
+            mProductsAdapterListener.actionData(actionDatas,1,1);
         }
 
 
@@ -265,8 +278,8 @@ public class CommunityPostListAdapter extends RecyclerView.Adapter<BaseViewHolde
         }
 
         @Override
-        public void actionData(Map<String, String> actionDatas) {
-            mProductsAdapterListener.actionData(actionDatas);
+        public void actionData(Map<String, String> actionDatas,int position) {
+            mProductsAdapterListener.actionData(actionDatas,position,2);
         }
 
 

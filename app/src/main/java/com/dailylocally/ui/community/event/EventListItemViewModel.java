@@ -188,6 +188,7 @@ public class EventListItemViewModel {
                 @Override
                 public void onSuccess() {
                     postLike.set(false);
+                    mListener.dislike();
                 }
             }, new FailureCallback() {
                 @Override
@@ -201,6 +202,7 @@ public class EventListItemViewModel {
                 @Override
                 public void onSuccess() {
                     postLike.set(true);
+                    mListener.like();
                 }
             }, new FailureCallback() {
                 @Override
@@ -246,6 +248,7 @@ public class EventListItemViewModel {
         Communities.postActivity(content, target1, new Callback<GetSocialActivity>() {
             @Override
             public void onSuccess(GetSocialActivity getSocialActivity) {
+                mListener.comment();
                 commented.set(true);
                 int comCount = 0;
                 if (commentsCount.get() != null)
@@ -287,6 +290,10 @@ public class EventListItemViewModel {
 
     public interface PostItemViewModelListener {
         void refresh();
+
+        void like();
+        void dislike();
+        void comment();
 
         void actionClick();
         void viewAllComment(GetSocialActivity posts);

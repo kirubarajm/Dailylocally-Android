@@ -245,7 +245,6 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     @Override
     public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView) {
 
-
        /* if (result.getCollectionStatus()) {
             Intent intent = CollectionDetailsActivity.newIntent(getContext());
             intent.putExtra("cid", result.getCid());

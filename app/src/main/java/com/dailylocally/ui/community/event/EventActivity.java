@@ -498,7 +498,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
     @Override
     public void commentClick(GetSocialActivity posts) {
-
+        new Analytics().eventFeedTractionOnOurCommunityPage(EventActivity.this,AppConstants.EVENT_VIEW );
         Bundle bundle = new Bundle();
         bundle.putString("post_title", posts.getSource().getTitle());
         bundle.putString("id", posts.getId());
@@ -560,7 +560,26 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
     }
 
     @Override
+    public void like() {
+        new Analytics().eventFeedTractionOnOurCommunityPage(EventActivity.this,AppConstants.EVENT_LIKE );
+    }
+
+    @Override
+    public void dislike() {
+        new Analytics().eventFeedTractionOnOurCommunityPage(EventActivity.this,AppConstants.EVENT_disLIKE );
+    }
+
+    @Override
+    public void comment() {
+        new Analytics().eventFeedTractionOnOurCommunityPage(EventActivity.this,AppConstants.EVENT_COMMENT );
+    }
+
+    @Override
     public void viewAllComment(GetSocialActivity posts) {
+
+
+        new Analytics().eventFeedTractionOnOurCommunityPage(EventActivity.this,AppConstants.EVENT_VIEW );
+
         Bundle bundle = new Bundle();
         bundle.putString("post_title", posts.getSource().getTitle());
         bundle.putString("id", posts.getId());

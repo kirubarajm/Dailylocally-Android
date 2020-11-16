@@ -83,6 +83,9 @@ public class EventListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void refresh();
         void commentClick(GetSocialActivity posts);
         void actionData(Map<String, String> actionDatas);
+        void like();
+        void dislike();
+        void comment();
 
         void viewAllComment(GetSocialActivity posts);
     }
@@ -120,6 +123,21 @@ public class EventListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void refresh() {
             mProductsAdapterListener.refresh();
+        }
+
+        @Override
+        public void like() {
+            mProductsAdapterListener.like();
+        }
+
+        @Override
+        public void dislike() {
+            mProductsAdapterListener.dislike();
+        }
+
+        @Override
+        public void comment() {
+            mProductsAdapterListener.comment();
         }
 
         @Override

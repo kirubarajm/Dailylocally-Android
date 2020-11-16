@@ -17,6 +17,7 @@
 package com.dailylocally.ui.address.addAddress;
 
 
+import com.android.volley.Request;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 
 public interface AddressNewNavigator {
@@ -53,6 +54,8 @@ public interface AddressNewNavigator {
     void knowMore();
 
     void showAlert(String title,String message);
+
+    void addresSaved(String message, Boolean status, String email, String gender,int method);
 
     void communityJoined(String message);
 

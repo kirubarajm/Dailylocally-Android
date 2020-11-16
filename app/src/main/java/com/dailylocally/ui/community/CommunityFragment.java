@@ -175,8 +175,8 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         bundle.putInt(AppConstants.PROMOTION_TYPE, type);
         bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
         bundle.putString(AppConstants.PROMOTION_URL, url);
-        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_COMMUNITY);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_PROMOTION);
+        bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_COMMUNITY);
+        bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_PROMOTION);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
         bottomSheetFragment.setArguments(bundle);
@@ -210,7 +210,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         } else {
 
             if (mCommunityViewModel.getDataManager().isCommunityOnboardSeen()) {
-                Intent inIntent = CommunitySearchActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.URL_COMMUNITY_SEARCH);
+                Intent inIntent = CommunitySearchActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.URL_COMMUNITY_SEARCH);
                 inIntent.putExtra("newuser", false);
                 inIntent.putExtra("lat", mCommunityViewModel.getDataManager().getCurrentLat());
                 inIntent.putExtra("lng", mCommunityViewModel.getDataManager().getCurrentLng());
@@ -232,7 +232,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     public void sneakPeak() {
         if (mCommunityViewModel.sneakpeakVideoUrl != null) {
 
-            Intent tDintent = VideoActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_VIDEO);
+            Intent tDintent = VideoActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_VIDEO);
             // Intent tDintent=new Intent(getContext(),VideoActivity.class);
 
             tDintent.putExtra("video", mCommunityViewModel.sneakpeakVideoUrl);
@@ -250,7 +250,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     @Override
     public void aboutUs() {
 
-        Intent intent = AboutUsActivity.newIntent(getContext(),"","");
+        Intent intent = AboutUsActivity.newIntent(getContext(), "", "");
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -278,7 +278,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 }
             }).setWindowTitle(mCommunityViewModel.eventTitle).show();*/
 
-        Intent intent = EventActivity.newIntent(getContext(), mCommunityViewModel.topic, mCommunityViewModel.eventTitle,AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
+        Intent intent = EventActivity.newIntent(getContext(), mCommunityViewModel.topic, mCommunityViewModel.eventTitle, AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -320,6 +320,16 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     }
 
     @Override
+    public void like() {
+        new Analytics().eventFeedTractionOnHomePage(getContext(),AppConstants.EVENT_LIKE );
+    }
+
+    @Override
+    public void dislike() {
+        new Analytics().eventFeedTractionOnHomePage(getContext(),AppConstants.EVENT_disLIKE );
+    }
+
+    @Override
     public void stopVideo() {
         //  mFragmentCommunityBinding.videoPlayer.stopPlayer();
     }
@@ -327,7 +337,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     @Override
     public void actionBtClick() {
 
-        actionData(firstPost.getButton().getAction().getData());
+        actionData(firstPost.getButton().getAction().getData(), 1, 1);
     }
 
     @Override
@@ -339,6 +349,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 @Override
                 public void onSuccess() {
                     mCommunityViewModel.postLike.set(false);
+                    new Analytics().eventFeedTractionOnHomePage(getContext(),AppConstants.EVENT_disLIKE );
                 }
             }, new FailureCallback() {
                 @Override
@@ -352,6 +363,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 @Override
                 public void onSuccess() {
                     mCommunityViewModel.postLike.set(true);
+                    new Analytics().eventFeedTractionOnHomePage(getContext(),AppConstants.EVENT_LIKE );
                 }
             }, new FailureCallback() {
                 @Override
@@ -892,27 +904,42 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     }
 
     @Override
-    public void actionData(Map<String, String> actionDatas) {
+    public void actionData(Map<String, String> actionDatas, int position, int type) {
+
+
+        //TYPE 1 = POST
+        //TYPE 2 = 5 tiles
+
+        if (type == 2) {
+
+            if (mCommunityViewModel.communityUser.get()) {
+                new Analytics().eventTractionDLEBannerTile(getContext(), position);
+            } else {
+                new Analytics().eventTractionNonDLEBannerTile(getContext(), position);
+            }
+        }else {
+            new Analytics().eventFeedTractionOnHomePage(getContext(),AppConstants.EVENT_CLICK );
+        }
 
 
         String pageid = actionDatas.get("pageid");
         switch (pageid) {
 
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_CATEGORY_L1);
+                Intent intent = CategoryL1Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_CATEGORY_L1);
                 intent.putExtra("catid", actionDatas.get("catid"));
                 startActivity(intent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                Intent l2intent = CategoryL2Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
+                Intent l2intent = CategoryL2Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_CATEGORY_L1, AppConstants.SCREEN_NAME_CATEGORY_L2);
                 l2intent.putExtra("catid", actionDatas.get("catid"));
                 l2intent.putExtra("scl1id", actionDatas.get("scl1id"));
                 startActivity(l2intent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                Intent catintent = CatProductActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_CART);
+                Intent catintent = CatProductActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_CART);
                 catintent.putExtra("catid", actionDatas.get("catid"));
                 startActivity(catintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -938,14 +965,14 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
-                Intent pintent = ProductDetailsActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+                Intent pintent = ProductDetailsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
                 pintent.putExtra("vpid", actionDatas.get("vpid"));
                 startActivity(pintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                Intent cintent = CollectionDetailsActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_COLLECTION);
+                Intent cintent = CollectionDetailsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_COLLECTION);
                 cintent.putExtra("cid", actionDatas.get("cid"));
                 startActivity(cintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -953,13 +980,13 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
 
             case AppConstants.NOTIFY_ABOUT_US_ACTV:
-                Intent auintent = AboutUsActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_ABOUT_US,AppConstants.SCREEN_NAME_COMMUNITY);
+                Intent auintent = AboutUsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_ABOUT_US, AppConstants.SCREEN_NAME_COMMUNITY);
                 startActivity(auintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case AppConstants.NOTIFY_VIDEO_ACTV:
-                Intent vintent = VideoActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_VIDEO);
+                Intent vintent = VideoActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_VIDEO);
                 vintent.putExtra("video", actionDatas.get("video"));
                 startActivity(vintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -1006,7 +1033,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
             case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
 
-                Intent eintent = EventActivity.newIntent(getContext(), actionDatas.get("topic"), actionDatas.get("title"),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
+                Intent eintent = EventActivity.newIntent(getContext(), actionDatas.get("topic"), actionDatas.get("title"), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
                 startActivity(eintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

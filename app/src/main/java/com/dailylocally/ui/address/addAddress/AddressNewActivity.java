@@ -49,6 +49,7 @@ import androidx.transition.Fade;
 import androidx.transition.Slide;
 import androidx.transition.TransitionManager;
 
+import com.android.volley.Request;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddressNewBinding;
@@ -984,6 +985,23 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     }
 
     @Override
+    public void addresSaved(String message, Boolean status, String email, String gender, int method) {
+
+        if (method== Request.Method.POST){
+            new Analytics().eventAccountCreated(AddressNewActivity.this,email,gender,null,"Non DLE");
+        }
+
+
+        if (status) {
+            Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void communityJoined(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
@@ -996,6 +1014,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     @Override
     public void showToast(String message, Boolean status) {
+
         if (status) {
             Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
             startActivity(intent);
