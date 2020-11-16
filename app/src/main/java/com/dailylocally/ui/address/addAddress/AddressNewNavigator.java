@@ -57,7 +57,7 @@ public interface AddressNewNavigator {
 
     void addresSaved(String message, Boolean status, String email, String gender,int method);
 
-    void communityJoined(String message);
+    void communityJoined(String message,String aid,String apartmentName);
 
     void showToast(String message, Boolean status);
 

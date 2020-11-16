@@ -299,9 +299,10 @@ public void goHome() {
                     setIsLoading(false);
                     try {
                         if (response.getString("status").equals("true")) {
-                            if (getNavigator() != null) {
-                                getNavigator().communityJoined(response.getString("message"));
-                            }
+
+
+                            String defaultAid =getDataManager().getAddressId();
+
                             Gson gson = new Gson();
                             JoinCommunityResponse joinCommunityResponse = gson.fromJson(response.toString(), JoinCommunityResponse.class);
 
@@ -335,8 +336,9 @@ public void goHome() {
                                 getDataManager().setCurrentAddress(cAddress);
                             }
 
-                            if (getNavigator()!=null)
-                                getNavigator().communityJoined(joinCommunityResponse.getMessage());
+                            if (getNavigator() != null) {
+                                getNavigator().communityJoined(response.getString("message"),defaultAid,apartmentName);
+                            }
 
                         } else {
                             if (response.getString("show_alert").equals("true")) {

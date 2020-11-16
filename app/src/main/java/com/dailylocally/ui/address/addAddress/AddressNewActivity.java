@@ -1002,8 +1002,20 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     }
 
     @Override
-    public void communityJoined(String message) {
+    public void communityJoined(String message,String aid,String apartmentName) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+        String gender="MALE";
+        if (mAddAddressViewModel.getDataManager().getGender()==2){
+            gender="FEMALE";
+        }
+
+
+        if (!aid.equals("0")){
+            new Analytics().eventAccountCreated(AddressNewActivity.this,mAddAddressViewModel.getDataManager().getCurrentUserEmail(),gender,apartmentName,"DLE");
+        }
+
+
 
         Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
