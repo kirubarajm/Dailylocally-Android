@@ -749,7 +749,7 @@ public class Analytics {
     }
 
     ////Category tile
-    public void eventCategoryTile(Context context) {
+    public void eventCategoryTile(Context context,String catTileName,String catTileType,String catTilePos) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -759,15 +759,15 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_NO_OF_SWIPES, "");
-        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_TIME_ON_PAGE, "");
-        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_CATEGORY_TILE_NAME, catTileName);
+        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_CATEGORY_TILE_TYPE, catTileType);
+        bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_CATEGORY_TILE_POSITION, catTilePos);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_CATEGORY_TILE, bundle);
     }
 
     ////L1 Sub-category page
-    public void eventL1SubCategoryPage(Context context) {
+    public void eventL1SubCategoryPage(Context context,String l1scName,String catName,String l1ScPos) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -777,15 +777,15 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_NAME, "");
-        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_CATEGORY_NAME, "");
-        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_POSITION, "");
+        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_NAME, l1scName);
+        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_CATEGORY_NAME, catName);
+        bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_POSITION, l1ScPos);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_L1_SUB_CATEGORY, bundle);
     }
 
     ////Collection tile
-    public void eventCollectionTile(Context context) {
+    public void eventCollectionTile(Context context,String colTileName,String colTileType,String colTilePos,String colColId) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -795,10 +795,10 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_NAME, "");
-        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_TYPE, "");
-        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_POSITION, "");
-        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_ID, "");
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_NAME, colTileName);
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_TYPE, colTileType);
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_POSITION, colTilePos);
+        bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_ID, colColId);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_COLLECTION_TILE, bundle);
     }
@@ -979,7 +979,7 @@ public class Analytics {
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_ACCOUNT_CREATED, bundle);
     }
 
-    ////DLE registration page on category page
+    ////DLE registration tile on category page
     public void eventDLEregistrationPageOnCategoryPage(Context context) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;

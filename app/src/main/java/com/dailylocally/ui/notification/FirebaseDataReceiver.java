@@ -188,10 +188,10 @@ public class FirebaseDataReceiver extends WakefulBroadcastReceiver {
                 intent = MainActivity.newIntent(context, AppConstants.SCREEN_NAME_NOTIFICATION, AppConstants.NOTIFY_COMMUNITY_ACTV);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(context);
+                intent = TransactionHistoryActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
-                intent = TransactionDetailsActivity.newIntent(context);
+                intent = TransactionDetailsActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANS_DETAILS);
                 bundle.putString("orderid", actionDatas.get("orderid"));
 
                 break;

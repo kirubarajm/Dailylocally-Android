@@ -724,6 +724,7 @@ public class AppConstants {
   public static final String SCREEN_NAME_PROMOTION_ADD = "promotion_add";
   public static final String SCREEN_NAME_PROMOTION = "promotion";
   public static final String SCREEN_NAME_RATING = "rating";
+  public static final String SCREEN_NAME_TRANSACTION_HISTORY = "transaction_history";
 
 
   ///Event name
@@ -769,9 +770,9 @@ public class AppConstants {
   public static final String EVENT_CATEGORY_PAGE_PARAM_TILE_POSITION_OF_LAST_TILE_SEEN = "cpo_tile_position_of_last_tile_seen";
 
   ////Category tile
-  public static final String EVENT_CATEGORY_TILE_PARAM_NO_OF_SWIPES = "category_tile_name";
-  public static final String EVENT_CATEGORY_TILE_PARAM_TIME_ON_PAGE = "category_tile_type";
-  public static final String EVENT_CATEGORY_TILE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN = "category_tile_position";
+  public static final String EVENT_CATEGORY_TILE_PARAM_CATEGORY_TILE_NAME = "category_tile_name";
+  public static final String EVENT_CATEGORY_TILE_PARAM_CATEGORY_TILE_TYPE = "category_tile_type";
+  public static final String EVENT_CATEGORY_TILE_PARAM_CATEGORY_TILE_POSITION = "category_tile_position";
 
   ////L1 Sub-Category
   public static final String EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_NAME = "l1_sc_name";

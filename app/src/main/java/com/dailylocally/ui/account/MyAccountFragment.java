@@ -177,7 +177,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void transactions() {
-        Intent intent = TransactionHistoryActivity.newIntent(getContext());
+        Intent intent = TransactionHistoryActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

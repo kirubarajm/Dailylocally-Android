@@ -56,7 +56,7 @@ public class L1CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     public interface CategoriesAdapterListener {
-        void categoryItemClicked(L1CategoryResponse.Result result);
+        void categoryItemClicked(L1CategoryResponse.Result result,int pos);
     }
 
 
@@ -84,7 +84,7 @@ public class L1CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(L1CategoryResponse.Result result) {
-            mCategoriesAdapterListener.categoryItemClicked(result);
+            mCategoriesAdapterListener.categoryItemClicked(result,getAdapterPosition());
 
         }
 

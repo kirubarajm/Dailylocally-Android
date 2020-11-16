@@ -216,7 +216,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView) {
+    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView,int pos) {
 
         if (result.getType()==1){
 

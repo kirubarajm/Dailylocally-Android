@@ -926,13 +926,13 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
 
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                Intent tLintent = TransactionHistoryActivity.newIntent(getContext());
+                Intent tLintent = TransactionHistoryActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
                 startActivity(tLintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
-                Intent tDintent = TransactionDetailsActivity.newIntent(getBaseActivity());
+                Intent tDintent = TransactionDetailsActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_TRANS_DETAILS);
                 tDintent.putExtra("orderid", actionDatas.get("orderid"));
                 startActivity(tDintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
