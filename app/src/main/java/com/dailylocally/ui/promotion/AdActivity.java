@@ -65,7 +65,9 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
 
     @Override
     public void openRegActivity() {
+
         Intent intent = RegistrationActivity.newIntent(AdActivity.this,AppConstants.SCREEN_NAME_PROMOTION_ADD,AppConstants.SCREEN_NAME_REGISTRATION);
+        intent.putExtra("edit","0");
         startActivity(intent);
         finish();
     }

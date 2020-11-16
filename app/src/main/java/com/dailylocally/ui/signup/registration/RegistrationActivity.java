@@ -144,17 +144,17 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             String edit = bundle.getString("edit");
-            assert edit != null;
-            if (edit.equals("1")) {
-                mLoginViewModelMain.flagEdit.set(true);
-                mActivityRegistrationBinding.btnSignIn.setText("Apply changes");
-                String name = mLoginViewModelMain.getDataManager().getCurrentUserName();
-                String email = mLoginViewModelMain.getDataManager().getCurrentUserEmail();
-                mActivityRegistrationBinding.edtName.setText(name);
-                mActivityRegistrationBinding.email.setText(email);
-                mActivityRegistrationBinding.txtNameAvator.setText("Edit Info");
-                mLoginViewModelMain.flagReferral.set(true);
-            }
+            if (edit != null)
+                if (edit.equals("1")) {
+                    mLoginViewModelMain.flagEdit.set(true);
+                    mActivityRegistrationBinding.btnSignIn.setText("Apply changes");
+                    String name = mLoginViewModelMain.getDataManager().getCurrentUserName();
+                    String email = mLoginViewModelMain.getDataManager().getCurrentUserEmail();
+                    mActivityRegistrationBinding.edtName.setText(name);
+                    mActivityRegistrationBinding.email.setText(email);
+                    mActivityRegistrationBinding.txtNameAvator.setText("Edit Info");
+                    mLoginViewModelMain.flagReferral.set(true);
+                }
         }
         analytics = new Analytics(this, pageName);
 

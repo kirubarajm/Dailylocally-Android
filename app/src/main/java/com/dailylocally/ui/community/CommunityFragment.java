@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.databinding.FragmentCommunityBinding;
 import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.address.type.CommunitySearchActivity;
@@ -547,53 +546,59 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     public void createGetSocialIdentity() {
 
-        String userId = mCommunityViewModel.getDataManager().getCurrentUserId(); // get user ID on your login provider
-        String accessToken = ""; // see the example of such a function below
 
-        Identity identity = Identity.custom(mCommunityViewModel.getDataManager().getCurrentUserName(), userId, accessToken);
-        CurrentUser currentUser = GetSocial.getCurrentUser();
+        try {
 
-        if (currentUser == null) {
-            // you can't add identity before SDK is initialized
-            return;
+
+            String userId = mCommunityViewModel.getDataManager().getCurrentUserId(); // get user ID on your login provider
+            String accessToken = ""; // see the example of such a function below
+
+            Identity identity = Identity.custom(mCommunityViewModel.getDataManager().getCurrentUserName(), userId, accessToken);
+            CurrentUser currentUser = GetSocial.getCurrentUser();
+
+            if (currentUser == null) {
+                // you can't add identity before SDK is initialized
+                return;
+            }
+            currentUser.addIdentity(identity, new CompletionCallback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+            }, null, new FailureCallback() {
+                @Override
+                public void onFailure(GetSocialError getSocialError) {
+
+                }
+            });
+
+            UserUpdate batchUpdate = new UserUpdate()
+                    .updateAvatarUrl(mCommunityViewModel.profilePic.get())
+                    .updateDisplayName(mCommunityViewModel.getDataManager().getCurrentUserName());
+            //   .setPublicProperty(publicProperty1, newPublicValue)
+            //   .removePublicProperty(publicProperty2)
+            //    .setPrivateProperty(privateProperty1, newPrivateValue)
+            //     .removePrivateProperty(privateProperty2)
+
+
+            currentUser.updateDetails(batchUpdate, new CompletionCallback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+            }, new FailureCallback() {
+                @Override
+                public void onFailure(GetSocialError getSocialError) {
+
+                }
+            });
+            Notifications.registerDevice();
+
+        } catch (Exception ee) {
+            ee.printStackTrace();
         }
-        currentUser.addIdentity(identity, new CompletionCallback() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-        }, null, new FailureCallback() {
-            @Override
-            public void onFailure(GetSocialError getSocialError) {
-
-            }
-        });
-
-        UserUpdate batchUpdate = new UserUpdate()
-                .updateAvatarUrl(mCommunityViewModel.profilePic.get())
-                .updateDisplayName(mCommunityViewModel.getDataManager().getCurrentUserName());
-        //   .setPublicProperty(publicProperty1, newPublicValue)
-        //   .removePublicProperty(publicProperty2)
-        //    .setPrivateProperty(privateProperty1, newPrivateValue)
-        //     .removePrivateProperty(privateProperty2)
-
-
-        currentUser.updateDetails(batchUpdate, new CompletionCallback() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-        }, new FailureCallback() {
-            @Override
-            public void onFailure(GetSocialError getSocialError) {
-
-            }
-        });
-        Notifications.registerDevice();
-
-
     }
 
     @Override

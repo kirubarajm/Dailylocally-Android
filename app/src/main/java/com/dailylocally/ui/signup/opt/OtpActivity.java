@@ -190,7 +190,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 });
 
         unregisterReceiver(smsReceiver);
+
         Intent intent = RegistrationActivity.newIntent(OtpActivity.this,AppConstants.SCREEN_NAME_OTP,AppConstants.SCREEN_NAME_REGISTRATION);
+        intent.putExtra("edit","0");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

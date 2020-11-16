@@ -95,6 +95,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     public void userAlreadyRegistered(boolean status) {
         if (!status) {
             Intent intent = RegistrationActivity.newIntent(SplashActivity.this,AppConstants.SCREEN_NAME_SPLASH,AppConstants.SCREEN_NAME_REGISTRATION);
+            intent.putExtra("edit","0");
             intent.putExtra("newuser", true);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
