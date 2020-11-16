@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.dailylocally.ui.category.l2.products.ProductsFragment;
+import com.dailylocally.utilities.AppConstants;
 
 public class PlansPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
@@ -27,12 +28,12 @@ public class PlansPagerAdapter extends FragmentStatePagerAdapter {
 */
 
         if (position == 0) {
-            return ProductsFragment.newInstance("0",scl1id);
+            return ProductsFragment.newInstance("0",scl1id, "nil",AppConstants.SCREEN_NAME_PRODUCTS);
         }else {
             if (response.getResult().size()>0) {
-                return ProductsFragment.newInstance(String.valueOf(response.getResult().get(position - 1).getScl2Id()), String.valueOf(response.getResult().get(position - 1).getScl1Id()));
+                return ProductsFragment.newInstance(String.valueOf(response.getResult().get(position - 1).getScl2Id()), String.valueOf(response.getResult().get(position - 1).getScl1Id()),"nil",AppConstants.SCREEN_NAME_PRODUCTS);
             }else {
-                return ProductsFragment.newInstance("0",scl1id);
+                return ProductsFragment.newInstance("0",scl1id,"nil",AppConstants.SCREEN_NAME_PRODUCTS);
 
             }
         }

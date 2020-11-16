@@ -41,6 +41,7 @@ import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.rating.RatingActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
@@ -73,9 +74,11 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     GridLayoutManager gridLayoutManager;
     Bitmap imageBitmap;
     VideoView videoView;
-    public static CommunityCatFragment newInstance() {
+    public static CommunityCatFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
         CommunityCatFragment fragment = new CommunityCatFragment();
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -140,7 +143,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         /*Intent intent = GoogleAddressActivity.newIntent(getContext());
         intent.putExtra("edit", "1");
         startActivity(intent);*/
-        Intent intent = ViewAddressActivity.newIntent(getContext());
+        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -157,6 +160,8 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         bundle.putInt(AppConstants.PROMOTION_TYPE, type);
         bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
         bundle.putString(AppConstants.PROMOTION_URL, url);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_COMMUNITY);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_PROMOTION);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
         bottomSheetFragment.setArguments(bundle);
@@ -175,7 +180,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void ratingClick() {
-        Intent intent = RatingActivity.newIntent(getContext());
+        Intent intent = RatingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_RATING);
         intent.putExtra("doid", mCommunityCatViewModel.ratingDOID);
         startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -213,6 +218,11 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         if (mCommunityCatViewModel.updateAvailable.get())
             updatePopup(getString(R.string.update_available), getString(R.string.update), false, true, false);
 
+
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST);
 
     }
 
@@ -258,7 +268,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
         if (result.getType()==1){
 
-            Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_CATEGORY_L1);
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -266,7 +276,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
         }else if (result.getType()==2){
 
-            Intent intent = CollectionDetailsActivity.newIntent(getContext());
+            Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST,AppConstants.SCREEN_NAME_COLLECTION);
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -275,7 +285,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
 
             if (mCommunityCatViewModel.getDataManager().isCommunityOnboardSeen()){
-                Intent inIntent = CommunitySearchActivity.newIntent(getContext());
+                Intent inIntent = CommunitySearchActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.URL_COMMUNITY_SEARCH);
                 inIntent.putExtra("newuser", false);
                 inIntent.putExtra("lat", mCommunityCatViewModel.getDataManager().getCurrentLat());
                 inIntent.putExtra("lng", mCommunityCatViewModel.getDataManager().getCurrentLng());

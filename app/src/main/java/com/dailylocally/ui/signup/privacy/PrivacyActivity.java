@@ -14,12 +14,15 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityPrivacyBinding;
 import com.dailylocally.ui.base.BaseActivity;
 
+import com.dailylocally.ui.signup.opt.OtpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.utilities.AppConstants;
 
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -29,8 +32,11 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     PrivacyViewModel mPrivacyViewModel;
     ActivityPrivacyBinding mActivityPrivacyBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, PrivacyActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, PrivacyActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -60,7 +66,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
 
     @Override
     public void openRegActivity() {
-        Intent intent = RegistrationActivity.newIntent(PrivacyActivity.this);
+        Intent intent = RegistrationActivity.newIntent(PrivacyActivity.this,AppConstants.SCREEN_NAME_PRIVACY,AppConstants.SCREEN_NAME_REGISTRATION);
         startActivity(intent);
         finish();
     }
@@ -79,6 +85,9 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
 
         mActivityPrivacyBinding.webview.getSettings().setJavaScriptEnabled(true);
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_PRIVACY);
     }
 
     @Override

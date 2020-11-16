@@ -25,6 +25,8 @@ import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 
@@ -80,8 +82,11 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, FeedbackSupportActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, FeedbackSupportActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -114,7 +119,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
     @Override
     public void termsAndC() {
 
-        Intent intent = TermsAndConditionActivity.newIntent(FeedbackSupportActivity.this);
+        Intent intent = TermsAndConditionActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_TERMS_AND_CONDITION);
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_SUPPORT_ACTV);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -125,7 +130,8 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
     public void support() {
 
         if (mAddAddressViewModel.getDataManager().getCurrentUserId()!=null) {
-            Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, AppConstants.CHAT_PAGE_TYPE_SUPPORT, "0");
+            Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, AppConstants.CHAT_PAGE_TYPE_SUPPORT, "0"
+                    ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_HELP);
             startActivity(intent);
         }else {
 
@@ -152,7 +158,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
     @Override
     public void faq() {
-        Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this);
+        Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_FEEDBACK_SUPPORT,AppConstants.SCREEN_FAQS);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -162,6 +168,10 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
         super.onCreate(savedInstanceState);
         mActivityFeedbackSupportBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_FEEDBACK_SUPPORT);
     }
 
     @Override

@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCouponsBinding;
+import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -77,8 +80,11 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, CouponsActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, CouponsActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -114,7 +120,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
 
     @Override
     public void refer() {
-        Intent intent = ReferralsActivity.newIntent(this);
+        Intent intent = ReferralsActivity.newIntent(this,AppConstants.SCREEN_COUPON_LIST,AppConstants.SCREEN_REFERRAL);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -163,6 +169,10 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
         mActivityCouponsBinding.recyclerCoupons.setAdapter(mCouponsAdapter);
 
         subscribeToLiveData();
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_COUPON_LIST);
     }
 
     private void subscribeToLiveData() {

@@ -43,6 +43,7 @@ import com.dailylocally.databinding.ActivityCommunityBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
 import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
+import com.dailylocally.ui.favourites.FavActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.utilities.AppConstants;
@@ -66,6 +67,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -108,8 +110,11 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     private LatLngBounds bounds;
     private LatLngBounds.Builder builder;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, CommunityActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, CommunityActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
@@ -275,6 +280,9 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
             }
 
+            Intent intent = getIntent();
+            new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                    AppConstants.SCREEN_NAME_COMMUNITY);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -593,7 +601,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(CommunityActivity.this);
+                        Intent intent = FeedbackSupportActivity.newIntent(CommunityActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }

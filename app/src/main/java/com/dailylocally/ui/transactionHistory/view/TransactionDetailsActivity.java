@@ -120,7 +120,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     @Override
     public void viewInCalendar() {
 
-        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this);
+        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this,AppConstants.SCREEN_NAME_TRANS_DETAILS,AppConstants.SCREEN_NAME_CALENDAR);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -226,7 +226,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
 
     @Override
     public void onViewCalendarClick(TransactionViewResponse.Result.Item item) {
-        Intent intent = ProductCancelActivity.newIntent(TransactionDetailsActivity.this);
+        Intent intent = ProductCancelActivity.newIntent(TransactionDetailsActivity.this,AppConstants.SCREEN_NAME_TRANS_DETAILS,AppConstants.SCREEN_NAME_PRODUCT_CANCEL);
         intent.putExtra("doid", item.getDoid());
         intent.putExtra("dayorderpid", item.getDayorderpid());
         startActivity(intent);

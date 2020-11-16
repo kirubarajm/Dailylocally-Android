@@ -16,10 +16,13 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -46,8 +49,11 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ProductDetailsActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, ProductDetailsActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     private void registerWifiReceiver() {
@@ -115,7 +121,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void subscribe() {
-        Intent intent = SubscriptionActivity.newIntent(ProductDetailsActivity.this);
+        Intent intent = SubscriptionActivity.newIntent(ProductDetailsActivity.this,AppConstants.SCREEN_NAME_PRODUCT_DETAIL,AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", vpid);
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -151,6 +157,9 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         startLoader();
         mAddAddressViewModel.getProductDetails(vpid);
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
     }
 
 

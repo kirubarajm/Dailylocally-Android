@@ -19,6 +19,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCommunitySearchBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
+import com.dailylocally.ui.address.saveAddress.SaveAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.joinCommunity.CommunityActivity;
 import com.dailylocally.ui.joinCommunity.CommunityAdapter;
@@ -28,6 +29,8 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -54,8 +57,11 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
     private ActivityCommunitySearchBinding mActivityCommunitySearchBinding;
     private PrefManager prefManager;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, CommunitySearchActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, CommunitySearchActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -144,6 +150,10 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
             }
         });
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_COMMUNITY_SEARCH);
+
     }
     private void subscribeToLiveData() {
         mCommunitySearchViewModel.getCommunityListItemsLiveData().observe(this,
@@ -211,7 +221,7 @@ public class CommunitySearchActivity extends BaseActivity<ActivityCommunitySearc
 
     @Override
     public void onItemClick(CommunityResponse.Result cartdetail) {
-        Intent inIntent = CommunityActivity.newIntent(CommunitySearchActivity.this);
+        Intent inIntent = CommunityActivity.newIntent(CommunitySearchActivity.this,AppConstants.SCREEN_NAME_COMMUNITY_SEARCH,AppConstants.SCREEN_NAME_COMMUNITY);
         inIntent.putExtra("comid",String.valueOf(cartdetail.getComid()));
         inIntent.putExtra("name",String.valueOf(cartdetail.getCommunityname()));
         inIntent.putExtra("residency",String.valueOf(cartdetail.getNoOfApartments()+" Residences"));

@@ -22,11 +22,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
+import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
 import com.dailylocally.ui.rating.RatingActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -38,6 +40,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -83,8 +86,11 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, CalendarActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, CalendarActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     private void registerWifiReceiver() {
@@ -176,7 +182,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void ratingClick() {
         try {
-            Intent intent = RatingActivity.newIntent(CalendarActivity.this);
+            Intent intent = RatingActivity.newIntent(CalendarActivity.this,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_RATING);
             intent.putExtra("date", dateRating.getTime());
             intent.putExtra("doid", mCalendarViewModel.doid.get());
             startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
@@ -195,7 +201,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             type = AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER;
         }
 
-        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get());
+        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_HELP);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -333,6 +339,9 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             e.printStackTrace();
         }
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_CALENDAR);
     }
 
     public void selectedDateAPICall(String datess) {
@@ -2181,7 +2190,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
-        Intent intent = ProductCancelActivity.newIntent(CalendarActivity.this);
+        Intent intent = ProductCancelActivity.newIntent(CalendarActivity.this,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_PRODUCT_CANCEL);
         intent.putExtra("doid", result.getDoid());
         intent.putExtra("dayorderpid", result.getDayorderpid());
         startActivity(intent);

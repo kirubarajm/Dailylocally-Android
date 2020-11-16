@@ -12,11 +12,14 @@ import androidx.annotation.Nullable;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityReferralsBinding;
+import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -38,8 +41,11 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ReferralsActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, ReferralsActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -103,6 +109,10 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         super.onCreate(savedInstanceState);
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
         mActivityReferralsBinding = getViewDataBinding();
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_REFERRAL);
     }
 
     @Override

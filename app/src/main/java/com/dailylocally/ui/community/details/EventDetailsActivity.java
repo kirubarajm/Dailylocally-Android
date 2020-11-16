@@ -20,6 +20,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityEventDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -35,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -72,8 +74,11 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, EventDetailsActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String toPage) {
+        Intent intent = new Intent(context, EventDetailsActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, toPage);
+        return intent;
     }
 
     private void registerWifiReceiver() {
@@ -199,6 +204,9 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
 
         mActivityEventBinding.recyclerPost.setLayoutManager(new LinearLayoutManager(EventDetailsActivity.this));
         mActivityEventBinding.recyclerPost.setAdapter(mCommentsListAdapter);
+
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
     }
 
 

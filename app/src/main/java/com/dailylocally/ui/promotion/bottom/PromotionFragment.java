@@ -32,8 +32,10 @@ public class PromotionFragment extends BaseBottomSheetFragment<FragmentPromotion
 
     FragmentPromotionBinding mFragmentPromotionBinding;
 
-    public static PromotionFragment newInstance() {
+    public static PromotionFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         PromotionFragment fragment = new PromotionFragment();
         fragment.setArguments(args);
         return fragment;
@@ -60,7 +62,10 @@ public class PromotionFragment extends BaseBottomSheetFragment<FragmentPromotion
         mPromotionViewModel.setNavigator(this);
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
 
-
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_PROMOTION);
     }
 
     @Override

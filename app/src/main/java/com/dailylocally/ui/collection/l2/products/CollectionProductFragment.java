@@ -20,6 +20,7 @@ import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -37,10 +38,12 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
     private FragmentCollectionProductsBinding mFragmentProductsBinding;
 
-    public static CollectionProductFragment newInstance(String id, String cid) {
+    public static CollectionProductFragment newInstance(String id, String cid,String fromPage, String toPage) {
         Bundle args = new Bundle();
         args.putString("scl1id", id);
         args.putString("cid", cid);
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         CollectionProductFragment fragment = new CollectionProductFragment();
         fragment.setArguments(args);
         return fragment;
@@ -120,7 +123,10 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
         mFragmentProductsBinding.productList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFragmentProductsBinding.productList.setAdapter(collectionProductListAdapter);
 
-
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_COLLECTION);
     }
 
     @Override
@@ -143,7 +149,7 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
     @Override
     public void subscribeProduct(CollectionProductsResponse.Result products) {
 
-        Intent intent = SubscriptionActivity.newIntent(getContext());
+        Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COLLECTION,AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -152,7 +158,7 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
     @Override
     public void productItemClick(CollectionProductsResponse.Result products) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COLLECTION,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         intent.putExtra("vpid", String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

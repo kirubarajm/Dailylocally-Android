@@ -15,6 +15,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductCancelBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.productDetail.dialogProductCancel.DialogProductCancel;
 import com.dailylocally.ui.productDetail.dialogProductCancel.ProductCancelListenerCallBack;
 import com.dailylocally.utilities.AppConstants;
@@ -23,6 +24,7 @@ import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -90,8 +92,11 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
     String doId ="",dayOrderPId="";
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ProductCancelActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, ProductCancelActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -125,6 +130,8 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
         Bundle bundle=new Bundle();
         bundle.putString("doid",doId);
         bundle.putString("dayOrderPid",dayOrderPId);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_DIALOG_PRODUCT_CANCEL);
 
         DialogProductCancel filterFragment = new DialogProductCancel();
         filterFragment.setArguments(bundle);
@@ -161,6 +168,10 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
             doId = bundle.getString("doid");
             dayOrderPId = bundle.getString("dayorderpid");
         }
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_PRODUCT_CANCEL);
     }
 
     @Override

@@ -20,9 +20,12 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityVideoBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -46,8 +49,11 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, VideoActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, VideoActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     private void registerWifiReceiver() {
@@ -152,7 +158,9 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
             });
 
         }
-
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_VIDEO);
 
     }
 

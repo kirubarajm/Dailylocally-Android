@@ -33,6 +33,7 @@ import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.rating.RatingActivity;
 import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
@@ -57,9 +58,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     AppUpdateInfo appUpdateInfo;
     GridLayoutManager gridLayoutManager;
     VideoView videoView;
-    public static HomeFragment newInstance() {
+    public static HomeFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -116,7 +119,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = ViewAddressActivity.newIntent(getContext());
+        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -133,6 +136,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         bundle.putInt(AppConstants.PROMOTION_TYPE, type);
         bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
         bundle.putString(AppConstants.PROMOTION_URL, url);
+        bundle.putString(AppConstants.PROMOTION_URL, url);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_COMMUNITY);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_PROMOTION);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
         bottomSheetFragment.setArguments(bundle);
@@ -147,7 +153,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void ratingClick() {
-        Intent intent = RatingActivity.newIntent(getContext());
+        Intent intent = RatingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_RATING);
         intent.putExtra("doid", mHomeViewModel.ratingDOID);
         startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -184,6 +190,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         if (mHomeViewModel.updateAvailable.get())
             updatePopup(getString(R.string.update_available), getString(R.string.update), false, true, false);
+
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_HOME);
     }
 
     @Override
@@ -209,7 +220,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         if (result.getType()==1){
 
-            Intent intent = CategoryL1Activity.newIntent(getBaseActivity());
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_CATEGORY_L1);
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -217,7 +228,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         }else if (result.getType()==2){
 
-            Intent intent = CollectionDetailsActivity.newIntent(getContext());
+            Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_COLLECTION);
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

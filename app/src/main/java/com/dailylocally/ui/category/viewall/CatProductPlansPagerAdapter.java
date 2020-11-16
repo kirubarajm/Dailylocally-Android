@@ -28,12 +28,12 @@ public class CatProductPlansPagerAdapter extends FragmentStatePagerAdapter {
 */
 
         if (position == 0) {
-            return CatProductFragment.newInstance(catid,"0");
+            return CatProductFragment.newInstance(catid,"0","","");
         }else {
             if (response.getResult().size()>0) {
-                return CatProductFragment.newInstance(String.valueOf(response.getResult().get(position - 1).getCatid()), String.valueOf(response.getResult().get(position - 1).getScl1Id()));
+                return CatProductFragment.newInstance(String.valueOf(response.getResult().get(position - 1).getCatid()), String.valueOf(response.getResult().get(position - 1).getScl1Id()),"","");
             }else {
-                return CatProductFragment.newInstance(catid,"0");
+                return CatProductFragment.newInstance(catid,"0","","");
 
             }
         }

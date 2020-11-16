@@ -37,6 +37,8 @@ import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpActivityViewModel>
@@ -60,8 +62,11 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     };
     private ActivitySignupBinding mActivitySignupBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, SignUpActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, SignUpActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -92,14 +97,14 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void faqs() {
-        Intent intent = FeedbackSupportActivity.newIntent(SignUpActivity.this);
+        Intent intent = FeedbackSupportActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void privacy() {
-        Intent intent = PrivacyActivity.newIntent(SignUpActivity.this);
+        Intent intent = PrivacyActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_NAME_SIGN_UP,AppConstants.SCREEN_NAME_PRIVACY);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -107,7 +112,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void termsandconditions() {
-        Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this);
+        Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_NAME_SIGN_UP,AppConstants.SCREEN_NAME_TERMS_AND_CONDITION);
         startActivityForResult(intent, AppConstants.TERMS_AND_CONDITION_REQUEST_CODE);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -121,7 +126,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     @Override
     public void otpScreenFalse(long optid) {
         String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
-        Intent intent = OtpActivity.newIntent(SignUpActivity.this);
+        Intent intent = OtpActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_NAME_SIGN_UP,AppConstants.SCREEN_NAME_OTP);
         //intent.putExtra("booleanOpt", String.valueOf(trurOrFalse));
         intent.putExtra("optId", String.valueOf(optid));
         intent.putExtra("strPhoneNumber", strPhoneNumber);
@@ -133,7 +138,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void genderScreenFalse(boolean passwordSuccess) {
-        Intent intent = RegistrationActivity.newIntent(SignUpActivity.this);
+        Intent intent = RegistrationActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_NAME_SIGN_UP,AppConstants.SCREEN_NAME_REGISTRATION);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -198,7 +203,9 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
             }
         });
 
-
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_SIGN_UP);
     }
 
     @Override

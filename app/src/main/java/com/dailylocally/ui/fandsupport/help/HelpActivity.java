@@ -32,6 +32,8 @@ import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
@@ -69,11 +71,13 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
         }
     };
 
-    public static Intent newIntent(Context context, String page, Integer type, String orderid) {
+    public static Intent newIntent(Context context, String page, Integer type, String orderid,String ToPage,String fromPage) {
         Intent intent = new Intent(context, HelpActivity.class);
         intent.putExtra(AppConstants.PAGE, page);
         intent.putExtra("type", type);
         intent.putExtra("orderid", orderid);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
         return intent;
     }
 
@@ -200,6 +204,9 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
         mActivityOrderHelpBinding.recyclerviewIssue.setAdapter(issuesAdapter);
 
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_HELP);
     }
 
     private void subscribeToLiveData() {

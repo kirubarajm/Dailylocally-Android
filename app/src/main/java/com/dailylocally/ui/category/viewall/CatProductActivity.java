@@ -21,14 +21,18 @@ import com.dailylocally.databinding.ActivityCategoryl12Binding;
 import com.dailylocally.databinding.ActivityCatproductsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l1.L1CategoryResponse;
+import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.ui.category.l2.products.sort.SortFragment;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -66,9 +70,12 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
 
     private TextView[] dots;
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context,String fromPage,String toPage) {
 
-        return new Intent(context, CatProductActivity.class);
+        Intent intent = new Intent(context, CatProductActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, toPage);
+        return intent;
     }
 
 
@@ -86,9 +93,9 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
             mCatProductViewModel.fetchSubCategoryList(categoryid);
         }
 
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_CART);
     }
-
-
 
     public void refreshCart() {
         mCatProductViewModel.totalCart();
@@ -136,6 +143,8 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
         bundle.putString("scl1id",scl1id);
         bundle.putString("catid",catid);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);

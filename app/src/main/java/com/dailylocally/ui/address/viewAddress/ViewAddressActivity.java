@@ -25,7 +25,9 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityViewAddressBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
+import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -38,6 +40,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -65,8 +69,11 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ViewAddressActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, ViewAddressActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
@@ -107,7 +114,8 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
 
     @Override
     public void updateClick() {
-        Intent intent = AddressNewActivity.newIntent(this);
+        Intent intents = new Intent();
+        Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("edit", "1");
         intent.putExtra("newuser", false);
         startActivity(intent);
@@ -192,6 +200,10 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
         mAddAddressViewModel.setNavigator(this);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragmentViewAddress);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_ADDRESS_VIEW);
     }
 
     @Override

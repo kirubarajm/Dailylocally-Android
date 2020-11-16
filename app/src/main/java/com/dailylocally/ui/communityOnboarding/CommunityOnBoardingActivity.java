@@ -99,7 +99,7 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
            finish();
 
         } else {
-            Intent inIntent = CommunitySearchActivity.newIntent(CommunityOnBoardingActivity.this);
+            Intent inIntent = CommunitySearchActivity.newIntent(CommunityOnBoardingActivity.this,AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.URL_COMMUNITY_SEARCH);
             inIntent.putExtra("newuser", false);
             inIntent.putExtra("lat", mOnBoardingActivityViewModel.getDataManager().getCurrentLat());
             inIntent.putExtra("lng", mOnBoardingActivityViewModel.getDataManager().getCurrentLng());

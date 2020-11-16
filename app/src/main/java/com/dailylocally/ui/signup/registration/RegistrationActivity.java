@@ -18,11 +18,13 @@ import com.dailylocally.databinding.ActivityRegistrationBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
+import com.dailylocally.ui.signup.privacy.PrivacyActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -58,8 +60,11 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     };
     private ActivityRegistrationBinding mActivityRegistrationBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, RegistrationActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, RegistrationActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -90,7 +95,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         if (!flagEdit) {
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
 
-            Intent inIntent = AddressNewActivity.newIntent(RegistrationActivity.this);
+            //Intent inIntent = AddressNewActivity.newIntent(RegistrationActivity.this);
+            Intent intents = new Intent();
+            Intent inIntent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
             inIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             inIntent.putExtra("newuser", true);
             startActivity(inIntent);
@@ -150,6 +157,10 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
             }
         }
         analytics = new Analytics(this, pageName);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_REGISTRATION);
     }
 
     @Override
@@ -159,7 +170,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = SignUpActivity.newIntent(RegistrationActivity.this);
+        Intent intent = SignUpActivity.newIntent(RegistrationActivity.this,AppConstants.SCREEN_NAME_REGISTRATION,AppConstants.SCREEN_NAME_SIGN_UP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

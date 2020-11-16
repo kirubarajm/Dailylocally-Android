@@ -17,9 +17,14 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityContactWhatsAppBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.joinCommunity.communityLocation.CommunityAddressActivity;
 import com.dailylocally.ui.main.MainActivity;
+import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -42,8 +47,11 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
     };
     private ActivityContactWhatsAppBinding mActivityContactWhatsAppBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ContactWhatsAppActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, ContactWhatsAppActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -113,6 +121,10 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
         super.onCreate(savedInstanceState);
         mActivityContactWhatsAppBinding = getViewDataBinding();
         mOnBoardingActivityViewModel.setNavigator(this);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_WHATSAPP);
 
     }
 

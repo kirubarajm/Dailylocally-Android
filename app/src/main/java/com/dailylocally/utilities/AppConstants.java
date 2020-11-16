@@ -237,6 +237,9 @@ public class AppConstants {
   public static final String CLICK_APPLY_CHANGES = "profile_update";
   public static final String SCREEN_RAZOR_PAY = "razor_pay";
   public static final String SCREEN_DIAL = "dial";
+  public static final String SCREEN_FILTER = "filter";
+  public static final String SCREEN_SORT = "sort";
+  public static final String SCREEN_HELP = "help";
 
 
 //analytics screen click
@@ -673,6 +676,7 @@ public class AppConstants {
   public static final String SCREEN_NAME_SIGN_UP = "sign_up";
   public static final String SCREEN_NAME_REGISTRATION = "registration";
   public static final String SCREEN_NAME_ADDRESS = "address";
+  public static final String SCREEN_NAME_ADDRESS_VIEW = "address_view";
   public static final String SCREEN_NAME_MAIN = "main";
   public static final String SCREEN_NAME_HOME = "home";
   public static final String SCREEN_NAME_REFERRAL = "referral";
@@ -686,6 +690,7 @@ public class AppConstants {
   public static final String SCREEN_NAME_ORDER_PLACED = "order_placed";
   public static final String SCREEN_NAME_SEARCH = "search";
   public static final String SCREEN_NAME_FAQ = "faq";
+  public static final String SCREEN_NAME_FAQ_SUPPORT = "faq_support";
   public static final String SCREEN_NAME_OTP = "otp";
   public static final String SCREEN_NAME_PRIVACY = "privacy";
   public static final String SCREEN_NAME_TERMS_AND_CONDITION = "terms_condition";
@@ -702,12 +707,23 @@ public class AppConstants {
   public static final String SCREEN_NAME_CATEGORY_L1_PROD = "cat_l1_product";
   public static final String SCREEN_NAME_COMMUNITY_CAT_LIST = "cat_list";
   public static final String SCREEN_NAME_COMMUNITY = "community";
+  public static final String SCREEN_NAME_COMMUNITY_ADDRESS = "community_address";
+  public static final String SCREEN_NAME_COMMUNITY_SEARCH = "community_search";
   public static final String SCREEN_NAME_COMMUNITY_HOME = "community_home";
   public static final String SCREEN_NAME_COMMUNITY_EVENT_POST = "community_event_post";
+  public static final String SCREEN_NAME_COMMUNITY_EVENT = "community_event";
   public static final String SCREEN_NAME_COMMUNITY_POST_DETAILS = "community_post_detail";
   public static final String SCREEN_NAME_VIDEO = "video";
   public static final String SCREEN_NAME_WHATSAPP = "whatsapp";
   public static final String SCREEN_NAME_ABOUT_US = "about_us";
+  public static final String SCREEN_NAME_PAGE_NAVIGATOR = "page_navigator";
+  public static final String SCREEN_NAME_NOTIFICATION = "notification";
+  public static final String SCREEN_NAME_VIEW_PROFILE_PHOTO = "view_profile_photo";
+  public static final String SCREEN_NAME_DIALOG_PRODUCT_CANCEL = "dialog_product_cancel";
+  public static final String SCREEN_NAME_PRODUCT_CANCEL = "product_cancel";
+  public static final String SCREEN_NAME_PROMOTION_ADD = "promotion_add";
+  public static final String SCREEN_NAME_PROMOTION = "promotion";
+  public static final String SCREEN_NAME_RATING = "rating";
 
 
   ///Event name
@@ -738,6 +754,8 @@ public class AppConstants {
   public static final String EVENT_COMMON_PARAM_USER_ID = "user_id";
   public static final String EVENT_COMMON_PARAM_USER_NAME = "user_name";
   public static final String EVENT_COMMON_PARAM_USER_PHONE_NUMBER = "user_phone_no";
+  public static final String EVENT_COMMON_PARAM_FROM_PAGE = "from_page";
+  public static final String EVENT_COMMON_PARAM_TO_PAGE = "to_page";
 
   ////Home page opened
   public static final String EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_NO_OF_SWIPES_PAGE = "hpo_no_of_swipes";

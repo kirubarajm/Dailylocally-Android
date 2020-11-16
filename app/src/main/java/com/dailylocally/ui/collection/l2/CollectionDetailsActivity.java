@@ -24,11 +24,15 @@ import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.ui.category.l2.products.sort.SortFragment;
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 
+import com.dailylocally.ui.category.viewall.CatProductActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -68,9 +72,11 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
 
     private TextView[] dots;
 
-    public static Intent newIntent(Context context/*,String cid,String title*/) {
-
-        return new Intent(context, CollectionDetailsActivity.class);
+    public static Intent newIntent(Context context/*,String cid,String title*/,String fromPage,String toPage) {
+        Intent intent = new Intent(context, CollectionDetailsActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, toPage);
+        return intent;
     }
 
 
@@ -87,6 +93,8 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
             mCollectionDetailsViewModel.fetchSubCategoryList(cid);
         }
 
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_COLLECTION);
     }
 
 
@@ -135,6 +143,8 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         bundle.putString("scl1id",scl1id);
         bundle.putString("cid",cid);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_COLLECTION_ACTV);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);

@@ -27,6 +27,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityOtpBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.fandsupport.support.SupportActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
@@ -44,6 +45,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -72,8 +75,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     private EditText[] editTexts;
     private SMSReceiver smsReceiver;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, OtpActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, OtpActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -154,7 +160,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void addAddressActivity(String aid) {
-        Intent intent = AddressNewActivity.newIntent(OtpActivity.this);
+        Intent intents = new Intent();
+        Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("aid", aid);
         intent.putExtra("newuser", true);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -183,7 +190,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 });
 
         unregisterReceiver(smsReceiver);
-        Intent intent = RegistrationActivity.newIntent(OtpActivity.this);
+        Intent intent = RegistrationActivity.newIntent(OtpActivity.this,AppConstants.SCREEN_NAME_OTP,AppConstants.SCREEN_NAME_REGISTRATION);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -246,7 +253,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void addNewAddress() {
-        Intent intent = AddressNewActivity.newIntent(OtpActivity.this);
+        Intent intents = new Intent();
+        Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("newuser", true);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -354,6 +362,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             }
         });
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_OTP);
     }
 
     @Override
@@ -363,7 +374,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = SignUpActivity.newIntent(OtpActivity.this);
+        Intent intent = SignUpActivity.newIntent(OtpActivity.this,AppConstants.SCREEN_NAME_OTP,AppConstants.SCREEN_NAME_SIGN_UP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

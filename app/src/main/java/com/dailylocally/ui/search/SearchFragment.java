@@ -15,6 +15,8 @@ import com.dailylocally.databinding.FragmentSearchBinding;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
+import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -32,8 +34,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     SearchSubCategoryAdapter mSearchSubCategoryAdapter;
     FragmentSearchBinding mFragmentSearchBinding;
 
-    public static SearchFragment newInstance() {
+    public static SearchFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         SearchFragment fragment = new SearchFragment();
         fragment.setArguments(args);
         return fragment;
@@ -168,6 +172,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 return true;
             }
         });
+
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_SEARCH);
     }
 
     @Override
@@ -190,7 +199,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onSuggestionItemClickData(QuickSearchResponse.Result.ProductsList result) {
         try {
-            Intent intent = ProductDetailsActivity.newIntent(getContext());
+            Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_SEARCH,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
             intent.putExtra("vpid", String.valueOf(result.getVpid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -206,7 +215,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void onProductItemClick(SearchProductResponse.Result products) {
-        Intent intent = CategoryL2Activity.newIntent(getContext());
+        Intent intent = CategoryL2Activity.newIntent(getContext(), AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
         intent.putExtra("scl1id", String.valueOf(products.getScl1Id()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -214,7 +223,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void onSuggestionItemClickData(QuickSearchResponse.Result.SubcategoryList result) {
-        Intent intent = CategoryL2Activity.newIntent(getContext());
+        Intent intent = CategoryL2Activity.newIntent(getContext(), AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
         intent.putExtra("scl1id", String.valueOf(result.getScl1Id()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

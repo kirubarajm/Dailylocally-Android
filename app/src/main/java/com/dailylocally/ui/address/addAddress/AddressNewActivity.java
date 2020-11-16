@@ -52,6 +52,7 @@ import androidx.transition.TransitionManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddressNewBinding;
+import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
@@ -87,6 +88,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -145,8 +147,11 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     //ProgressDialog dialog;
     // private BottomSheetBehavior mBottomSheetBehavior;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, AddressNewActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, AboutUsActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
@@ -877,7 +882,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(AddressNewActivity.this);
+                        Intent intent = FeedbackSupportActivity.newIntent(AddressNewActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -1374,6 +1379,10 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
         mAddAddressViewModel.isApartment.set(true);
         mActivityAddressNewBinding.edtApartmentName.setFocusable(true);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_ADD_ADDRESS);
     }
 
 

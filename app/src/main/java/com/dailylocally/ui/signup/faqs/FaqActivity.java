@@ -22,6 +22,7 @@ import com.dailylocally.R;
 
 import com.dailylocally.databinding.ActivityFaqsBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -42,8 +43,11 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     FaqsAdapter mFaqsAdapter;
     private ActivityFaqsBinding mActivityFaqsBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, FaqActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, FaqActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override

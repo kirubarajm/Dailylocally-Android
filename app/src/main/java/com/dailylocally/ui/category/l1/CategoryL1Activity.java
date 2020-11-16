@@ -16,12 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCategoryl1Binding;
+import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.viewall.CatProductActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -54,9 +58,11 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
 
     private TextView[] dots;
 
-    public static Intent newIntent(Context context) {
-
-        return new Intent(context, CategoryL1Activity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, CategoryL1Activity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     public void stopCartLoader() {
@@ -87,6 +93,9 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
         subscribeLiveData();
         mActivityCategoryl1Binding.subcategories.setLayoutManager(linearLayoutManager);
         mActivityCategoryl1Binding.subcategories.setAdapter(l1CategoriesAdapter);
+
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_CATEGORY_L1);
     }
 
 
@@ -129,7 +138,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
     @Override
     public void viewAll() {
 
-        Intent intent = CatProductActivity.newIntent(CategoryL1Activity.this);
+        Intent intent = CatProductActivity.newIntent(CategoryL1Activity.this,AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CART);
         intent.putExtra("catid", categoryid);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -205,7 +214,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
 
         } else {
 
-            Intent intent = CategoryL2Activity.newIntent(CategoryL1Activity.this);
+            Intent intent = CategoryL2Activity.newIntent(CategoryL1Activity.this,AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
             intent.putExtra("catid", categoryid);
             intent.putExtra("scl1id", String.valueOf(result.getScl1Id()));
             startActivity(intent);

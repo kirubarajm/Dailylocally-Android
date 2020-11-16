@@ -22,11 +22,15 @@ import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.ui.category.l2.products.sort.SortFragment;
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -66,9 +70,11 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
     private TextView[] dots;
 
-    public static Intent newIntent(Context context) {
-
-        return new Intent(context, FavActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, FavActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
 
@@ -80,6 +86,9 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
         subscribeLiveData();
         startLoader();
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_FAVORITES);
     }
 
 

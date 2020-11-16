@@ -27,6 +27,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySaveAddressBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
+import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -41,6 +42,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -77,8 +80,11 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, SaveAddressActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, SaveAddressActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -200,6 +206,11 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
                 map.addMarker(markerOptions);
             }
         });
+
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_ADDRESS);
     }
     public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
         Drawable drawable =  AppCompatResources.getDrawable(context, drawableId);

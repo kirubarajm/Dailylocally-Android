@@ -16,11 +16,14 @@ import com.dailylocally.databinding.ActivityRatingBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
 import com.dailylocally.ui.fandsupport.help.HelpActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -40,8 +43,11 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     ArrayList<Integer> productIdList;
     String doid = "";
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, RatingActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, RatingActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -72,7 +78,8 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
 
     @Override
     public void helpClick() {
-        Intent intent = HelpActivity.newIntent(RatingActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER,doid);
+        Intent intent = HelpActivity.newIntent(RatingActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER,doid
+                ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_HELP);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -181,6 +188,9 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
             }
         });
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_RATING);
     }
 
     private void subscribeToLiveData() {

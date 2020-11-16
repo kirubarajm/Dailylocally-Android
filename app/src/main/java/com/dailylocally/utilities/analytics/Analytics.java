@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.dailylocally.BuildConfig;
+import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -13,21 +14,23 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 public class Analytics {
 
     private static FirebaseAnalytics mFirebaseAnalytics;
-    String userid = null;
+    String userid = null,username = null,phoneNo = null;
     private String screen_name, screen_id, click;
 
     public Analytics() {
 
-       /* if (BuildConfig.ENABLE_DEBUG) return;
+        if (BuildConfig.ENABLE_DEBUG) return;
 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(DailylocallyApp.getInstance(), AppConstants.PREF_NAME);
 
 
             userid = appPreferencesHelper.getCurrentUserId();
-            
+        username = appPreferencesHelper.getCurrentUserName();
+        phoneNo = appPreferencesHelper.getCurrentUserPhNo();
+
         if (mFirebaseAnalytics == null) {
             addProperties();
-        }*/
+        }
     }
 
     public Analytics(Context context, String screen_name) {
@@ -625,14 +628,14 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_APP_OPENS, bundle);
     }
 
     ////App opens
-    public void eventPageOpens(Context context) {
+    public void eventPageOpens(Context context,String fromPage,String toPage) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -640,8 +643,10 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_FROM_PAGE, fromPage);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_TO_PAGE, toPage);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_PAGE_OPENS, bundle);
     }
@@ -655,8 +660,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_NO_OF_SWIPES_PAGE, "");
         bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_TIME_ON_PAGE, "");
         bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_POST_POSITION_OF_LAST_POST_SEEN, "");
@@ -673,8 +678,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_HOME_PAGE_FEED_TRACTION, bundle);
     }
@@ -688,8 +693,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_COMMUNITY_PAGE_FEED_TRACTION, bundle);
     }
@@ -703,8 +708,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_TRACTION_DLE_BANNER_TILE, bundle);
     }
@@ -718,8 +723,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_TRACTION_NON_DLE_BANNER_TILE, bundle);
     }
@@ -733,8 +738,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_NO_OF_SWIPES, "");
         bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TIME_ON_PAGE, "");
         bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN, "");
@@ -752,8 +757,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_NO_OF_SWIPES, "");
         bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_TIME_ON_PAGE, "");
         bundle.putString(AppConstants.EVENT_CATEGORY_TILE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN, "");
@@ -770,8 +775,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_NAME, "");
         bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_CATEGORY_NAME, "");
         bundle.putString(AppConstants.EVENT_L1_SUB_CATEGORY_PARAM_L1_SC_POSITION, "");
@@ -788,8 +793,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_NAME, "");
         bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_TYPE, "");
         bundle.putString(AppConstants.EVENT_COLLECTION_PARAM_COL_TILE_POSITION, "");
@@ -807,8 +812,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_CATEGORY, "");
         bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L1_SC, "");
         bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L2_SC, "");
@@ -827,8 +832,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_NAME, "");
         bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ACTION_TYPE, "");
         bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_CATEGORY, "");
@@ -852,8 +857,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_NAME, "");
         bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_CATEGORY, "");
@@ -880,8 +885,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_ABANDON_CART, bundle);
     }
@@ -895,8 +900,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_METHOD, "");
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PAYMENT_MODE, "");
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_NO_OF_PRODUCT_IN_CART, "");
@@ -918,8 +923,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_METHOD, "");
         bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_SIZE, "");
         bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_VALUE, "");
@@ -942,8 +947,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_SEARCH_PARAM_SEARCH_TERMS, "");
         bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_RETURNED, "");
         bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_CLICKED_TYPE, "");
@@ -961,8 +966,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
         bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_PHONE_NUMBER, "");
         bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_NAME, "");
         bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_EMAIL, "");
@@ -983,8 +988,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_DLE_REGISTRATION_TILE_ON_CATEGORY_PAGE, bundle);
     }
@@ -998,8 +1003,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_GET_SOCIAL_PUSH_NOTIFICATION, bundle);
     }
@@ -1013,8 +1018,8 @@ public class Analytics {
         mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, "");
-        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, "");
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
+        bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_NORMAL_PUSH_NOTIFICATION, bundle);
     }

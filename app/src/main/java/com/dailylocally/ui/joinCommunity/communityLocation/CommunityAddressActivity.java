@@ -36,6 +36,7 @@ import com.dailylocally.databinding.ActivityCommunityAddressBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
+import com.dailylocally.ui.joinCommunity.CommunityActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.GpsUtils;
@@ -60,6 +61,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -99,8 +101,11 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, CommunityAddressActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, CommunityAddressActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -171,7 +176,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                        // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(CommunityAddressActivity.this);
+                        Intent intent = FeedbackSupportActivity.newIntent(CommunityAddressActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -254,7 +259,8 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
     public void nextClick() {
         if (!mActivityCommunityBinding.txtSubLocality.getText().toString().trim().equals("")) {
 
-            Intent intent = AddressNewActivity.newIntent(CommunityAddressActivity.this);
+            Intent intents = new Intent();
+            Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
             intent.putExtra("locationAddress", mActivityCommunityBinding.txtSubLocality.getText().toString());
             intent.putExtra("lat",strCommunityLat);
             intent.putExtra("lon",strCommunityLng);
@@ -302,7 +308,8 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
     @Override
     public void confirmLocationClick(String locationAddress, String area,
                                      String lat,String lon,String pinCode) {
-        Intent intent = AddressNewActivity.newIntent(CommunityAddressActivity.this);
+        Intent intents = new Intent();
+        Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("locationAddress",locationAddress);
         intent.putExtra("lat",lat);
         intent.putExtra("lon",lon);
@@ -351,6 +358,10 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
                 }
             }
         });
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_COMMUNITY_ADDRESS);
     }
 
     public void turnOnGps() {

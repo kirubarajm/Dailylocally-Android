@@ -18,12 +18,15 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityFaqsSupportBinding;
 
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.rating.RatingActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.utilities.AppConstants;
 
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -33,9 +36,11 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     FaqsAndSupportViewModel mFaqsAndSupportViewModel;
     ActivityFaqsSupportBinding mActivityFaqsSupportBinding;
 
-    public static Intent newIntent(Context context) {
-
-        return new Intent(context, FaqsAndSupportActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, FaqsAndSupportActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
     @Override
     public void feedBackClick() {
-        Intent intent = FaqActivity.newIntent(this);
+        Intent intent = FaqActivity.newIntent(this,AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.SCREEN_FAQS);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -103,6 +108,10 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
         mFaqsAndSupportViewModel.setNavigator(this);
         mActivityFaqsSupportBinding = getViewDataBinding();
 
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_FAQ_SUPPORT);
     }
 
 

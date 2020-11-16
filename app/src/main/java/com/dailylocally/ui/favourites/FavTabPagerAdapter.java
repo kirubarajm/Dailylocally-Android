@@ -26,9 +26,9 @@ public class FavTabPagerAdapter extends FragmentStatePagerAdapter {
 */
 
         if (position == 0) {
-            return FavProductFragment.newInstance("0");
+            return FavProductFragment.newInstance("0","","");
         }else {
-            return FavProductFragment.newInstance(String.valueOf(response.getResult().get(position-1).getCatid()));
+            return FavProductFragment.newInstance(String.valueOf(response.getResult().get(position-1).getCatid()),"","");
         }
 
     }

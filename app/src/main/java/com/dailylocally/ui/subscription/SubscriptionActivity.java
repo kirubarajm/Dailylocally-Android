@@ -19,11 +19,14 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySubscriptionBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.datepicker.DatePickerActivity;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -49,9 +52,11 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
         }
     };
 
-    public static Intent newIntent(Context context) {
-
-        return new Intent(context, SubscriptionActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, SubscriptionActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -165,6 +170,9 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
             pid = intent.getExtras().getString("pid");
             mSubscriptionViewModel.fetchProductDetails(pid);
         }
+
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_SUBSCRIPTION);
     }
 
     @Override

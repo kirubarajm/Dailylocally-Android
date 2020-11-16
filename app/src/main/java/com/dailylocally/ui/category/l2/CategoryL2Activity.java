@@ -20,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCategoryl12Binding;
+import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.category.l2.products.filter.FilterListener;
@@ -28,10 +29,13 @@ import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -70,9 +74,12 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
 
     private TextView[] dots;
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context,String fromPage,String toPage) {
 
-        return new Intent(context, CategoryL2Activity.class);
+        Intent intent = new Intent(context, CategoryL2Activity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, toPage);
+        return intent;
     }
 
 
@@ -92,6 +99,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
             mCategoryL2ViewModel.fetchSubCategoryList(categoryid, scl1id);
         }
 
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_CATEGORY_L2);
     }
 
 
@@ -150,6 +159,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         bundle.putString("scl1id",scl1id);
         bundle.putString("scl2id",scl2id);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L2_ACTV);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);
@@ -161,6 +172,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     public void openSort(String scl2id) {
         Bundle bundle=new Bundle();
         bundle.putString("scl2id",scl2id);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_SORT);
 
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);

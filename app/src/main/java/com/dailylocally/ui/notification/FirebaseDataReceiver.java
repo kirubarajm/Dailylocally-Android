@@ -172,20 +172,20 @@ public class FirebaseDataReceiver extends WakefulBroadcastReceiver {
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(context);
+                intent = CategoryL1Activity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_L1);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(context);
+                intent = CategoryL2Activity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_L2);
                 bundle.putString("catid", actionDatas.get("catid"));
                 bundle.putString("scl1id", actionDatas.get("scl1id"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                intent = CatProductActivity.newIntent(context);
+                intent = CatProductActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.EVENT_CATEGORY_PAGE);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
-                intent = MainActivity.newIntent(context, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                intent = MainActivity.newIntent(context, AppConstants.SCREEN_NAME_NOTIFICATION, AppConstants.NOTIFY_COMMUNITY_ACTV);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
                 intent = TransactionHistoryActivity.newIntent(context);
@@ -196,17 +196,17 @@ public class FirebaseDataReceiver extends WakefulBroadcastReceiver {
 
                 break;
             case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
-                intent = ProductDetailsActivity.newIntent(context);
+                intent = ProductDetailsActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
                 bundle.putString("vpid", actionDatas.get("vpid"));
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(context);
+                intent = CollectionDetailsActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_COLLECTION);
                 bundle.putString("cid", actionDatas.get("cid"));
 
                 break;
             case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
-                intent = EventActivity.newIntent(context, actionDatas.get("topic"), actionDatas.get("title"));
+                intent = EventActivity.newIntent(context, actionDatas.get("topic"), actionDatas.get("title"),AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_COMMUNITY_EVENT);
 
                 break;
 

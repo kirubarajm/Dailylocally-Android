@@ -79,7 +79,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
         //  mSplashActivityViewModel.checkIsUserLoggedInOrNot();
         if (forceUpdateStatus) {
-            Intent intent = UpdateActivity.newIntent(OnBoardingActivity.this);
+            Intent intent = UpdateActivity.newIntent(OnBoardingActivity.this,AppConstants.SCREEN_NAME_ON_BOARDING,AppConstants.SCREEN_NAME_UPDATE);
             intent.putExtra("forceUpdate", forceUpdateStatus);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -97,7 +97,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
-            Intent intent = SignUpActivity.newIntent(OnBoardingActivity.this);
+            Intent intent = SignUpActivity.newIntent(OnBoardingActivity.this,AppConstants.SCREEN_NAME_ON_BOARDING,AppConstants.SCREEN_NAME_SIGN_UP);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

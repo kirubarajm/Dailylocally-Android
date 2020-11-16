@@ -13,12 +13,15 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityPrivacyBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.signup.registration.RegistrationActivity;
 import com.dailylocally.utilities.AppConstants;
 
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -28,8 +31,11 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
     AdViewModel mAdViewModel;
     ActivityPrivacyBinding mActivityPrivacyBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, AdActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, AdActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -59,7 +65,7 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
 
     @Override
     public void openRegActivity() {
-        Intent intent = RegistrationActivity.newIntent(AdActivity.this);
+        Intent intent = RegistrationActivity.newIntent(AdActivity.this,AppConstants.SCREEN_NAME_PROMOTION_ADD,AppConstants.SCREEN_NAME_REGISTRATION);
         startActivity(intent);
         finish();
     }
@@ -77,6 +83,10 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
         mAdViewModel.setNavigator(this);
 
         mActivityPrivacyBinding.webview.getSettings().setJavaScriptEnabled(true);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_PROMOTION_ADD);
     }
 
     @Override

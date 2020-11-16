@@ -72,6 +72,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -179,6 +180,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         try {
             Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_CART);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartFragment fragment = new CartFragment();
             fragment.setArguments(bundle);
@@ -207,7 +210,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_COMMUNITY);
             CommunityFragment fragment = new CommunityFragment();
+            fragment.setArguments(bundle);
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
             transaction.commit();
@@ -242,6 +249,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
             CommunityCatFragment fragment = new CommunityCatFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST);
+            fragment.setArguments(bundle);
+
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
             transaction.commit();
@@ -331,7 +343,12 @@ openCommunity();
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_CALENDAR);
+
             CalendarFragment fragment = new CalendarFragment();
+            fragment.setArguments(bundle);
             //HomeFragment fragment = new HomeFragment();
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
@@ -353,8 +370,12 @@ openCommunity();
             // stopLoader();
             try {
                 mMainViewModel.isExplore.set(true);
+                Bundle bundle = new Bundle();
+                bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+                bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_CALENDAR);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 SearchFragment fragment = new SearchFragment();
+                fragment.setArguments(bundle);
                 transaction.replace(R.id.content_main, fragment);
                 //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
                 transaction.commit();
@@ -392,6 +413,10 @@ openCommunity();
             //new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_MY_ACCOUNT);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_MY_ACCOUNT);
+            fragment.setArguments(bundle);
             transaction.replace(R.id.content_main, fragment);
             // transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
             transaction.commit();
@@ -413,7 +438,7 @@ openCommunity();
     public void paymentSuccessed(boolean status) {
 
         if (status) {
-            Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this);
+            Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_ORDER_PLACED);
             newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(newIntent);
             finish();
@@ -700,6 +725,9 @@ openCommunity();
             }
 
         }*/
+
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_MAIN);
     }
 
     @Override
@@ -1019,16 +1047,16 @@ openCommunity();
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(this);
+                intent = CategoryL1Activity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_CATEGORY_L1);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(this);
+                intent = CategoryL2Activity.newIntent(this,AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
                 bundle.putString("catid", actionDatas.get("catid"));
                 bundle.putString("scl1id", actionDatas.get("scl1id"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                intent = CatProductActivity.newIntent(this);
+                intent = CatProductActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_CART);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
@@ -1044,17 +1072,17 @@ openCommunity();
 
                 break;
             case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
-                intent = ProductDetailsActivity.newIntent(this);
+                intent = ProductDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
                 bundle.putString("vpid", actionDatas.get("vpid"));
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(this);
+                intent = CollectionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_COLLECTION);
                 bundle.putString("cid", actionDatas.get("cid"));
 
                 break;
             case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
-                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"));
+                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"),AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_COMMUNITY_EVENT);
 
                 break;
             /*default:

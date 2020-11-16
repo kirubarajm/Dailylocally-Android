@@ -16,12 +16,15 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 
 import com.dailylocally.databinding.OrderPlacedBinding;
+import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -75,8 +78,11 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, OrderPlacedActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, OrderPlacedActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -124,6 +130,9 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         mOrderPlacedViewModel.setNavigator(this);
         mOrderPlacedBinding = getViewDataBinding();
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_ORDER_PLACED);
     }
 
     @Override

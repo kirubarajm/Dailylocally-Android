@@ -17,10 +17,13 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAboutusBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -35,8 +38,12 @@ public class AboutUsActivity extends BaseActivity<ActivityAboutusBinding, AboutU
     AboutUsAdapter mAboutUsAdapter;
     private ActivityAboutusBinding mActivityAboutusBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, AboutUsActivity.class);
+
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, AboutUsActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -79,14 +86,16 @@ public class AboutUsActivity extends BaseActivity<ActivityAboutusBinding, AboutU
         mActivityAboutusBinding.recyclerFaqs.setLayoutManager(mLayoutManager);
         mActivityAboutusBinding.recyclerFaqs.setAdapter(mAboutUsAdapter);
         subscribeToLiveData();
-    }
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this,Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_ABOUT_US);
+    }
 
     private void subscribeToLiveData() {
         mAboutUsViewModel.getFaqs().observe(this,
                 FaqFragmentViewModel -> mAboutUsViewModel.addFaqsItemsToList(FaqFragmentViewModel));
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

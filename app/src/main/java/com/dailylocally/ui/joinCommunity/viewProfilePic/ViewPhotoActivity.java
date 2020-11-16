@@ -14,11 +14,14 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityViewPhotoBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -41,8 +44,11 @@ public class ViewPhotoActivity extends BaseActivity<ActivityViewPhotoBinding, Vi
     };
     private ActivityViewPhotoBinding mActivityViewPhotoBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, ViewPhotoActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, ViewPhotoActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -95,6 +101,10 @@ public class ViewPhotoActivity extends BaseActivity<ActivityViewPhotoBinding, Vi
         }
         Glide.with(getApplicationContext()).load(strUrl).placeholder(null).centerCrop()
                 .error(R.drawable.ic_group_482).into(mActivityViewPhotoBinding.imgPreview);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_VIEW_PROFILE_PHOTO);
     }
 
     private void registerWifiReceiver() {

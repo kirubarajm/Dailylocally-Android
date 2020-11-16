@@ -13,10 +13,13 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivitySupportBinding;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -74,8 +77,11 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context) {
-        return new Intent(context, SupportActivity.class);
+    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+        Intent intent = new Intent(context, SupportActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
     }
 
     @Override
@@ -117,7 +123,7 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
 
     @Override
     public void faq() {
-        Intent intent = FaqActivity.newIntent(SupportActivity.this);
+        Intent intent = FaqActivity.newIntent(SupportActivity.this,AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.SCREEN_FAQS);
         startActivity(intent);
        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -127,6 +133,10 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
         super.onCreate(savedInstanceState);
         mActivitySupportBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_SUPPORT);
     }
 
     @Override

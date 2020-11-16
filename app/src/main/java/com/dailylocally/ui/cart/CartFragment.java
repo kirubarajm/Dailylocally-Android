@@ -28,6 +28,7 @@ import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.datepicker.DatePickerActivity;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipView;
@@ -35,6 +36,7 @@ import com.nhaarman.supertooltips.ToolTipView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -58,13 +60,14 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     private FragmentCartBinding mActivityCartBinding;
 
 
-    public static CartFragment newInstance() {
+    public static CartFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         CartFragment fragment = new CartFragment();
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -143,6 +146,11 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
             }
         });
 
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_CART);
+
     }
 
     @Override
@@ -163,7 +171,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = ViewAddressActivity.newIntent(getContext());
+        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         intent.putExtra("edit", "1");
         startActivity(intent);
     }
@@ -215,7 +223,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void applyCoupon() {
-        Intent intent = CouponsActivity.newIntent(getContext());
+        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_COUPON_LIST);
         intent.putExtra(AppConstants.PAGE, AppConstants.NOTIFY_CART_FRAG);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -319,7 +327,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     public void edit(CartResponse.SubscriptionItem product) {
 
 
-        Intent intent = SubscriptionActivity.newIntent(getContext());
+        Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CART,AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", String.valueOf(product.getPid()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -335,7 +343,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void subsItemClick(CartResponse.SubscriptionItem product) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_CART_PAGE,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         intent.putExtra("vpid", String.valueOf(product.getPid()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -376,7 +384,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void subscribe(CartResponse.Item product) {
 
-        Intent intent = SubscriptionActivity.newIntent(getContext());
+        Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CART,AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", String.valueOf(product.getPid()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -385,7 +393,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void orderNowItemClick(CartResponse.Item product) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_PRODUCT_DETAIL,AppConstants.SCREEN_CART_PAGE);
         intent.putExtra("vpid", String.valueOf(product.getPid()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

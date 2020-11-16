@@ -30,6 +30,7 @@ import androidx.core.app.ActivityCompat;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddAddressBinding;
+import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
@@ -57,6 +58,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -93,8 +95,11 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
         }
     };
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, GoogleAddressActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, GoogleAddressActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -165,7 +170,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                        // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(GoogleAddressActivity.this);
+                        Intent intent = FeedbackSupportActivity.newIntent(GoogleAddressActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -268,7 +273,8 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     @Override
     public void confirmLocationClick(String locationAddress, String area,
                                      String lat,String lon,String pinCode) {
-        Intent intent = AddressNewActivity.newIntent(GoogleAddressActivity.this);
+        Intent intents = new Intent();
+        Intent intent = AddressNewActivity.newIntent(GoogleAddressActivity.this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("locationAddress",locationAddress);
         intent.putExtra("lat",lat);
         intent.putExtra("lon",lon);
@@ -314,6 +320,10 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                 }
             }
         });
+
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_ADD_ADDRESS);
     }
 
     public void turnOnGps() {

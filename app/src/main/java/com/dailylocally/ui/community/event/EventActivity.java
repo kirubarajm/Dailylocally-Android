@@ -33,6 +33,7 @@ import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -111,11 +112,13 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
             }
         }
     };
-    public static Intent newIntent(Context context, String topic, String title) {
+    public static Intent newIntent(Context context, String topic, String title,String fromPage,String toPage) {
 
         Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("topic", topic);
         intent.putExtra("title", title);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, toPage);
         return intent;
     }
 
@@ -428,6 +431,8 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
             }
         });*/
 
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_COMMUNITY_EVENT);
 
     }
 
@@ -542,7 +547,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
             }
         }
 
-        Intent intent = EventDetailsActivity.newIntent(EventActivity.this);
+        Intent intent = EventDetailsActivity.newIntent(EventActivity.this,AppConstants.SCREEN_NAME_COMMUNITY_EVENT,AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
         intent.putExtras(bundle);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -603,7 +608,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
             }
         }
-        Intent intent = EventDetailsActivity.newIntent(EventActivity.this);
+        Intent intent = EventDetailsActivity.newIntent(EventActivity.this,AppConstants.SCREEN_NAME_COMMUNITY_EVENT,AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
         intent.putExtras(bundle);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

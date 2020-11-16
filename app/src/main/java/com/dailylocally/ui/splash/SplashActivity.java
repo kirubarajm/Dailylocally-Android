@@ -29,6 +29,8 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel>
@@ -69,7 +71,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else {
-            Intent intent = SignUpActivity.newIntent(SplashActivity.this);
+            Intent intent = SignUpActivity.newIntent(SplashActivity.this,AppConstants.SCREEN_NAME_SPLASH,AppConstants.SCREEN_NAME_SIGN_UP);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -79,7 +81,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void update(boolean updateStatus, boolean forceUpdateStatus, String addressCreated) {
         if (forceUpdateStatus) {
-            Intent intent = UpdateActivity.newIntent(SplashActivity.this);
+            Intent intent = UpdateActivity.newIntent(SplashActivity.this,AppConstants.SCREEN_NAME_SPLASH,AppConstants.SCREEN_NAME_UPDATE);
             intent.putExtra("forceUpdate", forceUpdateStatus);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -92,7 +94,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void userAlreadyRegistered(boolean status) {
         if (!status) {
-            Intent intent = RegistrationActivity.newIntent(SplashActivity.this);
+            Intent intent = RegistrationActivity.newIntent(SplashActivity.this,AppConstants.SCREEN_NAME_SPLASH,AppConstants.SCREEN_NAME_REGISTRATION);
             intent.putExtra("newuser", true);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -103,7 +105,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void userAddressActivity() {
 
-        Intent inIntent = AddressNewActivity.newIntent(SplashActivity.this);
+        //Intent inIntent = AddressNewActivity.newIntent(SplashActivity.this);
+        Intent intents = new Intent();
+        Intent inIntent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
         inIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         inIntent.putExtra("newuser", true);
         startActivity(inIntent);
@@ -134,6 +138,10 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
         prefManager = new PrefManager(this);
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_SPLASH);
+        new Analytics().eventAppOpens(this);
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;

@@ -23,6 +23,9 @@ import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
+
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccountBinding, MyAccountViewModel> implements MyAccountNavigator {
@@ -34,8 +37,17 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     FragmentMyAccountBinding mFragmentMyAccountBinding;
 
 
-    public static MyAccountFragment newInstance() {
+   /* public static MyAccountFragment newInstance() {
         Bundle args = new Bundle();
+        MyAccountFragment fragment = new MyAccountFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }*/
+
+    public static MyAccountFragment newInstance(String fromPage, String toPage) {
+        Bundle args = new Bundle();
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         MyAccountFragment fragment = new MyAccountFragment();
         fragment.setArguments(args);
         return fragment;
@@ -67,6 +79,11 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mMyAccountViewModel.toolbarTitle.set(getString(R.string.my_account));
+
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_REFERRAL);
     }
 
     @Override
@@ -83,21 +100,21 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void changeAddress() {
-        Intent intent = ViewAddressActivity.newIntent(getContext());
+        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void orderHistory() {
-        Intent intent = CalendarActivity.newIntent(getContext());
+        Intent intent = CalendarActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_CALENDAR);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void couponsAndOffers() {
-        Intent intent = CouponsActivity.newIntent(getContext());
+        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_COUPON_LIST);
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_MYACCOUNT_FRAG);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -105,14 +122,14 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void favourites() {
-        Intent intent = FavActivity.newIntent(getContext());
+        Intent intent = FavActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_FAVORITES);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void referrals() {
-        Intent intent = ReferralsActivity.newIntent(getContext());
+        Intent intent = ReferralsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_REFERRAL);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -131,7 +148,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
         settings.edit().clear().apply();
 
-        Intent intent = SignUpActivity.newIntent(getActivity());
+        Intent intent = SignUpActivity.newIntent(getActivity(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_SIGN_UP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -145,14 +162,14 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void feedbackAndSupport() {
-        Intent intent = FeedbackSupportActivity.newIntent(getContext());
+        Intent intent = FeedbackSupportActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void editProfile() {
-        Intent intent = RegistrationActivity.newIntent(getContext());
+        Intent intent = RegistrationActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_REGISTRATION);
         intent.putExtra("edit","1");
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

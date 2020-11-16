@@ -12,6 +12,8 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.DialogProductCancelBinding;
 import com.dailylocally.ui.base.BaseBottomSheetFragment;
+import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 
 
 import javax.inject.Inject;
@@ -30,10 +32,12 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
     ProductCancelListenerCallBack mProductCancelListenerCallBack;
 
 
-    public static DialogProductCancel newInstance() {
+    public static DialogProductCancel newInstance(String fromPage, String toPage) {
         DialogProductCancel fragment = new DialogProductCancel();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
+        fragment.setArguments(args);
         fragment.setCancelable(false);
         return fragment;
     }
@@ -73,6 +77,11 @@ public class DialogProductCancel extends BaseBottomSheetFragment<DialogProductCa
             doid = getArguments().getString("doid", null);
             dayOrderPid = getArguments().getString("dayOrderPid", null);
         }
+
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_DIALOG_PRODUCT_CANCEL);
     }
 
     @Override

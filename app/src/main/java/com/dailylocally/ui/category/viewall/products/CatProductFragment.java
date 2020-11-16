@@ -24,6 +24,7 @@ import com.dailylocally.ui.category.viewall.CatProductActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -44,10 +45,12 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
     boolean loading;
     FragmentCatproductsBinding mFragmentProductsBinding;
 
-    public static CatProductFragment newInstance(String catid, String scl1id) {
+    public static CatProductFragment newInstance(String catid, String scl1id,String fromPage, String toPage) {
         Bundle args = new Bundle();
         args.putString("catid", catid);
         args.putString("scl1id", scl1id);
+        args.putString(AppConstants.FROM, fromPage);
+        args.putString(AppConstants.PAGE, toPage);
         CatProductFragment fragment = new CatProductFragment();
         fragment.setArguments(args);
         return fragment;
@@ -134,6 +137,10 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
         mFragmentProductsBinding.productList.setNestedScrollingEnabled(true);
 
 
+        Bundle intent = getArguments();
+        assert intent != null;
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_CATEGORY_L1);
     }
 
     @Override
@@ -160,7 +167,7 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
     @Override
     public void subscribeProduct(ProductsResponse.Result products, int position) {
 
-        Intent intent = SubscriptionActivity.newIntent(getContext());
+        Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -170,7 +177,7 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
     @Override
     public void productItemClick(ProductsResponse.Result products, int position) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext());
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CART,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         intent.putExtra("vpid", String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
