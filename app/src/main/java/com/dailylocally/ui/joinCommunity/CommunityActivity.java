@@ -282,7 +282,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
 
             Intent intent = getIntent();
             new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                    AppConstants.SCREEN_NAME_COMMUNITY);
+                    AppConstants.SCREEN_NAME_JOIN_COMMUNITY);
 
         } catch (Exception e) {
             e.printStackTrace();

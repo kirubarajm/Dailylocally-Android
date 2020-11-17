@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCalendarBinding;
-import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.productDetail.productDetailCancel.ProductCancelActivity;
@@ -201,7 +200,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             type = AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER;
         }
 
-        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_HELP);
+        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

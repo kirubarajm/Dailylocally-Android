@@ -24,7 +24,6 @@ import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.ui.category.l2.products.sort.SortFragment;
 import com.dailylocally.ui.category.l2.slider.L2SliderAdapter;
 
-import com.dailylocally.ui.category.viewall.CatProductActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
@@ -94,7 +93,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         }
 
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_COLLECTION);
+                AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
     }
 
 
@@ -144,7 +143,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         bundle.putString("cid",cid);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_COLLECTION_ACTV);
         bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_FILTER);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);

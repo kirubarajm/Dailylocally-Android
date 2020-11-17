@@ -222,7 +222,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST);
+                AppConstants.SCREEN_NAME_CATEGORY_PAGE);
 
     }
 
@@ -275,7 +275,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
             new Analytics().eventCategoryTile(getContext(),result.getName(),type,String.valueOf(pos));
 
-            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_CATEGORY_L1);
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -286,7 +286,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
             new Analytics().eventCollectionTile(getContext(),result.getName(),type,String.valueOf(pos),result.getCid());
 
-            Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST,AppConstants.SCREEN_NAME_COLLECTION);
+            Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

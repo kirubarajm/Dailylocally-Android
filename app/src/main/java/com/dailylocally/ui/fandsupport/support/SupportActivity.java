@@ -123,7 +123,7 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
 
     @Override
     public void faq() {
-        Intent intent = FaqActivity.newIntent(SupportActivity.this,AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.SCREEN_FAQS);
+        Intent intent = FaqActivity.newIntent(SupportActivity.this,AppConstants.SCREEN_NAME_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
         startActivity(intent);
        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -136,7 +136,7 @@ public class SupportActivity extends BaseActivity<ActivitySupportBinding, Suppor
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_SUPPORT);
+                AppConstants.SCREEN_NAME_SUPPORT);
     }
 
     @Override

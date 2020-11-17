@@ -5,13 +5,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -20,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCategoryl12Binding;
-import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.category.l2.products.filter.FilterListener;
@@ -32,8 +29,6 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 import com.google.android.material.tabs.TabLayout;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
 
 import java.util.Objects;
 
@@ -100,7 +95,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         }
 
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_CATEGORY_L2);
+                AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
     }
 
 
@@ -160,7 +155,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         bundle.putString("scl2id",scl2id);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L2_ACTV);
         bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_FILTER);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);
@@ -173,7 +168,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         Bundle bundle=new Bundle();
         bundle.putString("scl2id",scl2id);
         bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_SORT);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_SORT);
 
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);

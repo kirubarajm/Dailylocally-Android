@@ -808,7 +808,7 @@ public class Analytics {
     }
 
     ////Item detail page
-    public void eventItemDetailPage(Context context) {
+    public void eventItemDetailPage(Context context,String catName,String L1SubCat,String L2SubCat,String itemCost,String sourcePage) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -818,11 +818,11 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_CATEGORY, "");
-        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L1_SC, "");
-        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L2_SC, "");
-        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_COST, "");
-        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_SOURCE_PAGE_NAME, "");
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_CATEGORY, catName);
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L1_SC, L1SubCat);
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_L2_SC, L2SubCat);
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_ITEM_COST, itemCost);
+        bundle.putString(AppConstants.EVENT_ITEM_DETAIL_PAGE_PARAM_SOURCE_PAGE_NAME, sourcePage);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_ITEM_DETAIL_PAGE, bundle);
     }
@@ -943,7 +943,7 @@ public class Analytics {
     }
 
     ////Search
-    public void eventSearch(Context context) {
+    public void eventSearch(Context context,String searchTerms,String resultReturned,String resultClickedType,String resultClicked) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -953,10 +953,10 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_SEARCH_TERMS, "");
-        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_RETURNED, "");
-        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_CLICKED_TYPE, "");
-        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_CLICKED, "");
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_SEARCH_TERMS, searchTerms);
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_RETURNED, resultReturned);
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_CLICKED_TYPE, resultClickedType);
+        bundle.putString(AppConstants.EVENT_SEARCH_PARAM_RESULTS_CLICKED, resultClicked);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_SEARCH, bundle);
     }

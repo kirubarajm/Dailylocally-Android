@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCouponsBinding;
-import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -120,7 +119,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
 
     @Override
     public void refer() {
-        Intent intent = ReferralsActivity.newIntent(this,AppConstants.SCREEN_COUPON_LIST,AppConstants.SCREEN_REFERRAL);
+        Intent intent = ReferralsActivity.newIntent(this,AppConstants.SCREEN_NAME_COUPONS,AppConstants.SCREEN_REFERRAL);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -172,7 +171,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_COUPON_LIST);
+                AppConstants.SCREEN_NAME_COUPONS);
     }
 
     private void subscribeToLiveData() {

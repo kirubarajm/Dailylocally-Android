@@ -30,7 +30,6 @@ import androidx.core.app.ActivityCompat;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddAddressBinding;
-import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
@@ -323,7 +322,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_ADD_ADDRESS);
+                AppConstants.SCREEN_ADDRESS);
     }
 
     public void turnOnGps() {

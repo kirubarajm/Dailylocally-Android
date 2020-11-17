@@ -102,9 +102,9 @@ public class ViewPhotoActivity extends BaseActivity<ActivityViewPhotoBinding, Vi
         Glide.with(getApplicationContext()).load(strUrl).placeholder(null).centerCrop()
                 .error(R.drawable.ic_group_482).into(mActivityViewPhotoBinding.imgPreview);
 
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_VIEW_PROFILE_PHOTO);
+                AppConstants.SCREEN_NAME_VIEW_PROFILE_PHOTO);*/
     }
 
     private void registerWifiReceiver() {

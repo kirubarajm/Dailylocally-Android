@@ -13,14 +13,12 @@ import android.text.format.DateFormat;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityEventDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
@@ -206,7 +204,7 @@ public class EventDetailsActivity extends BaseActivity<ActivityEventDetailsBindi
         mActivityEventBinding.recyclerPost.setAdapter(mCommentsListAdapter);
 
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
+                AppConstants.SCREEN_NAME_POST_DETAILS);
     }
 
 

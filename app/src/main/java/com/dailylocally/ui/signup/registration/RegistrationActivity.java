@@ -44,8 +44,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     @Inject
     RegistrationViewModel mLoginViewModelMain;
     int gender;
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_USER_REGISTRATION;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -156,7 +154,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
                     mLoginViewModelMain.flagReferral.set(true);
                 }
         }
-        analytics = new Analytics(this, pageName);
+        //analytics = new Analytics(this, pageName);
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),

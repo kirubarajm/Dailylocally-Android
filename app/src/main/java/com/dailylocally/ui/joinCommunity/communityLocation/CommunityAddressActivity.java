@@ -359,9 +359,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
             }
         });
 
-        Intent intent = getIntent();
-        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_COMMUNITY_ADDRESS);
+
     }
 
     public void turnOnGps() {

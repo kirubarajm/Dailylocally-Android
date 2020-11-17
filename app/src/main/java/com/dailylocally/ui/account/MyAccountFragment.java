@@ -24,8 +24,6 @@ import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
-import java.util.Objects;
-
 import javax.inject.Inject;
 
 public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccountBinding, MyAccountViewModel> implements MyAccountNavigator {
@@ -114,7 +112,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void couponsAndOffers() {
-        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_COUPON_LIST);
+        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_COUPONS);
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_MYACCOUNT_FRAG);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -177,7 +175,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void transactions() {
-        Intent intent = TransactionHistoryActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
+        Intent intent = TransactionHistoryActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_TRANSACTION);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

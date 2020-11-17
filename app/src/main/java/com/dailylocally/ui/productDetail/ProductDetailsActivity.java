@@ -129,6 +129,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
+        new Analytics().eventItemDetailPage(this,result.getCat_name(),String.valueOf(result.getScl1Id()),String.valueOf(result.getScl2Id()),result.getMrp(),AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         mAddAddressViewModel.offerCost.set(result.getDiscountCost() + " OFF on " + result.getProductname());
     }
 

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -13,7 +11,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -39,7 +36,6 @@ import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.community.CommunityFragment;
 import com.dailylocally.ui.community.catlist.CommunityCatFragment;
 import com.dailylocally.ui.community.event.EventActivity;
-import com.dailylocally.ui.home.HomeFragment;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.search.SearchFragment;
@@ -50,9 +46,6 @@ import com.dailylocally.utilities.DependenciesContainer;
 import com.dailylocally.utilities.PushUtils;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -70,7 +63,6 @@ import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
@@ -85,9 +77,7 @@ import im.getsocial.sdk.GetSocial;
 import im.getsocial.sdk.GetSocialError;
 import im.getsocial.sdk.Notifications;
 import im.getsocial.sdk.notifications.Notification;
-import im.getsocial.sdk.notifications.NotificationContent;
 import im.getsocial.sdk.notifications.NotificationContext;
-import im.getsocial.sdk.notifications.NotificationCustomization;
 import im.getsocial.sdk.notifications.OnNotificationClickedListener;
 import zendesk.support.request.RequestActivity;
 
@@ -205,7 +195,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCommunity() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
 
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -290,7 +279,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openHome() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
 openCommunity();
 
       /*  try {
@@ -339,8 +327,6 @@ openCommunity();
         mMainViewModel.updateAvailable.set(false);
 
 
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
-
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Bundle bundle = new Bundle();
@@ -366,7 +352,6 @@ openCommunity();
 
         searchfromHome=isHome;
 
-            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
             // stopLoader();
             try {
                 mMainViewModel.isExplore.set(true);
@@ -726,8 +711,6 @@ openCommunity();
 
         }*/
 
-        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_MAIN);
     }
 
     @Override
@@ -1047,16 +1030,16 @@ openCommunity();
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_CATEGORY_L1);
+                intent = CategoryL1Activity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(this,AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
+                intent = CategoryL2Activity.newIntent(this,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST,AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 bundle.putString("scl1id", actionDatas.get("scl1id"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                intent = CatProductActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_CART);
+                intent = CatProductActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
@@ -1064,7 +1047,7 @@ openCommunity();
                 openCommunityCat();
                 return;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
+                intent = TransactionHistoryActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_TRANSACTION);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
                 intent = TransactionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_TRANS_DETAILS);
@@ -1077,7 +1060,7 @@ openCommunity();
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_COLLECTION);
+                intent = CollectionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
                 bundle.putString("cid", actionDatas.get("cid"));
 
                 break;

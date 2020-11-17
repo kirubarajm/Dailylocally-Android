@@ -102,7 +102,7 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
         Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_SORT);
+                AppConstants.SCREEN_NAME_SORT);
 
 
     }

@@ -9,14 +9,12 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -26,12 +24,9 @@ import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
-import com.dailylocally.ui.joinCommunity.CommunityActivity;
-import com.dailylocally.ui.joinCommunity.contactWhatsapp.ContactWhatsAppActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.ui.promotion.bottom.PromotionFragment;
 import com.dailylocally.ui.rating.RatingActivity;
-import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
@@ -220,7 +215,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         if (result.getType()==1){
 
-            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_CATEGORY_L1);
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -228,7 +223,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         }else if (result.getType()==2){
 
-            Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_COLLECTION);
+            Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
