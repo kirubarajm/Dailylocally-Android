@@ -977,6 +977,7 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_APARTMENT_NAME, apartmentName);
         bundle.putString(AppConstants.EVENT_ACCOUNT_CREATED_PARAM_USER_REGISTRATION_TYPE, type);
 
+
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_ACCOUNT_CREATED, bundle);
     }
 
