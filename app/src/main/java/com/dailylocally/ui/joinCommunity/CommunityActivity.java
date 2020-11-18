@@ -428,7 +428,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     @Override
     public void communityJoined(String message) {
 
-        Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+        Intent intent = MainActivity.newIntent(CommunityActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV,AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

@@ -175,10 +175,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
             }
         });
 
-        Bundle intent = getArguments();
+        /*Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_SEARCH);
+                AppConstants.SCREEN_NAME_SEARCH);*/
     }
 
     @Override

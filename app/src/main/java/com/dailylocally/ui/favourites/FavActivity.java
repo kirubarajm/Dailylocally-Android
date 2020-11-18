@@ -141,7 +141,7 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
     @Override
     public void viewCart() {
-        Intent intent = MainActivity.newIntent(FavActivity.this, AppConstants.NOTIFY_CART_FRAG, AppConstants.NOTIFY_FAVORITES_ACTV);
+        Intent intent = MainActivity.newIntent(FavActivity.this, AppConstants.NOTIFY_CART_FRAG, AppConstants.NOTIFY_FAVORITES_ACTV,AppConstants.SCREEN_NAME_FAVORITES,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

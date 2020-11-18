@@ -78,10 +78,10 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         super.onViewCreated(view, savedInstanceState);
         mMyAccountViewModel.toolbarTitle.set(getString(R.string.my_account));
 
-        Bundle intent = getArguments();
+        /*Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_REFERRAL);
+                AppConstants.SCREEN_REFERRAL);*/
     }
 
     @Override

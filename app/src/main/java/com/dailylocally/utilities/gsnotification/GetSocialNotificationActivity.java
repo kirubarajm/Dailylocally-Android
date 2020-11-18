@@ -90,7 +90,8 @@ public class GetSocialNotificationActivity extends BaseActivity<ActivityGetsocia
 
     @Override
     public void gotoOrders() {
-        Intent intent = MainActivity.newIntent(GetSocialNotificationActivity.this, AppConstants.NOTIFY_MY_ORDER_FRAG, AppConstants.NOTIFY_ORDER_PLACED_ACTV);
+        Intent intent = MainActivity.newIntent(GetSocialNotificationActivity.this, AppConstants.NOTIFY_MY_ORDER_FRAG, AppConstants.NOTIFY_ORDER_PLACED_ACTV,
+                AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -98,7 +99,8 @@ public class GetSocialNotificationActivity extends BaseActivity<ActivityGetsocia
 
     @Override
     public void goHome() {
-        Intent intent = MainActivity.newIntent(GetSocialNotificationActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ORDER_PLACED_ACTV);
+        Intent intent = MainActivity.newIntent(GetSocialNotificationActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ORDER_PLACED_ACTV,
+                AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

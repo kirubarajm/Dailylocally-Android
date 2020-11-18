@@ -131,7 +131,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
 
     @Override
     public void addressSaved() {
-        Intent intent = MainActivity.newIntent(CommunityAddressActivity.this,"","");
+        Intent intent = MainActivity.newIntent(CommunityAddressActivity.this,"","",AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_HOME);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();

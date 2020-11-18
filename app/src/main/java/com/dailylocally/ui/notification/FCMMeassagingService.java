@@ -245,7 +245,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
-                intent = MainActivity.newIntent(this, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                intent = MainActivity.newIntent(this, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_HOME);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
                 intent = TransactionHistoryActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION);

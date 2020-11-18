@@ -52,7 +52,8 @@ public class PageNavigator {
                 bundle.putString("catid", bundle.getString("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
-                intent = MainActivity.newIntent(mContext, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
+                intent = MainActivity.newIntent(mContext, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV,
+                        AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_HOME);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
                 intent = TransactionHistoryActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_TRANSACTION);

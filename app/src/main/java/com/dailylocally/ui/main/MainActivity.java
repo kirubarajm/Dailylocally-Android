@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String gst;
     int delCharges;
     String couponName;
-
+    String globalScreenName = "";
     boolean forceLocation = false;
     boolean searchfromHome = false;
     DependenciesContainer _dependenciesContainer;
@@ -140,11 +140,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private MainViewModel mMainViewModel;
     private ActivityMainBinding mActivityMainBinding;
 
-    public static Intent newIntent(Context context, String ToPage, String fromPage) {
+    public static Intent newIntent(Context context, String ToPage, String fromPage,String fPage,String tPage) {
 
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.FROM_PAGE, fPage);
+        intent.putExtra(AppConstants.To_PAGE, tPage);
 
         return intent;
     }
@@ -173,8 +175,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCart(String screenName) {
+
+        new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_CART);
+        globalScreenName = AppConstants.SCREEN_NAME_CART;
         mMainViewModel.screenName.set(AppConstants.SCREEN_HOME);
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_CART);
+
 
         try {
             Bundle bundle = new Bundle();
@@ -205,6 +210,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openCommunity() {
 
         try {
+            new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_COMMUNITY);
+            globalScreenName = AppConstants.SCREEN_NAME_COMMUNITY;
+
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
             Bundle bundle = new Bundle();
@@ -243,6 +252,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openCommunityCat() {
 
         try {
+            new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_HOME);
+            globalScreenName = AppConstants.SCREEN_NAME_HOME;
+
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
             CommunityCatFragment fragment = new CommunityCatFragment();
@@ -322,6 +335,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
        /* Intent intent = CalendarActivity.newIntent(MainActivity.this);
         startActivity(intent);*/
+        new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_CALENDAR);
+        globalScreenName = AppConstants.SCREEN_NAME_CALENDAR;
 
         mMainViewModel.toolbarTitle.set("My Orders");
         mMainViewModel.titleVisible.set(true);
@@ -356,6 +371,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openExplore(Boolean isHome) {
 
+        new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_SEARCH);
+        globalScreenName = AppConstants.SCREEN_NAME_SEARCH;
 
         searchfromHome = isHome;
 
@@ -397,6 +414,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openAccount() {
         //stopLoader();
         try {
+            new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_MY_ACCOUNT);
+            globalScreenName = AppConstants.SCREEN_NAME_MY_ACCOUNT;
+
+
             //new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_MY_ACCOUNT);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
@@ -716,6 +737,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }*/
 
+        globalScreenName = intent.getExtras().getString(AppConstants.FROM_PAGE, "nil");
     }
 
     @Override

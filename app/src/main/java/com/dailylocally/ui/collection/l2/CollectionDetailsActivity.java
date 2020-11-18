@@ -163,7 +163,7 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
     }
     @Override
     public void viewCart() {
-        Intent intent = MainActivity.newIntent(CollectionDetailsActivity.this,AppConstants.NOTIFY_CART_FRAG,AppConstants.NOTIFY_COLLECTION_ACTV);
+        Intent intent = MainActivity.newIntent(CollectionDetailsActivity.this,AppConstants.NOTIFY_CART_FRAG,AppConstants.NOTIFY_COLLECTION_ACTV,AppConstants.SCREEN_NAME_COLLECTION_DETAIL,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

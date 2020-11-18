@@ -149,7 +149,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             unregisterReceiver(smsReceiver);
 
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
-            Intent intent = MainActivity.newIntent(OtpActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_OTP_ACTV);
+            Intent intent = MainActivity.newIntent(OtpActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_OTP_ACTV,AppConstants.SCREEN_NAME_OTP,AppConstants.SCREEN_NAME_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -231,7 +231,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 });
 
         Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
-        Intent intent = MainActivity.newIntent(OtpActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_OTP_ACTV);
+        Intent intent = MainActivity.newIntent(OtpActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_OTP_ACTV,AppConstants.SCREEN_NAME_OTP,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

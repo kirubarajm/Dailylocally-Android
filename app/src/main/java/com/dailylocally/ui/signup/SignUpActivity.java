@@ -147,7 +147,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void openHomeScreen(boolean passwordSuccess) {
-        Intent intent = MainActivity.newIntent(SignUpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_SIGN_UP_ACTV);
+        Intent intent = MainActivity.newIntent(SignUpActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_SIGN_UP_ACTV,AppConstants.SCREEN_NAME_SIGN_UP,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

@@ -555,10 +555,10 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         createGetSocialIdentity();
 
 
-        Bundle intent = getArguments();
+        /*Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_HOME);
+                AppConstants.SCREEN_NAME_HOME);*/
     }
 
     public void createGetSocialIdentity() {

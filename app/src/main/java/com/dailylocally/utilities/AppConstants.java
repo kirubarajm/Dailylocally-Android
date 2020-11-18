@@ -616,6 +616,8 @@ public class AppConstants {
 
   public static final String PAGE = "page";
   public static final String FROM = "from";
+  public static final String FROM_PAGE = "mfrom";
+  public static final String To_PAGE = "mpage";
 
   //////Notification screens
   public static final String NOTIFY_SPLASH_ACTV = "1";
@@ -718,6 +720,7 @@ public class AppConstants {
   public static final String SCREEN_NAME_JOIN_COMMUNITY = "join_community";
   public static final String SCREEN_NAME_FILTER = "filter";
   public static final String SCREEN_NAME_VIEW_ALL_PRODUCTS = "view_all_products";
+  public static final String SCREEN_NAME_WHATSAPP = "whatsapp";
 
 
   ///Event name

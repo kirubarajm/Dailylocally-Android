@@ -61,7 +61,7 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
 
     @Override
     public void goBack() {
-        Intent intent = MainActivity.newIntent(ContactWhatsAppActivity.this,"","");
+        Intent intent = MainActivity.newIntent(ContactWhatsAppActivity.this,"","",AppConstants.SCREEN_NAME_WHATSAPP,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

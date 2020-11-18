@@ -48,7 +48,8 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     @Override
     public void checkForUserLoginMode(boolean trueOrFlase) {
         if (trueOrFlase) {
-            Intent intent = MainActivity.newIntent(UpdateActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_UPDATE_ACTV);
+            Intent intent = MainActivity.newIntent(UpdateActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_UPDATE_ACTV,
+                    AppConstants.SCREEN_NAME_UPDATE,AppConstants.SCREEN_NAME_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

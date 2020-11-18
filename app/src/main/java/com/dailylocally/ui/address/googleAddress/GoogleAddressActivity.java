@@ -124,7 +124,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
 
     @Override
     public void addressSaved() {
-        Intent intent = MainActivity.newIntent(GoogleAddressActivity.this,"","");
+        Intent intent = MainActivity.newIntent(GoogleAddressActivity.this,"","",AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_HOME);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();

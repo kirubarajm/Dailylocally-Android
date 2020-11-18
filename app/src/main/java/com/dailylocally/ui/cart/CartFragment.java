@@ -143,10 +143,10 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
             }
         });
 
-        Bundle intent = getArguments();
+        /*Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_CART);
+                AppConstants.SCREEN_NAME_CART);*/
 
     }
 

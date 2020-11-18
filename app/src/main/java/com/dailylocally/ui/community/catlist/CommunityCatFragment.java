@@ -219,10 +219,10 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
             updatePopup(getString(R.string.update_available), getString(R.string.update), false, true, false);
 
 
-        Bundle intent = getArguments();
+        /*Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_CATEGORY_PAGE);
+                AppConstants.SCREEN_NAME_CATEGORY_PAGE);*/
 
     }
 

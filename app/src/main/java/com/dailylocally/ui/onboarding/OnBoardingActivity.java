@@ -92,7 +92,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     @Override
     public void checkForUserLoginMode(boolean trueOrFalse) {
         if (trueOrFalse) {
-            Intent intent = MainActivity.newIntent(OnBoardingActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_ONBOARDING_ACTV);
+            Intent intent = MainActivity.newIntent(OnBoardingActivity.this,AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_ONBOARDING_ACTV,AppConstants.SCREEN_NAME_ON_BOARDING,AppConstants.SCREEN_NAME_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

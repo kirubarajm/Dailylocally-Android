@@ -132,7 +132,7 @@ public class SaveAddressActivity extends BaseActivity<ActivitySaveAddressBinding
     @Override
     public void showToast(String msg,boolean trueOrFalse) {
         if (trueOrFalse){
-            Intent intent = MainActivity.newIntent(SaveAddressActivity.this,AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV);
+            Intent intent = MainActivity.newIntent(SaveAddressActivity.this,AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_HOME);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();

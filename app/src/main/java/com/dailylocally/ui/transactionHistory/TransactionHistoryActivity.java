@@ -99,7 +99,8 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
 
     @Override
     public void goHome() {
-        Intent intent = MainActivity.newIntent(TransactionHistoryActivity.this, AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_TRANS_LIST_ACTV);
+        Intent intent = MainActivity.newIntent(TransactionHistoryActivity.this, AppConstants.NOTIFY_HOME_FRAG,AppConstants.NOTIFY_TRANS_LIST_ACTV,
+                AppConstants.SCREEN_NAME_TRANSACTION,AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
