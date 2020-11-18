@@ -64,7 +64,6 @@ import com.zopim.android.sdk.prechat.ZopimChatActivity;
 import org.json.JSONObject;
 
 import java.util.Map;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -111,6 +110,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String orderId, customerId, amount;
     JSONObject options;
     boolean downloading;
+    String totalCharge;
+    Context context;
+    String dlMethod;
+    String pMode;
+    int cartSize;
+    String cartValue;
+    String gst;
+    int delCharges;
+    String couponName;
 
     boolean forceLocation = false;
     boolean searchfromHome = false;
@@ -170,8 +178,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         try {
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_CART);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_CART);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartFragment fragment = new CartFragment();
             fragment.setArguments(bundle);
@@ -200,8 +208,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_COMMUNITY);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_COMMUNITY);
             CommunityFragment fragment = new CommunityFragment();
             fragment.setArguments(bundle);
             transaction.replace(R.id.content_main, fragment);
@@ -239,8 +247,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             //  CalendarFragment fragment = new CalendarFragment();
             CommunityCatFragment fragment = new CommunityCatFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST);
             fragment.setArguments(bundle);
 
             transaction.replace(R.id.content_main, fragment);
@@ -279,7 +287,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openHome() {
-openCommunity();
+        openCommunity();
 
       /*  try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -330,8 +338,8 @@ openCommunity();
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_CALENDAR);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_CALENDAR);
 
             CalendarFragment fragment = new CalendarFragment();
             fragment.setArguments(bundle);
@@ -349,43 +357,37 @@ openCommunity();
     public void openExplore(Boolean isHome) {
 
 
+        searchfromHome = isHome;
 
-        searchfromHome=isHome;
-
-            // stopLoader();
-            try {
-                mMainViewModel.isExplore.set(true);
-                Bundle bundle = new Bundle();
-                bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-                bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_CALENDAR);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                SearchFragment fragment = new SearchFragment();
-                fragment.setArguments(bundle);
-                transaction.replace(R.id.content_main, fragment);
-                //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
-                transaction.commit();
-
-
-
-
-
-            } catch (Exception ee) {
-                ee.printStackTrace();
-            }
-
-            mMainViewModel.toolbarTitle.set("Search");
-
-            mMainViewModel.titleVisible.set(false);
-            mMainViewModel.isCommunity.set(false);
-            mMainViewModel.isCommunityCat.set(false);
-            mMainViewModel.isHome.set(false);
+        // stopLoader();
+        try {
             mMainViewModel.isExplore.set(true);
-            mMainViewModel.isCart.set(false);
-            mMainViewModel.isMyAccount.set(false);
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_CALENDAR);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            SearchFragment fragment = new SearchFragment();
+            fragment.setArguments(bundle);
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+            transaction.commit();
 
-            mMainViewModel.updateAvailable.set(false);
 
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
 
+        mMainViewModel.toolbarTitle.set("Search");
+
+        mMainViewModel.titleVisible.set(false);
+        mMainViewModel.isCommunity.set(false);
+        mMainViewModel.isCommunityCat.set(false);
+        mMainViewModel.isHome.set(false);
+        mMainViewModel.isExplore.set(true);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isMyAccount.set(false);
+
+        mMainViewModel.updateAvailable.set(false);
 
 
     }
@@ -399,8 +401,8 @@ openCommunity();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-            bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_MY_ACCOUNT);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_MY_ACCOUNT);
             fragment.setArguments(bundle);
             transaction.replace(R.id.content_main, fragment);
             // transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
@@ -422,8 +424,12 @@ openCommunity();
     @Override
     public void paymentSuccessed(boolean status) {
 
+        if (pMode.equals("online"))
+            new Analytics().eventPaymentCompleted(context, "", cartSize, cartValue, gst,delCharges,
+                   couponName,totalCharge);
+
         if (status) {
-            Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_ORDER_PLACED);
+            Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_ORDER_PLACED);
             newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(newIntent);
             finish();
@@ -456,22 +462,21 @@ openCommunity();
             }, 2000);
         }*/
 
-        if (mMainViewModel.isExplore.get()){
-            if (searchfromHome){
+        if (mMainViewModel.isExplore.get()) {
+            if (searchfromHome) {
                 handleBackpress();
 
-            }else {
+            } else {
                 openCommunityCat();
             }
-        }else {
+        } else {
             handleBackpress();
         }
 
     }
 
 
-
-    public void handleBackpress(){
+    public void handleBackpress() {
 
         if (mMainViewModel.isHome.get() || mMainViewModel.isCommunity.get()) {
 
@@ -959,7 +964,19 @@ openCommunity();
         mMainViewModel.paymentSuccess(orderId, s, 0);
     }
 
-    public void makePayment(String orderId, String customerId, String amount) {
+    public void makePayment(String orderId, String customerId, String amount, Context context, String dlMethod, String pMode, int cartSize, String cartValue,
+                            String gst, int delCharges, String couponName,String totalCharge) {
+
+        this.context = context;
+        this.dlMethod = dlMethod;
+        this.pMode = pMode;
+        this.cartSize = cartSize;
+        this.cartValue = cartValue;
+        this.gst = gst;
+        this.delCharges = delCharges;
+        this.couponName = couponName;
+        this.totalCharge = totalCharge;
+
         this.orderId = orderId;
         this.customerId = customerId;
         this.amount = amount;
@@ -1030,16 +1047,16 @@ openCommunity();
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
+                intent = CategoryL1Activity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(this,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST,AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
+                intent = CategoryL2Activity.newIntent(this, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST, AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 bundle.putString("scl1id", actionDatas.get("scl1id"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                intent = CatProductActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
+                intent = CatProductActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
@@ -1047,25 +1064,25 @@ openCommunity();
                 openCommunityCat();
                 return;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_TRANSACTION);
+                intent = TransactionHistoryActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_TRANSACTION);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
-                intent = TransactionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_TRANS_DETAILS);
+                intent = TransactionDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_TRANS_DETAILS);
                 bundle.putString("orderid", actionDatas.get("orderid"));
 
                 break;
             case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
-                intent = ProductDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+                intent = ProductDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
                 bundle.putString("vpid", actionDatas.get("vpid"));
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
+                intent = CollectionDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
                 bundle.putString("cid", actionDatas.get("cid"));
 
                 break;
             case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
-                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"),AppConstants.SCREEN_NAME_MAIN,AppConstants.SCREEN_NAME_COMMUNITY_EVENT);
+                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"), AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_COMMUNITY_EVENT);
 
                 break;
             /*default:

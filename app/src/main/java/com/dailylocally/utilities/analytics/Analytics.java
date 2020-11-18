@@ -898,7 +898,7 @@ public class Analytics {
     }
 
     ////Place order
-    public void eventPlaceOrder(Context context) {
+    public void eventPlaceOrder(Context context,String dlMethod,String pMode,int cartSize,String cartValue,String gst,int delCharges,String couponName) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -908,20 +908,21 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_METHOD, "");
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PAYMENT_MODE, "");
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_NO_OF_PRODUCT_IN_CART, "");
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PRODUCT_VALUE, "");
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_CART_ITEMS, "");
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_GST, "");
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_CHARGE, "");
-        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_COUPON_NAME, "");
+
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_METHOD, dlMethod);
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PAYMENT_MODE, pMode);
+        bundle.putInt(AppConstants.EVENT_PLACE_ORDER_PARAM_NO_OF_PRODUCT_IN_CART, cartSize);
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PRODUCT_VALUE, cartValue);
+      //  bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_CART_ITEMS, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_GST, gst);
+        bundle.putInt(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_CHARGE, delCharges);
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_COUPON_NAME, couponName);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_PLACE_ORDER, bundle);
     }
 
      ////Payment completed
-    public void eventPaymentCompleted(Context context) {
+    public void eventPaymentCompleted(Context context,String dlMethod,int cartSize,String cartValue,String gst,int delCharges,String couponName,String totalCharge) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -931,15 +932,16 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_METHOD, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_SIZE, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_VALUE, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_ITEMS, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CARD_TYPE, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHANGES, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_MIS_FEE, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_FEE, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_COUPON, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_METHOD, dlMethod);
+        bundle.putInt(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_SIZE, cartSize);
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_VALUE, cartValue);
+       // bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_ITEMS, "");
+      //  bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CARD_TYPE, "");
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHANGES, totalCharge);
+     //   bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_MIS_FEE, "");
+        bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_GST, gst);
+        bundle.putInt(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_FEE, delCharges);
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_COUPON, couponName);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_PAYMENT_COMPLETED, bundle);
     }

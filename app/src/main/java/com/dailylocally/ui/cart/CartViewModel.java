@@ -100,12 +100,16 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public int funnelStatus = 0;
     public String availableDate;
 
-    int favId;
-    Long makeitId;
-    int totalAmount;
-    int minCartValue = 0;
-    String isFav;
-    String codUnavailableInfo="";
+    public int favId;
+    public Long makeitId;
+    public int totalAmount;
+    public int cartSize = 0;
+    public int minCartValue = 0;
+    public String isFav;
+    public String gstValue;
+    public int deliveryValue;
+    public String paymentMode = "online";
+    public String codUnavailableInfo = "";
     private CartRequest cartRequestPojo = new CartRequest();
 
 
@@ -312,6 +316,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void proceedtopay() {
 
+
+        paymentMode = "online";
+
         if (available.get()) {
 
 
@@ -413,7 +420,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void cod() {
-
+        paymentMode = "cod";
         if (available.get()) {
 
 
@@ -535,6 +542,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
     public void fetchRepos() {
+        gstValue = "";
+        deliveryValue = 0;
+        totalAmount=0;
 
         String cc = getDataManager().getCartDetails();
         if (cc == null) {
@@ -556,6 +566,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }*/
         if (cartRequestPojo.getOrderitems() != null) {
             int totalSize = cartRequestPojo.getOrderitems().size();
+            cartSize = cartSize + totalSize;
+
             if (totalSize != 0) {
                 for (int i = 0; i < totalSize; i++) {
 
@@ -606,8 +618,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         cartRequestPojo.setOrderitems(results);
 
 
-        if (cartRequestPojo.getSubscription() != null){
-            if (cartRequestPojo.getSubscription().size()==0)
+        if (cartRequestPojo.getSubscription() != null) {
+            cartSize = cartSize + cartRequestPojo.getSubscription().size();
+            if (cartRequestPojo.getSubscription().size() == 0)
                 cartRequestPojo.setSubscription(null);
         }
 
@@ -621,10 +634,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         if (getNavigator() != null)
             getNavigator().clearToolTips();
-
-
-
-
 
 
         if (!DailylocallyApp.getInstance().onCheckNetWork()) return;
@@ -673,15 +682,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 communityUser.set(cartPageResponse.getResult().get(0).getCommunityUser());
                                 exclusiveTag.set(cartPageResponse.getResult().get(0).getAmountdetails().getExclusiveTag());
 
-                                codUnavailableInfo=cartPageResponse.getResult().get(0).getCodUnavailableInfo();
+                                codUnavailableInfo = cartPageResponse.getResult().get(0).getCodUnavailableInfo();
 
-                                if (cartPageResponse.getResult().get(0).getCommunityUser()&&!cartPageResponse.getResult().get(0).getCodAvailable()){
+                                if (cartPageResponse.getResult().get(0).getCommunityUser() && !cartPageResponse.getResult().get(0).getCodAvailable()) {
                                     disableCOD.set(true);
-                                }else {
+                                } else {
                                     disableCOD.set(false);
                                 }
-
-
 
 
                                 if (cartPageResponse.getStatus()) {
@@ -725,6 +732,25 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 //  }
 
 
+                                if (cartPageResponse.getResult().get(0).getCartdetails() != null) {
+
+                                    for (int i = 0; i < cartPageResponse.getResult().get(0).getCartdetails().size(); i++) {
+
+                                        if (cartPageResponse.getResult().get(0).getCartdetails().get(i).getTitle().contains("Taxes")) {
+
+                                            gstValue = String.valueOf(cartPageResponse.getResult().get(0).getCartdetails().get(i).getCharges());
+
+                                        } else if (cartPageResponse.getResult().get(0).getCartdetails().get(i).getTitle().equals("Delivery charge")) {
+                                            deliveryValue = cartPageResponse.getResult().get(0).getCartdetails().get(i).getCharges();
+                                        }
+
+
+                                    }
+
+
+                                }
+
+
                                 if (cartPageResponse.getResult().get(0).getItem().size() > 0) {
 
 
@@ -746,7 +772,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                                     gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                //    delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                    //    delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
                                     if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
@@ -780,7 +806,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                                         gst.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                      //  delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                        //  delivery_charge.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
                                         if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
