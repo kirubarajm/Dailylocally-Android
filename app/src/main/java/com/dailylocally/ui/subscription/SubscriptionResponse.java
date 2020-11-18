@@ -116,11 +116,41 @@ public class SubscriptionResponse {
         @Expose
         private String mrpDiscountAmount;
 
+        @SerializedName("sub_cat1")
+        @Expose
+        private String subCat1;
+
+@SerializedName("sub_cat2")
+        @Expose
+        private String subCat2;
+
+@SerializedName("cat_name")
+        @Expose
+        private String catName;
+
         @SerializedName("discount_cost_status")
         @Expose
         private boolean discountCostStatus;
+
+
+        public String getSubCat1() {
+            return subCat1;
+        }
+
+        public String getSubCat2() {
+            return subCat2;
+        }
+
+        public String getCatName() {
+            return catName;
+        }
+
         public String getUnit() {
             return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
         }
 
         public String getMrpDiscountAmount() {
@@ -137,10 +167,6 @@ public class SubscriptionResponse {
 
         public void setDiscountCostStatus(boolean discountCostStatus) {
             this.discountCostStatus = discountCostStatus;
-        }
-
-        public void setUnit(String unit) {
-            this.unit = unit;
         }
 
         public String getPid() {

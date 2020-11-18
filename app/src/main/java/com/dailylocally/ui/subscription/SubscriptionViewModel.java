@@ -17,6 +17,7 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -58,7 +59,9 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
     public ObservableBoolean edit = new ObservableBoolean();
     public ObservableField<String> support = new ObservableField<>();
     public int planId = 0;
-
+    public int days = 0;
+    public int totalCartValue = 0;
+    public String pageType = "";
     SubscriptionResponse mSubscriptionResponse;
     SubscriptionResponse.Result products;
     int quantity = 0;
@@ -154,7 +157,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                                                 cartRequestPojoResult.setPid(products.getPid());
                                                 cartRequestPojoResult.setQuantity(quantity);
                                                 cartRequestPojoResult.setPlanid(planId);
-                                                cartRequestPojoResult.setPktSize(response.getResult().get(0).getPacketInfo()+" "+response.getResult().get(0).getPkts());
+                                                cartRequestPojoResult.setPktSize(response.getResult().get(0).getPacketInfo() + " " + response.getResult().get(0).getPkts());
                                                 cartRequestPojoResult.setPrice(response.getResult().get(0).getAmount());
 
                                                 if (monClicked.get()) {
@@ -236,7 +239,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                             cartRequestPojoResult.setQuantity(quantity);
                             cartRequestPojoResult.setPlanid(planId);
                             cartRequestPojoResult.setPrice(response.getResult().get(0).getAmount());
-                            cartRequestPojoResult.setPktSize(response.getResult().get(0).getPacketInfo()+" "+response.getResult().get(0).getPkts());
+                            cartRequestPojoResult.setPktSize(response.getResult().get(0).getPacketInfo() + " " + response.getResult().get(0).getPkts());
 
                             if (monClicked.get()) {
                                 cartRequestPojoResult.setMon(1);
@@ -368,8 +371,8 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
     }
 
- public String parseDate(String time,String inFormat,String outFormat) {
-     SimpleDateFormat inputFormat = new SimpleDateFormat(inFormat, Locale.ENGLISH);
+    public String parseDate(String time, String inFormat, String outFormat) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inFormat, Locale.ENGLISH);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outFormat, Locale.ENGLISH);
         Date date;
         String str = null;
@@ -385,8 +388,8 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
     public String parseDateToYYYYMMDD(String time) {
         String outputPattern = "yyyy-MM-dd";
-        String  inputPattern= "dd-MM-yyyy";
-        SimpleDateFormat inputFormat = new SimpleDateFormat( inputPattern);
+        String inputPattern = "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
         Date date = null;
@@ -687,10 +690,10 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
                                         sQuantity.set(String.valueOf(results.get(i).getQuantity()));
                                         planId = results.get(i).getPlanid();
                                         startDate.set(results.get(i).getStartDate());
-                                        showDate.set(parseDate(results.get(i).getStartDate(),AppConstants.DATE_FORMAT_YYYYMMDD,AppConstants.DATE_FORMAT_DDMMMYYYY));
+                                        showDate.set(parseDate(results.get(i).getStartDate(), AppConstants.DATE_FORMAT_YYYYMMDD, AppConstants.DATE_FORMAT_DDMMMYYYY));
 
                                         if (getNavigator() != null)
-                                            getNavigator().selectedplan(results.get(i).getPlanid(),response);
+                                            getNavigator().selectedplan(results.get(i).getPlanid(), response);
 
                                         if (results.get(i).getMon() == 1) {
                                             monClicked.set(true);
@@ -754,14 +757,13 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
                         name.set(response.getResult().get(0).getProductname());
                         image.set(response.getResult().get(0).getImage());
-                        weight.set(response.getResult().get(0).getWeight()+" "+response.getResult().get(0).getUnit());
-
+                        weight.set(response.getResult().get(0).getWeight() + " " + response.getResult().get(0).getUnit());
 
 
                         if (response.getResult().get(0).isDiscountCostStatus()) {
-                            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + response.getResult().get(0).getMrpDiscountAmount());
+                            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + response.getResult().get(0).getMrpDiscountAmount());
                         } else {
-                            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+" " + response.getResult().get(0).getMrp());
+                            price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + " " + response.getResult().get(0).getMrp());
                         }
 
 
@@ -779,4 +781,45 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
 
 
     }
+
+
+    public void totalCart() {
+        Gson sGson = new GsonBuilder().create();
+        CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+
+        if (CartRequest == null)
+            CartRequest = new CartRequest();
+        int count = 0;
+        int price = 0;
+        if (CartRequest.getOrderitems() != null) {
+            if (CartRequest.getOrderitems().size() == 0) {
+            } else {
+
+                count = count + CartRequest.getOrderitems().size();
+
+                for (int i = 0; i < CartRequest.getOrderitems().size(); i++) {
+                    //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
+                    price = price + ((Integer.parseInt(CartRequest.getOrderitems().get(i).getPrice())) * CartRequest.getOrderitems().get(i).getQuantity());
+                }
+
+            }
+        }
+
+
+        if (CartRequest.getSubscription() != null) {
+            if (CartRequest.getSubscription().size() == 0) {
+            } else {
+                count = count + CartRequest.getSubscription().size();
+
+                for (int i = 0; i < CartRequest.getSubscription().size(); i++) {
+                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())));
+                }
+
+            }
+        }
+        totalCartValue = price;
+
+    }
+
+
 }

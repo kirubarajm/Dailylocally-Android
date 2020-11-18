@@ -26,6 +26,7 @@ import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.datepicker.DatePickerActivity;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -71,6 +72,37 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
     @Override
     public void subscribed() {
+        ArrayList<String> weekdays=new ArrayList<>();
+
+        if (mSubscriptionViewModel.monClicked.get())
+            weekdays.add("Monday");
+
+         if (mSubscriptionViewModel.tueClicked.get())
+            weekdays.add("Tuesday");
+
+          if (mSubscriptionViewModel.wedClicked.get())
+            weekdays.add("Wednesday");
+
+         if (mSubscriptionViewModel.thuClicked.get())
+            weekdays.add("Thursday");
+
+         if (mSubscriptionViewModel.friClicked.get())
+            weekdays.add("Friday");
+
+          if (mSubscriptionViewModel.satClicked.get())
+            weekdays.add("saturday");
+
+         if (mSubscriptionViewModel.sunClicked.get())
+            weekdays.add("sunday");
+
+
+
+        new Analytics().eventUserSubscribe(SubscriptionActivity.this,mSubscriptionViewModel.products.getProductname(),
+                mSubscriptionViewModel.products.getCatName(),mSubscriptionViewModel.products.getSubCat1(),mSubscriptionViewModel.products.getSubCat2(),
+                mSubscriptionViewModel.products.getMrp(),
+                "",mSubscriptionViewModel.totalCartValue,mSubscriptionViewModel.quantity,weekdays,
+                mSubscriptionViewModel.days,mSubscriptionViewModel.startDate.get(),mSubscriptionViewModel.pageType);
+
 
         Intent intent = new Intent();
         intent.putExtra("pid", pid);
@@ -111,7 +143,7 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSubscriptionViewModel.planId = mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(position).getSpid();
-
+                mSubscriptionViewModel.days= mSubscriptionViewModel.mSubscriptionResponse.getSubscriptionPlan().get(position).getNumberofdays();
             }
 
             @Override
@@ -169,6 +201,12 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
         if (intent.getExtras() != null) {
             pid = intent.getExtras().getString("pid");
             mSubscriptionViewModel.fetchProductDetails(pid);
+        }
+
+        if (intent.getExtras().getString(AppConstants.FROM, "nil").equals(AppConstants.SCREEN_NAME_PRODUCT_DETAIL)){
+            mSubscriptionViewModel.pageType="item_detail_page";
+        }else {
+            mSubscriptionViewModel.pageType="listing_page";
         }
 
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),

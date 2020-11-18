@@ -10,6 +10,8 @@ import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import java.util.ArrayList;
+
 
 public class Analytics {
 
@@ -853,7 +855,7 @@ public class Analytics {
     }
 
     ////User subscribe
-    public void eventUserSubscribe(Context context) {
+    public void eventUserSubscribe(Context context, String itemName, String iCategory, String l1Name, String l2Name, String cost, String tag, int CartValue, int quantity, ArrayList<String> days, int totalDays,String startDate,String pageType) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -864,18 +866,18 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
 
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_NAME, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_CATEGORY, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_L1, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_L2, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_COST, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_TAG, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_CART_VALUE_AFTER_SUBS, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_UNITS_PER_DAY_IN_SUBS, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_DAYS_IN_WEEK, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_NO_OF_DAYS, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_START_DATE, "");
-        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_PAGE_TYPE, "");
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_NAME, itemName);
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_CATEGORY, iCategory);
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_L1, l1Name);
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_L2, l2Name);
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_COST, cost);
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_ITEM_TAG, tag);
+        bundle.putInt(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_CART_VALUE_AFTER_SUBS, CartValue);
+        bundle.putInt(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_UNITS_PER_DAY_IN_SUBS, quantity);
+        bundle.putStringArrayList(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_DAYS_IN_WEEK, days);
+        bundle.putInt(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_NO_OF_DAYS, totalDays);
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_START_DATE, startDate);
+        bundle.putString(AppConstants.EVENT_USER_SUBSCRIBE_PARAM_PAGE_TYPE, pageType);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_USER_SUBSCRIBE, bundle);
     }
