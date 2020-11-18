@@ -116,7 +116,7 @@ public class GenerateGetSocialNotification extends AsyncTask<String, Void, Bitma
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
                 intent = MainActivity.newIntent(mContext, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV,
-                        AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_HOME);
+                        AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_PAGE);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
                 intent = TransactionHistoryActivity.newIntent(mContext,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION);

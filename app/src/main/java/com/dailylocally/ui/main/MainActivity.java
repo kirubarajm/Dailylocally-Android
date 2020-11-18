@@ -178,6 +178,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_CART);
         globalScreenName = AppConstants.SCREEN_NAME_CART;
+
         mMainViewModel.screenName.set(AppConstants.SCREEN_HOME);
 
 
@@ -210,8 +211,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openCommunity() {
 
         try {
-            new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_COMMUNITY);
-            globalScreenName = AppConstants.SCREEN_NAME_COMMUNITY;
+            new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_HOME);
+            globalScreenName = AppConstants.SCREEN_NAME_HOME;
 
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -252,8 +253,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openCommunityCat() {
 
         try {
-            new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_HOME);
-            globalScreenName = AppConstants.SCREEN_NAME_HOME;
+            new Analytics().eventPageOpens(this, globalScreenName, AppConstants.SCREEN_NAME_CATEGORY_PAGE);
+            globalScreenName = AppConstants.SCREEN_NAME_CATEGORY_PAGE;
 
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
