@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityCategoryl1Binding;
-import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.viewall.CatProductActivity;
@@ -95,7 +94,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
         mActivityCategoryl1Binding.subcategories.setAdapter(l1CategoriesAdapter);
 
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_CATEGORY_L1);
+                AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
     }
 
 
@@ -138,7 +137,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
     @Override
     public void viewAll() {
 
-        Intent intent = CatProductActivity.newIntent(CategoryL1Activity.this,AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CART);
+        Intent intent = CatProductActivity.newIntent(CategoryL1Activity.this,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST,AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
         intent.putExtra("catid", categoryid);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -219,7 +218,7 @@ public class CategoryL1Activity extends BaseActivity<ActivityCategoryl1Binding, 
             name = result.getName();
             new  Analytics().eventL1SubCategoryPage(this,name,mCategoryL1ViewModel.title.get(),String.valueOf(pos));
 
-            Intent intent = CategoryL2Activity.newIntent(CategoryL1Activity.this,AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_CATEGORY_L2);
+            Intent intent = CategoryL2Activity.newIntent(CategoryL1Activity.this,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST,AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
             intent.putExtra("catid", categoryid);
             intent.putExtra("scl1id", String.valueOf(result.getScl1Id()));
             startActivity(intent);

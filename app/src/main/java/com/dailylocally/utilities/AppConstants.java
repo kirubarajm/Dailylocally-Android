@@ -183,7 +183,6 @@ public class AppConstants {
   public static final String ANALYTICYS_REPEAT_ORDER = "repeat_order";
   //analytics screen name
   public static final String SCREEN_EDIT_MYACCOUNT = "edit_my_account";
-  public static final String SCREEN_FAVOURITE_DISH = "favourite_dish";
   public static final String SCREEN_FAVOURITE_KITCHEN = "favourite_category";
   public static final String SCREEN_FAVOURITES = "favourites";
   public static final String SCREEN_APP_FEEDBCK = "app_feedback";
@@ -199,11 +198,10 @@ public class AppConstants {
   public static final String SCREEN_REFERRAL = "referral";
   public static final String SCREEN_MY_ACCOUNT = "my_account";
   public static final String SCREEN_MY_ORDERS = "my_orders";
-  public static final String SCREEN_ADD_ADDRESS = "add_address";
+  public static final String SCREEN_ADDRESS = "address";
   public static final String SCREEN_EDIT_ADDRESS = "edit_address";
   public static final String SCREEN_ADDRESS_LIST = "address_list";
   public static final String SCREEN_ORDER_CANCELED = "order_canceled_popup";
-  public static final String SCREEN_COUPON_LIST = "coupon_list";
   public static final String SCREEN_REFUND_ALERT = "refund_amount_excess_popup";
   public static final String SCREEN_CART_PAGE = "cart_page";
   public static final String SCREEN_KITCHEN_FILTER = "category_filter";
@@ -237,9 +235,6 @@ public class AppConstants {
   public static final String CLICK_APPLY_CHANGES = "profile_update";
   public static final String SCREEN_RAZOR_PAY = "razor_pay";
   public static final String SCREEN_DIAL = "dial";
-  public static final String SCREEN_FILTER = "filter";
-  public static final String SCREEN_SORT = "sort";
-  public static final String SCREEN_HELP = "help";
 
 
 //analytics screen click
@@ -683,8 +678,9 @@ public class AppConstants {
   public static final String SCREEN_NAME_MY_ACCOUNT = "my_account";
   public static final String SCREEN_NAME_CALENDAR = "calendar";
   public static final String SCREEN_NAME_CART = "cart";
-  public static final String SCREEN_NAME_CATEGORY_L1 = "cat_l1";
-  public static final String SCREEN_NAME_CATEGORY_L2 = "cat_l2";
+  public static final String SCREEN_NAME_SUB_CATEGORY_LI_LIST = "sub_category_l1_list";
+  public static final String SCREEN_NAME_CATEGORY_PAGE = "category_page";
+  public static final String SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS = "sub_category_l2_products";
   public static final String SCREEN_NAME_PRODUCTS = "products";
   public static final String SCREEN_NAME_FAVORITES = "favorites";
   public static final String SCREEN_NAME_ORDER_PLACED = "order_placed";
@@ -696,35 +692,32 @@ public class AppConstants {
   public static final String SCREEN_NAME_TERMS_AND_CONDITION = "terms_condition";
   public static final String SCREEN_NAME_SUBSCRIPTION = "subscription";
   public static final String SCREEN_NAME_UPDATE = "update";
-  public static final String SCREEN_NAME_COLLECTION = "collection";
+  public static final String SCREEN_NAME_COLLECTION_DETAIL = "collection_detail";
   public static final String SCREEN_NAME_SUPPORT = "support";
-  public static final String SCREEN_NAME_MY_ORDER = "my_order";
-  public static final String SCREEN_NAME_CHAT = "chat";
   public static final String SCREEN_NAME_ON_BOARDING = "on_boarding";
   public static final String SCREEN_NAME_PRODUCT_DETAIL = "product_detail";
-  public static final String SCREEN_NAME_TRANS_LIST = "transaction_list";
   public static final String SCREEN_NAME_TRANS_DETAILS = "transaction_details";
-  public static final String SCREEN_NAME_CATEGORY_L1_PROD = "cat_l1_product";
   public static final String SCREEN_NAME_COMMUNITY_CAT_LIST = "cat_list";
   public static final String SCREEN_NAME_COMMUNITY = "community";
-  public static final String SCREEN_NAME_COMMUNITY_ADDRESS = "community_address";
   public static final String SCREEN_NAME_COMMUNITY_SEARCH = "community_search";
-  public static final String SCREEN_NAME_COMMUNITY_HOME = "community_home";
-  public static final String SCREEN_NAME_COMMUNITY_EVENT_POST = "community_event_post";
+  public static final String SCREEN_NAME_POST_DETAILS = "post_details";
   public static final String SCREEN_NAME_COMMUNITY_EVENT = "community_event";
-  public static final String SCREEN_NAME_COMMUNITY_POST_DETAILS = "community_post_detail";
   public static final String SCREEN_NAME_VIDEO = "video";
-  public static final String SCREEN_NAME_WHATSAPP = "whatsapp";
   public static final String SCREEN_NAME_ABOUT_US = "about_us";
   public static final String SCREEN_NAME_PAGE_NAVIGATOR = "page_navigator";
   public static final String SCREEN_NAME_NOTIFICATION = "notification";
-  public static final String SCREEN_NAME_VIEW_PROFILE_PHOTO = "view_profile_photo";
   public static final String SCREEN_NAME_DIALOG_PRODUCT_CANCEL = "dialog_product_cancel";
   public static final String SCREEN_NAME_PRODUCT_CANCEL = "product_cancel";
   public static final String SCREEN_NAME_PROMOTION_ADD = "promotion_add";
   public static final String SCREEN_NAME_PROMOTION = "promotion";
   public static final String SCREEN_NAME_RATING = "rating";
-  public static final String SCREEN_NAME_TRANSACTION_HISTORY = "transaction_history";
+  public static final String SCREEN_NAME_TRANSACTION = "transaction";
+  public static final String SCREEN_NAME_SORT = "sort";
+  public static final String SCREEN_NAME_HELP = "help";
+  public static final String SCREEN_NAME_COUPONS = "coupons";
+  public static final String SCREEN_NAME_JOIN_COMMUNITY = "join_community";
+  public static final String SCREEN_NAME_FILTER = "filter";
+  public static final String SCREEN_NAME_VIEW_ALL_PRODUCTS = "view_all_products";
 
 
   ///Event name

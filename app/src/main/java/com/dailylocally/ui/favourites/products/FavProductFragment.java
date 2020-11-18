@@ -147,7 +147,7 @@ stopLoader();
         Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_FAVOURITE_DISH);
+                AppConstants.SCREEN_NAME_FAVORITES);
 
     }
 
@@ -180,7 +180,7 @@ stopLoader();
     @Override
     public void productItemClick(FavProductsResponse.Result products) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_FAVORITES,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         intent.putExtra("vpid",String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

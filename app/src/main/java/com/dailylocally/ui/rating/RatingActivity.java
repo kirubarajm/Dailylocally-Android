@@ -16,7 +16,6 @@ import com.dailylocally.databinding.ActivityRatingBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.calendarView.CalendarDayWiseResponse;
 import com.dailylocally.ui.fandsupport.help.HelpActivity;
-import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 
@@ -79,7 +78,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     @Override
     public void helpClick() {
         Intent intent = HelpActivity.newIntent(RatingActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER,doid
-                ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_HELP);
+                ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

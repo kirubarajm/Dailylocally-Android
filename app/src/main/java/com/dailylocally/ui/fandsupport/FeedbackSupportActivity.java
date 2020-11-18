@@ -14,7 +14,6 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityFeedbackSupportBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.fandsupport.help.HelpActivity;
-import com.dailylocally.ui.fandsupport.support.SupportActivity;
 import com.dailylocally.ui.signup.faqs.FaqActivity;
 import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -131,7 +130,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
         if (mAddAddressViewModel.getDataManager().getCurrentUserId()!=null) {
             Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, AppConstants.CHAT_PAGE_TYPE_SUPPORT, "0"
-                    ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_HELP);
+                    ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
             startActivity(intent);
         }else {
 
@@ -158,7 +157,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
     @Override
     public void faq() {
-        Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_FEEDBACK_SUPPORT,AppConstants.SCREEN_FAQS);
+        Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

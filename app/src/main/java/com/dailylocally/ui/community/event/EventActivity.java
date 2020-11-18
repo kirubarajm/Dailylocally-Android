@@ -10,12 +10,9 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,9 +21,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityEventBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.community.details.EventDetailsActivity;
-import com.dailylocally.ui.main.MainViewModel;
 import com.dailylocally.utilities.AppConstants;
-import com.dailylocally.utilities.EndlessRecyclerViewScrollListener;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
 
@@ -547,7 +542,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
             }
         }
 
-        Intent intent = EventDetailsActivity.newIntent(EventActivity.this,AppConstants.SCREEN_NAME_COMMUNITY_EVENT,AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
+        Intent intent = EventDetailsActivity.newIntent(EventActivity.this,AppConstants.SCREEN_NAME_COMMUNITY_EVENT,AppConstants.SCREEN_NAME_POST_DETAILS);
         intent.putExtras(bundle);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -627,7 +622,7 @@ public class EventActivity extends BaseActivity<ActivityEventBinding, EventViewM
 
             }
         }
-        Intent intent = EventDetailsActivity.newIntent(EventActivity.this,AppConstants.SCREEN_NAME_COMMUNITY_EVENT,AppConstants.SCREEN_NAME_COMMUNITY_EVENT_POST);
+        Intent intent = EventDetailsActivity.newIntent(EventActivity.this,AppConstants.SCREEN_NAME_COMMUNITY_EVENT,AppConstants.SCREEN_NAME_POST_DETAILS);
         intent.putExtras(bundle);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

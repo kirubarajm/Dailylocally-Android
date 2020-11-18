@@ -104,7 +104,7 @@ public class CommunityAddressViewModel extends BaseViewModel<CommunityAddressNav
 
         } else {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_HOME);
+            new Analytics().sendClickData(AppConstants.SCREEN_ADDRESS, AppConstants.CLICK_ADDRESS_HOME);
 
             typeHome.set(true);
             typeOffice.set(false);
@@ -122,7 +122,7 @@ public class CommunityAddressViewModel extends BaseViewModel<CommunityAddressNav
 
         } else {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_WORK);
+            new Analytics().sendClickData(AppConstants.SCREEN_ADDRESS, AppConstants.CLICK_ADDRESS_WORK);
             typeHome.set(false);
             typeOffice.set(true);
             typeOther.set(false);
@@ -162,7 +162,7 @@ public class CommunityAddressViewModel extends BaseViewModel<CommunityAddressNav
             typeOther.set(false);
 
         } else {
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_OTHER);
+            new Analytics().sendClickData(AppConstants.SCREEN_ADDRESS, AppConstants.CLICK_ADDRESS_OTHER);
             typeHome.set(false);
             typeOffice.set(false);
             typeOther.set(true);
@@ -214,7 +214,7 @@ public class CommunityAddressViewModel extends BaseViewModel<CommunityAddressNav
     public void saveAddress(String locationAddress, String house, String area, String landmark/*, String title*/) {
 
         if (getNavigator().validationForAddress()) {
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_SAVE);
+            new Analytics().sendClickData(AppConstants.SCREEN_ADDRESS, AppConstants.CLICK_SAVE);
 
 
             if (locationAddress.equals("")) {

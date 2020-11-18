@@ -18,12 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.FragmentCartBinding;
-import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.address.viewAddress.ViewAddressActivity;
 import com.dailylocally.ui.base.BaseFragment;
 import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -36,7 +34,6 @@ import com.nhaarman.supertooltips.ToolTipView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -223,7 +220,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void applyCoupon() {
-        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_COUPON_LIST);
+        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_COUPONS);
         intent.putExtra(AppConstants.PAGE, AppConstants.NOTIFY_CART_FRAG);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

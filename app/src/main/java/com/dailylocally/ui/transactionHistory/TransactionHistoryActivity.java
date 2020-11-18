@@ -16,10 +16,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityTransactionHistoryBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.coupons.CouponsActivity;
 import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.ui.signup.SignUpActivity;
-import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -148,7 +145,7 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
+                AppConstants.SCREEN_NAME_TRANSACTION);
     }
 
     private void subscribeToLiveData() {
@@ -190,7 +187,7 @@ public class TransactionHistoryActivity extends BaseActivity<ActivityTransaction
     }
     @Override
     public void viewClick(TransactionHistoryResponse.Result cartdetail) {
-        Intent intent = TransactionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY,AppConstants.SCREEN_NAME_TRANS_DETAILS);
+        Intent intent = TransactionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_TRANSACTION,AppConstants.SCREEN_NAME_TRANS_DETAILS);
         intent.putExtra("orderid",cartdetail.getOrderid());
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

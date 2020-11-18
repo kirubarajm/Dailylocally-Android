@@ -117,7 +117,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     Dialog locationDialog;
     FusedLocationProviderClient fusedLocationClient;
     Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
+    String pageName = AppConstants.SCREEN_ADDRESS;
     String address = null;
     String aid = null;
     Bundle bundle = null;
@@ -1413,7 +1413,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_ADD_ADDRESS);
+                AppConstants.SCREEN_NAME_ADDRESS);
     }
 
 

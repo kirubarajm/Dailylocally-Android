@@ -35,12 +35,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
-import im.getsocial.sdk.GetSocial;
-import im.getsocial.sdk.Notifications;
-import im.getsocial.sdk.notifications.NotificationContext;
-import im.getsocial.sdk.notifications.OnNotificationClickedListener;
-import im.getsocial.sdk.notifications.OnNotificationReceivedListener;
-
 
 public class FirebaseDataReceiver extends WakefulBroadcastReceiver {
 
@@ -172,11 +166,11 @@ public class FirebaseDataReceiver extends WakefulBroadcastReceiver {
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_L1);
+                intent = CategoryL1Activity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_L2);
+                intent = CategoryL2Activity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 bundle.putString("scl1id", actionDatas.get("scl1id"));
                 break;
@@ -188,7 +182,7 @@ public class FirebaseDataReceiver extends WakefulBroadcastReceiver {
                 intent = MainActivity.newIntent(context, AppConstants.SCREEN_NAME_NOTIFICATION, AppConstants.NOTIFY_COMMUNITY_ACTV);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
+                intent = TransactionHistoryActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
                 intent = TransactionDetailsActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANS_DETAILS);
@@ -201,7 +195,7 @@ public class FirebaseDataReceiver extends WakefulBroadcastReceiver {
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_COLLECTION);
+                intent = CollectionDetailsActivity.newIntent(context,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
                 bundle.putString("cid", actionDatas.get("cid"));
 
                 break;

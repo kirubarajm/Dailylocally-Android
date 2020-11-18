@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
@@ -140,7 +139,7 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
         Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_CATEGORY_L1);
+                AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
     }
 
     @Override
@@ -167,7 +166,7 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
     @Override
     public void subscribeProduct(ProductsResponse.Result products, int position) {
 
-        Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CATEGORY_L1,AppConstants.SCREEN_NAME_SUBSCRIPTION);
+        Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST,AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

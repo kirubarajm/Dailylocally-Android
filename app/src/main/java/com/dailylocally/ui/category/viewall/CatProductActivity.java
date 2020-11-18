@@ -94,7 +94,7 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
         }
 
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_CART);
+                AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
     }
 
     public void refreshCart() {
@@ -144,7 +144,7 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
         bundle.putString("catid",catid);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV);
         bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_FILTER);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);

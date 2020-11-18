@@ -15,8 +15,6 @@ import com.dailylocally.ui.splash.SplashActivity;
 import com.dailylocally.ui.transactionHistory.TransactionHistoryActivity;
 import com.dailylocally.ui.transactionHistory.view.TransactionDetailsActivity;
 
-import java.util.Map;
-
 import im.getsocial.sdk.notifications.Notification;
 
 public class PageNavigator {
@@ -41,23 +39,23 @@ public class PageNavigator {
 
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_CATEGORY_L1);
+                intent = CategoryL1Activity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 bundle.putString("catid", bundle.getString("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_CATEGORY_L2);
+                intent = CategoryL2Activity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
                 bundle.putString("catid", bundle.getString("catid"));
                 bundle.putString("scl1id", bundle.getString("scl1id"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                intent = CatProductActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_CART);
+                intent = CatProductActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
                 bundle.putString("catid", bundle.getString("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
                 intent = MainActivity.newIntent(mContext, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
+                intent = TransactionHistoryActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_TRANSACTION);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
                 intent = TransactionDetailsActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_TRANS_DETAILS);
@@ -68,7 +66,7 @@ public class PageNavigator {
                 bundle.putString("vpid", bundle.getString("vpid"));
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_COLLECTION);
+                intent = CollectionDetailsActivity.newIntent(mContext,AppConstants.SCREEN_NAME_PAGE_NAVIGATOR,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
                 bundle.putString("cid", bundle.getString("cid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:

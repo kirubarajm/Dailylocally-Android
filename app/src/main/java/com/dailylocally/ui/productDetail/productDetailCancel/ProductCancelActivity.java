@@ -15,7 +15,6 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductCancelBinding;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.productDetail.dialogProductCancel.DialogProductCancel;
 import com.dailylocally.ui.productDetail.dialogProductCancel.ProductCancelListenerCallBack;
 import com.dailylocally.utilities.AppConstants;
@@ -88,8 +87,6 @@ public class ProductCancelActivity extends BaseActivity<ActivityProductCancelBin
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_ADD_ADDRESS;
     String doId ="",dayOrderPId="";
 
     public static Intent newIntent(Context context,String ToPage,String fromPage) {

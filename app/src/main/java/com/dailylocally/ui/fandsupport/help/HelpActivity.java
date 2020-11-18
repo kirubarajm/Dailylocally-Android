@@ -206,7 +206,7 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_HELP);
+                AppConstants.SCREEN_NAME_HELP);
     }
 
     private void subscribeToLiveData() {

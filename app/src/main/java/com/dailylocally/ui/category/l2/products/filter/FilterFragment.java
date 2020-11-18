@@ -80,7 +80,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_FILTER);
+                AppConstants.SCREEN_NAME_FILTER);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_KITCHEN_FILTER);
+                AppConstants.SCREEN_NAME_FILTER);
     }
 
     @Override

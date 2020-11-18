@@ -11,10 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -28,7 +26,6 @@ import com.dailylocally.data.prefs.AppPreferencesHelper;
 import com.dailylocally.ui.account.referrals.ReferralsActivity;
 import com.dailylocally.ui.address.googleAddress.GoogleAddressActivity;
 import com.dailylocally.ui.calendarView.CalendarActivity;
-import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.ui.category.l1.CategoryL1Activity;
 import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.viewall.CatProductActivity;
@@ -53,13 +50,9 @@ import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.CommonResponse;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.GenerateGetSocialNotification;
-import com.dailylocally.utilities.GetSocialNotifyResponse;
 import com.dailylocally.utilities.PushUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.zendesk.util.StringUtils;
 
 import org.json.JSONException;
@@ -73,11 +66,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
-import im.getsocial.sdk.Notifications;
-import im.getsocial.sdk.notifications.NotificationContext;
-import im.getsocial.sdk.notifications.OnNotificationClickedListener;
-import im.getsocial.sdk.notifications.OnNotificationReceivedListener;
 
 public class FCMMeassagingService extends FirebaseMessagingService {
 
@@ -244,23 +232,23 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_L1);
+                intent = CategoryL1Activity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_L2);
+                intent = CategoryL2Activity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 bundle.putString("scl1id", actionDatas.get("scl1id"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                intent = CatProductActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_CATEGORY_L2);
+                intent = CatProductActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
                 intent = MainActivity.newIntent(this, AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG, AppConstants.NOTIFY_COMMUNITY_ACTV);
                 break;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION_HISTORY);
+                intent = TransactionHistoryActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANSACTION);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
                 intent = TransactionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_TRANS_DETAILS);
@@ -273,7 +261,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_COLLECTION);
+                intent = CollectionDetailsActivity.newIntent(this,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
                 bundle.putString("cid", actionDatas.get("cid"));
 
                 break;

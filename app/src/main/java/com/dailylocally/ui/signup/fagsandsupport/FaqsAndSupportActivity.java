@@ -50,7 +50,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
     @Override
     public void feedBackClick() {
-        Intent intent = FaqActivity.newIntent(this,AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.SCREEN_FAQS);
+        Intent intent = FaqActivity.newIntent(this,AppConstants.SCREEN_NAME_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

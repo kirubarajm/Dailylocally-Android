@@ -22,6 +22,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     public final ObservableBoolean cart = new ObservableBoolean();
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableField<String> unserviceableTitle = new ObservableField<>();
+    public final ObservableField<String> resultReturned = new ObservableField<>();
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public ObservableList<QuickSearchResponse.Result.ProductsList> searchItemViewModels = new ObservableArrayList<>();
     public ObservableList<QuickSearchResponse.Result.SubcategoryList> searchSubCategoryItemViewModels = new ObservableArrayList<>();
@@ -100,9 +101,13 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
 
                                 boolean dataAvailable = false;
+                                int size = 0;
+                                int size1 = 0;
+                                int size2 = 0;
 
 
                                 if (response.getResult() != null && response.getResult().getProductsList() != null) {
+                                    size1 = response.getResult().getProductsList().size();
                                     searchItemsLiveData.setValue(response.getResult().getProductsList());
 
                                     if (response.getResult() != null && response.getResult().getProductsList().size() > 0) {
@@ -112,11 +117,14 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                                 }
 
                                 if (response.getResult() != null && response.getResult().getSubcategoryList() != null) {
+                                    size2 =  response.getResult().getSubcategoryList().size();
                                     searchSubCategoryItemsLiveData.setValue(response.getResult().getSubcategoryList());
                                     if (response.getResult() != null && response.getResult().getSubcategoryList().size() > 0) {
                                         dataAvailable = true;
                                     }
                                 }
+                                size = size1 + size2;
+                                resultReturned.set(String.valueOf(size));
 
                                 if (dataAvailable) {
                                     if (getNavigator() != null) {

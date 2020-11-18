@@ -122,10 +122,10 @@ public class ContactWhatsAppActivity extends BaseActivity<ActivityContactWhatsAp
         mActivityContactWhatsAppBinding = getViewDataBinding();
         mOnBoardingActivityViewModel.setNavigator(this);
 
-        Intent intent = getIntent();
+       /* Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
                 AppConstants.SCREEN_NAME_WHATSAPP);
-
+*/
     }
 
     private void registerWifiReceiver() {
