@@ -74,6 +74,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     GridLayoutManager gridLayoutManager;
     Bitmap imageBitmap;
     VideoView videoView;
+
     public static CommunityCatFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
         CommunityCatFragment fragment = new CommunityCatFragment();
@@ -143,7 +144,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         /*Intent intent = GoogleAddressActivity.newIntent(getContext());
         intent.putExtra("edit", "1");
         startActivity(intent);*/
-        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
+        Intent intent = ViewAddressActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_MY_ACCOUNT, AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -160,8 +161,8 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         bundle.putInt(AppConstants.PROMOTION_TYPE, type);
         bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
         bundle.putString(AppConstants.PROMOTION_URL, url);
-        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_COMMUNITY);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_PROMOTION);
+        bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_COMMUNITY);
+        bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_PROMOTION);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
         bottomSheetFragment.setArguments(bundle);
@@ -180,7 +181,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void ratingClick() {
-        Intent intent = RatingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_RATING);
+        Intent intent = RatingActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_CALENDAR, AppConstants.SCREEN_NAME_RATING);
         intent.putExtra("doid", mCommunityCatViewModel.ratingDOID);
         startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -196,7 +197,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void onPause() {
-        if (videoView!=null)
+        if (videoView != null)
             videoView.pause();
         super.onPause();
     }
@@ -228,7 +229,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void onResume() {
-        if (videoView!=null)
+        if (videoView != null)
             videoView.start();
         mCommunityCatViewModel.updateAddressTitle();
         appUpdateManager.registerListener(this);
@@ -243,7 +244,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView,int pos) {
+    public void categoryItemClicked(HomepageResponse.Result result, TextView view, VideoView videoView, int pos) {
 
        /* if (result.getCollectionStatus()) {
             Intent intent = CollectionDetailsActivity.newIntent(getContext());
@@ -259,52 +260,67 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         }*/
 
 
-
-     //   this.videoView=videoView;
+        //   this.videoView=videoView;
         if (videoView.isPlaying())
             videoView.pause();
 
         String type = "";
-        if (result.getTileType().equals("1")){
+        if (result.getTileType().equals("1")) {
             type = "vertical";
-        }else if (result.getTileType().equals("2")){
+        } else if (result.getTileType().equals("2")) {
             type = "horizontal";
         }
 
-        if (result.getType()==1){
+        try {
+            GridLayoutManager layoutManager = ((GridLayoutManager) mFragmentHomeBinding.categoryList.getLayoutManager());
+            int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+            String lastTileType = "";
+            if (mCommunityCatViewModel.categoryList.size() > 0)
+                if (mCommunityCatViewModel.categoryList.get(lastVisiblePosition) != null)
+                    if (mCommunityCatViewModel.categoryList.get(lastVisiblePosition).getTileType().equals("1")) {
+                        lastTileType = "vertical";
+                    } else if (result.getTileType().equals("2")) {
+                        lastTileType = "horizontal";
+                    }
+            new Analytics().eventCategoryPage(getContext(), lastTileType, lastVisiblePosition);
+        } catch (Exception sdhuh) {
+            sdhuh.printStackTrace();
+        }
 
-            new Analytics().eventCategoryTile(getContext(),result.getName(),type,String.valueOf(pos));
 
-            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
+        if (result.getType() == 1) {
+
+            new Analytics().eventCategoryTile(getContext(), result.getName(), type, String.valueOf(pos));
+
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
 
+        } else if (result.getType() == 2) {
 
-        }else if (result.getType()==2){
+            new Analytics().eventCollectionTile(getContext(), result.getName(), type, String.valueOf(pos), result.getCid());
 
-            new Analytics().eventCollectionTile(getContext(),result.getName(),type,String.valueOf(pos),result.getCid());
-
-            Intent intent = CollectionDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
+            Intent intent = CollectionDetailsActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-        }else {
+        } else {
 
 
             new Analytics().eventDLEregistrationPageOnCategoryPage(getContext());
 
-            if (mCommunityCatViewModel.getDataManager().isCommunityOnboardSeen()){
-                Intent inIntent = CommunitySearchActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.URL_COMMUNITY_SEARCH);
+            if (mCommunityCatViewModel.getDataManager().isCommunityOnboardSeen()) {
+                Intent inIntent = CommunitySearchActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.URL_COMMUNITY_SEARCH);
                 inIntent.putExtra("newuser", false);
                 inIntent.putExtra("lat", mCommunityCatViewModel.getDataManager().getCurrentLat());
                 inIntent.putExtra("lng", mCommunityCatViewModel.getDataManager().getCurrentLng());
                 startActivityForResult(inIntent, AppConstants.SELECT_COMMUNITY_REQUEST_CODE);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-            }else {
+            } else {
                 Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
                 inIntent.putExtra("next", false);
                 startActivity(inIntent);
@@ -351,7 +367,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
     @Override
     public void updateVideoView(VideoView videoView) {
-        this.videoView=videoView;
+        this.videoView = videoView;
     }
 
     @Override

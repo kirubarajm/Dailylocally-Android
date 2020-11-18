@@ -216,7 +216,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     public void orderGenerated(String orderId, String customerId, String amount) {
 
         new Analytics().eventPlaceOrder(getContext(),"",mCartViewModel.paymentMode,mCartViewModel.cartSize,String.valueOf(mCartViewModel.totalAmount),mCartViewModel.gstValue,mCartViewModel.deliveryValue,
-                mCartViewModel.getDataManager().getCouponCode());
+                mCartViewModel.getDataManager().getCouponCode(),orderId);
 
 
         ((MainActivity) getActivity()).makePayment(orderId, customerId, amount,getContext(),"",mCartViewModel.paymentMode,mCartViewModel.cartSize,String.valueOf(mCartViewModel.totalAmount),mCartViewModel.gstValue,mCartViewModel.deliveryValue,
@@ -235,7 +235,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void orderPlaced() {
         new Analytics().eventPlaceOrder(getContext(),"",mCartViewModel.paymentMode,mCartViewModel.cartSize,String.valueOf(mCartViewModel.totalAmount),mCartViewModel.gstValue,mCartViewModel.deliveryValue,
-                mCartViewModel.getDataManager().getCouponCode());
+                mCartViewModel.getDataManager().getCouponCode(),mCartViewModel.orderid);
 
         ((MainActivity) getActivity()).paymentSuccessed(true);
 

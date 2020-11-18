@@ -100,9 +100,11 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
     FragmentCommunityBinding mFragmentCommunityBinding;
     GetSocialActivity firstPost;
     Bitmap imageBitmap;
-
+int pagination=1;
     PagingResult<GetSocialActivity> pagingResult;
     PagingQuery<ActivitiesQuery> pagingQuery;
+    LinearLayoutManager layoutManager;
+
 
     public static CommunityFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
@@ -189,8 +191,15 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         ((MainActivity) getActivity()).openCommunityCat();
     }
 
+    public void saveHomeCloseAnalytics(){
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mFragmentCommunityBinding.postList.getLayoutManager();
+        new Analytics().eventHomePageOpens(getContext(),pagination,linearLayoutManager.findLastCompletelyVisibleItemPosition());
+    }
+
     @Override
     public void whatsAppGroup() {
+
+      saveHomeCloseAnalytics();
 
         if (mCommunityViewModel.communityUser.get()) {
 
@@ -230,6 +239,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void sneakPeak() {
+        saveHomeCloseAnalytics();
         if (mCommunityViewModel.sneakpeakVideoUrl != null) {
 
             Intent tDintent = VideoActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_VIDEO);
@@ -249,7 +259,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
     @Override
     public void aboutUs() {
-
+        saveHomeCloseAnalytics();
         Intent intent = AboutUsActivity.newIntent(getContext(), "", "");
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -277,7 +287,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
                         actionData(action.getData());
                 }
             }).setWindowTitle(mCommunityViewModel.eventTitle).show();*/
-
+        saveHomeCloseAnalytics();
         Intent intent = EventActivity.newIntent(getContext(), mCommunityViewModel.topic, mCommunityViewModel.eventTitle, AppConstants.SCREEN_NAME_COMMUNITY,
                 AppConstants.SCREEN_NAME_POST_DETAILS);
         startActivity(intent);
@@ -431,7 +441,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, AppConstants.IMAGE_UPLOAD_JOIN);*/
 
-
+        saveHomeCloseAnalytics();
         if (checkIfAlreadyhavePermission()) {
             CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.OFF)
@@ -684,6 +694,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
 
                         if (pagingResult != null && pagingQuery != null)
                             if (!pagingResult.isLastPage()) {
+                                pagination++;
                                 mCommunityViewModel.loading.set(true);
                                 Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
                                     pagingResult = result;
@@ -795,10 +806,10 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
             }
         });*/
 
-        Bundle intent = getArguments();
+      /*  Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_COMMUNITY);
+                AppConstants.SCREEN_NAME_COMMUNITY);*/
     }
 
     @Override
@@ -925,7 +936,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding, Co
         }else {
             new Analytics().eventFeedTractionOnHomePage(getContext(),AppConstants.EVENT_CLICK );
         }
-
+        saveHomeCloseAnalytics();
 
         String pageid = actionDatas.get("pageid");
         switch (pageid) {

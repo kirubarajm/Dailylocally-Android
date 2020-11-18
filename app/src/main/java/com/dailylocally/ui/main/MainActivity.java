@@ -448,7 +448,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         if (pMode.equals("online"))
             new Analytics().eventPaymentCompleted(context, "", cartSize, cartValue, gst,delCharges,
-                   couponName,totalCharge);
+                   couponName,totalCharge,orderId);
 
         if (status) {
             Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_ORDER_PLACED);

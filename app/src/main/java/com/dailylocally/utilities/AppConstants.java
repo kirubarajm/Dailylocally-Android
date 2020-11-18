@@ -726,7 +726,7 @@ public class AppConstants {
   ///Event name
   public static final String EVENT_APP_OPENS = "app_opens";
   public static final String EVENT_PAGE_OPENS = "page_opens";
-  public static final String EVENT_HOME_PAGE_SOCIAL_FEED = "home_social_feed";
+  public static final String EVENT_HOME_PAGE_SOCIAL_FEED = "home_page_close";
   public static final String EVENT_HOME_PAGE_FEED_TRACTION = "home_feed_traction";
   public static final String EVENT_COMMUNITY_PAGE_FEED_TRACTION = "community_feed_traction";
   public static final String EVENT_TRACTION_DLE_BANNER_TILE = "traction_dle_banner_tile";
@@ -830,6 +830,7 @@ public class AppConstants {
   public static final String EVENT_PLACE_ORDER_PARAM_PRODUCT_VALUE = "product_value";
   public static final String EVENT_PLACE_ORDER_PARAM_CART_ITEMS = "cart_items";
   public static final String EVENT_PLACE_ORDER_PARAM_GST = "gst";
+  public static final String EVENT_PARAM_ORDERID = "orderid";
   public static final String EVENT_PLACE_ORDER_PARAM_DELIVERY_CHARGE = "delivery_charge";
   public static final String EVENT_PLACE_ORDER_PARAM_COUPON_NAME = "coupon_name";
 

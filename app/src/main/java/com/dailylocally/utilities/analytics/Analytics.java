@@ -654,7 +654,7 @@ public class Analytics {
     }
 
     ////Home page - social feed
-    public void eventHomePageOpens(Context context) {
+    public void eventHomePageOpens(Context context,int pagination,int lastPos) {
          FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -664,9 +664,8 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_NO_OF_SWIPES_PAGE, "");
-        bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_TIME_ON_PAGE, "");
-        bundle.putString(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_POST_POSITION_OF_LAST_POST_SEEN, "");
+        bundle.putInt(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_NO_OF_SWIPES_PAGE, pagination);
+        bundle.putInt(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED_PARAM_POST_POSITION_OF_LAST_POST_SEEN, lastPos);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_HOME_PAGE_SOCIAL_FEED, bundle);
     }
@@ -736,7 +735,7 @@ public class Analytics {
     }
 
     ////Category page(page opened)
-    public void eventCategoryPage(Context context) {
+    public void eventCategoryPage(Context context,String type,int lastPos) {
          FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -746,10 +745,10 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_NO_OF_SWIPES, "");
-        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TIME_ON_PAGE, "");
-        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN, "");
-        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TILE_POSITION_OF_LAST_TILE_SEEN, "");
+       // bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_NO_OF_SWIPES, "");
+        //bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TIME_ON_PAGE, "");
+        bundle.putString(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TILE_TYPE_OF_LAST_TILE_SEEN, type);
+        bundle.putInt(AppConstants.EVENT_CATEGORY_PAGE_PARAM_TILE_POSITION_OF_LAST_TILE_SEEN, lastPos);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_CATEGORY_PAGE, bundle);
     }
@@ -898,7 +897,7 @@ public class Analytics {
     }
 
     ////Place order
-    public void eventPlaceOrder(Context context,String dlMethod,String pMode,int cartSize,String cartValue,String gst,int delCharges,String couponName) {
+    public void eventPlaceOrder(Context context,String dlMethod,String pMode,int cartSize,String cartValue,String gst,int delCharges,String couponName,String orderid) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -915,6 +914,7 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_PRODUCT_VALUE, cartValue);
       //  bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_CART_ITEMS, "");
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_GST, gst);
+        bundle.putString(AppConstants.EVENT_PARAM_ORDERID, orderid);
         bundle.putInt(AppConstants.EVENT_PLACE_ORDER_PARAM_DELIVERY_CHARGE, delCharges);
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_COUPON_NAME, couponName);
 
@@ -922,7 +922,7 @@ public class Analytics {
     }
 
      ////Payment completed
-    public void eventPaymentCompleted(Context context,String dlMethod,int cartSize,String cartValue,String gst,int delCharges,String couponName,String totalCharge) {
+    public void eventPaymentCompleted(Context context,String dlMethod,int cartSize,String cartValue,String gst,int delCharges,String couponName,String totalCharge,String orderid) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -940,6 +940,7 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHANGES, totalCharge);
      //   bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_MIS_FEE, "");
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_GST, gst);
+        bundle.putString(AppConstants.EVENT_PARAM_ORDERID, orderid);
         bundle.putInt(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_FEE, delCharges);
         bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_COUPON, couponName);
 

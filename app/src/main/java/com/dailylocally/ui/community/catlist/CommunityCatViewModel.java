@@ -42,7 +42,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -96,7 +95,6 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
     public final ObservableField<String> cat_page_content = new ObservableField<>();
     public final ObservableField<String> cat_page_subcontent = new ObservableField<>();
 
-
     public ObservableList<HomepageResponse.Result> categoryList = new ObservableArrayList<>();
     public String ratingDOID = "0";
     private MutableLiveData<List<HomepageResponse.Result>> categoryListLiveData;
@@ -127,7 +125,7 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
                         cod.set(result.getCodValue());
                         codText.set(result.getCodText());
                         if (result.getCommunityStatus() != null)
-                        isCommunityUser.set(result.getCommunityStatus());
+                            isCommunityUser.set(result.getCommunityStatus());
 
                         cat_page_content.set(result.getCatPageContent());
                         cat_page_subcontent.set(result.getCatPageSubcontent());
@@ -139,6 +137,7 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
             }
 
         }
+
     }
 
     public MutableLiveData<List<HomepageResponse.Result>> getCategoryListLiveData() {
@@ -516,7 +515,6 @@ public class CommunityCatViewModel extends BaseViewModel<CommunityCatNavigator> 
             getNavigator().ratingClick();
         }
     }
-
 
 
     public void changeProfile() {

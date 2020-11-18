@@ -109,6 +109,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public String gstValue;
     public int deliveryValue;
     public String paymentMode = "online";
+    public String orderid = "";
     public String codUnavailableInfo = "";
     private CartRequest cartRequestPojo = new CartRequest();
 
@@ -460,6 +461,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     if (orderCreateResponse.getStatus()) {
 
+                                        orderid=orderCreateResponse.getOrderid();
                                         getDataManager().setCartDetails(null);
 
                                         if (getNavigator() != null)
