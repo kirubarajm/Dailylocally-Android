@@ -87,7 +87,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, TransactionDetailsActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);

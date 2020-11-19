@@ -177,7 +177,7 @@ int pagination=1;
         bundle.putInt(AppConstants.PROMOTION_TYPE, type);
         bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
         bundle.putString(AppConstants.PROMOTION_URL, url);
-        bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_COMMUNITY);
+        bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_HOME);
         bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_PROMOTION);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
@@ -227,7 +227,7 @@ int pagination=1;
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
             } else {
-                Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
+                Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
                 inIntent.putExtra("next", false);
                 startActivity(inIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -242,7 +242,7 @@ int pagination=1;
         saveHomeCloseAnalytics();
         if (mCommunityViewModel.sneakpeakVideoUrl != null) {
 
-            Intent tDintent = VideoActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_VIDEO);
+            Intent tDintent = VideoActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_VIDEO);
             // Intent tDintent=new Intent(getContext(),VideoActivity.class);
 
             tDintent.putExtra("video", mCommunityViewModel.sneakpeakVideoUrl);
@@ -260,7 +260,7 @@ int pagination=1;
     @Override
     public void aboutUs() {
         saveHomeCloseAnalytics();
-        Intent intent = AboutUsActivity.newIntent(getContext(), "", "");
+        Intent intent = AboutUsActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_ABOUT_US, AppConstants.SCREEN_NAME_HOME);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -942,20 +942,20 @@ int pagination=1;
         switch (pageid) {
 
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                Intent intent = CategoryL1Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
+                Intent intent = CategoryL1Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 intent.putExtra("catid", actionDatas.get("catid"));
                 startActivity(intent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                Intent l2intent = CategoryL2Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST, AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
+                Intent l2intent = CategoryL2Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
                 l2intent.putExtra("catid", actionDatas.get("catid"));
                 l2intent.putExtra("scl1id", actionDatas.get("scl1id"));
                 startActivity(l2intent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                Intent catintent = CatProductActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
+                Intent catintent = CatProductActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
                 catintent.putExtra("catid", actionDatas.get("catid"));
                 startActivity(catintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -969,26 +969,26 @@ int pagination=1;
 
 
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                Intent tLintent = TransactionHistoryActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_TRANSACTION);
+                Intent tLintent = TransactionHistoryActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_TRANSACTION);
                 startActivity(tLintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
-                Intent tDintent = TransactionDetailsActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_COMMUNITY,AppConstants.SCREEN_NAME_TRANS_DETAILS);
+                Intent tDintent = TransactionDetailsActivity.newIntent(getBaseActivity(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_TRANS_DETAILS);
                 tDintent.putExtra("orderid", actionDatas.get("orderid"));
                 startActivity(tDintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
-                Intent pintent = ProductDetailsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+                Intent pintent = ProductDetailsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
                 pintent.putExtra("vpid", actionDatas.get("vpid"));
                 startActivity(pintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                Intent cintent = CollectionDetailsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
+                Intent cintent = CollectionDetailsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
                 cintent.putExtra("cid", actionDatas.get("cid"));
                 startActivity(cintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -996,13 +996,13 @@ int pagination=1;
 
 
             case AppConstants.NOTIFY_ABOUT_US_ACTV:
-                Intent auintent = AboutUsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_ABOUT_US, AppConstants.SCREEN_NAME_COMMUNITY);
+                Intent auintent = AboutUsActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_ABOUT_US, AppConstants.SCREEN_NAME_HOME);
                 startActivity(auintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case AppConstants.NOTIFY_VIDEO_ACTV:
-                Intent vintent = VideoActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_VIDEO);
+                Intent vintent = VideoActivity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_VIDEO);
                 vintent.putExtra("video", actionDatas.get("video"));
                 startActivity(vintent);
                 getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

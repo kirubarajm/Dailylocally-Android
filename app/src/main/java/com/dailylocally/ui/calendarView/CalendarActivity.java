@@ -200,7 +200,8 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             type = AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER;
         }
 
-        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
+        Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get(),
+                AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

@@ -79,7 +79,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, CouponsActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
@@ -119,7 +119,7 @@ public class CouponsActivity extends BaseActivity<ActivityCouponsBinding, Coupon
 
     @Override
     public void refer() {
-        Intent intent = ReferralsActivity.newIntent(this,AppConstants.SCREEN_NAME_COUPONS,AppConstants.SCREEN_REFERRAL);
+        Intent intent = ReferralsActivity.newIntent(this,AppConstants.SCREEN_NAME_COUPONS,AppConstants.SCREEN_NAME_REFERRAL);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

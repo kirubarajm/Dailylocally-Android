@@ -71,12 +71,12 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
         }
     };
 
-    public static Intent newIntent(Context context, String page, Integer type, String orderid,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context, String page, Integer type, String orderid,String fromPage,String ToPage) {
         Intent intent = new Intent(context, HelpActivity.class);
         intent.putExtra(AppConstants.PAGE, page);
         intent.putExtra("type", type);
         intent.putExtra("orderid", orderid);
-        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.TO_PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
         return intent;
     }

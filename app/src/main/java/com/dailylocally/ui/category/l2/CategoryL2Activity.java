@@ -154,8 +154,8 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
         bundle.putString("scl1id",scl1id);
         bundle.putString("scl2id",scl2id);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L2_ACTV);
-        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_FILTER);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_HOME);
+        bundle.putString(AppConstants.TO_PAGE,AppConstants.SCREEN_NAME_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);
@@ -167,7 +167,7 @@ public class CategoryL2Activity extends BaseActivity<ActivityCategoryl12Binding,
     public void openSort(String scl2id) {
         Bundle bundle=new Bundle();
         bundle.putString("scl2id",scl2id);
-        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
         bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_SORT);
 
         SortFragment sortFragment = new SortFragment();

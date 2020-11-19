@@ -70,7 +70,7 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
 
     private TextView[] dots;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, FavActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
@@ -133,6 +133,8 @@ public class FavActivity extends BaseActivity<ActivityFavDetailsBinding, FavView
     public void openSort(String catid) {
         Bundle bundle = new Bundle();
         bundle.putString("catid", catid);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_FAVORITES);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_SORT);
 
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);

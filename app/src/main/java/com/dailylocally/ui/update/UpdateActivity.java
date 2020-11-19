@@ -33,7 +33,7 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     private ActivityUpdateBinding mActivityUpdateBinding;
     private PrefManager prefManager;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, UpdateActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);

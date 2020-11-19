@@ -189,7 +189,6 @@ public class AppConstants {
   public static final String SCREEN_SUPPORT_REPLIES = "support_replies";
   public static final String SCREEN_QUERY_CHAT = "queries_chat";
   public static final String SCREEN_SUPPORT = "support";
-  public static final String SCREEN_FEEDBACK_SUPPORT = "feedback_and_support_page";
   public static final String SCREEN_ORDER_LIST = "orders_list";
   public static final String SCREEN_ORDER_DETAILS = "orders_details";
   public static final String SCREEN_PAYMENT_RETRY = "payment_retry";
@@ -617,7 +616,7 @@ public class AppConstants {
   public static final String PAGE = "page";
   public static final String FROM = "from";
   public static final String FROM_PAGE = "mfrom";
-  public static final String To_PAGE = "mpage";
+  public static final String TO_PAGE = "mpage";
 
   //////Notification screens
   public static final String NOTIFY_SPLASH_ACTV = "1";
@@ -674,7 +673,6 @@ public class AppConstants {
   public static final String SCREEN_NAME_REGISTRATION = "registration";
   public static final String SCREEN_NAME_ADDRESS = "address";
   public static final String SCREEN_NAME_ADDRESS_VIEW = "address_view";
-  public static final String SCREEN_NAME_MAIN = "main";
   public static final String SCREEN_NAME_HOME = "home";
   public static final String SCREEN_NAME_REFERRAL = "referral";
   public static final String SCREEN_NAME_MY_ACCOUNT = "my_account";
@@ -721,6 +719,8 @@ public class AppConstants {
   public static final String SCREEN_NAME_FILTER = "filter";
   public static final String SCREEN_NAME_VIEW_ALL_PRODUCTS = "view_all_products";
   public static final String SCREEN_NAME_WHATSAPP = "whatsapp";
+  public static final String SCREEN_NAME_FEEDBACK_SUPPORT = "feedback_and_support_page";
+  public static final String SCREEN_NAME_COMMUNITY_ONBOARDING = "community_on_boarding";
 
 
   ///Event name

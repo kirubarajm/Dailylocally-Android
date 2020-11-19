@@ -75,7 +75,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     private EditText[] editTexts;
     private SMSReceiver smsReceiver;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, OtpActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
@@ -160,8 +160,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void addAddressActivity(String aid) {
-        Intent intents = new Intent();
-        Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
+        Intent intent = AddressNewActivity.newIntent(this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_OTP);
         intent.putExtra("aid", aid);
         intent.putExtra("newuser", true);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

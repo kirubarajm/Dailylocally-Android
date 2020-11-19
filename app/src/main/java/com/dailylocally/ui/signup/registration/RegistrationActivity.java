@@ -58,7 +58,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     };
     private ActivityRegistrationBinding mActivityRegistrationBinding;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, RegistrationActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
@@ -95,7 +95,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
             //Intent inIntent = AddressNewActivity.newIntent(RegistrationActivity.this);
             Intent intents = new Intent();
-            Intent inIntent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
+            Intent inIntent = AddressNewActivity.newIntent(this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_REGISTRATION);
             inIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             inIntent.putExtra("newuser", true);
             startActivity(inIntent);

@@ -28,9 +28,9 @@ public class CollectionTabPagerAdapter extends FragmentStatePagerAdapter {
 */
 
         if (position == 0) {
-            return CollectionProductFragment.newInstance("0",cid,"","");
+            return CollectionProductFragment.newInstance("0",cid);
         }else {
-            return CollectionProductFragment.newInstance(String.valueOf(response.getResult().get(position-1).getScl1_id()),cid,"","");
+            return CollectionProductFragment.newInstance(String.valueOf(response.getResult().get(position-1).getScl1_id()),cid);
         }
 
     }

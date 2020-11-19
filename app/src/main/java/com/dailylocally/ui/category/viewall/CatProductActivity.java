@@ -17,11 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.dailylocally.BR;
 import com.dailylocally.R;
-import com.dailylocally.databinding.ActivityCategoryl12Binding;
 import com.dailylocally.databinding.ActivityCatproductsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.category.l1.L1CategoryResponse;
-import com.dailylocally.ui.category.l2.CategoryL2Activity;
 import com.dailylocally.ui.category.l2.products.filter.FilterFragment;
 import com.dailylocally.ui.category.l2.products.filter.FilterListener;
 import com.dailylocally.ui.category.l2.products.sort.SortFragment;
@@ -143,8 +141,8 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
         bundle.putString("scl1id",scl1id);
         bundle.putString("catid",catid);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV);
-        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_FILTER);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_HOME);
+        bundle.putString(AppConstants.TO_PAGE,AppConstants.SCREEN_NAME_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);
@@ -157,6 +155,8 @@ public class CatProductActivity extends BaseActivity<ActivityCatproductsBinding,
         Bundle bundle=new Bundle();
         bundle.putString("scl1id",scl1id);
         bundle.putString("type","2");
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_CATEGORY_PAGE);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_SORT);
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);
         sortFragment.show(getSupportFragmentManager(), sortFragment.getTag());

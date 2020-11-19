@@ -108,7 +108,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
         //Intent inIntent = AddressNewActivity.newIntent(SplashActivity.this);
         Intent intents = new Intent();
-        Intent inIntent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
+        Intent inIntent = AddressNewActivity.newIntent(this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_SPLASH);
         inIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         inIntent.putExtra("newuser", true);
         startActivity(inIntent);
@@ -175,7 +175,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
             @Override
             public void run() {
                 if (!prefManager.isFirstTimeLaunch()) {
-                    Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
+                    Intent intent = OnBoardingActivity.newIntent(SplashActivity.this,AppConstants.SCREEN_NAME_SPLASH,AppConstants.SCREEN_NAME_ON_BOARDING);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

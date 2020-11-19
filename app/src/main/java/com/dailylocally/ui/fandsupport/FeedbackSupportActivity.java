@@ -81,7 +81,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, FeedbackSupportActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
@@ -118,7 +118,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
     @Override
     public void termsAndC() {
 
-        Intent intent = TermsAndConditionActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_TERMS_AND_CONDITION);
+        Intent intent = TermsAndConditionActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_TERMS_AND_CONDITION);
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_SUPPORT_ACTV);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -130,7 +130,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
         if (mAddAddressViewModel.getDataManager().getCurrentUserId()!=null) {
             Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, AppConstants.CHAT_PAGE_TYPE_SUPPORT, "0"
-                    ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
+                    ,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_HELP);
             startActivity(intent);
         }else {
 
@@ -157,7 +157,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
     @Override
     public void faq() {
-        Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
+        Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -170,7 +170,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
         Intent intent = getIntent();
         new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_FEEDBACK_SUPPORT);
+                AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
     }
 
     @Override

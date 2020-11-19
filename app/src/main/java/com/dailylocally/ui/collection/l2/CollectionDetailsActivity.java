@@ -142,8 +142,8 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         bundle.putString("scl1id",scl1id);
         bundle.putString("cid",cid);
         bundle.putString(AppConstants.PAGE,AppConstants.NOTIFY_COLLECTION_ACTV);
-        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_MAIN);
-        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_FILTER);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_HOME);
+        bundle.putString(AppConstants.TO_PAGE,AppConstants.SCREEN_NAME_FILTER);
 
         FilterFragment filterFragment = new FilterFragment();
         filterFragment.setArguments(bundle);
@@ -156,6 +156,8 @@ public class CollectionDetailsActivity extends BaseActivity<ActivityCollectionDe
         Bundle bundle=new Bundle();
         bundle.putString("scl1id",scl1id);
         bundle.putString("type","2");
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
+        bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_SORT);
 
         SortFragment sortFragment = new SortFragment();
         sortFragment.setArguments(bundle);

@@ -16,9 +16,7 @@ import com.dailylocally.BR;
 import com.dailylocally.R;
 
 import com.dailylocally.databinding.OrderPlacedBinding;
-import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.base.BaseActivity;
-import com.dailylocally.ui.calendarView.CalendarActivity;
 import com.dailylocally.ui.main.MainActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -78,7 +76,7 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, OrderPlacedActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);

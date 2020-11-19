@@ -30,6 +30,7 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityOnboardingBinding;
 import com.dailylocally.ui.base.BaseActivity;
 
+import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.signup.SignUpActivity;
 import com.dailylocally.ui.update.UpdateActivity;
 import com.dailylocally.utilities.AppConstants;
@@ -38,6 +39,8 @@ import com.dailylocally.utilities.DailylocallyApp;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.fonts.quicksand.ButtonTextView;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -66,8 +69,11 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
     private MyViewPagerAdapter myViewPagerAdapter;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, OnBoardingActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+        Intent intent = new Intent(context, OnBoardingActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        return intent;
     }
 
     @Override
@@ -192,6 +198,9 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             }
         });
 
+        Intent intent = getIntent();
+        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                AppConstants.SCREEN_NAME_ON_BOARDING);
     }
 
     private int getItem(int i) {

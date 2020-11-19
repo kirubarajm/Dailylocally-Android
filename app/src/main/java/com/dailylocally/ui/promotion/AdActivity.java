@@ -31,7 +31,7 @@ public class AdActivity extends BaseActivity<ActivityPrivacyBinding, AdViewModel
     AdViewModel mAdViewModel;
     ActivityPrivacyBinding mActivityPrivacyBinding;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, AdActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);
