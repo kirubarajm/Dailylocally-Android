@@ -84,7 +84,7 @@
 
     <!-- ZenDesk-->
     <!-- Base chat sdk theme. -->
-    <style name="ZopimChatTheme" parent="ZopimChatTheme.Light">
+    <style name="ZopimChatTheme" parent="ZendeskSdkTheme.Light">
         <!-- Customize chat theme here. -->
         <item name="colorAccent">@color/dl_primary_color</item>
         <item name="colorPrimary">@color/dl_primary_color</item>
@@ -107,16 +107,16 @@
     </style>
 
     <!--Customize where chat widget appears-->
-    <style name="chat_widget" parent="_chat_widget">
+  <!--  <style name="chat_widget" parent="_chat_widget">
         <item name="anchor">bottom_left</item>
-    </style>
+    </style>-->
 
     <!--Customize chat colors-->
     <color name="chat_bubble_visitor">@color/dl_primary_color</color>
 
 
     <!-- Support. -->
-    <style name="ZendeskSupportTheme" parent="ZendeskSdkTheme.Dark">
+    <style name="ZendeskSupportTheme" parent="ZendeskActivityDefaultTheme">
         <!-- Customize chat theme here. -->
         <item name="colorAccent">@color/dl_primary_color</item>
         <item name="colorPrimary">@color/dl_primary_color</item>

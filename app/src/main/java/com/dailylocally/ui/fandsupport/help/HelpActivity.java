@@ -25,13 +25,10 @@ import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.chat.IssuesAdapter;
 import com.dailylocally.utilities.chat.IssuesListResponse;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.zopim.android.sdk.api.ChatApi;
-import com.zopim.android.sdk.api.ZopimChat;
-import com.zopim.android.sdk.api.ZopimChatApi;
-import com.zopim.android.sdk.model.VisitorInfo;
-import com.zopim.android.sdk.prechat.PreChatForm;
-import com.zopim.android.sdk.prechat.ZopimChatActivity;
+import com.zendesk.service.ErrorResponse;
+import com.zendesk.service.ZendeskCallback;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -39,6 +36,13 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import zendesk.chat.Chat;
+import zendesk.chat.ChatConfiguration;
+import zendesk.chat.ChatEngine;
+import zendesk.chat.ChatProvider;
+import zendesk.chat.ProfileProvider;
+import zendesk.chat.VisitorInfo;
+import zendesk.messaging.MessagingActivity;
 
 public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewModel> implements HelpNavigator, HasSupportFragmentInjector, IssuesAdapter.IssuesAdapterListener {
 
@@ -71,7 +75,7 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
         }
     };
 
-    public static Intent newIntent(Context context, String page, Integer type, String orderid,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context, String page, Integer type, String orderid, String ToPage, String fromPage) {
         Intent intent = new Intent(context, HelpActivity.class);
         intent.putExtra(AppConstants.PAGE, page);
         intent.putExtra("type", type);
@@ -117,10 +121,25 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
             } else {
 
-                ChatApi chatApi = ZopimChatApi.resume(this);
+
+                ChatProvider chatProvider = Chat.INSTANCE.providers().chatProvider();
+                chatProvider.endChat(new ZendeskCallback<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        openChat(department, tag, note);
+                    }
+
+                    @Override
+                    public void onError(ErrorResponse errorResponse) {
+
+                    }
+                });
+
+
+              /*  ChatApi chatApi = ZopimChatApi.resume(this);
                 chatApi.endChat();
-                chatApi.endChat();
-                openChat(department, tag, note);
+                chatApi.endChat();*/
+
             }
 
         } else {
@@ -137,14 +156,45 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     public void openChat(String department, String tag, String note) {
 
-        ZopimChat.init(getString(R.string.zopim_account_id));
 
-        final VisitorInfo.Builder build = new VisitorInfo.Builder()
+        ProfileProvider profileProvider = Chat.INSTANCE.providers().profileProvider();
+
+        profileProvider.setVisitorNote(note, null);
+        ArrayList<String> ltag = new ArrayList<>();
+        ltag.add(tag);
+        profileProvider.addVisitorTags(ltag, null);
+        VisitorInfo visitorInfo = VisitorInfo.builder()
+                .withEmail(mHelpViewModel.getDataManager().getCurrentUserEmail())
+                .withName(mHelpViewModel.getDataManager().getCurrentUserName())
+                .withPhoneNumber(mHelpViewModel.getDataManager().getCurrentUserPhNo())
+                .build();
+
+        profileProvider.setVisitorInfo(visitorInfo, null);
+
+        ChatProvider chatProvider = Chat.INSTANCE.providers().chatProvider();
+
+        chatProvider.setDepartment("Daily locally", null);
+
+        ChatConfiguration chatConfiguration = ChatConfiguration.builder()
+                .withPreChatFormEnabled(false)
+                .build();
+
+        mHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mHelpViewModel.orderid));
+        MessagingActivity.builder()
+                .withEngines(ChatEngine.engine())
+                .show(HelpActivity.this);
+
+
+        //    ZopimChat.init(getString(R.string.zopim_account_id));
+
+     /*   final VisitorInfo.Builder build = new VisitorInfo.Builder()
                 .email(mHelpViewModel.getDataManager().getCurrentUserEmail())
                 .name(mHelpViewModel.getDataManager().getCurrentUserName())
                 .note(note)
                 .phoneNumber(mHelpViewModel.getDataManager().getCurrentUserPhNo());
         ZopimChat.setVisitorInfo(build.build());
+
+
 
 // build pre chat form config
         PreChatForm preChatForm = new PreChatForm.Builder()
@@ -155,12 +205,12 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
                 .message(PreChatForm.Field.NOT_REQUIRED)
                 .build();
 // build session config
-        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
+       SessionConfig config = new ZopimChat.SessionConfig()
                 .preChatForm(preChatForm)
                 .department(department);
 // start chat activity with config
         mHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mHelpViewModel.orderid));
-        ZopimChatActivity.startActivity(this, config);
+        ZopimChatActivity.startActivity(this, config);*/
 
     }
 
@@ -273,7 +323,7 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
-           mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
+        mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
 
     }
 }

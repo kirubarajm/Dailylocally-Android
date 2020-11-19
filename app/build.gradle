@@ -109,10 +109,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
 
     //Zendesk chat
-    implementation group: 'com.zopim.android', name: 'sdk', version: '1.4.8'
+   /* implementation group: 'com.zopim.android', name: 'sdk', version: '1.4.8'
     implementation group: 'com.zendesk', name: 'support', version: '4.0.0'
     implementation group: 'com.zendesk', name: 'messaging', version: '4.0.0'
-    implementation group: 'com.zendesk', name: 'answerbot', version: '2.0.0'
+    implementation group: 'com.zendesk', name: 'answerbot', version: '2.0.0'*/
+
+
+    implementation group: 'com.zendesk', name: 'chat', version: '3.1.0'
+    implementation group: 'com.zendesk', name: 'messaging', version: '5.1.0'
 
     //Facebook sdk
     implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
