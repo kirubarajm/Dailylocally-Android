@@ -829,7 +829,7 @@ public class Analytics {
     }
 
     ////Add button
-    public void eventAddButton(Context context) {
+    public void eventAddButton(Context context,String name, String action, String category, String l1, String l2, String cost, int quantity, String tag,int cartValue,String type) {
         FirebaseAnalytics mFirebaseAnalytics = null;
         if (BuildConfig.ENABLE_DEBUG) return;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -839,16 +839,16 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_ID, userid);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_NAME, username);
         bundle.putString(AppConstants.EVENT_COMMON_PARAM_USER_PHONE_NUMBER, phoneNo);
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_NAME, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ACTION_TYPE, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_CATEGORY, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_L1, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_L2, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_COST, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_QUANTITY_AFTER_EVENT, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_TAG, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_CART_VALUE, "");
-        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_PAGE_TYPE, "");
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_NAME, name);
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ACTION_TYPE, action);
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_CATEGORY, category);
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_L1, l1);
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_L2, l2);
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_COST, cost);
+        bundle.putInt(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_QUANTITY_AFTER_EVENT, quantity);
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_ITEM_TAG, tag);
+        bundle.putInt(AppConstants.EVENT_ADD_BUTTON_PARAM_CART_VALUE, cartValue);
+        bundle.putString(AppConstants.EVENT_ADD_BUTTON_PARAM_PAGE_TYPE, type);
 
         mFirebaseAnalytics.logEvent(AppConstants.EVENT_ADD_BUTTON, bundle);
     }

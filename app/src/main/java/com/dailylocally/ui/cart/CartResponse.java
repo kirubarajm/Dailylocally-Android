@@ -104,7 +104,7 @@ public class CartResponse {
         @SerializedName("delivery_text")
         @Expose
         private String deliveryText;
-         @SerializedName("exclusive_tag")
+        @SerializedName("exclusive_tag")
         @Expose
         private String exclusiveTag;
 
@@ -503,6 +503,29 @@ public class CartResponse {
         @Expose
         private String starting_date;
 
+        @SerializedName("cat_name")
+        @Expose
+        private String catName;
+
+        @SerializedName("sub_cat1")
+        @Expose
+        private String subCat1;
+
+@SerializedName("sub_cat2")
+        @Expose
+        private String subCat2;
+
+        public String getCatName() {
+            return catName;
+        }
+
+        public String getSubCat1() {
+            return subCat1;
+        }
+
+        public String getSubCat2() {
+            return subCat2;
+        }
 
         public String getStarting_date() {
             return starting_date;
@@ -1045,7 +1068,8 @@ public class CartResponse {
         private String noOfDeliveries;
         @SerializedName("deliverydate")
         @Expose
-        private String deliverydate; @SerializedName("starting_date")
+        private String deliverydate;
+        @SerializedName("starting_date")
         @Expose
         private String startingDate;
         @SerializedName("mon")

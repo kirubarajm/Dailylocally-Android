@@ -92,7 +92,7 @@ public class OrderNowAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void reloadCart();
         String changeDate(CartResponse.Item product);
         void subscribe(CartResponse.Item product);
-
+        void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag);
         void orderNowItemClick(CartResponse.Item product);
     }
 
@@ -126,6 +126,11 @@ public class OrderNowAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void reload() {
          mLiveProductsAdapterListener.reloadCart();
+        }
+
+        @Override
+        public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
+            mLiveProductsAdapterListener.addOrRemoveQuantity(name,action,category,l1,l2,cost,quantity,tag);
         }
 
         @Override

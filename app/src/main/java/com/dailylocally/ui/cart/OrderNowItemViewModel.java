@@ -80,7 +80,7 @@ public class OrderNowItemViewModel {
 
     public String parseDateToddMMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";
-        String  outputPattern= "dd MMM yyyy";
+        String outputPattern = "dd MMM yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
@@ -96,7 +96,7 @@ public class OrderNowItemViewModel {
         return str;
     }
 
-  public String parseDateToddMMyyyy(String time) {
+    public String parseDateToddMMyyyy(String time) {
        /* String inputPattern = "yyyy-MM-dd";
         String  outputPattern= "dd MM yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
@@ -145,6 +145,8 @@ public class OrderNowItemViewModel {
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
         mListener.reload();
+        mListener.addOrRemoveQuantity(dishList.getProductname(),"add",dishList.getCatName(),dishList.getSubCat1(),dishList.getSubCat2(),dishList.getAmount(),quantity.get(),"");
+
     }
 
 
@@ -200,6 +202,7 @@ public class OrderNowItemViewModel {
            /* saveCart(cartRequestPojo);
             mListener.reload();*/
 
+        mListener.addOrRemoveQuantity(dishList.getProductname(),"remove",dishList.getCatName(),dishList.getSubCat1(),dishList.getSubCat2(),dishList.getAmount(),quantity.get(),"");
 
         if (quantity.get() == 0) {
             isAddClicked.set(false);
@@ -222,6 +225,8 @@ public class OrderNowItemViewModel {
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
         mListener.reload();
+        mListener.addOrRemoveQuantity(dishList.getProductname(),"add",dishList.getCatName(),dishList.getSubCat1(),dishList.getSubCat2(),dishList.getAmount(),quantity.get(),"");
+
     }
 
 
@@ -270,6 +275,9 @@ public class OrderNowItemViewModel {
             saveCart(cartRequestPojo);
             mListener.reload();
         }
+
+
+        mListener.addOrRemoveQuantity(dishList.getProductname(),"remove",dishList.getCatName(),dishList.getSubCat1(),dishList.getSubCat2(),dishList.getAmount(),quantity.get(),"");
 
            /* saveCart(cartRequestPojo);
             mListener.reload();*/
@@ -320,6 +328,8 @@ public class OrderNowItemViewModel {
 
     public interface DishItemViewModelListener {
         void reload();
+
+        void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag);
 
         void itemClick(CartResponse.Item product);
 

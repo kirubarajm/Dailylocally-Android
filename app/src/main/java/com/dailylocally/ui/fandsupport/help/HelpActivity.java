@@ -175,9 +175,9 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
         chatProvider.setDepartment("Daily locally", null);
 
-        ChatConfiguration chatConfiguration = ChatConfiguration.builder()
+        /*ChatConfiguration chatConfiguration = ChatConfiguration.builder()
                 .withPreChatFormEnabled(false)
-                .build();
+                .build();*/
 
         mHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mHelpViewModel.orderid));
         MessagingActivity.builder()
