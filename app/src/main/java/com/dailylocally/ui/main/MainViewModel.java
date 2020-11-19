@@ -26,9 +26,6 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-import zendesk.core.AnonymousIdentity;
-import zendesk.core.Identity;
-import zendesk.core.Zendesk;
 
 public class MainViewModel extends BaseViewModel<MainNavigator> {
 
@@ -72,11 +69,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         screenName.set(AppConstants.SCREEN_HOME);
 
 
-        Identity identity = new AnonymousIdentity.Builder()
+       /* Identity identity = new AnonymousIdentity.Builder()
                 .withNameIdentifier(getDataManager().getCurrentUserName())
                 .withEmailIdentifier(getDataManager().getCurrentUserEmail())
                 .build();
-        Zendesk.INSTANCE.setIdentity(identity);
+        Zendesk.INSTANCE.setIdentity(identity);*/
 
     }
 

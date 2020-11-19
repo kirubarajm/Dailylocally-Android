@@ -36,6 +36,7 @@ import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.community.CommunityFragment;
 import com.dailylocally.ui.community.catlist.CommunityCatFragment;
 import com.dailylocally.ui.community.event.EventActivity;
+import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.search.SearchFragment;
@@ -56,13 +57,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
-import com.zopim.android.sdk.api.ZopimChat;
-import com.zopim.android.sdk.model.VisitorInfo;
-import com.zopim.android.sdk.prechat.PreChatForm;
-import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -78,7 +76,13 @@ import im.getsocial.sdk.Notifications;
 import im.getsocial.sdk.notifications.Notification;
 import im.getsocial.sdk.notifications.NotificationContext;
 import im.getsocial.sdk.notifications.OnNotificationClickedListener;
-import zendesk.support.request.RequestActivity;
+import zendesk.chat.Chat;
+import zendesk.chat.ChatConfiguration;
+import zendesk.chat.ChatEngine;
+import zendesk.chat.ChatProvider;
+import zendesk.chat.ProfileProvider;
+import zendesk.chat.VisitorInfo;
+import zendesk.messaging.MessagingActivity;
 
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, PaymentResultListener {
@@ -585,12 +589,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             mMainViewModel.getUserDetails(intent.getExtras().getString(AppConstants.PAGE, ""));
 
-            if (intent.getExtras().getString("requestId") != null) {
+           /* if (intent.getExtras().getString("requestId") != null) {
                 RequestActivity.builder()
                         .withRequestId(intent.getExtras().getString("requestId"))
                         .show(this);
 
-            }
+            }*/
 
         } else {
             if (mMainViewModel.isCommunityUser.get()) {
@@ -807,7 +811,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     public void openChat() {
-        ZopimChat.init(getString(R.string.zopim_account_id));
+       /* ZopimChat.init(getString(R.string.zopim_account_id));
         final VisitorInfo.Builder build = new VisitorInfo.Builder()
                 .email(mMainViewModel.getDataManager().getCurrentUserEmail())
                 .name(mMainViewModel.getDataManager().getCurrentUserName())
@@ -824,7 +828,36 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         // build session config
         ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
                 .preChatForm(preChatForm);
-        ZopimChatActivity.startActivity(this, config);
+        ZopimChatActivity.startActivity(this, config);*/
+
+
+        ProfileProvider profileProvider = Chat.INSTANCE.providers().profileProvider();
+
+      //  profileProvider.setVisitorNote(note, null);
+        ArrayList<String> ltag = new ArrayList<>();
+     //   ltag.add(tag);
+    //    profileProvider.addVisitorTags(ltag, null);
+        VisitorInfo visitorInfo = VisitorInfo.builder()
+                .withEmail(mMainViewModel.getDataManager().getCurrentUserEmail())
+                .withName(mMainViewModel.getDataManager().getCurrentUserName())
+                .withPhoneNumber(mMainViewModel.getDataManager().getCurrentUserPhNo())
+                .build();
+
+        profileProvider.setVisitorInfo(visitorInfo, null);
+
+        ChatProvider chatProvider = Chat.INSTANCE.providers().chatProvider();
+
+        chatProvider.setDepartment("Daily locally", null);
+
+        ChatConfiguration chatConfiguration = ChatConfiguration.builder()
+                .withPreChatFormEnabled(false)
+                .build();
+
+        MessagingActivity.builder()
+                .withEngines(ChatEngine.engine())
+                .show(MainActivity.this);
+
+
     }
 
 

@@ -33,6 +33,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 import com.dailylocally.di.component.DaggerAppComponent;
+import com.dailylocally.ui.fandsupport.FeedbackSupportActivity;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -49,8 +50,7 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import zendesk.core.Zendesk;
-import zendesk.support.Support;
+import zendesk.chat.Chat;
 
 public class DailylocallyApp extends Application implements HasActivityInjector {
 
@@ -135,13 +135,14 @@ public class DailylocallyApp extends Application implements HasActivityInjector 
 
 
         // Init Support SDK
-        Zendesk.INSTANCE.init(this, getResources().getString(R.string.zd_url),
+        /*Zendesk.INSTANCE.init(this, getResources().getString(R.string.zd_url),
                 getResources().getString(R.string.zd_appid),
                 getResources().getString(R.string.zd_oauth));
-        Support.INSTANCE.init(Zendesk.INSTANCE);
+        Support.INSTANCE.init(Zendesk.INSTANCE);*/
 
+        Chat.INSTANCE.init(this, getString(R.string.zopim_account_id),  getResources().getString(R.string.zd_appid));
 
-
+      //  Chat.INSTANCE.init(this, getString(R.string.zopim_account_id));
         // ZopimChat.init(getString(R.string.zopim_account_id));
 
 

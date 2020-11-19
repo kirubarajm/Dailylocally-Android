@@ -67,6 +67,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import zendesk.chat.Chat;
+import zendesk.chat.PushData;
+import zendesk.chat.PushNotificationsProvider;
+
 public class FCMMeassagingService extends FirebaseMessagingService {
 
     public static final String FCM_PARAM = "picture";
@@ -83,6 +87,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         RemoteMessage.Notification notification = remoteMessage.getNotification();
 
+        PushNotificationsProvider pushProvider = Chat.INSTANCE.providers().pushNotificationsProvider();
+        PushData pushData = pushProvider.processPushNotification(remoteMessage.getData());
 
     //    Gson sGson = new GsonBuilder().create();
      // GetSocialNotifyResponse getSocialNotifyResponse = sGson.fromJson(remoteMessage.getData().get("gs_data"), GetSocialNotifyResponse.class);

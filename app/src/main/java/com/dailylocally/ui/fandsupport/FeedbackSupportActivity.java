@@ -19,14 +19,21 @@ import com.dailylocally.ui.signup.tandc.TermsAndConditionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
-import com.zopim.android.sdk.api.ZopimChat;
-import com.zopim.android.sdk.model.VisitorInfo;
-import com.zopim.android.sdk.prechat.PreChatForm;
-import com.zopim.android.sdk.prechat.ZopimChatActivity;
+import com.zendesk.service.ErrorResponse;
+import com.zendesk.service.ZendeskCallback;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.inject.Inject;
+
+import zendesk.chat.Chat;
+import zendesk.chat.ChatEngine;
+import zendesk.chat.ChatMenuAction;
+import zendesk.chat.ChatProvider;
+import zendesk.chat.ProfileProvider;
+import zendesk.chat.VisitorInfo;
+import zendesk.messaging.MessagingActivity;
 
 
 public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSupportBinding, FeedbackSupportViewModel> implements
@@ -48,6 +55,14 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
 
         }
     };
+
+    /*public static Intent newIntent(Context context, String ToPage, String fromPage) {
+        Intent intent = new Intent(context, FeedbackSupportActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
+    }*/
+
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -81,6 +96,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
+
     public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, FeedbackSupportActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
@@ -118,6 +134,7 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
     @Override
     public void termsAndC() {
 
+
         Intent intent = TermsAndConditionActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_TERMS_AND_CONDITION);
         intent.putExtra(AppConstants.PAGE,AppConstants.NOTIFY_SUPPORT_ACTV);
         startActivity(intent);
@@ -128,35 +145,92 @@ public class FeedbackSupportActivity extends BaseActivity<ActivityFeedbackSuppor
     @Override
     public void support() {
 
-        if (mAddAddressViewModel.getDataManager().getCurrentUserId()!=null) {
+        if (mAddAddressViewModel.getDataManager().getCurrentUserId() != null) {
             Intent intent = HelpActivity.newIntent(FeedbackSupportActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, AppConstants.CHAT_PAGE_TYPE_SUPPORT, "0"
                     ,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_HELP);
+
             startActivity(intent);
-        }else {
+        } else {
 
-            ZopimChat.init(getString(R.string.zopim_account_id));
+            // ZopimChat.init(getString(R.string.zopim_account_id));
 
-            PreChatForm preChatForm = new PreChatForm.Builder()
+
+
+            ProfileProvider profileProvider = Chat.INSTANCE.providers().profileProvider();
+            profileProvider.setVisitorNote("New User", new ZendeskCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+
+                @Override
+                public void onError(ErrorResponse errorResponse) {
+
+                }
+            });
+            ArrayList<String> tag=new ArrayList<>();
+            tag.add("login_issue");
+            profileProvider.addVisitorTags(tag, new ZendeskCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+
+                @Override
+                public void onError(ErrorResponse errorResponse) {
+
+                }
+            });
+            VisitorInfo visitorInfo = VisitorInfo.builder()
+                    .build();
+
+            profileProvider.setVisitorInfo(visitorInfo, new ZendeskCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+
+                @Override
+                public void onError(ErrorResponse errorResponse) {
+
+                }
+            });
+
+
+            ChatProvider chatProvider = Chat.INSTANCE.providers().chatProvider();
+
+            chatProvider.setDepartment("Daily locally", new ZendeskCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+
+                @Override
+                public void onError(ErrorResponse errorResponse) {
+
+                }
+            });
+
+            MessagingActivity.builder()
+                    .withEngines(ChatEngine.engine())
+                    .show(FeedbackSupportActivity.this);
+
+
+           /* PreChatForm preChatForm = new PreChatForm.Builder()
                     .name(PreChatForm.Field.REQUIRED)
                     .email(PreChatForm.Field.NOT_REQUIRED)
                     .phoneNumber(PreChatForm.Field.REQUIRED)
                     .department(PreChatForm.Field.OPTIONAL)
                     .message(PreChatForm.Field.NOT_REQUIRED)
-                    .build();
-            final VisitorInfo.Builder build = new VisitorInfo.Builder()
-                    .note("New User");
-            ZopimChat.setVisitorInfo(build.build());
-            ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
-                    .preChatForm(preChatForm)
-                    .tags("login_issue")
-                    .department("Daily locally");
-            ZopimChatActivity.startActivity(this, config);
+                    .build();*/
+
 
         }
     }
 
     @Override
     public void faq() {
+
         Intent intent = FaqActivity.newIntent(FeedbackSupportActivity.this,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

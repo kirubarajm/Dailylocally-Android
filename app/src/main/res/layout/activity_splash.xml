@@ -19,7 +19,7 @@
             android:src="@drawable/ic_dl_logo" />
 
 
-        <LinearLayout
+        <!--<LinearLayout
             android:visibility="gone"
             android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 android:textSize="@dimen/_22px"
                 android:textStyle="bold" />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <com.dailylocally.utilities.fonts.quicksand.ContentTextView
             android:layout_width="wrap_content"
