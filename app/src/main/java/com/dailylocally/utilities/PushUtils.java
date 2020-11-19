@@ -14,10 +14,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.zendesk.service.ErrorResponse;
 import com.zendesk.service.ZendeskCallback;
-import com.zopim.android.sdk.api.ZopimChat;
 
-import zendesk.core.ProviderStore;
-import zendesk.core.Zendesk;
+import zendesk.chat.Chat;
+import zendesk.chat.PushNotificationsProvider;
 
 public class PushUtils {
 
@@ -39,11 +38,11 @@ public class PushUtils {
     }
 
     public static void registerWithZendesk() {
-        final ProviderStore providerStore = Zendesk.INSTANCE.provider();
+     //   final ProviderStore providerStore = Zendesk.INSTANCE.provider();
 
-        if (providerStore == null) {
+       /* if (providerStore == null) {
             return;
-        }
+        }*/
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -55,7 +54,14 @@ public class PushUtils {
                         }
                         // Get new Instance ID token
 
-                        Zendesk.INSTANCE.provider().pushRegistrationProvider().registerWithDeviceIdentifier(task.getResult().getToken(), new ZendeskCallback<String>() {
+                        PushNotificationsProvider pushProvider = Chat.INSTANCE.providers().pushNotificationsProvider();
+
+                        if (pushProvider != null) {
+                            pushProvider.registerPushToken(task.getResult().getToken());
+                        }
+
+
+                        /*Zendesk.INSTANCE.provider().pushRegistrationProvider().registerWithDeviceIdentifier(task.getResult().getToken(), new ZendeskCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
 
@@ -72,7 +78,7 @@ public class PushUtils {
 
                        providerStore.pushRegistrationProvider().registerWithDeviceIdentifier(task.getResult().getToken(), null);
 
-                        ZopimChat.setPushToken(task.getResult().getToken());
+                        ZopimChat.setPushToken(task.getResult().getToken());*/
 
                     }
                 });
