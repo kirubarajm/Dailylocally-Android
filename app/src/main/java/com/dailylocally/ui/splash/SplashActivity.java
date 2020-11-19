@@ -139,8 +139,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
         prefManager = new PrefManager(this);
 
-        Intent intent = getIntent();
-        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+        new Analytics().eventPageOpens(this, "nil",
                 AppConstants.SCREEN_NAME_SPLASH);
         new Analytics().eventAppOpens(this);
         try {

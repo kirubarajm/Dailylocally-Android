@@ -199,8 +199,10 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         });
 
         Intent intent = getIntent();
-        new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_ON_BOARDING);
+        if (intent.getExtras()!=null) {
+            new Analytics().eventPageOpens(this, intent.getExtras().getString(AppConstants.FROM, "nil"),
+                    AppConstants.SCREEN_NAME_ON_BOARDING);
+        }
     }
 
     private int getItem(int i) {
