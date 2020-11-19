@@ -28,10 +28,14 @@ import com.dailylocally.databinding.ActivityCommunityOnboardingBinding;
 import com.dailylocally.ui.address.addAddress.AddressNewActivity;
 import com.dailylocally.ui.address.type.CommunitySearchActivity;
 import com.dailylocally.ui.base.BaseActivity;
+import com.dailylocally.ui.community.event.EventActivity;
 import com.dailylocally.ui.onboarding.PrefManager;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
+import com.dailylocally.utilities.analytics.Analytics;
 import com.dailylocally.utilities.nointernet.InternetErrorFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -64,8 +68,11 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
 
     private MyViewPagerAdapter myViewPagerAdapter;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, CommunityOnBoardingActivity.class);
+    public static Intent newIntent(Context context,String fromPage,String toPage) {
+        Intent intent = new Intent(context, CommunityOnBoardingActivity.class);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        intent.putExtra(AppConstants.PAGE, toPage);
+        return intent;
     }
 
     @Override
@@ -209,6 +216,11 @@ public class CommunityOnBoardingActivity extends BaseActivity<ActivityCommunityO
             }
         });
 
+        Intent intent = getIntent();
+        if (intent!=null) {
+            new Analytics().eventPageOpens(this, Objects.requireNonNull(intent.getExtras()).getString(AppConstants.FROM, "nil"),
+                    AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
+        }
 
     }
 

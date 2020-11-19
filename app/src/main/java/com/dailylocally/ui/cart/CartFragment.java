@@ -168,7 +168,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
+        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CART,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         intent.putExtra("edit", "1");
         startActivity(intent);
     }
@@ -225,7 +225,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void applyCoupon() {
-        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_NAME_COUPONS);
+        Intent intent = CouponsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CATEGORY_PAGE,AppConstants.SCREEN_NAME_COUPONS);
         intent.putExtra(AppConstants.PAGE, AppConstants.NOTIFY_CART_FRAG);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -347,7 +347,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void subsItemClick(CartResponse.SubscriptionItem product) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_CART_PAGE,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CART,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         intent.putExtra("vpid", String.valueOf(product.getPid()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -397,7 +397,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void orderNowItemClick(CartResponse.Item product) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_PRODUCT_DETAIL,AppConstants.SCREEN_CART_PAGE);
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CART,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         intent.putExtra("vpid", String.valueOf(product.getPid()));
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

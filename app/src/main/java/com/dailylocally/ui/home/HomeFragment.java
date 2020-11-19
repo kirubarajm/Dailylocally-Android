@@ -53,11 +53,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     AppUpdateInfo appUpdateInfo;
     GridLayoutManager gridLayoutManager;
     VideoView videoView;
-    public static HomeFragment newInstance(String fromPage, String toPage) {
+    public static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
-        args.putString(AppConstants.FROM, fromPage);
-        args.putString(AppConstants.PAGE, toPage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -114,7 +112,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void changeAddress() {
-        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_MY_ACCOUNT,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
+        Intent intent = ViewAddressActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -132,7 +130,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
         bundle.putString(AppConstants.PROMOTION_URL, url);
         bundle.putString(AppConstants.PROMOTION_URL, url);
-        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_COMMUNITY);
+        bundle.putString(AppConstants.FROM,AppConstants.SCREEN_NAME_HOME);
         bundle.putString(AppConstants.PAGE,AppConstants.SCREEN_NAME_PROMOTION);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
@@ -148,7 +146,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void ratingClick() {
-        Intent intent = RatingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_RATING);
+        Intent intent = RatingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_RATING);
         intent.putExtra("doid", mHomeViewModel.ratingDOID);
         startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -229,7 +227,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         }else {
-            Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
+            Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
             inIntent.putExtra("next", false);
             startActivity(inIntent);
            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

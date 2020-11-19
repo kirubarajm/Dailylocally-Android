@@ -100,8 +100,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     boolean cart = false;
     String pageid = "";
     String navigationPage;
-    Analytics analytics;
-    String pageName = AppConstants.SCREEN_HOME;
     double clatitude;
     double clongitude;
     InstallStateUpdatedListener installStateUpdatedListener;
@@ -150,7 +148,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.FROM_PAGE, fPage);
-        intent.putExtra(AppConstants.To_PAGE, tPage);
+        intent.putExtra(AppConstants.TO_PAGE, tPage);
 
         return intent;
     }
@@ -188,7 +186,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         try {
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_HOME);
             bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_CART);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartFragment fragment = new CartFragment();
@@ -222,7 +220,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //  CalendarFragment fragment = new CalendarFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_HOME);
             bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_COMMUNITY);
             CommunityFragment fragment = new CommunityFragment();
             fragment.setArguments(bundle);
@@ -265,7 +263,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             //  CalendarFragment fragment = new CalendarFragment();
             CommunityCatFragment fragment = new CommunityCatFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_HOME);
             bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST);
             fragment.setArguments(bundle);
 
@@ -358,7 +356,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_HOME);
             bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_CALENDAR);
 
             CalendarFragment fragment = new CalendarFragment();
@@ -385,7 +383,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         try {
             mMainViewModel.isExplore.set(true);
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_HOME);
             bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_CALENDAR);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             SearchFragment fragment = new SearchFragment();
@@ -427,8 +425,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_MAIN);
-            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_MY_ACCOUNT);
+            bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_HOME);
+            bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_MY_ACCOUNT);
             fragment.setArguments(bundle);
             transaction.replace(R.id.content_main, fragment);
             // transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
@@ -455,7 +453,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                    couponName,totalCharge,orderId);
 
         if (status) {
-            Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_ORDER_PLACED);
+            Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_ORDER_PLACED);
             newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(newIntent);
             finish();
@@ -507,7 +505,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         if (mMainViewModel.isHome.get() || mMainViewModel.isCommunity.get()) {
 
             if (doubleBackToExitPressedOnce) {
-                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_EXIT_APP);
                 super.onBackPressed();
                 return;
             }
@@ -1103,16 +1100,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
+                intent = CategoryL1Activity.newIntent(this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:
-                intent = CategoryL2Activity.newIntent(this, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST, AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
+                intent = CategoryL2Activity.newIntent(this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_SUB_CATEGORY_L2_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 bundle.putString("scl1id", actionDatas.get("scl1id"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L1_PROD_ACTV:
-                intent = CatProductActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
+                intent = CatProductActivity.newIntent(this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_VIEW_ALL_PRODUCTS);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_COMMUNITY_CATLIST_FRAG:
@@ -1120,25 +1117,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 openCommunityCat();
                 return;
             case AppConstants.NOTIFY_TRANS_LIST_ACTV:
-                intent = TransactionHistoryActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_TRANSACTION);
+                intent = TransactionHistoryActivity.newIntent(this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_TRANSACTION);
                 break;
             case AppConstants.NOTIFY_TRANS_DETAILS_ACTV:
-                intent = TransactionDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_TRANS_DETAILS);
+                intent = TransactionDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_TRANS_DETAILS);
                 bundle.putString("orderid", actionDatas.get("orderid"));
 
                 break;
             case AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV:
-                intent = ProductDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+                intent = ProductDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
                 bundle.putString("vpid", actionDatas.get("vpid"));
 
                 break;
             case AppConstants.NOTIFY_COLLECTION_ACTV:
-                intent = CollectionDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
+                intent = CollectionDetailsActivity.newIntent(this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
                 bundle.putString("cid", actionDatas.get("cid"));
 
                 break;
             case AppConstants.NOTIFY_COMMUNITY_EVENT_POST:
-                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"), AppConstants.SCREEN_NAME_MAIN, AppConstants.SCREEN_NAME_COMMUNITY_EVENT);
+                intent = EventActivity.newIntent(this, actionDatas.get("topic"), actionDatas.get("title"), AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_COMMUNITY_EVENT);
 
                 break;
             /*default:

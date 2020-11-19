@@ -128,12 +128,6 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
         mFragmentProductsBinding.productList.setAdapter(productListAdapter);
 
         mFragmentProductsBinding.productList.setNestedScrollingEnabled(true);
-
-
-        Bundle intent = getArguments();
-        assert intent != null;
-        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_PRODUCTS);
     }
 
     @Override

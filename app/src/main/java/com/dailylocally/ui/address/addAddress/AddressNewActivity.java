@@ -149,7 +149,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     // private BottomSheetBehavior mBottomSheetBehavior;
 
     public static Intent newIntent(Context context,String ToPage,String fromPage) {
-        Intent intent = new Intent(context, AboutUsActivity.class);
+        Intent intent = new Intent(context, AddressNewActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);
         return intent;
@@ -863,7 +863,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public void knowMore() {
 
-        Intent inIntent = CommunityOnBoardingActivity.newIntent(AddressNewActivity.this);
+        Intent inIntent = CommunityOnBoardingActivity.newIntent(AddressNewActivity.this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
         inIntent.putExtra("next", true);
         startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -883,7 +883,8 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(AddressNewActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
+                        Intent intent = FeedbackSupportActivity.newIntent(AddressNewActivity.this,
+                                AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }

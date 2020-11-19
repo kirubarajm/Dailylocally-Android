@@ -36,7 +36,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     FaqsAndSupportViewModel mFaqsAndSupportViewModel;
     ActivityFaqsSupportBinding mActivityFaqsSupportBinding;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, FaqsAndSupportActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);
@@ -50,7 +50,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
     @Override
     public void feedBackClick() {
-        Intent intent = FaqActivity.newIntent(this,AppConstants.SCREEN_NAME_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
+        Intent intent = FaqActivity.newIntent(this,AppConstants.SCREEN_NAME_FAQ_SUPPORT,AppConstants.SCREEN_NAME_FAQ);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

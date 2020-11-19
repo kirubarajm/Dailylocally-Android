@@ -75,11 +75,9 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
     Bitmap imageBitmap;
     VideoView videoView;
 
-    public static CommunityCatFragment newInstance(String fromPage, String toPage) {
+    public static CommunityCatFragment newInstance() {
         Bundle args = new Bundle();
         CommunityCatFragment fragment = new CommunityCatFragment();
-        args.putString(AppConstants.FROM, fromPage);
-        args.putString(AppConstants.PAGE, toPage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -144,7 +142,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         /*Intent intent = GoogleAddressActivity.newIntent(getContext());
         intent.putExtra("edit", "1");
         startActivity(intent);*/
-        Intent intent = ViewAddressActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_MY_ACCOUNT, AppConstants.SCREEN_NAME_ADDRESS_VIEW);
+        Intent intent = ViewAddressActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_CATEGORY_PAGE, AppConstants.SCREEN_NAME_ADDRESS_VIEW);
         startActivity(intent);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -161,7 +159,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
         bundle.putInt(AppConstants.PROMOTION_TYPE, type);
         bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
         bundle.putString(AppConstants.PROMOTION_URL, url);
-        bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_COMMUNITY);
+        bundle.putString(AppConstants.FROM, AppConstants.SCREEN_NAME_CATEGORY_PAGE);
         bundle.putString(AppConstants.PAGE, AppConstants.SCREEN_NAME_PROMOTION);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
@@ -292,7 +290,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
             new Analytics().eventCategoryTile(getContext(), result.getName(), type, String.valueOf(pos));
 
-            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
+            Intent intent = CategoryL1Activity.newIntent(getBaseActivity(), AppConstants.SCREEN_NAME_CATEGORY_PAGE, AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
             intent.putExtra("catid", String.valueOf(result.getCatid()));
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -302,7 +300,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
 
             new Analytics().eventCollectionTile(getContext(), result.getName(), type, String.valueOf(pos), result.getCid());
 
-            Intent intent = CollectionDetailsActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_COMMUNITY_CAT_LIST, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
+            Intent intent = CollectionDetailsActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_CATEGORY_PAGE, AppConstants.SCREEN_NAME_COLLECTION_DETAIL);
             intent.putExtra("cid", result.getCid());
             startActivity(intent);
             getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -313,7 +311,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
             new Analytics().eventDLEregistrationPageOnCategoryPage(getContext());
 
             if (mCommunityCatViewModel.getDataManager().isCommunityOnboardSeen()) {
-                Intent inIntent = CommunitySearchActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_COMMUNITY, AppConstants.URL_COMMUNITY_SEARCH);
+                Intent inIntent = CommunitySearchActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_CATEGORY_PAGE, AppConstants.URL_COMMUNITY_SEARCH);
                 inIntent.putExtra("newuser", false);
                 inIntent.putExtra("lat", mCommunityCatViewModel.getDataManager().getCurrentLat());
                 inIntent.putExtra("lng", mCommunityCatViewModel.getDataManager().getCurrentLng());
@@ -321,7 +319,7 @@ public class CommunityCatFragment extends BaseFragment<FragmentCommunityCatBindi
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
             } else {
-                Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext());
+                Intent inIntent = CommunityOnBoardingActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CATEGORY_PAGE,AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
                 inIntent.putExtra("next", false);
                 startActivity(inIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

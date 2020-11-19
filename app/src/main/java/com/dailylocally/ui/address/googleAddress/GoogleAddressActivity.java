@@ -169,7 +169,8 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                        // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(GoogleAddressActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
+                        Intent intent = FeedbackSupportActivity.newIntent(GoogleAddressActivity.this,
+                                AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -273,7 +274,7 @@ public class GoogleAddressActivity extends BaseActivity<ActivityAddAddressBindin
     public void confirmLocationClick(String locationAddress, String area,
                                      String lat,String lon,String pinCode) {
         Intent intents = new Intent();
-        Intent intent = AddressNewActivity.newIntent(GoogleAddressActivity.this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
+        Intent intent = AddressNewActivity.newIntent(GoogleAddressActivity.this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("locationAddress",locationAddress);
         intent.putExtra("lat",lat);
         intent.putExtra("lon",lon);

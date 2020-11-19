@@ -43,7 +43,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     FaqsAdapter mFaqsAdapter;
     private ActivityFaqsBinding mActivityFaqsBinding;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, FaqActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);

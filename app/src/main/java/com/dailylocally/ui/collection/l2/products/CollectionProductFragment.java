@@ -37,12 +37,10 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
 
     private FragmentCollectionProductsBinding mFragmentProductsBinding;
 
-    public static CollectionProductFragment newInstance(String id, String cid,String fromPage, String toPage) {
+    public static CollectionProductFragment newInstance(String id, String cid) {
         Bundle args = new Bundle();
         args.putString("scl1id", id);
         args.putString("cid", cid);
-        args.putString(AppConstants.FROM, fromPage);
-        args.putString(AppConstants.PAGE, toPage);
         CollectionProductFragment fragment = new CollectionProductFragment();
         fragment.setArguments(args);
         return fragment;

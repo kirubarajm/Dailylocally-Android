@@ -49,7 +49,7 @@ public class VideoActivity extends BaseActivity<ActivityVideoBinding, VideoViewM
         }
     };
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, VideoActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);

@@ -102,7 +102,7 @@ public class GenerateGetSocialNotification extends AsyncTask<String, Void, Bitma
         if (pageId == null) pageId = "0";
         switch (pageId) {
             case AppConstants.NOTIFY_CATEGORY_L1_ACTV:
-                intent = CategoryL1Activity.newIntent(mContext,AppConstants.SCREEN_NAME_HOME,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
+                intent = CategoryL1Activity.newIntent(mContext,AppConstants.SCREEN_NAME_NOTIFICATION,AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST);
                 bundle.putString("catid", actionDatas.get("catid"));
                 break;
             case AppConstants.NOTIFY_CATEGORY_L2_ACTV:

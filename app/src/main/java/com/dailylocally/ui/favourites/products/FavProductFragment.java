@@ -38,11 +38,9 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
 
     private FragmentFavProductsBinding mFragmentProductsBinding;
 
-    public static FavProductFragment newInstance(String id,String fromPage, String toPage) {
+    public static FavProductFragment newInstance(String id) {
         Bundle args = new Bundle();
         args.putString("catid", id);
-        args.putString(AppConstants.FROM, fromPage);
-        args.putString(AppConstants.PAGE, toPage);
         FavProductFragment fragment = new FavProductFragment();
         fragment.setArguments(args);
         return fragment;
@@ -144,10 +142,10 @@ stopLoader();
         mFragmentProductsBinding.productList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFragmentProductsBinding.productList.setAdapter(favProductListAdapter);
 
-        Bundle intent = getArguments();
+        /*Bundle intent = getArguments();
         assert intent != null;
         new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_FAVORITES);
+                AppConstants.SCREEN_NAME_FAVORITES);*/
 
     }
 

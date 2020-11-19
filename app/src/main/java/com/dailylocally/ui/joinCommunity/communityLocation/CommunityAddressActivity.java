@@ -176,7 +176,8 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                        // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(CommunityAddressActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
+                        Intent intent = FeedbackSupportActivity.newIntent(CommunityAddressActivity.this,
+                                AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -260,7 +261,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
         if (!mActivityCommunityBinding.txtSubLocality.getText().toString().trim().equals("")) {
 
             Intent intents = new Intent();
-            Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
+            Intent intent = AddressNewActivity.newIntent(this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_EDIT_ADDRESS);
             intent.putExtra("locationAddress", mActivityCommunityBinding.txtSubLocality.getText().toString());
             intent.putExtra("lat",strCommunityLat);
             intent.putExtra("lon",strCommunityLng);
@@ -309,7 +310,7 @@ public class CommunityAddressActivity extends BaseActivity<ActivityCommunityAddr
     public void confirmLocationClick(String locationAddress, String area,
                                      String lat,String lon,String pinCode) {
         Intent intents = new Intent();
-        Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
+        Intent intent = AddressNewActivity.newIntent(this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("locationAddress",locationAddress);
         intent.putExtra("lat",lat);
         intent.putExtra("lon",lon);

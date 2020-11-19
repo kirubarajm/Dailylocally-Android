@@ -42,7 +42,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     ArrayList<Integer> productIdList;
     String doid = "";
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, RatingActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);
@@ -78,7 +78,7 @@ public class RatingActivity extends BaseActivity<ActivityRatingBinding, RatingVi
     @Override
     public void helpClick() {
         Intent intent = HelpActivity.newIntent(RatingActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV,AppConstants.CHAT_PAGE_TYPE_COMPLETED_ORDER,doid
-                ,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
+                ,AppConstants.SCREEN_NAME_RATING,AppConstants.SCREEN_NAME_HELP);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

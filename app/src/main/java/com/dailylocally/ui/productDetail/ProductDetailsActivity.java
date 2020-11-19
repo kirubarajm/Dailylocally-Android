@@ -49,7 +49,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         }
     };
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, ProductDetailsActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);

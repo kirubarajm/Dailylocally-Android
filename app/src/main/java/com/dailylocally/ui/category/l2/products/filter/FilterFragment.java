@@ -35,10 +35,8 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     String scl2id;
     String page;
 
-    public static FilterFragment newInstance(String fromPage,String toPage) {
+    public static FilterFragment newInstance() {
         Bundle args = new Bundle();
-        args.putString(AppConstants.FROM, fromPage);
-        args.putString(AppConstants.PAGE, toPage);
         FilterFragment fragment = new FilterFragment();
         fragment.setArguments(args);
         return fragment;
@@ -76,11 +74,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFilterViewModel.setNavigator(this);
-
-        Bundle intent = getArguments();
-        assert intent != null;
-        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_FILTER);
     }
 
     @Override
@@ -111,9 +104,10 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         }
 
         Bundle intent = getArguments();
-        assert intent != null;
-        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_FILTER);
+        if (intent != null) {
+            new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"), AppConstants.SCREEN_NAME_FILTER);
+        }
+
     }
 
     @Override

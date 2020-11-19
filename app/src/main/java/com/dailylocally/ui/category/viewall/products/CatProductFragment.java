@@ -176,7 +176,7 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
     @Override
     public void productItemClick(ProductsResponse.Result products, int position) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CART,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_CATEGORY_PAGE,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         intent.putExtra("vpid", String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

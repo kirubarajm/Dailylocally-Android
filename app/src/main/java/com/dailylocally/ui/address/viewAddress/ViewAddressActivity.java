@@ -115,7 +115,7 @@ public class ViewAddressActivity extends BaseActivity<ActivityViewAddressBinding
     @Override
     public void updateClick() {
         Intent intents = new Intent();
-        Intent intent = AddressNewActivity.newIntent(this,intents.getExtras().getString(AppConstants.FROM),AppConstants.SCREEN_EDIT_ADDRESS);
+        Intent intent = AddressNewActivity.newIntent(this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_EDIT_ADDRESS);
         intent.putExtra("edit", "1");
         intent.putExtra("newuser", false);
         startActivity(intent);

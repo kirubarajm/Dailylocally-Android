@@ -32,7 +32,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     PrivacyViewModel mPrivacyViewModel;
     ActivityPrivacyBinding mActivityPrivacyBinding;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, PrivacyActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);

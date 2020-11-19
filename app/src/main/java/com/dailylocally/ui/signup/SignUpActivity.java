@@ -62,7 +62,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     };
     private ActivitySignupBinding mActivitySignupBinding;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, SignUpActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
@@ -97,7 +97,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void faqs() {
-        Intent intent = FeedbackSupportActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
+        Intent intent = FeedbackSupportActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_NAME_SIGN_UP,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

@@ -110,7 +110,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     private LatLngBounds bounds;
     private LatLngBounds.Builder builder;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context,String fromPage,String ToPage) {
         Intent intent = new Intent(context, CommunityActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
         intent.putExtra(AppConstants.FROM, fromPage);
@@ -601,7 +601,8 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
-                        Intent intent = FeedbackSupportActivity.newIntent(CommunityActivity.this,AppConstants.SCREEN_MY_ACCOUNT,AppConstants.SCREEN_FEEDBACK_SUPPORT);
+                        Intent intent = FeedbackSupportActivity.newIntent(CommunityActivity.this,AppConstants.SCREEN_NAME_JOIN_COMMUNITY,
+                                AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -653,7 +654,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding, Co
     @Override
     public void knowMore() {
 
-        Intent inIntent = CommunityOnBoardingActivity.newIntent(CommunityActivity.this);
+        Intent inIntent = CommunityOnBoardingActivity.newIntent(CommunityActivity.this,AppConstants.SCREEN_NAME_JOIN_COMMUNITY,AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
         inIntent.putExtra("next", false);
         startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

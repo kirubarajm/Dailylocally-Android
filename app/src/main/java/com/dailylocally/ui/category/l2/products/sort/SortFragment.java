@@ -36,10 +36,8 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
 
     String scl2id;
 
-    public static SortFragment newInstance(String fromPage,String toPage) {
+    public static SortFragment newInstance() {
         Bundle args = new Bundle();
-        args.putString(AppConstants.FROM, fromPage);
-        args.putString(AppConstants.PAGE, toPage);
         SortFragment fragment = new SortFragment();
         fragment.setArguments(args);
         return fragment;
@@ -101,10 +99,7 @@ public class SortFragment extends BaseBottomSheetFragment<FragmentSortBinding, S
 
         Bundle intent = getArguments();
         assert intent != null;
-        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"),
-                AppConstants.SCREEN_NAME_SORT);
-
-
+        new Analytics().eventPageOpens(getContext(), intent.getString(AppConstants.FROM, "nil"), AppConstants.SCREEN_NAME_SORT);
     }
 
     @Override
