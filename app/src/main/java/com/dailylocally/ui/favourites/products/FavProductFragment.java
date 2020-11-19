@@ -2,14 +2,12 @@ package com.dailylocally.ui.favourites.products;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dailylocally.BR;
@@ -69,8 +67,15 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
     public void openFilter() {
 
 
+    }
+
+    @Override
+    public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
+
+        new Analytics().eventAddButton(getContext(), name, action, category, l1, l2, cost, quantity, tag, mFavProductsViewModel.totalCart(), "listing_page");
 
     }
+
 
     @Override
     public void openSort() {
@@ -81,14 +86,14 @@ public class FavProductFragment extends BaseFragment<FragmentFavProductsBinding,
     public void DataLoaded(FavProductsResponse response) {
         if (response != null) {
             if (response.getResult() != null && response.getResult().size() > 0) {
-                ((FavActivity)getActivity()).emptyFav(false);
+                ((FavActivity) getActivity()).emptyFav(false);
             } else {
-                ((FavActivity)getActivity()).emptyFav(true);
+                ((FavActivity) getActivity()).emptyFav(true);
             }
         } else {
-            ((FavActivity)getActivity()).emptyFav(false);
+            ((FavActivity) getActivity()).emptyFav(false);
         }
-stopLoader();
+        stopLoader();
 
     }
 
@@ -98,6 +103,7 @@ stopLoader();
         stopLoader();
 
     }
+
     public void stopLoader() {
         mFragmentProductsBinding.pageLoader.stopShimmerAnimation();
         mFragmentProductsBinding.pageLoader.setVisibility(View.GONE);
@@ -107,6 +113,7 @@ stopLoader();
         mFragmentProductsBinding.pageLoader.setVisibility(View.VISIBLE);
         mFragmentProductsBinding.pageLoader.startShimmerAnimation();
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,17 +176,17 @@ stopLoader();
     @Override
     public void subscribeProduct(FavProductsResponse.Result products) {
 
-        Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_FAVORITES,AppConstants.SCREEN_NAME_SUBSCRIPTION);
+        Intent intent = SubscriptionActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_FAVORITES, AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", String.valueOf(products.getPid()));
-        startActivityForResult(intent,AppConstants.SUBSCRIPTION_CODE);
+        startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override
     public void productItemClick(FavProductsResponse.Result products) {
 
-        Intent intent = ProductDetailsActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_FAVORITES,AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
-        intent.putExtra("vpid",String.valueOf(products.getPid()));
+        Intent intent = ProductDetailsActivity.newIntent(getContext(), AppConstants.SCREEN_NAME_FAVORITES, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+        intent.putExtra("vpid", String.valueOf(products.getPid()));
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         getBaseActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -211,20 +218,19 @@ stopLoader();
 
             }
 
-        }else  if (requestCode == AppConstants.REFRESH_CODE) {
+        } else if (requestCode == AppConstants.REFRESH_CODE) {
             if (resultCode == RESULT_OK) {
                 mFavProductsViewModel.productsList.clear();
                 subscribeToLiveData();
 
             }
-        }else  if (requestCode == 1111) {
+        } else if (requestCode == 1111) {
             if (resultCode == RESULT_OK) {
                 startLoader();
                 mFavProductsViewModel.checkScl1Filter(data.getStringExtra("catid"));
             }
         }
     }
-
 
 
 }

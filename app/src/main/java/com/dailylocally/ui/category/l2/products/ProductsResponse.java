@@ -218,7 +218,33 @@ public class ProductsResponse {
         @Expose
         private Boolean servicableStatus;
 
-        public String getPacketsize() {
+        @SerializedName("cat_name")
+        @Expose
+        private String catName;
+
+        @SerializedName("sub_cat1")
+        @Expose
+        private String subCat1;
+
+        @SerializedName("sub_cat2")
+        @Expose
+        private String subCat2;
+
+        public String getCatName() {
+            return catName;
+        }
+
+        public String getSubCat1() {
+            return subCat1;
+        }
+
+        public String getSubCat2() {
+            return subCat2;
+        }
+
+
+
+            public String getPacketsize() {
             return packetsize;
         }
 

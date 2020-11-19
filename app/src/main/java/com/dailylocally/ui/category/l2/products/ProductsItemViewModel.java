@@ -49,6 +49,7 @@ public class ProductsItemViewModel {
     private final List<CartRequest.Orderitem> results = new ArrayList<>();
     private final CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
     int quantity = 0;
+    String pPrice = "";
     String favid;
     private CartRequest cartRequestPojo = new CartRequest();
 int position=0;
@@ -69,13 +70,17 @@ int position=0;
                 subscribeAvailable.set(false);
             }
         showDiscount.set(result.isDiscountCostStatus());
+
         if (result.isDiscountCostStatus()) {
             discount.set("Save " +DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getDiscountCost());
             totalPrice.set("Was " +DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getMrp());
             price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getMrpDiscountAmount());
+            pPrice=result.getMrpDiscountAmount();
         } else {
             price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getMrp());
+            pPrice=result.getMrp();
         }
+
 
 
 
@@ -285,6 +290,8 @@ int position=0;
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
         mListener.refresh();
+        mListener.addOrRemoveQuantity(products.getProductname(),"add",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
+
 
     }
 
@@ -364,6 +371,7 @@ int position=0;
             saveCart(cartRequestPojo);
             mListener.refresh();
         }
+        mListener.addOrRemoveQuantity(products.getProductname(),"remove",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
 
         if (quantity == 0) {
             isAddClicked.set(false);
@@ -416,6 +424,8 @@ int position=0;
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
         mListener.refresh();
+        mListener.addOrRemoveQuantity(products.getProductname(),"add",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
+
 
     }
 
@@ -434,6 +444,7 @@ int position=0;
 
         void onItemClick(ProductsResponse.Result products,int position);
 
+        void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag);
 
         void showToast(String message);
     }

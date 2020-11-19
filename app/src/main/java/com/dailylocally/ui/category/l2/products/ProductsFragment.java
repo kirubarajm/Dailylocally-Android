@@ -172,6 +172,13 @@ public class ProductsFragment extends BaseFragment<FragmentProductsBinding, Prod
     }
 
     @Override
+    public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
+
+        new Analytics().eventAddButton(getContext(),name,action,category,l1,l2,cost,quantity,tag,mProductsViewModel.totalCart(),"listing_page");
+
+    }
+
+    @Override
     public void showToast(String message) {
 
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();

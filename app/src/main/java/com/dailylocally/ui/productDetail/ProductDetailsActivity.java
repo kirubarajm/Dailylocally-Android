@@ -110,7 +110,12 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     public void handleError(Throwable throwable) {
 
     }
+    @Override
+    public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
 
+        new Analytics().eventAddButton(ProductDetailsActivity.this,name,action,category,l1,l2,cost,quantity,tag,mAddAddressViewModel.totalCart(),"product_detail_page");
+
+    }
     @Override
     public void goBack() {
         Intent intent = new Intent();

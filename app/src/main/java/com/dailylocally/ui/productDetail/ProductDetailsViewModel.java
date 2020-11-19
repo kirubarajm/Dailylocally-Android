@@ -73,6 +73,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
     public ObservableBoolean cartItemAvailble = new ObservableBoolean();
     public String vpid = "0";
     int quantity = 0;
+    String pPrice="";
     private ProductDetailsResponse.Result products;
     private CartRequest cartRequestPojo = new CartRequest();
 
@@ -120,6 +121,9 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         }
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
+
+
+       getNavigator(). addOrRemoveQuantity(products.getProductname(),"add",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
 
     }
 
@@ -202,7 +206,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         if (quantity == 0) {
             isAddClicked.set(false);
         }
-
+        getNavigator(). addOrRemoveQuantity(products.getProductname(),"remove",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
     }
 
     public void enableAdd() {
@@ -253,7 +257,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
 
-
+        getNavigator(). addOrRemoveQuantity(products.getProductname(),"add",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
     }
 
     public void saveCart(CartRequest request) {
@@ -335,7 +339,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
         }
 
     }*/
-    public void totalCart() {
+    public int totalCart() {
         Gson sGson = new GsonBuilder().create();
         CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
         cartItemAvailble.set(false);
@@ -387,6 +391,7 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
                 items.set("Items");
             }
         }
+        return price;
 
     }
 
@@ -422,8 +427,10 @@ public class ProductDetailsViewModel extends BaseViewModel<ProductDetailsNavigat
 
                                     if (response.getResult().get(0).getDiscountCostStatus()) {
                                         mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + response.getResult().get(0).getMrpDiscountAmount());
+                                        pPrice=response.getResult().get(0).getMrpDiscountAmount();
                                     } else {
                                         mrp.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol) + "" + response.getResult().get(0).getMrp());
+                                        pPrice=response.getResult().get(0).getMrp();
                                     }
 
                                     //mrp.set(String.valueOf(response.getResult().get(0).getMrp()));

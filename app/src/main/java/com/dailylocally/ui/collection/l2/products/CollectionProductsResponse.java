@@ -216,6 +216,29 @@ public class CollectionProductsResponse {
         @Expose
         private Boolean servicableStatus;
 
+        @SerializedName("cat_name")
+        @Expose
+        private String catName;
+
+        @SerializedName("sub_cat1")
+        @Expose
+        private String subCat1;
+
+        @SerializedName("sub_cat2")
+        @Expose
+        private String subCat2;
+
+        public String getCatName() {
+            return catName;
+        }
+
+        public String getSubCat1() {
+            return subCat1;
+        }
+
+        public String getSubCat2() {
+            return subCat2;
+        }
 
         public String getFavid() {
             return favid;

@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.dailylocally.api.remote.GsonRequest;
 import com.dailylocally.data.DataManager;
 import com.dailylocally.ui.base.BaseViewModel;
+import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
 import com.google.gson.Gson;
@@ -85,6 +86,43 @@ public class ProductsViewModel extends BaseViewModel<ProductsNavigator> {
     public boolean isAddressAdded() {
 
         return getDataManager().getCurrentLat() != null;
+
+    }
+    public int totalCart() {
+        Gson sGson = new GsonBuilder().create();
+        CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
+
+        if (CartRequest == null)
+            CartRequest = new CartRequest();
+        int count = 0;
+        int price = 0;
+        if (CartRequest.getOrderitems() != null) {
+            if (CartRequest.getOrderitems().size() == 0) {
+            } else {
+
+                count = count + CartRequest.getOrderitems().size();
+
+                for (int i = 0; i < CartRequest.getOrderitems().size(); i++) {
+                    //  count = count + CartRequest.getOrderitems().get(i).getQuantity();
+                    price = price + ((Integer.parseInt(CartRequest.getOrderitems().get(i).getPrice())) * CartRequest.getOrderitems().get(i).getQuantity());
+                }
+
+            }
+        }
+
+
+        if (CartRequest.getSubscription() != null) {
+            if (CartRequest.getSubscription().size() == 0) {
+            } else {
+                count = count + CartRequest.getSubscription().size();
+
+                for (int i = 0; i < CartRequest.getSubscription().size(); i++) {
+                    price = price + ((Integer.parseInt(CartRequest.getSubscription().get(i).getPrice())));
+                }
+
+            }
+        }
+        return price;
 
     }
 

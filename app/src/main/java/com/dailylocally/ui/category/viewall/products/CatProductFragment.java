@@ -164,6 +164,12 @@ public class CatProductFragment extends BaseFragment<FragmentCatproductsBinding,
     }
 
     @Override
+    public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
+
+        new Analytics().eventAddButton(getContext(),name,action,category,l1,l2,cost,quantity,tag,mCatProductFragViewModel.totalCart(),"listing_page");
+
+    }
+    @Override
     public void subscribeProduct(ProductsResponse.Result products, int position) {
 
         Intent intent = SubscriptionActivity.newIntent(getContext(),AppConstants.SCREEN_NAME_SUB_CATEGORY_LI_LIST,AppConstants.SCREEN_NAME_SUBSCRIPTION);

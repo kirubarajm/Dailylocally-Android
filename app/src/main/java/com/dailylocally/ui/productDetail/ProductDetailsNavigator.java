@@ -21,7 +21,7 @@ package com.dailylocally.ui.productDetail;
 public interface ProductDetailsNavigator {
 
     void handleError(Throwable throwable);
-
+    void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag);
     void goBack();
     void subscribe();
 

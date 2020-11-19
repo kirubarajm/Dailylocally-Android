@@ -20,6 +20,7 @@ import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
+import com.dailylocally.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -96,6 +97,12 @@ public class CollectionProductFragment extends BaseFragment<FragmentCollectionPr
         mCollectionProductsViewModel.setNavigator(this);
         collectionProductListAdapter.setListener(this);
         subscribeToLiveData();
+    }
+    @Override
+    public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
+
+        new Analytics().eventAddButton(getContext(),name,action,category,l1,l2,cost,quantity,tag,mCollectionProductsViewModel.totalCart(),"listing_page");
+
     }
 
     @Override

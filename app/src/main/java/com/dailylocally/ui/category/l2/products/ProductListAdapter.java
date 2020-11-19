@@ -148,7 +148,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void subscribeProduct(ProductsResponse.Result products, int position);
 
         void productItemClick(ProductsResponse.Result products, int position);
-
+        void   addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag);
         void showToast(String message);
     }
 
@@ -197,6 +197,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onItemClick(ProductsResponse.Result products, int position) {
             mProductsAdapterListener.productItemClick(products, position);
+        }
+
+        @Override
+        public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
+            mProductsAdapterListener.addOrRemoveQuantity(name,action,category,l1,l2,cost,quantity,tag);
         }
 
         @Override

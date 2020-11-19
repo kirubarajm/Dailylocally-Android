@@ -72,6 +72,7 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         void subscribeProduct(FavProductsResponse.Result products);
 
         void productItemClick(FavProductsResponse.Result products);
+        void   addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag);
 
         void reloadProducts();
 
@@ -101,7 +102,10 @@ public class FavProductListAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
 
         }
-
+        @Override
+        public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
+            mProductsAdapterListener.addOrRemoveQuantity(name,action,category,l1,l2,cost,quantity,tag);
+        }
 
         @Override
         public void refresh() {

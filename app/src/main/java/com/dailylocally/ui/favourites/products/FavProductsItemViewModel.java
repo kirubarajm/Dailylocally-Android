@@ -46,6 +46,7 @@ public class FavProductsItemViewModel {
     private final CartRequest.Orderitem cartRequestPojoResult = new CartRequest.Orderitem();
     int quantity = 0;
     String favid;
+    String pPrice = "";
     private CartRequest cartRequestPojo = new CartRequest();
     Integer position;
 
@@ -71,8 +72,10 @@ public class FavProductsItemViewModel {
             discount.set("Save " +DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getDiscountCost());
             totalPrice.set("Was " +DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getMrp());
             price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" +result.getMrpDiscountAmount());
+            pPrice=result.getMrpDiscountAmount();
         } else {
             price.set(DailylocallyApp.getInstance().getString(R.string.rupees_symbol)+"" + result.getMrp());
+            pPrice=result.getMrp();
         }
 
 
@@ -284,6 +287,7 @@ public class FavProductsItemViewModel {
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
         mListener.refresh();
+        mListener.addOrRemoveQuantity(products.getProductname(),"add",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
 
     }
 
@@ -367,6 +371,7 @@ public class FavProductsItemViewModel {
         if (quantity == 0) {
             isAddClicked.set(false);
         }
+        mListener.addOrRemoveQuantity(products.getProductname(),"REMOVE",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
 
     }
 
@@ -415,6 +420,7 @@ public class FavProductsItemViewModel {
         cartRequestPojo.setOrderitems(results);
         saveCart(cartRequestPojo);
         mListener.refresh();
+        mListener.addOrRemoveQuantity(products.getProductname(),"add",products.getCatName(),products.getSubCat1(),products.getSubCat2(),pPrice,quantity,"");
 
     }
 
@@ -434,7 +440,7 @@ public class FavProductsItemViewModel {
         void onItemClick(FavProductsResponse.Result products);
         void removeProduct(Integer position);
 
-
+        void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag);
         void showToast(String message);
     }
 
