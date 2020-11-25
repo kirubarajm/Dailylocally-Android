@@ -157,6 +157,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
             @Override
             public boolean onQueryTextChange(String s) {
                 try {
+                    searchTerms = s;
                     if (s.length() > 1) {
                         mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
                         mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
