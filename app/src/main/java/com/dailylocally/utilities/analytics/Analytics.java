@@ -937,7 +937,7 @@ public class Analytics {
         bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_VALUE, cartValue);
        // bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CART_ITEMS, "");
       //  bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_CARD_TYPE, "");
-        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHANGES, totalCharge);
+        bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHARGES, totalCharge);
      //   bundle.putString(AppConstants.EVENT_PAYMENT_COMPLETED_PARAM_MIS_FEE, "");
         bundle.putString(AppConstants.EVENT_PLACE_ORDER_PARAM_GST, gst);
         bundle.putString(AppConstants.EVENT_PARAM_ORDERID, orderid);

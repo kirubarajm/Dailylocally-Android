@@ -840,7 +840,7 @@ public class AppConstants {
   public static final String EVENT_PAYMENT_COMPLETED_PARAM_CART_VALUE = "cart_value";
   public static final String EVENT_PAYMENT_COMPLETED_PARAM_CART_ITEMS = "cart_items";
   public static final String EVENT_PAYMENT_COMPLETED_PARAM_CARD_TYPE = "card_type";
-  public static final String EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHANGES = "total_changes";
+  public static final String EVENT_PAYMENT_COMPLETED_PARAM_TOTAL_CHARGES = "total_charges";
   public static final String EVENT_PAYMENT_COMPLETED_PARAM_MIS_FEE = "mis_fee";
   public static final String EVENT_PAYMENT_COMPLETED_PARAM_DELIVERY_FEE = "delivery_fee";
   public static final String EVENT_PAYMENT_COMPLETED_PARAM_COUPON = "coupon_name";

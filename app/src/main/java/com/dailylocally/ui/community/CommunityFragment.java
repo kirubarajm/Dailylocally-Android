@@ -933,6 +933,20 @@ int lastItem=0;
         //TYPE 1 = POST
         //TYPE 2 = 5 tiles
 
+        if (actionDatas==null){
+
+            if (type == 2) {
+                if (mCommunityViewModel.communityUser.get()) {
+                    new Analytics().eventTractionDLEBannerTile(getContext(), position);
+                } else {
+                    new Analytics().eventTractionNonDLEBannerTile(getContext(), position);
+                }
+            }
+            return;
+        }
+
+
+
         if (type == 2) {
 
             if (mCommunityViewModel.communityUser.get()) {

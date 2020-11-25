@@ -583,6 +583,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         gstValue = "";
         deliveryValue = 0;
         totalAmount=0;
+        cartSize=0;
 
         String cc = getDataManager().getCartDetails();
         if (cc == null) {
