@@ -104,7 +104,7 @@ int pagination=1;
     PagingResult<GetSocialActivity> pagingResult;
     PagingQuery<ActivitiesQuery> pagingQuery;
     LinearLayoutManager layoutManager;
-
+int lastItem=0;
 
     public static CommunityFragment newInstance(String fromPage, String toPage) {
         Bundle args = new Bundle();
@@ -193,7 +193,7 @@ int pagination=1;
 
     public void saveHomeCloseAnalytics(){
         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mFragmentCommunityBinding.postList.getLayoutManager();
-        new Analytics().eventHomePageOpens(getContext(),pagination,linearLayoutManager.findLastCompletelyVisibleItemPosition());
+        new Analytics().eventHomePageOpens(getContext(),pagination,lastItem);
     }
 
     @Override
@@ -685,6 +685,13 @@ int pagination=1;
                 super.onScrolled(recyclerView, dx, dy);
 
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                lastItem=linearLayoutManager.findLastVisibleItemPosition();
+
+             /*   int l1 =linearLayoutManager.findFirstVisibleItemPosition();
+                int l2 =linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+                int l3= linearLayoutManager.findLastVisibleItemPosition();
+                int l4=linearLayoutManager. findLastCompletelyVisibleItemPosition();*/
+
                 int previousCount = mCommunityViewModel.getSocialActivities.size();
                 if (!mCommunityViewModel.loading.get()) {
                     if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == mCommunityViewModel.getSocialActivities.size() - 1) {
@@ -694,7 +701,7 @@ int pagination=1;
 
                         if (pagingResult != null && pagingQuery != null)
                             if (!pagingResult.isLastPage()) {
-                                pagination++;
+                                pagination=pagination+1;
                                 mCommunityViewModel.loading.set(true);
                                 Communities.getActivities(pagingQuery.next(pagingResult.nextCursor()), result -> {
                                     pagingResult = result;

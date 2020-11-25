@@ -122,9 +122,7 @@ public class ProductDetailsResponse {
         @SerializedName("discount_cost")
         @Expose
         public String discountCost;
-        @SerializedName("cat_name")
-        @Expose
-        public String cat_name;
+
         @SerializedName("gst")
         @Expose
         public Integer gst;
@@ -231,10 +229,6 @@ public class ProductDetailsResponse {
         }
 
 
-
-        public String getCat_name() {
-            return cat_name;
-        }
 
         public String getMrpDiscountAmount() {
             return mrpDiscountAmount;

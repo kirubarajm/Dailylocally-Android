@@ -72,35 +72,45 @@ public class SubscriptionActivity extends BaseActivity<ActivitySubscriptionBindi
 
     @Override
     public void subscribed() {
-        ArrayList<String> weekdays=new ArrayList<>();
+        ArrayList<String> weekdays = new ArrayList<>();
 
         if (mSubscriptionViewModel.monClicked.get())
             weekdays.add("Monday");
 
-         if (mSubscriptionViewModel.tueClicked.get())
+        if (mSubscriptionViewModel.tueClicked.get())
             weekdays.add("Tuesday");
 
-          if (mSubscriptionViewModel.wedClicked.get())
+        if (mSubscriptionViewModel.wedClicked.get())
             weekdays.add("Wednesday");
 
-         if (mSubscriptionViewModel.thuClicked.get())
+        if (mSubscriptionViewModel.thuClicked.get())
             weekdays.add("Thursday");
 
-         if (mSubscriptionViewModel.friClicked.get())
+        if (mSubscriptionViewModel.friClicked.get())
             weekdays.add("Friday");
 
-          if (mSubscriptionViewModel.satClicked.get())
+        if (mSubscriptionViewModel.satClicked.get())
             weekdays.add("saturday");
 
-         if (mSubscriptionViewModel.sunClicked.get())
+        if (mSubscriptionViewModel.sunClicked.get())
             weekdays.add("sunday");
+
+
+        String price = "";
+        if (mSubscriptionViewModel.products.isDiscountCostStatus()) {
+            price =mSubscriptionViewModel.products.getMrpDiscountAmount();
+        } else {
+            price = mSubscriptionViewModel.products.getMrp();
+        }
+
+
 
 
 
         new Analytics().eventUserSubscribe(SubscriptionActivity.this,mSubscriptionViewModel.products.getProductname(),
                 mSubscriptionViewModel.products.getCatName(),mSubscriptionViewModel.products.getSubCat1(),mSubscriptionViewModel.products.getSubCat2(),
-                mSubscriptionViewModel.products.getMrp(),
-                "",mSubscriptionViewModel.totalCartValue,mSubscriptionViewModel.quantity,weekdays,
+                price,
+                "",mSubscriptionViewModel.totalCart(),mSubscriptionViewModel.quantity,weekdays,
                 mSubscriptionViewModel.days,mSubscriptionViewModel.startDate.get(),mSubscriptionViewModel.pageType);
 
 

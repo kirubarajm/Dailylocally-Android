@@ -16,7 +16,6 @@ import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityProductDetailsBinding;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.main.MainActivity;
-import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.subscription.SubscriptionActivity;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.analytics.Analytics;
@@ -49,7 +48,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         }
     };
 
-    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+    public static Intent newIntent(Context context, String fromPage, String ToPage) {
         Intent intent = new Intent(context, ProductDetailsActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);
@@ -110,12 +109,14 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
     public void handleError(Throwable throwable) {
 
     }
+
     @Override
     public void addOrRemoveQuantity(String name, String action, String category, String l1, String l2, String cost, int quantity, String tag) {
 
-        new Analytics().eventAddButton(ProductDetailsActivity.this,name,action,category,l1,l2,cost,quantity,tag,mAddAddressViewModel.totalCart(),"product_detail_page");
+        new Analytics().eventAddButton(ProductDetailsActivity.this, name, action, category, l1, l2, cost, quantity, tag, mAddAddressViewModel.totalCart(), "product_detail_page");
 
     }
+
     @Override
     public void goBack() {
         Intent intent = new Intent();
@@ -126,7 +127,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void subscribe() {
-        Intent intent = SubscriptionActivity.newIntent(ProductDetailsActivity.this,AppConstants.SCREEN_NAME_PRODUCT_DETAIL,AppConstants.SCREEN_NAME_SUBSCRIPTION);
+        Intent intent = SubscriptionActivity.newIntent(ProductDetailsActivity.this, AppConstants.SCREEN_NAME_PRODUCT_DETAIL, AppConstants.SCREEN_NAME_SUBSCRIPTION);
         intent.putExtra("pid", vpid);
         startActivityForResult(intent, AppConstants.SUBSCRIPTION_CODE);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -134,13 +135,20 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
 
     @Override
     public void productsDetailsSuccess(ProductDetailsResponse.Result result) {
-        new Analytics().eventItemDetailPage(this,result.getCat_name(),String.valueOf(result.getScl1Id()),String.valueOf(result.getScl2Id()),result.getMrp(),AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
+        String price = "";
+        if (result.getDiscountCostStatus()) {
+            price = result.getMrpDiscountAmount();
+        } else {
+            price = result.getMrp();
+        }
+
+        new Analytics().eventItemDetailPage(this, result.getCatName(), result.getSubCat1(), result.getSubCat2(), price, AppConstants.SCREEN_NAME_PRODUCT_DETAIL);
         mAddAddressViewModel.offerCost.set(result.getDiscountCost() + " OFF on " + result.getProductname());
     }
 
     @Override
     public void viewCart() {
-        Intent intent = MainActivity.newIntent(ProductDetailsActivity.this, AppConstants.NOTIFY_CART_FRAG, AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV,AppConstants.SCREEN_NAME_PRODUCT_DETAIL,AppConstants.SCREEN_NAME_HOME);
+        Intent intent = MainActivity.newIntent(ProductDetailsActivity.this, AppConstants.NOTIFY_CART_FRAG, AppConstants.NOTIFY_PRODUCT_DETAILS_ACTV, AppConstants.SCREEN_NAME_PRODUCT_DETAIL, AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -184,7 +192,7 @@ public class ProductDetailsActivity extends BaseActivity<ActivityProductDetailsB
         super.onResume();
         registerWifiReceiver();
         mAddAddressViewModel.checkCart();
-mAddAddressViewModel.totalCart();
+        mAddAddressViewModel.totalCart();
     }
 
     @Override

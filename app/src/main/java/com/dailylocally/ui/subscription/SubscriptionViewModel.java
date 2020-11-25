@@ -17,7 +17,6 @@ import com.dailylocally.ui.base.BaseViewModel;
 import com.dailylocally.ui.cart.CartRequest;
 import com.dailylocally.utilities.AppConstants;
 import com.dailylocally.utilities.DailylocallyApp;
-import com.dailylocally.utilities.analytics.Analytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -783,7 +782,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
     }
 
 
-    public void totalCart() {
+    public int totalCart() {
         Gson sGson = new GsonBuilder().create();
         CartRequest CartRequest = sGson.fromJson(getDataManager().getCartDetails(), CartRequest.class);
 
@@ -818,7 +817,7 @@ public class SubscriptionViewModel extends BaseViewModel<SubscriptionNavigator> 
             }
         }
         totalCartValue = price;
-
+        return price;
     }
 
 
