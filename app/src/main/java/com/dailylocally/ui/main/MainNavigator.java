@@ -29,7 +29,7 @@ public interface MainNavigator {
 
     void openAccount();
 
-    void paymentSuccessed(boolean status);
+    void paymentSuccessed(boolean status,boolean isOnlineOrder);
 
     void openCommunity();
 

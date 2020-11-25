@@ -36,7 +36,6 @@ import com.dailylocally.ui.collection.l2.CollectionDetailsActivity;
 import com.dailylocally.ui.community.CommunityFragment;
 import com.dailylocally.ui.community.catlist.CommunityCatFragment;
 import com.dailylocally.ui.community.event.EventActivity;
-import com.dailylocally.ui.fandsupport.help.HelpActivity;
 import com.dailylocally.ui.orderplaced.OrderPlacedActivity;
 import com.dailylocally.ui.productDetail.ProductDetailsActivity;
 import com.dailylocally.ui.search.SearchFragment;
@@ -142,7 +141,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private MainViewModel mMainViewModel;
     private ActivityMainBinding mActivityMainBinding;
 
-    public static Intent newIntent(Context context, String ToPage, String fromPage,String fPage,String tPage) {
+    public static Intent newIntent(Context context, String ToPage, String fromPage, String fPage, String tPage) {
 
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(AppConstants.PAGE, ToPage);
@@ -446,13 +445,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void paymentSuccessed(boolean status) {
-
-        if (pMode.equals("online"))
-            new Analytics().eventPaymentCompleted(context, "", cartSize, cartValue, gst,delCharges,
-                   couponName,totalCharge,orderId);
+    public void paymentSuccessed(boolean status, boolean isOnlineOrder) {
 
         if (status) {
+
             Intent newIntent = OrderPlacedActivity.newIntent(MainActivity.this, AppConstants.SCREEN_NAME_HOME, AppConstants.SCREEN_NAME_ORDER_PLACED);
             newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(newIntent);
@@ -833,10 +829,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         ProfileProvider profileProvider = Chat.INSTANCE.providers().profileProvider();
 
-      //  profileProvider.setVisitorNote(note, null);
+        //  profileProvider.setVisitorNote(note, null);
         ArrayList<String> ltag = new ArrayList<>();
-     //   ltag.add(tag);
-    //    profileProvider.addVisitorTags(ltag, null);
+        //   ltag.add(tag);
+        //    profileProvider.addVisitorTags(ltag, null);
         VisitorInfo visitorInfo = VisitorInfo.builder()
                 .withEmail(mMainViewModel.getDataManager().getCurrentUserEmail())
                 .withName(mMainViewModel.getDataManager().getCurrentUserName())
@@ -1009,6 +1005,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onPaymentSuccess(String s) {
+
+        new Analytics().eventPaymentCompleted(context, "", cartSize, cartValue, gst, delCharges,
+                couponName, totalCharge, orderId);
+
         mMainViewModel.paymentSuccess(orderId, s, 1);
     }
 
@@ -1018,7 +1018,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     public void makePayment(String orderId, String customerId, String amount, Context context, String dlMethod, String pMode, int cartSize, String cartValue,
-                            String gst, int delCharges, String couponName,String totalCharge) {
+                            String gst, int delCharges, String couponName, String totalCharge) {
 
         this.context = context;
         this.dlMethod = dlMethod;

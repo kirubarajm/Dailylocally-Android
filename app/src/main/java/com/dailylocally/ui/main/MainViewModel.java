@@ -358,12 +358,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             if (response.getBoolean("status")) {
 
                                 if (getNavigator() != null)
-                                    getNavigator().paymentSuccessed(true);
+                                    getNavigator().paymentSuccessed(true,true);
                                 getDataManager().setCartDetails(null);
 
                             } else {
                                 if (getNavigator() != null)
-                                    getNavigator().paymentSuccessed(false);
+                                    getNavigator().paymentSuccessed(false,true);
 
                             }
 

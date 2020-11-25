@@ -237,7 +237,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         new Analytics().eventPlaceOrder(getContext(),"",mCartViewModel.paymentMode,mCartViewModel.cartSize,String.valueOf(mCartViewModel.totalAmount),mCartViewModel.gstValue,mCartViewModel.deliveryValue,
                 mCartViewModel.getDataManager().getCouponCode(),mCartViewModel.orderid);
 
-        ((MainActivity) getActivity()).paymentSuccessed(true);
+        ((MainActivity) getActivity()).paymentSuccessed(true,false);
 
     }
 

@@ -40,6 +40,7 @@ import zendesk.chat.Chat;
 import zendesk.chat.ChatConfiguration;
 import zendesk.chat.ChatEngine;
 import zendesk.chat.ChatProvider;
+import zendesk.chat.PreChatFormFieldStatus;
 import zendesk.chat.ProfileProvider;
 import zendesk.chat.VisitorInfo;
 import zendesk.messaging.MessagingActivity;
@@ -175,19 +176,24 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding, HelpViewMode
 
         chatProvider.setDepartment("Daily locally", null);
 
-        /*ChatConfiguration chatConfiguration = ChatConfiguration.builder()
-                .withPreChatFormEnabled(false)
-                .build();*/
+
+
+        ChatConfiguration chatConfiguration = ChatConfiguration.builder()
+                //.withPreChatFormEnabled(false)
+                .withEmailFieldStatus(PreChatFormFieldStatus.HIDDEN)
+                .withNameFieldStatus(PreChatFormFieldStatus.HIDDEN)
+                .withPhoneFieldStatus(PreChatFormFieldStatus.HIDDEN)
+                .build();
 
         mHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mHelpViewModel.orderid));
         MessagingActivity.builder()
                 .withEngines(ChatEngine.engine())
-                .show(HelpActivity.this);
+                .show(HelpActivity.this,chatConfiguration);
 
 
         //    ZopimChat.init(getString(R.string.zopim_account_id));
 
-     /*   final VisitorInfo.Builder build = new VisitorInfo.Builder()
+     /*   final VisitorInfo.Builder build = new VisitorInfo.Builder()+
                 .email(mHelpViewModel.getDataManager().getCurrentUserEmail())
                 .name(mHelpViewModel.getDataManager().getCurrentUserName())
                 .note(note)
