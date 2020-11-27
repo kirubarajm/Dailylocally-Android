@@ -1014,6 +1014,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onPaymentError(int i, String s) {
+
         mMainViewModel.paymentSuccess(orderId, s, 0);
     }
 

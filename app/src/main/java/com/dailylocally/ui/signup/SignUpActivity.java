@@ -140,7 +140,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     public void genderScreenFalse(boolean passwordSuccess) {
         Intent intent = RegistrationActivity.newIntent(SignUpActivity.this,AppConstants.SCREEN_NAME_SIGN_UP,AppConstants.SCREEN_NAME_REGISTRATION);
         intent.putExtra("edit","0");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

@@ -85,10 +85,11 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
 
-    public static Intent newIntent(Context context,String fromPage,String ToPage) {
+    public static Intent newIntent(Context context, String fromPage, String ToPage, String date) {
         Intent intent = new Intent(context, CalendarActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra("date", date);
         return intent;
     }
 
@@ -181,7 +182,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
     @Override
     public void ratingClick() {
         try {
-            Intent intent = RatingActivity.newIntent(CalendarActivity.this,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_RATING);
+            Intent intent = RatingActivity.newIntent(CalendarActivity.this, AppConstants.SCREEN_NAME_CALENDAR, AppConstants.SCREEN_NAME_RATING);
             intent.putExtra("date", dateRating.getTime());
             intent.putExtra("doid", mCalendarViewModel.doid.get());
             startActivityForResult(intent, AppConstants.RATING_REQUEST_CODE);
@@ -201,7 +202,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
         }
 
         Intent intent = HelpActivity.newIntent(CalendarActivity.this, AppConstants.NOTIFY_SUPPORT_ACTV, type, mCalendarViewModel.doid.get(),
-                AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_HELP);
+                AppConstants.SCREEN_NAME_CALENDAR, AppConstants.SCREEN_NAME_HELP);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -239,14 +240,45 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
             caldroidFragment.restoreStatesFromKey(savedInstanceState,
                     "CALDROID_SAVED_STATE");
         } else {
-            Bundle args = new Bundle();
-            Calendar cal = Calendar.getInstance();
-            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
 
-            caldroidFragment.setArguments(args);
+            if (date != null) {
+
+                SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                try {
+                    dateRating = dbFormat.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+                SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
+                SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
+                SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+                String dateDay = dateDayFormat.format(dateRating);
+                String yearString = yearFormat.format(dateRating);
+                String monthString = monthFormat.format(dateRating);
+
+                Bundle args = new Bundle();
+                args.putInt(CaldroidFragment.MONTH, Integer.parseInt(monthString));
+                args.putInt(CaldroidFragment.YEAR, Integer.parseInt(yearString));
+                args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+                args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
+                caldroidFragment.setArguments(args);
+
+
+
+
+            } else {
+
+                Bundle args = new Bundle();
+                Calendar cal = Calendar.getInstance();
+                args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+                args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+                args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+                args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
+
+                caldroidFragment.setArguments(args);
+            }
         }
         t = this.getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
@@ -314,7 +346,25 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
 
         try {
-            if (date.isEmpty()) {
+            if (date == null) {
+                Date currentDate = Calendar.getInstance().getTime();////current date
+                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+                SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
+                SimpleDateFormat dateDayFormat = new SimpleDateFormat("dd, EEEE");
+                SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+                String rateDelivery = dateFormat1.format(currentDate);
+                String dateDay = dateDayFormat.format(currentDate);
+                String yearString = yearFormat.format(currentDate);
+                String monthString = monthFormat.format(currentDate);
+                mCalendarViewModel.getMonthWiseOrderDate(monthString, yearString);
+                caldroidFragment.setSelectedDate(currentDate);
+                caldroidFragment.refreshView();
+                dateRating = currentDate;
+                startLoader();
+                mCalendarViewModel.getDayWiseOrderDetails(currentDate);
+                mCalendarViewModel.rateDeliveryButton.set("Rate Delivery " + rateDelivery);
+                mCalendarViewModel.dateDay.set(dateDay);
+            } else if (date.isEmpty()) {
                 Date currentDate = Calendar.getInstance().getTime();////current date
                 SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
                 SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
@@ -2190,7 +2240,7 @@ public class CalendarActivity extends BaseActivity<FragmentCalendarBinding, Cale
 
     @Override
     public void onItemClick(CalendarDayWiseResponse.Result.Item result) {
-        Intent intent = ProductCancelActivity.newIntent(CalendarActivity.this,AppConstants.SCREEN_NAME_CALENDAR,AppConstants.SCREEN_NAME_PRODUCT_CANCEL);
+        Intent intent = ProductCancelActivity.newIntent(CalendarActivity.this, AppConstants.SCREEN_NAME_CALENDAR, AppConstants.SCREEN_NAME_PRODUCT_CANCEL);
         intent.putExtra("doid", result.getDoid());
         intent.putExtra("dayorderpid", result.getDayorderpid());
         startActivity(intent);

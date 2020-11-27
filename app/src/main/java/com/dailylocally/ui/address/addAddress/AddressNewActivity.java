@@ -53,7 +53,6 @@ import com.android.volley.Request;
 import com.dailylocally.BR;
 import com.dailylocally.R;
 import com.dailylocally.databinding.ActivityAddressNewBinding;
-import com.dailylocally.ui.aboutus.AboutUsActivity;
 import com.dailylocally.ui.address.googleAddress.UserAddressResponse;
 import com.dailylocally.ui.base.BaseActivity;
 import com.dailylocally.ui.communityOnboarding.CommunityOnBoardingActivity;
@@ -148,7 +147,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     //ProgressDialog dialog;
     // private BottomSheetBehavior mBottomSheetBehavior;
 
-    public static Intent newIntent(Context context,String ToPage,String fromPage) {
+    public static Intent newIntent(Context context, String ToPage, String fromPage) {
         Intent intent = new Intent(context, AddressNewActivity.class);
         intent.putExtra(AppConstants.FROM, fromPage);
         intent.putExtra(AppConstants.PAGE, ToPage);
@@ -660,11 +659,11 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                 mAddAddressViewModel.isJoinCommunity.set(false);*/
             Fade fade = new Fade(Fade.OUT);
             fade.setDuration(600);
-            Slide slide=new Slide(Gravity.TOP);
+            Slide slide = new Slide(Gravity.TOP);
 
             TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allContent);
             mAddAddressViewModel.isAddress.set(true);
-           // TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allContent);
+            // TransitionManager.beginDelayedTransition(mActivityAddressNewBinding.allContent);
             mAddAddressViewModel.isJoinCommunity.set(false);
 
             new Handler().postDelayed(new Runnable() {
@@ -832,7 +831,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
             mAddAddressViewModel.googleArea.set(mActivityAddressNewBinding.txtSubLocality2.getText().toString());
         }
 
-     mAddAddressViewModel.checkAddress(mAddAddressViewModel.googleAddress.get(),mAddAddressViewModel.googleArea.get(),mAddAddressViewModel.googleLat.get(),mAddAddressViewModel.googleLon.get(),mAddAddressViewModel.googlePinCode.get());
+        mAddAddressViewModel.checkAddress(mAddAddressViewModel.googleAddress.get(), mAddAddressViewModel.googleArea.get(), mAddAddressViewModel.googleLat.get(), mAddAddressViewModel.googleLon.get(), mAddAddressViewModel.googlePinCode.get());
 
     }
 
@@ -863,7 +862,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public void knowMore() {
 
-        Intent inIntent = CommunityOnBoardingActivity.newIntent(AddressNewActivity.this,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
+        Intent inIntent = CommunityOnBoardingActivity.newIntent(AddressNewActivity.this, AppConstants.SCREEN_NAME_ADDRESS, AppConstants.SCREEN_NAME_COMMUNITY_ONBOARDING);
         inIntent.putExtra("next", true);
         startActivity(inIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -884,7 +883,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
                         dialog.cancel();
                         // confirmLocationClick(locationAddress,area,lat,lng,pinCode);
                         Intent intent = FeedbackSupportActivity.newIntent(AddressNewActivity.this,
-                                AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
+                                AppConstants.SCREEN_NAME_ADDRESS, AppConstants.SCREEN_NAME_FEEDBACK_SUPPORT);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -988,13 +987,13 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     @Override
     public void addresSaved(String message, Boolean status, String email, String gender, int method) {
 
-        if (method== Request.Method.POST){
-            new Analytics().eventAccountCreated(AddressNewActivity.this,email,gender,null,"Non DLE");
+        if (method == Request.Method.POST) {
+            new Analytics().eventAccountCreated(AddressNewActivity.this, email, gender, null, "Non DLE");
         }
 
 
         if (status) {
-            Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_HOME);
+            Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV, AppConstants.SCREEN_NAME_ADDRESS, AppConstants.SCREEN_NAME_HOME);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
@@ -1003,22 +1002,25 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     }
 
     @Override
-    public void communityJoined(String message,String aid,String apartmentName) {
+    public void communityJoined(String message, String aid, String apartmentName) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
-        String gender="MALE";
-        if (mAddAddressViewModel.getDataManager().getGender()==2){
-            gender="FEMALE";
+        String gender = "MALE";
+        if (mAddAddressViewModel.getDataManager().getGender() == 2) {
+            gender = "FEMALE";
         }
 
 
-        if (!aid.equals("0")){
-            new Analytics().eventAccountCreated(AddressNewActivity.this,mAddAddressViewModel.getDataManager().getCurrentUserEmail(),gender,apartmentName,"DLE");
+        if (aid != null) {
+            if (!aid.equals("0")) {
+                new Analytics().eventAccountCreated(AddressNewActivity.this, mAddAddressViewModel.getDataManager().getCurrentUserEmail(), gender, apartmentName, "DLE");
+            }
+        }else {
+            new Analytics().eventAccountCreated(AddressNewActivity.this, mAddAddressViewModel.getDataManager().getCurrentUserEmail(), gender, apartmentName, "DLE");
+
         }
 
-
-
-        Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_HOME);
+        Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV, AppConstants.SCREEN_NAME_ADDRESS, AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -1029,7 +1031,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
     public void showToast(String message, Boolean status) {
 
         if (status) {
-            Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_HOME);
+            Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_ADDRESS_ACTV, AppConstants.SCREEN_NAME_ADDRESS, AppConstants.SCREEN_NAME_HOME);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
@@ -1267,7 +1269,7 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
 
     @Override
     public void goHome() {
-        Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_SPLASH_ACTV,AppConstants.SCREEN_NAME_ADDRESS,AppConstants.SCREEN_NAME_HOME);
+        Intent intent = MainActivity.newIntent(AddressNewActivity.this, AppConstants.NOTIFY_HOME_FRAG, AppConstants.NOTIFY_SPLASH_ACTV, AppConstants.SCREEN_NAME_ADDRESS, AppConstants.SCREEN_NAME_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

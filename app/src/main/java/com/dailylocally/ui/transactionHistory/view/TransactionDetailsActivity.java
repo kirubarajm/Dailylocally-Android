@@ -41,6 +41,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     @Inject
     public TransactionBillDetailAdapter mTransactionBillDetailAdapter;
     String orderid = "";
+    String sDate;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -123,7 +124,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     @Override
     public void viewInCalendar() {
 
-        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this,AppConstants.SCREEN_NAME_TRANS_DETAILS,AppConstants.SCREEN_NAME_CALENDAR);
+        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this,AppConstants.SCREEN_NAME_TRANS_DETAILS,AppConstants.SCREEN_NAME_CALENDAR,sDate);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -146,6 +147,10 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
             SimpleDateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Date date1 = currentFormat.parse(date);
             String datesdf = dateDayFormat.format(date1);
+
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
+
+            sDate=date;
 
             mTransactionDetailsViewModel.transacDate.set(datesdf);
         }catch (Exception e){
