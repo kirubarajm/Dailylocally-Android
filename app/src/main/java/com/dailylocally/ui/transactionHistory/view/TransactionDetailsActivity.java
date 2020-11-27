@@ -30,7 +30,7 @@ import javax.inject.Inject;
 
 
 public class TransactionDetailsActivity extends BaseActivity<ActivityTransactionDetailsBinding, TransactionDetailsViewModel> implements
-        TransactionDetailsNavigator,TransactionProductAdapter.TransactionHistoryInfoListener,TransactionBillDetailAdapter.TransactionHistoryInfoListener {
+        TransactionDetailsNavigator, TransactionProductAdapter.TransactionHistoryInfoListener, TransactionBillDetailAdapter.TransactionHistoryInfoListener {
 
 
     public ActivityTransactionDetailsBinding mActivityTransactionDetailsBinding;
@@ -55,6 +55,14 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
 
         }
     };
+
+    public static Intent newIntent(Context context, String fromPage, String ToPage) {
+        Intent intent = new Intent(context, TransactionDetailsActivity.class);
+        intent.putExtra(AppConstants.PAGE, ToPage);
+        intent.putExtra(AppConstants.FROM, fromPage);
+        return intent;
+    }
+
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -88,12 +96,6 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         } else return networkInfo != null
                 && networkInfo.isConnected();
     }
-    public static Intent newIntent(Context context,String fromPage,String ToPage) {
-        Intent intent = new Intent(context, TransactionDetailsActivity.class);
-        intent.putExtra(AppConstants.PAGE, ToPage);
-        intent.putExtra(AppConstants.FROM, fromPage);
-        return intent;
-    }
 
     @Override
     public int getBindingVariable() {
@@ -124,13 +126,13 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
     @Override
     public void viewInCalendar() {
 
-        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this,AppConstants.SCREEN_NAME_TRANS_DETAILS,AppConstants.SCREEN_NAME_CALENDAR,sDate);
+        Intent intent = CalendarActivity.newIntent(TransactionDetailsActivity.this, AppConstants.SCREEN_NAME_TRANS_DETAILS, AppConstants.SCREEN_NAME_CALENDAR, sDate);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
 
-
     }
+
     public void stopLoader() {
         mActivityTransactionDetailsBinding.pageLoader.stopShimmerAnimation();
         mActivityTransactionDetailsBinding.pageLoader.setVisibility(View.GONE);
@@ -140,20 +142,22 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
         mActivityTransactionDetailsBinding.pageLoader.setVisibility(View.VISIBLE);
         mActivityTransactionDetailsBinding.pageLoader.startShimmerAnimation();
     }
+
     @Override
-    public void success(String date) {
+    public void success(String date, String firstDate) {
         try {
             SimpleDateFormat dateDayFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
             SimpleDateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Date date1 = currentFormat.parse(date);
             String datesdf = dateDayFormat.format(date1);
 
-            SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd MMM yyyy");
-
-            sDate=date;
-
+            if (firstDate != null) {
+              //  Date stDate = currentFormat.parse(firstDate);
+              //  sDate = dateDayFormat.format(stDate);
+                sDate=firstDate;
+            }
             mTransactionDetailsViewModel.transacDate.set(datesdf);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -173,7 +177,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
 
         startLoader();
         Bundle bundle = getIntent().getExtras();
-        if (bundle!=null){
+        if (bundle != null) {
             orderid = String.valueOf(bundle.getInt("orderid"));
             mTransactionDetailsViewModel.getTransactionHistoryViewList(orderid);
         }
@@ -238,7 +242,7 @@ public class TransactionDetailsActivity extends BaseActivity<ActivityTransaction
 
     @Override
     public void onViewCalendarClick(TransactionViewResponse.Result.Item item) {
-        Intent intent = ProductCancelActivity.newIntent(TransactionDetailsActivity.this,AppConstants.SCREEN_NAME_TRANS_DETAILS,AppConstants.SCREEN_NAME_PRODUCT_CANCEL);
+        Intent intent = ProductCancelActivity.newIntent(TransactionDetailsActivity.this, AppConstants.SCREEN_NAME_TRANS_DETAILS, AppConstants.SCREEN_NAME_PRODUCT_CANCEL);
         intent.putExtra("doid", item.getDoid());
         intent.putExtra("dayorderpid", item.getDayorderpid());
         startActivity(intent);

@@ -35,8 +35,8 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-              buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
-            //buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
+            //  buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
@@ -44,7 +44,7 @@ android {
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "false")
             resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
-            buildConfigField 'boolean', 'ENABLE_DEBUG', 'false'
+            buildConfigField 'boolean', 'ENABLE_DEBUG', 'true'
 
         }
         release {
@@ -52,8 +52,8 @@ android {
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
-          //  buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
-            buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+            buildConfigField "String", 'BASE_URL', '"http://dailylocally.co.in:5000"'
+           // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
             minifyEnabled false
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "true")

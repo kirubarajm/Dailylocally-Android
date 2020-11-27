@@ -1,8 +1,12 @@
 package com.dailylocally.ui.search;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -125,15 +129,51 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.recyclerviewSearchSubCategory.setAdapter(mSearchSubCategoryAdapter);
 
 
-        mFragmentSearchBinding.search.setOnCloseListener(new SearchView.OnCloseListener() {
+        /*mFragmentSearchBinding.search.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 return false;
             }
+        });*/
+        mFragmentSearchBinding.search.requestFocus();
+        mFragmentSearchBinding.search.setFocusable(true);
+
+        InputMethodManager imm = (InputMethodManager)getActivity(). getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(  mFragmentSearchBinding.search, InputMethodManager.SHOW_IMPLICIT);
+
+        mFragmentSearchBinding.search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                try {
+                    searchTerms = charSequence.toString();
+                    if (charSequence.toString().length() > 1) {
+                        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.VISIBLE);
+                        mFragmentSearchBinding.before.setVisibility(View.GONE);
+                        mSearchViewModel.quickSearch(charSequence.toString());
+                    } else {
+                        mFragmentSearchBinding.recyclerviewProduct.setVisibility(View.GONE);
+                        mFragmentSearchBinding.recyclerviewSearchSuggestion.setVisibility(View.GONE);
+                        mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
 
-        mFragmentSearchBinding.search.requestFocus();
-        mFragmentSearchBinding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+       /* mFragmentSearchBinding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 try {
@@ -174,7 +214,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 }
                 return true;
             }
-        });
+        });*/
 
         /*Bundle intent = getArguments();
         assert intent != null;

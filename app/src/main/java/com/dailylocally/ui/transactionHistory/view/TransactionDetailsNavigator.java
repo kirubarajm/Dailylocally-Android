@@ -26,7 +26,7 @@ public interface TransactionDetailsNavigator {
 
     void viewInCalendar();
 
-    void success(String date);
+    void success(String date,String firstDate);
 
     void dataLoaded();
 }
