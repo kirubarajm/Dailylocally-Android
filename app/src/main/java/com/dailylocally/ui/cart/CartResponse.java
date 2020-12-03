@@ -803,6 +803,9 @@ public class CartResponse {
         @SerializedName("cod_available")
         @Expose
         private Boolean codAvailable;
+        @SerializedName("enable_cod")
+        @Expose
+        private Boolean enableCOD;
         @SerializedName("cod_unavailable_info")
         @Expose
         private String codUnavailableInfo;
@@ -831,6 +834,10 @@ public class CartResponse {
 
         public Boolean getCodAvailable() {
             return codAvailable;
+        }
+
+        public Boolean getEnableCOD() {
+            return enableCOD;
         }
 
         public String getCodUnavailableInfo() {

@@ -194,15 +194,6 @@
 
 
         <activity
-            android:name="zendesk.support.request.RequestActivity"
-            android:screenOrientation="locked"
-            android:theme="@style/ZendeskSupportTheme" />
-
-        <activity
-            android:name="zendesk.support.requestlist.RequestListActivity"
-            android:screenOrientation="locked"
-            android:theme="@style/ZendeskSupportTheme" />
-        <activity
             android:name=".utilities.datepicker.DatePickerActivity"
             android:screenOrientation="locked">
 
@@ -223,7 +214,7 @@
             android:name=".ui.community.details.EventDetailsActivity"
             android:screenOrientation="locked" />
 
-       <!-- <meta-data
+        <!--<meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_8ZBt2J9hAsxH9Q" />-->
 

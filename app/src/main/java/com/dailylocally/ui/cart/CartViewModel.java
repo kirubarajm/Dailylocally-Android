@@ -89,6 +89,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean couponApplied = new ObservableBoolean();
     public final ObservableBoolean showWarningNote = new ObservableBoolean();
     public final ObservableBoolean disableCOD = new ObservableBoolean();
+    public final ObservableBoolean enableCOD = new ObservableBoolean();
     public final ObservableField<String> previousPage = new ObservableField<>();
     private final List<CartRequest.Subscription> results = new ArrayList<>();
     public MutableLiveData<List<CartResponse.Item>> ordernowLiveData;
@@ -331,6 +332,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         return price;
 
     }
+
     public void goHome() {
         getNavigator().redirectHome();
 
@@ -497,7 +499,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     if (orderCreateResponse.getStatus()) {
 
-                                        orderid=orderCreateResponse.getOrderid();
+                                        orderid = orderCreateResponse.getOrderid();
                                         getDataManager().setCartDetails(null);
 
                                         if (getNavigator() != null)
@@ -582,8 +584,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void fetchRepos() {
         gstValue = "";
         deliveryValue = 0;
-        totalAmount=0;
-        cartSize=0;
+        totalAmount = 0;
+        cartSize = 0;
 
         String cc = getDataManager().getCartDetails();
         if (cc == null) {
@@ -723,7 +725,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                 codUnavailableInfo = cartPageResponse.getResult().get(0).getCodUnavailableInfo();
 
-                                if (cartPageResponse.getResult().get(0).getCommunityUser() && !cartPageResponse.getResult().get(0).getCodAvailable()) {
+                                if (cartPageResponse.getResult().get(0).getEnableCOD() != null)
+                                    enableCOD.set(cartPageResponse.getResult().get(0).getEnableCOD());
+
+
+                                if (!cartPageResponse.getResult().get(0).getCodAvailable()) {
                                     disableCOD.set(true);
                                 } else {
                                     disableCOD.set(false);
@@ -735,8 +741,22 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                     showWarningNote.set(false);
                                 } else {
                                     if (!cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitStatus()) {
-                                        showWarningNote.set(false);
-                                        bookDeliveryText.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
+
+                                        if (cartPageResponse.getResult().get(0).getEnableCOD() != null){
+                                            if (cartPageResponse.getResult().get(0).getEnableCOD()){
+
+                                                showWarningNote.set(true);
+
+                                            }else {
+                                                showWarningNote.set(false);
+                                                bookDeliveryText.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
+
+                                            }
+                                        }else {
+                                            showWarningNote.set(false);
+                                            bookDeliveryText.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
+                                        }
+
                                     } else if (cartPageResponse.getResult().get(0).getIsAvaliablezone()) {
                                         bookDeliveryText.set("Unserviceable location");
                                         showWarningNote.set(true);
