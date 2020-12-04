@@ -1652,6 +1652,8 @@ public class AddressNewActivity extends BaseActivity<ActivityAddressNewBinding, 
         protected void onPostExecute(Address fetchedAddress) {
             super.onPostExecute(fetchedAddress);
 
+            hideKeyboard();
+
             try {
 
                 if (fetchedAddress != null) {
